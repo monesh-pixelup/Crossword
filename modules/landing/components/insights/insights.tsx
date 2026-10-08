@@ -19,8 +19,7 @@ export function Insights() {
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex w-full flex-col items-start gap-8 md:flex-row md:items-end md:justify-between md:gap-[120px]">
           <div className="flex flex-col items-start gap-6">
-            {/* Figma's label includes a trailing space, which widens the frame. */}
-            <Eyebrow>{"Insights "}</Eyebrow>
+            <Eyebrow>Insights</Eyebrow>
             {/* Drawn at 60px and zoomed to the breakpoint's h2 size, like SectionTitle. */}
             <div className="fit-to-container [--fit-width:calc(580px*var(--h2-scale))]">
               <h2

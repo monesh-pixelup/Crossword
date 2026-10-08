@@ -7,34 +7,35 @@ import { DividerBand } from "../shared/divider-band";
 import { SectionTitle } from "../shared/section-title";
 import { StorefrontMockup } from "./storefront-mockup";
 
-// Corner studs, as positioned in Figma; the right pair is pinned to the right edge so it follows the panel width.
+// Corner studs, as positioned in Figma.
 const studs = [
   { left: 18.516, top: 572.824 },
-  { right: 20.203, top: 572.824 },
-  { right: 20.203, top: 21.297 },
+  { left: 1249.797, top: 572.824 },
+  { left: 1249.797, top: 21.297 },
   { left: 20.789, top: 16.263 },
 ];
 
 /**
- * Aubergine damask panel framing the storefront mock-up. It spans the content
- * column (never narrower than its 1280px design width, which is scaled down to
- * fit on smaller screens); the mock-up stays centred at its design size.
+ * Aubergine damask panel framing the storefront mock-up. The texture export carries the gilt
+ * notched frame, so the panel is drawn at its 1280 × 599 design size and zoomed as a whole to
+ * the column width (up or down, like the Webflow image): texture, frame, studs and mock-up
+ * always stay aligned.
  */
 function ShowcasePanel() {
   return (
     <div
       role="img"
       aria-label="A Harry's product page where Crossword compares the razor with Gillette's to win the sale"
-      className="fit-to-container relative h-[599px] w-[max(1280px,100%)] shrink-0 overflow-clip bg-[#462160] select-none [--fit-width:1280px]"
+      className="relative h-[599px] w-[1280px] shrink-0 overflow-clip bg-[#462160] select-none scale-to-container [--fit-width:1280px]"
     >
       <Image
         src={panelTexture}
         alt=""
-        sizes="(min-width: 1440px) calc(100vw - 202px), 1238px"
-        className="absolute inset-x-[20.906px] top-[17.135px] h-[564.729px] w-auto max-w-none object-cover"
+        sizes="(min-width: 1440px) calc(86vw - 30px), 1238px"
+        className="absolute top-[17.135px] left-[20.906px] h-[564.729px] w-[1238.18px] max-w-none"
       />
       {studs.map((pos) => (
-        <Image key={`${pos.left ?? pos.right}-${pos.top}`} src={stud} alt="" className="absolute size-[10px]" style={pos} />
+        <Image key={`${pos.left}-${pos.top}`} src={stud} alt="" className="absolute size-[10px]" style={pos} />
       ))}
       <StorefrontMockup />
     </div>
@@ -70,7 +71,7 @@ export function ShopperExperience() {
           </p>
         </div>
 
-        <div className="flex w-full justify-center">
+        <div className="@container w-full">
           <ShowcasePanel />
         </div>
       </div>

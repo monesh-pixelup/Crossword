@@ -14,8 +14,7 @@ export function Testimonials() {
 
       <div className="flex flex-col items-stretch gap-section">
         <div className="mx-auto flex content-width max-w-[650px] flex-col items-center gap-6">
-          {/* Figma's label is padded with a space on each side. */}
-          <Eyebrow>{" Customer Testimonials "}</Eyebrow>
+          <Eyebrow>Customer Testimonials</Eyebrow>
           <SectionTitle
             id="testimonials-title"
             initial={"T "}

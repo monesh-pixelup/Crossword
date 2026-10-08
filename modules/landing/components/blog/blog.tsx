@@ -134,7 +134,7 @@ export function Blog() {
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex w-full flex-col items-start gap-8 md:flex-row md:items-end md:justify-between md:gap-[120px]">
           <div className="flex flex-col items-start gap-5 md:gap-6 lg:gap-8">
-            <Eyebrow className="w-[70px]">BLOG</Eyebrow>
+            <Eyebrow>Blog</Eyebrow>
             <SectionTitle
               id="blog-title"
               initial="N"
