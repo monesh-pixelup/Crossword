@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CTA Envelope Prototype</title>
+<!--
+  Crossword homepage, section 13 (CTA letter): motion prototype for the envelope.
+  Figma frame B, envelope 1880:3243. Layers come from build-assets.mjs (../../assets/cta).
+
+  How it works
+  - The page's static state is the FINAL (open) design, as the Webflow Designer will show it.
+    The script puts the envelope into its closed state on load, then plays the opening.
+  - Two flaps: a short closed flap in front of the pocket lifts until it is edge-on (90°);
+    at that instant the open flap behind the cards takes over from edge-on and lands. Edge-on,
+    both are a line with no height, so the handover can't be seen and no layer changes order.
+  - Cards are complete images behind the pocket; the pocket owns its shadows, so the cards
+    slide under them. Everything moves with transform/opacity only.
+  - Each timeline row maps 1:1 to an action in Webflow's Interactions with GSAP (IX3).
+-->
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{--frame-inset:1.5rem;--cream:#fff9ea;--sand:#f3e9d4;--line:#d2cbba}
+@media (max-width:767px){:root{--frame-inset:.75rem}}
+@media (max-width:479px){:root{--frame-inset:.5rem}}
+*{box-sizing:border-box}
+html{background:var(--cream)}
+body{margin:0;background:var(--cream);color:#141414;font:400 1rem/1.5 Geist,system-ui,sans-serif;letter-spacing:-.02em}
+img{max-width:100%;vertical-align:middle;display:inline-block}
+a{color:inherit}
+
+/* ---- site classes this section reuses (values from Webflow, 2026-10-06) ---- */
+.button{display:inline-block;padding:.5rem .75rem;border:1px dashed #e0be60;background-color:#7d0034;
+  background-image:radial-gradient(circle closest-side,#e0be60 0%,#e0be60 43%,rgba(224,190,96,0) 47%),radial-gradient(circle closest-side,#e0be60 0%,#e0be60 43%,rgba(224,190,96,0) 47%),radial-gradient(circle closest-side,#e0be60 0%,#e0be60 43%,rgba(224,190,96,0) 47%),radial-gradient(circle closest-side,#e0be60 0%,#e0be60 43%,rgba(224,190,96,0) 47%);
+  background-position:0 0,100% 0,0 100%,100% 100%;background-size:6.8px 6.8px;background-repeat:no-repeat;
+  font:500 1rem/1.375 "Crimson Pro",serif;letter-spacing:-.03em;color:#e0be60;text-align:center;text-decoration:none;
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease}
+.button:hover{background-color:#6c2332}
+.button:focus-visible{outline:.125rem solid #7d0034;outline-offset:.125rem}
+.button.is-alternate{border-color:rgba(224,190,96,.3);background-color:#6c2332;
+  background-image:radial-gradient(circle closest-side,rgba(224,190,96,.4) 0%,rgba(224,190,96,.4) 43%,rgba(224,190,96,0) 47%),radial-gradient(circle closest-side,rgba(224,190,96,.4) 0%,rgba(224,190,96,.4) 43%,rgba(224,190,96,0) 47%),radial-gradient(circle closest-side,rgba(224,190,96,.4) 0%,rgba(224,190,96,.4) 43%,rgba(224,190,96,0) 47%),radial-gradient(circle closest-side,rgba(224,190,96,.4) 0%,rgba(224,190,96,.4) 43%,rgba(224,190,96,0) 47%)}
+.button.is-alternate:hover{background-color:#7d0034}
+.frame-lines{position:absolute;left:var(--frame-inset);right:var(--frame-inset);top:0;bottom:0;display:flex;justify-content:space-between;align-items:stretch;pointer-events:none}
+.frame-lines_line{width:.5px;min-width:.5px;height:100%;background:var(--line)}
+
+/* ---- section 13: CTA letter ---------------------------------------------------- */
+.section_cta{position:relative;isolation:isolate;overflow:hidden;background:var(--cream)}
+/* The envelope runs from frame line to frame line (Figma: x 25 → 1415 at 1440). 1cqw = 13.9 Figma units. */
+.cta_component{position:relative;margin:0 calc(var(--frame-inset) + 1px);container-type:inline-size}
+.cta_envelope{position:relative;width:100%;aspect-ratio:1390/920}
+/* Layers in Figma order. Boxes are % of the 1390 × 920 envelope (section y 0 → footer). */
+.cta_layer{position:absolute;display:block;max-width:none;pointer-events:none;user-select:none;-webkit-user-select:none}
+.cta_back{left:0;top:43.4188%;width:100%;height:21.8478%;z-index:1}
+.cta_flap{left:0;width:100%;will-change:transform;backface-visibility:visible}
+.cta_flap.is-open{top:4.9406%;height:38.587%;z-index:2;transform-origin:50% 99.7237%}
+.cta_card{will-change:transform}
+.cta_card.is-letter{left:3.8129%;top:28.412%;width:68.8129%;height:40.163%;z-index:3}
+.cta_card.is-photo{left:63.9245%;top:34.1304%;width:28.2374%;height:42.2283%;z-index:4}
+/* Phones only: the pocket continues below Figma's envelope (which ends at y 1065) to hold the heading.
+   It overlaps the pocket SVG from y 1050 (plain fill there, so no seam), repeats its side hairlines and
+   shadow (0, −7.3, blur 29.2 in Figma units → cqw), and clip-path drops its top pixel and shadow. */
+.cta_pocket-ext{display:none;position:absolute;left:0;right:0;top:75.5396cqw;bottom:0;z-index:7;background:var(--sand);
+  box-shadow:inset 1px 0 0 rgba(113,77,17,.25),inset -1px 0 0 rgba(113,77,17,.25),0 -.5252cqw 2.1007cqw rgba(0,0,0,.12);clip-path:inset(1px -4cqw -4cqw -4cqw)}
+.cta_pocket{left:-1.7986%;top:0;width:103.5971%;height:115.7609%;z-index:6;overflow:visible}
+.cta_flap-shadow{left:0;top:43.4209%;width:100%;height:26.6304%;z-index:8;overflow:visible;opacity:0}
+/* Resting = final state: the closed flap is edge-on (invisible). The script starts it flat. */
+.cta_flap.is-closed{top:43.4209%;height:26.6304%;z-index:9;overflow:visible;transform-origin:50% 0;transform:rotateX(90deg)}
+.cta_seal{left:45.0146%;top:55.7197%;width:9.9699%;height:16.4302%;z-index:10}
+.cta_content{position:absolute;left:50%;top:49.9029cqw;z-index:11;display:flex;width:35.7022cqw;flex-direction:column;align-items:center;row-gap:1.5108cqw;transform:translateX(-50%)}
+/* padding-top: Figma's drop cap makes the first line 0.2656em taller (text box 120px, not 107) */
+.cta_heading{margin:0;padding-top:.2656em;font-family:"Crimson Pro",serif;font-size:3.5019cqw;font-weight:400;line-height:1.1;letter-spacing:-.06em;color:#b4ab9b;text-align:center;filter:url(#cta-deboss)}
+.cta_dropcap{font-family:Parisienne,cursive;font-size:1.4521em;line-height:0;letter-spacing:-.05em}
+@media (max-width:767px){
+  .cta_pocket-ext{display:block}
+  .cta_content{position:relative;left:auto;top:auto;width:auto;margin:-17.1223cqw auto 0;padding:0 1.25rem 3.5rem;row-gap:1.25rem;transform:none}
+  .cta_heading{max-width:11em;font-size:2rem}
+}
+@media (max-width:479px){.cta_heading{font-size:1.75rem}}
+/* Prototype only: outline every layer */
+.section_cta.is-outlined .cta_layer{outline:1px dashed rgba(0,90,200,.55);outline-offset:-1px}
+
+/* ---- footer (Footer component, copied from crossword/tests/footer) ---- */
+.padding-global{padding-left:5rem;padding-right:5rem}.container-large{max-width:80rem;margin:0 auto}
+@media (max-width:991px){.padding-global{padding-left:3rem;padding-right:3rem}}
+@media (max-width:767px){.padding-global{padding-left:1.5rem;padding-right:1.5rem}}
+@media (max-width:479px){.padding-global{padding-left:1.25rem;padding-right:1.25rem}}
+.footer_component{position:relative;overflow:hidden;padding:7.8831rem 0 6.0213rem;background:#00331a url(assets/crossword-footer-texture.jpg) 0 0/172.82px 172.82px repeat;color:#dfe3d2}
+.footer_frame{position:absolute;left:1.1411rem;top:2.08rem;right:1.1406rem;bottom:2.2125rem;pointer-events:none}
+.footer_frame-edge{position:absolute;padding:0;background:rgba(255,182,87,.36)}
+.footer_frame-edge.is-top{left:3.125rem;top:0;width:calc(100% - 6.25rem);height:.5px;min-height:.5px}
+.footer_frame-edge.is-bottom{left:3.125rem;bottom:0;width:calc(100% - 6.25rem);height:.5px;min-height:.5px}
+.footer_frame-edge.is-left{left:0;top:3.125rem;width:.5px;min-width:.5px;height:calc(100% - 6.25rem)}
+.footer_frame-edge.is-right{right:0;top:3.125rem;width:.5px;min-width:.5px;height:calc(100% - 6.25rem)}
+.footer_frame-corner{position:absolute;display:block;width:3.1563rem;height:3.1563rem;overflow:visible}
+.footer_frame-corner.is-tl{left:0;top:0}.footer_frame-corner.is-tr{right:0;top:0;transform:scale(-1,1)}
+.footer_frame-corner.is-bl{left:0;bottom:0;transform:scale(1,-1)}.footer_frame-corner.is-br{right:0;bottom:0;transform:scale(-1,-1)}
+.footer_frame-inner{position:absolute;left:.9094rem;top:.815rem;width:calc(100% - 1.8275rem);height:calc(100% - 1.8719rem);padding:0;box-shadow:inset 0 0 0 .5px rgba(255,182,87,.36)}
+.footer_content{position:relative;display:flex;flex-direction:column;padding-right:.4225rem}
+.footer_top{display:flex;min-height:17.3686rem;justify-content:space-between;align-items:flex-start}
+.footer_logo{display:block;width:5.2386rem;flex:0 0 auto}.footer_logo-image{display:block;width:100%;height:auto}
+.footer_nav{display:flex;margin-right:2.265rem;align-items:flex-start;column-gap:7.875rem;row-gap:2.5rem}
+.footer_col{display:flex;flex-direction:column;align-items:flex-start;row-gap:2.3125rem}
+.footer_col.is-company{width:5.6875rem}.footer_col.is-platform{width:9.4375rem}
+.footer_label{margin:0;font:400 .875rem/1.125rem "Crimson Pro";letter-spacing:.01em;color:rgba(223,227,210,.47);white-space:nowrap}
+.footer_groups{display:flex;flex-direction:column;align-items:flex-start;row-gap:2rem}
+.footer_links{display:flex;flex-direction:column;align-items:flex-start;row-gap:.75rem}
+.footer_link{font:400 .75rem/1rem Geist;letter-spacing:-.03em;color:#dfe3d2;text-decoration:none}
+.footer_group-label{font:400 .75rem/1rem Geist;letter-spacing:-.03em;color:rgba(223,227,210,.36)}
+.footer_bottom{display:flex;justify-content:space-between;align-items:flex-end;column-gap:2rem;row-gap:3rem}
+.footer_brand{display:flex;flex-direction:column;align-items:flex-start;row-gap:1.5rem}
+.footer_tagline{max-width:10.55em;margin:0 0 -.0397em;padding-top:.2497em;font-family:"Crimson Pro";font-size:3.0688rem;line-height:.9866;font-weight:200;letter-spacing:-.05em;color:#dfe3d2}
+.footer_monogram{display:block;float:left;width:1.2248em;height:1.455em;margin:-.1673em .0655em 0 .0109em;padding:.2406em 0 0 .2432em;font-family:Parisienne;font-size:1.5076em;line-height:1.1;font-weight:400;letter-spacing:-.05em;background:url(assets/crossword-footer-monogram-frame.svg) 0 0/100% 100% no-repeat}
+.footer_legal{display:flex;align-items:center;column-gap:.875rem;font:400 .75rem/1rem Geist;letter-spacing:-.03em;color:rgba(223,227,210,.6);white-space:nowrap}
+@media (max-width:991px){.footer_component{padding:6rem 0 5rem}.footer_top{min-height:0;flex-direction:column;row-gap:3rem}.footer_nav{margin-right:0}.footer_bottom{margin-top:4rem;flex-direction:column;align-items:flex-start}.footer_tagline{font-size:2.625rem}}
+@media (max-width:767px){.footer_component{padding:5rem 0 4.5rem}.footer_content{padding-left:1rem;padding-right:1rem}.footer_nav{column-gap:3rem}.footer_tagline{font-size:2.25rem}}
+@media (max-width:479px){.footer_content{padding-left:1.5rem;padding-right:1.5rem}.footer_nav{column-gap:2rem}.footer_tagline{font-size:1.75rem}.footer_legal{flex-wrap:wrap;row-gap:.25rem}}
+
+/* ---- prototype chrome ---- */
+.proto_intro{position:relative;display:flex;min-height:88vh;padding:4rem 1.5rem;flex-direction:column;justify-content:center;align-items:center;text-align:center;border-bottom:.5px solid var(--line)}
+.proto_eyebrow{margin:0 0 1rem;font:600 .75rem/1 Geist,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#766640}
+.proto_title{margin:0;font:200 clamp(2.25rem,6vw,4rem)/1.05 "Crimson Pro",serif;letter-spacing:-.05em}
+.proto_lead{max-width:34rem;margin:1.25rem 0 0;color:rgba(0,0,0,.6)}
+.proto_hint{margin-top:2.5rem;font-size:.875rem;color:rgba(0,0,0,.5)}
+/* ---- prototype editor: a sidebar docked on the left, so it never covers the envelope ---- */
+:root{--ed-w:23.5rem;--ed-bg:#171715;--ed-raised:#24231f;--ed-line:rgba(241,237,228,.09);--ed-text:#f1ede4;--ed-muted:rgba(241,237,228,.6);--ed-gold:#e0be60}
+@media (min-width:900px){html.is-docked body{padding-left:var(--ed-w)}}
+.proto_editor{position:fixed;left:0;top:0;bottom:0;z-index:100;display:flex;width:min(var(--ed-w),100vw);flex-direction:column;background:var(--ed-bg);color:var(--ed-text);font:400 13px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:0;box-shadow:1px 0 0 var(--ed-line),10px 0 30px rgba(0,0,0,.18);transition:transform .3s ease,visibility 0s}
+.proto_editor.is-hidden{visibility:hidden;transform:translateX(-100%);transition:transform .3s ease,visibility 0s .3s}
+.proto_editor *{box-sizing:border-box}
+.proto_editor button,.proto_editor input,.proto_editor select{font:inherit;color:inherit;letter-spacing:0}
+.proto_editor :focus-visible{outline:2px solid var(--ed-gold);outline-offset:2px}
+.ed_head{display:flex;padding:16px 16px 14px;align-items:flex-start;justify-content:space-between;column-gap:12px;border-bottom:1px solid var(--ed-line)}
+.ed_title{margin:0;font-size:15px;font-weight:650}
+.ed_sub{margin:3px 0 0;font-size:12px;color:var(--ed-muted)}
+.ed_hide{flex:0 0 auto;padding:5px 10px;border:1px solid var(--ed-line);border-radius:6px;background:none;color:var(--ed-muted)!important;cursor:pointer}
+.ed_hide:hover{color:var(--ed-text)!important}
+.ed_scroll{flex:1;overflow-y:auto;overscroll-behavior:contain}
+.ed_block{padding:14px 16px 16px;border-bottom:1px solid var(--ed-line)}
+.ed_row{display:flex;align-items:center;column-gap:8px}
+.ed_row+.ed_row,.ed_tl+.ed_row{margin-top:12px}
+.ed_row-label{width:52px;flex:0 0 auto;color:var(--ed-muted)}
+.ed_replay{flex:0 0 auto;padding:7px 14px;border:0;border-radius:7px;background:var(--ed-gold);color:#171715!important;font-weight:650!important;cursor:pointer}
+.ed_replay:hover{background:#ecca6f}
+.ed_seg{display:flex;flex:1;padding:2px;border-radius:7px;background:var(--ed-raised)}
+.ed_seg button{flex:1;padding:5px 6px;border:0;border-radius:5px;background:none;color:var(--ed-muted)!important;cursor:pointer;white-space:nowrap}
+.ed_seg button[aria-pressed="true"]{background:var(--ed-text);color:#171715!important}
+.ed_replay:disabled,.ed_seg button:disabled{opacity:.4;cursor:default}
+.ed_checks{flex-wrap:wrap;row-gap:6px;column-gap:16px}
+.ed_check{display:flex;align-items:center;gap:7px;color:var(--ed-muted);cursor:pointer}
+.ed_check input{width:14px;height:14px;margin:0;accent-color:var(--ed-gold)}
+.ed_status{min-height:18px;margin:10px 0 0;font-size:12px;color:var(--ed-muted)}
+/* timeline */
+.ed_tl{margin-top:14px}
+.ed_tl-meta{display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px;color:var(--ed-muted)}
+.ed_tl-meta strong{color:var(--ed-text);font-weight:600;font-variant-numeric:tabular-nums}
+.ed_tl-body{display:grid;grid-template-columns:62px 1fr;column-gap:8px}
+.ed_tl-names{display:grid;padding-top:20px;row-gap:6px}
+.ed_tl-name{height:14px;padding:0;border:0;background:none;color:var(--ed-muted)!important;font-size:11.5px!important;line-height:14px!important;text-align:left;white-space:nowrap;cursor:pointer}
+.ed_tl-name:hover{color:var(--ed-text)!important}
+.ed_tl-lanes{position:relative;display:grid;padding-top:20px;row-gap:6px;cursor:ew-resize;touch-action:none;user-select:none;-webkit-user-select:none}
+.ed_tl-lanes[aria-disabled="true"]{cursor:default}
+.ed_tl-ruler{position:absolute;left:0;right:0;top:0;height:14px}
+.ed_tl-tick{position:absolute;top:0;font-size:10px;line-height:12px;color:var(--ed-muted);font-variant-numeric:tabular-nums;transform:translateX(-50%)}
+.ed_tl-tick:first-child{transform:none}
+.ed_tl-tick::after{content:"";position:absolute;left:50%;top:13px;width:1px;height:4px;background:var(--ed-line)}
+.ed_tl-lane{position:relative;height:14px;border-radius:4px;background:rgba(241,237,228,.05)}
+.ed_tl-bar{position:absolute;top:0;bottom:0;min-width:3px;border-radius:4px;background:var(--c)}
+.ed_tl-swap{position:absolute;top:16px;bottom:-3px;border-left:1px dashed rgba(241,237,228,.5);pointer-events:none}
+.ed_tl-head{position:absolute;top:14px;bottom:-4px;width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.35);pointer-events:none}
+.ed_tl-head::before{content:"";position:absolute;left:-4px;top:-4px;width:10px;height:10px;border-radius:50%;background:#fff}
+.ed_tl-tip{margin:8px 0 0;font-size:11.5px;color:var(--ed-muted)}
+/* steps */
+.ed_step{border-bottom:1px solid var(--ed-line)}
+.ed_step>summary{display:flex;padding:13px 16px;align-items:center;column-gap:10px;list-style:none;cursor:pointer}
+.ed_step>summary::-webkit-details-marker{display:none}
+.ed_step>summary:hover{background:rgba(241,237,228,.03)}
+.ed_step>summary::after{content:"";flex:0 0 auto;width:7px;height:7px;margin:0 2px 3px 4px;border-right:1.5px solid var(--ed-muted);border-bottom:1.5px solid var(--ed-muted);transform:rotate(45deg);transition:transform .2s}
+.ed_step:not([open])>summary::after{margin-bottom:0;transform:rotate(-45deg)}
+.ed_dot{flex:0 0 auto;width:10px;height:10px;border-radius:3px;background:var(--c)}
+.ed_step-title{font-weight:600}
+.ed_badge{padding:1px 7px;border-radius:9px;background:rgba(224,190,96,.16);color:var(--ed-gold);font-size:11px;font-weight:600}
+.ed_step-time{margin-left:auto;font-size:12px;color:var(--ed-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ed_step-body{padding:0 16px 10px}
+.ed_step-hint{margin:-2px 0 6px;font-size:12px;color:var(--ed-muted)}
+.ed_ctrl{padding:11px 0;border-top:1px solid rgba(241,237,228,.05)}
+.ed_ctrl[hidden]{display:none}
+.ed_ctrl-head{display:flex;min-height:26px;align-items:center;column-gap:6px}
+.ed_ctrl-head>label:not(.ed_switch){flex:1;font-weight:500}
+.ed_ctrl.is-changed .ed_ctrl-head>label::after{content:"";display:inline-block;width:6px;height:6px;margin:0 0 1px 7px;border-radius:50%;background:var(--ed-gold);vertical-align:middle}
+.ed_reset{flex:0 0 auto;width:24px;height:24px;padding:0;border:0;border-radius:5px;background:none;color:var(--ed-muted)!important;font-size:14px!important;line-height:1!important;cursor:pointer;visibility:hidden}
+.ed_ctrl.is-changed .ed_reset{visibility:visible}
+.ed_reset:hover{background:var(--ed-raised);color:var(--ed-text)!important}
+.ed_value{display:inline-flex;align-items:baseline;column-gap:4px}
+.ed_value input{width:62px;padding:3px 7px;border:1px solid transparent;border-radius:5px;background:var(--ed-raised);text-align:right;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+.ed_value input::-webkit-inner-spin-button,.ed_value input::-webkit-outer-spin-button{margin:0;-webkit-appearance:none}
+.ed_value input:hover{border-color:var(--ed-line)}
+.ed_value input:disabled{opacity:.5}
+.ed_unit{min-width:12px;font-size:12px;color:var(--ed-muted)}
+.ed_slider{display:block;width:100%;height:18px;margin:6px 0 0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none;--p:50%}
+.ed_slider::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(to right,var(--ed-gold) var(--p),rgba(241,237,228,.15) var(--p))}
+.ed_slider::-webkit-slider-thumb{width:16px;height:16px;margin-top:-6px;border:3px solid var(--ed-bg);border-radius:50%;background:var(--ed-text);-webkit-appearance:none}
+.ed_slider::-moz-range-track{height:4px;border-radius:2px;background:rgba(241,237,228,.15)}
+.ed_slider::-moz-range-progress{height:4px;border-radius:2px;background:var(--ed-gold)}
+.ed_slider::-moz-range-thumb{width:12px;height:12px;border:2px solid var(--ed-bg);border-radius:50%;background:var(--ed-text)}
+.ed_slider:disabled{opacity:.35;cursor:default}
+.ed_hint{margin:6px 0 0;font-size:12px;color:var(--ed-muted)}
+.ed_feel{display:grid;grid-template-columns:64px 1fr;margin-top:6px;column-gap:10px;row-gap:6px;align-items:center}
+.ed_curve{grid-row:span 2;width:64px;height:48px;border-radius:6px;background:var(--ed-raised);overflow:visible}
+.ed_curve path{fill:none;stroke:var(--ed-gold);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ed_curve line{stroke:rgba(241,237,228,.12);stroke-width:1}
+.ed_feel select{width:100%;padding:5px 8px;border:1px solid var(--ed-line);border-radius:6px;background:var(--ed-raised);cursor:pointer}
+.ed_switch{display:flex;flex:1;align-items:center;column-gap:10px;font-weight:500;cursor:pointer}
+.ed_switch input{position:absolute;opacity:0;pointer-events:none}
+.ed_switch-ui{position:relative;flex:0 0 auto;width:30px;height:18px;border-radius:9px;background:rgba(241,237,228,.2);transition:background .2s}
+.ed_switch-ui::after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s}
+.ed_switch input:checked+.ed_switch-ui{background:var(--ed-gold)}
+.ed_switch input:checked+.ed_switch-ui::after{transform:translateX(12px)}
+.ed_switch input:focus-visible+.ed_switch-ui{outline:2px solid var(--ed-gold);outline-offset:2px}
+/* footer */
+.ed_foot{display:flex;padding:12px 16px;align-items:center;column-gap:8px;border-top:1px solid var(--ed-line);background:var(--ed-bg)}
+.ed_changes{flex:1;font-size:12px;color:var(--ed-muted)}
+.ed_btn{padding:7px 12px;border:1px solid var(--ed-line);border-radius:7px;background:none;cursor:pointer;white-space:nowrap}
+.ed_btn:hover{background:var(--ed-raised)}
+.ed_btn.is-primary{border-color:transparent;background:var(--ed-gold);color:#171715!important;font-weight:650!important}
+.ed_btn.is-primary:hover{background:#ecca6f}
+.ed_show{position:fixed;left:16px;bottom:16px;z-index:100;padding:9px 14px;border:0;border-radius:8px;background:#171715;color:var(--ed-gold);font:600 13px/1 system-ui,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.25);cursor:pointer}
+.ed_show[hidden]{display:none}
+.proto_export{position:fixed;left:50%;top:50%;z-index:300;display:grid;width:min(40rem,calc(100vw - 2rem));padding:1rem;row-gap:.75rem;border-radius:.75rem;background:#161614;color:#f4f1ea;font:400 .8125rem/1.4 system-ui,sans-serif;box-shadow:0 20px 60px rgba(0,0,0,.4);transform:translate(-50%,-50%)}
+.proto_export p{margin:0}
+.proto_export textarea{height:22rem;padding:.75rem;border:0;border-radius:.375rem;background:#2c2b27;color:#f4f1ea;font:400 .75rem/1.45 ui-monospace,Menlo,monospace;resize:vertical}
+.proto_export button{justify-self:end;padding:.5rem 1rem;border:0;border-radius:.375rem;background:#e0be60;color:#161614;font:600 .8125rem/1 system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+
+<header class="proto_intro">
+  <p class="proto_eyebrow">Crossword · prototype</p>
+  <h1 class="proto_title">CTA envelope motion</h1>
+  <p class="proto_lead">Section 13 of the homepage, built from the Figma layers. Scroll down: the envelope opens once it comes into view. The editor on the left changes how it moves, and replays it after each change. See HOW-TO-USE.txt.</p>
+  <p class="proto_hint">Scroll ↓</p>
+</header>
+
+<main>
+<section class="section_cta" data-cta-envelope>
+  <div class="frame-lines" aria-hidden="true"><div class="frame-lines_line"></div><div class="frame-lines_line"></div></div>
+  <div class="cta_component">
+    <div class="cta_envelope" aria-hidden="true">
+      <img class="cta_layer cta_back" src="assets/crossword-cta-back.webp" width="1390" height="201" alt="">
+      <img class="cta_layer cta_flap is-open" src="assets/crossword-cta-flap-open.webp" width="1390" height="355" alt="">
+      <img class="cta_layer cta_card is-letter" src="assets/crossword-cta-letter.webp" width="957" height="370" alt="">
+      <img class="cta_layer cta_card is-photo" src="assets/crossword-cta-photo.webp" width="393" height="389" alt="">
+      <!-- Front pocket: Figma's Rectangle 14 and two side flaps, in section units (0 0 1440 1065). Each shape owns its upward shadow. -->
+      <svg class="cta_layer cta_pocket" viewBox="0 0 1440 1065" preserveAspectRatio="none" focusable="false">
+        <defs>
+          <filter id="cta-pocket-shadow-lg" x="-3%" y="-8%" width="106%" height="116%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="-7.3005" stdDeviation="14.6009" flood-color="#000" flood-opacity=".12"/></filter>
+          <filter id="cta-pocket-shadow-sm" x="-3%" y="-8%" width="106%" height="116%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="-7.3005" stdDeviation="3.6502" flood-color="#000" flood-opacity=".12"/></filter>
+        </defs>
+        <g filter="url(#cta-pocket-shadow-lg)">
+          <rect x="26.5078" y="594.3438" width="1388.4911" height="470.5293" fill="#f3e9d4"/>
+          <path d="M27.2424 1064.1385V595.0784H1414.2643V1064.1385" fill="none" stroke="#714d11" stroke-opacity=".25" stroke-width="1.4692"/><!-- inside stroke; no bottom edge (only phones reach it, and the extension continues the pocket there) -->
+        </g>
+        <path d="M24.965 404.6 636.08 595.251 24.965 1064.989Z" fill="#f3e9d4" stroke="#714d11" stroke-opacity=".25" stroke-width="1.4692" filter="url(#cta-pocket-shadow-sm)"/>
+        <path d="M1414.72 404.6 804.063 595.286 1414.72 1064.978Z" fill="#f3e9d4" stroke="#714d11" stroke-opacity=".25" stroke-width="1.4692" filter="url(#cta-pocket-shadow-sm)"/>
+      </svg>
+      <!-- Closed flap (new: Figma only shows the envelope open). Units: x from the envelope's left edge, y from the fold. The tip hides under the seal. -->
+      <svg class="cta_layer cta_flap-shadow" viewBox="0 0 1390 245" preserveAspectRatio="none" focusable="false">
+        <defs><filter id="cta-flap-blur" x="-4%" y="0" width="108%" height="130%"><feGaussianBlur stdDeviation="6"/></filter></defs><!-- y="0": no blur above the fold -->
+        <path d="M0 0H1389.72L731.365 228.323A40 40 0 0 1 718.263 230.53H671.737A40 40 0 0 1 658.634 228.323Z" transform="translate(0 5)" fill="#000" fill-opacity=".16" filter="url(#cta-flap-blur)"/>
+      </svg>
+      <svg class="cta_layer cta_flap is-closed" viewBox="0 0 1390 245" preserveAspectRatio="none" focusable="false">
+        <path d="M0 0H1389.72L731.365 228.323A40 40 0 0 1 718.263 230.53H671.737A40 40 0 0 1 658.634 228.323Z" fill="#f3e9d4"/>
+        <path d="M1389.72 0 731.365 228.323A40 40 0 0 1 718.263 230.53H671.737A40 40 0 0 1 658.634 228.323L0 0" fill="none" stroke="#714d11" stroke-opacity=".25" stroke-width="1.4692" stroke-linejoin="round"/>
+      </svg>
+      <img class="cta_layer cta_seal" src="assets/crossword-cta-seal.webp" width="139" height="152" alt="">
+    </div>
+    <div class="cta_pocket-ext" aria-hidden="true"></div>
+    <div class="cta_content">
+      <h2 class="cta_heading"><span class="cta_dropcap">E</span>xplore a no strings attached pilot with us today</h2>
+      <a class="button is-alternate" href="#">Get Started</a>
+    </div>
+  </div>
+  <!-- Figma's inner shadow on the heading (0, 0.82, blur 2.47, black 18%): a debossed look -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="cta-deboss" x="-2%" y="-5%" width="104%" height="110%" color-interpolation-filters="sRGB">
+      <feComponentTransfer in="SourceAlpha" result="inverse"><feFuncA type="table" tableValues="1 0"/></feComponentTransfer>
+      <feOffset in="inverse" dy="0.824" result="offset"/>
+      <feGaussianBlur in="offset" stdDeviation="1.236" result="blur"/>
+      <feFlood flood-color="#000" flood-opacity=".18"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in2="SourceAlpha" operator="in" result="inner"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="inner"/></feMerge>
+    </filter>
+  </svg>
+</section>
+</main>
+
+<footer class="footer_component">
+  <div class="footer_frame"><div class="footer_frame-inner"></div>
+    <div class="footer_frame-edge is-top"></div><div class="footer_frame-edge is-bottom"></div><div class="footer_frame-edge is-left"></div><div class="footer_frame-edge is-right"></div>
+    <svg class="footer_frame-corner is-tl" aria-hidden="true" width="50.5" height="50.5" viewBox="0 0 50.5 50.5" fill="none"><path d="M50.25 0A50.25 50.25 0 0 1 0 50.25" stroke="#FFB657" stroke-opacity=".36" stroke-width=".5"/></svg>
+    <svg class="footer_frame-corner is-tr" aria-hidden="true" width="50.5" height="50.5" viewBox="0 0 50.5 50.5" fill="none"><path d="M50.25 0A50.25 50.25 0 0 1 0 50.25" stroke="#FFB657" stroke-opacity=".36" stroke-width=".5"/></svg>
+    <svg class="footer_frame-corner is-bl" aria-hidden="true" width="50.5" height="50.5" viewBox="0 0 50.5 50.5" fill="none"><path d="M50.25 0A50.25 50.25 0 0 1 0 50.25" stroke="#FFB657" stroke-opacity=".36" stroke-width=".5"/></svg>
+    <svg class="footer_frame-corner is-br" aria-hidden="true" width="50.5" height="50.5" viewBox="0 0 50.5 50.5" fill="none"><path d="M50.25 0A50.25 50.25 0 0 1 0 50.25" stroke="#FFB657" stroke-opacity=".36" stroke-width=".5"/></svg>
+  </div>
+  <div class="padding-global"><div class="container-large"><div class="footer_content">
+    <div class="footer_top">
+      <a class="footer_logo" href="#" aria-label="Crossword home"><img class="footer_logo-image" src="assets/crossword-footer-stamp.jpg" alt="" width="84" height="80"></a>
+      <nav class="footer_nav" aria-label="Footer">
+        <div class="footer_col is-company"><p class="footer_label">{ COMPANY }</p><div class="footer_links"><a class="footer_link" href="#">Managed Launch</a><a class="footer_link" href="#">Pricing</a><a class="footer_link" href="#">Blog</a><a class="footer_link" href="#">Book a Demo</a><a class="footer_link" href="#">Privacy</a><a class="footer_link" href="#">Terms of Service</a></div></div>
+        <div class="footer_col is-platform"><p class="footer_label">{ PLATFORM }</p><div class="footer_groups"><div class="footer_links"><div class="footer_group-label">Sell</div><a class="footer_link" href="#">Conversational Interface</a><a class="footer_link" href="#">Dynamic Landing Pages</a><a class="footer_link" href="#">Search Bar</a></div><div class="footer_links"><a class="footer_link" href="#">Retain</a><a class="footer_link" href="#">Support</a><a class="footer_link" href="#">Insights</a></div></div></div>
+      </nav>
+    </div>
+    <div class="footer_bottom">
+      <div class="footer_brand"><p class="footer_tagline"><span class="footer_monogram">C</span>rossword is the concierge desk for your brand.</p>
+        <div class="footer_legal"><span>Crossword, Inc. © 2026</span><span aria-hidden="true">|</span><span>A CometChat Product</span></div></div>
+      <a class="button is-alternate" href="#">BOOK A DEMO</a>
+    </div>
+  </div></div></div>
+</footer>
+
+<aside class="proto_editor" aria-label="Animation editor">
+  <div class="ed_head">
+    <div><p class="ed_title">Envelope animation</p><p class="ed_sub">Change a value and the envelope replays. Your values are saved in this browser.</p></div>
+    <button class="ed_hide" type="button" data-hide>Hide</button>
+  </div>
+  <div class="ed_scroll">
+    <div class="ed_block">
+      <div class="ed_row">
+        <button class="ed_replay" type="button" data-replay>▶ Replay</button>
+        <div class="ed_seg" data-speed role="group" aria-label="Playback speed"><button type="button" data-v="1" aria-pressed="true">1×</button><button type="button" data-v="0.5" aria-pressed="false">½×</button><button type="button" data-v="0.25" aria-pressed="false">¼×</button></div>
+      </div>
+      <div class="ed_tl">
+        <div class="ed_tl-meta"><span>Total <strong data-total>–</strong></span><span>Flaps swap at <strong data-swap>–</strong></span></div>
+        <div class="ed_tl-body">
+          <div class="ed_tl-names" data-tl-names></div>
+          <div class="ed_tl-lanes" data-scrub role="slider" tabindex="0" aria-label="Animation position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="ed_tl-ruler" data-tl-ruler></div>
+            <div class="ed_tl-swap" data-tl-swap></div>
+            <div class="ed_tl-head" data-tl-head></div>
+          </div>
+        </div>
+        <p class="ed_tl-tip">Drag across the bars to scrub through it. Click a name to edit that step.</p>
+      </div>
+      <div class="ed_row"><span class="ed_row-label">Trigger</span><div class="ed_seg" data-mode role="group" aria-label="Trigger"><button type="button" data-v="view" aria-pressed="true">Once in view</button><button type="button" data-v="scroll" aria-pressed="false">Scroll-linked</button></div></div>
+      <div class="ed_row ed_checks"><label class="ed_check"><input type="checkbox" data-autoreplay checked> Replay after each change</label><label class="ed_check"><input type="checkbox" data-outline> Outline layers</label></div>
+      <p class="ed_status" data-status aria-live="polite"></p>
+    </div>
+    <div data-steps></div>
+  </div>
+  <div class="ed_foot">
+    <span class="ed_changes" data-changes>No changes yet</span>
+    <button class="ed_btn" type="button" data-reset-all>Reset all</button>
+    <button class="ed_btn is-primary" type="button" data-copy>Copy values</button>
+  </div>
+</aside>
+<button class="ed_show" type="button" data-show hidden>Show controls</button>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script>
+/* START: cta-envelope */
+(() => {
+  const root = document.querySelector('[data-cta-envelope]');
+  const { gsap, ScrollTrigger } = window;
+  if (!root || !gsap || !ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  const $ = (s) => root.querySelector(s);
+  const el = {
+    envelope: $('.cta_envelope'), seal: $('.cta_seal'), shadow: $('.cta_flap-shadow'),
+    closed: $('.cta_flap.is-closed'), open: $('.cta_flap.is-open'),
+    letter: $('.cta_card.is-letter'), photo: $('.cta_card.is-photo'),
+  };
+  if (Object.values(el).some((n) => !n)) return;
+
+  // ---- animation variables (times in seconds) ------------------------------------------
+  // The editor on the left changes these and saves them in this browser.
+  const DEFAULTS = {
+    trigger: { at: 65, scrollFrom: 80, scrollTo: 45, scrub: 0.6 },
+    seal: { pressScale: 0.94, pressDur: 0.14, releaseDur: 0.42, bounce: 3 },
+    closed: { start: 0.26, dur: 0.42, ease: 'power2.in', shadowFade: 0.3 },
+    open: { matchTip: true, dur: 0.6, ease: 'power2.out' },
+    perspective: 2200,
+    letter: { delay: 0.37, dur: 0.95, ease: 'power3.out', bounce: 1.7, fromY: 100, fromRotate: -0.6 },
+    photo: { delay: 0.12, dur: 1.05, ease: 'back.out', bounce: 1.3, fromY: 62, fromRotate: -10 },
+  };
+  const FLAP_RATIO = 355 / 245; // open flap length ÷ closed flap length
+  const STORE = 'cta-envelope-variables-v1';
+  const clone = (o) => JSON.parse(JSON.stringify(o));
+  const merge = (base, over) => {
+    if (!over || typeof over !== 'object') return base;
+    Object.keys(base).forEach((k) => {
+      if (!(k in over)) return;
+      if (typeof base[k] === 'object') merge(base[k], over[k]);
+      else if (typeof over[k] === typeof base[k]) base[k] = over[k];
+    });
+    return base;
+  };
+  const P = clone(DEFAULTS);
+  try { merge(P, JSON.parse(localStorage.getItem(STORE))); } catch (e) { /* storage blocked: use defaults */ }
+  const save = () => { try { localStorage.setItem(STORE, JSON.stringify(P)); } catch (e) { /* not saved */ } };
+  const round = (n) => Math.round(n * 1000) / 1000;
+  const easeOf = (name, bounce) => (name.startsWith('back.') ? `${name}(${bounce})` : name);
+  const timing = () => {
+    const handover = P.closed.start + P.closed.dur;
+    const openDur = P.open.matchTip ? P.closed.dur * FLAP_RATIO : P.open.dur;
+    const letterAt = Math.max(0, handover + P.letter.delay), photoAt = Math.max(0, letterAt + P.photo.delay);
+    return { handover, openDur, letterAt, photoAt };
+  };
+
+  // One row per action in Webflow's Interactions with GSAP. A row with `from` is a FromTo,
+  // which holds its from-value while the timeline waits (the closed envelope); a row with
+  // only `to` is a To. `at` is the action's timeline position in seconds.
+  // The two flaps hand over at 90°: the open flap always starts exactly when the closed one
+  // ends, so the handover stays invisible. With "match tip speed", the open flap (1.45× longer)
+  // turns 1.45× slower, so its tip leaves the handover at the speed the closed flap's arrived.
+  const actions = () => {
+    const t = timing();
+    return [
+      { name: 'Seal press', el: el.seal, to: { scale: P.seal.pressScale }, dur: P.seal.pressDur, ease: 'power2.out', at: 0 },
+      { name: 'Seal release', el: el.seal, to: { scale: 1 }, dur: P.seal.releaseDur, ease: `back.out(${P.seal.bounce})`, at: P.seal.pressDur },
+      { name: 'Flap shadow fades', el: el.shadow, from: { opacity: 1 }, to: { opacity: 0 }, dur: P.closed.shadowFade, ease: 'power1.out', at: P.closed.start },
+      { name: 'Closed flap lifts', el: el.closed, from: { rotationX: 0 }, to: { rotationX: 90 }, dur: P.closed.dur, ease: P.closed.ease, at: P.closed.start, origin: '50% 0%' },
+      { name: 'Open flap lands', el: el.open, from: { rotationX: -90 }, to: { rotationX: 0 }, dur: t.openDur, ease: P.open.ease, at: t.handover, origin: '50% 99.7237%' },
+      { name: 'Letter rises', el: el.letter, from: { yPercent: P.letter.fromY, rotation: P.letter.fromRotate }, to: { yPercent: 0, rotation: 0 }, dur: P.letter.dur, ease: easeOf(P.letter.ease, P.letter.bounce), at: t.letterAt },
+      { name: 'Photo rises', el: el.photo, from: { yPercent: P.photo.fromY, rotation: P.photo.fromRotate }, to: { yPercent: 0, rotation: 0 }, dur: P.photo.dur, ease: easeOf(P.photo.ease, P.photo.bounce), at: t.photoAt },
+    ];
+  };
+  const triggers = () => ({
+    // Plays once when the seal (64% down the envelope) reaches P.trigger.at % of the viewport height
+    view: { trigger: el.envelope, start: `64% ${P.trigger.at}%`, toggleActions: 'play none none none' },
+    // Tied to scrolling: from the envelope's top at scrollFrom % until the seal is at scrollTo %
+    scroll: { trigger: el.envelope, start: `top ${P.trigger.scrollFrom}%`, end: `64% ${P.trigger.scrollTo}%`, scrub: P.trigger.scrub || true },
+  });
+
+  // ---- editor: playback ------------------------------------------------------------------
+  const ed = document.querySelector('.proto_editor');
+  const pick = (s) => ed.querySelector(s);
+  const ui = ed && {
+    replay: pick('[data-replay]'), speed: pick('[data-speed]'), mode: pick('[data-mode]'),
+    scrub: pick('[data-scrub]'), outline: pick('[data-outline]'), auto: pick('[data-autoreplay]'),
+    status: pick('[data-status]'), steps: pick('[data-steps]'), names: pick('[data-tl-names]'),
+    ruler: pick('[data-tl-ruler]'), swap: pick('[data-tl-swap]'), head: pick('[data-tl-head]'),
+    total: pick('[data-total]'), swapAt: pick('[data-swap]'), changes: pick('[data-changes]'),
+    copy: pick('[data-copy]'), resetAll: pick('[data-reset-all]'), hide: pick('[data-hide]'),
+  };
+  const showBtn = document.querySelector('[data-show]');
+  const say = (t) => { if (ui) ui.status.textContent = t; };
+  let ctx, tl, rows = [], mode = 'view', speed = 1;
+
+  const syncPlayhead = () => {
+    if (!ui || !tl) return;
+    const p = tl.duration() ? tl.time() / tl.duration() : 0;
+    ui.head.style.left = `${p * 100}%`;
+    ui.scrub.setAttribute('aria-valuenow', String(Math.round(p * 100)));
+    ui.scrub.setAttribute('aria-valuetext', `${tl.time().toFixed(2)} s of ${tl.duration().toFixed(2)} s`);
+  };
+
+  const build = () => {
+    if (ctx) ctx.revert(); // back to the static final state
+    rows = actions();
+    ctx = gsap.context(() => {
+      rows.forEach((a) => a.origin && gsap.set(a.el, { transformOrigin: a.origin, transformPerspective: P.perspective }));
+      tl = gsap.timeline({ paused: true, scrollTrigger: triggers()[mode], onUpdate: syncPlayhead });
+      rows.forEach((a) => {
+        const vars = { ...a.to, duration: a.dur, ease: a.ease };
+        if (a.from) tl.fromTo(a.el, a.from, vars, a.at);
+        else tl.to(a.el, vars, a.at);
+      });
+      tl.timeScale(mode === 'view' ? speed : 1);
+    });
+    if (ui) {
+      [ui.replay, ...ui.speed.querySelectorAll('button')].forEach((b) => { b.disabled = mode !== 'view'; });
+      ui.scrub.setAttribute('aria-disabled', String(mode !== 'view'));
+      syncPlayhead();
+    }
+    say(mode === 'view' ? 'Plays once when the envelope comes into view.' : 'Linked to the scroll position: scroll to play it.');
+  };
+
+  // Bring the envelope into view if needed, then play from the closed state
+  const replay = () => {
+    if (!tl || mode !== 'view') return;
+    const r = el.envelope.getBoundingClientRect(), seal = r.top + r.height * 0.64;
+    if (seal < innerHeight * 0.25 || seal > innerHeight * 0.95) window.scrollTo({ top: scrollY + seal - innerHeight * 0.62, behavior: 'instant' });
+    tl.restart();
+    say(`Playing at ${speed}×.`);
+  };
+
+  const pressed = (group, v) => group.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+
+  // Docked beside the page on wide screens (the page narrows, nothing is covered); on narrow
+  // screens it slides over the page and starts hidden.
+  const setEditor = (open) => {
+    if (!ed) return;
+    ed.classList.toggle('is-hidden', !open);
+    document.documentElement.classList.toggle('is-docked', open);
+    if (showBtn) showBtn.hidden = open;
+    setTimeout(() => ScrollTrigger.refresh(), 350);
+  };
+
+  if (ui) {
+    setEditor(window.matchMedia('(min-width: 900px)').matches);
+    ui.hide.addEventListener('click', () => setEditor(false));
+    if (showBtn) showBtn.addEventListener('click', () => setEditor(true));
+    ui.replay.addEventListener('click', replay);
+    ui.speed.addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b || !tl) return;
+      speed = Number(b.dataset.v); tl.timeScale(speed); pressed(ui.speed, b.dataset.v);
+    });
+    ui.mode.addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b || b.dataset.v === mode) return;
+      mode = b.dataset.v; pressed(ui.mode, mode); build(); ScrollTrigger.refresh();
+    });
+    ui.outline.addEventListener('change', () => root.classList.toggle('is-outlined', ui.outline.checked));
+    // Scrub by dragging across the timeline, or with the arrow keys when it has focus
+    const seek = (p) => {
+      if (!tl || mode !== 'view') return;
+      tl.pause(); tl.progress(Math.min(1, Math.max(0, p))); syncPlayhead();
+      say(`Paused at ${tl.time().toFixed(2)} s. Press Replay to play it again.`);
+    };
+    const seekX = (x) => { const r = ui.scrub.getBoundingClientRect(); seek((x - r.left) / r.width); };
+    let dragging = false;
+    ui.scrub.addEventListener('pointerdown', (e) => { if (mode !== 'view') return; dragging = true; ui.scrub.setPointerCapture(e.pointerId); seekX(e.clientX); });
+    ui.scrub.addEventListener('pointermove', (e) => { if (dragging) seekX(e.clientX); });
+    ['pointerup', 'pointercancel'].forEach((t) => ui.scrub.addEventListener(t, () => { dragging = false; }));
+    ui.scrub.addEventListener('keydown', (e) => {
+      if (!tl) return;
+      const stepS = (e.shiftKey ? 0.25 : 0.05) / tl.duration();
+      const keys = { ArrowRight: stepS, ArrowUp: stepS, ArrowLeft: -stepS, ArrowDown: -stepS };
+      if (e.key in keys) { e.preventDefault(); seek(tl.progress() + keys[e.key]); }
+      else if (e.key === 'Home') { e.preventDefault(); seek(0); }
+      else if (e.key === 'End') { e.preventDefault(); seek(1); }
+    });
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    say('Reduced motion is on, so the open envelope is shown without animation.');
+    if (ui) ed.querySelectorAll('[data-replay], [data-speed] button, [data-mode] button').forEach((n) => { n.disabled = true; });
+    return;
+  }
+
+  // ---- editor: the variables, one section per step ---------------------------------------
+  const COLORS = { seal: '#e0be60', lift: '#93b8a3', land: '#5f8f78', letter: '#ece0c3', photo: '#c25b70', trigger: '#8e98ad' };
+  const FAMILIES = [['none', 'Linear'], ['sine', 'Gentle'], ['power1', 'Soft'], ['power2', 'Medium'], ['power3', 'Strong'], ['power4', 'Very strong'], ['expo', 'Sharp'], ['circ', 'Round'], ['back', 'Overshoot'], ['elastic', 'Springy'], ['bounce', 'Bouncy']];
+  const DIRECTIONS = [['out', 'Ends slowly'], ['in', 'Starts slowly'], ['inOut', 'Starts and ends slowly']];
+  const s = (n) => `${round(n).toFixed(2)} s`;
+  const span = (a, b) => `${round(a).toFixed(2)} – ${round(b).toFixed(2)} s`;
+  const STEPS = [
+    { id: 'seal', title: 'Seal press', color: COLORS.seal, time: () => span(0, P.seal.pressDur + P.seal.releaseDur),
+      hint: 'The wax seal presses down, then springs back.',
+      controls: [
+        { key: 'seal.pressScale', label: 'Press depth', unit: '%', min: 0, max: 20, step: 1, toUI: (v) => Math.round((1 - v) * 100), fromUI: (u) => round(1 - u / 100), hint: 'How much smaller the seal gets when pressed.' },
+        { key: 'seal.pressDur', label: 'Press time', unit: 's', min: 0, max: 0.6, step: 0.01 },
+        { key: 'seal.releaseDur', label: 'Spring-back time', unit: 's', min: 0, max: 1.5, step: 0.01 },
+        { key: 'seal.bounce', label: 'Spring-back bounce', unit: '', min: 0, max: 6, step: 0.1, hint: '0 = no bounce. Higher = it overshoots more before settling.' },
+      ] },
+    { id: 'flap', title: 'Flap opens', color: COLORS.lift, time: () => { const t = timing(); return span(P.closed.start, t.handover + t.openDur); },
+      hint: 'Two flaps make one swing. The closed flap lifts towards you until it is edge-on; then the open flap takes over and lands. They swap at the edge-on moment, so the swap can’t be seen.',
+      controls: [
+        { key: 'closed.start', label: 'Starts at', unit: 's', min: 0, max: 1.5, step: 0.01, hint: 'From the start of the animation.' },
+        { key: 'closed.dur', label: 'Lift time', unit: 's', min: 0.1, max: 1.5, step: 0.01, hint: 'From closed to edge-on.' },
+        { key: 'closed.ease', type: 'ease', label: 'Lift feel', hint: '“Starts slowly” speeds it up into the swap, which keeps the swing smooth.' },
+        { key: 'open.matchTip', type: 'bool', label: 'Match tip speed (recommended)', hint: 'Sets the land time for you, so the swing keeps one speed through the swap.' },
+        { key: 'open.dur', label: 'Land time', unit: 's', min: 0.1, max: 2, step: 0.01, disabledWhen: () => P.open.matchTip, hint: 'From edge-on to flat. Turn off “Match tip speed” to set it yourself.' },
+        { key: 'open.ease', type: 'ease', label: 'Land feel', hint: '“Ends slowly” lets the flap settle softly.' },
+        { key: 'perspective', label: '3D depth', unit: 'px', min: 600, max: 6000, step: 50, hint: 'Camera distance for both flaps. Lower = stronger 3D: the tip swings closer to you.' },
+        { key: 'closed.shadowFade', label: 'Shadow fade time', unit: 's', min: 0, max: 1.2, step: 0.01, hint: 'How fast the closed flap’s shadow on the envelope fades as it lifts.' },
+      ] },
+    { id: 'letter', title: 'Letter card', color: COLORS.letter, time: () => { const t = timing(); return span(t.letterAt, t.letterAt + P.letter.dur); },
+      hint: 'Rises out of the envelope once the flap is open.',
+      controls: [
+        { key: 'letter.delay', label: 'Starts after the swap', unit: 's', min: -0.5, max: 1.5, step: 0.01, hint: 'Wait after the flaps swap. About 0.35 s starts it as the flap is nearly flat.' },
+        { key: 'letter.dur', label: 'Rise time', unit: 's', min: 0.2, max: 2.5, step: 0.01 },
+        { key: 'letter.ease', type: 'ease', label: 'Feel' },
+        { key: 'letter.bounce', label: 'Overshoot amount', unit: '', min: 0, max: 4, step: 0.1, showWhen: () => P.letter.ease.startsWith('back.'), hint: 'How far it overshoots before settling.' },
+        { key: 'letter.fromY', label: 'Starts below', unit: '%', min: 0, max: 160, step: 1, hint: 'How far down it starts, as % of its own height. Below about 95% it peeks out before the flap lifts.' },
+        { key: 'letter.fromRotate', label: 'Starting tilt', unit: '°', min: -10, max: 10, step: 0.1, hint: 'It straightens to its final angle as it rises.' },
+      ] },
+    { id: 'photo', title: 'Photo card', color: COLORS.photo, time: () => { const t = timing(); return span(t.photoAt, t.photoAt + P.photo.dur); },
+      hint: 'Follows the letter and swings into its tilt.',
+      controls: [
+        { key: 'photo.delay', label: 'Starts after the letter', unit: 's', min: -0.5, max: 1.5, step: 0.01 },
+        { key: 'photo.dur', label: 'Rise time', unit: 's', min: 0.2, max: 2.5, step: 0.01 },
+        { key: 'photo.ease', type: 'ease', label: 'Feel' },
+        { key: 'photo.bounce', label: 'Overshoot amount', unit: '', min: 0, max: 4, step: 0.1, showWhen: () => P.photo.ease.startsWith('back.'), hint: 'How far it overshoots before settling.' },
+        { key: 'photo.fromY', label: 'Starts below', unit: '%', min: 0, max: 160, step: 1, hint: 'How far down it starts, as % of its own height. Below about 60% it peeks out before the flap lifts.' },
+        { key: 'photo.fromRotate', label: 'Starting tilt', unit: '°', min: -30, max: 30, step: 0.5, hint: 'Added to its final 15° tilt. Negative = straighter at the start, so it swings into its tilt.' },
+      ] },
+    { id: 'trigger', title: 'When it plays', color: COLORS.trigger, time: () => `seal at ${P.trigger.at}%`,
+      hint: '“Once in view” plays the whole animation once. “Scroll-linked” ties it to scrolling.',
+      controls: [
+        { key: 'trigger.at', label: 'Plays when the seal is', unit: '% down', min: 20, max: 100, step: 1, hint: 'Of the screen height. 50 = the middle of the screen, 100 = the bottom edge.' },
+        { key: 'trigger.scrollFrom', label: 'Scroll-linked: starts when the envelope top is', unit: '% down', min: 40, max: 100, step: 1 },
+        { key: 'trigger.scrollTo', label: 'Scroll-linked: finishes when the seal is', unit: '% down', min: 5, max: 80, step: 1 },
+        { key: 'trigger.scrub', label: 'Scroll-linked: smoothing', unit: 's', min: 0, max: 2, step: 0.05, hint: 'How much it trails behind the scroll. 0 = locked to it.' },
+      ] },
+  ];
+  const ALL = STEPS.flatMap((st) => st.controls.map((c) => ({ ...c, step_: st.id })));
+  const getK = (k, from = P) => k.split('.').reduce((o, p) => o[p], from);
+  const setK = (k, v) => { const ps = k.split('.'), last = ps.pop(); ps.reduce((o, p) => o[p], P)[last] = v; };
+  const isChanged = (c) => {
+    if (c.key === 'open.dur' && P.open.matchTip) return false;
+    const a = getK(c.key), b = getK(c.key, DEFAULTS);
+    return typeof a === 'number' ? Math.abs(a - b) > 1e-9 : a !== b;
+  };
+  const decimals = (n) => (String(n).split('.')[1] || '').length;
+  const toUI = (c, v) => (c.toUI ? c.toUI(v) : v);
+  const fromUI = (c, u) => (c.fromUI ? c.fromUI(u) : u);
+  const splitEase = (e) => (e === 'none' ? ['none', 'out'] : e.split('.'));
+
+  // Curve preview: progress (y) against time (x); room above and below for overshoot
+  const curvePath = (name, bounce) => {
+    const fn = gsap.parseEase(easeOf(name, bounce)) || ((p) => p);
+    let d = '';
+    for (let i = 0; i <= 48; i++) { const x = i / 48, y = fn(x); d += `${i ? 'L' : 'M'}${(6 + x * 52).toFixed(1)} ${(38 - y * 28).toFixed(1)}`; }
+    return d;
+  };
+
+  const ctrlRow = (c) => {
+    const row = document.createElement('div');
+    row.className = 'ed_ctrl'; row.dataset.key = c.key;
+    const id = `ed-${c.key.replace('.', '-')}`;
+    const reset = `<button class="ed_reset" type="button" data-reset="${c.key}" aria-label="Reset ${c.label} to its default" title="Back to the default">↺</button>`;
+    const hint = c.hint ? `<p class="ed_hint">${c.hint}</p>` : '';
+    if (c.type === 'bool') {
+      row.innerHTML = `<div class="ed_ctrl-head"><label class="ed_switch"><input id="${id}" type="checkbox" data-bool="${c.key}"><span class="ed_switch-ui" aria-hidden="true"></span><span>${c.label}</span></label>${reset}</div>${hint}`;
+    } else if (c.type === 'ease') {
+      row.innerHTML = `<div class="ed_ctrl-head"><label for="${id}">${c.label}</label>${reset}</div>
+        <div class="ed_feel"><svg class="ed_curve" viewBox="0 0 64 48" aria-hidden="true"><line x1="6" y1="38" x2="58" y2="38"/><line x1="6" y1="10" x2="58" y2="10"/><path/></svg>
+        <select id="${id}" data-family="${c.key}" aria-label="${c.label}: curve">${FAMILIES.map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select>
+        <select data-direction="${c.key}" aria-label="${c.label}: direction">${DIRECTIONS.map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>${hint}`;
+    } else {
+      const lim = `min="${c.min}" max="${c.max}" step="${c.step}"`;
+      row.innerHTML = `<div class="ed_ctrl-head"><label for="${id}">${c.label}</label>${reset}<span class="ed_value"><input id="${id}" type="number" inputmode="decimal" ${lim} data-num="${c.key}"><span class="ed_unit">${c.unit}</span></span></div>
+        <input class="ed_slider" type="range" ${lim} data-range="${c.key}" aria-label="${c.label}">${hint}`;
+    }
+    return row;
+  };
+
+  // Write P into every control, and refresh the timeline, step times and change counts
+  const syncAll = () => {
+    if (P.open.matchTip) P.open.dur = round(P.closed.dur * FLAP_RATIO);
+    ALL.forEach((c) => {
+      const row = ui.steps.querySelector(`.ed_ctrl[data-key="${c.key}"]`);
+      if (!row) return;
+      const v = getK(c.key);
+      if (c.type === 'bool') row.querySelector('[data-bool]').checked = v;
+      else if (c.type === 'ease') {
+        const [fam, dir] = splitEase(v), famSel = row.querySelector('[data-family]'), dirSel = row.querySelector('[data-direction]');
+        famSel.value = fam; dirSel.value = dir; dirSel.disabled = fam === 'none';
+        const group = P[c.key.split('.')[0]]; // the cards have their own overshoot; GSAP's default is 1.7
+        row.querySelector('path').setAttribute('d', curvePath(v, group && 'bounce' in group ? group.bounce : 1.7));
+      } else {
+        const u = toUI(c, v), range = row.querySelector('[data-range]'), num = row.querySelector('[data-num]');
+        num.value = Number(u).toFixed(decimals(c.step));
+        range.value = u;
+        range.style.setProperty('--p', `${((u - c.min) / (c.max - c.min)) * 100}%`);
+        const off = c.disabledWhen ? c.disabledWhen() : false;
+        range.disabled = off; num.disabled = off;
+      }
+      row.hidden = c.showWhen ? !c.showWhen() : false;
+      row.classList.toggle('is-changed', isChanged(c));
+    });
+    STEPS.forEach((st) => {
+      const d = ui.steps.querySelector(`.ed_step[data-step="${st.id}"]`);
+      const n = st.controls.filter(isChanged).length, badge = d.querySelector('.ed_badge');
+      badge.hidden = !n; badge.textContent = `${n} changed`;
+      d.querySelector('.ed_step-time').textContent = st.time();
+    });
+    const total = ALL.filter(isChanged).length;
+    ui.changes.textContent = total ? `${total} change${total > 1 ? 's' : ''} from the original` : 'No changes yet';
+    renderTimeline();
+  };
+
+  const LANES = [['seal', 'Seal', COLORS.seal], ['flap', 'Flap lifts', COLORS.lift], ['flap', 'Flap lands', COLORS.land], ['letter', 'Letter', COLORS.letter], ['photo', 'Photo', COLORS.photo]];
+  const laneTimes = () => {
+    const t = timing();
+    return [[0, P.seal.pressDur + P.seal.releaseDur], [P.closed.start, t.handover], [t.handover, t.handover + t.openDur], [t.letterAt, t.letterAt + P.letter.dur], [t.photoAt, t.photoAt + P.photo.dur]];
+  };
+  const renderTimeline = () => {
+    const times = laneTimes(), total = Math.max(0.1, ...times.map(([, b]) => b)), t = timing();
+    const bars = ui.scrub.querySelectorAll('.ed_tl-bar');
+    times.forEach(([a, b], i) => { bars[i].style.left = `${(a / total) * 100}%`; bars[i].style.width = `${((b - a) / total) * 100}%`; });
+    const stepT = total > 3 ? 1 : total > 1.2 ? 0.5 : 0.25;
+    let ticks = '';
+    for (let x = 0; x <= total + 1e-6; x += stepT) ticks += `<span class="ed_tl-tick" style="left:${(x / total) * 100}%">${round(x)}s</span>`;
+    ui.ruler.innerHTML = ticks;
+    ui.swap.style.left = `${(t.handover / total) * 100}%`;
+    ui.total.textContent = s(total);
+    ui.swapAt.textContent = s(t.handover);
+    syncPlayhead();
+  };
+
+  // Apply a finished change: save, rebuild the timeline and (by default) replay it
+  const commit = () => {
+    save(); build(); ScrollTrigger.refresh(); syncAll();
+    if (ui.auto.checked) replay();
+  };
+
+  const setupEditor = () => {
+    if (!ui) return;
+    LANES.forEach(([step, name, color]) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'ed_tl-name'; b.textContent = name; b.dataset.open = step;
+      ui.names.appendChild(b);
+      const lane = document.createElement('div');
+      lane.className = 'ed_tl-lane'; lane.innerHTML = `<div class="ed_tl-bar" style="--c:${color}"></div>`;
+      ui.scrub.insertBefore(lane, ui.swap);
+    });
+    STEPS.forEach((st, i) => {
+      const d = document.createElement('details');
+      d.className = 'ed_step'; d.dataset.step = st.id;
+      d.innerHTML = `<summary><span class="ed_dot" style="--c:${st.color}"></span><span class="ed_step-title">${i + 1}. ${st.title}</span><span class="ed_badge" hidden></span><span class="ed_step-time"></span></summary><div class="ed_step-body"><p class="ed_step-hint">${st.hint}</p></div>`;
+      st.controls.forEach((c) => d.querySelector('.ed_step-body').appendChild(ctrlRow(c)));
+      ui.steps.appendChild(d);
+    });
+    const def = (k) => ALL.find((c) => c.key === k);
+
+    ui.names.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-open]'); if (!b) return;
+      const d = ui.steps.querySelector(`.ed_step[data-step="${b.dataset.open}"]`);
+      d.open = true; d.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+    // Sliders update the numbers and the timeline while dragging, and apply on release
+    ui.steps.addEventListener('input', (e) => {
+      const k = e.target.dataset.range; if (!k) return;
+      setK(k, fromUI(def(k), Number(e.target.value))); syncAll();
+    });
+    ui.steps.addEventListener('change', (e) => {
+      const t = e.target, d = t.dataset;
+      if (d.range) { /* value already set on input */ }
+      else if (d.num) {
+        const c = def(d.num), u = Number(t.value);
+        if (Number.isFinite(u)) setK(d.num, fromUI(c, Math.min(c.max, Math.max(c.min, u)))); // syncAll writes it back, clamped
+      } else if (d.family || d.direction) {
+        const k = d.family || d.direction, row = t.closest('.ed_ctrl');
+        const fam = row.querySelector('[data-family]').value, dir = row.querySelector('[data-direction]').value;
+        setK(k, fam === 'none' ? 'none' : `${fam}.${dir}`);
+      } else if (d.bool) setK(d.bool, t.checked);
+      else return;
+      commit();
+    });
+    ui.steps.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-reset]'); if (!b) return;
+      setK(b.dataset.reset, getK(b.dataset.reset, DEFAULTS)); commit();
+    });
+    ui.resetAll.addEventListener('click', () => { merge(P, clone(DEFAULTS)); commit(); });
+    ui.copy.addEventListener('click', () => {
+      const text = exportValues();
+      const done = () => { ui.copy.textContent = 'Copied ✓'; setTimeout(() => { ui.copy.textContent = 'Copy values'; }, 1600); };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, () => showText(text));
+      else showText(text);
+    });
+    syncAll();
+  };
+
+  // ---- export ("Copy values") -----------------------------------------------------------
+  // IX3 ease presets by name; back.* with an overshoot is an advanced ease.
+  const IX3_EASES = ['none', 'power1.in', 'power1.out', 'power1.inOut', 'power2.in', 'power2.out', 'power2.inOut', 'power3.in', 'power3.out', 'power3.inOut', 'power4.in', 'power4.out', 'power4.inOut', 'back.in', 'back.out', 'back.inOut', 'bounce.in', 'bounce.out', 'bounce.inOut', 'circ.in', 'circ.out', 'circ.inOut', 'elastic.in', 'elastic.out', 'elastic.inOut', 'expo.in', 'expo.out', 'expo.inOut', 'sine.in', 'sine.out', 'sine.inOut'];
+  const ix3Ease = (ease) => {
+    const m = /^back\.(in|out|inOut)\(([\d.]+)\)$/.exec(ease);
+    return m ? { type: 'back', curve: m[1], power: Number(m[2]) } : IX3_EASES.indexOf(ease);
+  };
+  const exportValues = () => JSON.stringify({
+    variables: P,
+    trigger: { once: triggers().view.start, scrollLinked: { start: triggers().scroll.start, end: triggers().scroll.end, scrub: triggers().scroll.scrub } },
+    ix3Actions: rows.map((a) => ({
+      name: a.name, target: `.${[...a.el.classList].join('.')}`, type: a.from ? 'FromTo' : 'To',
+      ...(a.from ? { from: a.from } : {}), to: a.to, position: round(a.at), duration: round(a.dur),
+      ease: a.ease, ix3Ease: ix3Ease(a.ease),
+      ...(a.origin ? { transformOrigin: a.origin, transformPerspective: P.perspective } : {}),
+    })),
+  }, null, 2);
+  const showText = (text) => {
+    let box = document.querySelector('.proto_export');
+    if (!box) {
+      box = document.createElement('div'); box.className = 'proto_export';
+      box.innerHTML = '<p>Copy these values and send them back with your notes:</p><textarea readonly spellcheck="false"></textarea><button type="button">Close</button>';
+      box.querySelector('button').addEventListener('click', () => box.remove());
+      document.body.appendChild(box);
+    }
+    const area = box.querySelector('textarea'); area.value = text; area.focus(); area.select();
+  };
+
+  // Build once fonts and layer images are decoded, so nothing pops in mid-animation
+  const images = [...root.querySelectorAll('img')].map((i) => (i.decode ? i.decode().catch(() => {}) : Promise.resolve()));
+  Promise.all([document.fonts ? document.fonts.ready : null, ...images]).then(() => { build(); ScrollTrigger.refresh(); setupEditor(); });
+
+  // For the test harness
+  window.__ctaEnvelope = { get tl() { return tl; }, get actions() { return rows; }, variables: P, build, setMode: (m) => { mode = m; build(); } };
+})();
+/* END: cta-envelope */
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/cn";
+import arrowRight from "../../assets/trust/arrow-right.svg";
+import arrowUpRight from "../../assets/trust/arrow-up-right.svg";
+import grainTile from "../../assets/trust/grain-tile.webp";
+import { certifications } from "../../config/trust";
+
+/** Gold dashed guides framing the panel, overshooting its corners. Each is a 2px box dashed on both long edges, as in the Webflow build. */
+function Guides() {
+  const line = "pointer-events-none absolute border-dashed border-[#e0be6042]";
+  return (
+    <div aria-hidden>
+      <span className={cn(line, "-top-5 -left-px h-[calc(100%+43px)] w-0.5 border-x")} />
+      <span className={cn(line, "-top-5 -right-px h-[calc(100%+43px)] w-0.5 border-x")} />
+      <span className={cn(line, "-top-[1.48px] -inset-x-[20.73px] h-0.5 border-y")} />
+      <span className={cn(line, "-bottom-[0.96px] -inset-x-[20.73px] h-0.5 border-y")} />
+    </div>
+  );
+}
+
+function Certifications() {
+  return (
+    <ul className="grid w-full grid-cols-2 py-[2.7px] xs:grid-cols-3 md:grid-cols-[186.4fr_210.9fr_210.9fr_210.9fr_210.9fr]">
+      {certifications.map((cert, i) => (
+        <li
+          key={cert.name}
+          className={cn(
+            // Dividers are 0.5px inset shadows (no layout space): between columns from 768px,
+            // above every cell in the phone grids.
+            "flex min-w-0 flex-col items-start gap-6 py-6 shadow-[inset_0_0.5px_0_rgba(255,255,255,0.1)] md:py-8 md:shadow-none",
+            i > 0 && "md:pl-[24.5px] md:shadow-[inset_0.5px_0_0_rgba(255,255,255,0.1)]",
+          )}
+        >
+          <Image
+            src={cert.badge}
+            alt={`${cert.name} badge`}
+            sizes="70px"
+            className="h-[70px] shrink-0"
+            style={{ width: cert.badgeWidth }}
+          />
+          <div className="flex flex-col items-start gap-2">
+            <h3 className="font-sans text-base leading-6 font-semibold tracking-[-0.64px] whitespace-nowrap text-white/80">
+              {cert.name}
+            </h3>
+            <Link
+              href={cert.href}
+              aria-label={`${cert.name} details`}
+              className="flex items-start gap-1 transition-opacity hover:opacity-80"
+            >
+              <span className="font-sans text-[12px] leading-[1.2] tracking-[-0.24px] whitespace-nowrap text-white opacity-50">
+                Details
+              </span>
+              <Image src={arrowUpRight} alt="" className="size-3.5" />
+            </Link>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Security & compliance band: dark green, full-bleed. */
+export function Trust() {
+  return (
+    <section aria-labelledby="trust-title" className="relative bg-[#00331a] py-12 md:py-16 lg:py-[87px]">
+      {/* Card: at least 626px tall with its content centred; padding steps down per breakpoint. */}
+      <div className="relative content-width flex min-h-[626px] flex-col items-center justify-center px-5 pt-12 pb-4 shadow-[0_0_2px_rgba(0,0,0,0.25)] md:px-8 md:pt-14 md:pb-6 lg:px-4 lg:pb-4">
+        {/* Panel surface: deep green with a soft-light grain tile at 40%. */}
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 bg-[#002916]" />
+          <div
+            className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left opacity-40 mix-blend-soft-light"
+            style={{ backgroundImage: `url(${grainTile.src})` }}
+          />
+        </div>
+        <Guides />
+
+        <div className="relative flex w-full max-w-[1030px] flex-col items-start gap-12 md:gap-16 lg:gap-[120px]">
+          <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:gap-[190px]">
+            {/*
+              Figma sets both lines at exactly 50px. Browsers grow line 1 to fit the
+              60px swash, so each line is its own fixed-height block. Figma also sits
+              the glyphs 3px higher within those lines (measured against its render).
+              Zoomed with the h3 size: 50 / 42 / 36 / 32px.
+            */}
+            <h2
+              id="trust-title"
+              className="relative -top-[3px] w-[275.203px] shrink-0 font-serif text-[0px] leading-[0] font-extralight tracking-[-2.15px] whitespace-nowrap text-white/85 [zoom:1] max-lg:[zoom:0.84] max-md:[zoom:0.72] max-xs:[zoom:0.64]"
+            >
+              <span className="block h-[50px]">
+                <span className="font-script text-[60px] leading-[50px] font-normal">Y</span>
+                <span className="text-[50px] leading-[50px]">our data is</span>
+              </span>{" "}
+              <span className="block text-[50px] leading-[50px]">safe with us</span>
+            </h2>
+            <div className="flex w-full max-w-[537.055px] min-w-0 flex-col items-start gap-4 lg:flex-[0_1_537px]">
+              <p className="font-sans text-[14px] leading-[22px] tracking-[-0.56px] text-white/50">
+                Our in-built watchtower catches what should not be said before it is said. Guardrails ensure Crossword
+                never offers a discount you did not approve, never makes a promise your legal team has not cleared, and
+                never yields to prompt injection attempts.
+              </p>
+              <Link
+                href="#trust"
+                className="flex items-center gap-2 border-b border-white/30 p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#d9dddb] transition-colors hover:text-white"
+              >
+                LEARN MORE
+                <Image src={arrowRight} alt="" className="size-4" />
+              </Link>
+            </div>
+          </div>
+
+          <Certifications />
+        </div>
+      </div>
+    </section>
+  );
+}

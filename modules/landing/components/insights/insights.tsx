@@ -1,0 +1,51 @@
+import Image from "next/image";
+import Link from "next/link";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import arrowRight from "../../assets/insights/arrow-right.svg";
+import railAccent from "../../assets/insights/rail-accent.svg";
+import { InsightComposer } from "./insight-composer";
+import { InsightTabs } from "./insight-tabs";
+
+export function Insights() {
+  return (
+    <section aria-labelledby="insights-title" className="relative section-pad">
+      <Image
+        src={railAccent}
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute top-[99px] left-[calc(var(--frame-inset)-0.5px)]"
+      />
+
+      <div className="flex content-width flex-col items-start gap-section">
+        <div className="flex w-full flex-col items-start gap-8 md:flex-row md:items-end md:justify-between md:gap-[120px]">
+          <div className="flex flex-col items-start gap-6">
+            {/* Figma's label includes a trailing space, which widens the frame. */}
+            <Eyebrow>{"Insights "}</Eyebrow>
+            {/* Drawn at 60px and zoomed to the breakpoint's h2 size, like SectionTitle. */}
+            <div className="fit-to-container [--fit-width:calc(580px*var(--h2-scale))]">
+              <h2
+                id="insights-title"
+                className="h-[97px] w-[580px] font-serif text-[0px] leading-[0] font-extralight tracking-[-2.5px] whitespace-nowrap text-ink [zoom:var(--h2-scale)]"
+              >
+                <span className="font-script text-[82px] leading-[1.18] font-normal">Y</span>
+                <span className="text-[60px] leading-[1.1] tracking-[-3px]">{"our best "}</span>
+                <span className="text-[60px] leading-[1.1] font-light tracking-[-3px]">hire keeps notes</span>
+              </h2>
+            </div>
+          </div>
+          <Link
+            href="#insights"
+            className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-colors hover:text-black"
+          >
+            LEARN MORE
+            <Image src={arrowRight} alt="" className="size-4" />
+          </Link>
+        </div>
+
+        <InsightTabs>
+          <InsightComposer />
+        </InsightTabs>
+      </div>
+    </section>
+  );
+}

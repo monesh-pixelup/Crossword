@@ -1,0 +1,52 @@
+CROSSWORD: CTA ENVELOPE ANIMATION DEMO
+
+A working prototype of the envelope at the bottom of the Crossword homepage: the
+envelope opens and the two cards slide out. It's built from the Figma layers, so it
+looks like the final design.
+
+
+OPEN IT
+1. Unzip the folder (keep everything in it together).
+2. Double-click index.html. It opens in your browser (Chrome or Safari).
+   No internet or install needed.
+3. Scroll down. The envelope opens once it comes into view.
+
+preview.mp4 shows how it plays at the moment, at full speed and then slowed down.
+
+
+THE EDITOR (left side)
+Top: Replay, and play it at 1x, 1/2 or 1/4 speed.
+
+Timeline: one coloured bar per step (seal, flap lifts, flap lands, letter, photo),
+so you can see how the steps overlap. Drag across the bars to move through the
+animation by hand. Click a step's name to jump to its settings.
+
+Steps 1 to 5: each step folds open to show its settings, with a short note under
+each one.
+- Drag a slider, or type a number. When you let go, the envelope replays.
+- "Feel" sets how a movement speeds up and slows down: pick a curve (Gentle,
+  Medium, Strong, Overshoot...) and a direction (ends slowly, starts slowly, or
+  both). The little graph shows the curve.
+- A gold dot marks every value you've changed. The arrow next to it puts that one
+  value back to the original.
+
+Bottom: how many values you've changed, "Reset all", and "Copy values".
+
+Your values are saved in this browser, so reloading keeps them. "Hide" tucks the
+editor away; "Show controls" (bottom left) brings it back.
+
+
+GOOD TO KNOW
+- The open flap always starts the moment the closed flap finishes. That keeps the
+  switch between the two flaps invisible. Leave "Match tip speed" on for a smooth
+  swing, or turn it off to set the land time yourself.
+- If a card's "Starts below" goes much lower than its original (letter 100%,
+  photo 62%), the card shows in the opening before the flap lifts.
+- Every curve in the "Feel" lists can be built in Webflow as-is.
+- The desktop layout matches Figma. Below 768px wide is a proposal for phones.
+
+
+SEND IT BACK
+Click "Copy values" at the bottom of the editor and paste the result into your
+reply. It holds all your settings and the steps needed for the Webflow build. If
+the browser blocks copying, a box opens with the text selected: copy it from there.

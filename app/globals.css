@@ -1,26 +1,170 @@
 @import "tailwindcss";
 
+@theme {
+  /* Typography */
+  --font-serif: var(--font-crimson-pro), ui-serif, Georgia, serif;
+  --font-script: var(--font-parisienne), cursive;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-dm-sans: var(--font-face-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-inter: var(--font-face-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-open-sans: var(--font-face-open-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-calligraphy: var(--font-tangerine), cursive;
+
+  /* Brand palette (from Figma) */
+  --color-cream: #fff9ea;
+  --color-ink: #141414;
+  --color-maroon: #7d0034;
+  --color-wine: #6c2332;
+  --color-gold: #e0be60;
+  --color-gold-bright: #f7c849;
+  --color-parchment: #faedd4;
+  --color-parchment-deep: #faecd4;
+  --color-bone: #e8dec1;
+  --color-sand: #f3e9d4;
+  --color-rose-line: #cfb8bb;
+
+  /*
+   * Breakpoints follow the Webflow build: tablet ≤991px, mobile landscape
+   * ≤767px, mobile portrait ≤479px. So lg: is 992px, md: 768px and xs: 480px.
+   */
+  --breakpoint-xs: 30rem;
+  --breakpoint-lg: 62rem;
+}
+
+/*
+ * Responsive layout tokens (Webflow's page-wrapper and type variables). Each step
+ * matches the Webflow build's desktop / ≤991 / ≤767 / ≤479 values.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Side padding of the content column. */
+  --page-pad: 80px;
+  /* Section top/bottom padding (padding-section-large). */
+  --section-pad: 120px;
+  /* Page-frame rails: distance from the page edge. */
+  --frame-inset: 24px;
+  /* Gap between a section's header and its content (space xxlarge). */
+  --space-xxlarge: 80px;
+  /* Section headlines are drawn at 60px; this scales them (h2: 60 / 48 / 40 / 36). */
+  --h2-scale: 1;
+  /* Hero h1 (69 / 56 / 44 / 40px), display figures (70 / 56 / 48 / 44), h5 titles (32 / 28 / 26 / 24). */
+  --h1-size: 69px;
+  --display-size: 70px;
+  --h5-size: 32px;
+  /* h6 titles (28 / 24 / 22 / 20) and h4 (40 / 34 / 30 / 28). */
+  --h6-size: 28px;
+  --h4-size: 40px;
+  /* Large body text (text-xlarge: 24 / 22 / 20 / 20). */
+  --text-xl-size: 24px;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @media (width < 992px) {
+    --page-pad: 48px;
+    --section-pad: 96px;
+    --space-xxlarge: 64px;
+    --h2-scale: 0.8;
+    --h1-size: 56px;
+    --display-size: 56px;
+    --h5-size: 28px;
+    --h6-size: 24px;
+    --h4-size: 34px;
+    --text-xl-size: 22px;
+  }
+  @media (width < 768px) {
+    --page-pad: 24px;
+    --section-pad: 72px;
+    --frame-inset: 12px;
+    --space-xxlarge: 48px;
+    --h2-scale: 0.6667;
+    --h1-size: 44px;
+    --display-size: 48px;
+    --h5-size: 26px;
+    --h6-size: 22px;
+    --h4-size: 30px;
+    --text-xl-size: 20px;
+  }
+  @media (width < 480px) {
+    --page-pad: 20px;
+    --section-pad: 64px;
+    --frame-inset: 8px;
+    --h2-scale: 0.6;
+    --h1-size: 40px;
+    --display-size: 44px;
+    --h5-size: 24px;
+    --h6-size: 20px;
+    --h4-size: 28px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/*
+ * A Figma-style stroke that takes no layout space: hairline-[0.5px] plus an
+ * outline-<color>. Real sub-pixel borders get rounded up to 1px by browsers on
+ * standard screens, which makes auto-sized boxes grow and drift.
+ */
+@utility hairline-* {
+  outline-style: solid;
+  outline-width: --value([length]);
+  outline-offset: calc(--value([length]) * -1);
+}
+
+/* The page's content column: full width less the responsive side padding. */
+@utility content-width {
+  width: calc(100% - 2 * var(--page-pad));
+  margin-inline: auto;
+}
+
+/* Section padding; sections opening with a divider band add its 24px on top. */
+@utility section-pad {
+  padding-block: var(--section-pad);
+}
+@utility section-pad-band {
+  padding-top: calc(var(--section-pad) + 24px);
+  padding-bottom: var(--section-pad);
+}
+
+/* Gap between a section's header and its content. */
+@utility gap-section {
+  gap: var(--space-xxlarge);
+}
+
+/*
+ * Scales a fixed-size Figma composition down to fit the nearest
+ * `@container`, never up. Set --fit-width to the design width and
+ * --fit-gutter to the horizontal space to leave free (by default the page's
+ * side padding, so it fits the content column).
+ * tan(atan2(a, b)) yields the unitless ratio a / b.
+ */
+@utility fit-to-container {
+  zoom: min(1, tan(atan2(100cqw - var(--fit-gutter, 2 * var(--page-pad)), var(--fit-width))));
+}
+
+/*
+ * Scales a fixed-size Figma composition to exactly fill the nearest
+ * `@container` (up or down), like a fluid Webflow box. Set --fit-width.
+ */
+@utility scale-to-container {
+  zoom: tan(atan2(100cqw, var(--fit-width)));
+}
+
+/* Insights tab progress: fills the active tab's top edge, then the tabs advance. */
+@keyframes insights-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
