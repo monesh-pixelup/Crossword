@@ -25,6 +25,11 @@ const variants = {
     frame: "border-dashed border-[rgba(224,190,96,0.3)] bg-wine text-gold",
     studs: [studGoldFaint, studGoldFaintSm],
   },
+  /** Wine fill with the full gold border but faint studs (dark overlay header). */
+  "wine-gold": {
+    frame: "border-dashed border-gold bg-wine text-gold",
+    studs: [studGoldFaint, studGoldFaintSm],
+  },
   /** Transparent with a solid grey hairline. */
   outline: {
     frame: "border-solid border-[#b8b8b8] text-[#646464]",

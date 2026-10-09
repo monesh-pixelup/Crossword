@@ -1,9 +1,12 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
+/** Fill, label colour and shadow per background the label sits on. */
 const surfaces = {
-  cream: "bg-cream",
-  sand: "bg-sand",
+  cream: "bg-cream text-[#766640] drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)]",
+  sand: "bg-sand text-[#766640] drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)]",
+  /** Transparent on the dark green panels, with a pale label. */
+  green: "text-[#d6d1c6] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.11)]",
 } as const;
 
 /** Each corner is the top-left ornament mirrored into place. */
@@ -53,11 +56,11 @@ export function Eyebrow({ children, surface = "cream", className }: EyebrowProps
         // shadow so it adds no size and stays a true half-pixel hairline: borders and outlines get
         // rounded up to a solid 1px on standard screens, which reads darker than Figma.
         surfaces[surface],
-        "relative inline-flex items-center justify-center px-[5.5px] py-[10.5px] shadow-[inset_0_0_0_0.5px_#b7ae9a] drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)]",
+        "relative inline-flex items-center justify-center px-[5.5px] py-[10.5px] shadow-[inset_0_0_0_0.5px_#b7ae9a]",
         className,
       )}
     >
-      <span className="text-center font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] whitespace-nowrap text-[#766640] uppercase">
+      <span className="text-center font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] whitespace-nowrap uppercase">
         {children}
       </span>
       {corners.map((position) => (

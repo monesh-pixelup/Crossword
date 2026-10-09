@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { StampButton } from "@/components/ui/stamp-button";
+import { cn } from "@/lib/cn";
 import caretDown from "../assets/caret-down.svg";
 import { ctaLinks, primaryNav } from "../config/navigation";
 
@@ -11,9 +12,10 @@ const navText = "font-serif text-base leading-[22.356px] tracking-[-0.48px] text
 
 /**
  * Below 992px the header's links and buttons fold into a menu button; the menu opens as a
- * panel under the bar (links stacked, then the buttons), as in the Webflow build.
+ * panel under the bar (links stacked, then the buttons), as in the Webflow build. `tone` colours
+ * the menu button for the bar it sits on (light on the dark overlay header).
  */
-export function MobileMenu() {
+export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const [open, setOpen] = useState(false);
   const id = useId();
 
@@ -38,7 +40,10 @@ export function MobileMenu() {
         aria-controls={id}
         aria-label={open ? "Close menu" : "Open menu"}
         onClick={() => setOpen((o) => !o)}
-        className="-mr-2 flex size-10 cursor-pointer items-center justify-center text-ink"
+        className={cn(
+          "flex size-10 cursor-pointer items-center justify-center",
+          tone === "light" ? "text-cream" : "-mr-2 text-ink",
+        )}
       >
         <svg viewBox="0 0 24 24" className="size-6" aria-hidden>
           {open ? (

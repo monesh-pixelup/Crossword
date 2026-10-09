@@ -51,6 +51,23 @@ const variants = {
     line: "leading-[0.9] tracking-[-3px]",
     second: "",
   },
+  /** Centred, 1.18 leading on both lines, tight swash (Sell: Upsell & cross-sell). */
+  upsell: {
+    firstLineHeight: 83.2,
+    tracking: "tracking-[-2.5px] text-center",
+    swash: "font-script text-[82px] leading-[1.18] tracking-[-4.1px]",
+    line: "leading-[1.18]",
+    second: "",
+  },
+  /** 50px lines under a 77px swash (Sell: Conversion assistance). */
+  assist: {
+    firstLineHeight: 74,
+    tracking: "tracking-[-3.5538px]",
+    swash: "font-script text-[77px] leading-[1.18] tracking-[3.85px]",
+    line: "leading-[1.1] tracking-[-2.5px]",
+    second: "",
+    size: 50,
+  },
 } as const;
 
 type SectionTitleProps = {
@@ -65,6 +82,8 @@ type SectionTitleProps = {
   variant?: keyof typeof variants;
   /** Horizontal space to leave free when scaling down (default: the page side padding). */
   gutter?: number;
+  /** Text colour: ink on light sections, 85% white on dark ones. */
+  tone?: "ink" | "light";
 };
 
 /**
@@ -74,8 +93,10 @@ type SectionTitleProps = {
  * line under it at its own line-height. Browsers would grow line 1 to fit the
  * swash's taller line-height, so each line is its own block.
  */
-export function SectionTitle({ id, initial, firstLine, secondLine, width, variant = "default", gutter }: SectionTitleProps) {
+export function SectionTitle({ id, initial, firstLine, secondLine, width, variant = "default", gutter, tone = "ink" }: SectionTitleProps) {
   const v = variants[variant];
+  // Line size in px at desktop (60 unless the variant says otherwise).
+  const size = "size" in v ? v.size : 60;
 
   return (
     // The headline is drawn at its 60px desktop size and zoomed to the breakpoint's h2 size
@@ -91,14 +112,18 @@ export function SectionTitle({ id, initial, firstLine, secondLine, width, varian
     >
       <h2
         id={id}
-        className={`font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap text-ink ${v.tracking}`}
+        className={`font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap ${tone === "light" ? "text-white/85" : "text-ink"} ${v.tracking}`}
         style={{ width, zoom: "var(--h2-scale)" }}
       >
         <span className="block" style={{ height: v.firstLineHeight }}>
           <span className={`font-normal ${v.swash}`}>{initial}</span>
-          <span className={`text-[60px] ${v.line}`}>{firstLine}</span>
+          <span className={v.line} style={{ fontSize: size }}>
+            {firstLine}
+          </span>
         </span>{" "}
-        <span className={`block text-[60px] ${v.line} ${v.second}`}>{secondLine}</span>
+        <span className={`block ${v.line} ${v.second}`} style={{ fontSize: size }}>
+          {secondLine}
+        </span>
       </h2>
     </div>
   );

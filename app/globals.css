@@ -159,7 +159,7 @@
   zoom: tan(atan2(100cqw, var(--fit-width)));
 }
 
-/* Insights tab progress: fills the active tab's top edge, then the tabs advance. */
+/* Tab progress (Insights, Sell triggers): fills the active tab's top edge, then the tabs advance. */
 @keyframes insights-progress {
   from {
     width: 0%;
