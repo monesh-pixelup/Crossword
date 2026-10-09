@@ -103,10 +103,11 @@ function RecentPosts() {
               href={post.href}
               className="group flex flex-auto flex-col items-start gap-3 px-5 py-6 xs:pt-8 xs:pr-8 xs:pb-8 xs:pl-8 lg:pr-0 lg:pb-2"
             >
-              <h3 className="font-serif text-(length:--text-xl-size) leading-[1.1] font-light tracking-[-0.04em] text-[#040404] group-hover:underline">
+              {/* Hover / keyboard focus nudges the title and excerpt right together (ease-out-quart). */}
+              <h3 className="font-serif text-(length:--text-xl-size) leading-[1.1] font-light tracking-[-0.04em] text-[#040404] group-hover:underline motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
                 {post.title}
               </h3>
-              <p className="font-sans text-[14px] leading-5 font-light tracking-[-0.28px] text-black/80">
+              <p className="font-sans text-[14px] leading-5 font-light tracking-[-0.28px] text-black/80 motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
                 {post.excerptLines[0]}
                 {/* Figma breaks the excerpt after "your" on desktop; it wraps naturally below. */}
                 <br className="max-lg:hidden" />

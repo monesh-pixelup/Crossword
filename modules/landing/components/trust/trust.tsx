@@ -63,9 +63,13 @@ function Certifications() {
 /** Security & compliance band: dark green, full-bleed. */
 export function Trust() {
   return (
-    <section aria-labelledby="trust-title" className="relative bg-[#00331a] py-12 md:py-16 lg:py-[87px]">
-      {/* Card: at least 626px tall with its content centred; padding steps down per breakpoint. */}
-      <div className="relative content-width flex min-h-[626px] flex-col items-center justify-center px-5 pt-12 pb-4 shadow-[0_0_2px_rgba(0,0,0,0.25)] md:px-8 md:pt-14 md:pb-6 lg:px-4 lg:pb-4">
+    <section aria-labelledby="trust-title" className="relative bg-[#00331a] py-12 md:py-16 lg:py-[87px] min-[1440px]:py-[6.04vw]">
+      {/*
+        Card: at least 626px tall with its content centred; padding steps down per breakpoint.
+        Past the 1440px Figma frame it keeps Figma's 1280 x 626 proportions (and the band's padding
+        and inner gap scale with it) so wide screens don't flatten it.
+      */}
+      <div className="relative content-width flex min-h-[626px] flex-col min-[1440px]:aspect-[1280/626] items-center justify-center px-5 pt-12 pb-4 shadow-[0_0_2px_rgba(0,0,0,0.25)] md:px-8 md:pt-14 md:pb-6 lg:px-4 lg:pb-4">
         {/* Panel surface: deep green with a soft-light grain tile at 40%. */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute inset-0 bg-[#002916]" />
@@ -76,7 +80,7 @@ export function Trust() {
         </div>
         <Guides />
 
-        <div className="relative flex w-full max-w-[1030px] flex-col items-start gap-12 md:gap-16 lg:gap-[120px]">
+        <div className="relative flex w-full max-w-[1030px] flex-col items-start gap-12 md:gap-16 lg:gap-[120px] min-[1440px]:gap-[8.333vw]">
           <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:gap-[190px]">
             {/*
               Figma sets both lines at exactly 50px. Browsers grow line 1 to fit the

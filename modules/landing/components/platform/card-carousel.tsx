@@ -43,11 +43,22 @@ export function CardCarousel({ label, children, controlsClassName, className }: 
     const el = track.current;
     if (!el) return;
     const cards = [...el.querySelectorAll<HTMLElement>("[data-carousel-card]")];
-    const offsets = cards.map((card) => card.offsetLeft);
-    const target =
-      direction === 1
-        ? (offsets.find((x) => x > el.scrollLeft + 1) ?? el.scrollWidth)
-        : (offsets.findLast((x) => x < el.scrollLeft - 1) ?? 0);
+    const max = el.scrollWidth - el.clientWidth;
+    // Each arrow reveals the next card cut off in its direction in one click: forward aligns that
+    // card's left edge; back picks the furthest-back card start that still shows it in full.
+    let target: number;
+    if (direction === 1) {
+      const hidden = cards.find((card) => card.offsetLeft + card.offsetWidth > el.scrollLeft + el.clientWidth + 1);
+      target = Math.min(hidden?.offsetLeft ?? max, max);
+    } else {
+      const hidden = cards.findLast((card) => card.offsetLeft < el.scrollLeft - 1);
+      target = hidden
+        ? (cards
+            .map((card) => card.offsetLeft)
+            .find((x) => x <= hidden.offsetLeft && x + el.clientWidth >= hidden.offsetLeft + hidden.offsetWidth - 1) ??
+          hidden.offsetLeft)
+        : 0;
+    }
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     el.scrollTo({ left: target, behavior: reduceMotion ? "auto" : "smooth" });
   };
