@@ -131,6 +131,13 @@ export function Blog() {
         aria-hidden
         className="pointer-events-none absolute top-[122px] left-[calc(var(--frame-inset)-0.5px)]"
       />
+      {/* Stacked, the right rail carries the accent too, so the narrow frame stays symmetrical. */}
+      <Image
+        src={railAccent}
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute top-[122px] right-[calc(var(--frame-inset)-0.5px)] lg:hidden"
+      />
 
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex w-full flex-col items-start gap-8 md:flex-row md:items-end md:justify-between md:gap-[120px]">

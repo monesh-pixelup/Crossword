@@ -39,6 +39,52 @@ export function CardCarousel({ label, children, controlsClassName, className }: 
     return () => observer.disconnect();
   }, [sync]);
 
+  // On phones, cards marked `data-carousel-fit` widen just enough to be no taller than the rest.
+  useEffect(() => {
+    const el = track.current;
+    if (!el) return;
+    const phone = window.matchMedia("(max-width: 767.98px)");
+
+    const fit = () => {
+      const cards = [...el.querySelectorAll<HTMLElement>("[data-carousel-card]")];
+      const wide = cards.filter((card) => card.hasAttribute("data-carousel-fit"));
+      const rest = cards.filter((card) => !card.hasAttribute("data-carousel-fit"));
+      wide.forEach((card) => (card.style.width = ""));
+      if (phone.matches && wide.length && rest.length) {
+        const target = Math.max(...rest.map((card) => card.offsetHeight));
+        for (const card of wide) {
+          // Narrowest width at which the card's height fits the target, to the pixel.
+          let lo = card.offsetWidth;
+          let hi = lo * 4;
+          while (hi - lo > 1) {
+            const mid = (lo + hi) / 2;
+            card.style.width = `${mid}px`;
+            if (card.offsetHeight <= target) hi = mid;
+            else lo = mid;
+          }
+          card.style.width = `${Math.ceil(hi)}px`;
+        }
+      }
+      sync();
+    };
+
+    fit();
+    let timer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(timer);
+      timer = setTimeout(fit, 100);
+    };
+    window.addEventListener("resize", onResize);
+    phone.addEventListener("change", fit);
+    // Text wraps differently once the web fonts arrive.
+    document.fonts?.ready.then(fit);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", onResize);
+      phone.removeEventListener("change", fit);
+    };
+  }, [sync]);
+
   const step = (direction: 1 | -1) => {
     const el = track.current;
     if (!el) return;

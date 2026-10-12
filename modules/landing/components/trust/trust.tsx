@@ -26,9 +26,9 @@ function Certifications() {
         <li
           key={cert.name}
           className={cn(
-            // Dividers are 0.5px inset shadows (no layout space): between columns from 768px,
-            // above every cell in the phone grids.
-            "flex min-w-0 flex-col items-start gap-6 py-6 shadow-[inset_0_0.5px_0_rgba(255,255,255,0.1)] md:py-8 md:shadow-none",
+            // Dividers are 0.5px inset shadows (no layout space), between columns from 768px.
+            // The phone grids have none for now.
+            "flex min-w-0 flex-col items-start gap-6 py-6 md:py-8",
             i > 0 && "md:pl-[24.5px] md:shadow-[inset_0.5px_0_0_rgba(255,255,255,0.1)]",
           )}
         >

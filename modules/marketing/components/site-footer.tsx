@@ -5,6 +5,7 @@ import grainTile from "../assets/footer/grain-tile.webp";
 import monogramFrame from "../assets/footer/monogram-frame.svg";
 import stamp from "../assets/footer/stamp.webp";
 import { ctaLinks, type FooterLink, footerCompanyLinks, footerPlatformGroups } from "../config/navigation";
+import { FooterFrame } from "./footer-frame";
 
 const heading = "font-serif text-[14px] leading-[1.3] tracking-[0.14px] whitespace-nowrap text-[rgba(223,227,210,0.47)]";
 const linkText = "h-4 w-full font-sans text-[12px] leading-[1.3] tracking-[-0.36px] whitespace-nowrap";
@@ -73,44 +74,15 @@ function Tagline() {
   );
 }
 
-/** Quarter-circle notch of the gilt frame (drawn for the top-left corner, mirrored for the rest). */
-function FrameCorner({ className }: { className: string }) {
-  return (
-    <svg aria-hidden viewBox="0 0 50.5 50.5" fill="none" className={`absolute size-[50.5px] overflow-visible ${className}`}>
-      <path d="M50.25 0A50.25 50.25 0 0 1 0 50.25" stroke="#FFB657" strokeOpacity=".36" strokeWidth=".5" />
-    </svg>
-  );
-}
-
-/**
- * Gilt notched frame inset from the footer's edges, with a hairline rectangle inside it.
- * Built from edges and corner notches (as in the Webflow build) so it fits any width.
- */
-function FooterFrame() {
-  const edge = "absolute bg-[#ffb6575c]";
-  return (
-    <div aria-hidden className="pointer-events-none absolute top-[33.28px] right-[18.25px] bottom-[35.4px] left-[18.26px]">
-      <div className="absolute top-[13.04px] left-[14.55px] h-[calc(100%-29.95px)] w-[calc(100%-29.24px)] shadow-[inset_0_0_0_0.5px_#ffb6575c]" />
-      <div className={`${edge} top-0 left-[50px] h-[0.5px] w-[calc(100%-100px)]`} />
-      <div className={`${edge} bottom-0 left-[50px] h-[0.5px] w-[calc(100%-100px)]`} />
-      <div className={`${edge} top-[50px] left-0 h-[calc(100%-100px)] w-[0.5px]`} />
-      <div className={`${edge} top-[50px] right-0 h-[calc(100%-100px)] w-[0.5px]`} />
-      <FrameCorner className="top-0 left-0" />
-      <FrameCorner className="top-0 right-0 -scale-x-100" />
-      <FrameCorner className="bottom-0 left-0 -scale-y-100" />
-      <FrameCorner className="right-0 bottom-0 -scale-100" />
-    </div>
-  );
-}
-
 /**
  * Site footer: deep green with the grain tile and a gilt notched frame. Layout follows the
  * Webflow build: logo and link columns across the top, tagline and button along the bottom;
- * both rows stack below 992px.
+ * both rows stack below 992px. Stacked, the stamp and the button sit near the frame's corners,
+ * so 96px of padding keeps them clear of its notches.
  */
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-clip pt-20 pb-[72px] md:pt-24 md:pb-20 lg:pt-[126.13px] lg:pb-[96.34px]">
+    <footer className="relative overflow-clip pt-24 pb-24 lg:pt-[126.13px] lg:pb-[96.34px]">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[#00331a]" />
         <div

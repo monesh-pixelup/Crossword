@@ -51,6 +51,8 @@ export function PlatformOverview() {
                 <article
                   key={card.title}
                   data-carousel-card
+                  // Its copy runs long: on phones it widens to match the other cards' height.
+                  data-carousel-fit={last || undefined}
                   className={cn(
                     "relative flex w-[85%] shrink-0 snap-start flex-col items-start gap-6 px-5 md:px-8 lg:px-14",
                     last ? "md:w-[min(768px,100%)] lg:w-[1112px]" : "md:w-[512px] lg:w-[649px]",
