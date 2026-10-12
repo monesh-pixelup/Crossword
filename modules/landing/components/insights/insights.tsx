@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import arrowRight from "../../assets/insights/arrow-right.svg";
 import railAccent from "../../assets/insights/rail-accent.svg";
-import { InsightComposer } from "./insight-composer";
 import { InsightTabs } from "./insight-tabs";
 
 export function Insights() {
@@ -41,9 +40,7 @@ export function Insights() {
           </Link>
         </div>
 
-        <InsightTabs>
-          <InsightComposer />
-        </InsightTabs>
+        <InsightTabs />
       </div>
     </section>
   );

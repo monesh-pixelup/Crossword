@@ -39,6 +39,19 @@ export const dmSans = DM_Sans({
   preload: false,
 });
 
+/**
+ * DM Sans with its optical-size axis, for the motion visuals only: they set
+ * small sizes (9.7–14px) with optical sizing on, as their source build did.
+ * Kept separate so the other sections' DM Sans renders unchanged.
+ */
+export const dmSansOpsz = DM_Sans({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-face-dm-sans-opsz",
+  display: "swap",
+  preload: false,
+});
+
 export const inter = Inter({
   weight: "400",
   subsets: ["latin"],
@@ -70,6 +83,7 @@ export const fontVariables = [
   parisienne.variable,
   geist.variable,
   dmSans.variable,
+  dmSansOpsz.variable,
   inter.variable,
   openSans.variable,
   tangerine.variable,

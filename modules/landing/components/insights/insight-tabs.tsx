@@ -3,9 +3,10 @@
 import { type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { insightFeatures } from "../../config/insights";
+import { InsightPanel, insightVisuals } from "../motion/panels";
 
-/** How long each tab stays open before the tabs advance (matches the Webflow build). */
-const DURATION = 6000;
+/** How long a tab stays open once its visual has played out, before the tabs advance. */
+const HOLD = 3000;
 
 const corners = (
   <>
@@ -40,15 +41,19 @@ const icons: ReactNode[] = [
 ];
 
 /**
- * Insights tabs: the feature list beside the composer mock-up. The active
- * tab's top edge fills over DURATION, then the next tab opens. Runs only
+ * Insights tabs: the feature list beside the open tab's motion visual. The
+ * active tab's top edge fills while its visual plays plus a hold, then the
+ * next tab opens. Visuals start once the tabs are first on screen. Runs only
  * while in view, keeps running on hover, pauses on keyboard focus; no
- * auto-rotation with reduced motion. The mock-up (`children`) is the panel.
+ * auto-rotation with reduced motion.
  */
-export function InsightTabs({ children }: { children: ReactNode }) {
+export function InsightTabs() {
   const id = useId();
   const [current, setCurrent] = useState(0);
+  // Bumped on every switch so re-opening a tab replays its visual.
+  const [run, setRun] = useState(0);
   const [inView, setInView] = useState(false);
+  const [seen, setSeen] = useState(false);
   const [focusPaused, setFocusPaused] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -57,10 +62,22 @@ export function InsightTabs({ children }: { children: ReactNode }) {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.25 });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+        if (entry.isIntersecting) setSeen(true);
+      },
+      { threshold: 0.25 },
+    );
     observer.observe(root);
     return () => observer.disconnect();
   }, []);
+
+  const open = (i: number) => {
+    if (i === current) return;
+    setCurrent(i);
+    setRun((r) => r + 1);
+  };
 
   // Arrow keys move between tabs (roving tabindex), as Webflow's tabs do.
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -68,7 +85,7 @@ export function InsightTabs({ children }: { children: ReactNode }) {
     const target = e.key === "Home" ? 0 : e.key === "End" ? count - 1 : step ? (current + step + count) % count : null;
     if (target === null) return;
     e.preventDefault();
-    setCurrent(target);
+    open(target);
     tabs.current[target]?.focus();
   };
 
@@ -86,7 +103,7 @@ export function InsightTabs({ children }: { children: ReactNode }) {
       }}
     >
       <div role="tabpanel" id={panelId} aria-labelledby={`${id}-tab-${current}`} className="relative aspect-[738/640] w-full overflow-hidden [container-type:size] lg:w-[57.6563%] lg:flex-none">
-        {children}
+        <InsightPanel visual={insightFeatures[current].visual} run={run} play={seen} />
       </div>
 
       <div
@@ -110,7 +127,7 @@ export function InsightTabs({ children }: { children: ReactNode }) {
               aria-selected={on}
               aria-controls={panelId}
               tabIndex={on ? 0 : -1}
-              onClick={() => setCurrent(i)}
+              onClick={() => open(i)}
               className={cn(
                 // Edges are inset shadows: Figma strokes sit inside the box and take no space.
                 // Tabs share edges; the list closes the bottom.
@@ -123,10 +140,10 @@ export function InsightTabs({ children }: { children: ReactNode }) {
                   aria-hidden
                   className="pointer-events-none absolute top-0 left-0 z-1 h-[2px] w-0 animate-[insights-progress_linear_forwards] bg-maroon motion-reduce:w-full motion-reduce:animate-none"
                   style={{
-                    animationDuration: `${DURATION}ms`,
+                    animationDuration: `${insightVisuals[feature.visual].duration + HOLD}ms`,
                     animationPlayState: inView && !focusPaused ? "running" : "paused",
                   }}
-                  onAnimationEnd={() => setCurrent((c) => (c + 1) % count)}
+                  onAnimationEnd={() => open((i + 1) % count)}
                 />
               )}
               <svg
