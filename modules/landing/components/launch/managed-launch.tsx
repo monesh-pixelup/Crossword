@@ -5,6 +5,7 @@ import quoteMark from "../../assets/launch/quote-mark.svg";
 import arrowRight from "../../assets/lifecycle/arrow-right.svg";
 import railAccent from "../../assets/shared/rail-accent.svg";
 import { DividerBand } from "../shared/divider-band";
+import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
 import { LaunchWheel } from "./launch-wheel";
 
@@ -26,8 +27,8 @@ export function ManagedLaunch() {
     <section aria-labelledby="launch-title" className="relative section-pad-band">
       <DividerBand glyph="gear" />
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[128px]">
-        <Image src={railAccent} alt="" className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
-        <Image src={railAccent} alt="" className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
+        <RailAccent src={railAccent} className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
+        <RailAccent src={railAccent} className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
       </div>
 
       <div className="flex content-width flex-col items-center gap-section">

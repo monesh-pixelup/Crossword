@@ -4,21 +4,24 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import arrowRight from "../../assets/insights/arrow-right.svg";
 import railAccent from "../../assets/insights/rail-accent.svg";
 import sharedRailAccent from "../../assets/shared/rail-accent.svg";
+import { RailAccent } from "../shared/rail-accent";
 import { InsightTabs } from "./insight-tabs";
 
 export function Insights() {
   return (
     <section aria-labelledby="insights-title" className="relative section-pad">
-      <Image
+      <RailAccent
         src={railAccent}
-        alt=""
-        aria-hidden
         className="pointer-events-none absolute top-[99px] left-[calc(var(--frame-inset)-0.5px)] max-lg:hidden"
+      />
+      <RailAccent
+        src={railAccent}
+        className="pointer-events-none absolute top-[99px] right-[calc(var(--frame-inset)-0.5px)] max-lg:hidden"
       />
       {/* Stacked, both rails carry the accent, drawn as in Managed launch so the narrow frame stays symmetrical. */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[99px] lg:hidden">
-        <Image src={sharedRailAccent} alt="" className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
-        <Image src={sharedRailAccent} alt="" className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
+        <RailAccent src={sharedRailAccent} className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
+        <RailAccent src={sharedRailAccent} className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
       </div>
 
       <div className="flex content-width flex-col items-start gap-section">

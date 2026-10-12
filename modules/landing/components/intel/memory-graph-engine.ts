@@ -403,7 +403,10 @@ export function startMemoryGraph(root: HTMLElement): () => void {
   function goTo(k: FrameKey) {
     if (k === to && t >= 1) return;
     if (t < 1) {
-      pending = k; // let the running change finish first
+      // Let the running change finish first, but at hover speed: an autoplay change
+      // speeds up from where it is (no jump), so the hovered card follows promptly.
+      pending = k;
+      dur = Math.min(dur, TRANS_HOVER);
       return;
     }
     from = to;

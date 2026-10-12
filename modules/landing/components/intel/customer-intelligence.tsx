@@ -3,17 +3,19 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/cn";
 import { stats } from "../../config/intel";
 import { DividerBand } from "../shared/divider-band";
+import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
 import { MemoryGraph } from "./memory-graph";
 
-/** Gold rail accent on the page frame, centred on the 24px rail line. */
-const frameAccent = "pointer-events-none absolute w-px bg-[#e0be60]";
+/** Gold rail accent on the page frame, centred on the 24px rail line; it grows in as it scrolls into view. */
+const frameAccent = "absolute w-px";
 
 function Stats() {
   return (
     <div className="relative mt-[51px]">
-      {/* Frame accent on the left rail (56px out from the content), level with the dividers' accents. */}
-      <span aria-hidden className={cn(frameAccent, "top-[149px] -left-14 hidden h-[83px] -translate-x-1/2 min-[992px]:block")} />
+      {/* Frame accents on both rails (56px out from the content), level with the dividers' accents. */}
+      <RailAccent className={cn(frameAccent, "top-[149px] -left-14 hidden h-[83px] -translate-x-1/2 min-[992px]:block")} />
+      <RailAccent className={cn(frameAccent, "top-[149px] -right-14 hidden h-[83px] translate-x-1/2 min-[992px]:block")} />
       <ul className="flex flex-col gap-12 min-[992px]:flex-row min-[992px]:gap-5 min-[992px]:px-10">
         {stats.map((stat, i) => (
           <li
@@ -24,7 +26,7 @@ function Stats() {
                 "border-t-[0.5px] border-[#d2cbba] pt-12 min-[992px]:border-t-0 min-[992px]:border-l-[0.5px] min-[992px]:pt-0 min-[992px]:pl-16",
             )}
           >
-            {i > 0 && <span aria-hidden className={cn(frameAccent, "top-[149px] left-0 hidden h-[83px] -translate-x-1/2 min-[992px]:block")} />}
+            {i > 0 && <RailAccent className={cn(frameAccent, "top-[149px] left-0 hidden h-[83px] -translate-x-1/2 min-[992px]:block")} />}
             <span className="font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] text-black/60">
               {String(i + 1).padStart(2, "0")}
             </span>
@@ -51,8 +53,8 @@ export function CustomerIntelligence() {
     <section aria-labelledby="intel-title" className="relative section-pad-band">
       <DividerBand glyph="book" />
       <div aria-hidden>
-        <span className={cn(frameAccent, "top-[124px] left-(--frame-inset) h-[325px] -translate-x-1/2")} />
-        <span className={cn(frameAccent, "top-[124px] right-(--frame-inset) h-[325px] translate-x-1/2")} />
+        <RailAccent className={cn(frameAccent, "top-[124px] left-(--frame-inset) h-[325px] -translate-x-1/2")} />
+        <RailAccent className={cn(frameAccent, "top-[124px] right-(--frame-inset) h-[325px] translate-x-1/2")} />
       </div>
 
       <div className="flex content-width flex-col items-stretch">

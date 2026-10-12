@@ -24,10 +24,10 @@ export const KEY: Record<CardState, FrameKey> = { memory: "m", signal: "s", deci
 export const HOLD = 3600;
 /** ms of a full state change on autoplay. */
 export const TRANS = 1450;
-/** ms of a state change asked for by hover or tap. */
-export const TRANS_HOVER = 650;
+/** ms of a state change asked for by hover or tap: quick, so the card answers the cursor. */
+export const TRANS_HOVER = 450;
 /** A hovered block opens its card once the cursor rests on it this long. */
-export const INTENT = 90;
+export const INTENT = 60;
 
 /** [x, y, w, h] */
 export type Rect = [number, number, number, number];

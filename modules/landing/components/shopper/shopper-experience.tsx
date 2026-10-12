@@ -4,6 +4,7 @@ import stud from "../../assets/shopper/panel-stud.svg";
 import panelTexture from "../../assets/shopper/panel-texture.webp";
 import railAccent from "../../assets/shared/rail-accent.svg";
 import { DividerBand } from "../shared/divider-band";
+import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
 import { StorefrontMockup } from "./storefront-mockup";
 
@@ -46,18 +47,14 @@ export function ShopperExperience() {
   return (
     <section aria-labelledby="shopper-title" className="relative section-pad-band">
       <DividerBand glyph="chart" />
-      <Image
+      <RailAccent
         src={railAccent}
-        alt=""
-        aria-hidden
         className="pointer-events-none absolute top-[122px] left-[calc(var(--frame-inset)-0.5px)]"
       />
-      {/* Stacked, the right rail carries the accent too, so the narrow frame stays symmetrical. */}
-      <Image
+      {/* The right rail carries the accent too, so the frame stays symmetrical. */}
+      <RailAccent
         src={railAccent}
-        alt=""
-        aria-hidden
-        className="pointer-events-none absolute top-[122px] right-[calc(var(--frame-inset)-0.5px)] lg:hidden"
+        className="pointer-events-none absolute top-[122px] right-[calc(var(--frame-inset)-0.5px)]"
       />
 
       <div className="flex content-width flex-col items-start gap-section">

@@ -1,9 +1,10 @@
-import Image, { getImageProps, type StaticImageData } from "next/image";
+import { getImageProps, type StaticImageData } from "next/image";
 import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
 import flourishLeft from "../../assets/hero/decor/flourish-left.png";
 import flourishRight from "../../assets/hero/decor/flourish-right.png";
 import railAccent from "../../assets/hero/decor/rail-accent.svg";
+import { RailAccent } from "../shared/rail-accent";
 import { HeroShowcase } from "./showcase/hero-showcase";
 import { TrustedBy } from "./trusted-by";
 
@@ -82,8 +83,8 @@ export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative pt-28 pb-[124px] md:pt-[147.5px] lg:pt-[99.5px]">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[110.5px]">
-        <Image src={railAccent} alt="" className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
-        <Image src={railAccent} alt="" className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
+        <RailAccent src={railAccent} className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
+        <RailAccent src={railAccent} className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
       </div>
       <Flourish side="left" />
       <Flourish side="right" />

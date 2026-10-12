@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "../../assets/shared/rail-accent.svg";
+import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
 import { TestimonialCarousel } from "./testimonial-carousel";
 
@@ -8,8 +8,8 @@ export function Testimonials() {
   return (
     <section aria-labelledby="testimonials-title" className="relative section-pad">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[98px]">
-        <Image src={railAccent} alt="" className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
-        <Image src={railAccent} alt="" className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
+        <RailAccent src={railAccent} className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
+        <RailAccent src={railAccent} className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
       </div>
 
       <div className="flex flex-col items-stretch gap-section">
