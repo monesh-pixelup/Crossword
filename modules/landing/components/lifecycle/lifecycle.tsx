@@ -16,19 +16,21 @@ export function Lifecycle() {
         className="pointer-events-none absolute top-[482px] left-[calc(var(--frame-inset)-0.5px)]"
       />
 
-      <div className="flex content-width flex-col items-start gap-section">
-        <div className="flex flex-col items-start gap-6">
-          <Eyebrow>Customer lifecycle</Eyebrow>
-          <SectionTitle
-            id="lifecycle-title"
-            initial="E"
-            firstLine="very conversation"
-            secondLine={<span className="font-light">has a job to do</span>}
-            width={483.867}
-          />
-        </div>
-
-        <LifecycleTabs />
+      <div className="content-width">
+        <LifecycleTabs
+          heading={
+            <div className="flex flex-col items-start gap-6">
+              <Eyebrow>Customer lifecycle</Eyebrow>
+              <SectionTitle
+                id="lifecycle-title"
+                initial="E"
+                firstLine="very conversation"
+                secondLine={<span className="font-light">has a job to do</span>}
+                width={483.867}
+              />
+            </div>
+          }
+        />
       </div>
     </section>
   );
