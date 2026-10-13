@@ -25,7 +25,7 @@ export const primaryNav: NavItem[] = [
   { label: "Retain", href: "/retain", hasMenu: true },
   { label: "Managed Launch", href: "/managed-launch" },
   { label: "Insights", href: "#insights", hasMenu: true },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Pricing", href: "/pricing" },
 ];
 
 export const ctaLinks = {
@@ -45,7 +45,7 @@ export type FooterLink = {
 // TODO: point these at real routes as the pages get built.
 export const footerCompanyLinks: FooterLink[] = [
   { label: "Managed Launch", href: "/managed-launch" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "#blog" },
   { label: "Book a Demo", href: ctaLinks.bookDemo },
   { label: "Privacy", href: "#privacy" },
