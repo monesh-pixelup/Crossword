@@ -24,7 +24,6 @@ export const primaryNav: NavItem[] = [
   { label: "Support", href: "/support" },
   { label: "Retain", href: "/retain" },
   { label: "Managed Launch", href: "/managed-launch" },
-  { label: "Insights", href: "#insights" },
   { label: "Pricing", href: "/pricing" },
 ];
 
@@ -63,6 +62,5 @@ export const footerPlatformGroups: FooterLink[][] = [
   [
     { label: "Retain" },
     { label: "Support", href: "/support" },
-    { label: "Insights", href: "#insights" },
   ],
 ];

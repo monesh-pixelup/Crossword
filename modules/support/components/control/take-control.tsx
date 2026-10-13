@@ -13,7 +13,7 @@ export function TakeControl() {
   return (
     <section aria-labelledby="control-title" className="relative px-(--frame-inset) pt-(--frame-inset)">
       <div className="bg-sand py-16 shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] md:py-20">
-        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] max-w-[1280px] flex-col gap-12 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:justify-between min-[1200px]:gap-16">
+        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col gap-12 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:justify-between min-[1200px]:gap-16">
           <div className="flex flex-col items-start gap-6 min-[1200px]:max-w-[480px]">
             <Eyebrow surface="sand">Complete control</Eyebrow>
             <SectionTitle id="control-title" initial="T" firstLine="ake control," secondLine="whenever you like" width={480} />

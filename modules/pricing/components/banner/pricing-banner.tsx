@@ -7,15 +7,15 @@ import { ctaLinks } from "@/modules/marketing";
 
 /**
  * Layout/Livery, CTA banner variant (Figma “Let the concierge take the desk”, the kit's `.wk-cta`):
- * the maroon scroll damask set 14px in, with the home page's notched gold frame (curved corners, no
- * studs), as on the featured plan; a centred Dark eyebrow and cream swash headline, then the stamp
- * button beside a light text link. 96px above and below, as the kit's banner.
+ * the home page's maroon card: the scroll damask set 14px in, the deep 46px notched gold corners and
+ * a ring in each, as on the other banners; a centred Dark eyebrow and cream swash headline, then
+ * the stamp button beside a light text link. 96px above and below, as the kit's banner.
  */
 export function PricingBanner() {
   return (
     <section aria-labelledby="pricing-cta-title" className="relative pb-16 md:pb-24">
       <div className="content-width">
-        <NotchedPanel tone="scroll" inset={14} radius={24} className="flex flex-col items-center gap-7 px-6 py-16 text-center md:px-20 md:py-24">
+        <NotchedPanel tone="scroll" inset={14} radius={46} rings className="flex flex-col items-center gap-7 px-6 py-16 text-center md:px-20 md:py-24">
           <Eyebrow surface="green" className="relative">
             Pricing
           </Eyebrow>
