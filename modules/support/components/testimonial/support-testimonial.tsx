@@ -2,15 +2,15 @@ import Image from "next/image";
 import { Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
 import markClose from "@/modules/landing/assets/testimonials/mark-close.svg";
 import markOpen from "@/modules/landing/assets/testimonials/mark-open.svg";
-import { supportTestimonial } from "../../config/testimonial";
+import { type Testimonial, supportTestimonial } from "../../config/testimonial";
 
 /**
- * One client quote on a studded sand card (the testimonial card's ground and hairline): the
- * result as a serif pull quote between the quote marks, and the longer quote with its attribution
- * beside it, split by a hairline.
+ * One client quote (Support's by default; Retain passes its own) on a studded sand card (the
+ * testimonial card's ground and hairline): the result as a serif pull quote between the quote
+ * marks, and the longer quote with its attribution beside it, split by a hairline.
  */
-export function SupportTestimonial() {
-  const t = supportTestimonial;
+export function SupportTestimonial({ testimonial }: { testimonial?: Testimonial }) {
+  const t = testimonial ?? supportTestimonial;
 
   return (
     <section aria-label="Client testimonial" className="relative pb-(--section-pad)">
