@@ -23,6 +23,24 @@
   --color-sand: #f3e9d4;
   --color-rose-line: #cfb8bb;
 
+  /* Brand guidelines (crossword-brand-guidelines.vercel.app, brand.md §5): livery, surfaces, text and lines */
+  --color-forest: #00331a;
+  --color-forest-deep: #002916;
+  --color-forest-light: #004c27;
+  --color-aubergine: #462160;
+  --color-night: #0e0501;
+  --color-amber: #ffb657;
+  --color-success: #2f6b3f;
+  --color-linen: #efe9db;
+  --color-card: #fbf2df;
+  --color-stage: #fdf6e6;
+  --color-ink-soft: #33322f;
+  --color-ink-muted: #66645e;
+  --color-label-olive: #766640;
+  --color-on-dark: #dfe3d2;
+  --color-rail: #d2cbba;
+  --color-engraved: #b7ae9a;
+
   /*
    * Breakpoints follow the Webflow build: tablet ≤991px, mobile landscape
    * ≤767px, mobile portrait ≤479px. So lg: is 992px, md: 768px and xs: 480px.
@@ -157,6 +175,18 @@
  */
 @utility scale-to-container {
   zoom: tan(atan2(100cqw, var(--fit-width)));
+}
+
+/* Dynamic landing pages: a mock-up component settling in as its tab is chosen. */
+@keyframes dlp-fade {
+  from {
+    opacity: 0;
+    translate: 0 4px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
 /* Tab progress (Insights, Sell triggers): fills the active tab's top edge, then the tabs advance. */

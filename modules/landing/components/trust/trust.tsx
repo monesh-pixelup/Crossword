@@ -64,7 +64,7 @@ function Certifications() {
 /** Security & compliance band: dark green, full-bleed. */
 export function Trust() {
   return (
-    <section aria-labelledby="trust-title" className="relative bg-[#00331a] py-12 md:py-16 lg:py-[87px] min-[1440px]:py-[6.04vw]">
+    <section aria-labelledby="trust-title" className="relative bg-[#00331a] py-12 md:py-16 lg:py-[87px] min-[1440px]:py-[6.04cqw]">
       {/*
         Card: at least 626px tall with its content centred; padding steps down per breakpoint.
         Past the 1440px Figma frame it keeps Figma's 1280 x 626 proportions (and the band's padding
@@ -81,7 +81,7 @@ export function Trust() {
         </div>
         <Guides />
 
-        <div className="relative flex w-full max-w-[1030px] flex-col items-start gap-12 md:gap-16 lg:gap-[120px] min-[1440px]:gap-[8.333vw]">
+        <div className="relative flex w-full max-w-[1030px] flex-col items-start gap-12 md:gap-16 lg:gap-[120px] min-[1440px]:gap-[8.333cqw]">
           <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:gap-[190px]">
             {/*
               Figma sets both lines at exactly 50px. Browsers grow line 1 to fit the

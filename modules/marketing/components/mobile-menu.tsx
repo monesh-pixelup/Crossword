@@ -105,6 +105,21 @@ export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
                   {item.label}
                   {item.hasMenu && <Image src={caretDown} alt="" className="size-3.5" />}
                 </Link>
+                {item.children && (
+                  <ul className="mt-3 flex flex-col gap-3 border-l-[0.5px] border-[#b7ae9a] pl-4">
+                    {item.children.map((child) => (
+                      <li key={child.label}>
+                        <Link
+                          href={child.href}
+                          onClick={() => setOpen(false)}
+                          className={`transition-colors hover:text-maroon ${navText.replace("text-black/80", "text-black/60")}`}
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
             <li {...stagger(open, primaryNav.length)}>

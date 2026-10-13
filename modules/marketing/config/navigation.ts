@@ -1,14 +1,27 @@
+/** A dropdown entry; `description` is the Geist 14 line under its title (brand guidelines 11.5). */
+export type NavLink = { label: string; href: string; description?: string };
+
 export type NavItem = {
   label: string;
   href: string;
-  /** Renders a caret; the dropdown menu is wired up once it's designed. */
+  /** Renders a caret; with `children` it opens a dropdown of those pages. */
   hasMenu?: boolean;
+  children?: NavLink[];
 };
 
 // TODO: point these at real routes as the pages get built.
 export const primaryNav: NavItem[] = [
-  { label: "Sell", href: "/sell", hasMenu: true },
-  { label: "Support", href: "#support", hasMenu: true },
+  {
+    label: "Sell",
+    href: "/sell",
+    hasMenu: true,
+    children: [
+      { label: "Conversational Interface", href: "/sell", description: "Guides every shopper to the right product" },
+      { label: "Dynamic Landing Pages", href: "/dynamic-landing-pages", description: "Pages built around the ad and the shopper" },
+      { label: "Search Bar", href: "#search-bar", description: "Answers, right in your search" },
+    ],
+  },
+  { label: "Support", href: "/support", hasMenu: true },
   { label: "Retain", href: "#retain", hasMenu: true },
   { label: "Managed Launch", href: "#managed-launch" },
   { label: "Insights", href: "#insights", hasMenu: true },
@@ -43,13 +56,13 @@ export const footerCompanyLinks: FooterLink[] = [
 export const footerPlatformGroups: FooterLink[][] = [
   [
     { label: "Sell", muted: true },
-    { label: "Conversational Interface", href: "#conversational-interface" },
-    { label: "Dynamic Landing Pages", href: "#dynamic-landing-page" },
+    { label: "Conversational Interface", href: "/sell" },
+    { label: "Dynamic Landing Pages", href: "/dynamic-landing-pages" },
     { label: "Search Bar", href: "#search-bar" },
   ],
   [
     { label: "Retain" },
-    { label: "Support", href: "#support" },
+    { label: "Support", href: "/support" },
     { label: "Insights", href: "#insights" },
   ],
 ];

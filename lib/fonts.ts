@@ -15,9 +15,9 @@ export const crimsonPro = Crimson_Pro({
 
 /**
  * Parisienne only renders the swash capitals that open each headline, so we
- * ship a ~3KB subset instead of the 24KB latin file. Add a letter by
+ * ship a ~6KB subset instead of the 24KB latin file. Add a letter by
  * re-downloading fonts.googleapis.com/css2?family=Parisienne&text=<LETTERS>.
- * Current letters: A, C, E, G, N, O, S, T, W, Y.
+ * Current letters: A, C, D, E, G, H, M, N, O, R, S, T, W, Y, plus the digits 0-9 for numerals.
  */
 export const parisienne = localFont({
   src: "./fonts/parisienne-swash.woff2",
