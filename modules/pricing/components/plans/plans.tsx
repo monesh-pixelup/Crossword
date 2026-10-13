@@ -1,7 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { cn } from "@/lib/cn";
-import { GiltPanel, Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
+import { NotchedPanel, Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
 import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing";
@@ -77,12 +77,13 @@ function PlanBody({ plan }: { plan: Plan }) {
  * band that closes the page header: a centred eyebrow, swash headline and copy, then where Figma
  * has the billing toggle (the doc prices in credits, not by month or year) the doc's three “no
  * fees” in the toggle's engraved frame, split by hairlines and none of them selected, then the three plans: cream, the featured one on the
- * maroon scroll damask in its gilt frame, and sand, each studded, 24px apart.
+ * maroon scroll damask in the home page's notched gold frame (curved corners), and sand, each studded, 24px apart.
  */
 export function Plans() {
   return (
     <section aria-labelledby="plans-title" className="relative section-pad-band">
-      <DividerBand glyph="chart" />
+      {/* The band that closes the page header, plain (no badge). */}
+      <DividerBand glyph="chart" badge={false} />
 
       <div className="flex content-width flex-col items-center gap-section">
         <div className="flex flex-col items-center gap-10 text-center">
@@ -121,9 +122,9 @@ export function Plans() {
           {plans.map((plan) => (
             <li key={plan.name} className="flex">
               {plan.tone === "featured" ? (
-                <GiltPanel tone="scroll" inset={10} className="flex w-full flex-col gap-7 p-7 shadow-[inset_0_0_0_1px_var(--color-gold)] xs:p-10">
+                <NotchedPanel tone="scroll" inset={12} radius={18} className="flex w-full flex-col gap-7 p-7 xs:p-10">
                   <PlanBody plan={plan} />
-                </GiltPanel>
+                </NotchedPanel>
               ) : (
                 <div
                   className={cn(

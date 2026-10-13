@@ -11,7 +11,7 @@ export function RoasGap() {
   return (
     <section aria-labelledby="gap-title" className="relative px-(--frame-inset) pt-(--frame-inset)">
       <div className="bg-sand py-16 shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] md:py-20">
-        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] max-w-[1280px] flex-col gap-14 lg:gap-20">
+        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col gap-14 lg:gap-20">
           <div className="flex flex-col items-start gap-6">
             <Eyebrow surface="sand">The ROAS gap</Eyebrow>
             <SectionTitle

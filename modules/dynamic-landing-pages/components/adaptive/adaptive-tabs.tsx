@@ -11,8 +11,8 @@ const DURATION_MS = 6000;
 /**
  * Layout/Showcase, Stage + triggers variant, set to the guidelines' web kit (`.wk-st`): a sand
  * stage on 0.5px engraved hairlines holding the product-page mock-up, over a row of feature tabs
- * split by the same hairline (Crimson 20 titles; the active tab on sand, the rest at 50%, full on
- * hover). The tabs take turns on a timer, a 2px gold bar filling across the active tab's top edge,
+ * split by the same hairline (Crimson 20 titles, every tab on the stage's sand; the active one at
+ * full strength with the progress bar, the rest at 50%, full on hover). The tabs take turns on a timer, a 2px gold bar filling across the active tab's top edge,
  * then the next takes over (looping); choosing a tab restarts it.
  *
  * As the guidelines ask (P1, P7, 11.6), the cycle pauses off screen, while a mouse is over the tab
@@ -25,7 +25,6 @@ export function AdaptiveTabs() {
   // Bumped on every selection so the bar's animation restarts even on the same tab.
   const [run, setRun] = useState(0);
   const [visible, setVisible] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const [keyboardFocus, setKeyboardFocus] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -58,7 +57,9 @@ export function AdaptiveTabs() {
     tabs.current[next]?.focus();
   };
 
-  const running = visible && !hovered && !keyboardFocus;
+  // Hover is left to CSS (group-hover below): :hover stays right while the page scrolls under a
+  // still pointer, where pointerleave often doesn't fire, which used to leave the bar paused.
+  const running = visible && !keyboardFocus;
 
   return (
     <div ref={root} className="flex w-full flex-col">
@@ -77,11 +78,9 @@ export function AdaptiveTabs() {
         role="tablist"
         aria-label="Adaptive product page components"
         onKeyDown={onKeyDown}
-        onPointerEnter={(e) => e.pointerType === "mouse" && setHovered(true)}
-        onPointerLeave={() => setHovered(false)}
         onFocus={(e) => setKeyboardFocus(e.target.matches(":focus-visible"))}
         onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setKeyboardFocus(false)}
-        className="relative grid w-full before:pointer-events-none before:absolute before:inset-0 before:z-2 before:shadow-[inset_0.5px_0.5px_0_var(--color-engraved)] md:grid-cols-2 lg:grid-cols-4"
+        className="group/tabs relative grid w-full before:pointer-events-none before:absolute before:inset-0 before:z-2 before:shadow-[inset_0.5px_0.5px_0_var(--color-engraved)] md:grid-cols-2 lg:grid-cols-4"
       >
         {adaptiveFeatures.map((feature, i) => {
           const selected = i === active;
@@ -99,8 +98,7 @@ export function AdaptiveTabs() {
               tabIndex={selected ? 0 : -1}
               onClick={() => select(i)}
               className={cn(
-                "group relative flex cursor-pointer flex-col items-start gap-3 px-6 py-8 text-left transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] after:pointer-events-none after:absolute after:inset-0 after:shadow-[inset_-0.5px_-0.5px_0_var(--color-engraved)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:p-10",
-                selected ? "bg-sand" : "hover:bg-sand/50",
+                "group relative flex cursor-pointer flex-col items-start gap-3 bg-sand px-6 py-8 text-left transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] after:pointer-events-none after:absolute after:inset-0 after:shadow-[inset_-0.5px_-0.5px_0_var(--color-engraved)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:p-10",
               )}
             >
               <span
@@ -123,9 +121,10 @@ export function AdaptiveTabs() {
                 <span
                   key={run}
                   aria-hidden
+                  data-paused={!running || undefined}
                   onAnimationEnd={() => select(active === adaptiveFeatures.length - 1 ? 0 : active + 1)}
-                  className="pointer-events-none absolute top-0 left-0 z-3 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold motion-reduce:w-full motion-reduce:animate-none"
-                  style={{ animationDuration: `${DURATION_MS}ms`, animationPlayState: running ? "running" : "paused" }}
+                  className="pointer-events-none absolute top-0 left-0 z-3 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold group-hover/tabs:[animation-play-state:paused] data-paused:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none"
+                  style={{ animationDuration: `${DURATION_MS}ms` }}
                 />
               )}
             </button>

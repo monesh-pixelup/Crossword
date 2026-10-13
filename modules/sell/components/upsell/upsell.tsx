@@ -22,27 +22,28 @@ const dashedV = "w-px bg-[repeating-linear-gradient(180deg,#1d4324_0_2px,transpa
 
 /**
  * Four features between dashed rules that overshoot the row by 36.26px a side, on a band 6% darker.
- * From 992px five dashed verticals (1288 × 313.5px in Figma, 322px apart at the 1245px row) frame
- * the columns, overshooting the block 22.26px above and 21.26px below.
+ * From 992px five dashed verticals (322px apart at the 1245px row, as in Figma) frame the columns,
+ * overshooting the rules 22.26px above and 21.26px below.
+ *
+ * Everything follows the content rather than fixed Figma heights: the band runs between the two
+ * rules, the columns are 43px apart, and each column draws the vertical in the middle of the gap
+ * on its left (the last one also on its right), so the verticals, the band's ends and the columns
+ * stay lined up whatever the copy's length.
  */
 function Features() {
   return (
     <div className="relative flex w-full flex-col gap-10">
-      <div aria-hidden className="pointer-events-none absolute top-[0.67px] -right-[21px] -left-[22.5px] h-[268.97px] bg-black/6 max-lg:hidden" />
-      <div aria-hidden className="pointer-events-none max-lg:hidden">
-        {[0, 1, 2, 3, 4].map((i) => (
-          <span
-            key={i}
-            className={`absolute -top-[22.26px] h-[313.51px] ${dashedV}`}
-            style={{ left: `calc(-21.5px + ${i} * (100% + 43px) / 4)` }}
-          />
-        ))}
-      </div>
+      <div aria-hidden className="pointer-events-none absolute inset-y-px -right-[21.5px] -left-[21.5px] bg-black/6 max-lg:hidden" />
 
       <div aria-hidden className={`relative -mx-[36.26px] ${dashedH}`} />
-      <ul className="relative grid w-full grid-cols-1 gap-x-[35px] gap-y-12 md:grid-cols-2 lg:grid-cols-4">
-        {upsellFeatures.map((feature) => (
-          <li key={feature.title} className="flex flex-col items-start gap-10 lg:gap-20">
+      <ul className="relative grid w-full grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-[43px] lg:grid-cols-4">
+        {upsellFeatures.map((feature, i) => (
+          <li key={feature.title} className="relative flex flex-col items-start gap-10 lg:gap-20">
+            {/* From the top rule's overshoot (40px gap + 1px rule + 22.26px) to the bottom one's (21.26px). */}
+            <span aria-hidden className={`pointer-events-none absolute -top-[63.26px] -bottom-[62.26px] -left-[21.5px] max-lg:hidden ${dashedV}`} />
+            {i === upsellFeatures.length - 1 && (
+              <span aria-hidden className={`pointer-events-none absolute -top-[63.26px] -right-[21.5px] -bottom-[62.26px] max-lg:hidden ${dashedV}`} />
+            )}
             <Image src={feature.icon} alt="" className="size-6" />
             <div className="flex flex-col items-start gap-3 font-light">
               <h3 className="font-serif text-[24px] leading-[1.1] tracking-[-0.96px] text-white">{feature.title}</h3>

@@ -11,7 +11,7 @@ const tones = {
 
 type TextLinkProps = ComponentProps<typeof Link> & {
   tone?: keyof typeof tones;
-  /** Draw the hairline under the label (off for the Two ways step links). */
+  /** Draw the hairline under the label (on by default). */
   underline?: boolean;
 };
 

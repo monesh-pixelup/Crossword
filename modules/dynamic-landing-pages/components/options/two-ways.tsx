@@ -67,7 +67,7 @@ export function TwoWays() {
                 <div className="flex flex-col items-start gap-3 md:pt-6">
                   <h3 className="font-sans text-base leading-[1.3] font-medium tracking-[-0.02em] text-cream">{option.title}</h3>
                   <p className="font-sans text-base leading-6 tracking-[-0.02em] text-on-dark/75">{option.description}</p>
-                  <TextLink href={option.href} tone="cream" underline={false} className="mt-3">
+                  <TextLink href={option.href} tone="cream" className="mt-3">
                     See how it works
                   </TextLink>
                 </div>

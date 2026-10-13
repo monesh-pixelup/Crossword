@@ -19,24 +19,26 @@ const glyphs = {
 
 /**
  * Patterned separator across the top of a section, between the page rails,
- * with a notched badge in the middle. It is 24px tall; sections that open
- * with it add 24px to their top padding.
+ * with a notched badge in the middle (`badge={false}` leaves the band plain, as under the Pricing
+ * header). It is 24px tall; sections that open with it add 24px to their top padding.
  */
-export function DividerBand({ glyph }: { glyph: keyof typeof glyphs }) {
+export function DividerBand({ glyph, badge = true }: { glyph: keyof typeof glyphs; badge?: boolean }) {
   return (
     <div
       aria-hidden
       className="pointer-events-none absolute inset-x-(--frame-inset) top-0 h-6 bg-[#fef8ea] bg-size-[27.78px_25.44px] bg-top-left bg-repeat shadow-[inset_0_0_0_0.5px_#d2cbba]"
       style={{ backgroundImage: `url(${tile.src})` }}
     >
-      <div
-        className="absolute top-1/2 left-1/2 z-2 h-[74.94px] w-[74px] -translate-x-1/2 -translate-y-1/2 bg-size-[100%_100%] bg-center bg-no-repeat leading-0"
-        style={{ backgroundImage: `url(${badgeFrame.src})` }}
-      >
-        <svg viewBox="0 0 74 74.95" fill="none" className="size-full">
-          <path d={glyphs[glyph]} fill="#E0BE60" stroke="#6C2332" strokeWidth={glyph === "quill" ? 0.5 : 0.47} />
-        </svg>
-      </div>
+      {badge && (
+        <div
+          className="absolute top-1/2 left-1/2 z-2 h-[74.94px] w-[74px] -translate-x-1/2 -translate-y-1/2 bg-size-[100%_100%] bg-center bg-no-repeat leading-0"
+          style={{ backgroundImage: `url(${badgeFrame.src})` }}
+        >
+          <svg viewBox="0 0 74 74.95" fill="none" className="size-full">
+            <path d={glyphs[glyph]} fill="#E0BE60" stroke="#6C2332" strokeWidth={glyph === "quill" ? 0.5 : 0.47} />
+          </svg>
+        </div>
+      )}
     </div>
   );
 }

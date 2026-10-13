@@ -2,17 +2,18 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing";
-import { GiltPanel } from "../shared/livery";
+import { NotchedPanel } from "../shared/livery";
 
 /**
- * Layout/Livery, CTA banner variant: the brand's maroon scroll damask inside the gilt frame (14px in, studs
- * 8px in) with a centred Dark eyebrow, cream swash headline, one line of copy and the stamp button.
+ * Layout/Livery, CTA banner variant: the home page's maroon card (the scroll damask 14px in, deep
+ * 46px notched gold corners and a ring in each) with a centred Dark eyebrow, cream swash headline,
+ * one line of copy and the stamp button.
  */
 export function CtaBanner() {
   return (
     <section aria-labelledby="dlp-cta-title" className="relative py-16 md:py-24">
       <div className="content-width">
-        <GiltPanel tone="scroll" inset={14} className="flex flex-col items-center gap-7 px-6 py-16 text-center md:px-20 md:py-24">
+        <NotchedPanel tone="scroll" inset={14} radius={46} rings className="flex flex-col items-center gap-7 px-6 py-16 text-center md:px-20 md:py-24">
           <Eyebrow surface="green" className="relative">
             Dynamic landing pages
           </Eyebrow>
@@ -35,7 +36,7 @@ export function CtaBanner() {
           <StampButton href={ctaLinks.bookDemo} variant="primary" className="relative mt-1 focus-visible:outline-gold">
             BOOK A DEMO
           </StampButton>
-        </GiltPanel>
+        </NotchedPanel>
       </div>
     </section>
   );

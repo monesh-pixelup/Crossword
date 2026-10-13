@@ -1,5 +1,4 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { SectionTick } from "../shared/section-tick";
 import { SignalList } from "./signal-list";
@@ -9,16 +8,19 @@ const body = "max-w-[520px] font-sans text-base leading-6 tracking-[-0.32px] tex
 /** User-level personalization: the stranger problem, and what changes once the page knows the shopper. */
 export function Personalization() {
   return (
-    <section aria-labelledby="stranger-title" className="relative section-pad-band">
-      <DividerBand glyph="book" />
+    <section aria-labelledby="stranger-title" className="relative section-pad">
       <SectionTick />
 
       <div className="content-width">
         <SignalList
-          header={
+          intro={
             <div className="flex flex-col items-start gap-6">
               <Eyebrow>User-level personalization</Eyebrow>
               <SectionTitle id="stranger-title" initial="T" firstLine="he stranger problem" secondLine={null} width={470} />
+            </div>
+          }
+          header={
+            <div className="flex flex-col items-start gap-6">
               <p className={body}>
                 A customer who&rsquo;s bought from you three times, has told you their size, and has told you their
                 color preference sees exactly the same product page as someone who arrived ten seconds ago. That&rsquo;s

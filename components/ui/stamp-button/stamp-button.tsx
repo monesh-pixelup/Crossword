@@ -57,7 +57,7 @@ export function StampButton({
   return (
     <Link
       className={cn(
-        "relative inline-flex shrink-0 items-center border px-3 py-2 font-serif text-base leading-[22px] font-medium tracking-[-0.48px] whitespace-nowrap transition-[filter] duration-200 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon",
+        "relative inline-flex shrink-0 items-center border px-3 py-2 font-serif text-base leading-[22px] font-medium tracking-[-0.48px] whitespace-nowrap transition-[filter,background-color,border-color,color] duration-200 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon",
         frame,
         className,
       )}

@@ -2,7 +2,6 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/cn";
 import { LiveryGround } from "@/modules/dynamic-landing-pages/components/shared/livery";
 import { SectionTick } from "@/modules/dynamic-landing-pages/components/shared/section-tick";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { type ChannelIcon, channels } from "../../config/channels";
 
@@ -36,8 +35,7 @@ function Glyph({ icon }: { icon: ChannelIcon }) {
  */
 export function SupportChannels() {
   return (
-    <section aria-labelledby="channels-title" className="relative section-pad-band">
-      <DividerBand glyph="book" />
+    <section aria-labelledby="channels-title" className="relative section-pad">
       <SectionTick />
 
       <div className="flex content-width flex-col gap-section">

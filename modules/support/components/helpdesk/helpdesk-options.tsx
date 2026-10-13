@@ -1,7 +1,6 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { GiltPanel, Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
+import { NotchedPanel, Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
 import { SectionTick } from "@/modules/dynamic-landing-pages/components/shared/section-tick";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { helpdeskIntegrations, helpdeskThread } from "../../config/helpdesk";
 import { InboxMock } from "./inbox-mock";
@@ -11,17 +10,17 @@ const title = "font-serif text-(length:--h6-size) leading-[1.2] font-light track
 const body = "max-w-[480px] font-sans text-base leading-6 tracking-[-0.02em]";
 
 /**
- * The two helpdesk options side by side: Crossword’s own desk on a maroon damask panel (the
- * guidelines’ scroll damask) with its inbox, and the integration on a studded cream card with the
- * helpdesks as tiles, set like the web kit’s integrations grid (`.wk-int`: 1px engraved tiles,
- * every other one sand, Crimson 20 names). On wide screens the two panels share a height.
+ * The two helpdesk options side by side: Crossword’s own desk on the home page’s maroon card (the
+ * scroll damask in the notched gold frame, with its corner rings) with its inbox, and the
+ * integration on a studded cream card with the helpdesks as tiles, set like the web kit’s
+ * integrations grid (`.wk-int`: 1px engraved tiles, every other one sand, Crimson 20 names). On
+ * wide screens the two panels share a height.
  */
 export function HelpdeskOptions() {
   const [ask, answer] = helpdeskThread;
 
   return (
-    <section aria-labelledby="helpdesk-title" className="relative section-pad-band">
-      <DividerBand glyph="gear" />
+    <section aria-labelledby="helpdesk-title" className="relative section-pad">
       <SectionTick />
 
       <div className="flex content-width flex-col gap-section">
@@ -37,7 +36,8 @@ export function HelpdeskOptions() {
         </div>
 
         <div className="grid w-full gap-6 lg:grid-cols-2">
-          <GiltPanel tone="scroll" className="flex flex-col gap-8 p-8 md:p-12">
+          {/* The home page's maroon card: scroll damask 14px in, deep notched gold corners and a ring in each. */}
+          <NotchedPanel tone="scroll" inset={14} radius={46} rings className="flex flex-col gap-8 p-12 md:p-14">
             <div className="relative flex flex-col items-start gap-4">
               <p className={`${tag} text-gold`}>Crossword helpdesk</p>
               <h3 className={`${title} text-cream`}>A free help desk, with unlimited seats</h3>
@@ -53,7 +53,7 @@ export function HelpdeskOptions() {
               <InboxMock />
               <figcaption className="font-sans text-[14px] leading-5 tracking-[-0.02em] text-on-dark">{answer.text}</figcaption>
             </figure>
-          </GiltPanel>
+          </NotchedPanel>
 
           <div className="relative flex flex-col gap-8 bg-cream p-8 shadow-[inset_0_0_0_1px_var(--color-engraved)] md:p-12">
             <Studs inset={7} />

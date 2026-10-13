@@ -1,19 +1,19 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
-import { GiltPanel } from "@/modules/dynamic-landing-pages/components/shared/livery";
+import { NotchedPanel } from "@/modules/dynamic-landing-pages/components/shared/livery";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing";
 
 /**
  * Layout/Livery, CTA banner variant (as on the other product pages): the guidelines' maroon scroll
- * damask inside the gilt frame with a centred Dark eyebrow, cream swash headline, the doc's
- * question and the pilot button.
+ * damask set 14px in, with the home page's notched gold frame (curved corners, no studs), and a
+ * centred Dark eyebrow, cream swash headline, the doc's question and the pilot button.
  */
 export function LaunchBanner() {
   return (
     <section aria-labelledby="launch-cta-title" className="relative pb-16 md:pb-24">
       <div className="content-width">
-        <GiltPanel tone="scroll" inset={14} className="flex flex-col items-center gap-7 px-6 py-16 text-center md:px-20 md:py-24">
+        <NotchedPanel tone="scroll" inset={14} radius={24} className="flex flex-col items-center gap-7 px-6 py-16 text-center md:px-20 md:py-24">
           <Eyebrow surface="green" className="relative">
             Managed launch
           </Eyebrow>
@@ -35,7 +35,7 @@ export function LaunchBanner() {
           <StampButton href={ctaLinks.bookDemo} variant="primary" className="relative mt-1 focus-visible:outline-gold">
             START YOUR FREE PILOT
           </StampButton>
-        </GiltPanel>
+        </NotchedPanel>
       </div>
     </section>
   );

@@ -24,7 +24,6 @@ export function CampaignTabs() {
   // Bumped on every selection so the bar's animation restarts even on the same tab.
   const [run, setRun] = useState(0);
   const [visible, setVisible] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const [keyboardFocus, setKeyboardFocus] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -57,7 +56,9 @@ export function CampaignTabs() {
     tabs.current[next]?.focus();
   };
 
-  const running = visible && !hovered && !keyboardFocus;
+  // Hover is left to CSS (group-hover below): :hover stays right while the page scrolls under a
+  // still pointer, where pointerleave often doesn't fire, which used to leave the bar paused.
+  const running = visible && !keyboardFocus;
 
   return (
     <div ref={root} className="flex w-full flex-col">
@@ -77,11 +78,9 @@ export function CampaignTabs() {
         role="tablist"
         aria-label="Campaigns and outbound"
         onKeyDown={onKeyDown}
-        onPointerEnter={(e) => e.pointerType === "mouse" && setHovered(true)}
-        onPointerLeave={() => setHovered(false)}
         onFocus={(e) => setKeyboardFocus(e.target.matches(":focus-visible"))}
         onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setKeyboardFocus(false)}
-        className="relative grid w-full before:pointer-events-none before:absolute before:inset-0 before:z-2 before:shadow-[inset_0.5px_0.5px_0_var(--color-engraved)] md:grid-cols-3 lg:grid-cols-5"
+        className="group/tabs relative grid w-full before:pointer-events-none before:absolute before:inset-0 before:z-2 before:shadow-[inset_0.5px_0.5px_0_var(--color-engraved)] md:grid-cols-3 lg:grid-cols-5"
       >
         {campaigns.map((campaign, i) => {
           const selected = i === active;
@@ -123,9 +122,10 @@ export function CampaignTabs() {
                 <span
                   key={run}
                   aria-hidden
+                  data-paused={!running || undefined}
                   onAnimationEnd={() => select(active === campaigns.length - 1 ? 0 : active + 1)}
-                  className="pointer-events-none absolute top-0 left-0 z-3 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold motion-reduce:w-full motion-reduce:animate-none"
-                  style={{ animationDuration: `${DURATION_MS}ms`, animationPlayState: running ? "running" : "paused" }}
+                  className="pointer-events-none absolute top-0 left-0 z-3 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold group-hover/tabs:[animation-play-state:paused] data-paused:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none"
+                  style={{ animationDuration: `${DURATION_MS}ms` }}
                 />
               )}
             </button>

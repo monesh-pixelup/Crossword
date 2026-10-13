@@ -1,31 +1,26 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/cn";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing";
 import medallion from "../../assets/shared/medallion.svg";
 import { type BentoTile, dedicatedTiles } from "../../config/dedicated";
-import { GiltPanel, Studs } from "../shared/livery";
+import { NotchedFrame, NotchedPanel } from "../shared/livery";
 import { SectionTick } from "../shared/section-tick";
 import { TextLink } from "../shared/text-link";
 
-const tileBase = "flex flex-col items-start justify-end gap-4 p-8 md:p-10";
+/** 48px in, so the copy clears the deep corner notches. */
+const tileBase = "flex flex-col items-start justify-end gap-4 p-12";
 const tileHeight = (tile: BentoTile) => (tile.tall ? "min-h-[320px] lg:h-[420px]" : "min-h-[260px] lg:h-[300px]");
 const title = "font-serif text-(length:--h4-size) leading-[1.1] font-light tracking-[-0.05em]";
 const body = "max-w-[520px] font-sans text-base leading-6 tracking-[-0.02em]";
 
 /**
- * The cream and sand tiles' frame, matching the livery tiles' gilt one: a 0.75px hairline 12px in
- * (#b7ae9a, the hairline used on light grounds) with the studs 6px in.
+ * The cream and sand tiles' frame, matching the livery tiles': the home page's notched line 14px in
+ * (in #b7ae9a, the hairline used on light grounds) with its deep 46px corners and a gold ring in each.
  */
 function LightFrame() {
-  return (
-    <>
-      <span aria-hidden className="pointer-events-none absolute inset-3 shadow-[inset_0_0_0_0.75px_#b7ae9a]" />
-      <Studs inset={6} />
-    </>
-  );
+  return <NotchedFrame inset={14} radius={46} color="var(--color-engraved)" rings />;
 }
 
 function Tile({ tile }: { tile: BentoTile }) {
@@ -52,7 +47,7 @@ function Tile({ tile }: { tile: BentoTile }) {
 
   return (
     <li className={cn("flex", tileHeight(tile), span)}>
-      <GiltPanel tone={tile.tone} className={cn(tileBase, "w-full")}>
+      <NotchedPanel tone={tile.tone} inset={14} radius={46} rings className={cn(tileBase, "w-full")}>
         {tile.eyebrow && (
           <Eyebrow surface="green" className="relative">
             {tile.eyebrow}
@@ -60,7 +55,7 @@ function Tile({ tile }: { tile: BentoTile }) {
         )}
         <h3 className={cn(title, "relative text-cream")}>{tile.title}</h3>
         <p className={cn(body, "relative text-on-dark")}>{tile.body}</p>
-      </GiltPanel>
+      </NotchedPanel>
     </li>
   );
 }
@@ -72,8 +67,7 @@ function Tile({ tile }: { tile: BentoTile }) {
  */
 export function DedicatedPages() {
   return (
-    <section id="dedicated-landing-pages" aria-labelledby="dedicated-title" className="relative scroll-mt-24 section-pad-band">
-      <DividerBand glyph="chart" />
+    <section id="dedicated-landing-pages" aria-labelledby="dedicated-title" className="relative scroll-mt-24 section-pad">
       <SectionTick />
 
       <div className="flex content-width flex-col gap-section">

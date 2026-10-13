@@ -16,8 +16,9 @@ export function PlatformOverview() {
   return (
     <section aria-labelledby="platform-title" className="relative px-(--frame-inset)">
       {/* Sand panel; its 0.5px border is a hairline outline so it adds no size. */}
-      <div className="relative overflow-clip bg-sand px-3 py-12 hairline-[0.5px] outline-black/25 md:px-6 md:py-16 lg:px-[53px] lg:py-20">
-        <div className="@container mx-auto w-full max-w-[1280px]">
+      <div className="relative overflow-clip bg-sand py-12 hairline-[0.5px] outline-black/25 md:py-16 lg:py-20">
+        {/* The page's side padding at every width (no 1280px cap), like the other sections. */}
+        <div className="@container mx-auto w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))]">
           <div className="flex flex-col items-start gap-10 lg:h-[299px] lg:flex-row lg:justify-between lg:gap-8">
             <div className="flex flex-none flex-col items-start gap-6">
               <Eyebrow surface="sand">Platform overview</Eyebrow>

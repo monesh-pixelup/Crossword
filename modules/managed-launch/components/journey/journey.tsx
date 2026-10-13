@@ -1,6 +1,6 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/cn";
-import { GiltPanel, Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
+import { NotchedPanel, Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
 import { SectionTick } from "@/modules/dynamic-landing-pages/components/shared/section-tick";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { journeySteps } from "../../config/launch";
@@ -16,7 +16,8 @@ const title = "font-serif text-[20px] leading-[1.15] tracking-[-0.03em]";
  * (cream, then sand, on 1px engraved hairlines, as the web kit's bento tiles) climb 48px a step on
  * a shared baseline, each with its script numeral and step; the journeys Crossword suggests sit on
  * step 2 as square engraved chips. The last step, the launch, is the one jewel: the maroon scroll
- * damask in its gilt frame. Below 992px the steps form an even grid.
+ * damask in the home page's notched gold frame (curved corners, no studs). Below 992px the steps
+ * form an even grid.
  */
 export function Journey() {
   const last = journeySteps.length - 1;
@@ -61,9 +62,9 @@ export function Journey() {
             return (
               <li key={step.title} className={cn("flex sm:min-h-[200px]", heights[i])}>
                 {i === last ? (
-                  <GiltPanel tone="scroll" className="flex w-full flex-col justify-end gap-4 p-6">
+                  <NotchedPanel tone="scroll" inset={10} radius={14} className="flex w-full flex-col justify-end gap-4 p-6">
                     {content}
-                  </GiltPanel>
+                  </NotchedPanel>
                 ) : (
                   <div
                     className={cn(

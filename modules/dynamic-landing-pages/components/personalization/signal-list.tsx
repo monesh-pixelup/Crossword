@@ -2,18 +2,17 @@
 
 import { type KeyboardEvent, type ReactNode, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import { GiltPanel } from "../shared/livery";
+import { NotchedPanel } from "../shared/livery";
 import { signals } from "../../config/personalization";
 import { StorefrontMock } from "./storefront-mock";
 
 /**
- * Layout/Feature, Accordion + media variant (as Conversion assistance on Sell): `header` and a
- * selectable list on the left, the storefront mock-up in a maroon gilt panel on the right. As in
- * the guidelines' web kit, every item sits over a 1px olive/45 rule; the active one is ink, the
- * others ink/50.
- * Arrow keys, Home and End move between items.
+ * Layout/Feature, Accordion + media variant (as Conversion assistance on Sell): `intro` over
+ * `header` and a selectable list on the left, the storefront mock-up on the home page's maroon
+ * card on the right. As in the guidelines' web kit, every item sits over a 1px olive/45 rule; the
+ * active one is ink, the others ink/50. Arrow keys, Home and End move between items.
  */
-export function SignalList({ header, footnote }: { header: ReactNode; footnote: ReactNode }) {
+export function SignalList({ intro, header, footnote }: { intro: ReactNode; header: ReactNode; footnote: ReactNode }) {
   const [active, setActive] = useState(0);
   const items = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
@@ -33,8 +32,11 @@ export function SignalList({ header, footnote }: { header: ReactNode; footnote: 
   };
 
   return (
-    <div className="flex w-full flex-col gap-12 min-[1200px]:flex-row min-[1200px]:items-start min-[1200px]:justify-between min-[1200px]:gap-16">
-      <div className="flex w-full flex-col items-start gap-12 min-[1200px]:max-w-[520px] min-[1200px]:gap-14">
+    // From 1200px a two-row grid: `intro` (eyebrow and headline) alone on the first row, then the copy
+    // and list beside the card, so the card's top lines up with the copy's first line.
+    <div className="flex w-full flex-col gap-6 min-[1200px]:grid min-[1200px]:grid-cols-[minmax(0,520px)_minmax(0,640px)] min-[1200px]:justify-between min-[1200px]:gap-x-16">
+      <div className="min-[1200px]:col-start-1 min-[1200px]:row-start-1">{intro}</div>
+      <div className="flex w-full flex-col items-start gap-12 min-[1200px]:col-start-1 min-[1200px]:row-start-2 min-[1200px]:gap-14">
         {header}
         <div
           role="tablist"
@@ -80,12 +82,13 @@ export function SignalList({ header, footnote }: { header: ReactNode; footnote: 
         </div>
       </div>
 
-      <div className="flex w-full flex-col gap-5 min-[1200px]:max-w-[640px] min-[1200px]:flex-[0_1_640px]">
-        <GiltPanel tone="maroon" className="p-6 md:p-10">
+      <div className="mt-6 flex w-full flex-col gap-5 min-[1200px]:col-start-2 min-[1200px]:row-start-2 min-[1200px]:mt-0 min-[1200px]:self-start">
+        {/* The home page's maroon card: scroll damask 14px in, deep notched gold corners and a ring in each; 48px in so the mock-up clears the notches. */}
+        <NotchedPanel tone="scroll" inset={14} radius={46} rings className="p-12">
           <div role="tabpanel" id={`${id}-panel`} aria-labelledby={`${id}-tab-${active}`} className="relative">
             <StorefrontMock active={signals[active].id} />
           </div>
-        </GiltPanel>
+        </NotchedPanel>
         {footnote}
       </div>
     </div>

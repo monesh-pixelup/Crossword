@@ -1,10 +1,7 @@
-import { LiveryGround } from "@/modules/dynamic-landing-pages/components/shared/livery";
+import grainTile from "@/modules/landing/assets/trust/grain-tile.webp";
+import { DashedGuides } from "@/modules/landing/components/shared/dashed-guides";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { type GuardrailIcon, guardrailThread, guardrails } from "../../config/guardrails";
-
-/** 1px guide lines dashed 4 / 4 in gold at 25%, as the web kit's forest certifications frame (`.wk-fc`). */
-const dashedH = "h-px bg-[repeating-linear-gradient(90deg,rgba(224,190,96,0.25)_0_4px,transparent_4px_8px)]";
-const dashedV = "w-px bg-[repeating-linear-gradient(180deg,rgba(224,190,96,0.25)_0_4px,transparent_4px_8px)]";
 
 /** Feature marks on a 40 grid with the guidelines' 1.5px round stroke, in gold (7.86:1 on forest). */
 const icons: Record<GuardrailIcon, string[]> = {
@@ -27,8 +24,9 @@ function Icon({ icon }: { icon: GuardrailIcon }) {
 }
 
 /**
- * Layout/Livery, Forest certifications variant: forest ground between the page rails with dashed
- * gold guide lines framing the content (overshooting at the corners, as in Figma). The headline
+ * Layout/Livery, Forest certifications variant, set like the home page's Trust band (“Your data is
+ * safe with us”): a full-bleed forest band holding a deep-green card with the soft-light grain tile
+ * at 40%, framed by gold dashed guides that overshoot its corners. The headline
  * sits left and the copy right; the badge row becomes the three guardrails, set as the kit's
  * certificates (Geist 500 16 cream titles, on-dark copy, 1px cream/10 dividers), and the doc's
  * refusal example sits under the copy.
@@ -37,19 +35,19 @@ export function Guardrails() {
   const [ask, reply] = guardrailThread;
 
   return (
-    <section aria-labelledby="guardrails-title" className="relative px-(--frame-inset)">
-      <div className="relative overflow-clip px-5 py-16 md:px-16 md:py-24">
-        <LiveryGround tone="forest" />
-
-        {/* Guide lines: rules just inside the panel, overshooting their crossings. */}
-        <div aria-hidden className="pointer-events-none absolute inset-8 max-md:hidden md:inset-[56px]">
-          <span className={`absolute -inset-x-6 top-0 ${dashedH}`} />
-          <span className={`absolute -inset-x-6 bottom-0 ${dashedH}`} />
-          <span className={`absolute -inset-y-6 left-0 ${dashedV}`} />
-          <span className={`absolute -inset-y-6 right-0 ${dashedV}`} />
+    <section aria-labelledby="guardrails-title" className="relative bg-forest py-12 md:py-16 lg:py-[87px]">
+      <div className="relative content-width px-5 pt-12 pb-10 shadow-[0_0_2px_rgba(0,0,0,0.25)] md:px-8 md:pt-16 md:pb-12 lg:px-16 lg:pt-[88px] lg:pb-16">
+        {/* Card surface: deep green with a soft-light grain tile at 40%. */}
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 bg-forest-deep" />
+          <div
+            className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left opacity-40 mix-blend-soft-light"
+            style={{ backgroundImage: `url(${grainTile.src})` }}
+          />
         </div>
+        <DashedGuides />
 
-        <div className="relative mx-auto flex w-full max-w-[1040px] flex-col gap-16 md:py-12 lg:gap-24">
+        <div className="relative mx-auto flex w-full max-w-[1030px] flex-col gap-16 lg:gap-24">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
             <SectionTitle id="guardrails-title" initial="G" firstLine="uardrails" secondLine={null} width={330} tone="light" />
 
@@ -61,7 +59,7 @@ export function Guardrails() {
                 <p className="ml-auto max-w-[88%] rounded-[13.57px] rounded-br-[4px] bg-wine px-3 py-2.5 font-sans text-[14px] leading-[1.45] tracking-[-0.02em] text-white">
                   {ask.text}
                 </p>
-                <p className="max-w-[92%] rounded-[13.57px] rounded-bl-[4px] bg-forest-deep px-3 py-2.5 font-sans text-[14px] leading-[1.45] tracking-[-0.02em] text-cream shadow-[inset_0_0_0_0.5px_rgba(224,190,96,0.45)]">
+                <p className="max-w-[92%] rounded-[13.57px] rounded-bl-[4px] bg-forest px-3 py-2.5 font-sans text-[14px] leading-[1.45] tracking-[-0.02em] text-cream shadow-[inset_0_0_0_0.5px_rgba(224,190,96,0.45)]">
                   {reply.text}
                 </p>
               </figure>
@@ -72,7 +70,7 @@ export function Guardrails() {
             {guardrails.map((g) => (
               <li
                 key={g.title}
-                className="flex flex-col items-start gap-3 md:px-8 md:first:pl-0 md:last:pr-0 md:not-first:shadow-[inset_1px_0_0_rgba(255,249,234,0.1)]"
+                className="flex flex-col items-start gap-3 md:px-8 md:first:pl-0 md:last:pr-0 md:not-first:shadow-[inset_0.5px_0_0_rgba(255,255,255,0.1)]"
               >
                 <Icon icon={g.icon} />
                 <span className="font-sans text-base leading-[1.3] font-medium tracking-[-0.02em] text-cream">{g.title}</span>

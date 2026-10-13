@@ -1,6 +1,6 @@
 import { SiteShell } from "@/modules/marketing";
 
-/** Product pages (Sell, …): the header floats over each page's full-bleed hero. */
+/** Product pages (Sell, …): the same shell and scroll-aware header as the rest of the site. */
 export default function ProductLayout({ children }: LayoutProps<"/">) {
-  return <SiteShell header="overlay">{children}</SiteShell>;
+  return <SiteShell>{children}</SiteShell>;
 }

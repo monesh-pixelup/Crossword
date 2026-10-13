@@ -21,10 +21,10 @@ export const primaryNav: NavItem[] = [
       { label: "Search Bar", href: "#search-bar", description: "Answers, right in your search" },
     ],
   },
-  { label: "Support", href: "/support", hasMenu: true },
-  { label: "Retain", href: "/retain", hasMenu: true },
+  { label: "Support", href: "/support" },
+  { label: "Retain", href: "/retain" },
   { label: "Managed Launch", href: "/managed-launch" },
-  { label: "Insights", href: "#insights", hasMenu: true },
+  { label: "Insights", href: "#insights" },
   { label: "Pricing", href: "/pricing" },
 ];
 
