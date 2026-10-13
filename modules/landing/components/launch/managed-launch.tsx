@@ -58,7 +58,7 @@ export function ManagedLaunch() {
             </p>
             <Link
               href="#explore-platform"
-              className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-[#fff9e9] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-colors hover:text-black"
+              className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-[#fff9e9] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-opacity duration-150 hover:opacity-50"
             >
               EXPLORE PLATFORM
               <Image src={arrowRight} alt="" className="size-3" />

@@ -3,8 +3,8 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/cn";
 
 const tones = {
-  /** Ink soft over a hairline at ink 30%, ink on hover (cream and sand grounds). */
-  ink: "border-[rgba(40,40,40,0.3)] text-ink-soft hover:text-ink focus-visible:outline-maroon",
+  /** Ink soft over a hairline at ink 30% (cream and sand grounds). */
+  ink: "border-[rgba(40,40,40,0.3)] text-ink-soft focus-visible:outline-maroon",
   /** Cream text over a cream/40 hairline (livery grounds), as the guidelines' light text link. */
   cream: "border-cream/40 text-cream focus-visible:outline-gold",
 } as const;
@@ -20,7 +20,7 @@ export function TextLink({ tone = "ink", underline = true, className, children, 
   return (
     <Link
       className={cn(
-        "group inline-flex shrink-0 items-center gap-2 p-[2px] font-serif text-base leading-[22px] font-normal tracking-[-0.03em] whitespace-nowrap uppercase transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2",
+        "group inline-flex shrink-0 items-center gap-2 p-[2px] font-serif text-base leading-[22px] font-normal tracking-[-0.03em] whitespace-nowrap uppercase transition-opacity duration-150 hover:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2",
         underline && "border-b",
         tones[tone],
         className,
