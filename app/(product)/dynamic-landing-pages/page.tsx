@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import {
   AdaptivePages,
-  CtaBanner,
   DedicatedPages,
   DynamicHero,
   Personalization,
@@ -25,7 +24,6 @@ export default function DynamicLandingPagesPage() {
       <TwoWays />
       <DedicatedPages />
       <AdaptivePages />
-      <CtaBanner />
       <CtaEnvelope />
     </main>
   );

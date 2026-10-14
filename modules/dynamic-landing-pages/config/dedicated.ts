@@ -1,38 +1,34 @@
-/** Livery tiles; `scroll` is the maroon tile, filled with the guidelines' scroll damask as the web kit's bento does. */
-export type BentoTone = "aubergine" | "forest" | "scroll" | "cream" | "sand";
+/** Livery tiles (damask ground, gilt frame) or light tiles (engraved border, medallion). */
+export type BentoTone = "aubergine" | "forest" | "maroon" | "cream" | "sand";
 
 export type BentoTile = {
   title: string;
   body: string;
   tone: BentoTone;
-  /** Dark eyebrow shown on livery tiles. */
+  /** Dark eyebrow shown on the large livery tiles. */
   eyebrow?: string;
-  /** Spans two of the three columns. */
-  wide?: boolean;
-  /** The taller first row (420px at desktop). */
-  tall?: boolean;
+  /** The first row's large tiles (420px tall, 40px titles). */
+  large?: boolean;
 };
 
 /**
- * Components of a dedicated landing page, laid out as Figma's bento: livery tiles never repeat a
- * colour in a row. Legal: any tile that later shows a real competitor comparison needs a
- * "Based on AI research" disclaimer.
+ * Components of a dedicated landing page, as Figma's bento (copy from Figma). Legal: any tile that
+ * later shows a real competitor comparison needs a "Based on AI research" disclaimer.
  */
 export const dedicatedTiles: BentoTile[] = [
   {
     title: "Comparison tools",
     eyebrow: "Compare",
-    body: "Built for the shopper who's already weighing you against a competitor. Lay the labels, sizes, and prices side by side, and lead with the detail that matters most to that shopper, not a generic feature list.",
+    body: "Built for the shopper who’s already weighing you against a competitor. Lay the labels, sizes, and prices side by side, and lead with the detail that matters most to that shopper, not a generic feature list.",
     tone: "aubergine",
-    wide: true,
-    tall: true,
+    large: true,
   },
   {
     title: "Games and rewards",
     eyebrow: "Play",
-    body: "A quick, playful moment (collect stars, dodge obstacles, unlock a reward) that turns a passive visit into an active one and hands the shopper a reason, and a discount, to convert now.",
+    body: "A quick, playful moment, collect stars, dodge obstacles, unlock a reward, that turns a passive visit into an active one and hands the shopper a reason (and a discount) to convert now.",
     tone: "forest",
-    tall: true,
+    large: true,
   },
   {
     title: "Bundle and routine",
@@ -41,18 +37,17 @@ export const dedicatedTiles: BentoTile[] = [
   },
   {
     title: "Chats and quizzes",
-    body: "A short, conversational quiz meets the shopper where they are, asking one plain question at a time and using the answer to guide them to the right next step.",
+    body: "A short, conversational quiz meets the shopper where they are, asking one plain question at a time and using the answer to guide them to the right next step instead of making them browse for it.",
     tone: "sand",
+  },
+  {
+    title: "Personalized content",
+    body: "The exact product from the ad, with the specific details the shopper clicked for, front and center, so there’s no hunting through a catalog to find it again.",
+    tone: "maroon",
   },
   {
     title: "Offers",
     body: "The offer follows the shopper from ad to cart. A welcome perk applied automatically, shown clearly, next to the exact product it applies to.",
-    tone: "scroll",
-  },
-  {
-    title: "Personalized content",
-    body: "The exact product from the ad, with the specific details the shopper clicked for, front and center, so there's no hunting through a catalog to find it again.",
-    tone: "cream",
-    wide: true,
+    tone: "maroon",
   },
 ];

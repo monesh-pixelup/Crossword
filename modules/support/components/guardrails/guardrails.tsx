@@ -1,83 +1,79 @@
-import grainTile from "@/modules/landing/assets/trust/grain-tile.webp";
-import { DashedGuides } from "@/modules/landing/components/shared/dashed-guides";
+import Image from "next/image";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import frame from "@/modules/dynamic-landing-pages/assets/options/frame.svg";
+import { LiveryGround } from "@/modules/dynamic-landing-pages/components/shared/livery";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import pkg from "@/modules/sell/assets/upsell/package.svg";
+import puzzlePiece from "@/modules/sell/assets/upsell/puzzle-piece.svg";
+import trendUp from "@/modules/sell/assets/upsell/trend-up.svg";
 import { type GuardrailIcon, guardrailThread, guardrails } from "../../config/guardrails";
 
-/** Feature marks on a 40 grid with the guidelines' 1.5px round stroke, in gold (7.86:1 on forest). */
-const icons: Record<GuardrailIcon, string[]> = {
-  // An open book with a check: answers from your own sources.
-  facts: ["M8 12.5c4-1.5 8-1.5 12 1 4-2.5 8-2.5 12-1v16c-4-1.5-8-1.5-12 1-4-2.5-8-2.5-12-1z", "M20 13.5v16", "m24.5 21 2.5 2.5 4.5-5"],
-  // A shield: resists prompt injection.
-  shield: ["M20 7.5 30.5 11v8.5c0 6.5-4.5 11-10.5 13-6-2-10.5-6.5-10.5-13V11z", "M15.5 19.5h9", "M20 15v9"],
-  // A speech bubble with a quill stroke: the brand’s voice.
-  voice: ["M9 11.5h22a1.5 1.5 0 0 1 1.5 1.5v12a1.5 1.5 0 0 1-1.5 1.5H18l-5.5 4.5v-4.5H9A1.5 1.5 0 0 1 7.5 25V13A1.5 1.5 0 0 1 9 11.5Z", "M14 19.5c2-2 4 2 6 0s4 2 6 0"],
-};
+/** Figma's 24px gold marks for the grid cells, in its order. */
+const icons: Record<GuardrailIcon, typeof trendUp> = { facts: trendUp, shield: puzzlePiece, voice: pkg };
 
-function Icon({ icon }: { icon: GuardrailIcon }) {
-  return (
-    <svg aria-hidden viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mb-2 size-14 text-gold">
-      {icons[icon].map((d) => (
-        <path key={d} d={d} />
-      ))}
-    </svg>
-  );
-}
+/** 1px rules dashed 2 / 2 in #1d4324, as Figma's Forest grid. */
+const dashedH = "h-px bg-[repeating-linear-gradient(90deg,#1d4324_0_2px,transparent_2px_4px)]";
+const dashedV = "w-px bg-[repeating-linear-gradient(180deg,#1d4324_0_2px,transparent_2px_4px)]";
 
 /**
- * Layout/Livery, Forest certifications variant, set like the home page's Trust band (“Your data is
- * safe with us”): a full-bleed forest band holding a deep-green card with the soft-light grain tile
- * at 40%, framed by gold dashed guides that overshoot its corners. The headline
- * sits left and the copy right; the badge row becomes the three guardrails, set as the kit's
- * certificates (Geist 500 16 cream titles, on-dark copy, 1px cream/10 dividers), and the doc's
- * refusal example sits under the copy.
+ * Layout/Livery, Forest grid variant (Figma "Library · Forest grid"): forest damask between the page
+ * rails inside the gilt notched frame, a Dark eyebrow over a one-line centred headline (here with
+ * the site's line of copy and refusal example under it), then, 120px below, the guardrails as a row
+ * of cells on a band darkened 6%: a 24px gold mark, 80px down a Crimson 24 title and Geist Light
+ * copy. Dashed rules run along the band's top and bottom (14.75px past it each side) and down the
+ * cell edges (22px past it top and bottom).
  */
 export function Guardrails() {
   const [ask, reply] = guardrailThread;
 
   return (
-    <section aria-labelledby="guardrails-title" className="relative bg-forest py-12 md:py-16 lg:py-[87px]">
-      <div className="relative content-width px-5 pt-12 pb-10 shadow-[0_0_2px_rgba(0,0,0,0.25)] md:px-8 md:pt-16 md:pb-12 lg:px-16 lg:pt-[88px] lg:pb-16">
-        {/* Card surface: deep green with a soft-light grain tile at 40%. */}
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 bg-forest-deep" />
-          <div
-            className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left opacity-40 mix-blend-soft-light"
-            style={{ backgroundImage: `url(${grainTile.src})` }}
-          />
+    <section aria-labelledby="guardrails-title" className="relative px-(--frame-inset)">
+      <div className="relative overflow-clip px-5 pt-16 pb-16 md:px-10 lg:pt-[70px] lg:pb-[196px]">
+        <LiveryGround tone="forest" />
+        <div aria-hidden className="pointer-events-none absolute top-[19px] right-2 bottom-3 left-2 max-md:hidden">
+          <Image src={frame} alt="" fill className="max-w-none" />
         </div>
-        <DashedGuides />
 
-        <div className="relative mx-auto flex w-full max-w-[1030px] flex-col gap-16 lg:gap-24">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
-            <SectionTitle id="guardrails-title" initial="G" firstLine="uardrails" secondLine={null} width={330} tone="light" />
-
-            <div className="flex flex-col gap-6 lg:max-w-[540px]">
-              <p className="font-sans text-base leading-6 tracking-[-0.02em] text-on-dark">
-                Set the topics it won&rsquo;t touch, the tone it keeps, and the lines it won&rsquo;t cross.
+        <div className="relative mx-auto flex w-full max-w-[1288px] flex-col items-center gap-14 lg:gap-[120px]">
+          <div className="flex w-full max-w-[540px] flex-col items-center gap-4">
+            <Eyebrow surface="green">Guardrails</Eyebrow>
+            <SectionTitle id="guardrails-title" initial="G" firstLine="uardrails" width={252} variant="guardrails" tone="light" />
+            <p className="text-center font-sans text-base leading-6 tracking-[-0.02em] text-on-dark">
+              Set the topics it won&rsquo;t touch, the tone it keeps, and the lines it won&rsquo;t cross.
+            </p>
+            <figure className="mt-2 flex w-full flex-col gap-3">
+              <p className="ml-auto max-w-[88%] rounded-[13.57px] rounded-br-[4px] bg-wine px-3 py-2.5 font-sans text-[14px] leading-[1.45] tracking-[-0.02em] text-white">
+                {ask.text}
               </p>
-              <figure className="flex flex-col gap-3">
-                <p className="ml-auto max-w-[88%] rounded-[13.57px] rounded-br-[4px] bg-wine px-3 py-2.5 font-sans text-[14px] leading-[1.45] tracking-[-0.02em] text-white">
-                  {ask.text}
-                </p>
-                <p className="max-w-[92%] rounded-[13.57px] rounded-bl-[4px] bg-forest px-3 py-2.5 font-sans text-[14px] leading-[1.45] tracking-[-0.02em] text-cream shadow-[inset_0_0_0_0.5px_rgba(224,190,96,0.45)]">
-                  {reply.text}
-                </p>
-              </figure>
-            </div>
+              <p className="max-w-[92%] rounded-[13.57px] rounded-bl-[4px] bg-forest px-3 py-2.5 font-sans text-[14px] leading-[1.45] tracking-[-0.02em] text-cream shadow-[inset_0_0_0_0.5px_rgba(224,190,96,0.45)]">
+                {reply.text}
+              </p>
+            </figure>
           </div>
 
-          <ul className="grid gap-8 md:grid-cols-3 md:gap-0">
-            {guardrails.map((g) => (
-              <li
-                key={g.title}
-                className="flex flex-col items-start gap-3 md:px-8 md:first:pl-0 md:last:pr-0 md:not-first:shadow-[inset_0.5px_0_0_rgba(255,255,255,0.1)]"
-              >
-                <Icon icon={g.icon} />
-                <span className="font-sans text-base leading-[1.3] font-medium tracking-[-0.02em] text-cream">{g.title}</span>
-                <span className="font-sans text-[14px] leading-5 tracking-[-0.02em] text-on-dark">{g.body}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="relative w-full bg-black/6">
+            <span aria-hidden className={`pointer-events-none absolute -inset-x-[14.75px] top-0 hidden md:block ${dashedH}`} />
+            <span aria-hidden className={`pointer-events-none absolute -inset-x-[14.75px] bottom-0 hidden md:block ${dashedH}`} />
+
+            <ul className="grid md:grid-cols-3">
+              {guardrails.map((g, i) => (
+                <li key={g.title} className="relative flex flex-col items-start pt-10 pr-5 pb-10 pl-[21.5px]">
+                  <span aria-hidden className={`pointer-events-none absolute -top-[22px] -bottom-[22px] left-0 hidden md:block ${dashedV}`} />
+                  {i === guardrails.length - 1 && (
+                    <span aria-hidden className={`pointer-events-none absolute -top-[22px] right-0 -bottom-[22px] hidden md:block ${dashedV}`} />
+                  )}
+                  {/* Stacked below 768px, the cells are split by the same dashed rule. */}
+                  {i > 0 && <span aria-hidden className={`pointer-events-none absolute inset-x-0 top-0 md:hidden ${dashedH}`} />}
+
+                  <Image src={icons[g.icon]} alt="" className="size-6" />
+                  <div className="mt-10 flex flex-col items-start gap-3 md:mt-20">
+                    <h3 className="font-serif text-[24px] leading-[1.1] font-light tracking-[-0.96px] text-white">{g.title}</h3>
+                    <p className="font-sans text-base leading-6 font-light tracking-[-0.32px] text-white/80">{g.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

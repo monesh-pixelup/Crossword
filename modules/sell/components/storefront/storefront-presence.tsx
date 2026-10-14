@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "@/modules/landing/assets/hero/decor/rail-accent.svg";
+import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { storefrontCards } from "../../config/storefront";
 
@@ -10,12 +11,13 @@ import { storefrontCards } from "../../config/storefront";
  */
 export function StorefrontPresence() {
   return (
-    <section aria-labelledby="storefront-title" className="relative section-pad">
+    <section aria-labelledby="storefront-title" className="relative section-pad-band">
+      <DividerBand glyph="chat" />
       <Image
         src={railAccent}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute top-[107.26px] left-[calc(var(--frame-inset)-0.5px)]"
+        className="pointer-events-none absolute top-[131.26px] left-[calc(var(--frame-inset)-0.5px)]"
       />
 
       <div className="flex content-width flex-col items-start gap-section">

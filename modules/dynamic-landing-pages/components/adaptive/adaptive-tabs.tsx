@@ -9,11 +9,12 @@ import { PdpMock } from "./pdp-mock";
 const DURATION_MS = 6000;
 
 /**
- * Layout/Showcase, Stage + triggers variant, set to the guidelines' web kit (`.wk-st`): a sand
- * stage on 0.5px engraved hairlines holding the product-page mock-up, over a row of feature tabs
- * split by the same hairline (Crimson 20 titles, every tab on the stage's sand; the active one at
- * full strength with the progress bar, the rest at 50%, full on hover). The tabs take turns on a timer, a 2px gold bar filling across the active tab's top edge,
- * then the next takes over (looping); choosing a tab restarts it.
+ * Figma "Library · Stage + triggers": a 509px #f3e7d3 stage on 1px black/25 rules holding the
+ * product-page mock-up, over a row of four feature tabs split by the same rule (each one Crimson
+ * Medium 20 paragraph, its title run into the copy; the active tab on cream at full strength with
+ * the progress bar, the rest at 50%, full on hover). The tabs take turns on a timer, a 2px gold
+ * bar filling across the active tab's top edge, then the next takes over (looping); choosing a
+ * tab restarts it.
  *
  * As the guidelines ask (P1, P7, 11.6), the cycle pauses off screen, while a mouse is over the tab
  * row, and while a tab has keyboard focus. A click doesn't count as focus here, so choosing a tab
@@ -68,7 +69,7 @@ export function AdaptiveTabs() {
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="flex w-full items-center justify-center bg-sand px-4 py-8 shadow-[inset_0.5px_0.5px_0_var(--color-engraved),inset_-0.5px_0_0_var(--color-engraved)] md:px-10 md:py-12 lg:min-h-[509px]"
+        className="flex w-full items-center justify-center border-x border-t border-black/25 bg-[#f3e7d3] px-4 py-8 md:px-10 md:py-12 lg:min-h-[509px]"
       >
         <PdpMock active={adaptiveFeatures[active].id} />
       </div>
@@ -80,7 +81,7 @@ export function AdaptiveTabs() {
         onKeyDown={onKeyDown}
         onFocus={(e) => setKeyboardFocus(e.target.matches(":focus-visible"))}
         onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setKeyboardFocus(false)}
-        className="group/tabs relative grid w-full before:pointer-events-none before:absolute before:inset-0 before:z-2 before:shadow-[inset_0.5px_0.5px_0_var(--color-engraved)] md:grid-cols-2 lg:grid-cols-4"
+        className="group/tabs relative grid w-full before:pointer-events-none before:absolute before:inset-0 before:z-2 before:shadow-[inset_1px_1px_0_rgba(0,0,0,0.25)] md:grid-cols-2 lg:grid-cols-4"
       >
         {adaptiveFeatures.map((feature, i) => {
           const selected = i === active;
@@ -98,24 +99,17 @@ export function AdaptiveTabs() {
               tabIndex={selected ? 0 : -1}
               onClick={() => select(i)}
               className={cn(
-                "group relative flex cursor-pointer flex-col items-start gap-3 bg-sand px-6 py-8 text-left transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] after:pointer-events-none after:absolute after:inset-0 after:shadow-[inset_-0.5px_-0.5px_0_var(--color-engraved)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:p-10",
+                "group relative flex cursor-pointer items-start px-6 py-8 text-left transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] after:pointer-events-none after:absolute after:inset-0 after:shadow-[inset_-1px_-1px_0_rgba(0,0,0,0.25)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:p-10",
+                selected && "bg-cream",
               )}
             >
               <span
                 className={cn(
-                  "font-serif text-[20px] leading-[1.25] tracking-[-0.03em] text-ink transition-opacity duration-300",
+                  "font-serif text-[20px] leading-[1.15] font-medium tracking-[-0.6px] text-[#040404] transition-opacity duration-300",
                   !selected && "opacity-50 group-hover:opacity-100",
                 )}
               >
-                {feature.title}
-              </span>
-              <span
-                className={cn(
-                  "font-sans text-[14px] leading-5 tracking-[-0.02em] text-ink-muted transition-opacity duration-300",
-                  !selected && "opacity-60 group-hover:opacity-100",
-                )}
-              >
-                {feature.description}
+                {feature.title}. {feature.description}
               </span>
               {selected && (
                 <span

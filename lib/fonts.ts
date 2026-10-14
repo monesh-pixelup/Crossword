@@ -1,4 +1,4 @@
-import { Crimson_Pro, DM_Sans, Geist, Inter, Open_Sans, Tangerine } from "next/font/google";
+import { Crimson_Pro, DM_Sans, Geist, Geist_Mono, Inter, Open_Sans, Tangerine } from "next/font/google";
 import localFont from "next/font/local";
 
 /**
@@ -78,6 +78,15 @@ export const tangerine = Tangerine({
   preload: false,
 });
 
+/** Small caps tags on integration and channel tiles (400). */
+export const geistMono = Geist_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
+  preload: false,
+});
+
 export const fontVariables = [
   crimsonPro.variable,
   parisienne.variable,
@@ -87,4 +96,5 @@ export const fontVariables = [
   inter.variable,
   openSans.variable,
   tangerine.variable,
+  geistMono.variable,
 ].join(" ");

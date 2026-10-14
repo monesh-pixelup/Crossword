@@ -59,6 +59,40 @@ const variants = {
     line: "leading-[1.18]",
     second: "",
   },
+  /** 50px lines under a 77px swash, all at 1.18 leading (Dynamic landing pages: The stranger problem). */
+  stranger: {
+    firstLineHeight: 90.86,
+    tracking: "tracking-[-3.5538px]",
+    swash: "font-script text-[77px] leading-[1.18] tracking-[3.85px]",
+    line: "leading-[1.18] tracking-[-2.5px]",
+    second: "",
+    size: 50,
+  },
+  /** As default, but every line at 1.18 leading (Dynamic landing pages: The ROAS gap). */
+  airy: {
+    firstLineHeight: 96.76,
+    tracking: "tracking-[-3.5538px]",
+    swash: "font-script text-[82px] leading-[1.18] tracking-[4.1px]",
+    line: "leading-[1.18] tracking-[-3px]",
+    second: "",
+  },
+  /** One centred 60px line after an 82px swash, both at 1.18 leading (Support: Guardrails). */
+  guardrails: {
+    firstLineHeight: 96.76,
+    tracking: "tracking-[-4.1px] text-center",
+    swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[1.18] tracking-[-3px]",
+    second: "",
+  },
+  /** One centred 50px line after an 82px swash, both at 1.1 leading (Support: Human-in-the-loop). */
+  handoff: {
+    firstLineHeight: 90.2,
+    tracking: "tracking-[-4.1px] text-center",
+    swash: "font-script text-[82px] leading-[1.1]",
+    line: "leading-[1.1] tracking-[-2.5px]",
+    second: "",
+    size: 50,
+  },
   /** 50px lines under a 77px swash (Sell: Conversion assistance). */
   assist: {
     firstLineHeight: 74,
@@ -76,7 +110,8 @@ type SectionTitleProps = {
   initial: string;
   /** Rest of the first line, after the swash capital. */
   firstLine: ReactNode;
-  secondLine: ReactNode;
+  /** Omit for a one-line headline. */
+  secondLine?: ReactNode;
   /** Figma text-box width at 60px; the title scales with the breakpoint and to fit narrower screens. */
   width: number;
   variant?: keyof typeof variants;
@@ -87,7 +122,7 @@ type SectionTitleProps = {
 };
 
 /**
- * Two-line section headline that opens with a calligraphic capital.
+ * Section headline (two lines, or one without `secondLine`) that opens with a calligraphic capital.
  *
  * Figma gives the swash line a fixed height (e.g. 81px) and stacks the second
  * line under it at its own line-height. Browsers would grow line 1 to fit the
@@ -120,10 +155,15 @@ export function SectionTitle({ id, initial, firstLine, secondLine, width, varian
           <span className={v.line} style={{ fontSize: size }}>
             {firstLine}
           </span>
-        </span>{" "}
-        <span className={`block ${v.line} ${v.second}`} style={{ fontSize: size }}>
-          {secondLine}
         </span>
+        {secondLine !== undefined && (
+          <>
+            {" "}
+            <span className={`block ${v.line} ${v.second}`} style={{ fontSize: size }}>
+              {secondLine}
+            </span>
+          </>
+        )}
       </h2>
     </div>
   );

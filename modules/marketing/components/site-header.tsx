@@ -16,7 +16,7 @@ import { MobileMenu } from "./mobile-menu";
  * Pages whose header starts transparent over a full-bleed photo hero and turns into the dark
  * translucent bar once the page scrolls. Everywhere else it is the cream bar.
  */
-const TRANSPARENT_ROUTES = ["/dynamic-landing-pages", "/support", "/retain", "/managed-launch"];
+const TRANSPARENT_ROUTES = ["/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch"];
 
 /** Scrolled past this many pixels, the transparent header takes on its dark bar. */
 const THRESHOLD = 10;

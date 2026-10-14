@@ -1,28 +1,36 @@
+import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import panelForest from "../../assets/audience/panel-forest.webp";
 import { AudienceMock } from "./audience-mock";
 
 /**
- * The mini block after Campaigns & outbound (content doc): brands build their own audiences in
- * plain language. Layout/Showcase, Wide panel variant, as Take control on Support: a sand panel
- * between the page rails (0.5px black/25 hairline), copy on the left and the product mock on the
- * right. Its content keeps the page's side padding at every width (no 1280px cap), like the other sections.
+ * Figma "Library · Wide panel" (Audiences): the eyebrow and a two-line headline on the left, a line
+ * of Geist Light copy bottom-aligned on the right, then 80px below a 1280 × 599 forest panel (the
+ * damask at 20% in its notched gold frame with a ring in each corner, exported from Figma as one
+ * image) holding the audience-builder mock-up. A 232px gold tick sits on the left rail beside the
+ * eyebrow.
  */
 export function AudienceBuilder() {
   return (
-    <section aria-labelledby="audience-title" className="relative px-(--frame-inset)">
-      <div className="bg-sand py-16 shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] md:py-20">
-        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col gap-12 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:justify-between min-[1200px]:gap-16">
-          <div className="flex flex-col items-start gap-6 min-[1200px]:max-w-[480px]">
-            <Eyebrow surface="sand">Audiences</Eyebrow>
-            <SectionTitle id="audience-title" initial="T" firstLine="urn customer patterns" secondLine="into your audience" width={480} variant="assist" />
-            <p className="font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
-              Describe the customers you want to reach, in your own words. Crossword finds demand buried in past
-              conversations, even when shoppers never joined a waiting list.
-            </p>
-          </div>
+    <section aria-labelledby="audience-title" className="relative section-pad">
+      <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
-          <div className="w-full min-[1200px]:max-w-[640px] min-[1200px]:flex-[0_1_640px]">
+      <div className="flex content-width flex-col gap-section">
+        <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <div className="flex flex-col items-start gap-6">
+            <Eyebrow>Audiences</Eyebrow>
+            <SectionTitle id="audience-title" initial="T" firstLine="urn customer patterns" secondLine="into your audience" width={614.744} variant="airy" />
+          </div>
+          <p className="max-w-[477.244px] font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
+            Find demand buried in past conversations, even when shoppers never joined a waiting list with Crossword.
+          </p>
+        </div>
+
+        <div className="relative flex min-h-[560px] w-full items-center justify-center overflow-hidden px-6 py-14 md:px-16 lg:min-h-[599px]">
+          <Image src={panelForest} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-fill" />
+          <div className="relative w-full max-w-[640px]">
             <AudienceMock />
           </div>
         </div>

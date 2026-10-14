@@ -7,12 +7,12 @@ import { resolveCases } from "../../config/resolve";
 import { ChatThread } from "../shared/chat-thread";
 
 /**
- * Layout/Feature, Vertical tabs variant, set to the guidelines' web kit (.wk-vt): a 300px list of
- * question types (Geist 16/24; the active one ink with a 2px gold rule, the rest ink/60, ink on
- * hover), 64px from the panel: the type's title and line of copy over the home page's maroon card
- * (scroll damask in the notched gold frame, at least 440px tall) holding its conversation. From
- * 992px the first tab's label sits level with the panel's title. Arrow keys, Home and End move
- * between tabs.
+ * Figma "Library · Vertical tabs" (laid out like Sell's discovery tabs): a 280px list of question
+ * types, each tab a 39.44px row 24px in from the left (the active one ink on cream with a 2px gold
+ * rule, the rest ink/60, ink on hover), level with the top of an 820px panel at the far right: the
+ * type's title and line of copy over the home page's maroon card (scroll damask in the notched gold
+ * frame, 611px tall like Figma's 821 × 611 frame) holding its conversation. Arrow keys, Home and End
+ * move between tabs.
  */
 export function ResolveTabs() {
   const [active, setActive] = useState(0);
@@ -37,16 +37,13 @@ export function ResolveTabs() {
   };
 
   return (
-    // From 992px a two-row grid: the panel's title sits over the card in the right column, and the tab
-    // list spans both rows from the top, pulled up 8px so the first tab's capitals start exactly
-    // where the title's do (measured: Geist 16 in a 10px-padded 24px line against Crimson 22 at 1.2).
-    <div className="flex w-full flex-col items-stretch gap-12 lg:grid lg:grid-cols-[300px_minmax(0,820px)] lg:grid-rows-[auto_1fr] lg:justify-between lg:gap-x-16 lg:gap-y-0">
+    <div className="flex w-full flex-col items-stretch gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
       <div
         role="tablist"
         aria-orientation="vertical"
         aria-label="Support questions Crossword handles"
         onKeyDown={onKeyDown}
-        className="flex flex-col lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:-mt-2 lg:self-start"
+        className="flex shrink-0 flex-col lg:w-[280px]"
       >
         {resolveCases.map((c, i) => {
           const selected = i === active;
@@ -64,9 +61,9 @@ export function ResolveTabs() {
               tabIndex={selected ? 0 : -1}
               onClick={() => setActive(i)}
               className={cn(
-                // Inactive labels at ink/60, not the kit's /45, to pass AA on cream (brand guidelines 5.10).
-                "cursor-pointer px-4 py-2.5 text-left font-sans text-base leading-6 tracking-[-0.02em] transition-[color,box-shadow] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
-                selected ? "text-ink shadow-[inset_2px_0_0_0_var(--color-gold)]" : "text-ink/60 hover:text-ink",
+                // Inactive labels at ink/60, not Figma's /40, to pass AA on cream (brand guidelines 5.10).
+                "flex min-h-[39.44px] cursor-pointer items-center py-3 pr-5 pl-6 text-left font-sans text-base leading-[1.1] tracking-[-0.32px] whitespace-nowrap transition-[color,box-shadow] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                selected ? "bg-cream text-ink shadow-[inset_2px_0_0_0_var(--color-gold)]" : "text-ink/60 hover:text-ink",
               )}
             >
               {c.label}
@@ -79,15 +76,21 @@ export function ResolveTabs() {
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="flex w-full min-w-0 flex-col items-start lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:grid lg:grid-rows-subgrid"
+        className="flex w-full min-w-0 flex-col items-start lg:flex-[0_1_820px]"
       >
-        <div className="flex w-full flex-col items-start gap-2 pb-6">
-          <h3 className="font-serif text-[22px] leading-[1.2] tracking-[-0.03em] text-ink">{item.label}</h3>
-          <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">{item.description}</p>
+        <div className="flex w-full flex-col items-start gap-3 bg-cream px-4 pb-6">
+          <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{item.label}</h3>
+          <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.48px] text-black/59">{item.description}</p>
         </div>
 
         {/* The home page's maroon card: scroll damask 14px in, deep notched gold corners and a ring in each. */}
-        <NotchedPanel tone="scroll" inset={14} radius={46} rings className="flex w-full items-center justify-center px-10 py-14 md:min-h-[440px] md:px-16 md:py-16">
+        <NotchedPanel
+          tone="scroll"
+          inset={14}
+          radius={46}
+          rings
+          className="flex w-full items-center justify-center px-10 py-14 md:min-h-[440px] md:px-16 md:py-16 lg:min-h-[611px]"
+        >
           <ChatThread key={active} messages={item.thread} minHeight="200px" className="relative max-w-[551.831px]" />
         </NotchedPanel>
       </div>
