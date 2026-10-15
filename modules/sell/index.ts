@@ -1,6 +1,9 @@
 export { ConversionAssist } from "./components/assist/conversion-assist";
 export { ProductDiscovery } from "./components/discovery/product-discovery";
 export { SellHero } from "./components/hero/sell-hero";
+export { SellIntro } from "./components/intro/sell-intro";
+export { HumanMode } from "./components/human-mode/human-mode";
+export { HumanTouch } from "./components/human-touch/human-touch";
 export { ProactiveMessages } from "./components/proactive/proactive-messages";
 export { StorefrontPresence } from "./components/storefront/storefront-presence";
 export { Upsell } from "./components/upsell/upsell";

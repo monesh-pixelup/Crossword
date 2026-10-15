@@ -43,6 +43,14 @@ const variants = {
     line: "leading-[0.95]",
     second: "",
   },
+  /** Centred, Parisienne swash and 60px lines at 1.1 (Sell: Client testimonial). */
+  quote: {
+    firstLineHeight: 90.2,
+    tracking: "tracking-[-4.1px] text-center",
+    swash: "font-script text-[82px] leading-[1.1]",
+    line: "leading-[1.1] tracking-[-3px]",
+    second: "",
+  },
   /** Centred, Tangerine swash capital (Customer testimonials). */
   calligraphic: {
     firstLineHeight: 73,
@@ -68,7 +76,37 @@ const variants = {
     second: "",
     size: 50,
   },
-  /** As default, but every line at 1.18 leading (Dynamic landing pages: The ROAS gap). */
+  /** As handoff, but two lines: the second sits 75.2px under the first, as Figma sets it (Retain: Loyalty). */
+  handoffStacked: {
+    firstLineHeight: 75.2,
+    tracking: "tracking-[-4.1px] text-center",
+    swash: "font-script text-[82px] leading-[1.1]",
+    line: "leading-[1.1] tracking-[-2.5px]",
+    second: "",
+    size: 50,
+  },
+  /** Every line at 1.07, the swash adding no height, as the hero headlines (Dynamic landing pages: The ROAS gap). */
+  display: {
+    // 64.2px of line plus 15px above it, so line 1 keeps the 1.18 headings' baseline (67px down).
+    firstLineHeight: 79.2,
+    firstLinePad: 15,
+    tracking: "tracking-[-3.5538px]",
+    swash: "font-script text-[82px] leading-0 tracking-[4.1px]",
+    line: "leading-[1.07] tracking-[-3px]",
+    second: "",
+  },
+  /** As display, with 50px lines under a 77px swash (Dynamic landing pages: The stranger problem). */
+  displaySmall: {
+    // 53.5px of line plus 20px above it, so line 1 keeps the stranger variant's baseline (63px down).
+    firstLineHeight: 73.5,
+    firstLinePad: 20,
+    tracking: "tracking-[-3.5538px]",
+    swash: "font-script text-[77px] leading-0 tracking-[3.85px]",
+    line: "leading-[1.07] tracking-[-2.5px]",
+    second: "",
+    size: 50,
+  },
+  /** As default, but every line at 1.18 leading (the Figma library headings, e.g. Two ways). */
   airy: {
     firstLineHeight: 96.76,
     tracking: "tracking-[-3.5538px]",
@@ -150,7 +188,7 @@ export function SectionTitle({ id, initial, firstLine, secondLine, width, varian
         className={`font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap ${tone === "light" ? "text-white/85" : "text-ink"} ${v.tracking}`}
         style={{ width, zoom: "var(--h2-scale)" }}
       >
-        <span className="block" style={{ height: v.firstLineHeight }}>
+        <span className="block" style={{ height: v.firstLineHeight, paddingTop: "firstLinePad" in v ? v.firstLinePad : undefined }}>
           <span className={`font-normal ${v.swash}`}>{initial}</span>
           <span className={v.line} style={{ fontSize: size }}>
             {firstLine}

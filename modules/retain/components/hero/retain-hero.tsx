@@ -58,10 +58,8 @@ export function RetainHero() {
               BOOK A DEMO
             </StampButton>
             <p className="font-sans text-base leading-6 tracking-[-0.02em] text-cream">
-              Crossword remembers every customer after the sale,{" "}
-              <span className="text-cream/60">
-                reaching out at the right moment, on the right channel, with something worth opening.
-              </span>
+              Crossword remembers every customer after the sale, reaching out at the right moment, on the right
+              channel, with something worth opening.
             </p>
           </div>
         </div>

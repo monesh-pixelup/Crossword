@@ -1,53 +1,39 @@
+import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import grainTile from "@/modules/landing/assets/trust/grain-tile.webp";
-import { DashedGuides } from "@/modules/landing/components/shared/dashed-guides";
+import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import { ChatThread } from "@/modules/support/components/shared/chat-thread";
-import { returnThread } from "../../config/returns";
+import cardArt from "../../assets/returns/card-art.webp";
 
 /**
- * Return reduction, set like the home page's Trust band (“Your data is safe with us”): a full-bleed
- * forest band holding a deep-green card with the soft-light grain tile at 40%, framed by gold
- * dashed guides that overshoot its corners. Inside, the eyebrow, headline and copy on the left and
- * the size-advice conversation on the ivory chat card on the right, as the guidelines put mock-ups
- * on jewel panels (10.4).
+ * Figma "Library · Three-card row" (Return reduction), as Storefront presence on Sell: the eyebrow,
+ * a two-line headline and a line of 14px copy, then 80px below three equal cards (413.33px at
+ * 1280px, 20px apart) on #fdf4de in a black/10 hairline, each a 330px textured aubergine panel
+ * with the damask in its gold frame, exported from Figma as one image.
+ * A 209px gold tick sits on the left rail beside the eyebrow.
  */
 export function ReturnReduction() {
   return (
-    <section aria-labelledby="returns-title" className="relative bg-forest py-12 md:py-16 lg:py-[87px]">
-      <div className="relative content-width px-5 py-12 shadow-[0_0_2px_rgba(0,0,0,0.25)] md:px-8 md:py-16 lg:px-16 lg:py-20">
-        {/* Card surface: deep green with a soft-light grain tile at 40%. */}
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 bg-forest-deep" />
-          <div
-            className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left opacity-40 mix-blend-soft-light"
-            style={{ backgroundImage: `url(${grainTile.src})` }}
-          />
-        </div>
-        <DashedGuides />
+    <section aria-labelledby="returns-title" className="relative section-pad">
+      <RailAccent className="absolute top-[calc(var(--section-pad)-12.74px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
 
-        <div className="relative mx-auto flex w-full max-w-[1120px] flex-col gap-12 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:justify-between min-[1200px]:gap-16">
-          <div className="flex flex-col items-start gap-6 min-[1200px]:max-w-[560px]">
-            <Eyebrow surface="green">Return reduction</Eyebrow>
-            <SectionTitle
-              id="returns-title"
-              initial="M"
-              firstLine="ore confidence at checkout."
-              secondLine="Fewer returns after it"
-              width={560}
-              variant="assist"
-              tone="light"
-            />
-            <p className="max-w-[480px] font-sans text-base leading-6 tracking-[-0.02em] text-on-dark">
-              Crossword helps customers choose with more confidence, so they&rsquo;re less likely to buy the wrong size,
-              shade, or product in the first place.
-            </p>
-          </div>
-
-          <div className="w-full min-[1200px]:max-w-[500px] min-[1200px]:flex-[0_1_500px]">
-            <ChatThread messages={returnThread} />
-          </div>
+      <div className="flex content-width flex-col items-start gap-section">
+        <div className="flex flex-col items-start gap-6">
+          <Eyebrow>Return reduction</Eyebrow>
+          <SectionTitle id="returns-title" initial="M" firstLine="ore confidence at checkout." secondLine="Fewer returns after it" width={760} />
+          <p className="max-w-[760px] font-sans text-[14px] leading-5 tracking-[-0.28px] text-black/60">
+            Crossword helps customers choose with more confidence, so they&rsquo;re less likely to buy the wrong size, shade,
+            or product in the first place.
+          </p>
         </div>
+
+        <ul aria-hidden className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {[0, 1, 2].map((i) => (
+            <li key={i} className="overflow-clip border border-black/10 bg-[#fdf4de]">
+              {/* The whole 330px panel as Figma exports it: textured aubergine, the damask and its gold frame. */}
+              <Image src={cardArt} alt="" sizes="(min-width: 992px) 412px, (min-width: 768px) 48vw, 96vw" className="h-auto w-full" />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

@@ -20,7 +20,7 @@ export function SupportIntro() {
           <span aria-hidden className="absolute inset-y-0 left-0 w-[0.5px] bg-[#d2cbba]" />
           <RailAccent className="absolute top-0 left-0 h-[71.69px] w-px" />
           <ScrollHighlight
-            text="We’re solving that moment when your customer wants to know where their order is, how to return it, or whether a policy applies to them instead of sending them to a queue."
+            text="We’re solving that moment when your customer wants to know where their order is, how to return it, or whether a policy applies to them instead of sending them to a queue. So, say hello to reduced support tickets."
             className="max-w-[847.084px] font-serif text-(length:--h4-size) leading-[1.18] font-extralight tracking-[-0.05em] text-ink"
           />
         </div>

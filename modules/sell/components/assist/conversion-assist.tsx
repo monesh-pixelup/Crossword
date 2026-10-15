@@ -17,7 +17,7 @@ export function ConversionAssist() {
       <div className="content-width">
         <AssistList
           header={
-            <div className="flex flex-col items-start gap-[18px]">
+            <div className="flex flex-col items-start gap-6">
               <Eyebrow>Conversion assistance</Eyebrow>
               <SectionTitle
                 id="assist-title"

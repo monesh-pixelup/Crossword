@@ -35,7 +35,7 @@ export function RoasGap() {
                 </>
               }
               width={614.744}
-              variant="airy"
+              variant="display"
             />
           </div>
 

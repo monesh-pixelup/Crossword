@@ -28,9 +28,9 @@ export function Personalization() {
       <div className="content-width">
         <StrangerScroll
           heading={
-            <div className="flex flex-col items-start gap-[18px]">
+            <div className="flex flex-col items-start gap-6">
               <Eyebrow>User-level personalization</Eyebrow>
-              <SectionTitle id="stranger-title" initial="T" firstLine="he stranger" secondLine="problem" width={553.133} variant="stranger" />
+              <SectionTitle id="stranger-title" initial="T" firstLine="he stranger" secondLine="problem" width={553.133} variant="displaySmall" />
             </div>
           }
           items={[

@@ -56,10 +56,8 @@ export function SellHero() {
               BOOK A DEMO
             </StampButton>
             <p className="font-sans text-base leading-6 tracking-[-0.16px] text-cream">
-              From the first question to the final click,{" "}
-              <span className="text-cream/60">
-                Crossword guides every shopper toward the product that&apos;s perfect for them.
-              </span>
+              From the first question to the final click, Crossword guides every shopper toward the product that&apos;s
+              perfect for them.
             </p>
           </div>
         </div>

@@ -1,85 +1,75 @@
+import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { cn } from "@/lib/cn";
-import { NotchedPanel, Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
-import { SectionTick } from "@/modules/dynamic-landing-pages/components/shared/section-tick";
+import panelTexture from "@/modules/landing/assets/launch/panel-texture.webp";
+import quoteMark from "@/modules/landing/assets/launch/quote-mark.svg";
+import stud from "@/modules/landing/assets/launch/stud.svg";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import { journeySteps } from "../../config/launch";
+import stamp from "../../assets/journey/stamp.webp";
+import { JourneySteps } from "./journey-steps";
 
-/** From 992px each step stands 48px taller than the one before, so the row climbs. */
-const heights = ["lg:h-[240px]", "lg:h-[288px]", "lg:h-[336px]", "lg:h-[384px]", "lg:h-[432px]", "lg:h-[480px]"];
+/** The panel's four 8px rings, as on the home page's Managed launch. */
+const rings = [
+  { left: 300.047, top: 9.688 },
+  { left: 300.047, top: 292.016 },
+  { left: 9.758, top: 9.688 },
+  { left: 9.758, top: 292.016 },
+];
 
-const numeral = "font-script text-[28px] leading-none tracking-[-1px]";
-const title = "font-serif text-[20px] leading-[1.15] tracking-[-0.03em]";
+/** The steps, the third (two lines in Figma, both in forest) active to start, as Figma's still frame. */
+const steps = [
+  "We suggest potential journeys.",
+  "We adapt the experience to your business.",
+  "A/B test.\nMeasure the results.",
+  "Make changes.",
+  "Launch and continue to optimize.",
+];
 
 /**
- * The journey: “Crossword grows with every step”, drawn as a staircase. Six studded cards
- * (cream, then sand, on 1px engraved hairlines, as the web kit's bento tiles) climb 48px a step on
- * a shared baseline, each with its script numeral and step; the journeys Crossword suggests sit on
- * step 2 as square engraved chips. The last step, the launch, is the one jewel: the maroon scroll
- * damask in the home page's notched gold frame (curved corners, no studs). Below 992px the steps
- * form an even grid.
+ * Figma "Library · Quote + steps" (Journey): the eyebrow and a centred two-line headline, a quote
+ * box 80px below, then 80px below that a 1280 × 522.86 row: "You share your objectives." on the
+ * left, the aubergine damask panel (316 × 310, the home Managed launch panel) with Figma's stamp in
+ * the middle, and on the right the steps as Figma's still frame, 40px Crimson, the middle two in
+ * forest and the rest fading out. Clicking a step rolls it into place and drops its stamp, as the
+ * home page's Managed launch does (JourneySteps).
  */
 export function Journey() {
-  const last = journeySteps.length - 1;
-
   return (
     <section aria-labelledby="journey-title" className="relative section-pad">
-      <SectionTick />
+      <div className="flex content-width flex-col items-center gap-section">
+        <div className="flex flex-col items-center gap-section">
+          <div className="flex flex-col items-center gap-6">
+            <Eyebrow>Journey</Eyebrow>
+            <SectionTitle id="journey-title" initial="M" firstLine="ost projects reach" secondLine="completion" width={561.054} variant="centered" />
+          </div>
 
-      <div className="flex content-width flex-col gap-section">
-        <div className="flex flex-col items-start gap-6">
-          <Eyebrow>The journey</Eyebrow>
-          <SectionTitle
-            id="journey-title"
-            initial="M"
-            firstLine="ost projects reach completion."
-            secondLine="Crossword grows with every step"
-            width={760}
-          />
+          <blockquote className="relative border border-black/10 bg-[rgba(243,233,212,0.5)] px-[72px] py-4">
+            <p className="font-serif text-[24px] leading-[1.1] font-light tracking-[-0.96px] whitespace-nowrap text-[#040404]">
+              Crossword grows with every step.
+            </p>
+            <Image src={quoteMark} alt="" className="absolute top-[12.39px] left-[32.11px]" />
+            <Image src={quoteMark} alt="" className="absolute right-[32.11px] bottom-[12.39px] rotate-180" />
+          </blockquote>
         </div>
 
-        <ol className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:items-end">
-          {journeySteps.map((step, i) => {
-            const content = (
-              <>
-                <span className={cn(numeral, i === last ? "relative text-gold" : "text-ink")}>0{i + 1}</span>
-                <span className={cn(title, i === last ? "relative text-cream" : "text-ink")}>{step.title}</span>
-                {step.journeys && (
-                  <ul aria-label="Suggested journeys" className="flex flex-col items-start gap-2">
-                    {step.journeys.map((j) => (
-                      <li
-                        key={j}
-                        className="bg-cream px-2.5 py-1.5 font-sans text-[12px] leading-[1.3] tracking-[-0.02em] text-ink-soft shadow-[inset_0_0_0_0.5px_var(--color-engraved)]"
-                      >
-                        {j}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </>
-            );
+        <div className="relative flex w-full flex-col items-center gap-12 lg:block lg:h-[522.86px] lg:max-w-[1280px]">
+          <p className="w-[149.607px] text-center font-serif text-[18px] leading-[1.1] tracking-[-0.72px] text-[#040404] lg:absolute lg:top-[233.59px] lg:left-[157.07px] lg:text-left">
+            You share your objectives.
+          </p>
 
-            return (
-              <li key={step.title} className={cn("flex sm:min-h-[200px]", heights[i])}>
-                {i === last ? (
-                  <NotchedPanel tone="scroll" inset={10} radius={14} className="flex w-full flex-col justify-end gap-4 p-6">
-                    {content}
-                  </NotchedPanel>
-                ) : (
-                  <div
-                    className={cn(
-                      "relative flex w-full flex-col justify-end gap-4 p-6 shadow-[inset_0_0_0_1px_var(--color-engraved)]",
-                      i % 2 ? "bg-sand" : "bg-cream",
-                    )}
-                  >
-                    <Studs inset={6} />
-                    {content}
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ol>
+          <JourneySteps
+            steps={steps}
+            initial={2}
+            stamp={stamp}
+            panel={
+              <>
+                <Image src={panelTexture} alt="" sizes="295px" className="absolute top-[10.41px] left-[11.61px] h-[289.179px] w-[292.777px] max-w-none" />
+                {rings.map((pos) => (
+                  <Image key={`${pos.left}-${pos.top}`} src={stud} alt="" className="absolute size-2" style={pos} />
+                ))}
+              </>
+            }
+          />
+        </div>
       </div>
     </section>
   );

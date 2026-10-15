@@ -55,8 +55,8 @@ export function SupportHero() {
               BOOK A DEMO
             </StampButton>
             <p className="font-sans text-base leading-6 tracking-[-0.32px] text-cream">
-              Crossword answers the moment the question is asked, hands off cleanly when it can&rsquo;t,{" "}
-              <span className="text-cream/60">and keeps every promise your policies make.</span>
+              Crossword answers the moment the question is asked, hands off cleanly when it can&rsquo;t, and keeps every
+              promise your policies make.
             </p>
           </div>
         </div>

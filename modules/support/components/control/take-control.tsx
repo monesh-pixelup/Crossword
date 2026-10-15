@@ -1,42 +1,43 @@
+import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
+import ring from "@/modules/dynamic-landing-pages/assets/gap/ring.svg";
+import damaskAubergine from "@/modules/dynamic-landing-pages/assets/personalization/damask-aubergine.webp";
+import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import { controlSignals } from "../../config/control";
-import { ConsoleMock } from "./console-mock";
+
+/** The panel's 10px gold rings, on the corners of a 649 × 551 box centred on it. */
+const rings = ["top-[17.5px] left-[19.5px]", "top-[17.5px] right-[18.5px]", "bottom-[17.5px] left-[19.5px]", "right-[18.5px] bottom-[17.5px]"];
 
 /**
- * Layout/Showcase, Wide panel variant: a sand panel between the page rails (0.5px black/25
- * hairline, as the Node diagram's), copy on the left with what the person can see as studded
- * chips, and the team console on the right.
+ * Figma "Library · Accordion + media" (Human has complete control): on the left the eyebrow, a
+ * two-line headline (77px swash, 50px lines at 1.18) and a 462.87px line of copy, 18px apart; on
+ * the right, 10px down, a 687 × 586 aubergine panel holding the notched damask with its gold frame
+ * (as The stranger problem on Dynamic landing pages) and a gold ring in each corner. A 209px gold
+ * tick sits on the left rail beside the eyebrow.
  */
 export function TakeControl() {
   return (
-    <section aria-labelledby="control-title" className="relative px-(--frame-inset) pt-(--frame-inset)">
-      <div className="bg-sand py-16 shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] md:py-20">
-        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col gap-12 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:justify-between min-[1200px]:gap-16">
-          <div className="flex flex-col items-start gap-6 min-[1200px]:max-w-[480px]">
-            <Eyebrow surface="sand">Complete control</Eyebrow>
-            <SectionTitle id="control-title" initial="T" firstLine="ake control," secondLine="whenever you like" width={480} />
-            <p className="font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
-              Crossword gives the human-in-the-loop full context. Every conversation, workflow, order, page viewed, note,
-              and stuck moment. Crossword can surface the important bits, while the human stays in control.
-            </p>
-            <ul aria-label="What your team sees" className="mt-2 flex flex-wrap gap-2">
-              {controlSignals.map((signal) => (
-                <li
-                  key={signal}
-                  className="relative bg-cream px-4 py-2.5 font-sans text-[14px] leading-none tracking-[-0.02em] text-ink-soft shadow-[inset_0_0_0_0.5px_var(--color-engraved)]"
-                >
-                  <Studs inset={2.5} />
-                  {signal}
-                </li>
-              ))}
-            </ul>
-          </div>
+    <section aria-labelledby="control-title" className="relative section-pad">
+      <RailAccent className="absolute top-[calc(var(--section-pad)-16.51px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
 
-          <div className="w-full min-[1200px]:max-w-[720px] min-[1200px]:flex-[0_1_720px]">
-            <ConsoleMock />
+      <div className="flex content-width flex-col gap-14 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
+        <div className="flex flex-col items-start gap-[18px] lg:shrink-0">
+          <Eyebrow>Human has complete control</Eyebrow>
+          <SectionTitle id="control-title" initial="T" firstLine="ake control," secondLine="whenever you like" width={553.133} variant="stranger" />
+          <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+            Crossword gives the human-in-the-loop full context. Every conversation, workflow, order, page viewed, note and
+            stuck moment. Crossword can surface the important bits, while the human stays in control.
+          </p>
+        </div>
+
+        <div aria-hidden className="relative aspect-[687/586] w-full overflow-clip bg-aubergine lg:mt-2.5 lg:w-[687px] lg:shrink">
+          {/* Notched damask with its gold frame (646.64 × 548.28 in Figma), 20.68px in from the left and 18.75px from the top. */}
+          <div className="absolute top-[18.75px] right-[19.68px] bottom-[18.97px] left-[20.68px]">
+            <Image src={damaskAubergine} alt="" fill sizes="(min-width: 992px) 647px, 94vw" className="object-fill" />
           </div>
+          {rings.map((place) => (
+            <Image key={place} src={ring} alt="" className={`absolute size-2.5 ${place}`} />
+          ))}
         </div>
       </div>
     </section>

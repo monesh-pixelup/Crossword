@@ -48,7 +48,8 @@ export function ScrollHighlight({ text, className }: { text: string; className?:
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
     };
-  }, []);
+    // Re-run when the text changes, so new words (e.g. after an edit) are picked up too.
+  }, [text]);
 
   return (
     <p ref={ref} className={className}>

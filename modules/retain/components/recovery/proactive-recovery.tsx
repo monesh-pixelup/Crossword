@@ -3,7 +3,6 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import ring from "@/modules/dynamic-landing-pages/assets/gap/ring.svg";
 import damaskAubergine from "@/modules/dynamic-landing-pages/assets/personalization/damask-aubergine.webp";
 import { StrangerScroll } from "@/modules/dynamic-landing-pages/components/personalization/stranger-scroll";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { recoveryItems } from "../../config/recovery";
@@ -20,20 +19,19 @@ const rings = ["top-[17.5px] left-[19.5px]", "top-[17.5px] right-[18.5px]", "bot
  * headline stick from 992px while the recovery moments scroll up under them, the one just below at
  * full strength (a 1px black/50 rule under the first, 0.5px black/20 rules between the rest, 64px
  * apart); a sticky 687 × 586 aubergine panel holds the notched damask with its gold frame and a
- * gold ring in each corner. Opens with the patterned divider band (24px more top padding).
+ * gold ring in each corner.
  */
 export function ProactiveRecovery() {
   const last = recoveryItems.length - 1;
 
   return (
-    <section aria-labelledby="recovery-title" className="relative section-pad-band">
-      <DividerBand glyph="chat" />
-      <RailAccent className="absolute top-[calc(var(--section-pad)+7.49px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
+    <section aria-labelledby="recovery-title" className="relative section-pad">
+      <RailAccent className="absolute top-[calc(var(--section-pad)-16.51px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
 
       <div className="content-width">
         <StrangerScroll
           heading={
-            <div className="flex flex-col items-start gap-[18px]">
+            <div className="flex flex-col items-start gap-6">
               <Eyebrow>Proactive recovery</Eyebrow>
               <SectionTitle
                 id="recovery-title"
@@ -41,7 +39,7 @@ export function ProactiveRecovery() {
                 firstLine="atch them before they"
                 secondLine="forget why they wanted it"
                 width={553.133}
-                variant="stranger"
+                variant="assist"
               />
             </div>
           }

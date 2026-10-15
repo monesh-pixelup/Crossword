@@ -1,4 +1,3 @@
-export { SupportBanner } from "./components/banner/support-banner";
 export { SupportChannels } from "./components/channels/support-channels";
 export { TakeControl } from "./components/control/take-control";
 export { Guardrails } from "./components/guardrails/guardrails";
@@ -7,5 +6,4 @@ export { HelpdeskOptions } from "./components/helpdesk/helpdesk-options";
 export { SupportHero } from "./components/hero/support-hero";
 export { SupportIntro } from "./components/intro/support-intro";
 export { CustomerSupport } from "./components/resolve/customer-support";
-export { SupportTestimonial } from "./components/testimonial/support-testimonial";
 export { Workflows } from "./components/workflows/workflows";

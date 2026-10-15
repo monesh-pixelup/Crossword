@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import { CtaEnvelope, Testimonials } from "@/modules/landing";
 import {
   ConversionAssist,
+  HumanMode,
+  HumanTouch,
   ProactiveMessages,
   ProductDiscovery,
   SellHero,
+  SellIntro,
   StorefrontPresence,
   Upsell,
 } from "@/modules/sell";
@@ -19,12 +22,15 @@ export default function SellPage() {
   return (
     <main>
       <SellHero />
+      <SellIntro />
       <ProductDiscovery />
+      <HumanTouch />
+      <HumanMode />
       <Upsell />
       <ConversionAssist />
       <ProactiveMessages />
       <StorefrontPresence />
-      <Testimonials />
+      <Testimonials variant="sell" />
       <CtaEnvelope />
     </main>
   );

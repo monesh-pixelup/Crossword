@@ -1,12 +1,8 @@
-/**
- * Channel sequencing, from the doc's example ("iMessage first, then email, then SMS, instead of all
- * at once"). The step notes are mock copy. TODO: confirm them with the Crossword team.
- */
-export const sequence = [
-  { channel: "iMessage", tag: "First", body: "Starts where the conversation is most personal." },
-  { channel: "Email", tag: "If it hasn’t landed", body: "Follows up with the detail, only if the first message went unread." },
-  { channel: "SMS", tag: "Last", body: "A short final nudge, then Crossword stops." },
+/** Retention channels, as Figma's node diagram: the two ways Crossword reaches out. */
+export const retentionChannels: { title: string; body: string }[] = [
+  {
+    title: "Channel sequencing",
+    body: "Decides the right order to reach out, for instance iMessage first, then email, then SMS - instead of all at once.",
+  },
+  { title: "WhatsApp / SMS / Email Outbound", body: "Delivered wherever they’re most likely to see it." },
 ];
-
-/** WhatsApp / SMS / Email outbound: the channels named in the doc. */
-export const outboundChannels = ["WhatsApp", "SMS", "Email", "iMessage"];

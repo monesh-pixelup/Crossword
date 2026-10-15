@@ -26,7 +26,6 @@ export function Campaigns() {
             firstLine="utreach that knows when to"
             secondLine={<span className="font-light">speak, and when not to</span>}
             width={707.715}
-            variant="airy"
           />
         </div>
 

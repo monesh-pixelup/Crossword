@@ -87,7 +87,7 @@ export function DedicatedPages() {
         <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="flex flex-col items-start gap-6">
             <Eyebrow>Dedicated landing pages</Eyebrow>
-            <SectionTitle id="dedicated-title" initial="D" firstLine="edicated" secondLine="landing pages" width={300} variant="airy" />
+            <SectionTitle id="dedicated-title" initial="D" firstLine="edicated" secondLine="landing pages" width={300} variant="display" />
           </div>
           <TextLink href={ctaLinks.bookDemo} className="max-md:whitespace-normal">Think of something else? It is one conversation away.</TextLink>
         </div>

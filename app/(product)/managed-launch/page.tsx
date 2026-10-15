@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { CtaEnvelope } from "@/modules/landing";
-import { Commitment, HowItWorks, Journey, LaunchBanner, LaunchHero, Partnership } from "@/modules/managed-launch";
+import {
+  ChooseJourney,
+  Commitment,
+  HowItWorks,
+  Journey,
+  LaunchHero,
+  YourPart,
+} from "@/modules/managed-launch";
 
 export const metadata: Metadata = {
   title: "Managed Launch",
@@ -15,8 +22,8 @@ export default function ManagedLaunchPage() {
       <Commitment />
       <Journey />
       <HowItWorks />
-      <Partnership />
-      <LaunchBanner />
+      <ChooseJourney />
+      <YourPart />
       <CtaEnvelope />
     </main>
   );

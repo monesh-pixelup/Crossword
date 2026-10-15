@@ -1,7 +1,8 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { NotchedPanel } from "@/modules/dynamic-landing-pages/components/shared/livery";
-import { SectionTick } from "@/modules/dynamic-landing-pages/components/shared/section-tick";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
+import { DividerBand } from "@/modules/landing/components/shared/divider-band";
+import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
 import { helpdeskIntegrations, helpdeskThread } from "../../config/helpdesk";
@@ -20,26 +21,28 @@ const panel = "flex w-full flex-col justify-center gap-6 p-10 md:p-14 lg:h-[680p
  * Figma "Library · Numbered panel (Helpdesk)": the eyebrow and headline, then the two options as
  * alternating rows 120px apart (copy left of its maroon panel, then the panel left of its copy),
  * spread across the content width. Each option is a tag, a 32px title, a line of copy and a text
- * link; the panels hold the Crossword inbox and the helpdesks it syncs with.
+ * link; the panels hold the Crossword inbox and the helpdesks it syncs with. Opens with the
+ * patterned divider band (24px more top padding), so the gold section tick (1px × 180px, as
+ * SectionTick) starts 24px lower too.
  */
 export function HelpdeskOptions() {
   const [ask, answer] = helpdeskThread;
 
   return (
-    <section aria-labelledby="helpdesk-title" className="relative section-pad">
-      <SectionTick />
+    <section aria-labelledby="helpdesk-title" className="relative section-pad-band">
+      <DividerBand glyph="chat" />
+      <RailAccent className="absolute top-(--section-pad) left-[calc(var(--frame-inset)-0.5px)] z-2 h-[180px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">
-        {/* From 992px the paragraph starts where the first maroon panel does (738px in from the right edge). */}
-        <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="flex flex-col items-start gap-6">
-            <Eyebrow>Helpdesk</Eyebrow>
-            <SectionTitle id="helpdesk-title" initial="Y" firstLine="our helpdesk," secondLine="or ours" width={483.867} />
-          </div>
-          <p className="max-w-[477px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted lg:w-[738px] lg:max-w-none lg:shrink-0 lg:pr-[261px]">
-            Run support from Crossword&rsquo;s own helpdesk, or keep the one your team already works in. Both options
-            are available.
-          </p>
+        <div className="flex flex-col items-start gap-6">
+          <Eyebrow>Helpdesk</Eyebrow>
+          <SectionTitle
+            id="helpdesk-title"
+            initial="C"
+            firstLine="rossword helpdesk"
+            secondLine={<span className="font-light">and helpdesk integration</span>}
+            width={620}
+          />
         </div>
 
         <div className="flex w-full flex-col gap-16 lg:gap-[120px]">
@@ -48,8 +51,8 @@ export function HelpdeskOptions() {
             <div className="flex flex-col items-start justify-center gap-16 lg:h-[595px]">
               <div className="flex flex-col items-start gap-4">
                 <p className={tag}>Crossword helpdesk</p>
-                <h3 className={title}>A free help desk, with unlimited seats</h3>
-                <p className={body}>Give your team one place to see, assign, and resolve customer conversations.</p>
+                <h3 className={title}>A free help desk, with unlimited seats.</h3>
+                <p className={body}>Give your team one place to see, assign and resolve customer conversations.</p>
               </div>
               <TextLink href={ctaLinks.learnMore}>Learn more</TextLink>
             </div>
@@ -71,9 +74,9 @@ export function HelpdeskOptions() {
               <div className="flex flex-col items-start gap-6">
                 <div className="flex flex-col items-start gap-4">
                   <p className={tag}>Helpdesk integration</p>
-                  <h3 className={title}>Keep the helpdesk you already have</h3>
+                  <h3 className={title}>Keep the helpdesk you already have.</h3>
                   <p className={body}>
-                    Connect Crossword to Zendesk, Gorgias, Freshdesk, or the helpdesk you already use, with
+                    Connect Crossword to Zendesk, Gorgias, Freshdesk or the helpdesk you already use, with
                     conversations and ticket status synced both ways.
                   </p>
                 </div>

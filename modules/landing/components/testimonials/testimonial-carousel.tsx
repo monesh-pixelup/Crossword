@@ -4,7 +4,7 @@ import Image from "next/image";
 import { type CSSProperties, useState } from "react";
 import arrowNext from "../../assets/testimonials/arrow-next.svg";
 import arrowPrev from "../../assets/testimonials/arrow-prev.svg";
-import { initialTestimonial, testimonials } from "../../config/testimonials";
+import { initialTestimonial, type Testimonial, testimonials as defaultTestimonials } from "../../config/testimonials";
 import { TestimonialSlide } from "./testimonial-slide";
 
 const arrowButton =
@@ -16,7 +16,7 @@ const arrowButton =
  * (844px card + 64px gap) from 992px, 544px below, and 85% of the window on phones.
  * The arrows sit on the active card's edges, and under the card on phones.
  */
-export function TestimonialCarousel() {
+export function TestimonialCarousel({ testimonials = defaultTestimonials }: { testimonials?: Testimonial[] }) {
   const [active, setActive] = useState(initialTestimonial);
   const last = testimonials.length - 1;
 

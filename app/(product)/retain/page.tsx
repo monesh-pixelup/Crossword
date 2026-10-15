@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
-import { CtaEnvelope } from "@/modules/landing";
+import { CtaEnvelope, Testimonials } from "@/modules/landing";
 import {
   AudienceBuilder,
   Campaigns,
   Loyalty,
   ProactiveRecovery,
-  RetainBanner,
   RetainHero,
   RetainIntro,
   RetentionChannels,
   ReturnReduction,
 } from "@/modules/retain";
-import { retainTestimonial } from "@/modules/retain/config/testimonial";
-import { SupportTestimonial } from "@/modules/support";
 
 export const metadata: Metadata = {
   title: "Retain",
@@ -31,9 +28,7 @@ export default function RetainPage() {
       <Loyalty />
       <ReturnReduction />
       <RetentionChannels />
-      {/* The quote card from Support, with Retain's quote. */}
-      <SupportTestimonial testimonial={retainTestimonial} />
-      <RetainBanner />
+      <Testimonials variant="retain" />
       <CtaEnvelope />
     </main>
   );

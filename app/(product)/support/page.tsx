@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { CtaEnvelope } from "@/modules/landing";
+import { CtaEnvelope, Testimonials } from "@/modules/landing";
 import {
   CustomerSupport,
   Guardrails,
   HelpdeskOptions,
   HumanHandoff,
-  SupportBanner,
   SupportChannels,
   SupportHero,
   SupportIntro,
-  SupportTestimonial,
   TakeControl,
   Workflows,
 } from "@/modules/support";
@@ -32,8 +30,7 @@ export default function SupportPage() {
       <Workflows />
       <Guardrails />
       <SupportChannels />
-      <SupportTestimonial />
-      <SupportBanner />
+      <Testimonials variant="support" />
       <CtaEnvelope />
     </main>
   );

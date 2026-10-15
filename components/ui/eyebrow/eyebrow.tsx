@@ -21,6 +21,8 @@ type EyebrowProps = {
   children: ReactNode;
   /** Match the background the label sits on. */
   surface?: keyof typeof surfaces;
+  /** `tag`: the small step tag (Geist Mono 12 caps, 2px tall padding), as Figma's Timeline. */
+  size?: "label" | "tag";
   className?: string;
 };
 
@@ -48,7 +50,8 @@ function Corner({ className }: { className: string }) {
 }
 
 /** Small-caps section label framed by four ornamental corner curls. */
-export function Eyebrow({ children, surface = "cream", className }: EyebrowProps) {
+export function Eyebrow({ children, surface = "cream", size = "label", className }: EyebrowProps) {
+  const tag = size === "tag";
   return (
     <p
       className={cn(
@@ -56,11 +59,17 @@ export function Eyebrow({ children, surface = "cream", className }: EyebrowProps
         // shadow so it adds no size and stays a true half-pixel hairline: borders and outlines get
         // rounded up to a solid 1px on standard screens, which reads darker than Figma.
         surfaces[surface],
-        "relative inline-flex items-center justify-center px-[5.5px] py-[10.5px] shadow-[inset_0_0_0_0.5px_#b7ae9a]",
+        "relative inline-flex items-center justify-center px-[5.5px] shadow-[inset_0_0_0_0.5px_#b7ae9a]",
+        tag ? "py-[2.5px]" : "py-[10.5px]",
         className,
       )}
     >
-      <span className="text-center font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] whitespace-nowrap uppercase">
+      <span
+        className={cn(
+          "text-center text-[12px] whitespace-nowrap uppercase",
+          tag ? "font-mono leading-[1.3] tracking-[0.48px]" : "font-open-sans leading-[0.9] font-semibold tracking-[1.44px]",
+        )}
+      >
         {children}
       </span>
       {corners.map((position) => (

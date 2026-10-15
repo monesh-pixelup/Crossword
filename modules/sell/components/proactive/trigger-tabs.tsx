@@ -8,7 +8,7 @@ import { proactiveTriggers } from "../../config/proactive";
 const DURATION_MS = 6000;
 
 /**
- * A sand stage (509px tall at 1280px) over three trigger tabs. The tabs take turns on a timer: a
+ * A sand stage (509px tall at 1280px) over four trigger tabs. The tabs take turns on a timer: a
  * 2px gold bar fills across the active tab's top edge, then hands over to the next (Figma shows it
  * part-way, at 156.95px). Choosing a tab restarts its timer. The cycle only runs while the
  * section is on screen, and not at all with reduced motion (the bar then sits full).

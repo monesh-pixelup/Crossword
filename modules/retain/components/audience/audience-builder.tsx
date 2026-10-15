@@ -21,7 +21,7 @@ export function AudienceBuilder() {
         <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="flex flex-col items-start gap-6">
             <Eyebrow>Audiences</Eyebrow>
-            <SectionTitle id="audience-title" initial="T" firstLine="urn customer patterns" secondLine="into your audience" width={614.744} variant="airy" />
+            <SectionTitle id="audience-title" initial="T" firstLine="urn customer patterns" secondLine="into your audience" width={614.744} />
           </div>
           <p className="max-w-[477.244px] font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
             Find demand buried in past conversations, even when shoppers never joined a waiting list with Crossword.

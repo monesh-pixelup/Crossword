@@ -1,0 +1,9 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Channel icon">
+<path id="Vector" d="M27 5H5C3.89543 5 3 5.89543 3 7V23C3 24.1046 3.89543 25 5 25H27C28.1046 25 29 24.1046 29 23V7C29 5.89543 28.1046 5 27 5Z" stroke="#8C1F3D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M3 10H29" stroke="#8C1F3D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" d="M6.49844 8.0999C6.82981 8.0999 7.09844 7.83127 7.09844 7.4999C7.09844 7.16853 6.82981 6.8999 6.49844 6.8999C6.16707 6.8999 5.89844 7.16853 5.89844 7.4999C5.89844 7.83127 6.16707 8.0999 6.49844 8.0999Z" stroke="#8C1F3D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M8.99844 8.0999C9.32981 8.0999 9.59844 7.83127 9.59844 7.4999C9.59844 7.16853 9.32981 6.8999 8.99844 6.8999C8.66707 6.8999 8.39844 7.16853 8.39844 7.4999C8.39844 7.83127 8.66707 8.0999 8.99844 8.0999Z" stroke="#8C1F3D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_5" d="M15 15H24C24.3978 15 24.7794 15.158 25.0607 15.4393C25.342 15.7206 25.5 16.1022 25.5 16.5V20.5C25.5 20.8978 25.342 21.2794 25.0607 21.5607C24.7794 21.842 24.3978 22 24 22H19L16 24.5V22H15C14.6022 22 14.2206 21.842 13.9393 21.5607C13.658 21.2794 13.5 20.8978 13.5 20.5V16.5C13.5 16.1022 13.658 15.7206 13.9393 15.4393C14.2206 15.158 14.6022 15 15 15Z" stroke="#8C1F3D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

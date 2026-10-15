@@ -27,7 +27,7 @@ export function TwoWays() {
             firstLine="wo ways"
             secondLine={<span className="font-light">to go dynamic</span>}
             width={483.867}
-            variant="airy"
+            variant="display"
           />
         </div>
 
