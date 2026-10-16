@@ -29,29 +29,3 @@ export const adaptiveFeatures: AdaptiveFeature[] = [
       "From a natural add-on to a better upgrade, recommendations feel useful to the shopper. Crossword suggests what to buy next based on what the customer is already considering, their preferences and what they’ve bought before.",
   },
 ];
-
-/** The merchant product the stage's mock-up shows (the content doc's dynamic landing page example). */
-export const pdp = {
-  brand: "Field & Root",
-  name: "Ashwagandha 600mg Capsules",
-  price: "$29",
-  rating: "4.8",
-  reviews: "212 reviews",
-  prompts: ["How do I take it?", "Can I take it with coffee?", "How long until I notice results?"],
-  ask: {
-    question: "When should I take this, morning or night?",
-    answer:
-      "Either works. Most people take it with a meal, and evening is popular if you're using it to wind down. Pick a time you'll stick to, since consistency matters more than timing.",
-  },
-  gist: "A once-daily 600mg ashwagandha capsule for everyday stress and winding down. Take it with a meal, morning or night. Consistency matters more than timing.",
-  direct: {
-    question: "Can I take it with my multivitamin?",
-    answer:
-      "Generally yes. Check the label for overlapping ingredients, and if you're on medication or have a health condition, it's best to confirm with your doctor first.",
-    source: "From product details and Q&A",
-  },
-  alsoConsider: [
-    { name: "Magnesium Glycinate", note: "Relaxation & winding down · Capsules", price: "$24" },
-    { name: "Sleep Support Blend", note: "Stress-related sleep support · Gummies", price: "$32" },
-  ],
-};

@@ -53,8 +53,7 @@ export function DynamicHero() {
             </StampButton>
             <p className="font-sans text-base leading-6 tracking-[-0.32px] text-cream">
               Crossword builds landing pages that carry your ad&rsquo;s message into your store, and product pages
-              that adapt to each shopper.{" "}
-              <span className="text-cream/60">Higher ROAS on the click. Higher conversion on the page.</span>
+              that adapt to each shopper. Higher ROAS on the click. Higher conversion on the page.
             </p>
           </div>
         </div>

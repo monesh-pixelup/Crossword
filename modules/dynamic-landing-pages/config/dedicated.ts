@@ -12,8 +12,9 @@ export type BentoTile = {
 };
 
 /**
- * Components of a dedicated landing page, as Figma's bento (copy from Figma). Legal: any tile that
- * later shows a real competitor comparison needs a "Based on AI research" disclaimer.
+ * Components of a dedicated landing page, as Figma's reordered bento (copy from Figma): two livery
+ * tiles, then four cream ones. Legal: any tile that later shows a real competitor comparison needs
+ * a "Based on AI research" disclaimer.
  */
 export const dedicatedTiles: BentoTile[] = [
   {
@@ -38,16 +39,16 @@ export const dedicatedTiles: BentoTile[] = [
   {
     title: "Chats and quizzes",
     body: "A short, conversational quiz meets the shopper where they are, asking one plain question at a time and using the answer to guide them to the right next step instead of making them browse for it.",
-    tone: "sand",
+    tone: "cream",
   },
   {
     title: "Personalized content",
     body: "The exact product from the ad, with the specific details the shopper clicked for, front and center, so there’s no hunting through a catalog to find it again.",
-    tone: "maroon",
+    tone: "cream",
   },
   {
     title: "Offers",
     body: "The offer follows the shopper from ad to cart. A welcome perk applied automatically, shown clearly, next to the exact product it applies to.",
-    tone: "maroon",
+    tone: "cream",
   },
 ];

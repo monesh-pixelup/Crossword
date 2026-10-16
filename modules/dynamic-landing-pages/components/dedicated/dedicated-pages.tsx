@@ -19,35 +19,31 @@ const grounds = {
   maroon: { fill: "bg-maroon", blend: "mix-blend-darken" },
 } as const;
 
-/** 40px in, copy pinned to the bottom, 16px apart. */
+/** The livery tiles: 40px in, copy pinned to the bottom, 16px apart. */
 const tileBase = "flex flex-col items-start justify-end gap-4 p-10";
 const body = "font-sans text-base leading-[1.5] tracking-[-0.32px]";
 
 function Tile({ tile }: { tile: BentoTile }) {
-  const title = tile.large
-    ? "font-serif text-[40px] leading-[1.1] font-light tracking-[-1.6px]"
-    : "font-serif text-[32px] leading-[1.2] font-light tracking-[-1.28px]";
-
   if (tile.tone === "cream" || tile.tone === "sand") {
+    // The light tiles size to their copy, top-aligned: the medallion, a Geist 16 title, then the line of copy.
     return (
       <li
         className={cn(
-          tileBase,
-          "relative min-h-[320px] border border-engraved lg:h-[380px]",
+          "relative flex flex-col items-start gap-4 border border-engraved p-10",
           tile.tone === "cream" ? "bg-cream" : "bg-sand",
         )}
       >
         <Studs inset={7} />
         <Image src={medallion} alt="" className="size-7" />
-        <h3 className={cn(title, "text-ink")}>{tile.title}</h3>
+        <h3 className={cn(body, "text-ink")}>{tile.title}</h3>
         <p className={cn(body, "text-ink-muted")}>{tile.body}</p>
       </li>
     );
   }
 
   return (
-    <li className={cn("flex", tile.tone === "aubergine" && "md:col-span-2")}>
-      <div className={cn(tileBase, "relative isolate w-full", tile.large ? "min-h-[360px] lg:h-[420px]" : "min-h-[320px] lg:h-[380px]")}>
+    <li className="flex">
+      <div className={cn(tileBase, "relative isolate min-h-[360px] w-full lg:h-[420px]")}>
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className={cn("absolute inset-0", grounds[tile.tone].fill)} />
           <div
@@ -63,7 +59,7 @@ function Tile({ tile }: { tile: BentoTile }) {
             {tile.eyebrow}
           </Eyebrow>
         )}
-        <h3 className={cn(title, "relative text-cream")}>{tile.title}</h3>
+        <h3 className="relative font-serif text-[40px] leading-[1.1] font-light tracking-[-1.6px] text-cream">{tile.title}</h3>
         <p className={cn(body, "relative text-on-dark")}>{tile.body}</p>
       </div>
     </li>
@@ -71,11 +67,11 @@ function Tile({ tile }: { tile: BentoTile }) {
 }
 
 /**
- * Figma "Library · Bento grid" (Dedicated landing pages): the headline with a text link
- * bottom-aligned on the right, then 64px below the tiles, 24px apart: a 2:1 row of 420px livery
- * tiles (aubergine, then forest: Dark eyebrow, Crimson 40 title) and a row of four 380px tiles
- * (cream and sand with the medallion and corner studs, then two maroon), every livery tile in a
- * 0.75px gilt frame 12px in with a stud in each corner.
+ * Figma "ALT · Dedicated landing pages (reordered)": the headline with a text link bottom-aligned
+ * on the right, then 64px below the tiles, 16px apart: two equal 420px livery tiles (aubergine,
+ * then forest: Dark eyebrow, Crimson 40 title, in a 0.75px gilt frame 12px in with a stud in each
+ * corner), then four cream tiles that size to their copy (the medallion and corner studs, a Geist
+ * 16 title over a line of copy).
  */
 export function DedicatedPages() {
   const large = dedicatedTiles.filter((t) => t.large);
@@ -92,13 +88,13 @@ export function DedicatedPages() {
           <TextLink href={ctaLinks.bookDemo} className="max-md:whitespace-normal">Think of something else? It is one conversation away.</TextLink>
         </div>
 
-        <div className="flex w-full flex-col gap-6">
-          <ul className="grid gap-6 md:grid-cols-3">
+        <div className="flex w-full flex-col gap-4">
+          <ul className="grid gap-4 md:grid-cols-2">
             {large.map((tile) => (
               <Tile key={tile.title} tile={tile} />
             ))}
           </ul>
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {small.map((tile) => (
               <Tile key={tile.title} tile={tile} />
             ))}
