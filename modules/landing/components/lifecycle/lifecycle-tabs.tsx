@@ -221,9 +221,9 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
           <div
             ref={headingRef}
             className={cn(
-              "order-1 max-lg:mb-(--space-xxlarge) lg:sticky lg:top-12 lg:z-10 lg:bg-cream",
-              // Cream above the stuck heading hides items scrolled past it; a fade below softens their exit.
-              "lg:before:absolute lg:before:inset-x-0 lg:before:bottom-full lg:before:h-12 lg:before:bg-cream",
+              "relative order-1 max-lg:mb-(--space-xxlarge) lg:sticky lg:top-[calc(72.5px+48px)] lg:z-10 lg:bg-cream",
+              // Pinned 48px below the fixed 72.5px site header. Cream above the stuck heading hides items scrolled past it; a fade below softens their exit.
+              "lg:before:absolute lg:before:inset-x-0 lg:before:bottom-full lg:before:h-[calc(72.5px+48px)] lg:before:bg-cream",
               "lg:after:pointer-events-none lg:after:absolute lg:after:inset-x-0 lg:after:top-full lg:after:h-10 lg:after:bg-linear-to-b lg:after:from-cream lg:after:to-cream/0",
             )}
           >
@@ -243,7 +243,7 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
       {/* The mock-up stays put while the list scrolls; between heading and list, pinned to the top, when stacked. */}
       <div
         ref={panelRef}
-        className="@container sticky top-0 z-10 order-2 w-full after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 lg:top-12 lg:w-auto lg:min-w-0 lg:flex-1 lg:after:hidden"
+        className="@container sticky top-0 z-10 order-2 w-full after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 lg:top-[calc(72.5px+48px)] lg:w-auto lg:min-w-0 lg:flex-1 lg:after:hidden"
       >
         <LifecyclePanel visual={steps[active].feature.visual} run={run} play={seen} />
       </div>

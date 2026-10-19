@@ -31,7 +31,7 @@ export function RailAccent({ src, className }: { src?: StaticImageData; classNam
   }, []);
 
   const grow = cn(
-    "block origin-top transition-[scale] duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:scale-y-100 motion-reduce:transition-none",
+    "block origin-top transition-[scale] duration-[2400ms] ease-[cubic-bezier(0.33,1,0.68,1)] motion-reduce:scale-y-100 motion-reduce:transition-none",
     shown ? "scale-y-100" : "scale-y-0",
   );
 

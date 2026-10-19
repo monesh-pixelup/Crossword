@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/cn";
 import crosswordMark from "../../assets/blog/crossword-mark.svg";
+import damaskSwirls from "../../assets/blog/damask-swirls.webp";
 import damaskTile from "../../assets/blog/damask-tile.webp";
 import dot from "../../assets/blog/dot.svg";
 import featureFrame from "../../assets/blog/feature-frame.webp";
@@ -21,9 +22,21 @@ function FeaturedCover() {
   return (
     <div aria-hidden className="relative h-[296px] w-[761px] shrink-0 overflow-clip select-none scale-to-container [--fit-width:761px]">
       <div className="absolute inset-0 bg-maroon" />
+      {/* Twill, toned to the dim grey Figma renders it as, so darkening the maroon lands on its colours. */}
       <div
         className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left mix-blend-darken"
         style={{ backgroundImage: `url(${damaskTile.src})` }}
+      />
+      {/*
+        Figma's pattern fill: a damask tile (the scroll image beside its mirror) at 2.59x, bottom-left
+        aligned; one tile spans the cover, so this is its visible window. Only its dark scrollwork
+        shows in Figma's render, as a 12.24% black shade over the twill (measured against it).
+      */}
+      <Image
+        src={damaskSwirls}
+        alt=""
+        sizes="761px"
+        className="absolute inset-0 size-full max-w-none opacity-[0.1224]"
       />
 
       {/* Gilt-framed title box (3x export: its fill has its own texture). */}
@@ -32,8 +45,7 @@ function FeaturedCover() {
         alt=""
         sizes="393px"
         className="absolute top-[126.55px] left-[10.7px] h-[156.121px] w-[392.928px] max-w-none"
-      />
-      <p className="absolute top-[168.11px] left-8 w-[314.238px] font-serif text-[0px] leading-[0] font-extralight tracking-[-2.4552px] text-white">
+      />      <p className="absolute top-[168.11px] left-8 w-[314.238px] font-serif text-[0px] leading-[0] font-extralight tracking-[-2.4552px] text-white">
         <span className="font-script text-[59.11px] leading-[0.9] font-normal tracking-[-2.9555px]">{initial}</span>
         <span className="text-[49.103px] leading-[0.9]">{firstLine}</span>
         <span className="text-[49.103px] leading-[0.9]">{secondLine}</span>
@@ -129,11 +141,6 @@ export function Blog() {
       <RailAccent
         src={railAccent}
         className="pointer-events-none absolute top-[122px] left-[calc(var(--frame-inset)-0.5px)]"
-      />
-      {/* The right rail carries the accent too, so the frame stays symmetrical. */}
-      <RailAccent
-        src={railAccent}
-        className="pointer-events-none absolute top-[122px] right-[calc(var(--frame-inset)-0.5px)]"
       />
 
       <div className="flex content-width flex-col items-start gap-section">

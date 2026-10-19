@@ -51,11 +51,6 @@ export function ShopperExperience() {
         src={railAccent}
         className="pointer-events-none absolute top-[122px] left-[calc(var(--frame-inset)-0.5px)]"
       />
-      {/* The right rail carries the accent too, so the frame stays symmetrical. */}
-      <RailAccent
-        src={railAccent}
-        className="pointer-events-none absolute top-[122px] right-[calc(var(--frame-inset)-0.5px)]"
-      />
 
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-0">

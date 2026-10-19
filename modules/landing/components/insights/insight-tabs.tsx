@@ -102,7 +102,8 @@ export function InsightTabs() {
         if (!e.currentTarget.contains(e.relatedTarget)) setFocusPaused(false);
       }}
     >
-      <div role="tabpanel" id={panelId} aria-labelledby={`${id}-tab-${current}`} className="relative aspect-[738/640] w-full overflow-hidden [container-type:size] lg:w-[57.6563%] lg:flex-none">
+      {/* Side by side, the row never grows past Figma's 640px, so wide screens don't pad the tabs out; the visual zooms to cover. */}
+      <div role="tabpanel" id={panelId} aria-labelledby={`${id}-tab-${current}`} className="relative aspect-[738/640] w-full overflow-hidden [container-type:size] lg:max-h-[640px] lg:w-[57.6563%] lg:flex-none">
         <InsightPanel visual={insightFeatures[current].visual} run={run} play={seen} />
       </div>
 

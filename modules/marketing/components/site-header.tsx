@@ -18,32 +18,49 @@ import { MobileMenu } from "./mobile-menu";
  */
 const TRANSPARENT_ROUTES = ["/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch"];
 
+/**
+ * Of those, pages where the dark bar belongs to the hero only: once the hero (the page's first
+ * section) has scrolled up past the header, it becomes the cream bar.
+ */
+const HERO_ONLY_ROUTES = ["/support", "/retain"];
+
 /** Scrolled past this many pixels, the transparent header takes on its dark bar. */
 const THRESHOLD = 10;
 
+/** The fixed header's height. */
+const HEADER_HEIGHT = 72.5;
+
 const navText = "font-serif text-base leading-[22.356px] tracking-[-0.48px] whitespace-nowrap";
 
-/** Whether the page is scrolled past THRESHOLD, read once per frame (only listens when `active`). */
-function useScrolled(active: boolean) {
+/**
+ * Whether the page is scrolled past THRESHOLD and, when `trackHero`, whether the hero has scrolled
+ * up past the header; read once per frame (only listens when `active`).
+ */
+function useScrolled(active: boolean, trackHero: boolean) {
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
     if (!active) return;
     let frame = 0;
     const read = () => {
       frame = 0;
       setScrolled(window.scrollY > THRESHOLD);
+      const hero = trackHero ? document.querySelector("main > :first-child") : null;
+      setPastHero(!!hero && hero.getBoundingClientRect().bottom <= HEADER_HEIGHT);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(read);
     };
     read();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, [active]);
-  return active && scrolled;
+  }, [active, trackHero]);
+  return { scrolled: active && scrolled, pastHero: active && trackHero && pastHero };
 }
 
 /** The caret, drawn in the text colour. */
@@ -154,29 +171,45 @@ function Contents({ light }: { light: boolean }) {
  * - TRANSPARENT_ROUTES: no spacer, so the hero runs up under it. The same full-width bar as the home
  *   page, but transparent with cream links, the light mark and the wine-gold button; scrolled past
  *   10px its translucent dark fill (rgba(9, 9, 9, .71) with a blur) and a white/15 hairline fade in
- *   behind them over 300ms.
+ *   behind them over 300ms. On HERO_ONLY_ROUTES that lasts while the hero is under the header;
+ *   past it the header is the cream bar (still with no spacer).
  */
 export function SiteHeader() {
-  const transparent = TRANSPARENT_ROUTES.includes(usePathname());
-  const scrolled = useScrolled(transparent);
+  const pathname = usePathname();
+  const transparent = TRANSPARENT_ROUTES.includes(pathname);
+  const { scrolled, pastHero } = useScrolled(transparent, HERO_ONLY_ROUTES.includes(pathname));
 
   if (transparent) {
+    // Past the hero (HERO_ONLY_ROUTES) the cream bar crossfades in over the dark one, fill, rule and contents together.
+    const dark = scrolled && !pastHero;
+    const fade = "transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
     return (
-      <header className="fixed inset-x-0 top-0 z-50 mx-auto max-w-[1800px] pb-[0.5px]">
-        {/* Laid out as the home page's bar (full width, the content row 16px top and bottom); its dark fill and hairline fade in once the page scrolls. */}
-        <div
-          aria-hidden
-          className={cn(
-            "pointer-events-none absolute inset-0 -z-10 bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px] transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-            scrolled ? "opacity-100" : "opacity-0",
-          )}
-        >
-          <span className="absolute inset-x-0 bottom-0 h-[0.5px] bg-white/15" />
-        </div>
+      <header className="fixed inset-x-0 top-0 z-50">
+        {/* The hairlines run the full viewport width, past the 1800px cap. */}
+        <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 bottom-0 h-[0.5px] bg-white/15", fade, dark ? "opacity-100" : "opacity-0")} />
+        <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 bottom-0 h-[0.5px] bg-black/20", fade, pastHero ? "opacity-100" : "opacity-0")} />
+        <div className="relative mx-auto max-w-[1800px] pb-[0.5px]">
+          {/* Laid out as the home page's bar (full width, the content row 16px top and bottom); its dark fill fades in once the page scrolls. */}
+          <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10 bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]", fade, dark ? "opacity-100" : "opacity-0")} />
+          <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10 bg-cream/97 backdrop-blur-[16px]", fade, pastHero ? "opacity-100" : "opacity-0")}>
+            <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+            <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+          </div>
 
-        {/* Not positioned, so the mobile menu (absolute, top-full) spans the whole header. */}
-        <div className="flex content-width items-center justify-between py-4">
-          <Contents light />
+          {/*
+            Both sets of contents share one grid cell and crossfade; the hidden one is inert. Neither
+            is positioned, so the mobile menu (absolute, top-full) spans the whole bar.
+          */}
+          <div className="grid">
+            <div inert={pastHero} className={cn("col-start-1 row-start-1 flex content-width items-center justify-between py-4", fade, pastHero ? "opacity-0" : "opacity-100")}>
+              <Contents light />
+            </div>
+            {HERO_ONLY_ROUTES.includes(pathname) && (
+              <div inert={!pastHero} className={cn("col-start-1 row-start-1 flex content-width items-center justify-between py-4", fade, pastHero ? "opacity-100" : "opacity-0")}>
+                <Contents light={false} />
+              </div>
+            )}
+          </div>
         </div>
       </header>
     );
@@ -184,16 +217,19 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 mx-auto max-w-[1800px] pb-[0.5px]">
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-cream/97 backdrop-blur-[16px]">
-          <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
-          <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
-          <span className="absolute inset-x-0 bottom-0 h-[0.5px] bg-black/20" />
-        </div>
+      <header className="fixed inset-x-0 top-0 z-50">
+        {/* The rule runs the full viewport width, past the 1800px cap. */}
+        <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[0.5px] bg-black/20" />
+        <div className="relative mx-auto max-w-[1800px] pb-[0.5px]">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-cream/97 backdrop-blur-[16px]">
+            <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+            <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+          </div>
 
-        {/* Not positioned, so the mobile menu (absolute, top-full) spans the whole header. */}
-        <div className="flex content-width items-center justify-between py-4">
-          <Contents light={false} />
+          {/* Not positioned, so the mobile menu (absolute, top-full) spans the whole bar. */}
+          <div className="flex content-width items-center justify-between py-4">
+            <Contents light={false} />
+          </div>
         </div>
       </header>
       {/* Holds the fixed header's 72.5px at the top of the page. */}

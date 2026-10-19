@@ -14,15 +14,11 @@ export function Insights() {
         src={railAccent}
         className="pointer-events-none absolute top-[99px] left-[calc(var(--frame-inset)-0.5px)] max-lg:hidden"
       />
+      {/* Stacked, the left rail's accent is drawn as in Managed launch. */}
       <RailAccent
-        src={railAccent}
-        className="pointer-events-none absolute top-[99px] right-[calc(var(--frame-inset)-0.5px)] max-lg:hidden"
+        src={sharedRailAccent}
+        className="pointer-events-none absolute top-[99px] left-[calc(var(--frame-inset)-0.5px)] lg:hidden"
       />
-      {/* Stacked, both rails carry the accent, drawn as in Managed launch so the narrow frame stays symmetrical. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[99px] lg:hidden">
-        <RailAccent src={sharedRailAccent} className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
-        <RailAccent src={sharedRailAccent} className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
-      </div>
 
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex w-full flex-col items-start gap-8 md:flex-row md:items-end md:justify-between md:gap-[120px]">

@@ -102,7 +102,10 @@ export function LifecyclePanel({ visual, run, play }: { visual: LifecycleVisual;
 /**
  * The Insights mock-up: the arched-hallway photo with the open tab's visual.
  * Drawn at 738 × 640 and zoomed to cover its panel (the panel keeps 738:640
- * but stretches to the tabs' height beside them). `run` restarts the script.
+ * but stretches to the tabs' height beside them). When the panel is wider
+ * than 738:640 (its height stops at 640px on wide screens) the visual shrinks
+ * back to the panel's height, so it keeps its room above and below while the
+ * photo still covers. `run` restarts the script.
  */
 export function InsightPanel({ visual, run, play }: { visual: InsightVisual; run: number; play: boolean }) {
   const { Component, label } = insightVisuals[visual];
@@ -110,7 +113,7 @@ export function InsightPanel({ visual, run, play }: { visual: InsightVisual; run
     <div
       role="img"
       aria-label={label}
-      className="absolute top-1/2 left-1/2 h-[640px] w-[738px] -translate-x-1/2 -translate-y-1/2 overflow-clip [zoom:max(tan(atan2(100cqw,738px)),tan(atan2(100cqh,640px)))]"
+      className="absolute top-1/2 left-1/2 h-[640px] w-[738px] -translate-x-1/2 -translate-y-1/2 overflow-clip [zoom:max(tan(atan2(100cqw,738px)),tan(atan2(100cqh,640px)))] [--insight-content-fit:min(1,tan(atan2(100cqh,100cqw*640/738)))]"
     >
       <div inert className="contents">
         <InsightFrame>

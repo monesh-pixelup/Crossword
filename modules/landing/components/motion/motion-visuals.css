@@ -1721,6 +1721,8 @@
 }
 .ill-insight-frame__content {
   position: relative;
+  /* Set by InsightPanel: below 1 when the panel is wider than 738:640. */
+  scale: var(--insight-content-fit, 1);
 }
 .ill-thread > .ill-ctr-outcome-turn {
   margin-top: 24px;
