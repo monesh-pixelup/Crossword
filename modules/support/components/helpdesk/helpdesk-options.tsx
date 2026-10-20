@@ -4,7 +4,8 @@ import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
-import { SupportEmptyFrame, SupportScenePanel } from "../motion/support-scene-panel";
+import { SupportHelpdeskIntegration } from "../motion/helpdesk-integration";
+import { SupportScenePanel } from "../motion/support-scene-panel";
 
 /** Figma's tag pill: Geist Medium 14 caps on #ffeec2 in a 0.5px ink/40 hairline, cap-trimmed inside 6px. */
 const tag =
@@ -17,7 +18,7 @@ const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px]
  * alternating rows 120px apart (copy left of its maroon panel, then the panel left of its copy),
  * spread across the content width. Each option is a tag, a 32px title, a line of copy and a text
  * link; the panels are the support scenes' maroon frame (row 1 playing the Crossword inbox scene,
- * row 2 empty for now). Opens with the patterned divider band (24px more top padding), so the gold
+ * row 2 the static helpdesk-integration illustration). Opens with the patterned divider band (24px more top padding), so the gold
  * section tick (1px × 180px, as SectionTick) starts 24px lower too.
  */
 export function HelpdeskOptions() {
@@ -75,9 +76,9 @@ export function HelpdeskOptions() {
               </div>
             </div>
 
-            {/* The same maroon frame as row 1's, empty until this option's scene is designed. */}
+            {/* The same maroon frame as row 1's, holding the static helpdesk-integration illustration. */}
             <div className="relative aspect-[738/680] w-full lg:order-1">
-              <SupportEmptyFrame />
+              <SupportHelpdeskIntegration />
             </div>
           </div>
         </div>
