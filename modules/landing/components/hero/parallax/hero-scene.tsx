@@ -1,7 +1,7 @@
 "use client";
 
 import type { StaticImageData } from "next/image";
-import { type ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { type CSSProperties, type ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
 import overlay from "../../../assets/hero/parallax/overlay.webp";
 import { type GlitchSettings, GlitchFigure } from "./glitch-figure";
 import { ParallaxCamera, type ParallaxLook } from "./motion";
@@ -67,11 +67,15 @@ export function HeroScene({
   const [camera, setCamera] = useState<ParallaxCamera | null>(null);
   // Unknown until measured on the client: the frame then fills the width (up to the viewport's height) and the UI waits.
   const [width, setWidth] = useState<number | null>(null);
+  // The scene root spans the page (the frame can be narrower, centred in it): exposed as --scene-page-w so content can line up with the page.
+  const [pageWidth, setPageWidth] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     const el = root.current!;
-    const measure = () =>
+    const measure = () => {
       setWidth(fitHeight ? Math.min(el.clientWidth, (window.innerHeight * FRAME_W) / FRAME_H) : el.clientWidth);
+      setPageWidth(el.clientWidth);
+    };
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(el);
@@ -108,9 +112,11 @@ export function HeroScene({
     });
   }, [camera, intensity, follow, release]);
 
+  const pageVar = { "--scene-page-w": pageWidth === null ? "100%" : `${pageWidth}px` } as CSSProperties;
   const frameStyle = compact
-    ? undefined
+    ? pageVar
     : {
+        ...pageVar,
         width: width ?? (fitHeight ? `min(100%, ${(100 * FRAME_W) / FRAME_H}vh)` : "100%"),
         aspectRatio: `${FRAME_W} / ${FRAME_H}`,
       };

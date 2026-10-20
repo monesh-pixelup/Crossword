@@ -106,7 +106,6 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
   return (
     <div ref={root} className="hero-journeys">
       <HeroScene
-        fitHeight
         layers={LAYERS}
         layerSize={LAYER_SIZE}
         aboveFrame={(scene) =>
@@ -135,8 +134,16 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
                     : "-bottom-[5.69%] -left-[5.975%] h-[40.91%] w-[114.17%] bg-linear-to-t from-black from-[29.752%] to-transparent mix-blend-multiply blur-[17px]",
                 )}
               />
-              {/* At the foot, the copy's last line sits where Figma's row ends: 88.5px above the 863px frame's bottom. */}
-              <div className={cn(top ? "relative pt-28" : "absolute inset-x-0 bottom-[10.25%]")}>
+              {/*
+                At the foot, the copy's last line sits where Figma's row ends: 88.5px above the 863px frame's bottom. It
+                spans the page's width (not the frame's, which can be narrower), so its content column lines up with the
+                other sections' headings.
+              */}
+              <div
+                className={cn(
+                  top ? "relative pt-28" : "absolute bottom-[10.25%] left-1/2 w-(--scene-page-w) -translate-x-1/2",
+                )}
+              >
                 {copy}
               </div>
             </>

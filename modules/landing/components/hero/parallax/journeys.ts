@@ -36,7 +36,8 @@ export const entries: Entry[] = [
 export type Product = { title: string; subtitle: string; price: string; image: StaticImageData };
 
 export type Turn =
-  | { kind: "assistant" | "user"; text: string }
+  | { kind: "assistant"; text: string }
+  | { kind: "user"; text: string }
   | { kind: "products"; products: Product[] };
 
 const runners: Product[] = [
