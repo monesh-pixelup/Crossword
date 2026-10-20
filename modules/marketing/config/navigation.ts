@@ -18,7 +18,6 @@ export const primaryNav: NavItem[] = [
     children: [
       { label: "Conversational Interface", href: "/sell", description: "Guides every shopper to the right product" },
       { label: "Dynamic Landing Pages", href: "/dynamic-landing-pages", description: "Pages built around the ad and the shopper" },
-      { label: "Search Bar", href: "#search-bar", description: "Answers, right in your search" },
     ],
   },
   { label: "Support", href: "/support" },

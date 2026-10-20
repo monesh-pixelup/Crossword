@@ -1,14 +1,23 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import stud from "@/modules/landing/assets/shopper/panel-stud.svg";
+import panelTexture from "@/modules/landing/assets/shopper/panel-texture.webp";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import cardArt from "../../assets/returns/card-art.webp";
+
+// Corner studs, as positioned in Figma.
+const studs = [
+  { left: 18.516, top: 572.824 },
+  { left: 1249.797, top: 572.824 },
+  { left: 1249.797, top: 21.297 },
+  { left: 20.789, top: 16.263 },
+];
 
 /**
  * Figma "Library · Three-card row" (Return reduction), as Storefront presence on Sell: the eyebrow,
- * a two-line headline and a line of 14px copy, then 80px below three equal cards (413.33px at
- * 1280px, 20px apart) on #fdf4de in a black/10 hairline, each a 330px textured aubergine panel
- * with the damask in its gold frame, exported from Figma as one image.
+ * a two-line headline and a line of 14px copy, then 80px below the home page's Shopper experience
+ * panel without its mock-up: the aubergine damask with its gilt notched frame and corner studs, drawn
+ * at its 1280 × 599 design size and zoomed as a whole to the column width.
  * A 209px gold tick sits on the left rail beside the eyebrow.
  */
 export function ReturnReduction() {
@@ -26,14 +35,22 @@ export function ReturnReduction() {
           </p>
         </div>
 
-        <ul aria-hidden className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {[0, 1, 2].map((i) => (
-            <li key={i} className="overflow-clip border border-black/10 bg-[#fdf4de]">
-              {/* The whole 330px panel as Figma exports it: textured aubergine, the damask and its gold frame. */}
-              <Image src={cardArt} alt="" sizes="(min-width: 992px) 412px, (min-width: 768px) 48vw, 96vw" className="h-auto w-full" />
-            </li>
-          ))}
-        </ul>
+        <div className="@container w-full">
+          <div
+            aria-hidden
+            className="relative h-[599px] w-[1280px] shrink-0 overflow-clip bg-[#462160] select-none scale-to-container [--fit-width:1280px]"
+          >
+            <Image
+              src={panelTexture}
+              alt=""
+              sizes="(min-width: 1440px) calc(86vw - 30px), 1238px"
+              className="absolute top-[17.135px] left-[20.906px] h-[564.729px] w-[1238.18px] max-w-none"
+            />
+            {studs.map((pos) => (
+              <Image key={`${pos.left}-${pos.top}`} src={stud} alt="" className="absolute size-[10px]" style={pos} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

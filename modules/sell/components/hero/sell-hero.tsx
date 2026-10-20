@@ -26,21 +26,25 @@ function Headline() {
 }
 
 /**
- * Product-page hero: a full-bleed photo (its own bottom fade is baked into the export) with the
+ * Product-page hero: a full-bleed photo (the whole viewport width, not capped at the site's 1800px;
+ * its own bottom fade is baked into the export) with the
  * copy pinned to the bottom. The overlay header floats over its top. From 1200px the headline and
  * the CTA column sit side by side, bottom-aligned, as in Figma; below that they stack.
  */
 export function SellHero() {
   return (
-    <section aria-labelledby="sell-hero-title" className="relative overflow-hidden bg-[#0e0501]">
-      <Image
-        src={background}
-        alt=""
-        fill
-        sizes="100vw"
-        preload
-        className="object-cover object-[70%_center] lg:object-center"
-      />
+    <section aria-labelledby="sell-hero-title" className="relative bg-[#0e0501]">
+      {/* The photo runs the full viewport width, out past the site's 1800px cap on wide screens (SiteShell clips the overrun). */}
+      <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#0e0501]">
+        <Image
+          src={background}
+          alt=""
+          fill
+          sizes="100vw"
+          preload
+          className="object-cover object-[70%_center] lg:object-center"
+        />
+      </div>
 
       <div className="relative flex min-h-[640px] content-width flex-col justify-end pb-16 md:min-h-[788px] md:pb-[85px]">
         <div className="flex w-full max-w-[1271.652px] flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">

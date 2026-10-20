@@ -2,7 +2,7 @@ import { SnappedEyebrow } from "@/components/ui/eyebrow";
 import { commitments } from "../../config/launch";
 
 /**
- * Figma "Library · Stats band" (Managed launch and progress): a sand band between the page rails,
+ * Figma "Library · Stats band" (Managed launch and progress): a sand band the full viewport width,
  * 96px top and bottom, a 433px label column (the eyebrow over a two-line Crimson 22 title, 16px
  * apart), then the two commitments as stats behind dashed engraved rules, 40px in: a Crimson 200
  * 70px value with its Geist 14 unit beside it, over a Geist Mono caption, 12px apart. The second
@@ -10,9 +10,14 @@ import { commitments } from "../../config/launch";
  */
 export function Commitment() {
   return (
-    <section aria-label="Managed launch and progress" className="relative px-(--frame-inset)">
-      <div className="bg-sand py-16 shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] md:py-24">
-        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col gap-12 lg:flex-row lg:items-start lg:gap-0">
+    <section aria-label="Managed launch and progress" className="relative">
+      {/* The sand runs the full viewport width, out past the site's 1800px cap on wide screens (SiteShell clips the overrun). */}
+      <div
+        aria-hidden
+        className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-sand shadow-[inset_0_0.5px_0_rgba(0,0,0,0.25),inset_0_-0.5px_0_rgba(0,0,0,0.25)]"
+      />
+      <div className="relative py-16 md:py-24">
+        <div className="flex content-width flex-col gap-12 lg:flex-row lg:items-start lg:gap-0">
           <div className="flex flex-col items-start gap-4 lg:w-[433px] lg:shrink-0 lg:pr-10">
             <SnappedEyebrow surface="sand" className="h-8">
               Managed launch

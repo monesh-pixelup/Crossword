@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef } from "react";
+import Image, { type StaticImageData } from "next/image";
+import { type CSSProperties, useEffect, useRef } from "react";
 import panelTexture from "../../assets/launch/panel-texture.webp";
 import stampArt from "../../assets/launch/stamp-art.webp";
 import stud from "../../assets/launch/stud.svg";
@@ -13,14 +13,17 @@ const studs = [
   { left: 9.758, top: 292.016 },
 ];
 
-/** "Simply tell us…" → we do the rest. Server markup is Figma's still frame (step 3 active). */
-const steps = [
-  { text: "We connect the systems.", state: "fade-top" },
-  { text: "We configure the experience.", state: "muted" },
-  { text: "We test it.", state: "active" },
-  { text: "We launch it.", state: "muted" },
-  { text: "We improve it.", state: "fade-bottom" },
-] as const;
+/** "Simply tell us…" → we do the rest. */
+const homeSteps = ["We connect the systems.", "We configure the experience.", "We test it.", "We launch it.", "We improve it."];
+
+/** Server markup is Figma's still frame: the middle step active, its neighbours muted, the ends fading out. */
+function stillState(i: number, n: number) {
+  const rel = i - Math.floor(n / 2);
+  if (rel === 0) return "active";
+  if (rel === -2) return "fade-top";
+  if (rel === 2) return "fade-bottom";
+  return "muted";
+}
 
 const DURATION = 2500; // ms per step
 const ROLL = 465; // ms for the steps to roll to the new step
@@ -352,9 +355,21 @@ function startWheel(row: HTMLElement, list: HTMLOListElement, pile: HTMLElement,
 /**
  * The stamp panel and the steps wheel of the managed-launch row. Rendered
  * inside the row's positioning box, so both keep their Figma placement.
+ * The Managed Launch page's Journey row passes its own steps, stamp and label, and a `textScale`
+ * that sets its longer one-line steps smaller so they stay inside the page.
  */
-export function LaunchWheel() {
-    const listRef = useRef<HTMLOListElement>(null);
+export function LaunchWheel({
+  steps = homeSteps,
+  stamp = stampArt,
+  label = "How we launch your concierge",
+  textScale = 1,
+}: {
+  steps?: readonly string[];
+  stamp?: StaticImageData;
+  label?: string;
+  textScale?: number;
+}) {
+  const listRef = useRef<HTMLOListElement>(null);
   const pileRef = useRef<HTMLDivElement>(null);
   const templateRef = useRef<HTMLImageElement>(null);
 
@@ -388,7 +403,7 @@ export function LaunchWheel() {
         {/* The still frame's stamp; the wheel keeps it as the template for the stamps it drops. */}
         <Image
           ref={templateRef}
-          src={stampArt}
+          src={stamp}
           alt=""
           sizes="99px"
           className="absolute top-[34.677%] left-[34.415%] block h-auto w-[31.171%] max-w-none drop-shadow-[0_2px_4px_rgba(24,8,36,0.35)]"
@@ -399,22 +414,23 @@ export function LaunchWheel() {
 
       <ol
         ref={listRef}
-        aria-label="How we launch your concierge"
-        className="group/wheel order-2 flex flex-col items-center gap-[0.1462em] text-center font-serif text-(length:--h4-size) leading-[1.1] lg:order-none lg:mt-[11.954%] lg:ml-[14.315%] lg:items-start lg:text-left lg:text-[length:min(2.5rem,3.125vw_-_0.3125rem)] data-[wheel]:[mask-image:linear-gradient(to_bottom,transparent_0,rgba(0,0,0,0.667)_1.1em,#000_1.2462em,#000_calc(100%_-_1.2462em),rgba(0,0,0,0.667)_calc(100%_-_1.1em),transparent_100%)]"
+        aria-label={label}
+        style={{ "--wheel-scale": textScale } as CSSProperties}
+        className="group/wheel order-2 flex flex-col items-center gap-[0.1462em] text-center font-serif text-[length:calc(var(--h4-size)*var(--wheel-scale,1))] leading-[1.1] lg:order-none lg:mt-[11.954%] lg:ml-[14.315%] lg:items-start lg:text-left lg:text-[length:calc(min(2.5rem,3.125vw_-_0.3125rem)*var(--wheel-scale,1))] data-[wheel]:[mask-image:linear-gradient(to_bottom,transparent_0,rgba(0,0,0,0.667)_1.1em,#000_1.2462em,#000_calc(100%_-_1.2462em),rgba(0,0,0,0.667)_calc(100%_-_1.1em),transparent_100%)]"
       >
-        {steps.map((step) => (
+        {steps.map((step, i) => (
           <li
-            key={step.text}
+            key={step}
             data-step
-            data-state={step.state}
+            data-state={stillState(i, steps.length)}
             className="group/step font-extralight tracking-[-0.05em] whitespace-nowrap text-ink group-data-[wheel]/wheel:transition-[color,opacity,letter-spacing] group-data-[wheel]/wheel:duration-[330ms] group-data-[wheel]/wheel:ease-[ease] motion-reduce:transition-none data-[state=active]:font-light data-[state=active]:tracking-[-0.04em] data-[state=active]:text-[#002916] data-[state=fade-bottom]:bg-[linear-gradient(0deg,rgba(20,20,20,0)_0.815%,rgba(20,20,20,0.2)_81.289%)] data-[state=fade-bottom]:bg-clip-text data-[state=fade-bottom]:text-transparent data-[state=fade-top]:bg-[linear-gradient(0deg,rgba(20,20,20,0.2)_0.432%,rgba(20,20,20,0)_93.695%)] data-[state=fade-top]:bg-clip-text data-[state=fade-top]:text-transparent data-[state=muted]:opacity-30 data-[state=muted]:group-data-[wheel]/wheel:hover:opacity-60"
           >
             <button
               type="button"
-              aria-current={step.state === "active" ? "step" : undefined}
+              aria-current={stillState(i, steps.length) === "active" ? "step" : undefined}
               className="cursor-pointer [-webkit-tap-highlight-color:transparent] group-data-[state=active]/step:cursor-default focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
             >
-              {step.text}
+              {step}
             </button>
           </li>
         ))}

@@ -82,7 +82,7 @@ function Tagline() {
  */
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-clip pt-24 pb-24 lg:pt-[126.13px] lg:pb-[96.34px]">
+    <footer className="@container relative overflow-clip pt-24 pb-24 lg:pt-[126.13px] lg:pb-[96.34px]">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[#00331a]" />
         <div

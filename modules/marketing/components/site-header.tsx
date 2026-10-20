@@ -22,7 +22,13 @@ const TRANSPARENT_ROUTES = ["/dynamic-landing-pages", "/sell", "/support", "/ret
  * Of those, pages where the dark bar belongs to the hero only: once the hero (the page's first
  * section) has scrolled up past the header, it becomes the cream bar.
  */
-const HERO_ONLY_ROUTES = ["/support", "/retain"];
+const HERO_ONLY_ROUTES = ["/sell", "/support", "/retain", "/managed-launch"];
+
+/**
+ * Of those, pages whose bar fills (dark and cream) run the full viewport width like their hero,
+ * past the 1800px cap; the contents and the rails keep to the cap.
+ */
+const FULL_BLEED_ROUTES = ["/sell", "/support", "/retain", "/managed-launch"];
 
 /** Scrolled past this many pixels, the transparent header takes on its dark bar. */
 const THRESHOLD = 10;
@@ -183,6 +189,7 @@ export function SiteHeader() {
     // Past the hero (HERO_ONLY_ROUTES) the cream bar crossfades in over the dark one, fill, rule and contents together.
     const dark = scrolled && !pastHero;
     const fade = "transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
+    const fill = FULL_BLEED_ROUTES.includes(pathname) ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : "inset-0";
     return (
       <header className="fixed inset-x-0 top-0 z-50">
         {/* The hairlines run the full viewport width, past the 1800px cap. */}
@@ -190,8 +197,9 @@ export function SiteHeader() {
         <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 bottom-0 h-[0.5px] bg-black/20", fade, pastHero ? "opacity-100" : "opacity-0")} />
         <div className="relative mx-auto max-w-[1800px] pb-[0.5px]">
           {/* Laid out as the home page's bar (full width, the content row 16px top and bottom); its dark fill fades in once the page scrolls. */}
-          <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10 bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]", fade, dark ? "opacity-100" : "opacity-0")} />
-          <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10 bg-cream/97 backdrop-blur-[16px]", fade, pastHero ? "opacity-100" : "opacity-0")}>
+          <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]", fill, fade, dark ? "opacity-100" : "opacity-0")} />
+          <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-cream/97 backdrop-blur-[16px]", fill, fade, pastHero ? "opacity-100" : "opacity-0")} />
+          <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10", fade, pastHero ? "opacity-100" : "opacity-0")}>
             <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
             <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
           </div>

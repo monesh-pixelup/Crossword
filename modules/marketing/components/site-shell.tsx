@@ -10,19 +10,25 @@ import { SiteHeader } from "./site-header";
  * The header is fixed (see SiteHeader), which also holds its 72.5px at the top of the page where it
  * needs it (pages with a transparent header let their hero run up under it).
  * The whole site is capped at 1800px wide and centred; past that the cream page shows either side.
+ * The footer sits outside that cap so its background and frame run the full page width (its content
+ * stays capped at 1280px).
+ * The horizontal clip sits on a full-width wrapper outside that cap, so a section can still run a
+ * full-bleed layer out to the viewport edges (the Retain hero photo) without widening the page.
  */
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
-    <div className="relative mx-auto max-w-[1800px] overflow-x-clip">
-      <SiteHeader />
-      <div className="@container relative">
-        <div aria-hidden className="pointer-events-none absolute inset-0 -top-[72.5px]">
-          <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
-          <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+    <div className="overflow-x-clip">
+      <div className="relative mx-auto max-w-[1800px]">
+        <SiteHeader />
+        <div className="@container relative">
+          <div aria-hidden className="pointer-events-none absolute inset-0 -top-[72.5px]">
+            <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+            <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+          </div>
+          {children}
         </div>
-        {children}
-        <SiteFooter />
       </div>
+      <SiteFooter />
     </div>
   );
 }
