@@ -1,18 +1,15 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { NotchedFrame, notchMask } from "../shared/livery";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import damaskMaroon from "../../assets/gap/damask-maroon.webp";
-import ring from "../../assets/gap/ring.svg";
-
-/** The panel's four 10px gold rings, on the corners of the damask's gold line. */
-const rings = ["top-[16.26px] left-[20.79px]", "top-[21.3px] right-[20.2px]", "bottom-[16.18px] left-[18.52px]", "right-[20.2px] bottom-[16.18px]"];
 
 /**
  * Figma "Library · Wide panel": the eyebrow and a three-line headline on the left, two paragraphs
- * of Geist Light bottom-aligned on the right, then 80px below a 1280 × 599 aubergine panel holding
- * the maroon damask (its gold line drawn in, 21.91px in from the sides and 18.13px from the top)
- * with a gold ring at each corner. A 232px gold tick sits on the left rail beside the eyebrow.
+ * of Geist Light bottom-aligned on the right, then 80px below a 1280 × 599 maroon panel, its damask
+ * inside the frame only and framed like the site's other cards (a gold line 14px in with concave notched corners and a ring
+ * in each). A 232px gold tick sits on the left rail beside the eyebrow.
  */
 export function RoasGap() {
   return (
@@ -53,13 +50,14 @@ export function RoasGap() {
           </div>
         </div>
 
-        <div aria-hidden className="relative aspect-[1280/599] w-full overflow-clip bg-aubergine">
-          <div className="absolute inset-x-[21.91px] inset-y-[18.13px]">
-            <Image src={damaskMaroon} alt="" fill sizes="(min-width: 1440px) 1237px, 97vw" className="object-fill" />
+        <div aria-hidden className="relative isolate aspect-[1280/599] w-full overflow-clip bg-maroon">
+          {/* Plain maroon margin; the damask sits inside the frame, its notched corners cut away (laid 4px past the window to crop the hairline baked into the export's border). */}
+          <div className="absolute inset-[14px] overflow-hidden" style={{ mask: notchMask(46), WebkitMask: notchMask(46) }}>
+            <div className="absolute -inset-[4px]">
+              <Image src={damaskMaroon} alt="" fill sizes="(min-width: 1440px) 1260px, 100vw" className="object-fill" />
+            </div>
           </div>
-          {rings.map((place) => (
-            <Image key={place} src={ring} alt="" className={`absolute size-2.5 ${place}`} />
-          ))}
+          <NotchedFrame inset={14} radius={46} rings />
         </div>
       </div>
     </section>

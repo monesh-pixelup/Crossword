@@ -23,21 +23,25 @@ function Headline() {
 }
 
 /**
- * Layout/Hero, Photo variant (as on Sell): the full-bleed photo with the copy pinned to the bottom,
+ * Layout/Hero, Photo variant (as on Sell): the full-bleed photo (the whole viewport width, not capped
+ * at the site's 1800px) with the copy pinned to the bottom,
  * the overlay header floating over its top. From 1200px the headline and the CTA column sit side
  * by side, bottom-aligned; below that they stack.
  */
 export function DynamicHero() {
   return (
-    <section aria-labelledby="dlp-hero-title" className="relative overflow-hidden bg-night">
-      <Image
-        src={background}
-        alt=""
-        fill
-        sizes="100vw"
-        preload
-        className="object-cover object-[70%_center] lg:object-center"
-      />
+    <section aria-labelledby="dlp-hero-title" className="relative bg-night">
+      {/* The photo runs the full viewport width, out past the site's 1800px cap on wide screens (SiteShell clips the overrun). */}
+      <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-night">
+        <Image
+          src={background}
+          alt=""
+          fill
+          sizes="100vw"
+          preload
+          className="object-cover object-[70%_center] lg:object-center"
+        />
+      </div>
 
       <div className="relative flex min-h-[640px] content-width flex-col justify-end pb-16 md:min-h-[788px] md:pb-[85px]">
         <div className="flex w-full max-w-[1271.652px] flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">

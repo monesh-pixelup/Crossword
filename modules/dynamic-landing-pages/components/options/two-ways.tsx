@@ -7,10 +7,11 @@ import { OptionList } from "./option-list";
 
 /**
  * Figma "Library · Numbered panel (Two ways)": the eyebrow and headline, then 80px below a 680px
- * row: the numbered option list on the left (32px down) and, at the far right, the home page's
+ * row: the numbered option list on the left (its "01 OPTION" level with the card's top) and, at the far right, the home page's
  * maroon card (scroll damask 14px in, notched gold corners, a ring in each) at 738 × 680. A 209px
  * gold tick sits on the left rail beside the eyebrow. It opens with the patterned divider band, which
- * adds 24px to the top padding.
+ * adds 24px to the top padding. Below 1260px, where the card would get too narrow beside the list,
+ * the card stacks under the list at its 738:680 shape.
  */
 export function TwoWays() {
   return (
@@ -31,14 +32,14 @@ export function TwoWays() {
           />
         </div>
 
-        <div className="flex w-full flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
+        <div className="flex w-full flex-col gap-12 min-[1260px]:flex-row min-[1260px]:items-start min-[1260px]:justify-between min-[1260px]:gap-8">
           <OptionList />
           <NotchedPanel
             tone="scroll"
             inset={14}
             radius={46}
             rings
-            className="aspect-[738/680] w-full lg:aspect-auto lg:h-[680px] lg:w-[738px] lg:shrink"
+            className="aspect-[738/680] w-full min-[1260px]:aspect-auto min-[1260px]:h-[680px] min-[1260px]:w-[738px] min-[1260px]:shrink"
           >
             {null}
           </NotchedPanel>

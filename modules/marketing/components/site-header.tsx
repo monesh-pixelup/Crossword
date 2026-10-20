@@ -22,13 +22,13 @@ const TRANSPARENT_ROUTES = ["/dynamic-landing-pages", "/sell", "/support", "/ret
  * Of those, pages where the dark bar belongs to the hero only: once the hero (the page's first
  * section) has scrolled up past the header, it becomes the cream bar.
  */
-const HERO_ONLY_ROUTES = ["/sell", "/support", "/retain", "/managed-launch"];
+const HERO_ONLY_ROUTES = ["/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch"];
 
 /**
  * Of those, pages whose bar fills (dark and cream) run the full viewport width like their hero,
  * past the 1800px cap; the contents and the rails keep to the cap.
  */
-const FULL_BLEED_ROUTES = ["/sell", "/support", "/retain", "/managed-launch"];
+const FULL_BLEED_ROUTES = ["/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch"];
 
 /** Scrolled past this many pixels, the transparent header takes on its dark bar. */
 const THRESHOLD = 10;

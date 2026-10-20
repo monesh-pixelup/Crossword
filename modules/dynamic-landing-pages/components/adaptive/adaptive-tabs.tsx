@@ -64,6 +64,10 @@ function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
  * filling across the active tab's top edge, then the next takes over (looping); choosing a tab
  * restarts it.
  *
+ * From 1260px the photo (up to 738px, at most 60% of the row) sits beside the tabs; below that,
+ * where the tabs would be squeezed into a sliver, the photo stacks over them at its 738:786 shape,
+ * and under 768px the tabs pad 24px in rather than 40px.
+ *
  * As the guidelines ask (P1, P7, 11.6), the cycle pauses off screen, while a mouse is over the tab
  * column, and while a tab has keyboard focus. A click doesn't count as focus here, so choosing a tab
  * with the mouse never leaves the cycle stuck. Under reduced motion the bar sits full and nothing
@@ -113,14 +117,14 @@ export function AdaptiveTabs() {
   const running = visible && !keyboardFocus;
 
   return (
-    <div ref={root} className="flex w-full flex-col lg:flex-row lg:items-stretch">
+    <div ref={root} className="flex w-full flex-col min-[1260px]:flex-row min-[1260px]:items-stretch">
       <div
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="relative aspect-[738/786] w-full overflow-hidden lg:aspect-auto lg:w-[738px] lg:shrink-0"
+        className="relative aspect-[738/786] w-full overflow-hidden min-[1260px]:aspect-auto min-[1260px]:w-[min(738px,60%)] min-[1260px]:shrink-0"
       >
-        <Image src={stagePhoto} alt="" fill sizes="(min-width: 992px) 738px, 100vw" className="object-cover" />
+        <Image src={stagePhoto} alt="" fill sizes="(min-width: 1260px) 738px, 100vw" className="object-cover" />
       </div>
 
       <div
@@ -149,7 +153,7 @@ export function AdaptiveTabs() {
               onClick={() => select(i)}
               className={cn(
                 // Each tab draws its top and sides; the last closes the column at the bottom.
-                "group relative flex cursor-pointer items-start gap-4 border-x border-t border-[#ddd] p-10 text-left transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] last:border-b focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                "group relative flex cursor-pointer items-start gap-4 border-x border-t border-[#ddd] p-6 text-left md:p-10 transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] last:border-b focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
                 selected ? "bg-sand" : "hover:bg-sand/40",
               )}
             >
