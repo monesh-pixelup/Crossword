@@ -3,6 +3,9 @@
  * scoped under .hero-scene so the shared class names (.msg, .conversation, …) stay local. Fonts map
  * to the site's Geist and Inter. The block below adapts it to the page: the export ran without
  * Tailwind's preflight, and the copy can sit above the frame.
+ *
+ * -webkit-backdrop-filter comes before backdrop-filter throughout: in the export's order, the CSS
+ * build keeps only the prefixed one, which Chrome ignores, and the glass shells lose their blur.
  */
 
 /* No viewport min-height (the export's page had one): the section is the scene's own height, scaled or not. */
@@ -189,13 +192,13 @@
 }
 
 .hero-scene .entry-card {
-  backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px);
 }
 
 .hero-scene .entry-card[data-active=true] {
-  backdrop-filter: blur(27px);
   -webkit-backdrop-filter: blur(27px);
+  backdrop-filter: blur(27px);
 }
 
 .hero-scene .entry-card[data-interactive=true] {
@@ -270,14 +273,14 @@
 }
 
 .hero-scene .entry-card__pill {
-  backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px);
   transition: backdrop-filter var(--move-ms) var(--move-ease),-webkit-backdrop-filter var(--move-ms) var(--move-ease);
 }
 
 .hero-scene .entry-card[data-active=true] .entry-card__pill {
-  backdrop-filter: blur(22.87px);
   -webkit-backdrop-filter: blur(22.87px);
+  backdrop-filter: blur(22.87px);
 }
 
 .hero-scene .entry-card__icon {
@@ -381,8 +384,8 @@
   opacity: 0;
   filter: blur(8px);
   border-color: transparent;
-  backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px);
   transition-duration: .75s;
   transition-timing-function: cubic-bezier(.45,0,.25,1);
 }
@@ -430,16 +433,16 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  backdrop-filter: blur(27px);
   -webkit-backdrop-filter: blur(27px);
+  backdrop-filter: blur(27px);
   animation: conversation-enter .75s var(--ease-settle) backwards;
   transition: opacity .6s ease,filter .6s ease,border-color .6s ease,backdrop-filter .6s ease,-webkit-backdrop-filter .6s ease;
 }
 
 .hero-scene .msg[data-status=faded], .hero-scene .msg[data-status=gone] {
   border-color: transparent;
-  backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px);
 }
 
 .hero-scene .msg[data-status=faded] {
@@ -496,8 +499,8 @@
   padding: 7.787px 34.559px 7.787px 12.96px;
   border: .54px solid rgba(255,255,255,.08);
   border-radius: 10.8px;
-  backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
 }
 
 .hero-scene .msg--assistant:before {
@@ -607,8 +610,8 @@
   0% {
     transform: translate(-8px);
     border-color: transparent;
-    backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
   }
 }
 
