@@ -1,0 +1,8 @@
+/* Two equal-weight next steps, not one resolved pick — Button's own
+   flex:1 1 0 (already authored for sharing a row) lays them out evenly
+   instead of reaching for Chip, which the kit reserves for a single
+   resolved status/selection. */
+.ill-price-objection__actions {
+  display: flex;
+  gap: 8px;
+}

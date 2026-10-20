@@ -1,0 +1,27 @@
+/* A ready-to-purchase product card composed from existing primitives
+   (Thumbnail, Product/Meta, Attribute-Row, Button) — same bordered-card
+   literal (Border/Default hairline, Background/Page fill, soft gold
+   shadow) Card-Commerce already uses, since this plays the same role
+   (one product, its resolved state, one CTA) just with size/color
+   resolved instead of price/rating. */
+.ill-purchase-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: 16px;
+  background: var(--ill-color-background-page);
+  padding: 10px;
+  box-shadow: 0px 2px 2.5px rgba(224, 190, 96, 0.78);
+}
+
+.ill-purchase-card__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ill-purchase-card__attributes {
+  display: flex;
+  flex-direction: column;
+}

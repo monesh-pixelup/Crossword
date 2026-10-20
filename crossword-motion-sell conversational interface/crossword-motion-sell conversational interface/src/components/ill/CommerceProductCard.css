@@ -1,0 +1,169 @@
+/* No flex-grow here: Card-Commerce is used both standalone (scenario 05)
+   and in a row (scenario 08) — ProductCollection stretches its direct
+   children when it's the one laying them out, so sizing stays contextual
+   rather than baked into the card itself. */
+.ill-commerce-card {
+  width: 100%;
+  max-width: 257px;
+  display: flex;
+  flex-direction: column;
+  gap: 6.768px;
+  padding: 3.94px;
+  padding-bottom: 14.091px;
+  border-radius: 18.047px;
+  border: 0.556px solid var(--ill-color-border-default);
+  background: var(--ill-color-background-page);
+  position: relative;
+  box-shadow: 0px 2px 2.5px rgba(224, 190, 96, 0.78);
+}
+
+/* Design feedback: dropped the inset centered-square media-inner
+   container — the image now fills this box edge-to-edge instead of
+   floating inside a smaller inner panel. */
+.ill-commerce-card__media {
+  position: relative;
+  aspect-ratio: 257 / 147.758;
+  border-radius: 16px;
+  background: #fff9ea;
+  border: 0.5px solid rgba(0, 0, 0, 0.11);
+  overflow: hidden;
+}
+
+.ill-commerce-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 6.768px;
+}
+
+/* Same corner-badge position Card-Recommendation uses for its favorite
+   chip, swapped for a short text label — kept to the media corner so it
+   reads as a subtle steer, not a competing headline. */
+.ill-commerce-card__tag {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 3px 7px;
+  border-radius: 112.792px;
+  background: var(--ill-color-background-recessed);
+  color: var(--ill-color-text-primary);
+  font-family: "Geist", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+}
+
+.ill-commerce-card .ill-product-meta {
+  padding: 0 7px;
+}
+
+/* Mirrors .ill-product-meta row for row (brand/price 14, title 14 per
+   line, rating 13, 2px gaps, 7px inset) so the skeleton and the real
+   meta occupy the same boxes — measured against the loaded card. */
+.ill-commerce-card__meta-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 7px;
+}
+
+.ill-commerce-card__meta-skeleton-row {
+  display: flex;
+  align-items: center;
+  height: 14px;
+}
+
+.ill-commerce-card__meta-skeleton-row--split {
+  justify-content: space-between;
+}
+
+.ill-commerce-card__meta-skeleton-row--rating {
+  gap: 9px;
+  height: 13px;
+}
+
+/* Figma's action.primary (node 2125:94) spans the card's full content
+   width — it is not inset like the meta block above it. */
+.ill-commerce-card__cta-skeleton {
+  margin: auto 0 0;
+}
+
+/* Sits directly on top of the always-rendered real content (same padding
+   box, so its inner media/meta/cta skeletons land exactly where the real
+   ones are) and fades + blurs away to reveal it — a real crossfade, not
+   a hard swap, per the "mask imperfect transitions with blur" technique.
+   Deliberately has NO opacity entrance transition: the real content is
+   always rendered underneath, so fading this overlay IN from opacity:0
+   would let that real content show through mid-fade — the asset would
+   visibly "sneak in" before the skeleton had fully committed. It must
+   be fully opaque the instant it mounts; only the exit (revealing the
+   resolved card once loading is actually done) crossfades. */
+.ill-commerce-card__skeleton-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6.768px;
+  /* Same inset as .ill-commerce-card's padding, so the skeleton shapes
+     land on the real media / meta / CTA boxes. */
+  padding: 3.94px 3.94px 14.091px;
+  border-radius: inherit;
+  /* A skeleton-family loading tone (not the resolved card's canvas
+     color), so the whole surface reads as "loading" rather than just
+     the three placeholder shapes floating on an otherwise normal-
+     looking card — but lighter than the shapes themselves
+     (`--ill-color-background-subtle`, SkeletonBlock.css), so the
+     shapes stay visible against it instead of both flattening to the
+     same fill. */
+  background: var(--ill-color-background-page);
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
+  transition:
+    opacity 260ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 260ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 260ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.ill-commerce-card__skeleton-overlay--hidden {
+  opacity: 0;
+  transform: scale(1.02);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-commerce-card__skeleton-overlay {
+    transition: opacity 150ms ease;
+    transform: none;
+    filter: none;
+  }
+
+  .ill-commerce-card__skeleton-overlay--hidden {
+    transform: none;
+    filter: none;
+  }
+}
+
+.ill-commerce-card__cta {
+  margin: auto 0 0;
+  padding: 8px 9px;
+  border: none;
+  border-radius: var(--ill-radius-full);
+  background: var(--ill-color-accent-primary);
+  color: var(--ill-color-text-inverse);
+  font-family: "Geist", sans-serif;
+  font-size: 11px;
+  letter-spacing: -0.0679px;
+  cursor: pointer;
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ill-commerce-card__cta:active {
+  transform: scale(0.97);
+}
+
+.ill-commerce-card__cta:disabled {
+  background: var(--ill-color-background-recessed);
+  color: var(--ill-color-text-metadata);
+  cursor: default;
+}

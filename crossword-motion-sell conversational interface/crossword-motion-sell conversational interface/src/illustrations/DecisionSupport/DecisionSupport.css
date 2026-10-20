@@ -1,0 +1,5 @@
+/* Page feedback: the trailing group action reads as a per-card CTA
+   otherwise — full-width ties it to the collection as one group action. */
+.ill-decision-cta {
+  width: 100%;
+}

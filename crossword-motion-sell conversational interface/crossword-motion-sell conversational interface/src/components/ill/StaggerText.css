@@ -1,0 +1,25 @@
+.ill-stagger-text__word {
+  display: inline-block;
+  opacity: 0;
+  animation: ill-stagger-text-word-in 220ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes ill-stagger-text-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-stagger-text__word {
+    opacity: 1;
+    animation: none;
+  }
+}

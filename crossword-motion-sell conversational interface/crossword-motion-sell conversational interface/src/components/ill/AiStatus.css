@@ -1,0 +1,85 @@
+.ill-ai-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+  transition:
+    opacity 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 180ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Without this, the row has no prior state to transition from on
+     mount, so it pops in instantly — only its exit (--hidden) was
+     animated. This gives it a real entrance, matching the exit. */
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(3px);
+  }
+}
+
+.ill-ai-status--hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(3px);
+  /* Faster than the 180ms entrance — the reply is already on its way by
+     the time this exits, so it should get out of the way quickly. */
+  transition:
+    opacity 130ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 130ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 130ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.ill-ai-status__label-stack {
+  position: relative;
+  display: inline-grid;
+}
+
+.ill-ai-status__label {
+  grid-area: 1 / 1;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.24px;
+  color: var(--ill-color-accent-secondary);
+  font-variation-settings: "opsz" 14;
+  white-space: nowrap;
+  opacity: 1;
+  filter: blur(0px);
+  transition:
+    opacity 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 180ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  @starting-style {
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+.ill-ai-status__label--exiting {
+  opacity: 0;
+  filter: blur(2px);
+
+  /* Overrides the base rule's @starting-style(0) — without this, a
+     freshly-inserted exiting span starts and ends at 0 with nothing to
+     transition, so it vanishes instantly instead of fading out. This
+     gives it 1/blur(0) as its "before" value so it actually animates
+     down, matching the entering label's blur-fade so the swap reads as
+     one continuous crossfade instead of two different transitions. */
+  @starting-style {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-ai-status {
+    transition: none;
+  }
+
+  .ill-ai-status__label {
+    transition: none;
+  }
+}

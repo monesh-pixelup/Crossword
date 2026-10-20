@@ -51,8 +51,11 @@ export function Hero() {
       <section aria-labelledby="hero-title" className="relative bg-black">
         {/* The black runs the full viewport width, out past the site's 1800px cap (SiteShell clips the overrun). */}
         <div aria-hidden className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-black" />
-        {/* The scene runs the full viewport width, past the 1800px cap (SiteShell clips the overrun). */}
-        <div className="relative left-1/2 w-screen -translate-x-1/2">
+        {/*
+          The scene runs the full viewport width, past the 1800px cap (SiteShell clips the overrun). It ends at the
+          first screen's bottom: a frame taller than that pins the copy 88.5px above the fold, and the rest is black.
+        */}
+        <div className="relative left-1/2 max-h-svh w-screen -translate-x-1/2 overflow-hidden">
           <HeroParallax copy={<HeroCopy />} />
         </div>
       </section>

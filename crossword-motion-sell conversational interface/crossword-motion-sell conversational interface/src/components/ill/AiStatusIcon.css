@@ -1,0 +1,244 @@
+.ill-ai-status-icon {
+  display: block;
+  flex-shrink: 0;
+
+  /* Shared curves, reused across every keyframe below instead of
+     repeating literals — also makes it obvious these are the same two
+     curves everywhere, not several close-but-different ones.
+     --ill-ease-bloom matches AiStatus.css's own row enter/exit curve
+     exactly (cubic-bezier(0.32, 0.72, 0, 1)), reused here (not a
+     separate "ease-in" for exit) so the icon's bloom/exit are paired
+     with the row's own entrance/exit on the same curve shape, just
+     shorter on exit — same pattern AiStatus.css already uses for
+     itself. --ill-ease-move is a stronger ease-in-out for motion
+     that's already on-screen (the spin, the spokes/ticks pulses) —
+     plain `ease-in-out` is too weak to read as intentional. */
+  --ill-ease-bloom: cubic-bezier(0.32, 0.72, 0, 1);
+  --ill-ease-move: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/*
+  Phase timeline — single source of truth for all three keyframes below.
+  Total loop: 3000ms (slowed from an earlier 2200ms version — these
+  percentages carried over unchanged, only the total duration grew, so
+  they're expressed as % here rather than ms, which would've gone stale
+  the moment the duration changed again).
+
+    0%       Bloom starts (compact, scale 0.35)
+    22%      Bloom overshoots slightly (scale 1.08) before settling
+    27.27%   Bloom settles to scale 1 / half-spin 1 starts
+    54.55%   Half-spin 1 complete (180deg) / half-spin 2 starts
+    81.82%   Half-spin 2 complete (360deg) / exit starts
+    100%     Exit complete (compact again) -> loop
+
+  Spokes (the 4 long strokes) pulse once per half-spin, deliberately
+  locked to those same boundaries (dip at the midpoint of each half,
+  back to 1 at each boundary) — a slow, deep breath paired with the
+  turn itself.
+
+  Ticks (the 4 short strokes) pulse twice per half-spin but are
+  deliberately NOT locked to the half-spin boundaries: without an
+  offset, every tick pulse would land back at scale(1) in the exact
+  same instant as the spokes and the rotation's own re-ease at 54.55%/
+  81.82% — three layers hitting "neutral" simultaneously reads as one
+  synchronized beat, undoing the point of giving ticks their own
+  faster pace. Ticks start a touch after the spokes/rotation layer (at
+  30%, not 27.27%) and finish each pulse with enough idle buffer before
+  54.55%/81.82% that they're already resting, not mid-transition, when
+  those boundaries hit. The same offset also gives the bloom itself a
+  touch of stagger — ticks' first reaction trails the spokes'/
+  rotation's, instead of every layer settling into the entrance as one
+  flat block.
+
+  Ticks only dip to scale(0.7) rather than the spokes' 0.4: ticks are
+  already short (~1.6 units vs. the spokes' ~3.5) and round-capped, and
+  every stroke uses vectorEffect="non-scaling-stroke" so width never
+  shrinks with them — converge a short, round-capped line too far and
+  it stops reading as a line at all and starts reading as a dot. 0.7
+  keeps roughly a 1.8:1 length-to-width ratio at the deepest point,
+  the floor for it to still look like a stroke rather than a blob; the
+  spokes' longer starting length and square (butt) caps give them more
+  room, so 0.4 stays safely above that same floor for them.
+
+  The center square pulses too, inverted relative to the spokes — it
+  grows a touch exactly when the spokes converge (and matches the
+  spokes' own boundaries/easing, since they're a direct pair), then
+  settles back as they expand. Idle during bloom/exit, same as spokes.
+*/
+
+.ill-ai-status-icon__shape {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: ill-ai-status-icon-cycle 3000ms infinite;
+}
+
+/* Paused (not reset) while AiStatus's `visible` prop is false — resumes
+   from exactly where it left off rather than re-blooming. Applies to
+   all three layers so they stay in lockstep when frozen/resumed. */
+.ill-ai-status--hidden .ill-ai-status-icon__shape,
+.ill-ai-status--hidden .ill-ai-status-icon__spokes,
+.ill-ai-status--hidden .ill-ai-status-icon__ticks,
+.ill-ai-status--hidden .ill-ai-status-icon__center {
+  animation-play-state: paused;
+}
+
+.ill-ai-status-icon__spokes {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: ill-ai-status-icon-spokes-pulse 3000ms infinite;
+}
+
+.ill-ai-status-icon__ticks {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: ill-ai-status-icon-ticks-pulse 3000ms infinite;
+}
+
+.ill-ai-status-icon__center {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: ill-ai-status-icon-center-pulse 3000ms infinite;
+}
+
+@keyframes ill-ai-status-icon-cycle {
+  0% {
+    transform: scale(0.35) rotate(0deg);
+    animation-timing-function: var(--ill-ease-bloom);
+  }
+  22% {
+    transform: scale(1.08) rotate(0deg);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  27.27% {
+    transform: scale(1) rotate(0deg);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  54.55% {
+    transform: scale(1) rotate(180deg);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  81.82% {
+    transform: scale(1) rotate(360deg);
+    animation-timing-function: var(--ill-ease-bloom);
+  }
+  100% {
+    transform: scale(0.45) rotate(360deg);
+  }
+}
+
+@keyframes ill-ai-status-icon-spokes-pulse {
+  0%,
+  27.27% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  40.91% {
+    transform: scale(0.4);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  54.55% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  68.18% {
+    transform: scale(0.4);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  81.82%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes ill-ai-status-icon-ticks-pulse {
+  0%,
+  30% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  33.41% {
+    transform: scale(0.7);
+  }
+  36.82% {
+    transform: scale(1);
+  }
+  43.64% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  47.05% {
+    transform: scale(0.7);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  50.45% {
+    transform: scale(1);
+  }
+  58.64% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  62.05% {
+    transform: scale(0.7);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  65.45% {
+    transform: scale(1);
+  }
+  72.27% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  75.68% {
+    transform: scale(0.7);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  79.09%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Inverted relative to the spokes: grows a touch exactly when the
+   spokes converge, settles back as they expand — same boundaries and
+   curve as the spokes' own pulse, since this is a direct pair with it,
+   not an independently-timed layer like the ticks. */
+@keyframes ill-ai-status-icon-center-pulse {
+  0%,
+  27.27% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  40.91% {
+    transform: scale(1.15);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  54.55% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  68.18% {
+    transform: scale(1.15);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  81.82%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-ai-status-icon__shape,
+  .ill-ai-status-icon__spokes,
+  .ill-ai-status-icon__ticks,
+  .ill-ai-status-icon__center {
+    animation: none;
+  }
+}

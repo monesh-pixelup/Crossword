@@ -1,0 +1,18 @@
+/* 687x586 outer frame — exactly 1/3 scale of the asset's own native
+   2061x1758 (ratio 1.1724 either way), per spec. A single 450x500 Shell
+   centers inside it, same "shell floats on a decorative backdrop"
+   pattern Human Mode's own frame uses, just sized for one portrait
+   shell instead of three side by side. */
+.ill-conversion-assistance-frame {
+  width: 687px;
+  height: 586px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("../../assets/ill-frame/conversion-assistance-bg.webp") center / cover no-repeat;
+  flex-shrink: 0;
+}
+
+.ill-conversion-assistance-frame__content {
+  flex-shrink: 0;
+}

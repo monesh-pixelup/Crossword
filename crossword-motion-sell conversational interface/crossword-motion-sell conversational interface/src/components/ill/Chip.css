@@ -1,0 +1,51 @@
+.ill-chip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--ill-color-background-surface);
+  border: var(--ill-stroke-hairline) solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--ill-radius-full);
+  padding: var(--ill-space-4) var(--ill-space-12);
+  font-family: "Geist", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12px;
+  text-transform: uppercase;
+  color: var(--ill-color-text-body);
+  white-space: nowrap;
+}
+
+/* Size=sm — 9px compact status-badge variant (design feedback); only
+   font-size changes, everything else (padding, border, uppercase) stays
+   Label kind's own. */
+.ill-chip--sm {
+  font-size: 9px;
+}
+
+/* Kind=Discount (1954:313) — exact literal values from the Figma
+   instance: Accent/Soft fill, no border, 7px type, no uppercase. */
+.ill-chip--discount {
+  background: var(--ill-color-accent-soft);
+  border: none;
+  border-radius: var(--ill-radius-full);
+  padding: 6px;
+  font-size: 7px;
+  line-height: 10px;
+  letter-spacing: -0.1217px;
+  text-transform: none;
+  color: var(--ill-color-text-primary);
+}
+
+/* Kind=Action — filled resolved-action chip; border stays Label kind's
+   own hairline, only the fill/text color change per tone. */
+.ill-chip--action {
+  border: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.ill-chip--action-primary {
+  background: var(--ill-color-accent-primary);
+  color: var(--ill-color-text-inverse);
+}
+
+.ill-chip--action-gold {
+  background: var(--ill-color-accent-soft);
+  color: var(--ill-color-text-body);
+}

@@ -1,0 +1,22 @@
+.ill-conversation-viewport {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Bottom padding reserves room equal to the fade's height so the last
+   message can scroll fully clear of it rather than sitting underneath —
+   "move fully above the composer when needed." */
+.ill-conversation-viewport__content {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 32px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ill-conversation-viewport__content::-webkit-scrollbar {
+  display: none;
+}

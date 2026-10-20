@@ -1,0 +1,180 @@
+/*
+ * Scene CSS for Human mode (34), verbatim from the kit's HumanMode.css and
+ * HumanModeTheme.css. Every selector is prefixed with `.ill-sell ` (see
+ * README-port.md) and "Geist" maps to the next/font variable.
+ */
+
+/* 1280 × 599 frame: three 327 × 336 shells, evenly spaced on the art. */
+.ill-sell .ill-human-mode-frame {
+  width: 1280px;
+  height: 599px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background: url("../../../assets/human-mode/human-mode-bg.webp") center / cover no-repeat;
+  flex-shrink: 0;
+}
+
+.ill-sell .ill-human-mode__card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: 12px;
+  background: var(--ill-color-background-page);
+  padding: 7px;
+  box-shadow: 0px 2px 2.5px rgba(224, 190, 96, 0.78);
+}
+.ill-sell .ill-human-mode__card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ill-sell .ill-human-mode__comparison {
+  border: 0.5px solid var(--ill-color-accent-soft);
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--ill-color-background-page);
+}
+.ill-sell .ill-human-mode__comparison-header {
+  display: flex;
+  align-items: flex-end;
+  padding: 8px 0 6px;
+}
+.ill-sell .ill-human-mode__comparison-header-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 6px;
+}
+.ill-sell .ill-human-mode__comparison-header-cell:first-child,
+.ill-sell .ill-human-mode__comparison .ill-comparison-row__cell:first-child {
+  flex: 0 0 44px;
+}
+.ill-sell .ill-human-mode__comparison-header-cell:not(:first-child),
+.ill-sell .ill-human-mode__comparison .ill-comparison-row__cell:not(:first-child) {
+  flex: 1 1 0;
+}
+.ill-sell .ill-human-mode__comparison-name {
+  margin: 0;
+  font-family: var(--ill-font-geist);
+  font-size: 9.5px;
+  line-height: 1.3;
+  color: var(--ill-color-text-metadata);
+}
+.ill-sell .ill-human-mode__comparison-name--favored {
+  font-weight: 500;
+  color: var(--ill-color-text-primary);
+}
+
+.ill-sell .ill-human-mode__actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Shell theme: the 450 × 500 chrome rescaled to 327 × 336. */
+.ill-sell .ill-theme-human-mode {
+  gap: 12px;
+  padding: 14px;
+  border-width: 1.4px;
+  border-radius: 9px;
+  box-shadow:
+    0px 0px 13.42px rgba(224, 190, 96, 0.4),
+    0px 0px 3.66px 0.91px rgba(0, 0, 0, 0.02),
+    0px 2.99px 6.14px rgba(0, 0, 0, 0.25);
+}
+.ill-sell .ill-theme-human-mode::after {
+  inset: -1.4px;
+  box-shadow: inset 0px 0px 14.14px rgba(108, 35, 50, 0.45);
+}
+
+.ill-sell .ill-theme-human-mode .ill-chat-header__group {
+  gap: 4px;
+}
+.ill-sell .ill-theme-human-mode .ill-icon-button--outline {
+  width: 19px;
+  height: 19px;
+}
+.ill-sell .ill-theme-human-mode .ill-icon-button--outline img {
+  width: 9px;
+  height: 9px;
+}
+.ill-sell .ill-theme-human-mode .ill-chat-header__brand {
+  padding: 3px 8px;
+  font-size: 10px;
+}
+
+.ill-sell .ill-theme-human-mode .ill-conversation-viewport__content {
+  padding-bottom: 8px;
+}
+.ill-sell .ill-theme-human-mode .ill-content-fade {
+  height: 8px;
+}
+
+.ill-sell .ill-theme-human-mode .ill-thread > * + * {
+  margin-top: 28px;
+}
+.ill-sell .ill-theme-human-mode .ill-assistant-turn {
+  gap: 14px;
+}
+.ill-sell .ill-theme-human-mode .ill-user-turn {
+  gap: 7px;
+}
+
+.ill-sell .ill-theme-human-mode .ill-chat-message p {
+  font-size: 11.5px;
+  line-height: 14px;
+}
+.ill-sell .ill-theme-human-mode .ill-chat-message--user {
+  padding: 6px 7px;
+  border-radius: 10px;
+  max-width: 90%;
+}
+
+.ill-sell .ill-theme-human-mode .ill-chat-composer {
+  gap: 7px;
+  padding: 3px 3px 3px 11px;
+}
+.ill-sell .ill-theme-human-mode .ill-chat-composer__text {
+  font-size: 12px;
+}
+.ill-sell .ill-theme-human-mode .ill-icon-button--accent {
+  width: 25px;
+  height: 25px;
+}
+.ill-sell .ill-theme-human-mode .ill-icon-button--accent img {
+  width: 13px;
+  height: 13px;
+}
+
+.ill-sell .ill-theme-human-mode .ill-comparison-row {
+  padding: 1px 0;
+}
+.ill-sell .ill-theme-human-mode .ill-comparison-row__cell {
+  padding: 1px 8px;
+}
+.ill-sell .ill-theme-human-mode .ill-comparison-row__label {
+  font-size: 10px;
+  line-height: 14px;
+}
+.ill-sell .ill-theme-human-mode .ill-comparison-row__value-a,
+.ill-sell .ill-theme-human-mode .ill-comparison-row__value-b {
+  font-size: 11px;
+}
+
+.ill-sell .ill-theme-human-mode .ill-product-meta__brand,
+.ill-sell .ill-theme-human-mode .ill-product-meta__title {
+  font-size: 10px;
+}
+.ill-sell .ill-theme-human-mode .ill-product-meta__price {
+  font-size: 10px;
+}
+
+.ill-sell .ill-theme-human-mode .ill-button {
+  padding: 6px 8px;
+  font-size: 10px;
+  line-height: 13px;
+}

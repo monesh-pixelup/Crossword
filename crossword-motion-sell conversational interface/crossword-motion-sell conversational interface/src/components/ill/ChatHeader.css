@@ -1,0 +1,29 @@
+.ill-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* node 1954:336 / 1954:345 */
+.ill-chat-header__group {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+/* node 1964:194 "brand" — padding and border color are literal, not
+   bound to an ILL variable (unlike the composer's padding, this one
+   was not expressed as var(--ill/space/*) in the source). */
+.ill-chat-header__brand {
+  background: var(--ill-color-background-surface);
+  border: var(--ill-stroke-hairline) solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--ill-radius-full);
+  padding: 4px 12px;
+  font-family: "Geist", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.12px;
+  text-transform: uppercase;
+  color: var(--ill-color-text-body);
+  white-space: nowrap;
+}

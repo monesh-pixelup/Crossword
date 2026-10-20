@@ -1,0 +1,33 @@
+.ill-comparison-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-top: 1.115px solid rgba(217, 165, 94, 0.1);
+  padding: 3px 0;
+}
+
+.ill-comparison-row__cell {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 5px 11px;
+  font-family: "Geist", sans-serif;
+}
+
+.ill-comparison-row__label {
+  font-size: 11px;
+  letter-spacing: -0.1427px;
+  line-height: 17px;
+  color: #6e6470;
+}
+
+.ill-comparison-row__value-a {
+  font-size: 13px;
+  line-height: 1;
+  color: #2a2622;
+}
+
+.ill-comparison-row__value-b {
+  font-size: 13px;
+  line-height: 1;
+  color: #6e6470;
+}

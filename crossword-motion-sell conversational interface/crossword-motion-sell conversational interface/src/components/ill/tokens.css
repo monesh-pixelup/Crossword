@@ -1,0 +1,70 @@
+/*
+  Bound ILL Colors and ILL Metrics variables, read directly via
+  get_variable_defs on the ILL Component Library (node 1954:271),
+  fileKey TiAeD9ICNjjC8N3zoUJExk. Names and values are literal —
+  not approximated from SVG exports or screenshots.
+*/
+:root {
+  /* ILL/Color/* */
+  --ill-color-text-inverse: #ffffff;
+  --ill-color-accent-strong: #6c2332;
+  --ill-color-accent-primary: #7d0034;
+  --ill-color-text-primary: #000000;
+  --ill-color-border-default: #cfb8bb;
+  --ill-color-accent-gold: #ffb657;
+  --ill-color-text-body: #161719;
+  --ill-color-background-surface: #f9f4eb;
+  --ill-color-accent-soft: #e0be60;
+  --ill-color-accent-rating: #f0aa3b;
+  --ill-color-text-metadata: #64666c;
+  --ill-color-background-recessed: #efe9db;
+  --ill-color-background-inset: #fef9ec;
+  --ill-color-text-secondary: #606060;
+  --ill-color-background-canvas: #fff9e9;
+  --ill-color-accent-secondary: #462160;
+  --ill-color-text-muted: #9b9b9b;
+  --ill-color-background-subtle: #faedd4;
+  /* Bound separately from Background/Canvas (same #fff9e9 value, distinct
+     name) — read via get_variable_defs scoped to the Template node
+     (1941:13814), where the shell fill resolves to this variable. */
+  --ill-color-background-page: #fff9e9;
+
+  /* Bound separately from Accent/Secondary (same #462160 value, distinct
+     name `var(--color-aubergine)`) — read via get_variable_defs on the
+     Support V3 merchant-helpdesk reference (node 2710:27270), where the
+     Helpdesk Header badge and panel figure resolve to this variable
+     instead of Accent/Secondary. Same treatment as Background/Page
+     above: kept as its own named token rather than merged into the
+     coincidentally-equal one. */
+  --color-aubergine: #462160;
+
+  /* Remaining Figma variables found in the library audit: `stone` and
+     `var(--color-gold)` (same value as Accent/Soft, distinct name —
+     bound by Chip Kind=Open). */
+  --color-stone: #343330;
+  --color-gold: #e0be60;
+  /* Bound on the PlaceItWherever scenario's own placeholder-card fill
+     (Figma node 2745:36229, fileKey TiAeD9ICNjjC8N3zoUJExk) — the flat
+     color review feedback swapped the shared skeleton gradient for. */
+  --color-sand: #f3e9d4;
+
+  /* ILL/Space/* */
+  --ill-space-2: 2px;
+  --ill-space-4: 4px;
+  --ill-space-6: 6px;
+  --ill-space-12: 12px;
+  --ill-space-16: 16px;
+  --ill-space-32: 32px;
+  /* Bound separately from the ILL/Space scale (plain `var(--space-xs)` in
+     Figma, 8px) — read from the Helpdesk Header's container gap. */
+  --space-xs: 8px;
+
+  /* ILL/Radius/* */
+  --ill-radius-sm: 5px;
+  --ill-radius-lg: 16px;
+  --ill-radius-full: 999px;
+
+  /* ILL/Stroke/* */
+  --ill-stroke-hairline: 0.5px;
+  --ill-stroke-default: 1px;
+}

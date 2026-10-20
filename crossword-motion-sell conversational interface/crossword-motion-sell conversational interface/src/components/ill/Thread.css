@@ -1,0 +1,10 @@
+.ill-thread {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ILL/Assembly/Chat/Transcript's literal gap between turns */
+.ill-thread > * + * {
+  margin-top: 40px;
+}

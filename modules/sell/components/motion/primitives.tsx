@@ -153,15 +153,17 @@ export function Button({
   onClick,
   iconLeading,
   iconTrailing,
+  className,
 }: {
   appearance: ButtonAppearance;
   label: ReactNode;
   onClick?: () => void;
   iconLeading?: ReactNode;
   iconTrailing?: ReactNode;
+  className?: string;
 }) {
   return (
-    <button type="button" className={`ill-button ill-button--${appearance}`} onClick={onClick}>
+    <button type="button" className={cx("ill-button", `ill-button--${appearance}`, className)} onClick={onClick}>
       {iconLeading}
       {label}
       {iconTrailing}

@@ -1,0 +1,107 @@
+/* Outer 1280x599 static frame — three Human Mode shells side by side.
+   Background is the supplied photographic/textured asset (its own
+   2.137 aspect ratio matches this frame's exactly, 3840x1797 ->
+   1280x599), replacing the flat var(--color-aubergine) placeholder.
+   `space-evenly` gives equal gaps between shells and equal margins at
+   both edges in one rule, per the brief's "equal gaps... balanced
+   margins." */
+.ill-human-mode-frame {
+  width: 1280px;
+  height: 599px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background: url("../../assets/scenarios/human-mode/human-mode-bg.webp") center / cover no-repeat;
+  flex-shrink: 0;
+}
+
+/* Product-plus-action card — the exact recipe PurchaseConfirmation's own
+   `.ill-purchase-card` uses (hairline Border/Default, Background/Page,
+   Card-Commerce's own soft-gold shadow), scaled to this theme. Reused by
+   both the proactive-help and purchase-completion shells: a product
+   about to be acted on, with that action living inside its own card
+   (provenance rule), same family as every other CTA-card in this file —
+   not the grouped-module (Background/Subtle) recipe, which this kit
+   reserves for a box with no single tied action (CartUpsellOffer's
+   progress block, StockAvailability's resolved facts). */
+.ill-human-mode__card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: 12px;
+  background: var(--ill-color-background-page);
+  padding: 7px;
+  box-shadow: 0px 2px 2.5px rgba(224, 190, 96, 0.78);
+}
+
+.ill-human-mode__card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Comparison block — the exact recipe ProductComparison's own
+   `.ill-product-comparison` uses: one bordered container (Accent/Soft
+   hairline, Background/Page, overflow:hidden) holding both the header
+   row and the Comparison/Row(s) beneath it — the row's own hairline top
+   border is what separates them, not an extra gap. Favored vs muted
+   reads entirely through the name's own weight/color and Comparison/
+   Row's authored valueA/valueB asymmetry — no separate badge, same rule
+   UpsellUpgrade/ProductComparison's own comments document. */
+.ill-human-mode__comparison {
+  border: 0.5px solid var(--ill-color-accent-soft);
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--ill-color-background-page);
+}
+
+.ill-human-mode__comparison-header {
+  display: flex;
+  align-items: flex-end;
+  padding: 8px 0 6px;
+}
+
+.ill-human-mode__comparison-header-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 6px;
+}
+
+/* The label column only ever holds a short word ("Price"), so giving it
+   an equal third — Comparison/Row's own default split — starves the two
+   product names of room and wraps them to 2-3 lines. Fixed-width label
+   column, product columns share the rest; the header cell and the row
+   cell below it use the same override so they still line up. */
+.ill-human-mode__comparison-header-cell:first-child,
+.ill-human-mode__comparison .ill-comparison-row__cell:first-child {
+  flex: 0 0 44px;
+}
+
+.ill-human-mode__comparison-header-cell:not(:first-child),
+.ill-human-mode__comparison .ill-comparison-row__cell:not(:first-child) {
+  flex: 1 1 0;
+}
+
+.ill-human-mode__comparison-name {
+  margin: 0;
+  font-family: "Geist", sans-serif;
+  font-size: 9.5px;
+  line-height: 1.3;
+  color: var(--ill-color-text-metadata);
+}
+
+.ill-human-mode__comparison-name--favored {
+  font-weight: 500;
+  color: var(--ill-color-text-primary);
+}
+
+/* Two-button/one-button action row — same pattern PriceObjection's own
+   `__actions` row uses (Button's own flex:1 1 0 shares the row). */
+.ill-human-mode__actions {
+  display: flex;
+  gap: 8px;
+}

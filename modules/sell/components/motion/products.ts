@@ -20,6 +20,8 @@ import foundation from "../../assets/motion/18-lumen-second-skin-foundation.png"
 import cottonShirt from "../../assets/motion/19-marais-relaxed-cotton-shirt.png";
 import tailoredTrousers from "../../assets/motion/20-straight-leg-tailored-trousers.png";
 import leatherSneakers from "../../assets/motion/21-minimal-leather-sneakers.png";
+import aeriaCycloneProVacuum from "../../assets/motion/22-aeria-cyclone-pro-vacuum.png";
+import dysonV15Vacuum from "../../assets/motion/23-dyson-v15-vacuum.png";
 
 /*
  * The shared product cutouts (800 × 800 transparent PNGs, served as-is).
@@ -47,6 +49,8 @@ export const productImages = {
   cottonShirt,
   tailoredTrousers,
   leatherSneakers,
+  aeriaCycloneProVacuum,
+  dysonV15Vacuum,
 } satisfies Record<string, StaticImageData>;
 
 export const productCutouts: ReadonlySet<StaticImageData> = new Set(Object.values(productImages));

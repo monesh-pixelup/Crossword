@@ -1,0 +1,90 @@
+.ill-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.ill-icon-button:active {
+  transform: scale(0.93);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-icon-button {
+    transition: none;
+  }
+}
+
+/* One-shot scripted press (Support V3 Motion / 08b's "send button
+   responds with a subtle scale-down interaction") — driven by a class
+   instead of a pointer event, since this plays on a scripted send, not
+   a click. scale(0.97) is emil-design-eng's own canonical button-press
+   scale verbatim (0.95–0.98; an earlier 0.88 read as a cartoonish
+   squish). 120ms, the low end of its 100-160ms button-press band, for a
+   snappier tap. */
+.ill-icon-button--pressed {
+  transform: scale(0.97);
+  transition: transform 120ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-icon-button--pressed {
+    transition: none;
+  }
+}
+
+/* Template instance (node 1941:13879) rotates the base rightward Send
+   glyph -90deg so it points up inside the composer button. */
+.ill-icon-button__glyph--rotated {
+  display: flex;
+  transform: rotate(-90deg);
+}
+
+/* Node 1954:301 Outlined/Sm (action.history etc.) — authored 29px,
+   0.5px border, ILL/Radius/Full. */
+.ill-icon-button--outline {
+  width: 29px;
+  height: 29px;
+  background: transparent;
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: var(--ill-radius-full);
+}
+
+/* Node 1960:85 Outlined/Md */
+.ill-icon-button--outline-md {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: var(--ill-radius-full);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ill-icon-button--outline:hover {
+    background: var(--ill-color-background-surface);
+  }
+}
+
+/* Node 1954:305 Filled/Md (action.send) — 1px border + 1px padding
+   (ILL/Stroke/Default), full radius. */
+.ill-icon-button--accent {
+  width: 40px;
+  height: 40px;
+  padding: 1px;
+  background: var(--ill-color-accent-strong);
+  border: var(--ill-stroke-default) solid var(--ill-color-accent-gold);
+  border-radius: var(--ill-radius-full);
+}
+
+/* Node 1960:88 Filled/Sm */
+.ill-icon-button--accent-sm {
+  width: 29px;
+  height: 29px;
+  padding: 1px;
+  background: var(--ill-color-accent-strong);
+  border: var(--ill-stroke-default) solid var(--ill-color-accent-gold);
+  border-radius: var(--ill-radius-full);
+}

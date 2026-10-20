@@ -1,0 +1,183 @@
+/* node 1954:415 — bg is a literal #f3e6ce (not a named variable) */
+.ill-rec-card {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ill-space-12);
+  background: #f3e6ce;
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: 18px;
+  padding: 3px 3px 14px;
+  box-shadow: 0px 0px 2.737px rgba(0, 0, 0, 0.02);
+}
+
+/* node 2742:33670 (CTA=Yes) — uniform 3px padding; the button sits
+   3px from the card's bottom edge instead of the 14px text-only inset. */
+.ill-rec-card--cta,
+.ill-rec-card--cta .ill-rec-card__skeleton-overlay {
+  padding-bottom: 3px;
+}
+
+/* node 1954:405 "Background". Height was a fixed 149px copied from the
+   node's own 162px-wide authored card (155px media box inside its padding); at this card's fluid width (it
+   shrinks to fit N-per-row in the shell) a fixed height no longer holds
+   that ratio, so the card reads taller than designed once narrower than
+   162px. aspect-ratio keeps the exact authored 155:149 media proportion at any
+   width instead of approximating a new fixed value. */
+.ill-rec-card__media {
+  position: relative;
+  aspect-ratio: 155 / 149;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--ill-color-background-surface);
+}
+
+/* node 1960:250 "media" — the source bleeds the image a few px past the
+   frame on every edge before clipping, rather than cropping it flush.
+   The literal offsets (-4px/-8px) were authored for the component's
+   fixed 162px default width; scaled proportionally here for a fluid
+   card width instead of copied as fixed pixels. */
+.ill-rec-card__media-bleed {
+  position: absolute;
+  inset: -4%;
+}
+
+/* node "dyn:state:favorite.default" */
+.ill-rec-card__favorite {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--ill-color-background-recessed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* node 1954:411 "Container" */
+.ill-rec-card__text {
+  padding: 8px 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* When the showSubtitle slot carries Product/Meta's own brand+price row
+   (see RecommendationProductCard.tsx) instead of a plain subtitle line —
+   that row is authored for a wide horizontal card; in this one's own
+   narrower width a long differentiator plus its price don't always fit
+   on one line. `flex-wrap: wrap` let price drop to its own line in that
+   case — technically non-overflowing, but it reads as broken (price
+   "flowing down" under the differentiator, and cards in the same row
+   ending up different heights depending on each one's text length). The
+   row stays single-line instead: the differentiator (flex, min-width: 0)
+   truncates with an ellipsis, and the price (shrink: 0) stays fixed and
+   always visible — the price is the one thing on this row that must
+   never get cut off or wrap. */
+.ill-rec-card .ill-product-meta {
+  min-width: 0;
+}
+
+.ill-rec-card .ill-product-meta__row {
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.ill-rec-card .ill-product-meta__brand {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ill-rec-card .ill-product-meta__price {
+  flex-shrink: 0;
+}
+
+/* node 1954:414 — color is a literal #1f1b18 (matches neither
+   Text/Primary #000000 nor Text/Body #161719) */
+.ill-rec-card__title {
+  margin: 0;
+  font-family: "Geist", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}
+
+/* One 20px line box per title line (the title's own line-height), so
+   the skeleton's text block is as tall as the wrapped copy it replaces. */
+.ill-rec-card__text-skeleton {
+  padding: 8px 6px 0;
+}
+
+.ill-rec-card__text-skeleton-line {
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+
+.ill-rec-card__skeleton-overlay > .ill-skeleton-block {
+  margin-top: auto;
+}
+
+/* Sits on top of the always-rendered real content (same padding box, so
+   its media/text skeletons land exactly where the real ones are) and only
+   ever crossfades on exit — same contract as
+   CommerceProductCard.css's `__skeleton-overlay`. Deliberately has no
+   opacity entrance transition: it must be fully opaque the instant it
+   mounts, or the real content underneath would show through mid-fade. */
+.ill-rec-card__skeleton-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ill-space-12);
+  padding: 3px 3px 14px;
+  border-radius: inherit;
+  background: var(--ill-color-background-page);
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
+  transition:
+    opacity 260ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 260ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 260ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.ill-rec-card__skeleton-overlay--hidden {
+  opacity: 0;
+  transform: scale(1.02);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-rec-card__skeleton-overlay {
+    transition: opacity 150ms ease;
+    transform: none;
+    filter: none;
+  }
+
+  .ill-rec-card__skeleton-overlay--hidden {
+    transform: none;
+    filter: none;
+  }
+}
+
+/* The CTA keeps its authored height (node 2742:33685, ~30px). Button's own
+   `flex: 1 1 0` is for rows; in this column card it grew vertically in
+   whichever card was shorter, so CTA heights differed across a row.
+   margin-top:auto pins every CTA to the card bottom instead. */
+.ill-rec-card > .ill-button {
+  flex: 0 0 auto;
+  margin-top: auto;
+}

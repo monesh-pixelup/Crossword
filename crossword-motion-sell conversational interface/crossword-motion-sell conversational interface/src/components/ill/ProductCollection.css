@@ -1,0 +1,9 @@
+.ill-product-collection {
+  display: flex;
+  gap: 16px;
+}
+
+.ill-product-collection > * {
+  flex: 1 1 0;
+  min-width: 0;
+}

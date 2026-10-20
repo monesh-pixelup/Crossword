@@ -1,0 +1,19 @@
+.ill-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Neutral placeholder fill using the Background/Subtle token — swapped
+   for real product photography via the `src` prop. */
+.ill-media--placeholder {
+  background: var(--ill-color-background-subtle);
+}
+
+/* Transparent product cutouts are letterboxed, not cropped — the subject
+   is centred with its own margin, so cover would clip it in wide cards. */
+.ill-media--cutout {
+  object-fit: contain;
+  background: var(--ill-color-background-subtle);
+}

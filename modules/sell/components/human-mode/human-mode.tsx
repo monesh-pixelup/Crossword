@@ -1,14 +1,14 @@
-import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import panelAubergine from "../../assets/human-mode/panel-aubergine.webp";
+import { humanModeScene } from "../motion/human-mode";
+import { ScenePanel } from "../motion/scene-panel";
 
 /**
  * Figma "Library · Wide panel (Human mode)", as Audiences on Retain: the eyebrow and a two-line
  * headline on the left, three paragraphs of Geist Light top-aligned on the right, then 80px below a
- * 1280 × 599 aubergine panel (the damask in its notched gold frame with a ring in each corner,
- * exported from Figma as one image). A 232px gold tick sits on the left rail beside the eyebrow.
+ * 1280 × 599 panel playing the Human mode motion (three chat shells on the aubergine damask art),
+ * zoomed to fit. A 232px gold tick sits on the left rail beside the eyebrow.
  */
 export function HumanMode() {
   return (
@@ -44,8 +44,8 @@ export function HumanMode() {
           </div>
         </div>
 
-        <div aria-hidden className="relative aspect-[1280/599] w-full overflow-hidden">
-          <Image src={panelAubergine} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-fill" />
+        <div className="relative aspect-[1280/599] w-full overflow-hidden">
+          <ScenePanel scene={humanModeScene} />
         </div>
       </div>
     </section>

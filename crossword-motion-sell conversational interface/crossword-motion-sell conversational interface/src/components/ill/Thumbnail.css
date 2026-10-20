@@ -1,0 +1,12 @@
+.ill-thumbnail {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--ill-color-background-inset);
+}
+
+/* State=Selected's literal border, the component's own existing
+   "active" treatment — reused as-is, not a new style. */
+.ill-thumbnail--selected {
+  border: 1.001px solid rgba(33, 33, 33, 0.5);
+}

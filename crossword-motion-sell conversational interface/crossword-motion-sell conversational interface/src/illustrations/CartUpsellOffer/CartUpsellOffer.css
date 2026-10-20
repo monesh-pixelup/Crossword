@@ -1,0 +1,47 @@
+/* Same grouped-module recipe as UpsellUpgrade's comparison block and
+   AskInsight's PDP/Info container (Background/Subtle fill, Accent/Soft
+   hairline border). */
+.ill-cart-offer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* 1.25px literal from the authored Figma instance (node 2881:34574) —
+     thicker than the kit's usual 0.5px hairline token. */
+  border: 1.25px solid var(--ill-color-accent-soft);
+  border-radius: 12px;
+  background: var(--ill-color-background-subtle);
+  padding: 14px;
+}
+
+.ill-cart-offer__progress-track {
+  height: 6px;
+  border-radius: var(--ill-radius-full);
+  background: var(--ill-color-background-recessed);
+  overflow: hidden;
+}
+
+.ill-cart-offer__progress-fill {
+  height: 100%;
+  border-radius: var(--ill-radius-full);
+  background: var(--ill-color-accent-primary);
+}
+
+.ill-cart-offer__accessory {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: var(--ill-stroke-default) solid #ebdcc6;
+}
+
+.ill-cart-offer__accessory-text {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ill-cart-offer__accessory-action {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--ill-space-6);
+}

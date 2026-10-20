@@ -59,7 +59,8 @@ export const footerPlatformGroups: FooterLink[][] = [
     { label: "Search Bar", href: "#search-bar" },
   ],
   [
-    { label: "Retain" },
+    { label: "Retain", href: "/retain" },
     { label: "Support", href: "/support" },
+    { label: "Insights", href: "#insights" },
   ],
 ];

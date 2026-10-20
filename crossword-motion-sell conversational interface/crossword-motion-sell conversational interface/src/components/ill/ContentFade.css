@@ -1,0 +1,23 @@
+/* Pinned to the bottom edge of ConversationViewport (its positioning
+   parent), overlaying scrollable content without participating in its
+   flow — "never wrap transcript content" per the component's own
+   description. Color adapted from the canonical gradient: the Figma
+   source targets Background/Surface (#f9f4eb), authored for fading
+   content against a card-toned backdrop. Here the fade sits directly
+   over the shell's own Background/Page (#fff9e9), so the solid target
+   color is matched to that instead — same stop positions/angle, just the
+   color corrected to what's actually behind it. */
+.ill-content-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 32px;
+  pointer-events: none;
+  background-image: linear-gradient(
+    180.13deg,
+    rgba(255, 249, 233, 0) 3.5575%,
+    rgb(255, 249, 233) 66.118%,
+    rgb(255, 249, 233) 113.61%
+  );
+}

@@ -1,0 +1,28 @@
+/* node 1954:421 — exact literal values from the Figma component (fills
+   are literal in the source, not bound to a named variable). Includes the
+   authored 1px #ebdcc6 bottom divider the first build left out. */
+.ill-attribute-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ill-space-32);
+  padding: var(--ill-space-6) 0;
+  border-bottom: var(--ill-stroke-default) solid #ebdcc6;
+}
+
+.ill-attribute-row__label {
+  font-family: "Geist", sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.11px;
+  text-transform: capitalize;
+  color: #3a342e;
+}
+
+.ill-attribute-row__value {
+  font-family: "Geist", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}

@@ -1,0 +1,44 @@
+/* Shimmer is a translating overlay (transform-only), not an animated
+   background-position — keeps the sweep on the compositor instead of
+   repainting the gradient every frame. `isolation: isolate` contains the
+   highlight's blend mode to this block's own fill, not sibling blocks or
+   whatever sits behind the card. */
+.ill-skeleton-block {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ill-color-background-subtle);
+}
+
+.ill-skeleton-block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  /* A real white tint, blended in via `screen`, not another cream
+     palette token — every background token in this kit clusters tightly
+     around off-white, so picking a "lighter" token as the old highlight
+     still read as barely-there. Screen-blending white gives the
+     highlight actual headroom to look bright, which no token alone can.
+     Diagonal angle + wide stops (20/50/80%) wash a broad, angled band of
+     light across the shape as it passes, matching the conventional
+     shimmer look (and this component's own Figma-sourced static
+     gradients, which all use diagonal angles too) rather than a thin
+     vertical-edged line sliding sideways. */
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.75) 50%, transparent 80%);
+  mix-blend-mode: screen;
+  animation: ill-skeleton-shimmer 1.4s linear infinite;
+}
+
+@keyframes ill-skeleton-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-skeleton-block::after {
+    animation: none;
+    display: none;
+  }
+}

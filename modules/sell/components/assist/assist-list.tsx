@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { assistFeatures } from "../../config/assist";
+import { assistScenes } from "../motion/assist";
+import { ScenePanel } from "../motion/scene-panel";
 
 /**
  * An item stays open until all but this much of it has slid under the
@@ -16,7 +17,7 @@ const HANDOFF = 40;
  * ("Every conversation has a job to do"). From 992px the heading sticks at the top of its column and
  * the items scroll up beneath it, fading out under its edge; the item just below the heading is open
  * (full strength with a 1px black/50 rule under it, the others at 20%). When stacked, the panel is
- * what sticks and the items pass under it. The panel shows the open item's art. Clicking an item
+ * what sticks and the items pass under it. The panel plays the open item's chat scene. Clicking an item
  * scrolls it open.
  */
 export function AssistList({ header }: { header: ReactNode }) {
@@ -176,12 +177,10 @@ export function AssistList({ header }: { header: ReactNode }) {
         ref={panelRef}
         className="sticky top-0 z-10 order-2 w-full bg-cream after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 lg:top-[calc(72.5px+48px)] lg:w-auto lg:max-w-[687px] lg:min-w-0 lg:flex-1 lg:bg-transparent lg:after:hidden"
       >
-        <Image
-          src={assistFeatures[active].panel}
-          alt=""
-          sizes="(min-width: 992px) 687px, 100vw"
-          className="h-auto w-full"
-        />
+        {/* The open item's chat scene on its art (687 × 586), zoomed to fit; keyed so switching items replays from the start. */}
+        <div className="relative aspect-[687/586] w-full">
+          <ScenePanel key={active} scene={assistScenes[assistFeatures[active].scene]} />
+        </div>
       </div>
     </div>
   );

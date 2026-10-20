@@ -1,0 +1,18 @@
+.ill-rating {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ill-rating__stars {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.ill-rating__count {
+  font-family: "Geist", sans-serif;
+  font-size: 10px;
+  letter-spacing: -0.0679px;
+  color: var(--ill-color-text-metadata);
+}

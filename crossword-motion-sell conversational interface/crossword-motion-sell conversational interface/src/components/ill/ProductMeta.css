@@ -1,0 +1,96 @@
+.ill-product-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ill-product-meta__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ill-product-meta__brand {
+  margin: 0;
+  font-family: "Geist", sans-serif;
+  font-size: 11px;
+  letter-spacing: -0.0679px;
+  color: var(--ill-color-text-metadata);
+  white-space: nowrap;
+}
+
+.ill-product-meta__price {
+  margin: 0;
+  font-family: "Geist", sans-serif;
+  font-size: 10px;
+  letter-spacing: -0.0679px;
+  color: var(--ill-color-text-primary);
+  white-space: nowrap;
+}
+
+.ill-product-meta__title {
+  margin: 0;
+  font-family: "Geist", sans-serif;
+  font-size: 11px;
+  letter-spacing: -0.0679px;
+  color: var(--ill-color-text-primary);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* Density=PDP (node 1960:308) — the module's own larger authored
+   variant, used for an anchor product instead of scaling Card/
+   Card-Commerce beyond their authored geometry. All Geist (the first
+   build used Inter/DM Sans at scaled sizes). Authored rhythm: top row
+   -> 15px -> [title -> 5px -> subtitle] -> 14px -> rating -> 15px -> price. */
+.ill-product-meta--pdp {
+  gap: 14px;
+}
+
+.ill-product-meta__pdp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1px;
+}
+
+.ill-product-meta__brand-pdp {
+  margin: 0;
+  font-family: "Geist", sans-serif;
+  font-size: 7px;
+  line-height: 11px;
+  letter-spacing: 0.3042px;
+  text-transform: uppercase;
+  color: #5c5c5c;
+}
+
+.ill-product-meta__title-pdp {
+  margin: 0;
+  font-family: "Geist", sans-serif;
+  font-size: 15px;
+  line-height: 17px;
+  letter-spacing: -0.6084px;
+  color: #171717;
+}
+
+.ill-product-meta__subtitle {
+  margin: -9px 0 0;
+  font-family: "Geist", sans-serif;
+  font-size: 9px;
+  line-height: 11px;
+  letter-spacing: 0.3042px;
+  text-transform: uppercase;
+  color: #5c5c5c;
+}
+
+.ill-product-meta__price-pdp {
+  margin: 1px 0 0;
+  font-family: "Geist", sans-serif;
+  font-size: 15px;
+  line-height: 17px;
+  letter-spacing: -0.6084px;
+  color: var(--ill-color-text-primary);
+}

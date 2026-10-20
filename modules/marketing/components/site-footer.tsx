@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { StampButton } from "@/components/ui/stamp-button";
+import complianceBadges from "../assets/footer/compliance-badges.webp";
 import grainTile from "../assets/footer/grain-tile.webp";
 import monogramFrame from "../assets/footer/monogram-frame.svg";
 import stamp from "../assets/footer/stamp.webp";
-import { ctaLinks, type FooterLink, footerCompanyLinks, footerPlatformGroups } from "../config/navigation";
+import { type FooterLink, footerCompanyLinks, footerPlatformGroups } from "../config/navigation";
 import { FooterFrame } from "./footer-frame";
 
 const heading = "font-serif text-[14px] leading-[1.3] tracking-[0.14px] whitespace-nowrap text-[rgba(223,227,210,0.47)]";
@@ -76,13 +76,14 @@ function Tagline() {
 
 /**
  * Site footer: deep green with the grain tile and a gilt notched frame. Layout follows the
- * Webflow build: logo and link columns across the top, tagline and button along the bottom;
- * both rows stack below 992px. Stacked, the stamp and the button sit near the frame's corners,
- * so 96px of padding keeps them clear of its notches.
+ * Webflow build: logo and link columns across the top; along the bottom the tagline, and opposite
+ * it the compliance badges over the copyright line. Both rows stack below 992px. Stacked, the
+ * stamp and the badges sit near the frame's corners, so 96px of padding keeps them clear of its
+ * notches.
  */
 export function SiteFooter() {
   return (
-    <footer className="@container relative overflow-clip pt-24 pb-24 lg:pt-[126.13px] lg:pb-[96.34px]">
+    <footer className="@container relative overflow-clip pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[#00331a]" />
         <div
@@ -94,7 +95,7 @@ export function SiteFooter() {
 
       <div className="relative content-width max-w-[1280px]">
         <div className="flex flex-col px-6 xs:px-4 md:px-0 lg:pr-[6.76px]">
-          <div className="flex flex-col items-start gap-12 lg:min-h-[277.9px] lg:flex-row lg:justify-between lg:gap-0">
+          <div className="flex flex-col items-start gap-12 lg:min-h-[286.898px] lg:flex-row lg:justify-between lg:gap-0">
             {/*
               Guilloché stamp: a Figma WebGPU shader, so it ships as a 3x export
               cut out along its outline; the image box starts (-14.54, -10.255)
@@ -111,23 +112,27 @@ export function SiteFooter() {
             <FooterNav />
           </div>
 
-          <div className="mt-16 flex flex-col items-start gap-12 lg:mt-0 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
-            <div className="flex flex-col items-start gap-6">
-              {/* Drawn at 49.1px and zoomed with the breakpoint (42 / 36 / 28px), then to fit if needed. */}
-              <div className="fit-to-container [--fit-width:calc(518px*var(--tag-scale))] [--tag-scale:1] max-lg:[--tag-scale:0.8554] max-md:[--tag-scale:0.7332] max-xs:[--tag-scale:0.5703]">
-                <div className="[zoom:var(--tag-scale)]">
-                  <Tagline />
-                </div>
+          <div className="mt-16 flex flex-col items-start gap-12 lg:mt-[45px] lg:flex-row lg:items-center lg:justify-between lg:gap-8">
+            {/* Drawn at 49.1px and zoomed with the breakpoint (42 / 36 / 28px), then to fit if needed. */}
+            <div className="fit-to-container [--fit-width:calc(518px*var(--tag-scale))] [--tag-scale:1] max-lg:[--tag-scale:0.8554] max-md:[--tag-scale:0.7332] max-xs:[--tag-scale:0.5703]">
+              <div className="[zoom:var(--tag-scale)]">
+                <Tagline />
               </div>
+            </div>
+            <div className="flex flex-col items-start gap-6 lg:items-end">
+              {/* ISO 27001, SOC 2, HIPAA, GDPR and CCPA marks: one 3x export of Figma's 351px row. */}
+              <Image
+                src={complianceBadges}
+                alt="ISO 27001 compliant, AICPA SOC 2, HIPAA, GDPR and CCPA compliant"
+                sizes="351px"
+                className="h-auto w-[351px] max-w-full"
+              />
               <p className="flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-[12px] leading-[1.3] tracking-[-0.36px] whitespace-nowrap text-[rgba(223,227,210,0.6)] xs:flex-nowrap">
                 <span>Crossword, Inc. © 2026</span>
                 <span aria-hidden>|</span>
                 <span>A CometChat Product</span>
               </p>
             </div>
-            <StampButton href={ctaLinks.bookDemo} variant="wine">
-              BOOK A DEMO
-            </StampButton>
           </div>
         </div>
       </div>

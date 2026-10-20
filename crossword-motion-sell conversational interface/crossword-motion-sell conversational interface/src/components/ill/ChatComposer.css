@@ -1,0 +1,144 @@
+.ill-chat-composer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: var(--ill-color-background-recessed);
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: 113px;
+  padding: var(--ill-space-4) var(--ill-space-4) var(--ill-space-4) var(--ill-space-16);
+}
+
+.ill-chat-composer__text {
+  flex: 1 0 0;
+  min-width: 0;
+  font-family: "Geist", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.0681px;
+  color: var(--ill-color-text-secondary);
+}
+
+.ill-chat-composer__caret {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  margin-left: 1px;
+  vertical-align: -2px;
+  background: var(--ill-color-text-secondary);
+  animation: ill-chat-composer-caret-blink 900ms step-end infinite;
+}
+
+@keyframes ill-chat-composer-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-chat-composer__caret {
+    animation: none;
+  }
+}
+
+/* Expanded composer card — node 2725:28996 (Support V3 "Merchant
+   insight" composing beat). Literal canvas fill + Accent/Soft border +
+   the same inset glow Shell's own ::after layer uses, not a token this
+   component otherwise carries. */
+.ill-chat-composer--expanded {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 22.616px;
+  padding: 16px;
+  border-radius: 12.701px;
+  background: var(--ill-color-background-canvas);
+  border: 2px solid var(--ill-color-accent-soft);
+  box-shadow: 0px 4.234px 4.34px rgba(0, 0, 0, 0.25);
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+  transition:
+    opacity 200ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 200ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 200ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* No prior state to animate from on mount otherwise (Support V3
+     Motion / 08a's "fades in with a subtle 12px upward movement", here
+     unified to 8px — see the exit rule below and
+     MerchantInsightMotion.css's reply-enter for why).
+     200ms — the low end of emil-design-eng's modals/drawers band (sat
+     at 260ms before, trimmed further on request for a snappier feel). */
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* The composer clears and fades out on send — 140ms, clearly faster
+   than the 200ms entrance (emil-design-eng: "make exit faster than
+   enter"). The added blur pairs this exit with the incoming bubble's
+   own blur-based entrance (UserTurn's shared keyframe) — now that the
+   two overlap in time (Support V3 Motion / 08's isSent calc starts the
+   bubble the instant this exit begins), the matching blur treatment is
+   what actually sells it as one continuous handoff rather than two
+   unrelated fades happening to coincide.
+   Plain `ease-out`, not the shared "ease-drawer" curve: this exit is
+   part of the same "composer goes away, first chat module shows up"
+   moment as turn 1's bubble entrance and the FLIP reposition (both
+   swapped to the same simpler curve — MerchantInsightMotion.css/.tsx),
+   so all of it moves on one shared, plainer curve instead of mixing
+   ease-drawer's steep-rise-then-drag shape with a flatter one. This
+   `expanded` variant is only ever used by this one scenario, so the
+   change doesn't reach any other call site of ChatComposer. */
+.ill-chat-composer--expanded--hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(3px);
+  transition:
+    opacity 140ms ease-out,
+    transform 140ms ease-out,
+    filter 140ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ill-chat-composer--expanded,
+  .ill-chat-composer--expanded--hidden {
+    transition: none;
+  }
+}
+
+.ill-chat-composer--expanded::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0px 0px 20px rgba(108, 35, 50, 0.45);
+}
+
+.ill-chat-composer--expanded__text {
+  margin: 0;
+  font-family: "Geist", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.0681px;
+  color: #383838;
+}
+
+.ill-chat-composer--expanded__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ill-chat-composer--expanded__upload {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Geist", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.0681px;
+  color: var(--ill-color-text-secondary);
+}

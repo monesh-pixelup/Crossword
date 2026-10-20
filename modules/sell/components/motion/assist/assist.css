@@ -1,0 +1,182 @@
+/*
+ * Scene CSS for the conversion-assistance scenes (28–33), verbatim from the
+ * kit's ConversionAssistanceFrame, RecommendationProductCard (the rules the
+ * port's scenes.css lacks) and per-scenario stylesheets. Every selector is
+ * prefixed with `.ill-sell ` (see README-port.md) and "Geist" maps to the
+ * next/font variable.
+ */
+
+/* ConversionAssistanceFrame: 687 × 586, one 450 × 500 shell centred on the art. */
+.ill-sell .ill-conversion-assistance-frame {
+  width: 687px;
+  height: 586px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("../../../assets/assist/conversion-assistance-bg.webp") center / cover no-repeat;
+  flex-shrink: 0;
+}
+.ill-sell .ill-conversion-assistance-frame__content {
+  flex-shrink: 0;
+}
+
+/* RecommendationProductCard with a Product/Meta row in its text slot. */
+.ill-sell .ill-rec-card .ill-product-meta {
+  min-width: 0;
+}
+.ill-sell .ill-rec-card .ill-product-meta__row {
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+.ill-sell .ill-rec-card .ill-product-meta__brand {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ill-sell .ill-rec-card .ill-product-meta__price {
+  flex-shrink: 0;
+}
+
+/* 28 — Price objection */
+.ill-sell .ill-price-objection__actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* 29 — Product comparison */
+.ill-sell .ill-product-comparison {
+  border: 0.5px solid var(--ill-color-accent-soft);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ill-color-background-page);
+}
+.ill-sell .ill-product-comparison__header {
+  display: flex;
+  align-items: flex-end;
+  padding: 12px 0 10px;
+}
+.ill-sell .ill-product-comparison__header-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10.754px;
+}
+.ill-sell .ill-product-comparison__name {
+  margin: 0;
+  font-family: var(--ill-font-geist);
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: var(--ill-color-text-metadata);
+}
+.ill-sell .ill-product-comparison__name--favored {
+  font-weight: 500;
+  color: var(--ill-color-text-primary);
+}
+
+/* 30 — Cart upsell offer */
+.ill-sell .ill-cart-offer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1.25px solid var(--ill-color-accent-soft);
+  border-radius: 12px;
+  background: var(--ill-color-background-subtle);
+  padding: 14px;
+}
+.ill-sell .ill-cart-offer__progress-track {
+  height: 6px;
+  border-radius: var(--ill-radius-full);
+  background: var(--ill-color-background-recessed);
+  overflow: hidden;
+}
+.ill-sell .ill-cart-offer__progress-fill {
+  height: 100%;
+  border-radius: var(--ill-radius-full);
+  background: var(--ill-color-accent-primary);
+}
+.ill-sell .ill-cart-offer__accessory {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: var(--ill-stroke-default) solid #ebdcc6;
+}
+.ill-sell .ill-cart-offer__accessory-text {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.ill-sell .ill-cart-offer__accessory-action {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--ill-space-6);
+}
+
+/* 31 — Stock availability */
+.ill-sell .ill-stock-module {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 0.5px solid var(--ill-color-accent-soft);
+  border-radius: 12px;
+  background: var(--ill-color-background-subtle);
+  padding: 10px;
+}
+.ill-sell .ill-stock-module__product {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+}
+.ill-sell .ill-stock-module__colors {
+  display: flex;
+  align-items: center;
+  gap: var(--ill-space-32);
+  padding: var(--ill-space-6) 0;
+}
+.ill-sell .ill-stock-module__color-label {
+  font-family: var(--ill-font-geist);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.11px;
+  text-transform: capitalize;
+  color: #3a342e;
+}
+.ill-sell .ill-stock-module__swatches {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ill-sell .ill-stock-module__swatches > *:last-child {
+  opacity: 0.55;
+}
+
+/* 32 — Purchase confirmation */
+.ill-sell .ill-purchase-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: 16px;
+  background: var(--ill-color-background-page);
+  padding: 10px;
+  box-shadow: 0px 2px 2.5px rgba(224, 190, 96, 0.78);
+}
+.ill-sell .ill-purchase-card__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ill-sell .ill-purchase-card__attributes {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 33 — Decision support */
+.ill-sell .ill-decision-cta {
+  width: 100%;
+}
