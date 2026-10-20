@@ -29,6 +29,7 @@ export function YourPart() {
             secondLine="surprisingly small"
             width={460}
             variant="centered"
+            lineGap={8}
           />
           {/* The centred title's 0.9 leading lets the descenders of "surprisingly" hang ~15px below its box; 16px more keeps them clear of this line. */}
           <p className="mt-4 max-w-[560px] font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">

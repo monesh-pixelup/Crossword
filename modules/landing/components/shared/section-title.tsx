@@ -157,6 +157,8 @@ type SectionTitleProps = {
   gutter?: number;
   /** Text colour: ink on light sections, 85% white on dark ones. */
   tone?: "ink" | "light";
+  /** Extra space above the second line, in px at the 60px desktop size (scales with the title). */
+  lineGap?: number;
 };
 
 /**
@@ -166,7 +168,7 @@ type SectionTitleProps = {
  * line under it at its own line-height. Browsers would grow line 1 to fit the
  * swash's taller line-height, so each line is its own block.
  */
-export function SectionTitle({ id, initial, firstLine, secondLine, width, variant = "default", gutter, tone = "ink" }: SectionTitleProps) {
+export function SectionTitle({ id, initial, firstLine, secondLine, width, variant = "default", gutter, tone = "ink", lineGap }: SectionTitleProps) {
   const v = variants[variant];
   // Line size in px at desktop (60 unless the variant says otherwise).
   const size = "size" in v ? v.size : 60;
@@ -197,7 +199,7 @@ export function SectionTitle({ id, initial, firstLine, secondLine, width, varian
         {secondLine !== undefined && (
           <>
             {" "}
-            <span className={`block ${v.line} ${v.second}`} style={{ fontSize: size }}>
+            <span className={`block ${v.line} ${v.second}`} style={{ fontSize: size, marginTop: lineGap }}>
               {secondLine}
             </span>
           </>
