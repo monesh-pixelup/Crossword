@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import { NotchedPanel } from "@/modules/dynamic-landing-pages/components/shared/livery";
+import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import { resolveCases } from "../../config/resolve";
-import { ChatThread } from "../shared/chat-thread";
+import { supportScenesA } from "../motion/index-a";
+import { SupportMotionRoot } from "../motion/root";
 
 /** The fixed site header's height plus the 48px the list sits below it while pinned. */
 const PIN_TOP = 72.5 + 48;
@@ -12,7 +13,7 @@ const PIN_TOP = 72.5 + 48;
 /**
  * Figma "Library · Vertical tabs", made scroll-driven like Granola's "how it works": every question
  * type stacks in the right column (its title and line of copy over the home page's maroon card
- * holding its conversation), while the 280px list of types stays pinned on the left from 992px.
+ * playing its motion scene), while the 280px list of types stays pinned on the left from 992px.
  * The type whose case has crossed the middle of the viewport is the active one (ink; the rest
  * ink/60), and the gold rule under its label fills as its case scrolls through, until the next one
  * takes over: then the old rule fades and shrinks away. Choosing a type scrolls to its case. Below
@@ -20,7 +21,7 @@ const PIN_TOP = 72.5 + 48;
  */
 export function ResolveTabs() {
   const [active, setActive] = useState(0);
-  // Bumped each time a case becomes active, so its conversation plays in again.
+  // Bumped each time a case becomes active, so its scene plays from the start again.
   const [plays, setPlays] = useState(() => resolveCases.map(() => 0));
   const steps = useRef<(HTMLDivElement | null)[]>([]);
   const fills = useRef<(HTMLSpanElement | null)[]>([]);
@@ -143,16 +144,10 @@ export function ResolveTabs() {
               <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.48px] text-black/59">{c.description}</p>
             </div>
 
-            {/* The home page's maroon card: scroll damask 14px in, deep notched gold corners and a ring in each. */}
-            <NotchedPanel
-              tone="scroll"
-              inset={14}
-              radius={46}
-              rings
-              className="flex w-full items-center justify-center px-10 py-14 md:min-h-[440px] md:px-16 md:py-16 lg:min-h-[611px]"
-            >
-              <ChatThread key={plays[i]} messages={c.thread} minHeight="200px" className="relative max-w-[551.831px]" />
-            </NotchedPanel>
+            {/* The case's motion scene: a chat in its maroon notched frame (738 × 680), filling the column. */}
+            <div className="relative aspect-[738/680] w-full">
+              <ScenePanel key={plays[i]} scene={supportScenesA[c.scene]} root={SupportMotionRoot} maxScale={1.2} />
+            </div>
           </div>
         ))}
       </div>

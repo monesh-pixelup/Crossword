@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import card from "@/modules/dynamic-landing-pages/assets/options/card.svg";
 import cellPattern from "../../assets/handoff/cell-pattern.webp";
 import stamp from "../../assets/handoff/stamp.webp";
@@ -50,9 +51,12 @@ const numeralOffsets = [4.93, 6.48, 5.96];
 export function AubergineSteps({
   steps,
   variant = "loyalty",
+  media,
 }: {
   steps: { title: string; description: string }[];
   variant?: keyof typeof variants;
+  /** Replaces each cell's notched card and stamp (the cell then takes the media's 355:402 shape). */
+  media?: (index: number) => ReactNode;
 }) {
   const v = variants[variant];
   return (
@@ -82,16 +86,20 @@ export function AubergineSteps({
 
             {/* Figma's pattern fill: a 49.67px tile of faint white motifs (11% at most) over the cell's black/15, from its outer corner. */}
             <div
-              className={`relative h-[232px] border border-white/3 bg-black/15 bg-size-[49.667px_49.667px] bg-origin-border bg-repeat ${v.cell}`}
+              className={`relative ${media ? "aspect-[355/402]" : "h-[232px]"} border border-white/3 bg-black/15 bg-size-[49.667px_49.667px] bg-origin-border bg-repeat ${v.cell}`}
               style={{ backgroundImage: `url(${cellPattern.src})` }}
             >
               <span aria-hidden className={`pointer-events-none absolute hidden md:block ${v.lineTop} ${dashedH} ${first ? "-left-[57px]" : "left-0"} ${last ? "-right-[57px]" : "right-0"}`} />
               <span aria-hidden className={`pointer-events-none absolute hidden md:block ${v.lineBottom} ${dashedH} ${first ? "-left-[57px]" : "left-0"} ${last ? "-right-[57px]" : "right-0"}`} />
-              {/* Notched card (345.65 × 222.09px in Figma), 5.51px from the cell's top and centred across it. */}
-              <div className={`absolute flex items-center justify-center ${v.card}`}>
-                <Image src={card} alt="" fill className="max-w-none" />
-                <Image src={stamp} alt="" sizes="88px" className="relative h-auto w-[87.67px]" />
-              </div>
+              {media ? (
+                media(i)
+              ) : (
+                // Notched card (345.65 × 222.09px in Figma), 5.51px from the cell's top and centred across it.
+                <div className={`absolute flex items-center justify-center ${v.card}`}>
+                  <Image src={card} alt="" fill className="max-w-none" />
+                  <Image src={stamp} alt="" sizes="88px" className="relative h-auto w-[87.67px]" />
+                </div>
+              )}
             </div>
 
             {/* Kept 17px off both rules while the columns are narrow (768–1279px); at 1062px the right inset is Figma's 11px (354 − 17 − 326). */}

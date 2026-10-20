@@ -1,11 +1,18 @@
 import type { ChatMessage } from "./chat";
 
-export type ResolveCase = { label: string; description: string; thread: ChatMessage[] };
+export type ResolveCase = {
+  label: string;
+  description: string;
+  thread: ChatMessage[];
+  /** The motion scene played in the case's panel (by slug). */
+  scene: "order-tracking" | "product-usage" | "size-exchange" | "shade-change" | "refund-status" | "return-eligibility";
+};
 
 /** Customer support, handled by Crossword: each question type with its example conversation (content doc). */
 export const resolveCases: ResolveCase[] = [
   {
     label: "Order status (WISMO)",
+    scene: "order-tracking",
     description: "“Where is my order?” answered instantly, with the real tracking status.",
     thread: [
       { from: "user", text: "Where is my order? It’s been a week." },
@@ -17,6 +24,7 @@ export const resolveCases: ResolveCase[] = [
   },
   {
     label: "Product usage & how-to support",
+    scene: "product-usage",
     description: "Helps them use what they bought, not just return it.",
     thread: [
       { from: "user", text: "How much of this vitamin C serum should I use?" },
@@ -28,6 +36,7 @@ export const resolveCases: ResolveCase[] = [
   },
   {
     label: "Returns & exchanges",
+    scene: "size-exchange",
     description: "Starts and tracks the process, no form required.",
     thread: [
       { from: "user", text: "This doesn’t fit. I want to exchange it for a size up." },
@@ -39,6 +48,7 @@ export const resolveCases: ResolveCase[] = [
   },
   {
     label: "Cancellations & modifications",
+    scene: "shade-change",
     description: "Changes an order while there’s still time to.",
     thread: [
       { from: "user", text: "I ordered the wrong shade of foundation. Can I change it before it ships?" },
@@ -50,6 +60,7 @@ export const resolveCases: ResolveCase[] = [
   },
   {
     label: "Refund status",
+    scene: "refund-status",
     description: "Tells them exactly where their money is.",
     thread: [
       { from: "user", text: "I returned my serum last week. Where’s my refund?" },
@@ -61,6 +72,7 @@ export const resolveCases: ResolveCase[] = [
   },
   {
     label: "FAQ & policy answers",
+    scene: "return-eligibility",
     description: "Pulled straight from your actual policy, not a guess.",
     thread: [
       { from: "user", text: "I opened the protein powder but it’s not working for me. Can I still return it?" },

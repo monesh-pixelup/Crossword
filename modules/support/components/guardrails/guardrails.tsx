@@ -1,15 +1,14 @@
-import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import panelAubergine from "../../assets/guardrails/panel-aubergine.webp";
+import { SupportScenePanel } from "../motion/support-scene-panel";
 
 /**
  * Figma "ALT · Guardrails (wide panel + illustration)": the eyebrow and a one-line headline (82px
  * swash, 60px line at 1.18) on the left, a line of Geist Light copy bottom-aligned on the right,
- * then 40px below a 1280 × 599 aubergine panel (the damask in its notched gold frame with a ring in
- * each corner, the same Figma frame as Human mode on Sell, exported here at 3x). A 232px gold tick sits on the left
- * rail beside the eyebrow.
+ * then 40px below the guardrails motion scene (1280 × 498: the aubergine damask in its notched gold
+ * frame, with the "Your guardrails" card building in), zoomed to the content width. A 232px gold
+ * tick sits on the left rail beside the eyebrow.
  */
 export function Guardrails() {
   return (
@@ -31,8 +30,8 @@ export function Guardrails() {
           </p>
         </div>
 
-        <div aria-hidden className="relative aspect-[1280/599] w-full overflow-hidden">
-          <Image src={panelAubergine} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-fill" />
+        <div className="relative aspect-[1280/498] w-full">
+          <SupportScenePanel slug="guardrails" />
         </div>
       </div>
     </section>

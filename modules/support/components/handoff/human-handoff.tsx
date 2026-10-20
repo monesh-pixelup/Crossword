@@ -5,6 +5,7 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import ground from "../../assets/handoff/ground.webp";
 import { handoffModes } from "../../config/handoff";
 import { AubergineSteps } from "./aubergine-steps";
+import { HandoffScene } from "./handoff-scene";
 
 /**
  * Layout/Livery, Aubergine steps variant (Figma "Library · Aubergine steps", node 2634:20241):
@@ -44,7 +45,8 @@ export function HumanHandoff() {
             </p>
           </div>
 
-          <AubergineSteps steps={handoffModes} variant="handoff" />
+          {/* Each step's cell plays its mode's motion scene. */}
+          <AubergineSteps steps={handoffModes} variant="handoff" media={(i) => <HandoffScene index={i} />} />
         </div>
       </div>
     </section>

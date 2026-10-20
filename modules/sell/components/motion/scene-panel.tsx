@@ -1,6 +1,6 @@
 "use client";
 
-import { type ComponentType, useEffect, useRef, useState } from "react";
+import { type ComponentType, type ReactNode, useEffect, useRef, useState } from "react";
 import { MotionRoot } from "./primitives";
 
 export type SceneEntry = {
@@ -24,6 +24,8 @@ type ScenePanelProps = {
   maxScale?: number;
   /** Props passed through to the scene (e.g. a storefront scene's `bare`). */
   sceneProps?: Record<string, unknown>;
+  /** The CSS scope the scene renders in: the Sell scenes' MotionRoot unless another page passes its own. */
+  root?: ComponentType<{ children: ReactNode }>;
   className?: string;
 };
 
@@ -32,7 +34,15 @@ type ScenePanelProps = {
  * centred. The scene plays while `active` and at least 30% on screen, as the source build
  * did; leaving and coming back restarts it.
  */
-export function ScenePanel({ scene, active = true, padding = 0, maxScale = 1, sceneProps, className }: ScenePanelProps) {
+export function ScenePanel({
+  scene,
+  active = true,
+  padding = 0,
+  maxScale = 1,
+  sceneProps,
+  root: Root = MotionRoot,
+  className,
+}: ScenePanelProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
   const [inView, setInView] = useState(false);
@@ -66,9 +76,9 @@ export function ScenePanel({ scene, active = true, padding = 0, maxScale = 1, sc
           className="shrink-0"
           style={{ width: scene.width, height: scene.height, zoom: scale || undefined, visibility: scale ? undefined : "hidden" }}
         >
-          <MotionRoot>
+          <Root>
             <Component play={active && inView} {...sceneProps} />
-          </MotionRoot>
+          </Root>
         </div>
       </div>
     </div>
