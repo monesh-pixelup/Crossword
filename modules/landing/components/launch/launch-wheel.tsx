@@ -25,7 +25,7 @@ function stillState(i: number, n: number) {
   return "muted";
 }
 
-const DURATION = 2500; // ms per step
+const DURATION = 1300; // ms per step
 const ROLL = 465; // ms for the steps to roll to the new step
 const DROP = 750; // ms for a stamp to fall, land and settle
 const PILE = 3; // stamps kept on the pile at rest

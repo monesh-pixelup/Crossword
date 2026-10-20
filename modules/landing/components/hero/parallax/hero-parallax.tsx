@@ -108,6 +108,7 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
       <HeroScene
         layers={LAYERS}
         layerSize={LAYER_SIZE}
+        scaleBelow={1440}
         aboveFrame={(scene) =>
           copyPlacement(scene) === "above" && (
             <div className="w-full pt-28 pb-10">
@@ -123,7 +124,8 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
             <>
               {/*
                 Shade behind the copy, under the UI. At the foot it is Figma's: a 1644 × 353 multiply band, black from
-                29.75% up, blurred 17px, 86px past each side and 49px below the frame. On phones it shades the top.
+                29.75% up, blurred 17px, 86px past each side and 49px below the frame (raised with the copy when the
+                frame runs past the first screen). On phones it shades the top.
               */}
               <div
                 aria-hidden
@@ -131,17 +133,18 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
                   "pointer-events-none absolute",
                   top
                     ? "inset-x-0 top-0 h-[55%] bg-linear-to-b from-black/80 to-transparent"
-                    : "-bottom-[5.69%] -left-[5.975%] h-[40.91%] w-[114.17%] bg-linear-to-t from-black from-[29.752%] to-transparent mix-blend-multiply blur-[17px]",
+                    : "bottom-[calc(-5.69%_+_max(0px,100%_-_100svh_/_var(--scene-scale,1)))] -left-[5.975%] h-[40.91%] w-[114.17%] bg-linear-to-t from-black from-[29.752%] to-transparent mix-blend-multiply blur-[17px]",
                 )}
               />
               {/*
-                At the foot, the copy's last line sits where Figma's row ends: 88.5px above the 863px frame's bottom. It
+                At the foot, the copy's last line sits where Figma's row ends: 88.5px above the 863px frame's bottom,
+                or 88.5px above the first screen's bottom when the frame is taller than the viewport, so it shows on load. It
                 spans the page's width (not the frame's, which can be narrower), so its content column lines up with the
                 other sections' headings.
               */}
               <div
                 className={cn(
-                  top ? "relative pt-28" : "absolute bottom-[10.25%] left-1/2 w-(--scene-page-w) -translate-x-1/2",
+                  top ? "relative pt-28" : "pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_100svh_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),1800px)] -translate-x-1/2",
                 )}
               >
                 {copy}

@@ -36,6 +36,8 @@ type HeroSceneProps = {
   layerSize: [number, number];
   parallax?: Partial<ParallaxLook>;
   glitch?: Partial<GlitchSettings>;
+  /** Below this root width, the scene keeps this width's layout and is scaled down to fit (exposed as --scene-scale). */
+  scaleBelow?: number;
   /** Unscaled content above the frame. */
   aboveFrame?: (state: SceneState) => ReactNode;
   /** Unscaled content over the photo, under the UI. */
@@ -57,6 +59,7 @@ export function HeroScene({
   layerSize,
   parallax,
   glitch,
+  scaleBelow,
   aboveFrame,
   overlayContent,
   children,
@@ -69,12 +72,18 @@ export function HeroScene({
   const [width, setWidth] = useState<number | null>(null);
   // The scene root spans the page (the frame can be narrower, centred in it): exposed as --scene-page-w so content can line up with the page.
   const [pageWidth, setPageWidth] = useState<number | null>(null);
+  // With `scaleBelow`, a root narrower than that keeps the scene laid out at that width and scales it down to fit.
+  const [scale, setScale] = useState(1);
 
   useLayoutEffect(() => {
     const el = root.current!;
     const measure = () => {
-      setWidth(fitHeight ? Math.min(el.clientWidth, (window.innerHeight * FRAME_W) / FRAME_H) : el.clientWidth);
-      setPageWidth(el.clientWidth);
+      const rootW = el.clientWidth;
+      const s = scaleBelow && rootW < scaleBelow ? rootW / scaleBelow : 1;
+      const layoutW = s < 1 ? scaleBelow! : rootW;
+      setScale(s);
+      setWidth(fitHeight ? Math.min(layoutW, (window.innerHeight * FRAME_W) / FRAME_H / s) : layoutW);
+      setPageWidth(layoutW);
     };
     measure();
     const observer = new ResizeObserver(measure);
@@ -84,7 +93,7 @@ export function HeroScene({
       observer.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [fitHeight]);
+  }, [fitHeight, scaleBelow]);
 
   const compact = width !== null && width < COMPACT_BELOW;
   const state = { width, compact };
@@ -112,17 +121,35 @@ export function HeroScene({
     });
   }, [camera, intensity, follow, release]);
 
-  const pageVar = { "--scene-page-w": pageWidth === null ? "100%" : `${pageWidth}px` } as CSSProperties;
+  const scaled = scale < 1;
+  const pageVar = {
+    "--scene-page-w": pageWidth === null ? "100%" : `${pageWidth}px`,
+    "--scene-scale": scale,
+    // Scaled, the content inside keeps the full-size page's tokens (its padding and heading size) too.
+    ...(scaled && { "--page-pad": "80px", "--h2-scale": 1 }),
+  } as CSSProperties;
   const frameStyle = compact
     ? pageVar
     : {
         ...pageVar,
         width: width ?? (fitHeight ? `min(100%, ${(100 * FRAME_W) / FRAME_H}vh)` : "100%"),
         aspectRatio: `${FRAME_W} / ${FRAME_H}`,
+        // Scaled: drawn at full size from the root's top-left corner, shrunk to the root's width.
+        ...(scaled && { flexShrink: 0, alignSelf: "flex-start", transform: `scale(${scale})`, transformOrigin: "0 0" }),
       };
+  // A transform doesn't shrink the layout box, so the root takes the scaled frame's height itself.
+  const rootStyle: CSSProperties | undefined =
+    scaled && width !== null
+      ? // Top-aligned: centred (the root's justify-content), the full-size frame would overflow it evenly, top and bottom.
+        { height: (width * FRAME_H * scale) / FRAME_W, overflow: "hidden", justifyContent: "flex-start" }
+      : undefined;
 
   return (
-    <div ref={root} className={["hero-scene", compact && "hero-scene--compact", className].filter(Boolean).join(" ")}>
+    <div
+      ref={root}
+      className={["hero-scene", compact && "hero-scene--compact", className].filter(Boolean).join(" ")}
+      style={rootStyle}
+    >
       {aboveFrame?.(state)}
       <div ref={frame} className="hero-scene__frame" style={frameStyle}>
         <div className="hero-scene__photo">

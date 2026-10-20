@@ -5,8 +5,8 @@
  * Tailwind's preflight, and the copy can sit above the frame.
  */
 
+/* No viewport min-height (the export's page had one): the section is the scene's own height, scaled or not. */
 .hero-journeys {
-  min-height: 100vh;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: center;

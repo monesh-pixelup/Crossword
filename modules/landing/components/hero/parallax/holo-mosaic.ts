@@ -322,11 +322,14 @@ export class HoloMosaic {
 
   /** Re-uploads the image at its displayed device-pixel size (premultiplied, flipped, mipmapped) and pads the canvas round it. */
   private async resize() {
-    const box = this.img.getBoundingClientRect();
-    if (!this.renderer || !box.width || !box.height) return;
+    // Layout size, not the on-screen box: an ancestor transform (the hero scaled down) would shrink the box,
+    // and the canvas sized from it would then be scaled again.
+    const boxW = this.img.offsetWidth;
+    const boxH = this.img.offsetHeight;
+    if (!this.renderer || !boxW || !boxH) return;
     const dpr = Math.min(window.devicePixelRatio, this.maxPixelRatio);
-    const w = Math.round(box.width * dpr);
-    const h = Math.round(box.height * dpr);
+    const w = Math.round(boxW * dpr);
+    const h = Math.round(boxH * dpr);
     const pad = Math.round(this.padding * dpr);
     const key = `${w}x${h}@${dpr}:${this.img.currentSrc}`;
     if (key === this.sizeKey) return;
@@ -402,8 +405,9 @@ export class HoloMosaic {
     cursor.update();
     const box = this.img.getBoundingClientRect();
     const size = u.uImgPx.value;
-    const x = cursor.x - box.left;
-    const y = box.bottom - cursor.y;
+    // Screen px to the image's layout px (they differ under an ancestor transform).
+    const x = ((cursor.x - box.left) * size.x) / box.width;
+    const y = ((box.bottom - cursor.y) * size.y) / box.height;
     field.uMouse.value.set(x / size.x, y / size.y);
     field.uMouseR.value = cursor.look.radius / size.y;
     field.uMouseAmt.value = cursor.level;

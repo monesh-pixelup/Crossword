@@ -31,7 +31,8 @@ export function Guardrails() {
         </div>
 
         <div className="relative aspect-[1280/498] w-full">
-          <SupportScenePanel slug="guardrails" />
+          {/* Fills the content width (past its drawn 1280px on wide screens), edge to edge with the heading above. */}
+          <SupportScenePanel slug="guardrails" fill />
         </div>
       </div>
     </section>

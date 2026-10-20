@@ -206,10 +206,10 @@ export function startMemoryGraph(root: HTMLElement): () => void {
     c.el.style.transformOrigin = `${(((b[0] + b[2] / 2 - sp[0]) / sp[2]) * 100).toFixed(3)}% ${(((b[1] + b[3] / 2 - sp[1]) / sp[3]) * 100).toFixed(3)}%`;
   }
 
-  // Depth for parallax: big warm cards move most, small pills least (Shopify: ±6px).
+  // Depth for parallax: big warm cards move most, small pills least (about 2.5× the Shopify reference's ±6px, for a stronger effect).
   for (const n of nodes) {
     const d = nodeData[n.id].frames.m || nodeData[n.id].frames.s;
-    n.depth = d && d[2] > 250 ? 9 : d && d[2] > 120 ? 6 : 4;
+    n.depth = d && d[2] > 250 ? 22 : d && d[2] > 120 ? 15 : 10;
   }
 
   let from: FrameKey = "m";
@@ -310,7 +310,7 @@ export function startMemoryGraph(root: HTMLElement): () => void {
     const dotO = lerp(DOTS[from], DOTS[to], gt) * (entrance < 1 ? easeOut(seg(entrance, 0.45, 0.4)) : 1);
     for (const d of dots) setStyle(d, "opacity", dotO.toFixed(3));
     if (linesSvg) {
-      setStyle(linesSvg, "transform", `translate3d(${(mouse.tx * 5).toFixed(2)}px,${(mouse.ty * 5).toFixed(2)}px,0)`);
+      setStyle(linesSvg, "transform", `translate3d(${(mouse.tx * 12).toFixed(2)}px,${(mouse.ty * 12).toFixed(2)}px,0)`);
     }
 
     for (const st of STATES) {

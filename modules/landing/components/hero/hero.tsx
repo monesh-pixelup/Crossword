@@ -14,7 +14,7 @@ function HeroCopy() {
     <div className="flex content-width flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
       <h1
         id="hero-title"
-        className="font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap text-cream"
+        className="pointer-events-auto font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap text-cream"
         style={{ zoom: "var(--h2-scale)" }}
       >
         <span className="font-script text-[100px] leading-[1.18] font-normal tracking-[-1px]">Y</span>
@@ -22,7 +22,12 @@ function HeroCopy() {
         <span className="text-[80px] leading-[1.1] tracking-[-4.8px] text-[#eedba5]">yet.</span>
       </h1>
 
-      <div className="flex w-[491.655px] max-w-full flex-col items-start gap-4">
+      {/*
+        The copy row sits above the scene's animated UI (see HeroParallax), so the cards and conversation can't cover
+        the button or the intro; a soft blurred dark halo behind them mutes anything passing underneath.
+      */}
+      <div className="pointer-events-auto relative isolate flex w-[491.655px] max-w-full flex-col items-start gap-4 before:pointer-events-none before:absolute before:-inset-x-10 before:-inset-y-8 before:-z-10 before:rounded-[50%] before:bg-black/55 before:blur-2xl">
+
         <StampButton href={ctaLinks.bookDemo} variant="wine">
           BOOK A DEMO
         </StampButton>
@@ -46,7 +51,8 @@ export function Hero() {
       <section aria-labelledby="hero-title" className="relative bg-black">
         {/* The black runs the full viewport width, out past the site's 1800px cap (SiteShell clips the overrun). */}
         <div aria-hidden className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-black" />
-        <div className="relative">
+        {/* The scene runs the full viewport width, past the 1800px cap (SiteShell clips the overrun). */}
+        <div className="relative left-1/2 w-screen -translate-x-1/2">
           <HeroParallax copy={<HeroCopy />} />
         </div>
       </section>

@@ -13,10 +13,11 @@ export type SupportSceneSlug = keyof typeof supportScenes;
 /**
  * A support motion scene by slug, fitted to the panel it fills. Server components use this rather
  * than ScenePanel directly, since the scene and its root are functions, which can't be passed
- * from the server to a client component.
+ * from the server to a client component. `fill` lets the scene grow past its drawn size, so it
+ * always spans the panel's full width (the panel then matching the scene's shape).
  */
-export function SupportScenePanel({ slug }: { slug: SupportSceneSlug }) {
-  return <ScenePanel scene={supportScenes[slug]} root={SupportMotionRoot} />;
+export function SupportScenePanel({ slug, fill = false }: { slug: SupportSceneSlug; fill?: boolean }) {
+  return <ScenePanel scene={supportScenes[slug]} root={SupportMotionRoot} maxScale={fill ? Infinity : undefined} />;
 }
 
 /** The support scenes' 738 × 680 maroon frame with nothing in it, for a panel whose scene isn't designed yet. */
