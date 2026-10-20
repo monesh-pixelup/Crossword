@@ -2,13 +2,24 @@
 
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import { proactiveTriggers } from "../../config/proactive";
+import { proactiveTriggerScenes, proactiveTriggers } from "../../config/proactive";
+import { proactiveScenes } from "../motion/proactive";
+import { ScenePanel } from "../motion/scene-panel";
 
-/** How long each trigger stays up before the next one takes over. */
+/** How long each trigger stays up before the next one takes over, at least. */
 const DURATION_MS = 6000;
 
+/** How long a trigger's scene holds once it has played out, before the next takes over. */
+const HOLD_MS = 2500;
+
+const sceneFor = (i: number) => {
+  const slug = proactiveTriggerScenes[i];
+  return slug ? proactiveScenes[slug as keyof typeof proactiveScenes] : undefined;
+};
+
 /**
- * A sand stage (509px tall at 1280px) over four trigger tabs. The tabs take turns on a timer: a
+ * A sand stage (1280 × 509, zoomed to the row's width) playing the active trigger's motion scene,
+ * over four trigger tabs; a trigger without a scene leaves the stage empty. The tabs take turns on a timer: a
  * 2px gold bar fills across the active tab's top edge, then hands over to the next (Figma shows it
  * part-way, at 156.95px). Choosing a tab restarts its timer. The cycle only runs while the
  * section is on screen, and not at all with reduced motion (the bar then sits full).
@@ -29,6 +40,10 @@ export function TriggerTabs() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  const scene = sceneFor(active);
+  // Long enough for the scene to play out and hold.
+  const duration = Math.max(DURATION_MS, scene ? scene.duration + HOLD_MS : 0);
 
   const select = (i: number) => {
     setActive(i);
@@ -55,8 +70,11 @@ export function TriggerTabs() {
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="aspect-[1280/509] min-h-[240px] w-full border-x border-t border-black/25 bg-[#f3e7d3] lg:aspect-auto lg:h-[509px]"
-      />
+        // The scene draws its own sand ground and hairline border; without one the stage draws them.
+        className={cn("relative aspect-[1280/509] w-full", !scene && "border-x border-t border-black/25 bg-[#f3e7d3]")}
+      >
+        {scene && <ScenePanel key={`${active}-${run}`} scene={scene} active={visible} />}
+      </div>
 
       <div role="tablist" aria-label="Proactive message triggers" onKeyDown={onKeyDown} className="flex w-full flex-col md:flex-row">
         {proactiveTriggers.map((trigger, i) => {
@@ -96,7 +114,7 @@ export function TriggerTabs() {
                   aria-hidden
                   onAnimationEnd={() => select(active === proactiveTriggers.length - 1 ? 0 : active + 1)}
                   className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold motion-reduce:w-full motion-reduce:animate-none"
-                  style={{ animationDuration: `${DURATION_MS}ms`, animationPlayState: visible ? "running" : "paused" }}
+                  style={{ animationDuration: `${duration}ms`, animationPlayState: visible ? "running" : "paused" }}
                 />
               )}
             </button>

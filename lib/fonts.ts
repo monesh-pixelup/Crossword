@@ -1,4 +1,16 @@
-import { Crimson_Pro, DM_Sans, Geist, Geist_Mono, Inter, Open_Sans, Tangerine } from "next/font/google";
+import {
+  Crimson_Pro,
+  DM_Sans,
+  Geist,
+  Geist_Mono,
+  Inter,
+  Noto_Serif,
+  Open_Sans,
+  Playfair_Display,
+  Quicksand,
+  Space_Grotesk,
+  Tangerine,
+} from "next/font/google";
 import localFont from "next/font/local";
 
 /**
@@ -87,6 +99,59 @@ export const geistMono = Geist_Mono({
   preload: false,
 });
 
+/*
+ * The Sell motion visuals (modules/sell/components/motion) load the weights
+ * their source build requested from Google Fonts. Inter and Geist Mono get
+ * their own instances so the other sections keep their single weight.
+ */
+export const interMotion = Inter({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  variable: "--font-face-inter-motion",
+  display: "swap",
+  preload: false,
+});
+
+export const geistMonoMotion = Geist_Mono({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  variable: "--font-geist-mono-motion",
+  display: "swap",
+  preload: false,
+});
+
+export const playfairDisplay = Playfair_Display({
+  weight: "600",
+  subsets: ["latin"],
+  variable: "--font-playfair-display",
+  display: "swap",
+  preload: false,
+});
+
+export const notoSerif = Noto_Serif({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-noto-serif",
+  display: "swap",
+  preload: false,
+});
+
+export const quicksand = Quicksand({
+  weight: ["500", "700"],
+  subsets: ["latin"],
+  variable: "--font-quicksand",
+  display: "swap",
+  preload: false,
+});
+
+export const spaceGrotesk = Space_Grotesk({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+  preload: false,
+});
+
 export const fontVariables = [
   crimsonPro.variable,
   parisienne.variable,
@@ -97,4 +162,10 @@ export const fontVariables = [
   openSans.variable,
   tangerine.variable,
   geistMono.variable,
+  interMotion.variable,
+  geistMonoMotion.variable,
+  playfairDisplay.variable,
+  notoSerif.variable,
+  quicksand.variable,
+  spaceGrotesk.variable,
 ].join(" ");

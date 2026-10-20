@@ -6,6 +6,11 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import arrowRight from "../../assets/discovery/arrow-right.svg";
 import { discoveryFeatures } from "../../config/discovery";
+import { discoveryScenesA } from "../motion/discovery/index-a";
+import { discoveryScenesB } from "../motion/discovery/index-b";
+import { ScenePanel } from "../motion/scene-panel";
+
+const discoveryScenes = { ...discoveryScenesA, ...discoveryScenesB } as Record<string, (typeof discoveryScenesB)[keyof typeof discoveryScenesB]>;
 
 /** The fixed site header's height plus the 48px the list sits below it while pinned. */
 const PIN_TOP = 72.5 + 48;
@@ -154,13 +159,17 @@ export function DiscoveryTabs() {
               </Link>
             </div>
 
-            {/* Panel art exported with its studded lattice frame and 1px #d2cdc0 border (821 × 611 in Figma); it fills the 820px column. */}
-            <Image
-              src={feature.panel}
-              alt=""
-              sizes="(min-width: 992px) 821px, 100vw"
-              className="h-auto w-full"
-            />
+            {/*
+              Panel art exported with its studded lattice frame and 1px #d2cdc0 border (821 × 611 in
+              Figma); it fills the 820px column. The feature's chat scene (450 × 500) plays centred
+              in it, at full size in the 820px column and zoomed down with it below that.
+            */}
+            <div className="relative w-full">
+              <Image src={feature.panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
+              {discoveryScenes[feature.scene] && (
+                <ScenePanel scene={discoveryScenes[feature.scene]} className="absolute inset-x-0 inset-y-[6%]" />
+              )}
+            </div>
           </div>
         ))}
       </div>

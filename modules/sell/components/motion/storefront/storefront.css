@@ -1,0 +1,22 @@
+/*
+ * Storefront scenes: the `bare` channel frame (complete-channel-deployment
+ * without its container). Not in the source; scenes.css positions the tray
+ * and shell inside the 413 × 402 `.ill-channel-container`. Here the same two
+ * pieces sit in their own 327.5 × 255 box: the container offsets
+ * (tray left 35.5 / centre 201, shell 108, 73.5) minus the box's own
+ * position in the container (35.5, 73.5).
+ */
+.ill-sell .ill-channel-frame--bare {
+  position: relative;
+  width: 327.5px;
+  height: 255px;
+  flex-shrink: 0;
+}
+.ill-sell .ill-channel-frame--bare .ill-channel-frame__tray {
+  left: 0;
+  top: 127.5px;
+}
+.ill-sell .ill-channel-frame--bare .ill-channel-frame__shell {
+  left: 72.5px;
+  top: 0;
+}
