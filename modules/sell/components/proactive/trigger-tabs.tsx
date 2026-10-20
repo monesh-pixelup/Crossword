@@ -19,7 +19,7 @@ const sceneFor = (i: number) => {
 
 /**
  * A sand stage (1280 × 509, zoomed to the row's width) playing the active trigger's motion scene,
- * over four trigger tabs; a trigger without a scene leaves the stage empty. The tabs take turns on a timer: a
+ * over three trigger tabs; a trigger without a scene leaves the stage empty. The tabs take turns on a timer: a
  * 2px gold bar fills across the active tab's top edge, then hands over to the next (Figma shows it
  * part-way, at 156.95px). Choosing a tab restarts its timer. The cycle only runs while the
  * section is on screen, and not at all with reduced motion (the bar then sits full).
