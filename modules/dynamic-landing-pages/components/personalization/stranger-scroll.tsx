@@ -17,9 +17,20 @@ type Item = { key: string; content: ReactNode; className?: string; rule?: string
  * fading out under its edge; the item just below the heading is at full strength (the others rest
  * at 20%), and the panel sticks beside them. When stacked, the panel is what sticks and the items
  * pass under it. The last item stays put once it reaches the heading: everything then scrolls away
- * together.
+ * together. With `belowHeader` both pin 48px below the fixed 72.5px site header instead of 48px
+ * from the viewport top, as Lifecycle does.
  */
-export function StrangerScroll({ heading, items, panel }: { heading: ReactNode; items: Item[]; panel: ReactNode }) {
+export function StrangerScroll({
+  heading,
+  items,
+  panel,
+  belowHeader = false,
+}: {
+  heading: ReactNode;
+  items: Item[];
+  panel: ReactNode;
+  belowHeader?: boolean;
+}) {
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
   const headingRef = useRef<HTMLDivElement>(null);
@@ -112,9 +123,10 @@ export function StrangerScroll({ heading, items, panel }: { heading: ReactNode; 
           <div
             ref={headingRef}
             className={cn(
-              "order-1 max-lg:mb-(--space-xxlarge) lg:sticky lg:top-12 lg:z-10 lg:bg-cream",
+              "order-1 max-lg:mb-(--space-xxlarge) lg:sticky lg:z-10 lg:bg-cream",
               // Cream above the stuck heading hides items scrolled past it; a fade below softens their exit.
-              "lg:before:absolute lg:before:inset-x-0 lg:before:bottom-full lg:before:h-12 lg:before:bg-cream",
+              "lg:before:absolute lg:before:inset-x-0 lg:before:bottom-full lg:before:bg-cream",
+              belowHeader ? "lg:top-[calc(72.5px+48px)] lg:before:h-[calc(72.5px+48px)]" : "lg:top-12 lg:before:h-12",
               "lg:after:pointer-events-none lg:after:absolute lg:after:inset-x-0 lg:after:top-full lg:after:h-10 lg:after:bg-linear-to-b lg:after:from-cream lg:after:to-cream/0",
             )}
           >
@@ -135,7 +147,10 @@ export function StrangerScroll({ heading, items, panel }: { heading: ReactNode; 
       {/* The panel stays put while the list scrolls; between heading and list, pinned to the top, when stacked. */}
       <div
         ref={panelRef}
-        className="sticky top-0 z-10 order-2 w-full after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 lg:top-12 lg:mt-2.5 lg:w-[687px] lg:shrink lg:after:hidden"
+        className={cn(
+          "sticky top-0 z-10 order-2 w-full after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 lg:mt-2.5 lg:w-[687px] lg:shrink lg:after:hidden",
+          belowHeader ? "lg:top-[calc(72.5px+48px)]" : "lg:top-12",
+        )}
       >
         {panel}
       </div>

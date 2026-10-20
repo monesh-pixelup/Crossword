@@ -21,12 +21,12 @@ export function InboxMock() {
       aria-hidden
       className="w-full bg-parchment font-sans text-ink shadow-[0_0_0_0.6px_var(--color-gold),0_1px_1px_rgba(0,0,0,0.08),0_10px_30px_-12px_rgba(24,8,36,0.28)]"
     >
-      <div className="flex items-center gap-2 border-b-[0.5px] border-rail px-4 py-3">
+      <div className="flex flex-wrap items-center gap-2 border-b-[0.5px] border-rail px-4 py-3">
         {(["Active", "Waiting", "Escalated"] as const).map((s, i) => (
           <span
             key={s}
             className={cn(
-              "px-2.5 py-1.5 text-[12px] leading-none font-medium tracking-[-0.02em]",
+              "px-2.5 py-1.5 text-[12px] leading-none font-medium tracking-[-0.02em] whitespace-nowrap",
               i === 0 ? "bg-wine text-white" : "text-ink-muted shadow-[inset_0_0_0_0.5px_var(--color-engraved)]",
             )}
           >
@@ -41,7 +41,7 @@ export function InboxMock() {
               <span className="text-[14px] leading-none font-medium tracking-[-0.02em]">{row.customer}</span>
               <span className="truncate text-[12px] leading-[1.3] tracking-[-0.03em] text-ink-muted">{row.snippet}</span>
             </span>
-            <span className={cn("px-2 py-1 text-[10px] leading-none font-medium tracking-[0.02em]", statusTone[row.status])}>{row.status}</span>
+            <span className={cn("shrink-0 px-2 py-1 text-[10px] leading-none font-medium tracking-[0.02em]", statusTone[row.status])}>{row.status}</span>
             <span className="flex size-6 shrink-0 items-center justify-center bg-linen text-[9px] font-semibold tracking-[0.04em] text-label-olive">
               {row.owner}
             </span>

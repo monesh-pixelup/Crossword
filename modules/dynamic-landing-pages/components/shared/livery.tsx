@@ -93,7 +93,7 @@ const notches = [
 ];
 
 /** Concave corners cut into a layer: a transparent quarter disc of `radius` at each corner. */
-const notchMask = (radius: number) => {
+export const notchMask = (radius: number) => {
   const corner = (pos: string) => `radial-gradient(circle at ${pos}, transparent ${radius}px, #000 ${radius + 0.5}px) ${pos} / 51% 51% no-repeat`;
   return [corner("top left"), corner("top right"), corner("bottom left"), corner("bottom right")].join(", ");
 };

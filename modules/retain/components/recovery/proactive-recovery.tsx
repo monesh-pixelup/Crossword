@@ -19,19 +19,21 @@ const rings = ["top-[17.5px] left-[19.5px]", "top-[17.5px] right-[18.5px]", "bot
  * headline stick from 992px while the recovery moments scroll up under them, the one just below at
  * full strength (a 1px black/50 rule under the first, 0.5px black/20 rules between the rest, 64px
  * apart); a sticky 687 × 586 aubergine panel holds the notched damask with its gold frame and a
- * gold ring in each corner.
+ * gold ring in each corner. Heading and panel pin 48px below the fixed site header,
+ * the gold rail tick pinned with the heading.
  */
 export function ProactiveRecovery() {
   const last = recoveryItems.length - 1;
 
   return (
     <section aria-labelledby="recovery-title" className="relative section-pad">
-      <RailAccent className="absolute top-[calc(var(--section-pad)-16.51px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
-
       <div className="content-width">
         <StrangerScroll
+          belowHeader
           heading={
             <div className="flex flex-col items-start gap-6">
+              {/* Placed against the sticky heading (16.51px above it, out on the left rail) so it stays pinned with it, as on Lifecycle. */}
+              <RailAccent className="absolute -top-[16.51px] left-[calc(var(--frame-inset)-var(--page-pad)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
               <Eyebrow>Proactive recovery</Eyebrow>
               <SectionTitle
                 id="recovery-title"

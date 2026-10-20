@@ -14,8 +14,12 @@ const tag =
 const title = "font-serif text-[32px] leading-[1.1] font-light tracking-[-1.28px] text-[#040404]";
 const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60";
 
-/** The home page's maroon card (scroll damask 14px in, notched gold corners, a ring in each): 738 × 680 from 992px. */
-const panel = "flex w-full flex-col justify-center gap-6 p-10 md:p-14 lg:h-[680px] lg:w-[738px] lg:shrink-0 lg:px-16";
+/**
+ * The home page's maroon card (scroll damask 14px in, notched gold corners, a ring in each): 680px
+ * tall from 992px, filling its grid track (738px wide at 1440, narrower down to 992). Under 480px the
+ * sides tighten to 24px and the ends grow to 64px, so the content clears the 46px corner notches.
+ */
+const panel = "flex w-full min-w-0 flex-col justify-center gap-6 px-6 py-16 xs:p-10 md:p-14 lg:h-[680px] lg:px-16";
 
 /**
  * Figma "Library · Numbered panel (Helpdesk)": the eyebrow and headline, then the two options as
@@ -46,8 +50,11 @@ export function HelpdeskOptions() {
         </div>
 
         <div className="flex w-full flex-col gap-16 lg:gap-[120px]">
-          {/* Row 1: the copy is centred in the top 595px of the 680px row, as in Figma. */}
-          <div className="flex w-full flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
+          {/*
+            Row 1: the copy is centred in the top 595px of the 680px row, as in Figma. From 992px a
+            grid keeps the copy at least 320px wide; the panel takes the rest, up to its 738px.
+          */}
+          <div className="flex w-full flex-col gap-10 lg:grid lg:grid-cols-[minmax(320px,1fr)_minmax(0,738px)] lg:items-start lg:gap-8">
             <div className="flex flex-col items-start justify-center gap-16 lg:h-[595px]">
               <div className="flex flex-col items-start gap-4">
                 <p className={tag}>Crossword helpdesk</p>
@@ -68,9 +75,9 @@ export function HelpdeskOptions() {
             </NotchedPanel>
           </div>
 
-          {/* Row 2: panel first; the copy sits in a 675px column (32px top, 48px bottom) centred on the row. */}
-          <div className="flex w-full flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-            <div className="flex flex-col items-start justify-center lg:order-2 lg:h-[675px] lg:pt-8 lg:pb-12">
+          {/* Row 2: panel first; the copy sits in a 675px column (32px top, 48px bottom) centred on the row, against its right edge. */}
+          <div className="flex w-full flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,738px)_minmax(320px,1fr)] lg:items-center lg:gap-8">
+            <div className="flex flex-col items-start justify-center lg:order-2 lg:h-[675px] lg:justify-self-end lg:pt-8 lg:pb-12">
               <div className="flex flex-col items-start gap-6">
                 <div className="flex flex-col items-start gap-4">
                   <p className={tag}>Helpdesk integration</p>
@@ -92,7 +99,7 @@ export function HelpdeskOptions() {
                     className="flex min-h-[104px] flex-col items-center justify-center gap-2 p-3 text-center shadow-[inset_0_0_0_1px_var(--color-engraved)] odd:bg-sand even:bg-cream md:min-h-32"
                   >
                     <span className="font-serif text-[20px] leading-[1.15] tracking-[-0.03em] text-ink">{desk.name}</span>
-                    <span className="flex items-center gap-1 font-sans text-[12px] leading-none tracking-[-0.03em] text-ink-muted">
+                    <span className="flex flex-wrap items-center justify-center gap-1 font-sans text-[12px] leading-none tracking-[-0.03em] text-ink-muted">
                       <svg aria-hidden viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="size-3">
                         <path d="M2.5 6h10l-2.5-2.5M13.5 10h-10l2.5 2.5" />
                       </svg>
