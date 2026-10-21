@@ -32,14 +32,14 @@ function Headline() {
 
 /**
  * Layout/Hero, Photo variant (as on Sell): the full-bleed photo (the whole viewport width, not capped
- * at the site's 2000px) with the copy pinned to the bottom,
+ * at the site's 1700px) with the copy pinned to the bottom,
  * the overlay header floating over its top. From 1200px the headline and the CTA column sit side
  * by side, bottom-aligned; below that they stack.
  */
 export function LaunchHero() {
   return (
     <section aria-labelledby="launch-hero-title" className="relative bg-night">
-      {/* The photo runs the full viewport width, out past the site's 2000px cap on wide screens (SiteShell clips the overrun). */}
+      {/* The photo runs the full viewport width, out past the site's 1700px cap on wide screens (SiteShell clips the overrun). */}
       <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-night">
         <Image
           src={background}

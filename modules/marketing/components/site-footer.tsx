@@ -94,8 +94,8 @@ export function SiteFooter() {
       </div>
       <FooterFrame />
 
-      {/* The sections' content box: the 2000px-capped page less --page-pad a side, centred in the full-width footer. */}
-      <div className="relative mx-auto w-[calc(min(100%,2000px)_-_2*var(--page-pad))]">
+      {/* The sections' content box: the 1700px-capped page less --page-pad a side, centred in the full-width footer. */}
+      <div className="relative mx-auto w-[calc(min(100%,1700px)_-_2*var(--page-pad))]">
         <div className="flex flex-col">
           {/* Stamp left, links right from 768px (as on desktop); stacked on phones. */}
           <div className="flex flex-col items-start gap-12 md:flex-row md:justify-between md:gap-0 lg:min-h-[286.898px]">
