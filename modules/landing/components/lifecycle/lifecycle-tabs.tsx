@@ -227,10 +227,14 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
               "lg:after:pointer-events-none lg:after:absolute lg:after:inset-x-0 lg:after:top-full lg:after:h-10 lg:after:bg-linear-to-b lg:after:from-cream lg:after:to-cream/0",
             )}
           >
-            <div className="lg:border-b lg:border-black/10 lg:pb-12">{heading}</div>
+            {/*
+              80px from the heading to the first item's text: 32px below the heading, then the item's own 48px top
+              padding (the list adds none), which keeps that text clear of the 40px fade under the heading.
+            */}
+            <div className="lg:pb-8">{heading}</div>
           </div>
 
-          <div ref={listRef} className="order-3 flex flex-col max-lg:mt-(--space-xxlarge) lg:pt-16">
+          <div ref={listRef} className="order-3 flex flex-col max-lg:mt-(--space-xxlarge)">
             {steps.slice(0, -1).map((_, i) => renderItem(i))}
           </div>
         </div>
