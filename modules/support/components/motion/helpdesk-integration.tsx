@@ -18,11 +18,12 @@ const labels = [
  * Figma "Support_helpdesk integration" (static): the Crossword tile wired down to the Zendesk,
  * Gorgias, Freshdesk and other-helpdesk tiles, over the gold connector lines. The lines and the
  * tiles are Figma's own SVG exports, placed at their offsets in the frame; the labels are text.
+ * The whole illustration is drawn at 70%, centred in the full-size frame.
  */
 function HelpdeskIntegrationScene() {
   return (
     <SceneFrame>
-      <div className="relative h-[680px] w-[738px]">
+      <div className="relative h-[680px] w-[738px] origin-center scale-70">
         {/* eslint-disable-next-line @next/next/no-img-element -- static SVG, nothing to optimize */}
         <img
           src={integrationLines.src}

@@ -14,12 +14,13 @@ function HeroCopy() {
     <div className="flex content-width flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
       <h1
         id="hero-title"
-        className="pointer-events-auto font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap text-cream"
+        className="pointer-events-auto font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap text-cream max-[760px]:whitespace-normal"
         style={{ zoom: "var(--h2-scale)" }}
       >
-        <span className="font-script text-[100px] leading-[1.18] font-normal tracking-[-1px]">Y</span>
-        <span className="text-[80px] leading-[1.1] tracking-[-4px]">our best hire </span>
-        <span className="text-[80px] leading-[1.1] tracking-[-4.8px] text-[#eedba5]">yet.</span>
+        {/* Below 760px, drawn at the section headings' size (82px swash, 60px lines, zoomed with --h2-scale), tracking scaled to match. */}
+        <span className="font-script text-[100px] leading-[1.18] font-normal tracking-[-1px] max-[760px]:text-[82px]">Y</span>
+        <span className="text-[80px] leading-[1.1] tracking-[-4px] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">our best hire </span>
+        <span className="text-[80px] leading-[1.1] tracking-[-4.8px] text-[#eedba5] max-[760px]:text-[60px] max-[760px]:tracking-[-3.6px]">yet.</span>
       </h1>
 
       {/*
@@ -49,13 +50,14 @@ export function Hero() {
   return (
     <>
       <section aria-labelledby="hero-title" className="relative bg-black">
-        {/* The black runs the full viewport width, out past the site's 1800px cap (SiteShell clips the overrun). */}
+        {/* The black runs the full viewport width, out past the site's 2000px cap (SiteShell clips the overrun). */}
         <div aria-hidden className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-black" />
         {/*
-          The scene runs the full viewport width, past the 1800px cap (SiteShell clips the overrun). It ends at the
+          The scene runs the full viewport width, past the 2000px cap (SiteShell clips the overrun). It ends at the
           first screen's bottom: a frame taller than that pins the copy 88.5px above the fold, and the rest is black.
+          Below 760px it is the phone stack instead (see HeroScene), at least a screen tall and growing to fit.
         */}
-        <div className="relative left-1/2 max-h-svh w-screen -translate-x-1/2 overflow-hidden">
+        <div className="relative left-1/2 max-h-svh w-screen -translate-x-1/2 overflow-hidden max-[760px]:max-h-none">
           <HeroParallax copy={<HeroCopy />} />
         </div>
       </section>

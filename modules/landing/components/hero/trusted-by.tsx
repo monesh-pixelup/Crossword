@@ -25,9 +25,10 @@ function LogoRow({ duplicate = false }: { duplicate?: boolean }) {
     <ul
       aria-hidden={duplicate || undefined}
       className={cn(
-        // A 2- then 3-column grid on phones (repeat row hidden); a row from 768px, divided from 992px.
-        "grid-cols-2 justify-items-center gap-x-6 gap-y-8 xs:grid-cols-3 md:flex md:items-center md:justify-center md:gap-10 lg:gap-[35px]",
-        duplicate ? "hidden" : "grid w-full md:w-auto",
+        // A 2- then 3-column grid up to 830px (repeat row hidden; one row would reach the page rails there);
+        // a row from 831px, divided from 992px.
+        "grid-cols-2 justify-items-center gap-x-6 gap-y-8 xs:grid-cols-3 min-[831px]:flex min-[831px]:items-center min-[831px]:justify-center min-[831px]:gap-10 lg:gap-[35px]",
+        duplicate ? "hidden" : "grid w-full min-[831px]:w-auto",
       )}
     >
       {logos.map((logo, i) => (

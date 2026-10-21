@@ -61,10 +61,12 @@ function Certifications() {
   );
 }
 
-/** Security & compliance band: dark green, full-bleed. */
+/** Security & compliance band: dark green, between the page rails like the divider band. */
 export function Trust() {
   return (
-    <section aria-labelledby="trust-title" className="relative bg-[#00331a] py-12 md:py-16 lg:py-[87px] min-[1440px]:py-[6.04cqw]">
+    <section aria-labelledby="trust-title" className="relative py-12 md:py-16 lg:py-[87px] min-[1440px]:py-[6.04cqw]">
+      {/* The green spans the same width as the patterned divider band (inset to the frame rails). */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-(--frame-inset) inset-y-0 bg-[#00331a]" />
       {/*
         Card: at least 626px tall with its content centred; padding steps down per breakpoint.
         Past the 1440px Figma frame it keeps Figma's 1280 x 626 proportions (and the band's padding

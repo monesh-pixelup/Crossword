@@ -30,7 +30,7 @@ function FooterNav() {
   return (
     <nav
       aria-label="Footer"
-      className="flex flex-wrap items-start gap-x-8 gap-y-10 xs:gap-x-12 md:gap-x-[126px] lg:mr-9"
+      className="flex flex-wrap items-start gap-x-8 gap-y-10 xs:gap-x-12 md:gap-x-[126px]"
     >
       <div className="flex w-[91px] flex-col items-start gap-[37px]">
         <h2 className={heading}>{"{ COMPANY }"}</h2>
@@ -77,7 +77,8 @@ function Tagline() {
 /**
  * Site footer: deep green with the grain tile and a gilt notched frame. Layout follows the
  * Webflow build: logo and link columns across the top; along the bottom the tagline, and opposite
- * it the compliance badges over the copyright line. Both rows stack below 992px. Stacked, the
+ * it the compliance badges over the copyright line. The top row stacks below 768px, the bottom one
+ * below 992px. Stacked, the
  * stamp and the badges sit near the frame's corners, so 96px of padding keeps them clear of its
  * notches.
  */
@@ -93,9 +94,11 @@ export function SiteFooter() {
       </div>
       <FooterFrame />
 
-      <div className="relative content-width max-w-[1280px]">
-        <div className="flex flex-col px-6 xs:px-4 md:px-0 lg:pr-[6.76px]">
-          <div className="flex flex-col items-start gap-12 lg:min-h-[286.898px] lg:flex-row lg:justify-between lg:gap-0">
+      {/* The sections' content box: the 2000px-capped page less --page-pad a side, centred in the full-width footer. */}
+      <div className="relative mx-auto w-[calc(min(100%,2000px)_-_2*var(--page-pad))]">
+        <div className="flex flex-col">
+          {/* Stamp left, links right from 768px (as on desktop); stacked on phones. */}
+          <div className="flex flex-col items-start gap-12 md:flex-row md:justify-between md:gap-0 lg:min-h-[286.898px]">
             {/*
               Guilloché stamp: a Figma WebGPU shader, so it ships as a 3x export
               cut out along its outline; the image box starts (-14.54, -10.255)
@@ -112,22 +115,23 @@ export function SiteFooter() {
             <FooterNav />
           </div>
 
+          {/* Below 960px the badges' column dissolves into the stack: badges, then the tagline, then the copyright line. */}
           <div className="mt-16 flex flex-col items-start gap-12 lg:mt-[45px] lg:flex-row lg:items-center lg:justify-between lg:gap-8">
             {/* Drawn at 49.1px and zoomed with the breakpoint (42 / 36 / 28px), then to fit if needed. */}
-            <div className="fit-to-container [--fit-width:calc(518px*var(--tag-scale))] [--tag-scale:1] max-lg:[--tag-scale:0.8554] max-md:[--tag-scale:0.7332] max-xs:[--tag-scale:0.5703]">
+            <div className="fit-to-container [--fit-width:calc(518px*var(--tag-scale))] [--tag-scale:1] max-lg:[--tag-scale:0.8554] max-md:[--tag-scale:0.7332] max-xs:[--tag-scale:0.5703] max-[960px]:order-2">
               <div className="[zoom:var(--tag-scale)]">
                 <Tagline />
               </div>
             </div>
-            <div className="flex flex-col items-start gap-6 lg:items-end">
+            <div className="flex flex-col items-start gap-6 lg:items-end max-[960px]:contents">
               {/* ISO 27001, SOC 2, HIPAA, GDPR and CCPA marks: one 3x export of Figma's 351px row. */}
               <Image
                 src={complianceBadges}
                 alt="ISO 27001 compliant, AICPA SOC 2, HIPAA, GDPR and CCPA compliant"
                 sizes="351px"
-                className="h-auto w-[351px] max-w-full"
+                className="h-auto w-[351px] max-w-full max-[960px]:order-1"
               />
-              <p className="flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-[12px] leading-[1.3] tracking-[-0.36px] whitespace-nowrap text-[rgba(223,227,210,0.6)] xs:flex-nowrap">
+              <p className="flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-[12px] leading-[1.3] tracking-[-0.36px] whitespace-nowrap text-[rgba(223,227,210,0.6)] xs:flex-nowrap max-[960px]:order-3">
                 <span>Crossword, Inc. © 2026</span>
                 <span aria-hidden>|</span>
                 <span>A CometChat Product</span>

@@ -36,7 +36,7 @@ type HeroSceneProps = {
   layerSize: [number, number];
   parallax?: Partial<ParallaxLook>;
   glitch?: Partial<GlitchSettings>;
-  /** Below this root width, the scene keeps this width's layout and is scaled down to fit (exposed as --scene-scale). */
+  /** Below this root width (down to the compact layout), the scene keeps this width's layout and is scaled down to fit (exposed as --scene-scale). */
   scaleBelow?: number;
   /** Unscaled content above the frame. */
   aboveFrame?: (state: SceneState) => ReactNode;
@@ -47,8 +47,8 @@ type HeroSceneProps = {
 };
 
 /**
- * The hero photo as parallax layers: the 1440 × 863 frame (or, compact, the full-height phone frame
- * with the photo centred in it), the layers boxed on their canvas and shifted by the camera, the
+ * The hero photo as parallax layers: the 1440 × 863 frame (or, compact, the phone stack: the cards,
+ * the concierge centred in the photo, the conversation, then the copy), the layers boxed on their canvas and shifted by the camera, the
  * concierge as a glitching mosaic, the multiply vignette over all of it, and the UI on top, zoomed
  * with the frame.
  */
@@ -79,7 +79,8 @@ export function HeroScene({
     const el = root.current!;
     const measure = () => {
       const rootW = el.clientWidth;
-      const s = scaleBelow && rootW < scaleBelow ? rootW / scaleBelow : 1;
+      // Phones get the compact layout at their own width rather than the scaled-down frame.
+      const s = scaleBelow && rootW >= COMPACT_BELOW && rootW < scaleBelow ? rootW / scaleBelow : 1;
       const layoutW = s < 1 ? scaleBelow! : rootW;
       setScale(s);
       setWidth(fitHeight ? Math.min(layoutW, (window.innerHeight * FRAME_W) / FRAME_H / s) : layoutW);

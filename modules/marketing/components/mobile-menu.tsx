@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
 import caretDown from "../assets/caret-down.svg";
 import { ctaLinks, primaryNav } from "../config/navigation";
 
-const navText = "font-serif text-base leading-[22.356px] tracking-[-0.48px] text-black/80 whitespace-nowrap";
+const navText = "font-serif text-base leading-[22.356px] tracking-[-0.48px] whitespace-nowrap";
 
 /** One easing for the whole menu: quick to start, soft to settle. */
 const ease = "ease-[cubic-bezier(0.32,0.72,0,1)]";
@@ -45,11 +45,15 @@ function MenuIcon({ open }: { open: boolean }) {
 /**
  * Below 992px the header's links and buttons fold into a menu button; the menu opens as a
  * panel under the bar (links stacked, then the buttons), as in the Webflow build. `tone` colours
- * the menu button for the bar it sits on (light on the dark overlay header).
+ * it for the bar it sits on: on the overlay header over a hero ("light") the panel is that bar's
+ * dark fill (rgba(9, 9, 9, .71) with a blur) with cream links and the wine-gold button; on the cream
+ * bar it is cream with ink links.
  */
 export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const [open, setOpen] = useState(false);
   const id = useId();
+  const light = tone === "light";
+  const linkTone = light ? "text-cream/80 hover:text-cream" : "text-black/80 hover:text-maroon";
 
   useEffect(() => {
     if (!open) return;
@@ -74,7 +78,7 @@ export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
         onClick={() => setOpen((o) => !o)}
         className={cn(
           "flex size-10 cursor-pointer items-center justify-center",
-          tone === "light" ? "text-cream" : "-mr-2 text-ink",
+          light ? "text-cream" : "-mr-2 text-ink",
         )}
       >
         <MenuIcon open={open} />
@@ -85,7 +89,8 @@ export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
         id={id}
         inert={!open}
         className={cn(
-          "absolute inset-x-0 top-full z-50 border-b-[0.5px] border-black/20 bg-cream px-(--page-pad) pt-6 pb-8",
+          "absolute inset-x-0 top-full z-50 border-b-[0.5px] px-(--page-pad) pt-6 pb-8",
+          light ? "border-white/15 bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]" : "border-black/20 bg-cream",
           "transition-[clip-path,opacity,translate,visibility] duration-350 motion-reduce:transition-none",
           ease,
           open
@@ -100,19 +105,19 @@ export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className={`flex items-center gap-1 transition-colors hover:text-maroon ${navText}`}
+                  className={cn("flex items-center gap-1 transition-colors", navText, linkTone)}
                 >
                   {item.label}
-                  {item.hasMenu && <Image src={caretDown} alt="" className="size-3.5" />}
+                  {item.hasMenu && <Image src={caretDown} alt="" className={cn("size-3.5", light && "opacity-80 invert")} />}
                 </Link>
                 {item.children && (
-                  <ul className="mt-3 flex flex-col gap-3 border-l-[0.5px] border-[#b7ae9a] pl-4">
+                  <ul className={cn("mt-3 flex flex-col gap-3 border-l-[0.5px] pl-4", light ? "border-white/15" : "border-[#b7ae9a]")}>
                     {item.children.map((child) => (
                       <li key={child.label}>
                         <Link
                           href={child.href}
                           onClick={() => setOpen(false)}
-                          className={`transition-colors hover:text-maroon ${navText.replace("text-black/80", "text-black/60")}`}
+                          className={cn("transition-colors", navText, light ? "text-cream/60 hover:text-cream" : "text-black/60 hover:text-maroon")}
                         >
                           {child.label}
                         </Link>
@@ -123,7 +128,7 @@ export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
               </li>
             ))}
             <li {...stagger(open, primaryNav.length)}>
-              <Link href={ctaLinks.signUp} onClick={() => setOpen(false)} className={`transition-colors hover:text-maroon ${navText}`}>
+              <Link href={ctaLinks.signUp} onClick={() => setOpen(false)} className={cn("transition-colors", navText, linkTone)}>
                 SIGN UP
               </Link>
             </li>
@@ -131,7 +136,7 @@ export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
         </nav>
         <div {...stagger(open, primaryNav.length + 1)}>
           <div className="mt-8 flex gap-3">
-            <StampButton href={ctaLinks.bookDemo} variant="primary-soft">
+            <StampButton href={ctaLinks.bookDemo} variant={light ? "wine-gold" : "primary-soft"}>
               BOOK A DEMO
             </StampButton>
           </div>

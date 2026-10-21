@@ -29,7 +29,9 @@ function outerPath(w: number, h: number) {
 /**
  * The footer's gilt frame: the notched outline (a 1px stroke clipped to the shape, so 0.5px shows
  * inside, as Figma draws it) with a square hairline rectangle inside it. Drawn as one SVG at the
- * frame's measured size so every line closes cleanly at any width.
+ * frame's measured size so every line closes cleanly at any width. Its sides line up with the CTA
+ * envelope's: 25px in (13px below 768px, 9px below 480px) from the 2000px-capped page, centred in
+ * the full-width footer. Below 960px the footer has no frame.
  */
 export function FooterFrame() {
   const ref = useRef<HTMLDivElement>(null);
@@ -52,7 +54,7 @@ export function FooterFrame() {
     <div
       ref={ref}
       aria-hidden
-      className="pointer-events-none absolute top-[36.97px] right-[18.26px] bottom-[31.71px] left-[18.26px]"
+      className="pointer-events-none absolute top-[36.97px] bottom-[31.71px] inset-x-[max(25px,calc((100%_-_2000px)/2_+_25px))] max-md:inset-x-[13px] max-[480px]:inset-x-[9px] max-[960px]:hidden"
     >
       {size && outer && (
         <svg

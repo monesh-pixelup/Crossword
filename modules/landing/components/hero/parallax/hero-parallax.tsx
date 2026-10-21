@@ -1,7 +1,6 @@
 "use client";
 
 import { type ReactNode, type RefObject, useEffect, useMemo, useRef, useState } from "react";
-import { cn } from "@/lib/cn";
 import bg from "../../../assets/hero/parallax/01-bg.webp";
 import plant from "../../../assets/hero/parallax/02-plant.webp";
 import deskFascia from "../../../assets/hero/parallax/03-desk-fascia.webp";
@@ -83,10 +82,10 @@ const COPY_AT_FOOT_FROM = 1160;
 
 /**
  * Where the copy goes: over the frame's foot when the frame is wide enough (and before it's
- * measured), above the frame between that and the compact layout, at the top of the compact one.
+ * measured), above the frame between that and the compact layout, and last in the compact stack.
  */
-function copyPlacement({ width, compact }: SceneState): "foot" | "above" | "top" {
-  if (compact) return "top";
+function copyPlacement({ width, compact }: SceneState): "foot" | "above" | "stacked" {
+  if (compact) return "stacked";
   return width === null || width >= COPY_AT_FOOT_FROM ? "foot" : "above";
 }
 
@@ -119,34 +118,36 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
         overlayContent={(scene) => {
           const placement = copyPlacement(scene);
           if (placement === "above") return null;
-          const top = placement === "top";
+          // Phones: the copy is pinned 24px above the first screen's bottom so it shows on load, over the stack (see
+          // .hero-scene--compact), with a fade to black behind it so it reads over the conversation.
+          if (placement === "stacked")
+            return (
+              <>
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 bottom-[calc(100%_-_100svh)] z-10 h-[45svh] bg-linear-to-b from-black/0 via-black/70 via-40% to-black/90"
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-[calc(100%_-_100svh_+_24px)] z-10">{copy}</div>
+              </>
+            );
           return (
             <>
               {/*
-                Shade behind the copy, under the UI. At the foot it is Figma's: a 1644 × 353 multiply band, black from
-                29.75% up, blurred 17px, 86px past each side and 49px below the frame (raised with the copy when the
-                frame runs past the first screen). On phones it shades the top.
+                Shade behind the copy, under the UI: Figma's 1644 × 353 multiply band, black from 29.75% up, blurred
+                17px, 86px past each side and 49px below the frame (raised with the copy when the frame runs past the
+                first screen).
               */}
               <div
                 aria-hidden
-                className={cn(
-                  "pointer-events-none absolute",
-                  top
-                    ? "inset-x-0 top-0 h-[55%] bg-linear-to-b from-black/80 to-transparent"
-                    : "bottom-[calc(-5.69%_+_max(0px,100%_-_100svh_/_var(--scene-scale,1)))] -left-[5.975%] h-[40.91%] w-[114.17%] bg-linear-to-t from-black from-[29.752%] to-transparent mix-blend-multiply blur-[17px]",
-                )}
+                className="pointer-events-none absolute bottom-[calc(-5.69%_+_max(0px,100%_-_100svh_/_var(--scene-scale,1)))] -left-[5.975%] h-[40.91%] w-[114.17%] bg-linear-to-t from-black from-[29.752%] to-transparent mix-blend-multiply blur-[17px]"
               />
               {/*
-                At the foot, the copy's last line sits where Figma's row ends: 88.5px above the 863px frame's bottom,
-                or 88.5px above the first screen's bottom when the frame is taller than the viewport, so it shows on load. It
-                spans the page's width (not the frame's, which can be narrower), so its content column lines up with the
-                other sections' headings.
+                The copy's last line sits where Figma's row ends: 88.5px above the 863px frame's bottom, or 88.5px above
+                the first screen's bottom when the frame is taller than the viewport, so it shows on load. It spans the
+                page's width (not the frame's, which can be narrower), so its content column lines up with the other
+                sections' headings.
               */}
-              <div
-                className={cn(
-                  top ? "relative pt-28" : "pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_100svh_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),1800px)] -translate-x-1/2",
-                )}
-              >
+              <div className="pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_100svh_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),2000px)] -translate-x-1/2">
                 {copy}
               </div>
             </>

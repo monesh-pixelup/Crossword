@@ -240,10 +240,14 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
         <div ref={spacerRef} aria-hidden className="order-5" />
       </div>
 
-      {/* The mock-up stays put while the list scrolls; between heading and list, pinned to the top, when stacked. */}
+      {/*
+        The mock-up stays put while the list scrolls; between heading and list when stacked, pinned 16px below the
+        fixed 72.5px site header, with cream over that 16px gap hiding the items scrolled past (the header's own
+        cream bar hides them above it). Only the gap: any taller and it would cover the heading's last line.
+      */}
       <div
         ref={panelRef}
-        className="@container sticky top-0 z-10 order-2 w-full after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 lg:top-[calc(72.5px+48px)] lg:w-auto lg:min-w-0 lg:flex-1 lg:after:hidden"
+        className="@container sticky top-[calc(72.5px+16px)] z-10 order-2 w-full before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-4 before:bg-cream after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 lg:top-[calc(72.5px+48px)] lg:w-auto lg:min-w-0 lg:flex-1 lg:before:hidden lg:after:hidden"
       >
         <LifecyclePanel visual={steps[active].feature.visual} run={run} play={seen} />
       </div>

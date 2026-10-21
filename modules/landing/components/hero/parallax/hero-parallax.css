@@ -129,31 +129,50 @@
   pointer-events: none;
 }
 
+/*
+ * Compact (phones): a stack at least a screen tall, below the fixed 72.5px header (+16px): the
+ * cards (row 1), the concierge (row 2) and the conversation (row 3); the copy is pinned over it at
+ * the first screen's foot (see HeroParallax). The UI layer
+ * dissolves into the grid so its cards and conversation take their rows. The photo is drawn
+ * --photo-h tall and placed in row 2 with the concierge centred in it: on its canvas the concierge
+ * is 42.938% of the photo's height, centred 43.339% down and 49.641% across, then raised
+ * --person-lift so it reads centred between the cards and the conversation. Its top and bottom
+ * fade into the black, so it ends softly behind the cards and the conversation.
+ */
 .hero-scene--compact .hero-scene__frame {
+  --photo-h: min(600px, 154vw);
+  --person-lift: 230px;
+  /* How far the conversation is raised to overlap the concierge (see .conversation-slot). */
+  --chat-lift: 170px;
   width: 100%;
-  min-height: max(640px,100svh);
-  display: flex;
-  flex-direction: column;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(calc(.42938 * var(--photo-h) + 32px), 1fr) auto;
+  padding-top: calc(72.5px + 16px);
 }
 
 .hero-scene--compact .hero-scene__photo {
-  inset: 0 auto 0 50%;
-  height: 100%;
+  grid-row: 2;
+  grid-column: 1;
+  top: calc(50% - .43339 * var(--photo-h) - var(--person-lift));
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  width: auto;
+  height: var(--photo-h);
   aspect-ratio: 1440 / 863;
-  transform: translate(-48.7%);
+  transform: translate(-49.641%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 78%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 78%, transparent);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }
 
 .hero-scene--compact .hero-scene__ui {
-  position: relative;
-  width: auto;
-  height: auto;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 40px 16px 32px;
+  display: contents;
 }
 
 .hero-scene .entry-stack {
@@ -318,12 +337,15 @@
   background-clip: text;
 }
 
+/* On phones the cards are drawn at 0.9x, from the stack's centre. */
 .hero-scene--compact .entry-stack {
+  grid-row: 1;
   position: relative;
   left: auto;
   top: auto;
   width: 100%;
   height: 180px;
+  scale: .9;
 }
 
 .hero-scene--compact .entry-card {
@@ -668,9 +690,17 @@
   animation: conversation-first-echo 1.4s .2s backwards;
 }
 
+/*
+ * Positioned, so it paints over the photo now that the UI layer no longer wraps it. Shifted up
+ * --chat-lift to overlap the concierge.
+ */
 .hero-scene--compact .conversation-slot {
+  grid-row: 3;
+  position: relative;
+  translate: 0 calc(-1 * var(--chat-lift));
+  justify-self: center;
   display: grid;
-  width: 100%;
+  width: calc(100% - 32px);
   max-width: 361px;
 }
 
