@@ -189,8 +189,9 @@ export function HeroScene({
                   src={layer.src.src}
                   alt=""
                   style={style}
+                  decoding="async"
                   // The back wall is the largest paint: fetch it first.
-                  fetchPriority={i === 0 ? "high" : undefined}
+                  fetchPriority={i === 0 ? "high" : "auto"}
                 />
               );
             })}

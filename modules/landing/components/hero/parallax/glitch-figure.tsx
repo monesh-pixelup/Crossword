@@ -30,25 +30,39 @@ const FACE = { x: 0.539, y: 0.385 };
 const FACE_INNER = 0.13;
 const FACE_OUTER = 0.3;
 
-/** The hit mask: the cutout's alpha at half size, over 96, grown by 4px. */
-const MASK_SCALE = 0.5;
+/**
+ * The hit mask: the cutout's alpha drawn 240px wide (whatever the image's resolution), over 96,
+ * grown by 2px. Built once per source.
+ */
+const MASK_WIDTH = 240;
 const MASK_ALPHA = 96;
-const MASK_GROW = 4;
+const MASK_GROW = 2;
 
 type Mask = { w: number; h: number; bits: Uint8Array };
 
-async function loadMask(src: string): Promise<Mask> {
+const masks = new Map<string, Promise<Mask>>();
+
+function loadMask(src: string): Promise<Mask> {
+  const cached = masks.get(src);
+  if (cached) return cached;
+  const mask = buildMask(src);
+  masks.set(src, mask);
+  return mask;
+}
+
+async function buildMask(src: string): Promise<Mask> {
   const img = new Image();
   img.src = src;
   await img.decode();
-  const w = Math.max(1, Math.round(img.naturalWidth * MASK_SCALE));
-  const h = Math.max(1, Math.round(img.naturalHeight * MASK_SCALE));
+  const scale = MASK_WIDTH / img.naturalWidth;
+  const w = MASK_WIDTH;
+  const h = Math.max(1, Math.round(img.naturalHeight * scale));
   const ctx = Object.assign(document.createElement("canvas"), { width: w, height: h }).getContext("2d")!;
   ctx.drawImage(img, 0, 0, w, h);
   const data = ctx.getImageData(0, 0, w, h).data;
   const solid = new Uint8Array(w * h);
   for (let i = 0; i < solid.length; i++) solid[i] = data[i * 4 + 3] > MASK_ALPHA ? 1 : 0;
-  const r = Math.ceil(MASK_GROW * MASK_SCALE);
+  const r = MASK_GROW;
   const bits = new Uint8Array(w * h);
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {

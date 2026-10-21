@@ -29,6 +29,16 @@ const LAYERS: SceneLayer[] = [
   { src: bell, box: [425, 570, 109, 93], depth: { x: 0, y: 0 } },
 ];
 
+/** The v3 export's tuning: a stronger orbit that settles back faster, and a slower, softer, wider glitch, calm over the face. */
+const PARALLAX = { intensity: 2.25, follow: 0.5, release: 0.6 };
+const GLITCH = {
+  auto: true,
+  interval: 3.7,
+  peak: 0.55,
+  faceCalm: 0.9,
+  cursor: { radius: 212, strength: 0.82, rest: 0.87, motion: 1, warp: 0.8 },
+};
+
 /** True while the scene is at least 30% on screen and the tab is visible. */
 function usePlaying(ref: RefObject<HTMLElement | null>) {
   const [inView, setInView] = useState(true);
@@ -107,6 +117,8 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
       <HeroScene
         layers={LAYERS}
         layerSize={LAYER_SIZE}
+        parallax={PARALLAX}
+        glitch={GLITCH}
         scaleBelow={1440}
         aboveFrame={(scene) =>
           copyPlacement(scene) === "above" && (

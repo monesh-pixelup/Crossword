@@ -1,5 +1,5 @@
 /*
- * The hero parallax export's styles (heroParallax.css), less the DialKit panel and the demo page,
+ * The hero parallax v3 export's styles (heroParallaxV3.css), less the DialKit panel and the demo page,
  * scoped under .hero-scene so the shared class names (.msg, .conversation, …) stay local. Fonts map
  * to the site's Geist and Inter. The block below adapts it to the page: the export ran without
  * Tailwind's preflight, and the copy can sit above the frame.
@@ -196,7 +196,7 @@
   border: .54px solid rgba(255,255,255,.08);
   border-radius: 16px;
   overflow: clip;
-  background: none;
+  background: #ffffff03;
   color: inherit;
   font: inherit;
   text-align: left;
@@ -207,15 +207,16 @@
   pointer-events: none;
   transform-origin: 50% 50%;
   will-change: transform;
-  transition: transform var(--move-ms) var(--move-ease),opacity var(--move-ms) var(--move-ease),filter var(--move-ms) var(--move-ease),backdrop-filter var(--move-ms) var(--move-ease),-webkit-backdrop-filter var(--move-ms) var(--move-ease);
+  transition: transform var(--move-ms) var(--move-ease),opacity var(--move-ms) var(--move-ease),filter var(--move-ms) var(--move-ease),background-color var(--move-ms) var(--move-ease),backdrop-filter var(--move-ms) var(--move-ease),-webkit-backdrop-filter var(--move-ms) var(--move-ease);
 }
 
 .hero-scene .entry-card {
-  -webkit-backdrop-filter: blur(0px);
-  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(9px);
+  backdrop-filter: blur(9px);
 }
 
 .hero-scene .entry-card[data-active=true] {
+  background: none;
   -webkit-backdrop-filter: blur(27px);
   backdrop-filter: blur(27px);
 }
@@ -433,7 +434,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transition: transform .7s var(--ease-move);
+  transition: transform .48s var(--ease-move);
 }
 
 .hero-scene .conversation__item {
@@ -461,17 +462,22 @@
   transition: opacity .6s ease,filter .6s ease,border-color .6s ease,backdrop-filter .6s ease,-webkit-backdrop-filter .6s ease;
 }
 
-.hero-scene .msg[data-status=faded], .hero-scene .msg[data-status=gone] {
+.hero-scene .msg[data-status=faded] {
+  opacity: .88;
+  filter: blur(.4px);
+}
+
+.hero-scene .msg[data-status=faded] .msg__fill {
+  opacity: .35;
+}
+
+.hero-scene .msg[data-status=gone] {
   border-color: transparent;
   -webkit-backdrop-filter: blur(0px);
   backdrop-filter: blur(0px);
 }
 
-.hero-scene .msg[data-status=faded] {
-  filter: blur(1.2px);
-}
-
-.hero-scene .msg[data-status=faded] .msg__fill, .hero-scene .msg[data-status=gone] .msg__fill {
+.hero-scene .msg[data-status=gone] .msg__fill {
   opacity: 0;
 }
 
@@ -497,7 +503,7 @@
 }
 
 .hero-scene .msg--user[data-status=faded] .msg__text {
-  opacity: .6;
+  opacity: .82;
 }
 
 .hero-scene .msg--user {
@@ -518,11 +524,11 @@
 }
 
 .hero-scene .msg--assistant {
-  padding: 7.787px 34.559px 7.787px 12.96px;
+  padding: 8px 35px 8px 8px;
   border: .54px solid rgba(255,255,255,.08);
-  border-radius: 10.8px;
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
+  border-radius: 11px;
+  -webkit-backdrop-filter: blur(5.5px);
+  backdrop-filter: blur(5.5px);
 }
 
 .hero-scene .msg--assistant:before {
@@ -533,21 +539,22 @@
   bottom: 0;
   left: 0;
   border-radius: inherit;
-  background: linear-gradient(68.96deg,#0000001a 11.483%,#0000 68.907%),#00000005;
+  background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 293 71.08' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.03'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-19.957 33.487 -6.6438 -5.8147 336.42 -128.1)'><stop stop-color='rgba(255,255,255,1)' offset='0.31646'/><stop stop-color='rgba(255,255,255,0)' offset='0.64826'/></radialGradient></defs></svg>"),linear-gradient(90deg,#ffffff03,#ffffff03),linear-gradient(69.058deg,#0000001a 11.483%,#0000 68.907%),#00000005;
+  background-size: 100% 100%;
   pointer-events: none;
   transition: opacity .6s ease;
 }
 
-.hero-scene .msg--assistant[data-status=faded]:before, .hero-scene .msg--assistant[data-status=gone]:before {
+.hero-scene .msg--assistant[data-status=faded]:before {
+  opacity: .6;
+}
+
+.hero-scene .msg--assistant[data-status=gone]:before {
   opacity: 0;
 }
 
-.hero-scene .msg--assistant .msg__text {
-  opacity: .5;
-}
-
 .hero-scene .msg--assistant[data-status=faded] .msg__text {
-  opacity: .3;
+  opacity: .42;
 }
 
 .hero-scene .msg--products {
