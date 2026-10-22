@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CtaEnvelope, Testimonials } from "@/modules/landing";
+import { Testimonials } from "@/modules/landing";
 import {
   AudienceBuilder,
   Campaigns,
@@ -29,7 +29,6 @@ export default function RetainPage() {
       <ReturnReduction />
       <RetentionChannels />
       <Testimonials variant="retain" />
-      <CtaEnvelope />
     </main>
   );
 }

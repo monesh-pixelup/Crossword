@@ -13,7 +13,7 @@ import { commitments } from "../../config/launch";
 export function Commitment() {
   return (
     <section aria-label="Managed launch and progress" className="relative">
-      {/* The sand runs the full viewport width, out past the site's 1700px cap on wide screens (SiteShell clips the overrun). */}
+      {/* The sand runs the full viewport width, out past the site's 1600px cap on wide screens (SiteShell clips the overrun). */}
       <div
         aria-hidden
         className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-sand shadow-[inset_0_0.5px_0_rgba(0,0,0,0.25),inset_0_-0.5px_0_rgba(0,0,0,0.25)]"

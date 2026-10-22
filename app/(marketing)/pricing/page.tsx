@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CtaEnvelope } from "@/modules/landing";
 import {
   Calculator,
   Credits,
@@ -31,7 +30,6 @@ export default function PricingPage() {
       <Engineer />
       <Faq />
       <PricingBanner />
-      <CtaEnvelope />
     </main>
   );
 }

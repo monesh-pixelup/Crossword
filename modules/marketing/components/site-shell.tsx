@@ -9,7 +9,7 @@ import { SiteHeader } from "./site-header";
  * hairline rails, --frame-inset in from the page ends (24px, 12px on phones), running its full height.
  * The header is fixed (see SiteHeader), which also holds its 72.5px at the top of the page where it
  * needs it (pages with a transparent header let their hero run up under it).
- * The whole site is capped at 1700px wide and centred; past that the cream page shows either side.
+ * The whole site is capped at 1600px wide and centred; past that the cream page shows either side.
  * The footer sits outside that cap so its background and frame run the full page width (its content
  * keeps to the sections' content box).
  * The horizontal clip sits on a full-width wrapper outside that cap, so a section can still run a
@@ -18,7 +18,7 @@ import { SiteHeader } from "./site-header";
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="overflow-x-clip">
-      <div className="relative mx-auto max-w-[1700px]">
+      <div className="relative mx-auto max-w-[1600px]">
         <SiteHeader />
         <div className="@container relative">
           <div aria-hidden className="pointer-events-none absolute inset-0 -top-[72.5px]">

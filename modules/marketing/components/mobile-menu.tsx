@@ -136,14 +136,9 @@ export function MobileMenu({ tone = "dark", onOpenChange }: { tone?: "dark" | "l
                 )}
               </li>
             ))}
-            <li {...stagger(open, primaryNav.length)}>
-              <Link href={ctaLinks.signUp} onClick={() => setOpen(false)} className={cn("transition-colors", navText, linkTone)}>
-                SIGN UP
-              </Link>
-            </li>
           </ul>
         </nav>
-        <div {...stagger(open, primaryNav.length + 1)}>
+        <div {...stagger(open, primaryNav.length)}>
           <div className="mt-8 flex gap-3">
             <StampButton href={ctaLinks.bookDemo} variant={light ? "wine-gold" : "primary-soft"}>
               BOOK A DEMO

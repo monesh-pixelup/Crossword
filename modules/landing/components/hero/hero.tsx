@@ -5,7 +5,7 @@ import { TrustedBy } from "./trusted-by";
 
 /**
  * Laid out as the product-page heroes (SellHero): the swash title on the left (script "Y" at 100px,
- * Crimson ExtraLight 80px at -4px, zoomed with --h2-scale; gold "yet.") and, from 1200px, the CTA
+ * Crimson ExtraLight 80px at -4px, zoomed with --h2-scale; gold "AI agent") and, from 1200px, the CTA
  * column on the right, bottom-aligned with it: the wine button over the intro, 16px apart. Below
  * 1200px the column stacks under the title.
  */
@@ -19,8 +19,8 @@ function HeroCopy() {
       >
         {/* Below 760px, drawn at the section headings' size (82px swash, 60px lines, zoomed with --h2-scale), tracking scaled to match. */}
         <span className="font-script text-[100px] leading-[1.18] font-normal tracking-[-1px] max-[760px]:text-[82px]">Y</span>
-        <span className="text-[80px] leading-[1.1] tracking-[-4px] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">our best hire </span>
-        <span className="text-[80px] leading-[1.1] tracking-[-4.8px] text-[#eedba5] max-[760px]:text-[60px] max-[760px]:tracking-[-3.6px]">yet.</span>
+        <span className="text-[80px] leading-[1.1] tracking-[-4px] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">our brand&rsquo;s </span>
+        <span className="text-[80px] leading-[1.1] tracking-[-4px] text-[#eedba5] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">AI agent</span>
       </h1>
 
       {/*
@@ -50,10 +50,10 @@ export function Hero() {
   return (
     <>
       <section aria-labelledby="hero-title" className="relative bg-black">
-        {/* The black runs the full viewport width, out past the site's 1700px cap (SiteShell clips the overrun). */}
+        {/* The black runs the full viewport width, out past the site's 1600px cap (SiteShell clips the overrun). */}
         <div aria-hidden className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-black" />
         {/*
-          The scene runs the full viewport width, past the 1700px cap (SiteShell clips the overrun). It ends at the
+          The scene runs the full viewport width, past the 1600px cap (SiteShell clips the overrun). It ends at the
           first screen's bottom: a frame taller than that pins the copy 88.5px above the fold, and the rest is black.
           Below 760px it is the phone stack instead (see HeroScene), at least a screen tall and growing to fit.
         */}

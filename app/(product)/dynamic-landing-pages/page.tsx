@@ -7,7 +7,6 @@ import {
   RoasGap,
   TwoWays,
 } from "@/modules/dynamic-landing-pages";
-import { CtaEnvelope } from "@/modules/landing";
 
 export const metadata: Metadata = {
   title: "Dynamic Landing Pages",
@@ -24,7 +23,6 @@ export default function DynamicLandingPagesPage() {
       <TwoWays />
       <DedicatedPages />
       <AdaptivePages />
-      <CtaEnvelope />
     </main>
   );
 }

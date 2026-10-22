@@ -159,7 +159,7 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
                 page's width (not the frame's, which can be narrower), so its content column lines up with the other
                 sections' headings.
               */}
-              <div className="pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_100svh_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),1700px)] -translate-x-1/2">
+              <div className="pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_100svh_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),1600px)] -translate-x-1/2">
                 {copy}
               </div>
             </>

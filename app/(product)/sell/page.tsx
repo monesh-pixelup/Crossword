@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CtaEnvelope, Testimonials } from "@/modules/landing";
+import { Testimonials } from "@/modules/landing";
 import {
   ConversionAssist,
   HumanMode,
@@ -31,7 +31,6 @@ export default function SellPage() {
       <ProactiveMessages />
       <StorefrontPresence />
       <Testimonials variant="sell" />
-      <CtaEnvelope />
     </main>
   );
 }

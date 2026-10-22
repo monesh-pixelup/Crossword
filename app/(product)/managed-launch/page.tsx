@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CtaEnvelope } from "@/modules/landing";
 import {
   ChooseJourney,
   Commitment,
@@ -24,7 +23,6 @@ export default function ManagedLaunchPage() {
       <HowItWorks />
       <ChooseJourney />
       <YourPart />
-      <CtaEnvelope />
     </main>
   );
 }

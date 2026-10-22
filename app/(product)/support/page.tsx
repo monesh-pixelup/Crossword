@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CtaEnvelope, Testimonials } from "@/modules/landing";
+import { Testimonials } from "@/modules/landing";
 import {
   CustomerSupport,
   Guardrails,
@@ -31,7 +31,6 @@ export default function SupportPage() {
       <Guardrails />
       <SupportChannels />
       <Testimonials variant="support" />
-      <CtaEnvelope />
     </main>
   );
 }
