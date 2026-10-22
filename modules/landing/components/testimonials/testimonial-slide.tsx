@@ -113,7 +113,7 @@ export function TestimonialSlide({ testimonial, active, index, total }: Testimon
         </div>
 
         <blockquote
-          className={`relative font-serif ${testimonial.smallQuote ? "text-[24px] leading-[1.15]" : "text-(length:--h5-size) leading-[1.1]"} font-light tracking-[-0.04em] text-[#040404] lg:absolute lg:left-(--l) lg:top-(--t) lg:w-[443.706px] ${move}`}
+          className={`relative font-serif ${testimonial.smallQuote ? "text-[24px] leading-[1.15] font-light" : "text-(length:--h6-size) leading-[1.1]"} tracking-[-0.04em] text-[#040404] lg:absolute lg:left-(--l) lg:top-(--t) lg:w-[443.706px] ${move}`}
           style={at(l.quote)}
         >
           <Image src={markOpen} alt="" className="absolute top-[0.83px] -left-[22.39px]" />

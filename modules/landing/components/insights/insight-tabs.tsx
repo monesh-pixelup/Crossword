@@ -167,7 +167,7 @@ export function InsightTabs() {
                   !on && "opacity-50",
                 )}
               >
-                <span className="max-w-[403.95px] font-serif text-[20px] leading-[1.1] tracking-[-0.8px] text-[#040404]">
+                <span className="max-w-[403.95px] font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">
                   {feature.title}
                 </span>
                 <span

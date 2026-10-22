@@ -85,7 +85,7 @@ function FeaturedPost() {
       </div>
       <div className="flex w-full items-end justify-between gap-4 px-5 xs:gap-6 xs:px-8">
         <div className="flex max-w-[503.059px] flex-col items-start gap-3 font-light">
-          <h3 className="font-serif text-(length:--text-xl-size) leading-[1.1] tracking-[-0.04em] text-[#040404]">
+          <h3 className="font-sans text-base leading-6 font-medium tracking-[-0.64px] text-[#040404]">
             {featuredPost.title}
           </h3>
           <p className="font-sans text-[14px] leading-5 tracking-[-0.28px] text-black/80">
@@ -117,7 +117,7 @@ function RecentPosts() {
               className="group flex flex-auto flex-col items-start gap-3 px-5 py-6 xs:pt-8 xs:pr-8 xs:pb-8 xs:pl-8 lg:pr-0 lg:pb-2"
             >
               {/* Hover / keyboard focus nudges the title and excerpt right together (ease-out-quart). */}
-              <h3 className="font-serif text-(length:--text-xl-size) leading-[1.1] font-light tracking-[-0.04em] text-[#040404] motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
+              <h3 className="font-sans text-base leading-6 font-medium tracking-[-0.64px] text-[#040404] motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
                 {post.title}
               </h3>
               <p className="font-sans text-[14px] leading-5 font-light tracking-[-0.28px] text-black/80 motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">

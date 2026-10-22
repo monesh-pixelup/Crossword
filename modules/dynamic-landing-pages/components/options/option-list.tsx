@@ -93,7 +93,7 @@ export function OptionList() {
             </div>
             <div className="flex flex-col items-start gap-4">
               <p className={tag}>{option.tag}</p>
-              <h3 className="font-serif text-[32px] leading-[1.1] font-light tracking-[-1.28px] text-[#040404]">{option.title}</h3>
+              <h3 className="font-serif text-(length:--h6-size) leading-[1.1] tracking-[-0.04em] text-[#040404]">{option.title}</h3>
               <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{option.description}</p>
             </div>
             <div className="-mt-2">

@@ -10,7 +10,7 @@ import { SupportScenePanel } from "../motion/support-scene-panel";
 /** Figma's tag pill: Geist Medium 14 caps on #ffeec2 in a 0.5px ink/40 hairline, cap-trimmed inside 6px. */
 const tag =
   "border-[0.5px] border-black/40 bg-[#ffeec2] p-1.5 font-sans text-[14px] leading-[1.2] font-medium tracking-[-0.28px] text-ink-muted uppercase [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]";
-const title = "font-serif text-[32px] leading-[1.1] font-light tracking-[-1.28px] text-[#040404]";
+const title = "font-serif text-(length:--h6-size) leading-[1.1] tracking-[-0.04em] text-[#040404]";
 const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60";
 
 /**

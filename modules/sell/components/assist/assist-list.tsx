@@ -132,7 +132,7 @@ export function AssistList({ header }: { header: ReactNode }) {
             aria-expanded={on}
             onClick={() => open(i)}
             className={cn(
-              "w-full text-left font-serif text-[24px] leading-[1.1] font-light tracking-[-0.96px] text-[#040404] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
+              "w-full text-left font-serif text-(length:--h6-size) leading-[1.1] tracking-[-0.04em] text-[#040404] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
               on ? "cursor-default" : "cursor-pointer",
             )}
           >

@@ -35,7 +35,7 @@ export function Engineer() {
 
         <div className="flex w-full flex-col items-center gap-8">
           <blockquote className="relative w-full max-w-[827px] bg-sand/50 px-5 py-11 text-center shadow-[inset_0_0_0_0.5px_var(--color-engraved)] xs:py-4 xs:pr-16 xs:pl-[72px]">
-            <p className="font-serif text-(length:--text-xl-size) leading-[1.3] font-light tracking-[-0.03em] text-ink">
+            <p className="font-serif text-[22px] leading-[1.1] tracking-[-0.04em] text-ink">
               The goal isn&rsquo;t to get you set up. It&rsquo;s to get you working.
             </p>
             <Image src={quoteMark} alt="" className="absolute top-2 left-3 xs:top-[12.39px] xs:left-[26.16px]" />

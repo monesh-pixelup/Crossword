@@ -164,7 +164,7 @@ export function AdaptiveTabs() {
                   !selected && "opacity-50 group-hover:opacity-100",
                 )}
               >
-                <span className="font-serif text-[20px] leading-[1.1] tracking-[-0.8px] text-[#040404]">{feature.title}</span>
+                <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.title}</span>
                 <span className="font-open-sans text-[14px] leading-5 tracking-[-0.42px] text-black/59">{feature.description}</span>
               </span>
               {selected && (

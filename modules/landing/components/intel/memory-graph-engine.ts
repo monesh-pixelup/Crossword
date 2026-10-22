@@ -15,6 +15,7 @@ import {
   LINES,
   type LinePoints,
   NODES,
+  type NodeKind,
   type Rect,
   SPRITE,
   STATES,
@@ -175,6 +176,11 @@ function setAttr(el: Element, name: string, v: string) {
   }
 }
 
+/** Parallax travel per layer (px at the graph's edge): front cards most, blurred background least. */
+const DEPTH: Record<NodeKind, number> = { warm: 26, solid: 14, soft: 6, pill: 4 };
+/** The connecting lines move with the middle layer, so they stay between the blocks they join. */
+const LINES_DEPTH = DEPTH.solid;
+
 /** Starts the graph inside `root`; returns a cleanup function. */
 export function startMemoryGraph(root: HTMLElement): () => void {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -206,11 +212,10 @@ export function startMemoryGraph(root: HTMLElement): () => void {
     c.el.style.transformOrigin = `${(((b[0] + b[2] / 2 - sp[0]) / sp[2]) * 100).toFixed(3)}% ${(((b[1] + b[3] / 2 - sp[1]) / sp[3]) * 100).toFixed(3)}%`;
   }
 
-  // Depth for parallax: big warm cards move most, small pills least (about 2.5× the Shopify reference's ±6px, for a stronger effect).
-  for (const n of nodes) {
-    const d = nodeData[n.id].frames.m || nodeData[n.id].frames.s;
-    n.depth = d && d[2] > 250 ? 22 : d && d[2] > 120 ? 15 : 10;
-  }
+  // Depth for parallax, by the layer each block is drawn in: the shadowed warm cards in front move
+  // most, the solid middle layer less, and the blurred sand shapes behind barely drift (the small
+  // pills, furthest back, least). Max travel in px at the graph's edge.
+  for (const n of nodes) n.depth = DEPTH[nodeData[n.id].kind];
 
   let from: FrameKey = "m";
   let to: FrameKey = "m";
@@ -310,7 +315,7 @@ export function startMemoryGraph(root: HTMLElement): () => void {
     const dotO = lerp(DOTS[from], DOTS[to], gt) * (entrance < 1 ? easeOut(seg(entrance, 0.45, 0.4)) : 1);
     for (const d of dots) setStyle(d, "opacity", dotO.toFixed(3));
     if (linesSvg) {
-      setStyle(linesSvg, "transform", `translate3d(${(mouse.tx * 12).toFixed(2)}px,${(mouse.ty * 12).toFixed(2)}px,0)`);
+      setStyle(linesSvg, "transform", `translate3d(${(mouse.tx * LINES_DEPTH).toFixed(2)}px,${(mouse.ty * LINES_DEPTH).toFixed(2)}px,0)`);
     }
 
     for (const st of STATES) {

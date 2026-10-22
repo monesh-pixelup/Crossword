@@ -5,7 +5,7 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import { recoveryItems } from "../../config/recovery";
 import { RecoveryMotion } from "../motion/retain-motion";
 
-const title = "font-serif text-[24px] leading-[1.1] font-light tracking-[-0.96px] text-[#040404]";
+const title = "font-serif text-(length:--h6-size) leading-[1.1] tracking-[-0.04em] text-[#040404]";
 const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60";
 
 /**

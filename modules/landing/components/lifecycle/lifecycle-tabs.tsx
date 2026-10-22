@@ -191,7 +191,7 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
                 {feature.label}
               </span>
             </span>
-            <span className="font-serif text-(length:--h5-size) leading-[1.1] font-light tracking-[-0.04em] text-[#040404]">
+            <span className="font-serif text-(length:--h6-size) leading-[1.1] tracking-[-0.04em] text-[#040404]">
               {feature.title}
             </span>
           </button>

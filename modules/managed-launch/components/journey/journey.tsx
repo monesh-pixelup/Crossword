@@ -32,7 +32,7 @@ export function Journey() {
 
           {/* One line from 480px; wraps below, with the marks tucked into the corners, as the home page's quote. */}
           <blockquote className="relative max-w-full border border-black/10 bg-[rgba(243,233,212,0.5)] px-5 py-11 xs:py-4 xs:pr-16 xs:pl-[72px]">
-            <p className="text-center font-serif text-(length:--text-xl-size) leading-[1.1] font-light tracking-[-0.04em] text-[#040404] xs:whitespace-nowrap">
+            <p className="text-center font-serif text-[22px] leading-[1.1] tracking-[-0.04em] text-[#040404] xs:whitespace-nowrap">
               Crossword grows with every step.
             </p>
             <Image src={quoteMark} alt="" className="absolute top-2 left-3 xs:top-[12.39px] xs:left-[26.16px]" />
