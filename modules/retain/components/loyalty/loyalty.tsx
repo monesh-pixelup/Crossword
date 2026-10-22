@@ -5,6 +5,7 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import ground from "@/modules/support/assets/handoff/ground.webp";
 import { AubergineSteps } from "@/modules/support/components/handoff/aubergine-steps";
 import { loyaltyCards } from "../../config/loyalty";
+import { PageRails } from "../shared/page-rails";
 
 /**
  * Figma "Library · Aubergine steps" (Loyalty & relationship), as Human-in-the-loop on Support:
@@ -42,6 +43,7 @@ export function Loyalty() {
           <AubergineSteps steps={loyaltyCards} />
         </div>
       </div>
+      <PageRails />
     </section>
   );
 }

@@ -54,9 +54,12 @@ export function HelpdeskOptions() {
               <TextLink href={ctaLinks.learnMore}>Learn more</TextLink>
             </div>
 
-            {/* The Crossword inbox as a motion scene: a chat in its maroon notched frame (738 × 680). */}
+            {/*
+              The Crossword inbox as a motion scene: a chat in its maroon notched frame (738 × 680). Up to 1.2× its size,
+              as Customer support's cards, so stacked (below 992px) the two sections' cards match.
+            */}
             <div className="relative aspect-[738/680] w-full">
-              <SupportScenePanel slug="merchant-helpdesk" />
+              <SupportScenePanel slug="merchant-helpdesk" maxScale={1.2} />
             </div>
           </div>
 
@@ -76,9 +79,9 @@ export function HelpdeskOptions() {
               </div>
             </div>
 
-            {/* The same maroon frame as row 1's, holding the static helpdesk-integration illustration. */}
+            {/* The same maroon frame as row 1's (and its 1.2× cap), holding the static helpdesk-integration illustration. */}
             <div className="relative aspect-[738/680] w-full lg:order-1">
-              <SupportHelpdeskIntegration />
+              <SupportHelpdeskIntegration maxScale={1.2} />
             </div>
           </div>
         </div>

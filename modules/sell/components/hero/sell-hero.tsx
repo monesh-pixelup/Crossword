@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
 import background from "../../assets/hero/background.webp";
@@ -53,10 +54,11 @@ export function SellHero() {
       */}
       <div className="relative flex min-h-svh content-width flex-col justify-end pb-16 min-[760px]:min-h-[min(calc(100vw*863/1440),100svh)] min-[760px]:pb-[max(min(88.5px,100vw*88.5/1440),calc(min(100vw*863/1440,100svh)_-_100vw*863*0.8975/1440))] min-[760px]:[--page-pad:min(80px,100vw*80/1440)]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
-          <div className="flex flex-col items-start gap-3">
-            <p className="font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] text-white/50 uppercase">
+          <div className="flex flex-col items-start gap-6">
+            {/* The heroes' Eyebrow (green surface on dark, 32px tall), as on Support, Retain and Managed launch. */}
+            <Eyebrow surface="green" className="h-8">
               Conversational interface
-            </p>
+            </Eyebrow>
             <Headline />
           </div>
 

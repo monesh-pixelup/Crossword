@@ -73,7 +73,12 @@ export function TriggerTabs() {
         // The scene draws its own sand ground and hairline border; without one the stage draws them.
         className={cn("relative aspect-[1280/509] w-full", !scene && "border-x border-t border-black/25 bg-[#f3e7d3]")}
       >
-        {scene && <ScenePanel key={`${active}-${run}`} scene={scene} active={visible} />}
+        {/*
+          Fills the panel at every width, past its drawn 1280px on wide screens, so its ground and border meet the tabs
+          edge to edge. Scaled with a transform: zoomed down to a small screen's width, its text would hit the browser's
+          minimum font size and overflow.
+        */}
+        {scene && <ScenePanel key={`${active}-${run}`} scene={scene} active={visible} maxScale={Infinity} transform />}
       </div>
 
       <div role="tablist" aria-label="Proactive message triggers" onKeyDown={onKeyDown} className="flex w-full flex-col md:flex-row">

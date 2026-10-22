@@ -26,8 +26,12 @@ const cards: SceneEntry[] = slugs.map((slug) => {
   return { ...scene, Component: Card, width: CARD.width, height: CARD.height };
 });
 
-/** The `i`th handoff mode's motion scene (its 355 × 402 card), zoomed to fill the step's cell. */
+/**
+ * The `i`th handoff mode's motion scene (its 355 × 402 card), scaled to fill the step's cell, which
+ * has the card's shape: up past its drawn size too, so it never floats small in a wide stacked cell.
+ * Scaled with a transform (see ScenePanel), so the card's text keeps its size relative to its boxes.
+ */
 export function HandoffScene({ index }: { index: number }) {
   const scene = cards[index];
-  return scene ? <ScenePanel scene={scene} root={SupportMotionRoot} /> : null;
+  return scene ? <ScenePanel scene={scene} root={SupportMotionRoot} maxScale={Infinity} transform /> : null;
 }

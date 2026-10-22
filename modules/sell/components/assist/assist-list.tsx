@@ -14,7 +14,7 @@ const HANDOFF = 40;
 
 /**
  * Conversion features as a scroll-driven list beside one sticky panel, as the home page's Lifecycle
- * ("Every conversation has a job to do"). From 992px the heading sticks at the top of its column and
+ * ("Every conversation has a job to do"). From 1313px the heading sticks at the top of its column and
  * the items scroll up beneath it, fading out under its edge; the item just below the heading is open
  * (full strength with a 1px black/50 rule under it, the others at 20%). When stacked, the panel is
  * what sticks and the items pass under it. The panel plays the open item's chat scene. Clicking an item
@@ -30,9 +30,12 @@ export function AssistList({ header }: { header: ReactNode }) {
   const items = useRef<(HTMLDivElement | null)[]>([]);
   const last = assistFeatures.length - 1;
 
-  /** Where items disappear: under the heading from 992px, under the panel below that. */
+  /**
+   * Where items disappear: under the heading from 1313px, under the panel below that. Side by side
+   * only from 1313px, where the column (48% of the content) first holds the 553px headline.
+   */
   const coverLine = () => {
-    const desktop = window.matchMedia("(min-width: 992px)").matches;
+    const desktop = window.matchMedia("(min-width: 1313px)").matches;
     return (desktop ? headingRef.current : panelRef.current)?.getBoundingClientRect().bottom ?? 0;
   };
 
@@ -77,7 +80,7 @@ export function AssistList({ header }: { header: ReactNode }) {
       const end = items.current[assistFeatures.length - 1];
       if (!heading || !panel || !list || !spacer || !end) return;
 
-      if (window.matchMedia("(min-width: 992px)").matches) {
+      if (window.matchMedia("(min-width: 1313px)").matches) {
         // Heading and panel stick at the same top: the column must end where the panel does.
         const slack = panel.offsetHeight - heading.offsetHeight - end.offsetHeight;
         spacer.style.height = `${Math.max(0, slack)}px`;
@@ -145,24 +148,24 @@ export function AssistList({ header }: { header: ReactNode }) {
   };
 
   return (
-    <div className="flex w-full flex-col lg:flex-row lg:items-start lg:justify-between lg:gap-12">
+    <div className="flex w-full flex-col min-[1313px]:flex-row min-[1313px]:items-start min-[1313px]:justify-between min-[1313px]:gap-12">
       {/* Heading and list; when stacked its children join the column so the panel can sit between them. */}
-      <div className="contents lg:flex lg:w-[min(553.133px,48%)] lg:shrink-0 lg:flex-col">
+      <div className="contents min-[1313px]:flex min-[1313px]:w-[min(553.133px,48%)] min-[1313px]:shrink-0 min-[1313px]:flex-col">
         {/* The heading's sticky scope: it holds every item but the last. */}
-        <div className="contents lg:flex lg:flex-col">
+        <div className="contents min-[1313px]:flex min-[1313px]:flex-col">
           <div
             ref={headingRef}
             className={cn(
-              "relative order-1 max-lg:mb-(--space-xxlarge) lg:sticky lg:top-[calc(72.5px+48px)] lg:z-10 lg:bg-cream",
+              "relative order-1 max-[1313px]:mb-(--space-xxlarge) min-[1313px]:sticky min-[1313px]:top-[calc(72.5px+48px)] min-[1313px]:z-10 min-[1313px]:bg-cream",
               // Pinned 48px below the fixed 72.5px site header. Cream above the stuck heading hides items scrolled past it; a fade below softens their exit.
-              "lg:before:absolute lg:before:inset-x-0 lg:before:bottom-full lg:before:h-[calc(72.5px+48px)] lg:before:bg-cream",
-              "lg:after:pointer-events-none lg:after:absolute lg:after:inset-x-0 lg:after:top-full lg:after:h-10 lg:after:bg-linear-to-b lg:after:from-cream lg:after:to-cream/0",
+              "min-[1313px]:before:absolute min-[1313px]:before:inset-x-0 min-[1313px]:before:bottom-full min-[1313px]:before:h-[calc(72.5px+48px)] min-[1313px]:before:bg-cream",
+              "min-[1313px]:after:pointer-events-none min-[1313px]:after:absolute min-[1313px]:after:inset-x-0 min-[1313px]:after:top-full min-[1313px]:after:h-10 min-[1313px]:after:bg-linear-to-b min-[1313px]:after:from-cream min-[1313px]:after:to-cream/0",
             )}
           >
-            <div className="lg:border-b lg:border-black/10 lg:pb-12">{header}</div>
+            <div className="min-[1313px]:border-b min-[1313px]:border-black/10 min-[1313px]:pb-12">{header}</div>
           </div>
 
-          <div ref={listRef} className="order-3 flex flex-col max-lg:mt-(--space-xxlarge) lg:pt-16">
+          <div ref={listRef} className="order-3 flex flex-col max-[1313px]:mt-(--space-xxlarge) min-[1313px]:pt-16">
             {assistFeatures.slice(0, -1).map((_, i) => renderItem(i))}
           </div>
         </div>
@@ -172,14 +175,25 @@ export function AssistList({ header }: { header: ReactNode }) {
         <div ref={spacerRef} aria-hidden className="order-5" />
       </div>
 
-      {/* Panel art (687 × 586 in Figma): stays put while the list scrolls; between heading and list, pinned to the top, when stacked. */}
+      {/*
+        Panel art (687 × 586 in Figma): stays put while the list scrolls; between heading and list when stacked, pinned
+        24px below the fixed 72.5px site header. That 24px gap is filled with cream (the header's own bar covers the rest),
+        so the items passing under the panel don't show above it; unpinned it sits within the heading's 48px+ margin.
+        Under it a 64px fade (solid for its first quarter) lets the items scrolling up fade out a little before they
+        reach the panel, rather than right at its edge.
+      */}
       <div
         ref={panelRef}
-        className="sticky top-0 z-10 order-2 w-full bg-cream after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 lg:top-[calc(72.5px+48px)] lg:w-auto lg:max-w-[687px] lg:min-w-0 lg:flex-1 lg:bg-transparent lg:after:hidden"
+        className="sticky top-[calc(72.5px+24px)] z-10 order-2 w-full bg-cream before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-6 before:bg-cream min-[1313px]:before:hidden after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-16 after:bg-linear-to-b after:from-cream after:from-25% after:to-cream/0 min-[1313px]:top-[calc(72.5px+48px)] min-[1313px]:w-auto min-[1313px]:max-w-[687px] min-[1313px]:min-w-0 min-[1313px]:flex-1 min-[1313px]:bg-transparent min-[1313px]:after:hidden"
       >
-        {/* The open item's chat scene on its art (687 × 586), zoomed to fit; keyed so switching items replays from the start. */}
-        <div className="relative aspect-[687/586] w-full">
-          <ScenePanel key={active} scene={assistScenes[assistFeatures[active].scene]} />
+        {/*
+          The open item's chat scene on its art (687 × 586), zoomed to fill its box; keyed so switching items replays from
+          the start. Stacked, the box spans the options' width, the scene growing past its drawn size to fill it, but never
+          taller than the screen leaves room for while pinned (the screen less the header, the 24px above and 24px below):
+          on a short screen it is as wide as still fits, centred. Side by side it is the column's width (up to 687px).
+        */}
+        <div className="relative mx-auto aspect-[687/586] w-full max-w-[calc((100svh-72.5px-48px)*687/586)] min-[1313px]:max-w-none">
+          <ScenePanel key={active} scene={assistScenes[assistFeatures[active].scene]} maxScale={Infinity} />
         </div>
       </div>
     </div>

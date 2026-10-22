@@ -22,11 +22,27 @@ const arrow = (
   </svg>
 );
 
+/**
+ * From 768px to 1279px each plan is a full-width card laid out across (the three columns would be
+ * too narrow there): the name and copy on the left, the price over its button on the right,
+ * right-aligned, then the rule and the features in two columns. Literal class strings, so Tailwind
+ * sees them.
+ */
+const across = {
+  card: "md:max-[1280px]:grid md:max-[1280px]:grid-cols-[minmax(0,1fr)_auto] md:max-[1280px]:gap-x-12",
+  head: "md:max-[1280px]:max-w-[460px]",
+  price: "md:max-[1280px]:items-end md:max-[1280px]:gap-4",
+  amount: "md:max-[1280px]:justify-end",
+  button: "md:max-[1280px]:self-end",
+  span: "md:max-[1280px]:col-span-2",
+  features: "md:max-[1280px]:grid md:max-[1280px]:grid-cols-2 md:max-[1280px]:gap-x-8",
+};
+
 function PlanBody({ plan }: { plan: Plan }) {
   const featured = plan.tone === "featured";
   return (
     <>
-      <div className="relative flex flex-col items-start">
+      <div className={cn("relative flex flex-col items-start", across.head)}>
         {featured && (
           <Eyebrow surface="green" className="mb-4">
             {noFees[0]}
@@ -38,29 +54,32 @@ function PlanBody({ plan }: { plan: Plan }) {
         <p className={cn("font-sans text-[14px] leading-5 tracking-[-0.02em]", featured ? "text-on-dark" : "text-ink-muted")}>{plan.description}</p>
       </div>
 
-      <p className="relative flex flex-wrap items-baseline gap-x-2">
-        <span className={cn("font-serif text-[56px] leading-none font-extralight tracking-[-0.05em]", featured ? "text-gold-bright" : "text-ink")}>
-          {plan.amount}
-        </span>
-        {plan.per && (
-          <span className={cn("font-sans text-[14px] leading-5 tracking-[-0.02em]", featured ? "text-on-dark" : "text-ink-muted")}>
-            / {plan.per}
+      {/* Price and button: stacked in the card's flow (the card's 28px apart), or the card's right column when laid across. */}
+      <div className={cn("relative flex flex-col items-start gap-7", across.price)}>
+        <p className={cn("flex flex-wrap items-baseline gap-x-2", across.amount)}>
+          <span className={cn("font-serif text-[56px] leading-none font-extralight tracking-[-0.05em]", featured ? "text-gold-bright" : "text-ink")}>
+            {plan.amount}
           </span>
-        )}
-      </p>
+          {plan.per && (
+            <span className={cn("font-sans text-[14px] leading-5 tracking-[-0.02em]", featured ? "text-on-dark" : "text-ink-muted")}>
+              / {plan.per}
+            </span>
+          )}
+        </p>
 
-      <StampButton
-        href={ctaLinks.bookDemo}
-        variant={plan.cta.variant}
-        className={cn("relative self-start", featured && "gap-3 focus-visible:outline-gold")}
-      >
-        {plan.cta.label}
-        {featured && arrow}
-      </StampButton>
+        <StampButton
+          href={ctaLinks.bookDemo}
+          variant={plan.cta.variant}
+          className={cn("self-start", across.button, featured && "gap-3 focus-visible:outline-gold")}
+        >
+          {plan.cta.label}
+          {featured && arrow}
+        </StampButton>
+      </div>
 
-      <hr className={cn("relative w-full border-0 border-t", featured ? "border-gold/50" : "border-engraved")} />
+      <hr className={cn("relative w-full border-0 border-t", featured ? "border-gold/50" : "border-engraved", across.span)} />
 
-      <ul className="relative flex flex-col gap-3.5">
+      <ul className={cn("relative flex flex-col gap-3.5", across.span, across.features)}>
         {plan.features.map((f) => (
           <li key={f} className={cn("flex items-center gap-3 font-sans text-[14px] leading-5 tracking-[-0.02em]", featured ? "text-cream" : "text-ink-soft")}>
             <Check className={featured ? "text-gold-bright" : "text-gold"} />
@@ -118,17 +137,19 @@ export function Plans() {
           </ul>
         </div>
 
-        <ul className="mx-auto grid w-full max-w-[520px] gap-6 lg:max-w-none lg:grid-cols-3">
+        {/* One 520px column below 768px; full-width cards laid across to 1279px; three columns from 1280px. */}
+        <ul className="mx-auto grid w-full max-w-[520px] gap-6 md:max-w-none min-[1280px]:grid-cols-3">
           {plans.map((plan) => (
             <li key={plan.name} className="flex">
               {plan.tone === "featured" ? (
-                <NotchedPanel tone="scroll" inset={12} radius={18} className="flex w-full flex-col gap-7 p-7 xs:p-10">
+                <NotchedPanel tone="scroll" inset={12} radius={18} className={cn("flex w-full flex-col gap-7 p-7 xs:p-10", across.card)}>
                   <PlanBody plan={plan} />
                 </NotchedPanel>
               ) : (
                 <div
                   className={cn(
                     "relative flex w-full flex-col gap-7 p-7 shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:p-10",
+                    across.card,
                     plan.tone === "sand" ? "bg-sand" : "bg-cream",
                   )}
                 >

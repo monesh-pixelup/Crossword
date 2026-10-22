@@ -15,8 +15,9 @@ export function TakeControl() {
     <section aria-labelledby="control-title" className="relative section-pad">
       <RailAccent className="absolute top-[calc(var(--section-pad)-16.51px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
 
-      <div className="flex content-width flex-col gap-14 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
-        <div className="flex flex-col items-start gap-[18px] lg:shrink-0">
+      {/* Side by side from 1301px, where the 687px scene fits at its size beside the copy; stacked below. */}
+      <div className="flex content-width flex-col gap-14 min-[1301px]:flex-row min-[1301px]:items-start min-[1301px]:justify-between min-[1301px]:gap-8">
+        <div className="flex flex-col items-start gap-[18px] min-[1301px]:shrink-0">
           <Eyebrow>Human has complete control</Eyebrow>
           <SectionTitle id="control-title" initial="T" firstLine="ake control," secondLine="whenever you like" width={553.133} variant="assist" />
           <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
@@ -26,7 +27,7 @@ export function TakeControl() {
         </div>
 
         {/* The merchant-insight motion scene: a helpdesk chat in its green notched frame (687 × 586). */}
-        <div className="relative aspect-[687/586] w-full lg:mt-2.5 lg:w-[687px] lg:shrink">
+        <div className="relative aspect-[687/586] w-full min-[1301px]:mt-2.5 min-[1301px]:w-[687px] min-[1301px]:shrink">
           <SupportScenePanel slug="merchant-insight" />
         </div>
       </div>

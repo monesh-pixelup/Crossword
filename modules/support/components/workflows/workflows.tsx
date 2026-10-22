@@ -12,7 +12,8 @@ export function Workflows() {
   return (
     <section aria-labelledby="workflows-title" className="relative px-(--frame-inset)">
       <div className="bg-sand py-16 shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] md:py-20">
-        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] max-w-[1280px] flex-col gap-16 lg:gap-[120px]">
+        {/* Full content width, no cap, so the heading lines up with the other sections' at every viewport. */}
+        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col gap-16 lg:gap-[120px]">
           <div className="flex flex-col items-start gap-6 lg:min-h-[299px]">
             <Eyebrow surface="sand">Workflows</Eyebrow>
             <SectionTitle

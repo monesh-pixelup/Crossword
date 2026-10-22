@@ -31,8 +31,11 @@ export function Guardrails() {
         </div>
 
         <div className="relative aspect-[1280/498] w-full">
-          {/* Fills the content width (past its drawn 1280px on wide screens), edge to edge with the heading above. */}
-          <SupportScenePanel slug="guardrails" fill />
+          {/*
+            Fills the content width (past its drawn 1280px on wide screens), edge to edge with the heading above. Scaled
+            with a transform: zoomed down to a phone's width its text would hit the browser's minimum font size and overflow.
+          */}
+          <SupportScenePanel slug="guardrails" fill transform />
         </div>
       </div>
     </section>

@@ -60,11 +60,14 @@ const helpdeskIntegration = {
   duration: 0,
 };
 
-/** The static helpdesk-integration illustration in the support scenes' frame, fitted to the panel it fills. */
-export function SupportHelpdeskIntegration() {
+/**
+ * The static helpdesk-integration illustration in the support scenes' frame, fitted to the panel it
+ * fills, never past `maxScale` (1, its drawn size, unless given).
+ */
+export function SupportHelpdeskIntegration({ maxScale }: { maxScale?: number }) {
   return (
     <div role="img" aria-label={helpdeskIntegration.label} className="absolute inset-0">
-      <ScenePanel scene={helpdeskIntegration} root={SupportMotionRoot} />
+      <ScenePanel scene={helpdeskIntegration} root={SupportMotionRoot} maxScale={maxScale} />
     </div>
   );
 }

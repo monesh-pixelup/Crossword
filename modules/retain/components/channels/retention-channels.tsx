@@ -1,6 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { retentionChannels } from "../../config/channels";
+import { PageRails } from "../shared/page-rails";
 
 /**
  * Figma "ALT · Retention channels (node diagram + illustration)", as Workflows on Support: a sand
@@ -14,7 +15,8 @@ export function RetentionChannels() {
   return (
     <section aria-labelledby="retention-channels-title" className="relative px-(--frame-inset)">
       <div className="flex flex-col items-center bg-sand py-(--section-pad) shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)]">
-        <div className="flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] max-w-[1280px] flex-col gap-16 lg:gap-[120px]">
+        {/* Full content width, no cap, so the heading lines up with the other sections' at every viewport. */}
+        <div className="flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col gap-16 lg:gap-[120px]">
           <div className="flex flex-col items-start lg:min-h-[299px]">
             <div className="flex flex-col items-start gap-6">
               <Eyebrow surface="sand">Retention channels</Eyebrow>
@@ -49,6 +51,7 @@ export function RetentionChannels() {
           </div>
         </div>
       </div>
+      <PageRails />
     </section>
   );
 }

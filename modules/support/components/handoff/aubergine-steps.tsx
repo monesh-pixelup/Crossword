@@ -46,7 +46,8 @@ const numeralOffsets = [4.93, 6.48, 5.96];
  * Retain): three numbered steps across 1062px, each a script numeral over a 232px shaded,
  * patterned cell (the notched card with a stamp centred on it) over its title and line of copy.
  * From 768px dashed rules run down the cell edges (from the numerals to ~53px under the copy) and
- * along the top and bottom of the cell row, overshooting it by 57px each side.
+ * along the top and bottom of the cell row, overshooting it by 57px each side (or by
+ * `--steps-overshoot`, where the page sets one to keep them clear of its frame).
  */
 export function AubergineSteps({
   steps,
@@ -89,8 +90,8 @@ export function AubergineSteps({
               className={`relative ${media ? "aspect-[355/402]" : "h-[232px]"} border border-white/3 bg-black/15 bg-size-[49.667px_49.667px] bg-origin-border bg-repeat ${v.cell}`}
               style={{ backgroundImage: `url(${cellPattern.src})` }}
             >
-              <span aria-hidden className={`pointer-events-none absolute hidden md:block ${v.lineTop} ${dashedH} ${first ? "-left-[57px]" : "left-0"} ${last ? "-right-[57px]" : "right-0"}`} />
-              <span aria-hidden className={`pointer-events-none absolute hidden md:block ${v.lineBottom} ${dashedH} ${first ? "-left-[57px]" : "left-0"} ${last ? "-right-[57px]" : "right-0"}`} />
+              <span aria-hidden className={`pointer-events-none absolute hidden md:block ${v.lineTop} ${dashedH} ${first ? "left-[calc(-1*var(--steps-overshoot,57px))]" : "left-0"} ${last ? "right-[calc(-1*var(--steps-overshoot,57px))]" : "right-0"}`} />
+              <span aria-hidden className={`pointer-events-none absolute hidden md:block ${v.lineBottom} ${dashedH} ${first ? "left-[calc(-1*var(--steps-overshoot,57px))]" : "left-0"} ${last ? "right-[calc(-1*var(--steps-overshoot,57px))]" : "right-0"}`} />
               {media ? (
                 media(i)
               ) : (

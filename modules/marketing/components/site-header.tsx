@@ -136,8 +136,11 @@ function MenuItem({ item, link }: { item: NavItem; link: string }) {
   );
 }
 
-/** The links and buttons, shared by both headers; `light` sets them cream for dark grounds. */
-function Contents({ light }: { light: boolean }) {
+/**
+ * The links and buttons, shared by both headers; `light` sets them cream for dark grounds.
+ * `onMenuChange` hears when the mobile menu opens or closes.
+ */
+function Contents({ light, onMenuChange }: { light: boolean; onMenuChange?: (open: boolean) => void }) {
   const link = light ? "text-cream/80 transition-colors duration-150 hover:text-cream" : "text-black/80 transition-colors duration-150 hover:text-black";
   return (
     <>
@@ -164,7 +167,7 @@ function Contents({ light }: { light: boolean }) {
           BOOK A DEMO
         </StampButton>
       </div>
-      <MobileMenu tone={light ? "light" : "dark"} />
+      <MobileMenu tone={light ? "light" : "dark"} onOpenChange={onMenuChange} />
     </>
   );
 }
@@ -184,10 +187,12 @@ export function SiteHeader() {
   const pathname = usePathname();
   const transparent = TRANSPARENT_ROUTES.includes(pathname);
   const { scrolled, pastHero } = useScrolled(transparent, HERO_ONLY_ROUTES.includes(pathname));
+  // Whether the overlay bar's mobile menu is open: the bar takes on the menu's dark fill even unscrolled.
+  const [menuOpen, setMenuOpen] = useState(false);
 
   if (transparent) {
     // Past the hero (HERO_ONLY_ROUTES) the cream bar crossfades in over the dark one, fill, rule and contents together.
-    const dark = scrolled && !pastHero;
+    const dark = (scrolled || menuOpen) && !pastHero;
     const fade = "transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
     const fill = FULL_BLEED_ROUTES.includes(pathname) ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : "inset-0";
     return (
@@ -210,7 +215,7 @@ export function SiteHeader() {
           */}
           <div className="grid">
             <div inert={pastHero} className={cn("col-start-1 row-start-1 flex content-width items-center justify-between py-4", fade, pastHero ? "opacity-0" : "opacity-100")}>
-              <Contents light />
+              <Contents light onMenuChange={setMenuOpen} />
             </div>
             {HERO_ONLY_ROUTES.includes(pathname) && (
               <div inert={!pastHero} className={cn("col-start-1 row-start-1 flex content-width items-center justify-between py-4", fade, pastHero ? "opacity-100" : "opacity-0")}>

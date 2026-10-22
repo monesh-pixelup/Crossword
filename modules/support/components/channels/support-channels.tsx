@@ -19,8 +19,8 @@ export function SupportChannels() {
   return (
     <>
       <section aria-labelledby="channels-title" className="relative section-pad">
-        <div className="flex content-width flex-col items-start gap-12 lg:flex-row lg:gap-20">
-          <div className="flex flex-col items-start gap-6 lg:w-[400px] lg:shrink-0">
+        <div className="flex content-width flex-col items-start gap-12 min-[1033px]:flex-row min-[1033px]:gap-20">
+          <div className="flex flex-col items-start gap-6 min-[1033px]:w-[400px] min-[1033px]:shrink-0">
             <Eyebrow>Channels</Eyebrow>
             <SectionTitle id="channels-title" initial="S" firstLine="upport" secondLine="channels" width={230} />
             <p className="font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
@@ -28,11 +28,11 @@ export function SupportChannels() {
             </p>
           </div>
 
-          <ul className="grid w-full min-w-0 grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:flex lg:flex-1 lg:flex-wrap lg:content-start lg:justify-end">
+          <ul className="grid w-full min-w-0 grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 min-[1033px]:flex min-[1033px]:flex-1 min-[1033px]:flex-wrap min-[1033px]:content-start min-[1033px]:justify-end">
             {channels.map(({ name, icon }) => (
               <li
                 key={name}
-                className="relative flex h-32 flex-col items-center justify-center gap-2 border border-engraved px-2 text-center odd:bg-sand even:bg-cream lg:w-[188px]"
+                className="relative flex h-32 flex-col items-center justify-center gap-2 border border-engraved px-2 text-center odd:bg-sand even:bg-cream min-[1033px]:w-[188px]"
               >
                 {studs.map((place) => (
                   <span key={place} aria-hidden className={`pointer-events-none absolute size-[3px] rounded-full bg-gold ${place}`} />

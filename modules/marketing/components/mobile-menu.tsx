@@ -47,26 +47,35 @@ function MenuIcon({ open }: { open: boolean }) {
  * panel under the bar (links stacked, then the buttons), as in the Webflow build. `tone` colours
  * it for the bar it sits on: on the overlay header over a hero ("light") the panel is that bar's
  * dark fill (rgba(9, 9, 9, .71) with a blur) with cream links and the wine-gold button; on the cream
- * bar it is cream with ink links.
+ * bar it is cream with ink links. `onOpenChange` tells the header when it opens or closes, so the
+ * bar it hangs from can take on the same fill.
  */
-export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
-  const [open, setOpen] = useState(false);
+export function MobileMenu({ tone = "dark", onOpenChange }: { tone?: "dark" | "light"; onOpenChange?: (open: boolean) => void }) {
+  const [open, setOpenState] = useState(false);
+  const setOpen = (next: boolean) => {
+    setOpenState(next);
+    onOpenChange?.(next);
+  };
   const id = useId();
   const light = tone === "light";
   const linkTone = light ? "text-cream/80 hover:text-cream" : "text-black/80 hover:text-maroon";
 
   useEffect(() => {
     if (!open) return;
-    const close = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const shut = () => {
+      setOpenState(false);
+      onOpenChange?.(false);
+    };
+    const close = (e: KeyboardEvent) => e.key === "Escape" && shut();
     const wide = window.matchMedia("(min-width: 992px)");
-    const reset = () => wide.matches && setOpen(false);
+    const reset = () => wide.matches && shut();
     window.addEventListener("keydown", close);
     wide.addEventListener("change", reset);
     return () => {
       window.removeEventListener("keydown", close);
       wide.removeEventListener("change", reset);
     };
-  }, [open]);
+  }, [open, onOpenChange]);
 
   return (
     <div className="lg:hidden">
@@ -75,7 +84,7 @@ export function MobileMenu({ tone = "dark" }: { tone?: "dark" | "light" }) {
         aria-expanded={open}
         aria-controls={id}
         aria-label={open ? "Close menu" : "Open menu"}
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => setOpen(!open)}
         className={cn(
           "flex size-10 cursor-pointer items-center justify-center",
           light ? "text-cream" : "-mr-2 text-ink",

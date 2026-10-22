@@ -94,7 +94,8 @@ export function DedicatedPages() {
               <Tile key={tile.title} tile={tile} />
             ))}
           </ul>
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Two to a row until 1200px (four would be too narrow for their copy there), then four. */}
+          <ul className="grid gap-4 sm:grid-cols-2 min-[1201px]:grid-cols-4">
             {small.map((tile) => (
               <Tile key={tile.title} tile={tile} />
             ))}

@@ -26,6 +26,12 @@ type ScenePanelProps = {
   sceneProps?: Record<string, unknown>;
   /** The CSS scope the scene renders in: the Sell scenes' MotionRoot unless another page passes its own. */
   root?: ComponentType<{ children: ReactNode }>;
+  /**
+   * Scale with a transform instead of `zoom`. Zoom scales the scene's computed font sizes, and
+   * browsers clamp tiny text up to their minimum font size, so a wide scene shrunk far (on a phone)
+   * would overflow its own boxes; a transform scales the drawn scene instead.
+   */
+  transform?: boolean;
   className?: string;
 };
 
@@ -41,6 +47,7 @@ export function ScenePanel({
   maxScale = 1,
   sceneProps,
   root: Root = MotionRoot,
+  transform = false,
   className,
 }: ScenePanelProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -67,19 +74,38 @@ export function ScenePanel({
   }, [scene.width, scene.height, padding, maxScale]);
 
   const { Component } = scene;
+  const content = (
+    <Root>
+      <Component play={active && inView} {...sceneProps} />
+    </Root>
+  );
   return (
     <div ref={ref} role="img" aria-label={scene.label} className={className ?? "absolute inset-0"}>
       {/* Centred by flex rather than translate, which `zoom` would scale along with the scene. */}
       <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-        <div
-          inert
-          className="shrink-0"
-          style={{ width: scene.width, height: scene.height, zoom: scale || undefined, visibility: scale ? undefined : "hidden" }}
-        >
-          <Root>
-            <Component play={active && inView} {...sceneProps} />
-          </Root>
-        </div>
+        {transform ? (
+          // A box the scaled scene's size holds its place; the scene is drawn full size inside it and scaled from the corner.
+          <div
+            className="relative shrink-0"
+            style={{ width: scene.width * scale, height: scene.height * scale, visibility: scale ? undefined : "hidden" }}
+          >
+            <div
+              inert
+              className="absolute top-0 left-0 origin-top-left"
+              style={{ width: scene.width, height: scene.height, transform: `scale(${scale})` }}
+            >
+              {content}
+            </div>
+          </div>
+        ) : (
+          <div
+            inert
+            className="shrink-0"
+            style={{ width: scene.width, height: scene.height, zoom: scale || undefined, visibility: scale ? undefined : "hidden" }}
+          >
+            {content}
+          </div>
+        )}
       </div>
     </div>
   );

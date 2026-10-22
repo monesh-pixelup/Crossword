@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import frame from "@/modules/dynamic-landing-pages/assets/options/frame.svg";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
@@ -45,8 +46,24 @@ export function HumanHandoff() {
             </p>
           </div>
 
-          {/* Each step's cell plays its mode's motion scene. */}
-          <AubergineSteps steps={handoffModes} variant="handoff" media={(i) => <HandoffScene index={i} />} />
+          {/*
+            Each step's cell plays its mode's motion scene, filling it. Stacked (below 768px) the steps keep to 440px,
+            centred, so the cards stay close to their drawn size instead of growing with the screen.
+            In a row, the dashed rules along the cells overshoot the row by Figma's 57px only where there's room: they stop
+            at least 24px inside the panel's edge, clear of the gilt frame (its lines 8–17px in). The row's side room is
+            the panel's 40px padding plus whatever the panel (the page's width, capped at 1700px, less the rails' insets
+            and that padding) has beyond the row's 1062px.
+          */}
+          <div
+            className="w-full max-md:max-w-[440px]"
+            style={
+              {
+                "--steps-overshoot": "min(57px, max(0px, (min(100vw, 1700px) - 2 * var(--frame-inset) - 80px - 1062px) / 2) + 16px)",
+              } as CSSProperties
+            }
+          >
+            <AubergineSteps steps={handoffModes} variant="handoff" media={(i) => <HandoffScene index={i} />} />
+          </div>
         </div>
       </div>
     </section>

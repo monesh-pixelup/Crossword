@@ -7,7 +7,7 @@ import damaskMaroon from "../../assets/gap/damask-maroon.webp";
 
 /**
  * Figma "Library · Wide panel": the eyebrow and a three-line headline on the left, two paragraphs
- * of Geist Light bottom-aligned on the right, then 80px below a 1280 × 599 maroon panel, its damask
+ * of Geist Light top-aligned with them on the right, then 80px below a 1280 × 599 maroon panel, its damask
  * inside the frame only and framed like the site's other cards (a gold line 14px in with concave notched corners and a ring
  * in each). A 232px gold tick sits on the left rail beside the eyebrow.
  */
@@ -17,7 +17,7 @@ export function RoasGap() {
       <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">
-        <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex flex-col items-start gap-6">
             <Eyebrow>The ROAS gap</Eyebrow>
             <SectionTitle

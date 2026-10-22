@@ -8,7 +8,7 @@ import { ScenePanel } from "../motion/scene-panel";
  * Figma "Library · Wide panel (Human mode)", as Audiences on Retain: the eyebrow and a two-line
  * headline on the left, three paragraphs of Geist Light top-aligned on the right, then 80px below a
  * 1280 × 599 panel playing the Human mode motion (three chat shells on the aubergine damask art),
- * zoomed to fit. A 232px gold tick sits on the left rail beside the eyebrow.
+ * zoomed to the content width, up as well as down. A 232px gold tick sits on the left rail beside the eyebrow.
  */
 export function HumanMode() {
   return (
@@ -44,8 +44,12 @@ export function HumanMode() {
           </div>
         </div>
 
+        {/*
+          Fills the content width (past its drawn 1280px on wide screens), edge to edge with the heading above. Scaled
+          with a transform: zoomed down to a phone's width its text would hit the browser's minimum font size and overflow.
+        */}
         <div className="relative aspect-[1280/599] w-full overflow-hidden">
-          <ScenePanel scene={humanModeScene} />
+          <ScenePanel scene={humanModeScene} maxScale={Infinity} transform />
         </div>
       </div>
     </section>
