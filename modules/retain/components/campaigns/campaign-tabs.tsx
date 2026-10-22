@@ -1,14 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import { NotchedFrame, notchMask } from "@/modules/dynamic-landing-pages/components/shared/livery";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
-import damaskMaroon from "../../assets/campaigns/damask-maroon.webp";
 import { campaigns } from "../../config/campaigns";
-import { PhoneThread } from "../shared/phone-thread";
+import { CampaignMotion } from "../motion/retain-motion";
 
 /** The fixed site header's height plus the 48px the list sits below it while pinned. */
 const PIN_TOP = 72.5 + 48;
@@ -16,18 +13,14 @@ const PIN_TOP = 72.5 + 48;
 /**
  * Figma "Library · Vertical tabs" (as Customer support on Support), made scroll-driven like
  * Granola's "how it works": every campaign stacks in the right column (its title, line of copy and
- * a text link over the maroon damask, its gold edge drawn in, 821 × 611 in Figma, holding the
- * campaign's message in a phone, inside the home frame's notched gold line and rings, as the
- * Customer support cards on Support), while the 280px list of campaigns stays pinned on the left from
- * 992px. The campaign whose panel has crossed the middle of the viewport is the active one (ink;
+ * a text link over its 821 × 611 Retain motion visual, which plays as it comes into view), while
+ * the 280px list of campaigns stays pinned on the left from 992px. The campaign whose panel has crossed the middle of the viewport is the active one (ink;
  * the rest ink/60), and the gold rule under its label fills as it scrolls through, until the next
  * one takes over: then the old rule fades and shrinks away. Choosing a campaign scrolls to it.
  * Below 992px the list is hidden and the campaigns simply stack.
  */
 export function CampaignTabs() {
   const [active, setActive] = useState(0);
-  // Bumped each time a campaign becomes active, so its message plays in again.
-  const [plays, setPlays] = useState(() => campaigns.map(() => 0));
   const steps = useRef<(HTMLDivElement | null)[]>([]);
   const fills = useRef<(HTMLSpanElement | null)[]>([]);
   const activeRef = useRef(0);
@@ -54,7 +47,6 @@ export function CampaignTabs() {
       if (current !== activeRef.current) {
         activeRef.current = current;
         setActive(current);
-        setPlays((p) => p.map((n, i) => (i === current ? n + 1 : n)));
       }
     };
     const schedule = () => {
@@ -135,7 +127,7 @@ export function CampaignTabs() {
         </ul>
       </nav>
 
-      <div className="flex w-full min-w-0 flex-col gap-16 lg:flex-[0_1_820px] lg:gap-24">
+      <div className="flex w-full min-w-0 flex-col gap-16 lg:flex-[0_1_821px] lg:gap-24">
         {campaigns.map((campaign, i) => (
           <div
             key={campaign.title}
@@ -152,17 +144,9 @@ export function CampaignTabs() {
               <TextLink href={ctaLinks.learnMore}>Learn more</TextLink>
             </div>
 
-            <div className="relative flex min-h-[480px] w-full items-center justify-center overflow-hidden bg-[#660331] px-6 py-16 lg:aspect-[821/611] lg:min-h-0 lg:px-4 lg:py-10">
-              {/*
-                As NotchedPanel: a plain margin in the damask's own ground colour, the damask only inside the
-                line (14px in, its corners notched away), then the line itself with a ring in each notch.
-              */}
-              <div aria-hidden className="pointer-events-none absolute inset-[14px]" style={{ mask: notchMask(46), WebkitMask: notchMask(46) }}>
-                <Image src={damaskMaroon} alt="" fill sizes="(min-width: 992px) 793px, 100vw" className="object-fill" />
-              </div>
-              <NotchedFrame inset={14} radius={46} rings />
+            <div className="relative aspect-[821/611] w-full overflow-clip bg-[#660331]">
               <p className="sr-only">{campaign.message.text}</p>
-              <PhoneThread key={plays[i]} message={campaign.message} className="relative" />
+              <CampaignMotion index={i} />
             </div>
           </div>
         ))}

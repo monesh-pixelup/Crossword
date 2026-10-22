@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
 /**
@@ -10,6 +10,13 @@ import { cn } from "@/lib/cn";
 const HANDOFF = 40;
 
 type Item = { key: string; content: ReactNode; className?: string; rule?: string };
+
+const ActiveItem = createContext(0);
+
+/** The index of the item open in the StrangerScroll around this component, for a panel that follows it. */
+export function useStrangerActive() {
+  return useContext(ActiveItem);
+}
 
 /**
  * The home Lifecycle section's scroll behaviour (`LifecycleTabs`), for static copy beside one
@@ -152,7 +159,7 @@ export function StrangerScroll({
           belowHeader ? "lg:top-[calc(72.5px+48px)]" : "lg:top-12",
         )}
       >
-        {panel}
+        <ActiveItem value={active}>{panel}</ActiveItem>
       </div>
     </div>
   );
