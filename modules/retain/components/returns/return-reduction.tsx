@@ -24,7 +24,7 @@ export function ReturnReduction() {
           </p>
         </div>
 
-        <div className="relative aspect-[1280/599] w-full overflow-clip bg-[#462160]">
+        <div className="relative aspect-[1280/599] w-full overflow-clip bg-[#660331]">
           <ReturnMotion />
         </div>
       </div>

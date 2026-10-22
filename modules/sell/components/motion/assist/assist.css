@@ -6,14 +6,17 @@
  * next/font variable.
  */
 
-/* ConversionAssistanceFrame: 687 × 586, one 450 × 500 shell centred on the art. */
+/*
+ * ConversionAssistanceFrame: 687 × 586, one 450 × 500 shell centred on the art. The art is the
+ * kit's aubergine one recoloured to the site's forest green (its gold frame and rings untouched).
+ */
 .ill-sell .ill-conversion-assistance-frame {
   width: 687px;
   height: 586px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("../../../assets/assist/conversion-assistance-bg.webp") center / cover no-repeat;
+  background: url("../../../assets/assist/conversion-assistance-bg-forest.webp") center / cover no-repeat;
   flex-shrink: 0;
 }
 .ill-sell .ill-conversion-assistance-frame__content {

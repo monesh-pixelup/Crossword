@@ -1,5 +1,14 @@
 import type { StaticImageData } from "next/image";
 import panelConversational from "../assets/discovery/panel-conversational.webp";
+import panelAubergine from "../assets/discovery/panel-conversational-aubergine.webp";
+import panelForest from "../assets/discovery/panel-conversational-forest.webp";
+
+/*
+ * The framed panels the features take in turn: maroon, then forest green, then aubergine, repeating.
+ * The green and aubergine are the maroon panel's own damask recoloured to the site's other liveries
+ * (the means of Retain's green and Dynamic landing pages' aubergine damasks); the cream lattice frame
+ * is untouched.
+ */
 
 export type DiscoveryFeature = {
   label: string;
@@ -25,7 +34,7 @@ export const discoveryFeatures: DiscoveryFeature[] = [
     description:
       "Upload your own image and see how the product looks on you, with image and video experiences that make choosing easier, more visual, and more personal.",
     href: "#try-it-on",
-    panel: panelConversational,
+    panel: panelForest,
     scene: "try-it-on",
   },
   {
@@ -33,7 +42,7 @@ export const discoveryFeatures: DiscoveryFeature[] = [
     description:
       "Real answers on materials, fit, specs, and care, not a spec sheet dump. Your customers can also compare with other products on your website for better decision making.",
     href: "#product-qa",
-    panel: panelConversational,
+    panel: panelAubergine,
     scene: "product-qa",
   },
   {
@@ -49,14 +58,14 @@ export const discoveryFeatures: DiscoveryFeature[] = [
     description:
       "A few smart questions, asked like a conversation. All to narrow thousands of options down to a few, and in turn increasing the possibility of conversion.",
     href: "#guided-finder",
-    panel: panelConversational,
+    panel: panelForest,
     scene: "guided-finder",
   },
   {
     label: "Visual discovery",
     description: "See something you like in a photo? Just share the image. Crossword finds it, or the closest thing to it.",
     href: "#visual-discovery",
-    panel: panelConversational,
+    panel: panelAubergine,
     scene: "visual-discovery",
   },
   {
@@ -70,7 +79,7 @@ export const discoveryFeatures: DiscoveryFeature[] = [
     label: "Gift & occasion finder",
     description: "Helps shoppers buy for someone else, confidently.",
     href: "#gift-finder",
-    panel: panelConversational,
+    panel: panelForest,
     scene: "gift-finder",
   },
 ];

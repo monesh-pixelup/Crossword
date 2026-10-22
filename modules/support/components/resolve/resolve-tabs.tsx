@@ -5,15 +5,19 @@ import { cn } from "@/lib/cn";
 import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import { resolveCases } from "../../config/resolve";
 import { supportScenesA } from "../motion/index-a";
+import { type SceneTone, SceneToneContext } from "../motion/parts-a";
 import { SupportMotionRoot } from "../motion/root";
+
+/** The cases' frames take these liveries in turn: maroon, then aubergine, then forest green, repeating. */
+const tones: SceneTone[] = ["maroon", "aubergine", "forest"];
 
 /** The fixed site header's height plus the 48px the list sits below it while pinned. */
 const PIN_TOP = 72.5 + 48;
 
 /**
  * Figma "Library · Vertical tabs", made scroll-driven like Granola's "how it works": every question
- * type stacks in the right column (its title and line of copy over the home page's maroon card
- * playing its motion scene), while the 280px list of types stays pinned on the left from 992px.
+ * type stacks in the right column (its title and line of copy over its notched card, maroon,
+ * aubergine and forest green in turn, playing its motion scene), while the 280px list of types stays pinned on the left from 992px.
  * The type whose case has crossed the middle of the viewport is the active one (ink; the rest
  * ink/60), and the gold rule under its label fills as its case scrolls through, until the next one
  * takes over: then the old rule fades and shrinks away. Choosing a type scrolls to its case. Below
@@ -144,9 +148,11 @@ export function ResolveTabs() {
               <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.48px] text-black/59">{c.description}</p>
             </div>
 
-            {/* The case's motion scene: a chat in its maroon notched frame (738 × 680), filling the column. */}
+            {/* The case's motion scene: a chat in its notched frame (738 × 680, in its turn's livery), filling the column. */}
             <div className="relative aspect-[738/680] w-full">
-              <ScenePanel key={plays[i]} scene={supportScenesA[c.scene]} root={SupportMotionRoot} maxScale={1.2} />
+              <SceneToneContext value={tones[i % tones.length]}>
+                <ScenePanel key={plays[i]} scene={supportScenesA[c.scene]} root={SupportMotionRoot} maxScale={1.2} />
+              </SceneToneContext>
             </div>
           </div>
         ))}

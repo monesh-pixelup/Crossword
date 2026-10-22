@@ -1930,6 +1930,19 @@
   background: url("../../assets/motion/ill-frame/retain/campaigns_outbound_bg_3x.webp") center / cover no-repeat;
 }
 
+/*
+ * Site addition (not in the source build): the campaign frame in the site's other two liveries, the
+ * source's maroon damask recoloured (its gold frame and rings untouched). Set on the scope by
+ * CampaignMotion, so the campaigns take maroon, aubergine and forest green in turn.
+ */
+.rtn-motion.rtn-tone-aubergine .ill-campaign-frame {
+  background-image: url("../../assets/motion/ill-frame/retain/campaigns_outbound_bg_3x-aubergine.webp");
+}
+
+.rtn-motion.rtn-tone-forest .ill-campaign-frame {
+  background-image: url("../../assets/motion/ill-frame/retain/campaigns_outbound_bg_3x-forest.webp");
+}
+
 .rtn-motion .ill-campaign-frame__content {
   flex-shrink: 0;
 }

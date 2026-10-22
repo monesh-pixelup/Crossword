@@ -29,7 +29,7 @@ const beats: Beat[] = [
 export function SizeConfidenceMotion() {
   return (
     <LandscapeCanvas
-      backdrop="purple"
+      backdrop="maroon"
       bleed
       scene={<JacketPdpScene />}
       widget={

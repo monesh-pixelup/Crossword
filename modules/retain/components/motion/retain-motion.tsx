@@ -25,6 +25,9 @@ const recoveryScenes: ComponentType[] = [
   ReplenishmentMotion,
 ];
 
+/** Liveries the campaigns take in turn: maroon (the source's), then aubergine, then forest green. */
+export const campaignTones = ["maroon", "aubergine", "forest"] as const;
+
 /** Retain motion 06–10, in the order of the campaigns (config/campaigns.ts). */
 const campaignScenes: ComponentType[] = [
   OutboundCampaignMotion,
@@ -43,7 +46,18 @@ const subscribe = () => () => {};
  * know. Each one plays itself once it is 30% on screen with the tab focused, and restarts when the
  * viewer comes back, as in the source.
  */
-function MotionStage({ scene: Scene, width, height }: { scene: ComponentType; width: number; height: number }) {
+function MotionStage({
+  scene: Scene,
+  width,
+  height,
+  tone,
+}: {
+  scene: ComponentType;
+  width: number;
+  height: number;
+  /** A livery other than the source's (motion.css's `.rtn-tone-*`). */
+  tone?: "aubergine" | "forest";
+}) {
   const client = useSyncExternalStore(
     subscribe,
     () => true,
@@ -54,7 +68,7 @@ function MotionStage({ scene: Scene, width, height }: { scene: ComponentType; wi
     <div aria-hidden className="@container w-full">
       <div inert className="scale-to-container" style={{ width, height, "--fit-width": `${width}px` } as CSSProperties}>
         {client && (
-          <div className="rtn-motion">
+          <div className={tone ? `rtn-motion rtn-tone-${tone}` : "rtn-motion"}>
             <Scene />
           </div>
         )}
@@ -69,9 +83,10 @@ export function RecoveryMotion() {
   return <MotionStage scene={recoveryScenes[active] ?? recoveryScenes[0]} width={687} height={586} />;
 }
 
-/** A campaign's 821 × 611 panel, by its index in config/campaigns.ts. */
+/** A campaign's 821 × 611 panel, by its index in config/campaigns.ts, in its turn's livery. */
 export function CampaignMotion({ index }: { index: number }) {
-  return <MotionStage scene={campaignScenes[index]} width={821} height={611} />;
+  const tone = campaignTones[index % campaignTones.length];
+  return <MotionStage scene={campaignScenes[index]} width={821} height={611} tone={tone === "maroon" ? undefined : tone} />;
 }
 
 /** Audiences' 1280 × 599 panel: discovering demand from past conversations. */

@@ -9,8 +9,8 @@ import { upsellScenes } from "../motion/upsell";
 /**
  * Figma "Library · Four-card row (Upsell & cross-sell)", as Storefront presence: the eyebrow and a
  * two-line headline (set as the page's others), then 80px below four equal cards (305px at 1280px,
- * 20px apart) on #fdf4de in a black/10 hairline: a 330px aubergine panel showing the left of the
- * Storefront cards' 411.33px damask art (its own frame cropped away) with the card's chat scene
+ * 20px apart) on #fdf4de in a black/10 hairline: a 330px maroon panel showing the left of the
+ * Storefront cards' 411.33px damask art (recoloured maroon) (its own frame cropped away) with the card's chat scene
  * fitted inside, then 20px below the title in Crimson ExtraLight 24 over a line of Geist 14. A
  * 209px gold tick sits on the left rail beside the eyebrow.
  */
@@ -34,7 +34,7 @@ export function Upsell() {
         <ul className="grid w-full grid-cols-1 gap-5 min-[640px]:grid-cols-2 min-[1400px]:grid-cols-4">
           {upsellFeatures.map((feature) => (
             <li key={feature.title} className="flex flex-col gap-5 overflow-clip border border-black/10 bg-[#fdf4de]">
-              <div className="relative isolate h-[330px] w-full overflow-hidden bg-aubergine">
+              <div className="relative isolate h-[330px] w-full overflow-hidden bg-maroon">
                 {/*
                   The art carries its own straight gold frame (about 3% of its width and 4% of its
                   height in), so it is laid 24px past the panel on every side and covered from the

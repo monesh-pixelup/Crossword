@@ -5,7 +5,10 @@ import { cn } from "@/lib/cn";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
 import { campaigns } from "../../config/campaigns";
-import { CampaignMotion } from "../motion/retain-motion";
+import { CampaignMotion, campaignTones } from "../motion/retain-motion";
+
+/** Each panel's ground until its visual draws, in the campaign's livery. */
+const grounds = { maroon: "bg-[#660331]", aubergine: "bg-aubergine", forest: "bg-forest" } as const;
 
 /** The fixed site header's height plus the 48px the list sits below it while pinned. */
 const PIN_TOP = 72.5 + 48;
@@ -13,7 +16,8 @@ const PIN_TOP = 72.5 + 48;
 /**
  * Figma "Library · Vertical tabs" (as Customer support on Support), made scroll-driven like
  * Granola's "how it works": every campaign stacks in the right column (its title, line of copy and
- * a text link over its 821 × 611 Retain motion visual, which plays as it comes into view), while
+ * a text link over its 821 × 611 Retain motion visual, maroon, aubergine and forest green in turn,
+ * which plays as it comes into view), while
  * the 280px list of campaigns stays pinned on the left from 992px. The campaign whose panel has crossed the middle of the viewport is the active one (ink;
  * the rest ink/60), and the gold rule under its label fills as it scrolls through, until the next
  * one takes over: then the old rule fades and shrinks away. Choosing a campaign scrolls to it.
@@ -144,7 +148,7 @@ export function CampaignTabs() {
               <TextLink href={ctaLinks.learnMore}>Learn more</TextLink>
             </div>
 
-            <div className="relative aspect-[821/611] w-full overflow-clip bg-[#660331]">
+            <div className={cn("relative aspect-[821/611] w-full overflow-clip", grounds[campaignTones[i % campaignTones.length]])}>
               <p className="sr-only">{campaign.message.text}</p>
               <CampaignMotion index={i} />
             </div>

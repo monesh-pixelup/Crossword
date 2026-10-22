@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
-import cardChannels from "../assets/storefront/card-channels.webp";
-import cardPlacement from "../assets/storefront/card-placement.webp";
-import cardWidget from "../assets/storefront/card-widget.webp";
+import cardChannels from "../assets/upsell/card-channels-maroon.webp";
+import cardPlacement from "../assets/upsell/card-placement-maroon.webp";
+import cardWidget from "../assets/upsell/card-widget-maroon.webp";
 
 export type UpsellFeature = {
   art: StaticImageData;
@@ -11,7 +11,10 @@ export type UpsellFeature = {
   description: string;
 };
 
-/** Upsell & cross-sell, as Figma's four-card row: each card's panel art (Storefront presence's) and copy. */
+/**
+ * Upsell & cross-sell, as Figma's four-card row: each card's panel art and copy. The art is Storefront
+ * presence's, its aubergine damask recoloured to the site's maroon (its gold frame untouched).
+ */
 export const upsellFeatures: UpsellFeature[] = [
   {
     art: cardWidget,

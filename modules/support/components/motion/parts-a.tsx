@@ -1,9 +1,11 @@
 "use client";
 
-import { type ReactNode, type RefObject, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createContext, type ReactNode, type RefObject, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { typeText, usePrefersReducedMotion } from "@/modules/sell/components/motion/motion";
 import { ChatShell, Chip, IconButton, Skeleton, Thread } from "@/modules/sell/components/motion/primitives";
 import backgroundTexture from "../../assets/motion/background-texture.webp";
+import backgroundTextureAubergine from "../../assets/motion/background-texture-aubergine.webp";
+import backgroundTextureForest from "../../assets/motion/background-texture-forest.webp";
 
 /*
  * Scene-local building blocks of the support motion visuals (scenes 01–07),
@@ -15,17 +17,34 @@ import backgroundTexture from "../../assets/motion/background-texture.webp";
 const frameBackground =
   "data:image/svg+xml,%3csvg%20width='738'%20height='680'%20viewBox='0%200%20738%20680'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3crect%20width='738'%20height='680'%20fill='%237D0034'/%3e%3cpath%20d='M30.5%2024C30.5%2026.4853%2028.4853%2028.5%2026%2028.5C23.5147%2028.5%2021.5%2026.4853%2021.5%2024C21.5%2021.5147%2023.5147%2019.5%2026%2019.5C28.4853%2019.5%2030.5%2021.5147%2030.5%2024Z'%20stroke='%23D2B75C'/%3e%3cpath%20d='M716.5%2024C716.5%2026.4853%20714.485%2028.5%20712%2028.5C709.515%2028.5%20707.5%2026.4853%20707.5%2024C707.5%2021.5147%20709.515%2019.5%20712%2019.5C714.485%2019.5%20716.5%2021.5147%20716.5%2024Z'%20stroke='%23D2B75C'/%3e%3cpath%20d='M30.5%20656C30.5%20658.485%2028.4853%20660.5%2026%20660.5C23.5147%20660.5%2021.5%20658.485%2021.5%20656C21.5%20653.515%2023.5147%20651.5%2026%20651.5C28.4853%20651.5%2030.5%20653.515%2030.5%20656Z'%20stroke='%23D2B75C'/%3e%3cpath%20d='M716.5%20656C716.5%20658.485%20714.485%20660.5%20712%20660.5C709.515%20660.5%20707.5%20658.485%20707.5%20656C707.5%20653.515%20709.515%20651.5%20712%20651.5C714.485%20651.5%20716.5%20653.515%20716.5%20656Z'%20stroke='%23D2B75C'/%3e%3c/svg%3e";
 
+/**
+ * The frame's livery: the source's maroon, or the site's aubergine or forest green. The ground under
+ * the texture is the frame SVG's own fill, swapped; the textures are the source's damask recoloured
+ * (their gold edge and notched corners untouched).
+ */
+export type SceneTone = "maroon" | "aubergine" | "forest";
+
+const frames: Record<SceneTone, { background: string; texture: string }> = {
+  maroon: { background: frameBackground, texture: backgroundTexture.src },
+  aubergine: { background: frameBackground.replace("%237D0034", "%23462160"), texture: backgroundTextureAubergine.src },
+  forest: { background: frameBackground.replace("%237D0034", "%2300331A"), texture: backgroundTextureForest.src },
+};
+
+/** The livery SceneFrame draws for the scenes inside it: maroon unless a page sets another. */
+export const SceneToneContext = createContext<SceneTone>("maroon");
+
 /** The 738 × 680 frame every support scene sits in (scales to its container's width). [M] */
 export function SceneFrame({ children, hideBackground }: { children: ReactNode; hideBackground?: boolean }) {
+  const frame = frames[useContext(SceneToneContext)];
   return (
     <div className="ill-scene-frame-scale">
       <div className="ill-scene-frame">
         {!hideBackground && (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element -- inline SVG data, nothing to optimize */}
-            <img className="ill-scene-frame__background" src={frameBackground} alt="" aria-hidden="true" />
+            <img className="ill-scene-frame__background" src={frame.background} alt="" aria-hidden="true" />
             {/* eslint-disable-next-line @next/next/no-img-element -- served as-is, like the source */}
-            <img className="ill-scene-frame__texture" src={backgroundTexture.src} alt="" aria-hidden="true" />
+            <img className="ill-scene-frame__texture" src={frame.texture} alt="" aria-hidden="true" />
           </>
         )}
         <div className="ill-scene-frame__content">{children}</div>
