@@ -107,10 +107,11 @@ export function ResolveTabs() {
                   onClick={() => open(i)}
                   className={cn(
                     // Inactive labels at ink/60, not Figma's /40, to pass AA on cream (brand guidelines 5.10).
-                    "flex w-full cursor-pointer flex-col items-start gap-2 py-3 pr-5 pl-6 text-left font-sans text-base leading-[1.1] tracking-[-0.32px] whitespace-nowrap transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                    "flex w-full cursor-pointer flex-col items-start gap-2 py-3 pr-5 text-left font-sans text-base leading-[1.1] tracking-[-0.32px] whitespace-nowrap transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
                     on ? "text-ink" : "text-ink/60 hover:text-ink",
                   )}
                 >
+                  {/* No left padding: the labels line up with the heading above. */}
                   {c.label}
                   {/* Hairline track, with the gold rule that fills as this case scrolls through. */}
                   <span aria-hidden className="relative h-px w-full bg-black/10">
