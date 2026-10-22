@@ -1,6 +1,5 @@
-import Image from "next/image";
 import type { ReactNode } from "react";
-import rail from "../assets/rail.svg";
+import { Rails } from "./rails";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
 
@@ -22,8 +21,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <SiteHeader />
         <div className="@container relative">
           <div aria-hidden className="pointer-events-none absolute inset-0 -top-[72.5px]">
-            <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
-            <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+            <Rails />
           </div>
           {children}
         </div>

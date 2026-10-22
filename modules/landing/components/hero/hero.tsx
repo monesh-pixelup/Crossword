@@ -32,10 +32,9 @@ function HeroCopy() {
         <StampButton href={ctaLinks.bookDemo} variant="wine">
           BOOK A DEMO
         </StampButton>
-        <p className="font-sans text-base leading-6 tracking-[-0.64px] text-cream/70">
-          <span className="text-cream">Crossword</span> is an AI shopper assistant that remembers,{" "}
-          <br className="max-md:hidden" />
-          recommends, resolves, and reports - all within the guardrails you set.
+        <p className="font-sans text-base leading-6 tracking-[-0.64px] text-white">
+          Crossword helps customers buy, get support, and keep coming back. On your website, in ChatGPT &amp; Claude and
+          through their personal AI agents like Muse &amp; Instinct.
         </p>
       </div>
     </div>

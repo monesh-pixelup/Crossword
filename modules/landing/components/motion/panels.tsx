@@ -82,18 +82,16 @@ export const insightVisuals: Record<InsightVisual, Visual> = {
  * visual. Drawn at 738 × 680 and zoomed to its column: filling the width when
  * stacked, fitting beside the list from 992px. `run` restarts the script.
  */
-export function LifecyclePanel({ visual, run, play }: { visual: LifecycleVisual; run: number; play: boolean }) {
-  const { Component, label } = lifecycleVisuals[visual];
+export function LifecyclePanel({ visual, run, play }: { visual?: LifecycleVisual; run: number; play: boolean }) {
+  // A feature without a visual yet shows the empty frame (decorative).
+  const entry = visual ? lifecycleVisuals[visual] : null;
   return (
     <div
-      role="img"
-      aria-label={label}
+      {...(entry ? { role: "img", "aria-label": entry.label } : { "aria-hidden": true })}
       className="relative h-[680px] w-[738px] shrink-0 overflow-clip [--fit-gutter:0px] [--fit-width:738px] scale-to-container lg:ml-auto lg:fit-to-container"
     >
       <div inert className="contents">
-        <SceneFrame>
-          <Component key={`${visual}-${run}`} play={play} />
-        </SceneFrame>
+        <SceneFrame>{entry && <entry.Component key={`${visual}-${run}`} play={play} />}</SceneFrame>
       </div>
     </div>
   );

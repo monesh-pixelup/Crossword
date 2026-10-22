@@ -8,9 +8,9 @@ import { StampButton } from "@/components/ui/stamp-button";
 import { cn } from "@/lib/cn";
 import crosswordMarkLight from "../assets/crossword-mark-light.svg";
 import crosswordMark from "../assets/crossword-mark.svg";
-import rail from "../assets/rail.svg";
 import { ctaLinks, type NavItem, primaryNav } from "../config/navigation";
 import { MobileMenu } from "./mobile-menu";
+import { Rails } from "./rails";
 
 /**
  * Pages whose header starts transparent over a full-bleed photo hero and turns into the dark
@@ -202,8 +202,7 @@ export function SiteHeader() {
           <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]", fill, fade, dark ? "opacity-100" : "opacity-0")} />
           <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-cream/97 backdrop-blur-[16px]", fill, fade, pastHero ? "opacity-100" : "opacity-0")} />
           <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10", fade, pastHero ? "opacity-100" : "opacity-0")}>
-            <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
-            <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+            <Rails />
           </div>
 
           {/*
@@ -232,8 +231,7 @@ export function SiteHeader() {
         <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[0.5px] bg-black/20" />
         <div className="relative mx-auto max-w-[1600px] pb-[0.5px]">
           <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-cream/97 backdrop-blur-[16px]">
-            <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
-            <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+            <Rails />
           </div>
 
           {/* Not positioned, so the mobile menu (absolute, top-full) spans the whole bar. */}

@@ -11,7 +11,8 @@ export type LifecycleFeature = {
   title: string;
   body: string;
   href: string;
-  visual: LifecycleVisual;
+  /** Omit while a feature has no visual yet: its panel shows the empty frame. */
+  visual?: LifecycleVisual;
 };
 
 export type LifecycleStage = {
@@ -20,8 +21,8 @@ export type LifecycleStage = {
   features: LifecycleFeature[];
 };
 
-// Sell's first feature mirrors the Webflow build; labels follow the motion visuals.
-// TODO: final copy for the other features and real "Learn more" links.
+// Labels follow the motion visuals.
+// TODO: real "Learn more" links.
 export const lifecycleStages: LifecycleStage[] = [
   {
     number: "01",
@@ -30,21 +31,21 @@ export const lifecycleStages: LifecycleStage[] = [
       {
         label: "Conversational interface",
         title: "Where interest becomes intent",
-        body: "Crossword turns a need into a confident purchase. A customer might start with a simple request, a product question, or just a search for inspiration.",
+        body: "Crossword turns a need into a confident purchase. Crossword asks the right questions, narrows down the choices, makes recommendations and helps them take the next step.",
         href: "#",
         visual: "gift-journey",
       },
       {
         label: "Dynamic landing page",
-        title: "Dynamic landing page title",
-        body: "Placeholder copy for the Dynamic landing page feature. Replace it with the final story.",
+        title: "Where every visit finds its direction",
+        body: "Crossword connects the context of the ad, campaign or message that brought someone in with what they see next, making the landing experience more relevant from the very first click.",
         href: "#",
         visual: "dynamic-landing-page",
       },
       {
         label: "Search bar",
-        title: "Search bar title",
-        body: "Placeholder copy for the Search bar feature. Replace it with the final story.",
+        title: "Where searches become discoveries",
+        body: "Crossword turns the search bar into a conversation, helping customers describe what they want in their own words and get relevant products, answers and recommendations in return.",
         href: "#",
         visual: "sleep-search",
       },
@@ -56,8 +57,8 @@ export const lifecycleStages: LifecycleStage[] = [
     features: [
       {
         label: "Service & resolution",
-        title: "Support feature title",
-        body: "Placeholder copy for the Support stage. Replace it with the final story, and duplicate this block for each additional Support feature.",
+        title: "Where doubts get answered",
+        body: "The conversation doesn’t stop once the order is placed. Crossword remembers the context, answers questions, checks order details and handles routine requests without making customers start over. When something needs a human, it brings one in.",
         href: "#",
         visual: "service-resolution",
       },
@@ -69,10 +70,34 @@ export const lifecycleStages: LifecycleStage[] = [
     features: [
       {
         label: "Retention & growth",
-        title: "Retain feature title",
-        body: "Placeholder copy for the Retain stage. Replace it with the final story, and duplicate this block for each additional Retain feature.",
+        title: "Where customers become regulars",
+        body: "A good conversation shouldn’t be a one-time interaction. Crossword remembers what customers have bought, what they’ve asked for and what they’re interested in, so the next conversation can start from somewhere more useful. That means more relevant recommendations, smarter follow-ups and more reasons to come back.",
         href: "#",
         visual: "retention-growth",
+      },
+    ],
+  },
+  {
+    number: "04",
+    name: "AI Assistance",
+    features: [
+      {
+        label: "ChatGPT",
+        title: "Where you control the experience inside ChatGPT",
+        body: "Your website has banners, collections and bundles. A shopper inside ChatGPT sees none of them. Crossword allows you to control the experience so ChatGPT includes full catalog knowledge, knows your priorities, and stays on brand.",
+        href: "#",
+      },
+    ],
+  },
+  {
+    number: "05",
+    name: "Personal Agents",
+    features: [
+      {
+        label: "Agent to agent",
+        title: "Where a shopper’s personal agent is fully informed",
+        body: "When a shopper’s agent does the browsing, it takes its own path through your store missing offers, exploring partial catalog details, and potentially leaving without the best product. Crossword speaks to that agent directly so it sees your intended journey and you control the offering.",
+        href: "#",
       },
     ],
   },

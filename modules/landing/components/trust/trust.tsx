@@ -103,9 +103,13 @@ export function Trust() {
             </h2>
             <div className="flex w-full max-w-[537.055px] min-w-0 flex-col items-start gap-4 lg:flex-[0_1_537px]">
               <p className="font-sans text-[14px] leading-[22px] tracking-[-0.56px] text-white/50">
-                Our in-built watchtower catches what should not be said before it is said. Guardrails ensure Crossword
-                never offers a discount you did not approve, never makes a promise your legal team has not cleared, and
-                never yields to prompt injection attempts.
+                With a built-in watchtower every response is checked and Crossword improved continuously, so your agent
+                gets better every day. It&rsquo;s designed to stay within your guardrails, resist prompt injection, know
+                its limitations, and catch gaps before they become problems.
+              </p>
+              <p className="font-sans text-[14px] leading-[22px] tracking-[-0.56px] text-white/50">
+                Crossword is built by the team behind CometChat, a leading provider of user-to-user messaging. For more
+                than a decade, we&rsquo;ve been powering billions of messages for enterprises across 160+ countries
               </p>
               <Link
                 href="#trust"

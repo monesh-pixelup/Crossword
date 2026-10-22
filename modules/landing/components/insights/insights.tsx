@@ -30,9 +30,10 @@ export function Insights() {
                 id="insights-title"
                 className="h-[97px] w-[580px] font-serif text-[0px] leading-[0] font-extralight tracking-[-2.5px] whitespace-nowrap text-ink [zoom:var(--h2-scale)]"
               >
-                <span className="font-script text-[82px] leading-[1.18] font-normal">Y</span>
-                <span className="text-[60px] leading-[1.1] tracking-[-3px]">{"our best "}</span>
-                <span className="text-[60px] leading-[1.1] font-light tracking-[-3px]">hire keeps notes</span>
+                {/* The swash begins the word, so it gets the section headings' +4.1px (5%) to clear its flourish, as "E" + "very". */}
+                <span className="font-script text-[82px] leading-[1.18] font-normal tracking-[4.1px]">A</span>
+                <span className="text-[60px] leading-[1.1] tracking-[-3px]">{"sk your "}</span>
+                <span className="text-[60px] leading-[1.1] font-light tracking-[-3px]">store anything</span>
               </h2>
             </div>
           </div>

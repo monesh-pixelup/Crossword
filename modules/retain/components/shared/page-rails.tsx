@@ -1,5 +1,4 @@
-import Image from "next/image";
-import rail from "@/modules/marketing/assets/rail.svg";
+import { Rails } from "@/modules/marketing/components/rails";
 
 /**
  * The page's two hairline rails, exactly where SiteShell draws them, redrawn over a section whose
@@ -10,8 +9,7 @@ import rail from "@/modules/marketing/assets/rail.svg";
 export function PageRails() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0">
-      <Image src={rail} alt="" className="absolute inset-y-0 left-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
-      <Image src={rail} alt="" className="absolute inset-y-0 right-[calc(var(--frame-inset)-0.25px)] h-full w-[0.5px]" />
+      <Rails />
     </div>
   );
 }
