@@ -16,7 +16,8 @@ const HANDOFF = 40;
  * Conversion features as a scroll-driven list beside one sticky panel, as the home page's Lifecycle
  * ("Every conversation has a job to do"). From 1313px the heading sticks at the top of its column and
  * the items scroll up beneath it, fading out under its edge; the item just below the heading is open
- * (full strength with a 1px black/50 rule under it, the others at 20%). When stacked, the panel is
+ * (full strength, the others at 20%), each item 48px top and bottom with a 1px black/10 rule under
+ * it and 16px between its title and copy, as Lifecycle. When stacked, the panel is
  * what sticks and the items pass under it. The panel plays the open item's chat scene. Clicking an item
  * scrolls it open.
  */
@@ -126,7 +127,7 @@ export function AssistList({ header }: { header: ReactNode }) {
         }}
         className="flex flex-col"
       >
-        <div className={cn("flex flex-col items-start gap-3 py-12 transition-opacity duration-150", !on && "opacity-20")}>
+        <div className={cn("flex flex-col items-start gap-4 py-12 transition-opacity duration-150", !on && "opacity-20")}>
           <button
             type="button"
             aria-expanded={on}
@@ -142,7 +143,7 @@ export function AssistList({ header }: { header: ReactNode }) {
             <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{item.description}</p>
           )}
         </div>
-        <div className={cn("w-full transition-colors duration-150", on ? "h-px bg-black/50" : "h-px bg-black/10")} />
+        <div className="h-px w-full bg-black/10" />
       </div>
     );
   };
@@ -162,10 +163,14 @@ export function AssistList({ header }: { header: ReactNode }) {
               "min-[1313px]:after:pointer-events-none min-[1313px]:after:absolute min-[1313px]:after:inset-x-0 min-[1313px]:after:top-full min-[1313px]:after:h-10 min-[1313px]:after:bg-linear-to-b min-[1313px]:after:from-cream min-[1313px]:after:to-cream/0",
             )}
           >
-            <div className="min-[1313px]:border-b min-[1313px]:border-black/10 min-[1313px]:pb-12">{header}</div>
+            {/*
+              As the home page's Lifecycle: 80px from the heading to the first item's text, 32px below the heading then
+              the item's own 48px top padding (the list adds none), which keeps that text clear of the 40px fade under it.
+            */}
+            <div className="min-[1313px]:pb-8">{header}</div>
           </div>
 
-          <div ref={listRef} className="order-3 flex flex-col max-[1313px]:mt-(--space-xxlarge) min-[1313px]:pt-16">
+          <div ref={listRef} className="order-3 flex flex-col max-[1313px]:mt-(--space-xxlarge)">
             {assistFeatures.slice(0, -1).map((_, i) => renderItem(i))}
           </div>
         </div>

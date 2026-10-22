@@ -25,18 +25,21 @@ export function useStrangerActive() {
  * at 20%), and the panel sticks beside them. When stacked, the panel is what sticks and the items
  * pass under it. The last item stays put once it reaches the heading: everything then scrolls away
  * together. With `belowHeader` both pin 48px below the fixed 72.5px site header instead of 48px
- * from the viewport top, as Lifecycle does.
+ * from the viewport top, as Lifecycle does. With `flush` the list takes Lifecycle's spacing too: no
+ * top padding of its own (the heading and items set it) and no nudge in from the heading's edge.
  */
 export function StrangerScroll({
   heading,
   items,
   panel,
   belowHeader = false,
+  flush = false,
 }: {
   heading: ReactNode;
   items: Item[];
   panel: ReactNode;
   belowHeader?: boolean;
+  flush?: boolean;
 }) {
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
@@ -141,12 +144,12 @@ export function StrangerScroll({
           </div>
 
           {/* Figma puts the first paragraph 101px under the headline. */}
-          <div ref={listRef} className="order-3 flex max-w-[520px] flex-col max-lg:mt-(--space-xxlarge) lg:ml-1.5 lg:pt-[101.3px]">
+          <div ref={listRef} className={cn("order-3 flex max-w-[520px] flex-col max-lg:mt-(--space-xxlarge)", !flush && "lg:ml-1.5 lg:pt-[101.3px]")}>
             {items.slice(0, -1).map(renderItem)}
           </div>
         </div>
 
-        <div className="order-4 flex max-w-[520px] flex-col lg:ml-1.5">{renderItem(items[last], last)}</div>
+        <div className={cn("order-4 flex max-w-[520px] flex-col", !flush && "lg:ml-1.5")}>{renderItem(items[last], last)}</div>
         {/* Room after the last item so the column ends level with the panel. */}
         <div ref={spacerRef} aria-hidden className="order-5" />
       </div>
