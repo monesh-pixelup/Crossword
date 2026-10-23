@@ -566,6 +566,24 @@
   background-size: 100% 100%;
 }
 
+/* Figma "Chat shell + Prod" (2825:53): the reply heads the card (15px from the top, 11px in, white 80%), 24px over the rows. */
+.hero-scene .msg--products[data-intro] {
+  gap: 24px;
+  padding-top: 15px;
+}
+
+.hero-scene .msg__intro {
+  padding: 0 26px 0 11px;
+  color: #fffc;
+}
+
+.hero-scene .msg__products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
 .hero-scene .product-row {
   box-sizing: border-box;
   width: 100%;

@@ -38,7 +38,7 @@ type Turn = {
 
 type Phase = "composing" | "thinking" | "thinkingExit" | "replying" | "productsLoading" | "pausing";
 
-const brand = "AURELIA";
+const brand = "VELMORA";
 
 const firstPicks: CommerceProduct[] = [
   {
@@ -131,34 +131,32 @@ const chains: CommerceProduct[] = [
   },
 ];
 
+/* Homepage doc, "Sell: Conversational interface", verbatim. */
 const turns: Turn[] = [
   {
-    userMessage:
-      "I need a birthday gift for my wife. She has pretty expensive taste, but my budget doesn't really match it this year.",
-    assistantMessage:
-      "Let's find something that still feels special without stretching your budget — here are three pieces under $150 that read more expensive than they cost.",
+    userMessage: "I need something for my wife's birthday. She has expensive taste. Unfortunately, my budget doesn't.",
+    assistantMessage: "I can work with that. I found three options that feel considerably more expensive than they are.",
     products: firstPicks,
   },
   {
-    userMessage: "I like the middle one. Can you show me more styles like that, in rose gold?",
-    assistantMessage:
-      "Good eye — the teardrop pendant is one of our most-gifted pieces. Here are a few more pendant styles in rose gold.",
+    userMessage: "I like the middle one, show me more styles but in a rose gold.",
+    assistantMessage: "That’s a lovely shade, here they are.",
     products: pendants,
   },
   {
     userMessage: "Add the first one to my cart.",
-    assistantMessage: "Added to your cart. Want to pair it with something else, like a matching chain?",
+    assistantMessage: "Done, want to pair it with something else too?",
     singleCard: pendants[0],
   },
   {
-    userMessage: "Yes, show me a matching chain.",
-    assistantMessage:
-      "Here are three chains that pair well with it — most people choose the fine box chain with this pendant.",
+    userMessage: "A matching chain?",
+    assistantMessage: "Here are options that match the style of the pendant. I’d go with #1.",
     products: chains,
   },
   {
-    userMessage: "Perfect, add that one too.",
-    assistantMessage: "Added — your pendant and chain are both in the cart, ready for checkout.",
+    userMessage: "Done, add that too.",
+    // The doc ends on the shopper's line; this confirmation is the only reply not in it.
+    assistantMessage: "Added. Both are in your cart.",
     singleCard: chains[0],
   },
 ];

@@ -36,7 +36,7 @@ type Step =
 
 type Phase = "composing" | "handoff" | "thinking" | "thinkingExit" | "replying" | "pausing";
 
-const brand = "AURELIA";
+const brand = "VELMORA";
 
 const steps: Step[] = [
   { kind: "user", id: "turn1", message: "Where's my order?" },
@@ -45,7 +45,7 @@ const steps: Step[] = [
     id: "turn1-reply",
     speaker: "ai",
     messages: [
-      "I see you've purchased a rose gold pendant for your wife. It's on its way, and will reach you by 3rd November.",
+      "I see you've purchased a rose gold pendant for your wife. It's on its way, and will reach you by November 3rd.",
     ],
     thinkingStages: ["Thinking", "Checking your order"],
   },
@@ -77,7 +77,7 @@ const steps: Step[] = [
     kind: "reply",
     id: "turn5-reply",
     speaker: "agent",
-    messages: ["Let me see what I can do.", "You reached us just in time. Consider it done!"],
+    messages: ["Let me see what I can do.", "You reached us, just in time, consider it done!"],
     thinkingStages: ["Typing"],
   },
 ];

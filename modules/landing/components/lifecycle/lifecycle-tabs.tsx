@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, type RefObject, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import arrowRight from "../../assets/lifecycle/arrow-right.svg";
 import { lifecycleStages } from "../../config/lifecycle";
@@ -13,7 +13,7 @@ const trimToCaps = "[text-box:trim-both_cap_alphabetic]";
 
 /** Every feature in order (Sell's sub tabs, then Support, then Retain): one list item each. */
 const steps = lifecycleStages.flatMap((stage, s) =>
-  stage.features.map((feature, f) => ({ stage, first: f === 0, feature, key: `${s}-${f}` })),
+  stage.features.map((feature, f) => ({ stage, stageIndex: s, first: f === 0, feature, key: `${s}-${f}` })),
 );
 
 /**
@@ -43,6 +43,8 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
   const listRef = useRef<HTMLDivElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
   const items = useRef<(HTMLDivElement | null)[]>([]);
+  // The pinned stage label's bar: how far the list is through the open item's stage (0–1), set per frame.
+  const progressRef = useRef<HTMLSpanElement>(null);
 
   /** Where items disappear: under the heading from 992px, under the mock-up below that. */
   const coverLine = () => {
@@ -58,6 +60,21 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
       // The open item is the first one still showing below the cover.
       let open = items.current.findIndex((item) => item && item.getBoundingClientRect().bottom > line);
       if (open < 0) open = steps.length - 1;
+      // Progress through the open item's stage: the items of the stage before it, plus how far the open item has slid
+      // under the cover. It starts again at the first item of each stage, so the bar resets with the label.
+      const stageIndex = steps[open].stageIndex;
+      const first = steps.findIndex((s) => s.stageIndex === stageIndex);
+      const count = steps.filter((s) => s.stageIndex === stageIndex).length;
+      const rect = items.current[open]?.getBoundingClientRect();
+      // The last item never slides under the cover (everything scrolls away together once it lands), so it reads as done.
+      const within =
+        open === steps.length - 1
+          ? 1
+          : rect && rect.height > 0
+            ? Math.min(1, Math.max(0, (line - rect.top) / (rect.height - HANDOFF)))
+            : 0;
+      const progress = Math.min(1, (open - first + Math.max(0.12, within)) / count);
+      progressRef.current?.style.setProperty("--stage-progress", progress.toFixed(4));
       if (open !== activeRef.current) {
         activeRef.current = open;
         setActive(open);
@@ -165,9 +182,9 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
               on ? "cursor-default" : "cursor-pointer",
             )}
           >
-            {/* Each stage opens with its number and name. */}
+            {/* Each stage opens with its number and name; from 992px it is pinned under the heading instead (see StageLabel). */}
             {step.first && (
-              <span className="mb-4 flex h-9 w-full items-baseline gap-4 leading-[1.1] whitespace-nowrap">
+              <span className="mb-4 flex h-9 w-full items-baseline gap-4 leading-[1.1] whitespace-nowrap lg:hidden">
                 <span
                   className={cn(
                     "w-6 flex-none font-calligraphy text-[48px] tracking-[-2.4px] text-maroon",
@@ -231,7 +248,10 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
               80px from the heading to the first item's text: 32px below the heading, then the item's own 48px top
               padding (the list adds none), which keeps that text clear of the 40px fade under the heading.
             */}
-            <div className="lg:pb-8">{heading}</div>
+            <div className="lg:pb-8">
+              {heading}
+              <StageLabel stage={steps[active].stage} progressRef={progressRef} />
+            </div>
           </div>
 
           <div ref={listRef} className="order-3 flex flex-col max-lg:mt-(--space-xxlarge)">
@@ -255,6 +275,38 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
       >
         <LifecyclePanel visual={steps[active].feature.visual} run={run} play={seen} />
       </div>
+    </div>
+  );
+}
+
+/**
+ * The open item's stage, pinned under the sticky heading from 992px (Figma 3090:27829): its number and name over a
+ * hairline whose maroon fill tracks the list through that stage. The name crossfades and the fill starts over when
+ * the open item moves into the next stage.
+ */
+function StageLabel({
+  stage,
+  progressRef,
+}: {
+  stage: (typeof lifecycleStages)[number];
+  progressRef: RefObject<HTMLSpanElement | null>;
+}) {
+  return (
+    <div className="mt-[72px] hidden w-full flex-col gap-[23px] lg:flex" aria-live="polite">
+      <span key={stage.number} className="lifecycle-stage-enter flex h-9 items-baseline gap-4 leading-[1.1] whitespace-nowrap">
+        <span className={cn("w-6 flex-none font-calligraphy text-[48px] tracking-[-2.4px] text-maroon", trimToCaps)}>
+          {stage.number}
+        </span>
+        <span className="font-serif text-[22px] tracking-[-1.1px] text-ink uppercase">{stage.name}</span>
+      </span>
+      <span className="relative block h-px w-full bg-black/15">
+        <span
+          key={stage.number}
+          ref={progressRef}
+          className="absolute inset-y-[-0.5px] left-0 w-full origin-left scale-x-(--stage-progress) bg-maroon transition-transform duration-150 ease-out"
+          style={{ ["--stage-progress" as string]: 0.12 }}
+        />
+      </span>
     </div>
   );
 }

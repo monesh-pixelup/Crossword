@@ -57,10 +57,10 @@ function FooterNav() {
   );
 }
 
-/** "Crossword is the concierge desk for your brand." with the framed C monogram. */
+/** "Crossword is shopper-facing AI for your brand." (Figma 3072:19635) with the framed C monogram. */
 function Tagline() {
   return (
-    <p className="relative h-[107.201px] w-[518.004px] font-serif text-[49.1px] leading-[0.9] font-extralight tracking-[-2.455px] whitespace-nowrap text-[#dfe3d2]">
+    <p className="relative h-[107.201px] w-[560px] font-serif text-[49.1px] leading-[0.9] font-extralight tracking-[-2.455px] whitespace-nowrap text-[#dfe3d2]">
       <span aria-hidden className="absolute top-[-0.12px] left-[0.81px] h-[107.7px] w-[90.661px]">
         <span className="absolute top-[17.81px] left-[18px] h-[79.404px] w-[40.604px] font-script text-[74.023px] leading-[1.1] tracking-[-3.7012px]">
           C
@@ -68,8 +68,8 @@ function Tagline() {
         <Image src={monogramFrame} alt="" className="absolute top-0 left-0 max-w-none" />
       </span>
       <span className="sr-only">C</span>
-      <span className="absolute top-[14.38px] left-[96.32px]">{"rossword is the concierge "}</span>
-      <span className="absolute top-[62.82px] left-[96.32px]">desk for your brand.</span>
+      <span className="absolute top-[14.38px] left-[96.32px]">{"rossword is shopper-facing "}</span>
+      <span className="absolute top-[62.82px] left-[96.32px]">AI for your brand.</span>
     </p>
   );
 }
@@ -132,7 +132,7 @@ export function SiteFooter() {
                 className="h-auto w-[351px] max-w-full max-[960px]:order-1"
               />
               <p className="flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-[12px] leading-[1.3] tracking-[-0.36px] whitespace-nowrap text-[rgba(223,227,210,0.6)] xs:flex-nowrap max-[960px]:order-3">
-                <span>Crossword, Inc. © 2026</span>
+                <span>Crossword © 2026</span>
                 <span aria-hidden>|</span>
                 <span>A CometChat Product</span>
               </p>

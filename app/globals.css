@@ -196,6 +196,25 @@
   }
 }
 
+/* Home lifecycle: the pinned stage label settling in as the list moves into a new stage. */
+@keyframes lifecycle-stage-in {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+    filter: blur(3px);
+  }
+}
+
+.lifecycle-stage-enter {
+  animation: lifecycle-stage-in 0.42s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lifecycle-stage-enter {
+    animation: none;
+  }
+}
+
 /* Tab progress (Insights, Sell triggers): fills the active tab's top edge, then the tabs advance. */
 @keyframes insights-progress {
   from {

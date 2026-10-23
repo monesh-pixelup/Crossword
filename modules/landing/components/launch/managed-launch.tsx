@@ -46,17 +46,26 @@ export function ManagedLaunch() {
           the Webflow build's percentages; below that a centred stack: panel, steps, call to action.
         */}
         <div className="relative flex w-full flex-col items-center gap-12 lg:grid lg:aspect-[1280/360] lg:grid-cols-[1fr_24.6875%_1fr] lg:items-start lg:gap-0">
-          <div className="order-3 flex flex-col items-center gap-4 lg:order-none lg:mt-[27.244%] lg:mr-[30.185%] lg:w-[179.44px] lg:items-start lg:justify-self-end">
-            <p className="max-w-[149.6px] text-center font-serif text-[18px] leading-[1.1] tracking-[-0.04em] text-[#040404] lg:text-left">
-              Simply tell us how your business works.
-            </p>
-            <Link
-              href="#explore-platform"
-              className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-[#fff9e9] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-opacity duration-150 hover:opacity-50"
-            >
-              EXPLORE PLATFORM
-              <Image src={arrowRight} alt="" className="size-3" />
-            </Link>
+          {/*
+            Figma 3073:21775: a hairline rule (black 20%) runs down the left of the call to action, with its top half
+            picked out in gold, 20px from the copy. Shown from 992px, where the block sits left-aligned in its column.
+          */}
+          <div className="order-3 flex items-stretch gap-5 lg:order-none lg:mt-[27.244%] lg:mr-[calc(30.185%_-_60px)] lg:w-[199.44px] lg:justify-self-end">
+            <span aria-hidden className="relative hidden w-px shrink-0 bg-black/20 lg:block">
+              <span className="absolute inset-x-0 top-px h-1/2 bg-[#e0be60]" />
+            </span>
+            <div className="flex flex-col items-center gap-4 lg:w-[179.44px] lg:items-start">
+              <p className="max-w-[149.6px] text-center font-serif text-[18px] leading-[1.1] tracking-[-0.04em] text-[#040404] lg:text-left">
+                Simply tell us how your business works.
+              </p>
+              <Link
+                href="#explore-platform"
+                className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-[#fff9e9] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-opacity duration-150 hover:opacity-50"
+              >
+                EXPLORE PLATFORM
+                <Image src={arrowRight} alt="" className="size-3" />
+              </Link>
+            </div>
           </div>
 
           <LaunchWheel />

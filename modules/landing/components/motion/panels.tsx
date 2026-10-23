@@ -66,8 +66,9 @@ export const insightVisuals: Record<InsightVisual, Visual> = {
   },
   "revenue-attribution": {
     Component: RevenueAttribution,
-    label: "Crossword Insights tracing a discount offer in a conversation to $186 of influenced revenue",
-    duration: 6000,
+    label:
+      "A merchant asks Crossword Insights what one shopper conversation was worth; it shows the conversation and traces it to $186 of influenced revenue",
+    duration: 8500,
   },
   "anonymous-traffic": {
     Component: AnonymousTraffic,
