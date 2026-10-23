@@ -15,6 +15,16 @@ const eslintConfig = defineConfig([
     // Design handoff source (a separate Vite project), ported into modules/sell.
     "crossword-motion-sell conversational interface/**",
   ]),
+  {
+    // A verbatim port of the "Crossword — Sell: Dynamic motion" handoff (a separate Vite project): it reads refs during
+    // render on purpose (a slot remembers it was loading, so its cover stays for one more frame) and draws its images
+    // with plain <img>, as the source does.
+    files: ["modules/landing/components/motion/sell-dynamic/**"],
+    rules: {
+      "react-hooks/refs": "off",
+      "@next/next/no-img-element": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

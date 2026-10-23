@@ -10,6 +10,17 @@ import { GiftJourney } from "./gift-journey";
 import { InsightFrame, SceneFrame } from "./primitives";
 import { RetentionGrowth } from "./retention-growth";
 import { RevenueAttribution } from "./revenue-attribution";
+import {
+  AdJourneyMotion,
+  adJourneyMotionDuration,
+  AiAssistantsMotion,
+  aiAssistantsMotionDuration,
+  AiSearchMotion,
+  aiSearchMotionDuration,
+  PersonalAgentsV2Motion,
+  personalAgentsV2MotionDuration,
+  SellDynamicVisual,
+} from "./sell-dynamic";
 import { ServiceResolution } from "./service-resolution";
 import { SleepSearch } from "./sleep-search";
 
@@ -22,6 +33,8 @@ type Visual = {
    * build). Tabs stay open this long plus a hold.
    */
   duration: number;
+  /** Draws its own 738 × 680 frame (the Sell: Dynamic visuals), so it skips the panel's SceneFrame. */
+  framed?: boolean;
 };
 
 export const lifecycleVisuals: Record<LifecycleVisual, Visual> = {
@@ -48,6 +61,34 @@ export const lifecycleVisuals: Record<LifecycleVisual, Visual> = {
     label:
       "The Crossword assistant answering where an order is, then handing the conversation to a support agent who adds a matching bracelet before dispatch",
     duration: 19300,
+  },
+  "ad-journey": {
+    Component: AdJourneyMotion,
+    label:
+      "A shopper taps a Trailwell backpack ad, the store opens with the Crossword guide, and two quick questions narrow it down to three carry-on backpacks",
+    duration: adJourneyMotionDuration,
+    framed: true,
+  },
+  "ai-search": {
+    Component: AiSearchMotion,
+    label:
+      "A shopper asks a gummy store's search bar for something to help them sleep; Crossword answers with sleep gummies and opens the one they pick",
+    duration: aiSearchMotionDuration,
+    framed: true,
+  },
+  "ai-assistants": {
+    Component: AiAssistantsMotion,
+    label:
+      "A shopper asking ChatGPT for skincare gets the brand's own picks, a set with a promotion, and an order summary once they take it",
+    duration: aiAssistantsMotionDuration,
+    framed: true,
+  },
+  "personal-agents": {
+    Component: PersonalAgentsV2Motion,
+    label:
+      "A shopper's personal agent asks Crossword about products and offers on their behalf, then answers the shopper with the picks",
+    duration: personalAgentsV2MotionDuration,
+    framed: true,
   },
   "retention-growth": {
     Component: RetentionGrowth,
@@ -92,7 +133,13 @@ export function LifecyclePanel({ visual, run, play }: { visual?: LifecycleVisual
       className="relative h-[680px] w-[738px] shrink-0 overflow-clip [--fit-gutter:0px] [--fit-width:738px] scale-to-container lg:ml-auto lg:fit-to-container"
     >
       <div inert className="contents">
-        <SceneFrame>{entry && <entry.Component key={`${visual}-${run}`} play={play} />}</SceneFrame>
+        {entry?.framed ? (
+          <SellDynamicVisual>
+            <entry.Component key={`${visual}-${run}`} play={play} />
+          </SellDynamicVisual>
+        ) : (
+          <SceneFrame>{entry && <entry.Component key={`${visual}-${run}`} play={play} />}</SceneFrame>
+        )}
       </div>
     </div>
   );

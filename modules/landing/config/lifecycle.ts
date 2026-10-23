@@ -3,8 +3,12 @@ export type LifecycleVisual =
   | "gift-journey"
   | "dynamic-landing-page"
   | "sleep-search"
+  | "ad-journey"
+  | "ai-search"
   | "service-resolution"
-  | "retention-growth";
+  | "retention-growth"
+  | "ai-assistants"
+  | "personal-agents";
 
 export type LifecycleFeature = {
   label: string;
@@ -40,14 +44,14 @@ export const lifecycleStages: LifecycleStage[] = [
         title: "Where every visit finds its direction",
         body: "Crossword connects the context of the ad, campaign or message that brought someone in with what they see next, making the landing experience more relevant from the very first click.",
         href: "#",
-        visual: "dynamic-landing-page",
+        visual: "ad-journey",
       },
       {
         label: "Search bar",
         title: "Where searches become discoveries",
         body: "Crossword turns the search bar into a conversation, helping customers describe what they want in their own words and get relevant products, answers and recommendations in return.",
         href: "#",
-        visual: "sleep-search",
+        visual: "ai-search",
       },
     ],
   },
@@ -86,6 +90,7 @@ export const lifecycleStages: LifecycleStage[] = [
         title: "Where you control the experience inside ChatGPT",
         body: "Your website has banners, collections and bundles. A shopper inside ChatGPT sees none of them. Crossword allows you to control the experience so ChatGPT includes full catalog knowledge, knows your priorities, and stays on brand.",
         href: "#",
+        visual: "ai-assistants",
       },
     ],
   },
@@ -98,6 +103,7 @@ export const lifecycleStages: LifecycleStage[] = [
         title: "Where a shopper’s personal agent is fully informed",
         body: "When a shopper’s agent does the browsing, it takes its own path through your store missing offers, exploring partial catalog details, and potentially leaving without the best product. Crossword speaks to that agent directly so it sees your intended journey and you control the offering.",
         href: "#",
+        visual: "personal-agents",
       },
     ],
   },
