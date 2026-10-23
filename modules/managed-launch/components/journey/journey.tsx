@@ -53,7 +53,7 @@ export function Journey() {
           </div>
 
           {/* Steps at 78% of the home wheel's size: the longest is one line and has to clear the page's right rail. */}
-          <LaunchWheel steps={steps} stamp={stamp} label="How a launch grows" textScale={0.78} />
+          <LaunchWheel steps={steps} stamps={[stamp]} label="How a launch grows" textScale={0.78} />
         </div>
       </div>
     </section>
