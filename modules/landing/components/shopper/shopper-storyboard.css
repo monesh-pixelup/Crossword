@@ -1,0 +1,128 @@
+/*
+ * Shopper storyboard (Figma 3096:27926). Scenes cross over with the search window growing toward the product page
+ * as the page settles in; inside the page, the comparison reveals row by row once `data-revealed` flips.
+ */
+
+.sb-stage {
+  --sb-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --sb-swap: cubic-bezier(0.45, 0, 0.15, 1);
+}
+
+/* Scene: search. */
+.sb-search {
+  transform-origin: 50% 42%;
+  transition:
+    opacity 0.45s ease,
+    transform 0.6s var(--sb-swap),
+    filter 0.45s ease;
+}
+.sb-stage[data-scene="store"] .sb-search {
+  opacity: 0;
+  transform: scale(1.35) translateY(-14px);
+  filter: blur(4px);
+}
+
+.sb-caret {
+  display: inline-block;
+  width: 0.5px;
+  height: 10px;
+  margin-left: 1px;
+  vertical-align: -1px;
+  background: #211a22;
+  animation: sb-caret 1s steps(1) infinite;
+}
+.sb-stage[data-results="true"] .sb-caret {
+  visibility: hidden;
+}
+@keyframes sb-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.sb-sponsored,
+.sb-result {
+  transition:
+    opacity 0.5s var(--sb-ease),
+    transform 0.5s var(--sb-ease),
+    box-shadow 0.25s ease;
+}
+.sb-stage[data-results="false"] .sb-sponsored,
+.sb-stage[data-results="false"] .sb-result {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.sb-stage[data-results="true"] .sb-result {
+  transition-delay: 0.12s;
+}
+.sb-stage[data-results="true"] .sb-result + .sb-result {
+  transition-delay: 0.22s;
+}
+/* The click: the ad presses in, ringed in Harry's purple. */
+.sb-sponsored--pressed {
+  transform: scale(0.985);
+  box-shadow:
+    0 0 0 2px #fff9e9,
+    0 0 0 3.5px rgba(70, 33, 96, 0.55);
+}
+
+/* Scene: product page. */
+.sb-store {
+  transition:
+    opacity 0.55s ease,
+    transform 0.7s var(--sb-ease);
+}
+.sb-stage[data-scene="search"] .sb-store {
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+  pointer-events: none;
+}
+.sb-stage[data-scene="store"] .sb-store {
+  transition-delay: 0.12s;
+}
+
+/* The comparison making its case: badge, then the rows, then Harry's column. */
+.sb-store .sb-badge,
+.sb-store .sb-row,
+.sb-store .sb-col,
+.sb-store .sb-heading {
+  transition:
+    opacity 0.45s var(--sb-ease),
+    transform 0.45s var(--sb-ease);
+}
+.sb-store[data-revealed="false"] .sb-badge,
+.sb-store[data-revealed="false"] .sb-heading,
+.sb-store[data-revealed="false"] .sb-row {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.sb-store[data-revealed="false"] .sb-col {
+  opacity: 0;
+}
+.sb-store[data-revealed="true"] .sb-heading {
+  transition-delay: 0.1s;
+}
+.sb-store[data-revealed="true"] .sb-row {
+  transition-delay: calc(0.25s + var(--i) * 0.11s);
+}
+.sb-store[data-revealed="true"] .sb-col {
+  transition-delay: 0.95s;
+}
+
+.sb-store[data-cta="true"] .sb-cta {
+  animation: sb-cta 0.9s var(--sb-ease);
+}
+@keyframes sb-cta {
+  30% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 4px rgba(74, 42, 94, 0.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sb-stage *,
+  .sb-stage {
+    transition-duration: 0s !important;
+    animation: none !important;
+  }
+}

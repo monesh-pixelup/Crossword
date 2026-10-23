@@ -79,10 +79,10 @@ export const lifecycleStages: LifecycleStage[] = [
   },
   {
     number: "04",
-    name: "AI Assistance",
+    name: "AI Assistants",
     features: [
       {
-        label: "ChatGPT",
+        label: "AI assistants",
         title: "Where you control the experience inside ChatGPT",
         body: "Your website has banners, collections and bundles. A shopper inside ChatGPT sees none of them. Crossword allows you to control the experience so ChatGPT includes full catalog knowledge, knows your priorities, and stays on brand.",
         href: "#",
@@ -94,7 +94,7 @@ export const lifecycleStages: LifecycleStage[] = [
     name: "Personal Agents",
     features: [
       {
-        label: "Agent to agent",
+        label: "Personal agents",
         title: "Where a shopper’s personal agent is fully informed",
         body: "When a shopper’s agent does the browsing, it takes its own path through your store missing offers, exploring partial catalog details, and potentially leaving without the best product. Crossword speaks to that agent directly so it sees your intended journey and you control the offering.",
         href: "#",

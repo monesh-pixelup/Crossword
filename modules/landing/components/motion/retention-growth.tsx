@@ -4,10 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import look1 from "../../assets/motion/look-1-gold-hoop-set.webp";
 import look2 from "../../assets/motion/look-2-pearl-drop-set.webp";
 import look3 from "../../assets/motion/look-3-citrine-stud-set.webp";
-import shopperPhoto from "../../assets/motion/photo-uploaded-by-the-shopper.webp";
-import wifeLook1 from "../../assets/motion/wife-look-1-gold-hoop-set.webp";
-import wifeLook2 from "../../assets/motion/wife-look-2-pearl-drop-set.webp";
-import wifeLook3 from "../../assets/motion/wife-look-3-citrine-stud-set.webp";
 import { phaseTimers, replyDuration, typeText, useFollowLatest, usePrefersReducedMotion } from "./motion";
 import {
   AiStatus,
@@ -25,7 +21,7 @@ import {
 
 /*
  * 05b · Retain: retention & growth. The assistant remembers last month's
- * pendant, then styles anniversary looks and shows them on the wife's photo.
+ * pendant, then styles anniversary looks and adds the one he picks.
  */
 
 type Beat =
@@ -35,7 +31,7 @@ type Beat =
 
 type Phase = "composing" | "revealing" | "thinking" | "thinkingExit" | "replying" | "productsLoading" | "pausing";
 
-const brand = "AURELIA";
+const brand = "VELMORA";
 
 const beats: Beat[] = [
   {
@@ -57,22 +53,15 @@ const beats: Beat[] = [
       { id: "look-3", name: "Look 3 · Citrine Stud Set", image: look3 },
     ],
   },
-  { kind: "user-text", message: "I wonder how this would look on her…" },
+  /*
+   * The doc's next beats ("upload her picture" and the looks shown on her) need a real photo of the wife, not a model
+   * shot, so the conversation closes on the shopper picking a look instead. Copy to confirm with the content team.
+   */
+  { kind: "user-text", message: "The pearl drop set. She'll love it." },
   {
     kind: "assistant",
-    message: "Simply upload her picture, and I will show you.",
-    thinkingLabel: "Setting that up",
-  },
-  { kind: "user-upload", src: shopperPhoto },
-  {
-    kind: "assistant",
-    message: "Here are the same looks, but for her!",
-    thinkingLabel: "Personalizing these looks for her",
-    products: [
-      { id: "wife-look-1", name: "Wife's Look 1 · Gold Hoop Set", image: wifeLook1 },
-      { id: "wife-look-2", name: "Wife's Look 2 · Pearl Drop Set", image: wifeLook2 },
-      { id: "wife-look-3", name: "Wife's Look 3 · Citrine Stud Set", image: wifeLook3 },
-    ],
+    message: "Good choice. It's in your cart, and it will reach you before Miami.",
+    thinkingLabel: "Adding it to your cart",
   },
 ];
 

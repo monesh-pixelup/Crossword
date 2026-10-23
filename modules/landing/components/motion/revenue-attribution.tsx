@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import converse from "../../assets/motion/dragon-ball-z-converse.webp";
-import { phaseTimers, replyDuration, typeText, usePrefersReducedMotion } from "./motion";
+import { phaseTimers, replyDuration, typeText, useFollowLatest, usePrefersReducedMotion } from "./motion";
 import {
   AiStatus,
   AssistantTurn,
@@ -18,24 +18,20 @@ import {
 } from "./primitives";
 
 /*
- * 07 · Insights: revenue attribution. An offer in a shopper's chat, then the
- * merchant's view: the journey it started and the revenue it influenced.
+ * 07 · Insights: revenue attribution. The merchant asks the agent what one conversation was worth; the agent pulls
+ * up that shopper conversation as evidence (quoted, so it never reads as a live customer chat), then traces the
+ * journey it started and the revenue it influenced.
  */
 
-type Phase =
-  | "offerReplying"
-  | "actionsReveal"
-  | "pauseBeforeQuestion"
-  | "composing"
-  | "thinking"
-  | "thinkingExit"
-  | "replying"
-  | "footnoteLoading"
-  | "done";
+type Phase = "composing" | "thinking" | "thinkingExit" | "introReplying" | "evidence" | "outcomeReplying" | "footnoteLoading" | "done";
 
 const brand = "CROSSWORD";
 
 const product = { brand: "CONVERSE", title: "Dragon Ball Z Converse", price: "$74.99", image: converse };
+
+const question = "What was yesterday’s Dragon Ball Z Converse chat worth?";
+
+const intro = "Here’s the conversation. A shopper on the product page was offered this:";
 
 const offer = {
   assistantMessage: "20% off orders above $100. You're eligible. Want to use it?",
@@ -43,17 +39,15 @@ const offer = {
   secondaryAction: "Not now",
 };
 
-const question = "When does the next drop go live?";
-
 const outcome = {
-  journeyNote: "From there, they clicked the offer, checked out, and spent $186.",
+  journeyNote: "They tapped Use it, checked out, and spent $186.",
   statement: "This conversation influenced $186 in revenue.",
   footnote: { label: "Crossword-assisted \nrevenue this week", value: "$24,680" },
 };
 
 function useScript(play: boolean) {
   const reduced = usePrefersReducedMotion();
-  const [phase, setPhase] = useState<Phase>("offerReplying");
+  const [phase, setPhase] = useState<Phase>("composing");
   const [composerValue, setComposerValue] = useState("");
   const [statusLabel, setStatusLabel] = useState("Thinking");
 
@@ -76,14 +70,13 @@ function useScript(play: boolean) {
         timers.clear();
       };
     }
-    if (phase === "offerReplying") timers.after(replyDuration(offer.assistantMessage), () => setPhase("actionsReveal"));
-    else if (phase === "actionsReveal") timers.after(150, () => setPhase("pauseBeforeQuestion"));
-    else if (phase === "pauseBeforeQuestion") timers.after(700, () => setPhase("composing"));
-    else if (phase === "thinking") {
-      timers.after(300, () => setStatusLabel("Tracing the order"));
+    if (phase === "thinking") {
+      timers.after(300, () => setStatusLabel("Finding the conversation"));
       timers.after(800, () => setPhase("thinkingExit"));
-    } else if (phase === "thinkingExit") timers.after(150, () => setPhase("replying"));
-    else if (phase === "replying")
+    } else if (phase === "thinkingExit") timers.after(150, () => setPhase("introReplying"));
+    else if (phase === "introReplying") timers.after(replyDuration(intro), () => setPhase("evidence"));
+    else if (phase === "evidence") timers.after(900, () => setPhase("outcomeReplying"));
+    else if (phase === "outcomeReplying")
       timers.after(replyDuration(outcome.journeyNote, outcome.statement), () => setPhase("footnoteLoading"));
     else if (phase === "footnoteLoading") timers.after(550, () => setPhase("done"));
     return timers.clear;
@@ -92,17 +85,22 @@ function useScript(play: boolean) {
   return { phase: reduced ? "done" : phase, composerValue, composerTyping: play && phase === "composing", statusLabel, reduced };
 }
 
+const order: Phase[] = ["composing", "thinking", "thinkingExit", "introReplying", "evidence", "outcomeReplying", "footnoteLoading", "done"];
+const reached = (phase: Phase, step: Phase) => order.indexOf(phase) >= order.indexOf(step);
+
 export function RevenueAttribution({ play }: { play: boolean }) {
   const { phase, composerValue, composerTyping, statusLabel, reduced } = useScript(play);
+  // The answer runs taller than the window once the quoted conversation lands: keep its newest beat in view.
+  const viewportRef = useRef<HTMLDivElement>(null);
+  useFollowLatest(viewportRef, phase, reduced);
 
-  const showActions = reduced || phase !== "offerReplying";
-  const actionsEntering = !reduced && phase === "actionsReveal";
-  const asked =
-    reduced || !["offerReplying", "actionsReveal", "pauseBeforeQuestion", "composing"].includes(phase);
+  const asked = reduced || reached(phase, "thinking");
   const thinking = !reduced && (phase === "thinking" || phase === "thinkingExit");
-  const answered = reduced || (asked && phase !== "thinking" && phase !== "thinkingExit");
+  const introShown = reduced || reached(phase, "introReplying");
+  const evidenceShown = reduced || reached(phase, "evidence");
+  const outcomeShown = reduced || reached(phase, "outcomeReplying");
   const footnoteLoading = !reduced && phase === "footnoteLoading";
-  const showFootnote = reduced || phase === "footnoteLoading" || phase === "done";
+  const showFootnote = reduced || reached(phase, "footnoteLoading");
   const composing = !reduced && phase === "composing";
 
   return (
@@ -112,22 +110,9 @@ export function RevenueAttribution({ play }: { play: boolean }) {
       height={515}
       composerValue={composing && composerValue ? composerValue : undefined}
       composerTyping={composing && composerTyping}
+      viewportRef={viewportRef}
     >
       <Thread>
-        <AssistantTurn className="ill-ctr-offer-turn">
-          <ProductReference {...product} />
-          <div className="ill-ctr-offer">
-            <ChatMessage role="assistant">
-              {reduced ? offer.assistantMessage : <StaggerText text={offer.assistantMessage} />}
-            </ChatMessage>
-            {showActions && (
-              <div className={`ill-ctr-actions${actionsEntering ? " ill-ctr-actions--enter" : ""}`}>
-                <Button appearance="primary" label={offer.primaryAction} />
-                <Button appearance="secondary" label={offer.secondaryAction} />
-              </div>
-            )}
-          </div>
-        </AssistantTurn>
         {asked && (
           <UserTurn className="ill-ctr-question-turn" animateIn={!reduced}>
             <ChatMessage role="user">{question}</ChatMessage>
@@ -136,7 +121,24 @@ export function RevenueAttribution({ play }: { play: boolean }) {
         {asked && (
           <AssistantTurn className="ill-ctr-outcome-turn" animateIn={!reduced}>
             {thinking && <AiStatus label={statusLabel} visible={phase === "thinking"} />}
-            {answered && (
+            {introShown && (
+              <ChatMessage role="assistant">{reduced ? intro : <StaggerText text={intro} />}</ChatMessage>
+            )}
+            {/* The shopper's conversation, quoted as the evidence: dimmed and framed, its buttons inert. */}
+            {evidenceShown && (
+              <figure className={`ill-ctr-evidence${reduced ? "" : " ill-ctr-actions--enter"}`} aria-label="Quoted shopper conversation">
+                <span className="ill-ctr-evidence__label">Shopper conversation · Tue 4:12 PM</span>
+                <ProductReference {...product} />
+                <div className="ill-ctr-offer">
+                  <ChatMessage role="assistant">{offer.assistantMessage}</ChatMessage>
+                  <div className="ill-ctr-actions">
+                    <Button appearance="primary" label={offer.primaryAction} />
+                    <Button appearance="secondary" label={offer.secondaryAction} />
+                  </div>
+                </div>
+              </figure>
+            )}
+            {outcomeShown && (
               <ChatMessage role="assistant">
                 {reduced ? (
                   <>

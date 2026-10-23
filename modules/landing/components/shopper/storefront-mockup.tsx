@@ -42,7 +42,7 @@ function ProductPanel() {
             <div className="flex h-[26.884px] w-[27.96px] flex-col items-center rounded-[12.904px] bg-[#fff9e9] py-[7.528px]">
               <Image src={heart} alt="" className="size-[12.904px]" />
             </div>
-            <div className="flex h-[27.96px] w-[118.291px] items-center justify-center overflow-clip rounded-full bg-[#4a2a5e]">
+            <div className="sb-cta flex h-[27.96px] w-[118.291px] items-center justify-center overflow-clip rounded-full bg-[#4a2a5e]">
               <p className="h-[17px] font-sans text-[12.904px] leading-[normal] font-medium tracking-[-0.1109px] whitespace-nowrap text-[#fbf3ea]">
                 Add to cart
               </p>

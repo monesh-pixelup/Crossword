@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { cn } from "@/lib/cn";
 import divider from "../../assets/platform/divider.svg";
 import { platformCards } from "../../config/platform";
 import { SectionTitle } from "../shared/section-title";
@@ -52,12 +51,8 @@ export function PlatformOverview() {
                 <article
                   key={card.title}
                   data-carousel-card
-                  // Its copy runs long: on phones it widens to match the other cards' height.
-                  data-carousel-fit={last || undefined}
-                  className={cn(
-                    "relative flex w-[85%] shrink-0 snap-start flex-col items-start gap-6 px-5 md:px-8 lg:px-14",
-                    last ? "md:w-[min(768px,100%)] lg:w-[1112px]" : "md:w-[512px] lg:w-[649px]",
-                  )}
+                  // All three cards share one width now that the third card's copy is trimmed to match the others.
+                  className="relative flex w-[85%] shrink-0 snap-start flex-col items-start gap-6 px-5 md:w-[512px] md:px-8 lg:w-[649px] lg:px-14"
                 >
                   <h3 className="font-serif text-(length:--h6-size) leading-[1.1] tracking-[-0.04em] text-ink">{card.title}</h3>
                   <div

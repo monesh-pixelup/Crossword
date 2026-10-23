@@ -14,7 +14,8 @@ const studs = [
 ];
 
 /** "Simply tell us…" → we do the rest. */
-const homeSteps = ["We connect the systems.", "We configure the experience.", "We test it.", "We launch it.", "We improve it."];
+/** The homepage doc's six steps. */
+const homeSteps = ["We connect the systems.", "Configure the experience.", "Test it.", "Launch it.", "Watch it.", "Improve it."];
 
 /** Server markup is Figma's still frame: the middle step active, its neighbours muted, the ends fading out. */
 function stillState(i: number, n: number) {

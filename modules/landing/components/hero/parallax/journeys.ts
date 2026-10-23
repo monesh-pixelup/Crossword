@@ -1,10 +1,18 @@
 import type { StaticImageData } from "next/image";
+import aeroPaceTrail from "../../../../retain/assets/motion/scenarios/outbound/aero-pace-trail.jpg";
+import driftDaily from "../../../../retain/assets/motion/scenarios/outbound/drift-daily.jpg";
+import tempoGlide from "../../../../retain/assets/motion/scenarios/outbound/tempo-glide.jpg";
 import chatgptIcon from "../../../assets/hero/parallax/icon-chatgpt.svg";
+import claudeIcon from "../../../assets/hero/parallax/icon-claude.svg";
+import geminiIcon from "../../../assets/hero/parallax/icon-gemini.svg";
+import grokIcon from "../../../assets/hero/parallax/icon-grok.svg";
 import instagramIcon from "../../../assets/hero/parallax/icon-instagram.svg";
+import instinctIcon from "../../../assets/hero/parallax/icon-instinct.svg";
 import museIcon from "../../../assets/hero/parallax/icon-muse.svg";
 import websiteIcon from "../../../assets/hero/parallax/icon-website.svg";
-import leatherSneakers from "../../../assets/hero/parallax/leather-sneakers.webp";
-import sneakers from "../../../assets/hero/parallax/sneakers.webp";
+import lTheanineMagnesium from "../../../assets/motion/l-theanine-magnesium.webp";
+import magnesiumGlycinate from "../../../assets/motion/magnesium-glycinate.webp";
+import moisturizer from "../../../assets/motion/moisturizer.webp";
 
 export type Platform = {
   label: string;
@@ -15,8 +23,13 @@ export type Platform = {
   inset?: [number, number];
 };
 
+/** Figma "Platform Pills" (3090:16372) plus the original four: every card on the wheel names a different surface. */
 const platforms = {
   chatgpt: { label: "ChatGPT", icon: chatgptIcon, box: [11.32, 11.22], glyph: [11.32, 11.22] },
+  gemini: { label: "Gemini", icon: geminiIcon, box: [15.7, 15.7], glyph: [15.7, 15.7] },
+  claude: { label: "Claude", icon: claudeIcon, box: [15.7, 15.56], glyph: [15.7, 15.56] },
+  grok: { label: "Grok", icon: grokIcon, box: [15.7, 15.12], glyph: [15.7, 15.12] },
+  instinct: { label: "Instinct", icon: instinctIcon, box: [13.78, 13.66], glyph: [13.78, 13.66] },
   instagram: { label: "Instagram DM", icon: instagramIcon, box: [15.7, 15.56], glyph: [15.7, 15.56] },
   muse: { label: "Muse", icon: museIcon, box: [15.7, 15.56], glyph: [15.7, 10.41], inset: [0, 2.57] },
   website: { label: "Brand Website", icon: websiteIcon, box: [15.7, 15.56], glyph: [15.7, 15.56] },
@@ -24,13 +37,21 @@ const platforms = {
 
 export type Entry = { id: string; platform: Platform; query: string };
 
-/** The entry points the stack cycles through: where a shopper reached the assistant, and what they asked. */
+/**
+ * The entry points the stack cycles through: where a shopper reached the assistant, and what they asked. Eight
+ * entries on eight different platforms, so no pill shows twice in the visible wheel (it shows six at a time).
+ * The five top-section conversations of the homepage doc, interleaved with the same doc's AI-assistant,
+ * personal-agent and search-bar conversations.
+ */
 export const entries: Entry[] = [
-  { id: "chatgpt", platform: platforms.chatgpt, query: "I need running shoes. I’ve never really run before." },
-  { id: "backpack", platform: platforms.website, query: "Is this leather backpack really worth the price?" },
-  { id: "instagram", platform: platforms.instagram, query: "The jacket doesn’t fit. I want my money back." },
-  { id: "muse", platform: platforms.muse, query: "I’ll take the navy one, size M." },
+  { id: "running", platform: platforms.chatgpt, query: "I need running shoes. I’ve never really run before." },
+  { id: "backpack", platform: platforms.gemini, query: "Is this leather backpack really worth the price?" },
+  { id: "refund", platform: platforms.instagram, query: "The jacket isn’t perfect. Can I get a refund?" },
+  { id: "moisturizer", platform: platforms.claude, query: "I’m looking for a moisturizer for dry skin, under $50." },
+  { id: "add-to-cart", platform: platforms.muse, query: "I’ll take the navy one, size M." },
+  { id: "sweater", platform: platforms.instinct, query: "My user wants a warm wool sweater for winter, under $90." },
   { id: "cart", platform: platforms.website, query: "Grey sofa and cushion set left in cart" },
+  { id: "sleep", platform: platforms.grok, query: "Need something for better sleep. Don’t want melatonin." },
 ];
 
 export type Product = { title: string; subtitle: string; price: string; image: StaticImageData };
@@ -38,23 +59,27 @@ export type Product = { title: string; subtitle: string; price: string; image: S
 export type Turn =
   | { kind: "assistant"; text: string }
   | { kind: "user"; text: string }
-  | { kind: "products"; products: Product[] };
+  /** Figma's "Chat shell + Prod" (2825:53): the assistant's line heads the card and the product rows follow. */
+  | { kind: "products"; intro?: string; products: Product[] };
 
 const runners: Product[] = [
-  { title: "Cloudrise Daily Trainer", subtitle: "Max cushion · Neutral · Road", price: "$129", image: sneakers },
-  { title: "Softstep Comfort Runner", subtitle: "Plush foam · Wide fit · Road", price: "$110", image: leatherSneakers },
-  { title: "Easy Miles 2", subtitle: "Cushioned · Lightweight · Road", price: "$95", image: sneakers },
+  { title: "Drift Daily Trainer", subtitle: "Max cushion · Neutral · Road", price: "$120", image: driftDaily },
+  { title: "Tempo Glide 3", subtitle: "Plush foam · Lightweight · Road", price: "$140", image: tempoGlide },
+  { title: "Aero Pace Trail", subtitle: "Cushioned · Grippy · Trail", price: "$155", image: aeroPaceTrail },
 ];
 
-/** Each journey's conversation, keyed to the entry it starts from. */
+/** Each journey's conversation, keyed to the entry it starts from, in the homepage doc's words. */
 export const journeys: { entry: string; turns: Turn[] }[] = [
   {
-    entry: "chatgpt",
+    entry: "running",
     turns: [
       { kind: "assistant", text: "Welcome to the club. Are we starting with a couple of jogs a week, or training for something?" },
       { kind: "user", text: "Just a few jogs. My knees aren’t what they used to be." },
-      { kind: "assistant", text: "Then comfort comes first. Here are three with plenty of cushioning, easy on the knees and easy on the budget." },
-      { kind: "products", products: runners },
+      {
+        kind: "products",
+        intro: "Then comfort comes first. Here are three with plenty of cushioning, easy on the knees and easy on the budget.",
+        products: runners,
+      },
     ],
   },
   {
@@ -64,28 +89,72 @@ export const journeys: { entry: string; turns: Turn[] }[] = [
       { kind: "user", text: "Does it fit a 15-inch laptop?" },
       {
         kind: "assistant",
-        text: "Easily, and there’s a padded sleeve for it. Want me to compare it to the cheaper nylon one you previously viewed, so you can judge what the extra gets you?",
+        text: "Easily, and there’s a padded sleeve for it. Want me to compare it to the cheaper nylon one you previously viewed, so you can judge what the extra cost gets you?",
       },
     ],
   },
   {
-    entry: "instagram",
+    entry: "refund",
     turns: [
-      {
-        kind: "assistant",
-        text: "Sorry about that. You’re well within the return window. Would you like a refund or would you rather swap it for another size?",
-      },
+      { kind: "assistant", text: "You’re well within the return window. I can process a return or show you other sizes and colors." },
       { kind: "user", text: "Refund, please." },
       { kind: "assistant", text: "Done. I’ve sent you a return label. Your refund goes back to the original payment method once the jacket reaches us." },
     ],
   },
-  { entry: "muse", turns: [{ kind: "assistant", text: "Navy, M. Good pick. It’s in your cart." }] },
+  {
+    entry: "moisturizer",
+    turns: [
+      {
+        kind: "products",
+        intro: "Here are three options in your range. The Deep Hydration Cream at $42. Reviewers love that it is super moisturizing without feeling sticky.",
+        products: [{ title: "Deep Hydration Cream", subtitle: "Dry skin · Non-sticky · 50ml", price: "$42", image: moisturizer }],
+      },
+      { kind: "user", text: "I’ll go with the Deep Hydration Cream." },
+      {
+        kind: "assistant",
+        text: "For $13 more, the Deep Hydration Set adds a night mask and a travel-size cleanser. Our Winter Glow Special also launches this week with a free gift on orders over $50.",
+      },
+    ],
+  },
+  { entry: "add-to-cart", turns: [{ kind: "assistant", text: "Navy, M. Good pick. It’s in your cart." }] },
+  {
+    entry: "sweater",
+    turns: [
+      {
+        kind: "assistant",
+        text: "The Alpine Merino Crewneck at $85 fits the budget. There’s also the Alpine Merino Heavyweight at $98. It’s $13 more, but the knit is thicker and holds its shape longer.",
+      },
+      { kind: "user", text: "Any current offers?" },
+      {
+        kind: "assistant",
+        text: "Yes. The Winter Knit Edit launches this week, with a free travel-size wool wash on orders over $95. It’s valid until November 30.",
+      },
+    ],
+  },
   {
     entry: "cart",
     turns: [
-      { kind: "assistant", text: "You left something in your cart, the grey sofa and the cushion set. Anything holding you back?" },
+      {
+        kind: "assistant",
+        text: "You left the grey sofa and the cushion set in your cart. It would go great with your previously purchased dining table. Anything I can clarify?",
+      },
       { kind: "user", text: "Delivery time." },
-      { kind: "assistant", text: "Fair. It can reach you in five days, and assembly is free if you check out today. Want to pick up where we left off?" },
+      { kind: "assistant", text: "It’s in stock, ready to ship, and assembly is free. If you order today, it will be there next Wednesday." },
+    ],
+  },
+  {
+    entry: "sleep",
+    turns: [
+      { kind: "assistant", text: "Sure. Here are a few melatonin-free options. Want me to narrow them down by ingredients, format or price?" },
+      { kind: "user", text: "Ingredients. And nothing too complicated." },
+      {
+        kind: "products",
+        intro: "Then I’d start with these two. Here’s what’s in each and how they differ.",
+        products: [
+          { title: "Magnesium Glycinate", subtitle: "Relaxation & winding down · Capsules", price: "$24", image: magnesiumGlycinate },
+          { title: "L-Theanine + Magnesium", subtitle: "Stress-related sleep support · Gummies", price: "$32", image: lTheanineMagnesium },
+        ],
+      },
     ],
   },
 ];
@@ -105,7 +174,8 @@ const SETTLE_MS = 250;
 const entryIndexOf = (journey: number) => entries.findIndex((e) => e.id === journeys[journey].entry);
 export const journeyOf = (entryId: string) => journeys.findIndex((j) => j.entry === entryId);
 
-const words = (turn: Turn) => (turn.kind === "products" ? 0 : turn.text.split(/\s+/).length);
+const words = (turn: Turn) =>
+  (turn.kind === "products" ? (turn.intro ?? "") : turn.text).split(/\s+/).filter(Boolean).length;
 /** How long a turn reads before the next one: at least 1.6s, 85ms a word over 1.1s. */
 const readMs = (turn: Turn) => Math.max(1600, 1100 + words(turn) * 85);
 /** How long the finished conversation holds before moving on. */

@@ -6,7 +6,7 @@ import railAccent from "../../assets/shared/rail-accent.svg";
 import { DividerBand } from "../shared/divider-band";
 import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
-import { StorefrontMockup } from "./storefront-mockup";
+import { ShopperStoryboard } from "./shopper-storyboard";
 
 // Corner studs, as positioned in Figma.
 const studs = [
@@ -26,7 +26,7 @@ function ShowcasePanel() {
   return (
     <div
       role="img"
-      aria-label="A Harry's product page where Crossword compares the razor with Gillette's to win the sale"
+      aria-label="A shopper searches for Gillette, clicks Harry's sponsored comparison, and lands on a Harry's product page where Crossword compares the razor with Gillette's to win the sale"
       className="relative h-[599px] w-[1280px] shrink-0 overflow-clip bg-[#462160] select-none scale-to-container [--fit-width:1280px]"
     >
       <Image
@@ -38,7 +38,7 @@ function ShowcasePanel() {
       {studs.map((pos) => (
         <Image key={`${pos.left}-${pos.top}`} src={stud} alt="" className="absolute size-[10px]" style={pos} />
       ))}
-      <StorefrontMockup />
+      <ShopperStoryboard />
     </div>
   );
 }

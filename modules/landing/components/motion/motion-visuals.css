@@ -1735,6 +1735,25 @@
   flex-direction: column;
   gap: 6px;
 }
+/* The quoted shopper conversation inside the agent's answer: framed, slightly recessed, clearly evidence. */
+.ill-ctr-evidence {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 12px 12px;
+  border: 0.5px dashed var(--ill-color-accent-soft);
+  border-radius: 10px;
+  background: var(--ill-color-background-subtle);
+  opacity: 0.92;
+  pointer-events: none;
+}
+.ill-ctr-evidence__label {
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ill-color-text-metadata);
+}
 .ill-ctr-offer-turn {
   gap: 12px;
 }

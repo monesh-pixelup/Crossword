@@ -22,7 +22,7 @@ function Guides() {
 
 function Certifications() {
   return (
-    <ul className="grid w-full grid-cols-2 py-[2.7px] xs:grid-cols-3 md:grid-cols-[186.4fr_210.9fr_210.9fr_210.9fr_210.9fr]">
+    <ul className="grid w-full grid-cols-2 py-[2.7px] xs:grid-cols-3 md:grid-cols-[151.3fr_175.8fr_175.8fr_175.8fr_175.8fr_175.8fr]">
       {certifications.map((cert, i) => (
         <li
           key={cert.name}
@@ -102,14 +102,13 @@ export function Trust() {
               <span className="block text-[50px] leading-[50px]">safe with us</span>
             </h2>
             <div className="flex w-full max-w-[537.055px] min-w-0 flex-col items-start gap-4 lg:flex-[0_1_537px]">
+              {/* Figma 3073:22066: one paragraph. */}
               <p className="font-sans text-[14px] leading-[22px] tracking-[-0.56px] text-white/50">
                 With a built-in watchtower every response is checked and Crossword improved continuously, so your agent
                 gets better every day. It&rsquo;s designed to stay within your guardrails, resist prompt injection, know
-                its limitations, and catch gaps before they become problems.
-              </p>
-              <p className="font-sans text-[14px] leading-[22px] tracking-[-0.56px] text-white/50">
-                Crossword is built by the team behind CometChat, a leading provider of user-to-user messaging. For more
-                than a decade, we&rsquo;ve been powering billions of messages for enterprises across 160+ countries
+                its limitations, and catch gaps before they become problems. Crossword is built by the team behind
+                CometChat, a leading provider of user-to-user messaging. For more than a decade, we&rsquo;ve been
+                powering billions of messages for enterprises across 160+ countries.
               </p>
               <Link
                 href="#trust"

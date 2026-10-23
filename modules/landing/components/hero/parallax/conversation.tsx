@@ -84,10 +84,13 @@ function Message({ turn, status }: { turn: Turn; status: Status }) {
     );
   }
   return (
-    <div className="msg msg--products" data-status={status}>
-      {turn.products.map((product, i) => (
-        <ProductRow key={product.title} product={product} index={i} />
-      ))}
+    <div className="msg msg--products" data-status={status} data-intro={!!turn.intro || undefined}>
+      {turn.intro && <p className="msg__text msg__intro">{turn.intro}</p>}
+      <div className="msg__products">
+        {turn.products.map((product, i) => (
+          <ProductRow key={product.title} product={product} index={i} />
+        ))}
+      </div>
     </div>
   );
 }
