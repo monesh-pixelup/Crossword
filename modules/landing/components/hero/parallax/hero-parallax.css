@@ -104,10 +104,6 @@
   pointer-events: none;
 }
 
-.hero-scene__depth[data-moves] {
-  will-change: transform;
-}
-
 .hero-scene__figure {
   position: absolute;
   display: block;

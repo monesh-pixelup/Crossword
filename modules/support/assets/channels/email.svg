@@ -1,6 +1,14 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Channel icon">
-<path id="Vector" d="M26 7H6C4.89543 7 4 7.89543 4 9V23C4 24.1046 4.89543 25 6 25H26C27.1046 25 28 24.1046 28 23V9C28 7.89543 27.1046 7 26 7Z" stroke="#8C1F3D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_2" d="M4.5 8L16 17L27.5 8" stroke="#8C1F3D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="30.9158" height="29.0973" viewBox="0 0 30.9158 29.0973" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Scroll">
+<g id="Email icon">
+<use xlink:href="#stroke0_0_106" fill="#E0BE60"/>
+<mask id="stroke1_0_106" fill="white">
+<use xlink:href="#stroke0_0_106"/>
+</mask>
+<path d="M4.88099 4.93363H26.0348C27.3169 4.93363 27.9579 5.57463 27.9579 6.85663V22.2406C27.9579 23.5226 27.3169 24.1636 26.0348 24.1636H4.88099C3.59894 24.1636 2.95792 23.5226 2.95792 22.2406V6.85663C2.95792 5.57463 3.59894 4.93363 4.88099 4.93363ZM4.88099 6.85663L15.4579 14.5486L26.0348 6.85663H4.88099ZM4.88099 9.74113V21.2791L11.6118 14.5486L4.88099 9.74113ZM26.0348 9.74113L19.3041 14.5486L26.0348 21.2791V9.74113ZM6.80407 22.2406H24.1118L17.381 15.9909L15.4579 17.4331L13.5348 15.9909L6.80407 22.2406Z" stroke-width="0.909289" stroke="#6C2332" mask="url(#stroke1_0_106)"/>
 </g>
+</g>
+<defs>
+<path id="stroke0_0_106" d="M4.88099 4.93363H26.0348C27.3169 4.93363 27.9579 5.57463 27.9579 6.85663V22.2406C27.9579 23.5226 27.3169 24.1636 26.0348 24.1636H4.88099C3.59894 24.1636 2.95792 23.5226 2.95792 22.2406V6.85663C2.95792 5.57463 3.59894 4.93363 4.88099 4.93363ZM4.88099 6.85663L15.4579 14.5486L26.0348 6.85663H4.88099ZM4.88099 9.74113V21.2791L11.6118 14.5486L4.88099 9.74113ZM26.0348 9.74113L19.3041 14.5486L26.0348 21.2791V9.74113ZM6.80407 22.2406H24.1118L17.381 15.9909L15.4579 17.4331L13.5348 15.9909L6.80407 22.2406Z" fill-rule="evenodd" clip-rule="evenodd"/>
+</defs>
 </svg>

@@ -1,18 +1,15 @@
 "use client";
 
 import type { StaticImageData } from "next/image";
-import { type CSSProperties, type ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { type CSSProperties, type ReactNode, useLayoutEffect, useRef, useState } from "react";
 import overlay from "../../../assets/hero/parallax/overlay.webp";
 import { type GlitchSettings, GlitchFigure } from "./glitch-figure";
-import { ParallaxCamera, type ParallaxLook } from "./motion";
 import "./hero-parallax.css";
 
 export type SceneLayer = {
   src: StaticImageData;
   /** x, y, width, height on the layer canvas. */
   box: [number, number, number, number];
-  /** How far the layer moves with the camera, in canvas px at full tilt (negative: against it). */
-  depth: { x: number; y: number };
   /** The concierge: drawn as a HoloMosaic rather than an image. */
   glitch?: boolean;
 };
@@ -34,7 +31,6 @@ type HeroSceneProps = {
   layers: SceneLayer[];
   /** The layer canvas (layers are boxed on it; it spans the frame's width). */
   layerSize: [number, number];
-  parallax?: Partial<ParallaxLook>;
   glitch?: Partial<GlitchSettings>;
   /** Below this root width (down to the compact layout), the scene keeps this width's layout and is scaled down to fit (exposed as --scene-scale). */
   scaleBelow?: number;
@@ -47,8 +43,8 @@ type HeroSceneProps = {
 };
 
 /**
- * The hero photo as parallax layers: the 1440 × 863 frame (or, compact, the phone stack: the cards,
- * the concierge centred in the photo, the conversation, then the copy), the layers boxed on their canvas and shifted by the camera, the
+ * The hero photo as layers: the 1440 × 863 frame (or, compact, the phone stack: the cards,
+ * the concierge centred in the photo, the conversation, then the copy), the layers boxed on their canvas, the
  * concierge as a glitching mosaic, the multiply vignette over all of it, and the UI on top, zoomed
  * with the frame.
  */
@@ -57,7 +53,6 @@ export function HeroScene({
   fitHeight = false,
   layers,
   layerSize,
-  parallax,
   glitch,
   scaleBelow,
   aboveFrame,
@@ -66,8 +61,6 @@ export function HeroScene({
 }: HeroSceneProps) {
   const root = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLDivElement>(null);
-  const stack = useRef<HTMLDivElement>(null);
-  const [camera, setCamera] = useState<ParallaxCamera | null>(null);
   // Unknown until measured on the client: the frame then fills the width (up to the viewport's height) and the UI waits.
   const [width, setWidth] = useState<number | null>(null);
   // The scene root spans the page (the frame can be narrower, centred in it): exposed as --scene-page-w so content can line up with the page.
@@ -98,29 +91,6 @@ export function HeroScene({
 
   const compact = width !== null && width < COMPACT_BELOW;
   const state = { width, compact };
-
-  useEffect(() => {
-    const el = stack.current;
-    if (!el) return;
-    const depths = [...el.querySelectorAll<HTMLElement>(".hero-scene__depth")];
-    const cam = new ParallaxCamera(
-      frame.current!,
-      el,
-      layerSize[0],
-      layers.map((layer, i) => ({ el: depths[i], depth: layer.depth })),
-    );
-    setCamera(cam);
-    return () => cam.dispose();
-  }, [layers, layerSize]);
-
-  const { intensity, follow, release } = parallax ?? {};
-  useEffect(() => {
-    camera?.setLook({
-      ...(intensity !== undefined && { intensity }),
-      ...(follow !== undefined && { follow }),
-      ...(release !== undefined && { release }),
-    });
-  }, [camera, intensity, follow, release]);
 
   const scaled = scale < 1;
   const pageVar = {
@@ -155,7 +125,6 @@ export function HeroScene({
       <div ref={frame} className="hero-scene__frame" style={frameStyle}>
         <div className="hero-scene__photo">
           <div
-            ref={stack}
             className="hero-scene__stack"
             style={{ aspectRatio: `${layerSize[0]} / ${layerSize[1]}` }}
             role="img"
@@ -169,23 +138,21 @@ export function HeroScene({
                 width: pct(w, layerSize[0]),
                 height: pct(h, layerSize[1]),
               };
-              const moves = layer.depth.x !== 0 || layer.depth.y !== 0;
               return layer.glitch ? (
                 <GlitchFigure
                   key={layer.src.src}
                   src={layer.src.src}
                   alt="Crossword concierge"
-                  className="hero-scene__crop hero-scene__depth"
+                  className="hero-scene__crop"
                   style={style}
                   frame={frame}
                   settings={glitch}
                 />
               ) : (
-                // eslint-disable-next-line @next/next/no-img-element -- parallax layers, positioned and moved by hand
+                // eslint-disable-next-line @next/next/no-img-element -- scene layers, positioned by hand
                 <img
                   key={layer.src.src}
-                  className="hero-scene__crop hero-scene__depth"
-                  data-moves={moves || undefined}
+                  className="hero-scene__crop"
                   src={layer.src.src}
                   alt=""
                   style={style}

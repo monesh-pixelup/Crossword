@@ -122,6 +122,22 @@ const variants = {
     line: "leading-[1.18] tracking-[-3px]",
     second: "",
   },
+  /** Centred, 60px lines at 1.18 after an 82px swash at +4.1px, line 1 set 83.2px tall as Figma does (Support: Channels). */
+  channels: {
+    firstLineHeight: 83.2,
+    tracking: "tracking-[4.1px] text-center",
+    swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[1.18] tracking-[-3px]",
+    second: "",
+  },
+  /** 60px lines at 1.18 after an untracked 82px swash, line 1 set 83.2px tall as Figma does (Support: Workflows). */
+  workflows: {
+    firstLineHeight: 83.2,
+    tracking: "",
+    swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[1.18] tracking-[-3px]",
+    second: "",
+  },
   /** One centred 50px line after an 82px swash, both at 1.1 leading (Support: Human-in-the-loop). */
   handoff: {
     firstLineHeight: 90.2,

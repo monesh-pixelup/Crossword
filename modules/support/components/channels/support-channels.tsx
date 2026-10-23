@@ -8,37 +8,39 @@ import { channels } from "../../config/channels";
 const studs = ["top-[5px] left-[5px]", "top-[5px] right-[5px]", "bottom-[5px] left-[5px]", "right-[5px] bottom-[5px]"];
 
 /**
- * Figma "Library · Integrations": a 400px header (eyebrow, headline and a line of copy) 80px left
- * of the tiles, 188 × 128 and 16px apart, four to a row and right-aligned, alternating sand and
- * cream on a 1px engraved border with a gold stud in each corner: a 32px maroon mark over the
- * channel in Crimson 22, 8px apart. The headline is set as the page's others (1.1, 24px under the
- * eyebrow). The patterned divider band closes it, under its bottom padding, before the next
- * section.
+ * Figma "Library · Integrations": a centred 400px header (eyebrow, headline and a line of copy, 24px
+ * apart), then 80px below it the tiles in one centred row, 153 × 128 and 16px apart: sand on a 1px
+ * engraved/10 border around a 148 × 120 light panel (2.5px in from the sides, 3.95px from top and
+ * bottom), a gold stud in each corner, and the channel's 30.9 × 29.1 mark over its name in Crimson
+ * 22, 8px apart. Narrower than the row, the tiles wrap into a 2-, 3- or 4-column grid. The patterned
+ * divider band closes it, under its bottom padding, before the next section.
  */
 export function SupportChannels() {
   return (
     <>
       <section aria-labelledby="channels-title" className="relative section-pad">
-        <div className="flex content-width flex-col items-start gap-12 min-[1033px]:flex-row min-[1033px]:gap-20">
-          <div className="flex flex-col items-start gap-6 min-[1033px]:w-[400px] min-[1033px]:shrink-0">
+        <div className="flex content-width flex-col items-center gap-12 min-[1033px]:gap-20">
+          <div className="flex w-[400px] max-w-full flex-col items-center gap-6 text-center">
             <Eyebrow>Channels</Eyebrow>
-            <SectionTitle id="channels-title" initial="S" firstLine="upport" secondLine="channels" width={230} />
+            <SectionTitle id="channels-title" initial="S" firstLine="upport" secondLine="channels" width={220} variant="channels" />
             <p className="font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
               Wherever your customers reach out, someone answers.
             </p>
           </div>
 
-          <ul className="grid w-full min-w-0 grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 min-[1033px]:flex min-[1033px]:flex-1 min-[1033px]:flex-wrap min-[1033px]:content-start min-[1033px]:justify-end">
+          <ul className="grid w-full min-w-0 grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 min-[1033px]:flex min-[1033px]:flex-wrap min-[1033px]:items-end min-[1033px]:justify-center">
             {channels.map(({ name, icon }) => (
               <li
                 key={name}
-                className="relative flex h-32 flex-col items-center justify-center gap-2 border border-engraved px-2 text-center odd:bg-sand even:bg-cream min-[1033px]:w-[188px]"
+                className="relative flex h-32 border border-engraved/10 bg-sand px-[1.5px] py-[2.951px] text-center min-[1033px]:w-[153px]"
               >
+                <div className="flex w-full flex-col items-center justify-center gap-2 bg-[#fff7e4]">
+                  <Image src={icon} alt="" className="h-[29.097px] w-[30.916px]" />
+                  <span className="font-serif text-[22px] leading-[1.15] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
+                </div>
                 {studs.map((place) => (
                   <span key={place} aria-hidden className={`pointer-events-none absolute size-[3px] rounded-full bg-gold ${place}`} />
                 ))}
-                <Image src={icon} alt="" className="size-8" />
-                <span className="font-serif text-[22px] leading-[1.15] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
               </li>
             ))}
           </ul>

@@ -17,20 +17,19 @@ import { initialJourneyState, journeyOf, journeys, nextStep, selectJourney } fro
 /** The layer canvas: the frame's width, a little taller, so the photo overruns the frame's foot. */
 const LAYER_SIZE: [number, number] = [1671, 941];
 
-/** Back to front, each boxed on the canvas with its parallax depth; the concierge glitches. */
+/** Back to front, each boxed on the canvas; the concierge glitches. */
 const LAYERS: SceneLayer[] = [
-  { src: bg, box: [-96, -96, 1863, 1133], depth: { x: 6, y: 3 } },
-  { src: plant, box: [69, 214, 329, 444], depth: { x: -2, y: 0 } },
-  { src: deskFascia, box: [32, 633, 1605, 404], depth: { x: -1, y: 0 } },
-  { src: notebook, box: [542, 615, 443, 44], depth: { x: 0, y: 0 } },
-  { src: concierge, box: [590, 219, 479, 430], depth: { x: 0, y: 0 }, glitch: true },
-  { src: foregroundLeft, box: [-96, 68, 344, 969], depth: { x: -30, y: -12 } },
-  { src: foregroundRight, box: [1348, 16, 419, 1021], depth: { x: -30, y: -12 } },
-  { src: bell, box: [425, 570, 109, 93], depth: { x: 0, y: 0 } },
+  { src: bg, box: [-96, -96, 1863, 1133] },
+  { src: plant, box: [69, 214, 329, 444] },
+  { src: deskFascia, box: [32, 633, 1605, 404] },
+  { src: notebook, box: [542, 615, 443, 44] },
+  { src: concierge, box: [590, 219, 479, 430], glitch: true },
+  { src: foregroundLeft, box: [-96, 68, 344, 969] },
+  { src: foregroundRight, box: [1348, 16, 419, 1021] },
+  { src: bell, box: [425, 570, 109, 93] },
 ];
 
-/** The v3 export's tuning: a stronger orbit that settles back faster, and a slower, softer, wider glitch, calm over the face. */
-const PARALLAX = { intensity: 2.25, follow: 0.5, release: 0.6 };
+/** The v3 export's tuning: a slower, softer, wider glitch, calm over the face. */
 const GLITCH = {
   auto: true,
   interval: 3.7,
@@ -100,8 +99,8 @@ function copyPlacement({ width, compact }: SceneState): "foot" | "above" | "stac
 }
 
 /**
- * The home hero's scene, from the hero parallax export: the concierge at the desk in cursor-driven
- * parallax (the concierge glitching as a HoloMosaic), the entry points cycling on the left and each
+ * The home hero's scene, from the hero parallax export: the concierge at the desk (glitching as a
+ * HoloMosaic), the entry points cycling on the left and each
  * one's conversation playing on the right. `copy` (the headline and buttons) sits over the photo,
  * centred at its foot (see copyPlacement for narrower frames).
  */
@@ -117,7 +116,6 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
       <HeroScene
         layers={LAYERS}
         layerSize={LAYER_SIZE}
-        parallax={PARALLAX}
         glitch={GLITCH}
         scaleBelow={1440}
         aboveFrame={(scene) =>
