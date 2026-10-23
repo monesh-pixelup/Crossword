@@ -7,7 +7,7 @@ import damaskMaroon from "../../assets/gap/damask-maroon.webp";
 
 /**
  * Figma "Library · Wide panel": the eyebrow and a three-line headline on the left, two paragraphs
- * of Geist Light top-aligned with them on the right, then 80px below a 1280 × 599 maroon panel, its damask
+ * of Geist Light on the right, top-aligned with the headline (below the eyebrow's 32px and its 24px gap), then 80px below a 1280 × 599 maroon panel, its damask
  * inside the frame only and framed like the site's other cards (a gold line 14px in with concave notched corners and a ring
  * in each). A 232px gold tick sits on the left rail beside the eyebrow.
  */
@@ -17,7 +17,11 @@ export function RoasGap() {
       <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">
-        <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-start lg:justify-between">
+        {/*
+          Side by side only from 1300px, where the row holds the 614.7px headline and the 477px copy with room between;
+          narrower, the copy would be squeezed into a tall, narrow column, so it stacks under the headline instead.
+        */}
+        <div className="flex w-full flex-col items-start gap-8 min-[1300px]:flex-row min-[1300px]:items-start min-[1300px]:justify-between min-[1300px]:gap-12">
           <div className="flex flex-col items-start gap-6">
             <Eyebrow>The ROAS gap</Eyebrow>
             <SectionTitle
@@ -36,7 +40,8 @@ export function RoasGap() {
             />
           </div>
 
-          <div className="flex max-w-[477.244px] flex-col gap-6 font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
+          {/* Side by side, it starts level with the headline rather than the eyebrow: the eyebrow's 32px plus its 24px gap down. */}
+          <div className="flex max-w-[477.244px] flex-col gap-6 font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60 min-[1300px]:mt-14">
             <p>
               A specific product, a specific offer, a specific audience, all carefully built into the ad. Then the click
               lands on the same generic page everyone sees. The result? You spend to win the click, but lose the

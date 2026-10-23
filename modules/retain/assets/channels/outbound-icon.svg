@@ -1,0 +1,37 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="35.2" height="35.2" viewBox="0 0 35.2 35.2" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 2147245091" filter="url(#filter0_d_0_128)">
+<g clip-path="url(#clip0_0_128)">
+<path d="M1.6 1.6H33.6V33.6H1.6V1.6Z" fill="#7D0034"/>
+<g id="Outbound messaging" clip-path="url(#clip1_0_128)">
+<mask id="stroke0_0_128" fill="white">
+<path d="M7.09574 14.2264L28.0957 7.22642L21.0957 28.2264L16.0957 19.2264L7.09574 14.2264ZM16.0957 19.2264L28.0957 7.22642ZM16.0957 19.2264V25.2264L19.0957 23.2264"/>
+</mask>
+<path id="Outbound messaging icon" d="M16.0957 19.2264L21.0957 28.2264L28.0957 7.22642L7.09574 14.2264L16.0957 19.2264ZM28.0957 7.22642L16.0957 19.2264M16.0957 19.2264V25.2264L19.0957 23.2264" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke="#FFB657" mask="url(#stroke0_0_128)"/>
+</g>
+<path id="Rectangle 149480744" d="M17.6 -6.72636L41.9245 17.5981L17.6 41.9226L-6.72447 17.5981L17.6 -6.72636Z" stroke-width="0.8" stroke="#FFB657"/>
+<circle id="Ellipse 43801" cx="3.19545" cy="3.20114" r="0.8" fill="#FFB657"/>
+<circle id="Ellipse 43802" cx="32.0023" cy="3.20114" r="0.8" fill="#FFB657"/>
+<circle id="Ellipse 43803" cx="32.0023" cy="31.9994" r="0.8" fill="#FFB657"/>
+<circle id="Ellipse 43804" cx="3.19545" cy="31.9994" r="0.8" fill="#FFB657"/>
+</g>
+<path d="M34.0004 1.19961V34.0004H1.19961V1.19961H34.0004Z" stroke="#EFE9DB" stroke-width="0.8"/>
+</g>
+<defs>
+<filter id="filter0_d_0_128" x="0" y="0" width="35.2" height="35.2" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="0.8" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_0_128"/>
+<feOffset/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.713726 0 0 0 0 0.341176 0 0 0 1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_128"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_128" result="shape"/>
+</filter>
+<clipPath id="clip0_0_128">
+<path d="M1.6 1.6H33.6V33.6H1.6V1.6Z" fill="white"/>
+</clipPath>
+<clipPath id="clip1_0_128">
+<rect width="21.7188" height="21.7188" fill="white" transform="translate(6.73636 6.86705)"/>
+</clipPath>
+</defs>
+</svg>

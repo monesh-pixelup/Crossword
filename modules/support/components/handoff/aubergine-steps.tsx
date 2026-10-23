@@ -11,7 +11,7 @@ const dashedV = "w-px bg-[repeating-linear-gradient(180deg,#634479_0_2px,transpa
 /** Measurements that differ between the two Figma instances of the steps row. */
 const variants = {
   /**
-   * Retain: Loyalty (node 2634:24479), 36px numerals set straight on the cell. Its rules run a fixed
+   * Retain: Loyalty (node 2634:24479), 24px numerals set straight on the cell. Its rules run a fixed
    * 416.09px from the numerals as in Figma, the copy (three lines in the first step) ending 33.5px above.
    */
   loyalty: {
@@ -80,7 +80,7 @@ export function AubergineSteps({
                 </p>
               </div>
             ) : (
-              <p className="pl-[17px] font-script text-[36px] leading-[1.1] tracking-[-1.8px] text-[#b4a5bd] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]">
+              <p className="pl-[17px] font-script text-[24px] leading-[1.1] tracking-[-1.2px] text-[#b4a5bd] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]">
                 0{i + 1}
               </p>
             )}

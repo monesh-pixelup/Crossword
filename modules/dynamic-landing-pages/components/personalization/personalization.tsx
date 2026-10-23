@@ -5,9 +5,9 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import panelAubergine from "@/modules/sell/assets/human-mode/panel-aubergine.webp";
 
 /**
- * Figma "ALT · User-level personalization (wide panel)", as Human mode on Sell: the eyebrow and a
- * one-line headline on the left (set as the page's others), and on the right, top-aligned, 477px of
- * Geist Light copy in four blocks a line apart; then 80px below a 1280 × 599 aubergine panel (the
+ * Figma "ALT · User-level personalization (wide panel)": the eyebrow, a one-line headline (82px swash,
+ * 60px line, both 1.18) and, 24px under it, up to 1087.8px of Geist Light copy in three blocks a line
+ * apart (the last closing on its own line), all 24px apart; then 80px below a 1280 × 599 aubergine panel (the
  * damask in its notched gold frame with a ring in each corner, the same Figma frame as Human mode).
  * A 232px gold tick sits on the left rail beside the eyebrow.
  */
@@ -17,13 +17,11 @@ export function Personalization() {
       <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">
-        <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:justify-between">
-          <div className="flex flex-col items-start gap-6">
-            <Eyebrow>User-level personalization</Eyebrow>
-            <SectionTitle id="stranger-title" initial="T" firstLine="he stranger problem" width={520} variant="display" />
-          </div>
+        <div className="flex w-full flex-col items-start gap-6">
+          <Eyebrow>User-level personalization</Eyebrow>
+          <SectionTitle id="stranger-title" initial="T" firstLine="he stranger problem" width={900} variant="airy" />
 
-          <div className="flex max-w-[477.244px] flex-col gap-6 font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
+          <div className="flex max-w-[1087.844px] flex-col gap-6 font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
             <p>
               A customer who&rsquo;s bought from you three times, has told you their size, and has told you their color
               preference sees exactly the same product page as someone who arrived ten seconds ago. That&rsquo;s because
@@ -40,8 +38,9 @@ export function Personalization() {
               The headline speaks to their purpose and the most relevant benefits come first. Reviews focus on the
               questions they care about, while comparisons reflect their priorities. Size, fit, color and budget are
               carried through the experience. And recommendations take into account what customers already own.
+              <br />
+              A shopping experience that feels like it was made for them.
             </p>
-            <p>A shopping experience that feels like it was made for them.</p>
           </div>
         </div>
 

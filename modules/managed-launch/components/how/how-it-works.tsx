@@ -6,11 +6,11 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import { cycle, howSteps } from "../../config/launch";
 
 /**
- * Figma "ALT · How it works (checklist cards)": the eyebrow and a one-line headline, the cycle as a
- * line of Geist 20, then the six to-do cards (410 × 307, 24px apart, three to a row): cream on a
- * 1px engraved border with a gold stud 7px into each corner, 40px in, a numbered Geist Light 24
- * title over its lines, 16px apart. Header, cycle and cards are 56px apart. Opens with the
- * patterned divider band (24px more top padding).
+ * Figma "ALT · How it works (checklist cards)": the eyebrow, 24px over a one-line headline with the
+ * cycle in Geist 20 8px under it, then 56px below the six to-do cards (410 × 307, 24px apart, three
+ * to a row): cream on a 1px engraved/40 border around a 400 × 296 light panel, a gold stud 7px into
+ * each corner, and 40px in the number in Tangerine 55, 32px over a Crimson 22 title with its lines
+ * 8px under it. Opens with the patterned divider band (24px more top padding).
  */
 export function HowItWorks() {
   return (
@@ -22,22 +22,41 @@ export function HowItWorks() {
       <div className="flex content-width flex-col items-start gap-14">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>Managed launch</Eyebrow>
-          <SectionTitle id="how-title" initial="H" firstLine="ow it works" width={420} />
+          <div className="flex flex-col items-start gap-2">
+            <SectionTitle id="how-title" initial="H" firstLine="ow it works" width={707.715} variant="airy" />
+            <p className="font-sans text-[20px] leading-6 tracking-[-0.6px] text-black/59">{cycle}</p>
+          </div>
         </div>
-
-        <p className="font-sans text-[20px] leading-6 tracking-[-0.6px] text-black/59">{cycle}</p>
 
         <ol className="grid w-full gap-6 md:grid-cols-2 lg:grid-cols-3">
           {howSteps.map((step, i) => (
-            <li key={step.title} className="relative flex flex-col gap-4 border border-engraved bg-cream p-10 lg:min-h-[307px]">
+            /*
+              Figma's cards are 307px tall at their 410px width; the longest copy (#2) runs into the bottom padding there,
+              as in Figma. Narrower, they grow to fit.
+            */
+            <li
+              key={step.title}
+              className="relative flex flex-col gap-8 border border-engraved/40 bg-cream p-10 lg:min-h-[307px] min-[1440px]:h-[307px]"
+            >
+              {/* The 400 × 296 light panel, centred (Figma nudges it 0.36px up). */}
+              <span aria-hidden className="pointer-events-none absolute inset-x-1 top-[4.14px] bottom-[4.86px] bg-[#fff7e4]" />
               <Studs inset={7} />
-              <h3 className="font-sans text-[24px] leading-[1.3] font-light tracking-[-0.48px] text-ink">
-                #{i + 1} {step.title}
-              </h3>
-              <div className="font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
-                {step.lines.map((line) => (
-                  <p key={line}>{line}</p>
-                ))}
+              <p
+                aria-hidden
+                className="relative font-calligraphy text-[55px] leading-[1.1] tracking-[-2.75px] text-maroon [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]"
+              >
+                #{i + 1}
+              </p>
+              <div className="relative flex flex-col gap-2">
+                <h3 className="font-serif text-[22px] leading-[1.15] tracking-[-0.88px] text-ink">
+                  <span className="sr-only">Step {i + 1}: </span>
+                  {step.title}
+                </h3>
+                <div className="font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
+                  {step.lines.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                </div>
               </div>
             </li>
           ))}

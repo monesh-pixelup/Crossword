@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import {
   AdaptivePages,
-  DedicatedPages,
+  DedicatedTabs,
   DynamicHero,
   Personalization,
   RoasGap,
-  TwoWays,
 } from "@/modules/dynamic-landing-pages";
 
 export const metadata: Metadata = {
@@ -20,8 +19,7 @@ export default function DynamicLandingPagesPage() {
       <DynamicHero />
       <RoasGap />
       <Personalization />
-      <TwoWays />
-      <DedicatedPages />
+      <DedicatedTabs />
       <AdaptivePages />
     </main>
   );

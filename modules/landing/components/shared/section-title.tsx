@@ -122,6 +122,14 @@ const variants = {
     line: "leading-[1.18] tracking-[-3px]",
     second: "",
   },
+  /** As channels, left-aligned (Sell: Human mode). */
+  humanMode: {
+    firstLineHeight: 83.2,
+    tracking: "tracking-[4.1px]",
+    swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[1.18] tracking-[-3px]",
+    second: "",
+  },
   /** Centred, 60px lines at 1.18 after an 82px swash at +4.1px, line 1 set 83.2px tall as Figma does (Support: Channels). */
   channels: {
     firstLineHeight: 83.2,

@@ -6,7 +6,8 @@ import { ScenePanel } from "../motion/scene-panel";
 
 /**
  * Figma "Library · Wide panel (Human mode)", as Audiences on Retain: the eyebrow and a two-line
- * headline on the left, three paragraphs of Geist Light top-aligned on the right, then 80px below a
+ * headline (1.18) on the left, a 723px column of Geist Light (two paragraphs, no gap) bottom-aligned
+ * on the right, overlapping the headline's 614.7px box by 57.8px as in Figma, then 80px below a
  * 1280 × 599 panel playing the Human mode motion (three chat shells on the aubergine damask art),
  * zoomed to the content width, up as well as down. A 232px gold tick sits on the left rail beside the eyebrow.
  */
@@ -16,8 +17,12 @@ export function HumanMode() {
       <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">
-        <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:justify-between">
-          <div className="flex flex-col items-start gap-6">
+        {/*
+          Side by side only once the row has Figma's 1280px (from 1440px): the 723px copy column fits beside the headline
+          there. Narrower, it would be squeezed into a tall, narrow block, so the copy stacks under the headline instead.
+        */}
+        <div className="flex w-full flex-col items-start gap-8 min-[1440px]:flex-row min-[1440px]:items-end min-[1440px]:justify-between min-[1440px]:gap-0">
+          <div className="flex shrink-0 flex-col items-start gap-6 min-[1440px]:-mr-[57.848px]">
             <Eyebrow>Human mode</Eyebrow>
             <SectionTitle
               id="human-mode-title"
@@ -25,20 +30,18 @@ export function HumanMode() {
               firstLine=" concierge that"
               secondLine="knows when to step in"
               width={614.744}
+              variant="humanMode"
             />
           </div>
 
-          <div className="flex max-w-[477.244px] flex-col gap-6 font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
+          <div className="relative max-w-[723.103px] font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60 min-[1440px]:w-[723.103px]">
             <p>
               Most AI shopping assistants wait for the customer to ask, but Crossword does more. It notices when someone
               is exploring a product, offers a useful answer, goes deeper when they have questions, suggests something
               that completes the purchase, and steps in when they seem stuck. It knows when to help, and when to stay out
-              of the way.
-            </p>
-            <p>
-              For instance: A shopper spends time looking at a serum. Crossword surfaces the key details: &ldquo;Want to
-              know if this works for sensitive skin?&rdquo; If they&rsquo;re comparing two serums, it helps them choose.
-              If they&rsquo;re ready, it adds the right one to their cart.
+              of the way. For instance: A shopper spends time looking at a serum. Crossword surfaces the key details:
+              &ldquo;Want to know if this works for sensitive skin?&rdquo; If they&rsquo;re comparing two serums, it helps
+              them choose. If they&rsquo;re ready, it adds the right one to their cart.
             </p>
             <p>We call this being polite and helpful.</p>
           </div>
