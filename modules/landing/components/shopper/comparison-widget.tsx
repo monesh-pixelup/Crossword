@@ -17,7 +17,8 @@ const rows = [
 ];
 
 const cell = "flex-[1_0_0] min-w-px px-[10.754px] py-[5.377px]";
-const value = "font-sans text-[12.904px] leading-none h-[13px] whitespace-nowrap";
+// Long labels and values (e.g. "Money-Back Guarantee") wrap inside their own cell instead of running into the next.
+const value = "font-sans text-[12.904px] leading-[1.15]";
 
 /** Crossword's in-page "why us vs. them" comparison, embedded on a product page. */
 export function ComparisonWidget() {
@@ -53,13 +54,13 @@ export function ComparisonWidget() {
             key={i}
             // Figma's first row stretches its value cells; the rest centre them.
             className={cn(
-              "sb-row flex h-[32.814px] w-full py-[2.53px] shadow-[inset_0_1.115px_0_rgba(217,165,94,0.1)]",
+              "sb-row flex min-h-[32.814px] w-full py-[2.53px] shadow-[inset_0_1.115px_0_rgba(217,165,94,0.1)]",
               i === 0 ? "items-stretch" : "items-center",
             )}
             style={{ ["--i" as string]: i }}
           >
             <div className={cell}>
-              <p className="h-[17px] text-[10.754px] leading-[16.72px] tracking-[-0.1427px] whitespace-nowrap text-[#6e6470]">
+              <p className="text-[10.754px] leading-[1.2] tracking-[-0.1427px] text-[#6e6470]">
                 {label}
               </p>
             </div>
