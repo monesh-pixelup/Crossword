@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import arrowRight from "../../assets/trust/arrow-right.svg";
-import arrowUpRight from "../../assets/trust/arrow-up-right.svg";
 import grainTile from "../../assets/trust/grain-tile.webp";
 import { certifications } from "../../config/trust";
 
@@ -40,21 +39,9 @@ function Certifications() {
             className="h-[70px] shrink-0"
             style={{ width: cert.badgeWidth }}
           />
-          <div className="flex flex-col items-start gap-2">
-            <h3 className="font-sans text-base leading-6 font-semibold tracking-[-0.64px] whitespace-nowrap text-white/80">
-              {cert.name}
-            </h3>
-            <Link
-              href={cert.href}
-              aria-label={`${cert.name} details`}
-              className="flex items-start gap-1 transition-opacity hover:opacity-80"
-            >
-              <span className="font-sans text-[12px] leading-[1.2] tracking-[-0.24px] whitespace-nowrap text-white opacity-50">
-                Details
-              </span>
-              <Image src={arrowUpRight} alt="" className="size-3.5" />
-            </Link>
-          </div>
+          <h3 className="font-sans text-base leading-6 font-semibold tracking-[-0.64px] whitespace-nowrap text-white/80">
+            {cert.name}
+          </h3>
         </li>
       ))}
     </ul>
