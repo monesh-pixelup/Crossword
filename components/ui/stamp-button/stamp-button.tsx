@@ -59,29 +59,15 @@ const studSlots = [
   { small: true, className: "right-[2.08px] bottom-[1.96px]" },
 ];
 
-/**
- * The "stamp" CTA from the Crossword design system: a bordered label with
- * four decorative studs pinned into the corners.
- */
-export function StampButton({
-  variant = "primary",
-  className,
-  children,
-  ...props
-}: StampButtonProps) {
-  const { frame, studs, hoverStuds } = variants[variant];
-  const fade = "transition-opacity duration-200 motion-reduce:transition-none";
+const base =
+  "group relative inline-flex shrink-0 items-center border px-3 py-2 font-serif text-base leading-[22px] font-medium tracking-[-0.48px] whitespace-nowrap transition-[opacity,background-color,border-color,color] duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon";
 
+/** The four corner studs, swapped for the hover set on the filled variants. */
+function StampStuds({ variant }: { variant: keyof typeof variants }) {
+  const { studs, hoverStuds } = variants[variant];
+  const fade = "transition-opacity duration-200 motion-reduce:transition-none";
   return (
-    <Link
-      className={cn(
-        "group relative inline-flex shrink-0 items-center border px-3 py-2 font-serif text-base leading-[22px] font-medium tracking-[-0.48px] whitespace-nowrap transition-[opacity,background-color,border-color,color] duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon",
-        frame,
-        className,
-      )}
-      {...props}
-    >
-      {children}
+    <>
       {studSlots.map(({ small, className: slot }) => (
         <Image
           key={slot}
@@ -99,6 +85,38 @@ export function StampButton({
             className={cn("absolute opacity-0 group-hover:opacity-100", slot, fade)}
           />
         ))}
+    </>
+  );
+}
+
+/**
+ * The "stamp" CTA from the Crossword design system: a bordered label with
+ * four decorative studs pinned into the corners.
+ */
+export function StampButton({
+  variant = "primary",
+  className,
+  children,
+  ...props
+}: StampButtonProps) {
+  return (
+    <Link className={cn(base, variants[variant].frame, className)} {...props}>
+      {children}
+      <StampStuds variant={variant} />
     </Link>
+  );
+}
+
+type StampActionProps = ComponentProps<"button"> & {
+  variant?: keyof typeof variants;
+};
+
+/** The stamp as a `<button>`, for actions on the page rather than links. */
+export function StampAction({ variant = "primary", type = "button", className, children, ...props }: StampActionProps) {
+  return (
+    <button type={type} className={cn(base, "cursor-pointer", variants[variant].frame, className)} {...props}>
+      {children}
+      <StampStuds variant={variant} />
+    </button>
   );
 }

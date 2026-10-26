@@ -7,6 +7,8 @@ const tones = {
   ink: "border-[rgba(40,40,40,0.3)] text-ink-soft focus-visible:outline-maroon",
   /** Cream text over a cream/40 hairline (livery grounds), as the guidelines' light text link. */
   cream: "border-cream/40 text-cream focus-visible:outline-gold",
+  /** Cream text over a solid cream hairline (the pricing CTA panel). */
+  "cream-solid": "border-cream text-cream focus-visible:outline-gold",
 } as const;
 
 type TextLinkProps = ComponentProps<typeof Link> & {

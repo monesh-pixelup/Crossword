@@ -1,1 +1,1 @@
-export { StampButton } from "./stamp-button";
+export { StampAction, StampButton } from "./stamp-button";

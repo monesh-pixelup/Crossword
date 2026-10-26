@@ -32,9 +32,8 @@ function HeroCopy() {
         <StampButton href={ctaLinks.bookDemo} variant="wine">
           BOOK A DEMO
         </StampButton>
-        {/* Only the name reads at full white; the rest of the line sits at 70%. */}
-        <p className="font-sans text-base leading-6 tracking-[-0.64px] text-white/70">
-          <span className="text-white">Crossword</span> helps customers buy, get support, and keep coming back. On your
+        <p className="font-sans text-base leading-6 tracking-[-0.64px] text-white">
+          Crossword helps customers buy, get support, and keep coming back. On your
           website, in ChatGPT &amp; Claude and through their personal AI agents like Muse &amp; Instinct.
         </p>
       </div>

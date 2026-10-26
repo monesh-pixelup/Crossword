@@ -122,6 +122,14 @@ const variants = {
     line: "leading-[1.18] tracking-[-3px]",
     second: "",
   },
+  /** As channels, but 60px lines at 1.1 under line 1's 81px (Pricing: What does a credit cover?). */
+  credits: {
+    firstLineHeight: 81,
+    tracking: "tracking-[4.1px] text-center",
+    swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[1.1] tracking-[-3px]",
+    second: "",
+  },
   /** As channels, left-aligned (Sell: Human mode). */
   humanMode: {
     firstLineHeight: 83.2,
@@ -166,6 +174,8 @@ const variants = {
   },
 } as const;
 
+const tones = { ink: "text-ink", light: "text-white/85", cream: "text-cream" } as const;
+
 type SectionTitleProps = {
   id: string;
   /** Swash capital (Parisienne, or Tangerine for the calligraphic variant). */
@@ -179,8 +189,8 @@ type SectionTitleProps = {
   variant?: keyof typeof variants;
   /** Horizontal space to leave free when scaling down (default: the page side padding). */
   gutter?: number;
-  /** Text colour: ink on light sections, 85% white on dark ones. */
-  tone?: "ink" | "light";
+  /** Text colour: ink on light sections, 85% white on dark ones, or cream (the pricing CTA panel). */
+  tone?: keyof typeof tones;
   /** Extra space above the second line, in px at the 60px desktop size (scales with the title). */
   lineGap?: number;
 };
@@ -211,7 +221,7 @@ export function SectionTitle({ id, initial, firstLine, secondLine, width, varian
     >
       <h2
         id={id}
-        className={`font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap ${tone === "light" ? "text-white/85" : "text-ink"} ${v.tracking}`}
+        className={`font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap ${tones[tone]} ${v.tracking}`}
         style={{ width, zoom: "var(--h2-scale)" }}
       >
         <span className="block" style={{ height: v.firstLineHeight, paddingTop: "firstLinePad" in v ? v.firstLinePad : undefined }}>

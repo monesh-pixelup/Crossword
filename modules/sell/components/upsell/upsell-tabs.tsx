@@ -69,9 +69,9 @@ function IconTile({ path, on }: { path: string; on: boolean }) {
 
 /**
  * Figma "Layout" (Upsell & cross-sell, node 2914:36238): one sand panel (#f3e7d3, 0.5px black/25 border) with the
- * features as a list on the left and, on the right, the 687 × 586 aubergine damask panel playing the open feature's
- * chat scene. The list (520px, vertically centred, 40px in from the left and top, 32px from the panel) is 49px from
- * row to rule: the open feature shows its tile, Crimson Light 24 title and line of Geist 16 (8px under it), its rule
+ * features as a list in the 596px left column and, on the right, the 687 × 586 aubergine damask panel playing the
+ * open feature's chat scene. The list (centred under 40px top padding, 42px in from both sides, so its rules end as
+ * far from the panel as they start from the card's edge) is 49px from row to rule: the open feature shows its tile, Crimson Light 24 title and line of Geist 16 (8px under it), its rule
  * 24px below; the others are their tile and title at 40%. Every rule is black/20. The features take turns on a
  * timer (long enough for each scene to play out and hold) while the section is on screen; choosing one restarts its
  * timer. Side by side from 1280px; narrower, the list sits over the panel, which spans the width.
@@ -128,13 +128,13 @@ export function UpsellTabs() {
       ref={root}
       className="flex w-full flex-col bg-[#f3e7d3] p-[0.5px] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] min-[1280px]:flex-row min-[1280px]:items-start"
     >
-      <div className="flex min-w-0 flex-1 flex-col justify-center self-stretch px-6 py-8 md:px-10 md:py-10 min-[1280px]:items-center min-[1280px]:pt-10 min-[1280px]:pr-8 min-[1280px]:pb-0 min-[1280px]:pl-10">
+      <div className="flex min-w-0 flex-1 flex-col justify-center self-stretch px-6 py-8 md:px-10 md:py-10 min-[1280px]:items-start min-[1280px]:pt-10 min-[1280px]:pr-[42px] min-[1280px]:pb-0 min-[1280px]:pl-[42px]">
         <div
           role="tablist"
           aria-orientation="vertical"
           aria-label="Upsell and cross-sell features"
           onKeyDown={onKeyDown}
-          className="flex w-full flex-col gap-[49px] min-[1280px]:max-w-[520px]"
+          className="flex w-full flex-col gap-[49px]"
         >
           {upsellFeatures.map((feature, i) => {
             const on = i === active;
@@ -156,14 +156,14 @@ export function UpsellTabs() {
                     on ? "cursor-default" : "cursor-pointer",
                   )}
                 >
-                  {/* Top-aligned with the open title, centred on a closed one's 26.4px line (1.2px down), easing between. */}
-                  <span className={cn("flex transition-[margin] duration-300 ease-out", !on && "mt-[1.2px]")}>
+                  {/* Top-aligned with the open title, centred on a closed one's 26px title box (1px down), easing between. */}
+                  <span className={cn("flex transition-[margin] duration-300 ease-out", !on && "mt-px")}>
                     <IconTile path={feature.icon} on={on} />
                   </span>
                   <span className="flex min-w-0 flex-col">
                     <span
                       className={cn(
-                        "font-serif text-[24px] leading-[1.1] font-light tracking-[-0.96px] transition-colors duration-300 ease-out",
+                        "font-serif text-[24px] leading-[26px] font-light tracking-[-0.96px] transition-colors duration-300 ease-out",
                         on ? "text-[#040404]" : "text-[#040404]/40",
                       )}
                     >
@@ -191,16 +191,17 @@ export function UpsellTabs() {
                   </span>
                 </button>
                 {/*
-                  The open feature's rule sits 24px under its copy; the others' 49px under their row. The last is drawn
-                  clear. Stacked over the panel (below 1280px), the rules run past the list's padding to the panel's
+                  Each rule is a zero-height line with its 0.5px stroke centred on it, as Figma draws them: the open
+                  feature's sits in a 1px box 24px under its copy, the others' 49px under their row. The last is not
+                  drawn. Stacked over the panel (below 1280px), the rules run past the list's padding to the panel's
                   edges, so they span the same width as the panel under them.
                 */}
                 <span
                   aria-hidden
                   className={cn(
-                    "h-[0.5px] transition-[margin] duration-300 ease-out max-[1279px]:-mx-6 md:max-[1279px]:-mx-10",
-                    on ? "mt-6" : "mt-[49px]",
-                    i === last ? "bg-transparent" : "bg-black/20",
+                    "h-0 transition-[margin] duration-300 ease-out max-[1279px]:-mx-6 md:max-[1279px]:-mx-10",
+                    on ? "mt-[24.5px] mb-[0.5px]" : "mt-[49px] mb-0",
+                    i !== last && "shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]",
                   )}
                 />
               </div>
@@ -209,12 +210,16 @@ export function UpsellTabs() {
         </div>
       </div>
 
-      {/* Figma's 687 × 586 panel art (aubergine damask, gold notched frame, four studs) with the scene at its drawn size, centred. */}
+      {/*
+        Figma's 687 × 586 panel art (aubergine damask, gold notched frame, four studs) with the scene at its drawn size,
+        centred. Side by side it runs 4px past the card's right edge, over its border, as in Figma (0.5 + 596 + 687 =
+        1283.5 of 1280), which leaves the list column its 596px.
+      */}
       <div
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="relative aspect-[687/586] w-full shrink-0 overflow-hidden bg-[#462160] min-[1280px]:w-[687px]"
+        className="relative aspect-[687/586] w-full shrink-0 overflow-hidden bg-[#462160] min-[1280px]:-mr-1 min-[1280px]:w-[687px]"
       >
         <Image src={panelArt} alt="" fill sizes="(min-width: 1280px) 687px, 100vw" className="object-cover" />
         {/* Each scene fades in over the art as its feature opens, rather than cutting in. */}

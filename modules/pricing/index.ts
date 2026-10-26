@@ -1,9 +1,6 @@
-export { PricingBanner } from "./components/banner/pricing-banner";
 export { Calculator } from "./components/calculator/calculator";
 export { Credits } from "./components/credits/credits";
 export { Engineer } from "./components/engineer/engineer";
 export { Faq } from "./components/faq/faq";
-export { PricingHeader } from "./components/header/pricing-header";
-export { Outcomes } from "./components/outcomes/outcomes";
+export { PricingHero } from "./components/hero/pricing-hero";
 export { Plans } from "./components/plans/plans";
-export { SameCrossword } from "./components/same/same-crossword";

@@ -1,28 +1,32 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
+import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing";
+import { BandDivider } from "../shared/band-divider";
 import { FaqList } from "./faq-list";
 
 /**
- * FAQs. Layout/Conversion, FAQ variant (Figma “Before you ask the concierge”, the kit's `.wk-faq`):
- * a 420px column with the eyebrow, swash headline, a line of copy and a link, 120px from the
- * accordion of the doc's starter questions. Below 992px they stack.
+ * Library · FAQ (Figma 3156:13882), under the chat divider band: a 420px column with the eyebrow,
+ * swash headline, a line of copy and a link, 120px from the accordion. Below 992px they stack.
  */
 export function Faq() {
   return (
-    <section aria-labelledby="faq-title" className="relative section-pad-band">
-      <DividerBand glyph="book" />
+    <section
+      aria-labelledby="faq-title"
+      className="relative pt-[calc(var(--section-pad)+75px)] pb-(--section-pad) max-md:pt-[calc(var(--section-pad)+56px)]"
+    >
+      <BandDivider glyph="chat" />
+      <RailAccent className="absolute top-[calc(var(--section-pad)+75px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[210px] w-px max-lg:hidden" />
 
-      <div className="grid content-width gap-12 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-[120px]">
+      <div className="grid content-width gap-12 lg:grid-cols-[420px_minmax(0,1fr)] lg:gap-[120px]">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>FAQs</Eyebrow>
-          <SectionTitle id="faq-title" initial="H" firstLine="ave a question?" secondLine="Ask Crossword" width={420} />
+          <SectionTitle id="faq-title" initial="H" firstLine="ave a question?" secondLine="Ask Crossword" width={404} variant="humanMode" />
           <p className="font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
-            Everything brands ask before their first conversation. If yours is not here, the desk is open.
+            Or ask the concierge in the corner. It knows our pricing as well as we do.
           </p>
-          <TextLink href={ctaLinks.bookDemo}>Talk to us</TextLink>
+          <TextLink href={ctaLinks.bookDemo}>Talk to sales</TextLink>
         </div>
 
         <FaqList />
