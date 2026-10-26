@@ -1,29 +1,64 @@
-/** A dropdown entry; `description` is the Geist 14 line under its title (brand guidelines 11.5). */
+/** A dropdown entry; `description` is the Geist 12 line under its title in the Platform menu. */
 export type NavLink = { label: string; href: string; description?: string };
+
+/** A Platform menu entry; `icons` sets the row of assistant / agent marks beside its title. */
+export type PlatformLink = NavLink & { description: string; icons?: "assistants" | "agents" };
+
+/** A Platform menu column, with its small caps label when it has one (e.g. "Sell"). */
+export type PlatformColumn = { label?: string; links: PlatformLink[] };
 
 export type NavItem = {
   label: string;
   href: string;
   /** Renders a caret; with `children` it opens a dropdown of those pages. */
   hasMenu?: boolean;
+  /** Opens the full-width Platform menu (`platformColumns`) on desktop instead of the list dropdown. */
+  mega?: boolean;
   children?: NavLink[];
 };
 
 // TODO: point these at real routes as the pages get built.
-export const primaryNav: NavItem[] = [
+/** Figma "Navbar": the Platform menu's three columns of products. */
+export const platformColumns: PlatformColumn[] = [
   {
     label: "Sell",
-    href: "/sell",
-    hasMenu: true,
-    children: [
-      { label: "Conversational Interface", href: "/sell", description: "Guides every shopper to the right product" },
-      { label: "Dynamic Landing Pages", href: "/dynamic-landing-pages", description: "Pages built around the ad and the shopper" },
+    links: [
+      { label: "Conversational Interface", href: "/sell", description: "Turns a shopper’s need into a confident purchase." },
+      { label: "Dynamic Landing Pages", href: "/dynamic-landing-pages", description: "Carries your ad’s message onto the page it lands on." },
     ],
   },
-  { label: "Support", href: "/support" },
-  { label: "Retain", href: "/retain" },
-  { label: "Managed Launch", href: "/managed-launch" },
+  {
+    links: [
+      { label: "Support", href: "/support", description: "Answers routine questions instantly, hands off the rest." },
+      { label: "Retain", href: "/retain", description: "Remembers every customer, so the next visit starts warm." },
+    ],
+  },
+  {
+    links: [
+      { label: "AI Assistants", href: "#ai-assistants", description: "Puts your catalog and offers into AI assistant answers.", icons: "assistants" },
+      { label: "Personal Agents", href: "#personal-agents", description: "Gives shoppers’ AI agents your full catalog and offers.", icons: "agents" },
+    ],
+  },
+];
+
+/** The Platform menu's "New" card. */
+export const platformFeature = { label: "New", href: "#insights", alt: "Insight: Turning Interest into Action." };
+
+// TODO: point these at real routes as the pages get built.
+export const primaryNav: NavItem[] = [
+  { label: "Platform", href: "/sell", hasMenu: true, mega: true, children: platformColumns.flatMap((column) => column.links) },
+  { label: "AI Assistants", href: "#ai-assistants" },
   { label: "Pricing", href: "/pricing" },
+  {
+    label: "Company",
+    href: "#about-us",
+    hasMenu: true,
+    children: [
+      { label: "About Us", href: "#about-us" },
+      { label: "Blog", href: "#blog" },
+      { label: "Trust & Security", href: "#trust-security" },
+    ],
+  },
 ];
 
 export const ctaLinks = {
