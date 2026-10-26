@@ -24,7 +24,7 @@ export function SupportChannels() {
             <Eyebrow>Channels</Eyebrow>
             <SectionTitle id="channels-title" initial="S" firstLine="upport" secondLine="channels" width={220} variant="channels" />
             <p className="font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
-              Wherever your customers reach out, someone answers.
+              Wherever your customers reach out, they get an answer.
             </p>
           </div>
 

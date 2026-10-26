@@ -54,7 +54,7 @@ export const discoveryFeatures: DiscoveryFeature[] = [
     scene: "outfit-building",
   },
   {
-    label: "Guided finder",
+    label: "Guided finder, without the form feel",
     description:
       "A few smart questions, asked like a conversation. All to narrow thousands of options down to a few, and in turn increasing the possibility of conversion.",
     href: "#guided-finder",

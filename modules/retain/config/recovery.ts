@@ -16,7 +16,7 @@ export const recoveryItems: RecoveryItem[] = [
   },
   {
     title: "Price-drop alerts",
-    description: "When the price gets better, Crossword can let you know.",
+    description: "When the price gets better, Crossword lets them know.",
   },
   {
     title: "Replenishment reminders",
