@@ -571,7 +571,7 @@ export function SceneFrame({ children }: { children: ReactNode }) {
   );
 }
 
-/** Arched-hallway photo the Insights visuals sit on (738 × 640). */
+/** Front-desk photo the Insights visuals sit on (738 × 640). */
 export function InsightFrame({ children }: { children: ReactNode }) {
   return (
     <div className="ill-root ill-insight-frame">
