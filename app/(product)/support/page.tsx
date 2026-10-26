@@ -7,7 +7,6 @@ import {
   HumanHandoff,
   SupportChannels,
   SupportHero,
-  SupportIntro,
   TakeControl,
   Workflows,
 } from "@/modules/support";
@@ -22,7 +21,6 @@ export default function SupportPage() {
   return (
     <main>
       <SupportHero />
-      <SupportIntro />
       <CustomerSupport />
       <HumanHandoff />
       <TakeControl />

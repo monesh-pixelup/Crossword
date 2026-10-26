@@ -6,7 +6,6 @@ import {
   Loyalty,
   ProactiveRecovery,
   RetainHero,
-  RetainIntro,
   RetentionChannels,
   ReturnReduction,
 } from "@/modules/retain";
@@ -21,7 +20,6 @@ export default function RetainPage() {
   return (
     <main>
       <RetainHero />
-      <RetainIntro />
       <ProactiveRecovery />
       <Campaigns />
       <AudienceBuilder />

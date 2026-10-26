@@ -4,6 +4,5 @@ export { Guardrails } from "./components/guardrails/guardrails";
 export { HumanHandoff } from "./components/handoff/human-handoff";
 export { HelpdeskOptions } from "./components/helpdesk/helpdesk-options";
 export { SupportHero } from "./components/hero/support-hero";
-export { SupportIntro } from "./components/intro/support-intro";
 export { CustomerSupport } from "./components/resolve/customer-support";
 export { Workflows } from "./components/workflows/workflows";

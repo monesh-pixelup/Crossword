@@ -7,7 +7,6 @@ import {
   ProactiveMessages,
   ProductDiscovery,
   SellHero,
-  SellIntro,
   StorefrontPresence,
   Upsell,
 } from "@/modules/sell";
@@ -22,7 +21,6 @@ export default function SellPage() {
   return (
     <main>
       <SellHero />
-      <SellIntro />
       <ProductDiscovery />
       <HumanTouch />
       <HumanMode />
