@@ -47,18 +47,9 @@ export const platformFeature = { label: "New", href: "#insights", alt: "Insight:
 // TODO: point these at real routes as the pages get built.
 export const primaryNav: NavItem[] = [
   { label: "Platform", href: "/sell", hasMenu: true, mega: true, children: platformColumns.flatMap((column) => column.links) },
-  { label: "AI Assistants", href: "#ai-assistants" },
+  { label: "Managed Launch", href: "/managed-launch" },
+  { label: "Blog", href: "#blog" },
   { label: "Pricing", href: "/pricing" },
-  {
-    label: "Company",
-    href: "#about-us",
-    hasMenu: true,
-    children: [
-      { label: "About Us", href: "#about-us" },
-      { label: "Blog", href: "#blog" },
-      { label: "Trust & Security", href: "#trust-security" },
-    ],
-  },
 ];
 
 export const ctaLinks = {
