@@ -11,7 +11,7 @@ export const workflows: { icon: StaticImageData; title: string; body: string }[]
   },
   {
     icon: handoffIcon,
-    title: "API didn’t work, hands it over to Human",
+    title: "Human override",
     body: "When a situation falls outside the rules, a human can step in, override the workflow, and take it from there.",
   },
 ];
