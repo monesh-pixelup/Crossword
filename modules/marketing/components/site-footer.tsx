@@ -85,8 +85,9 @@ function Tagline() {
 export function SiteFooter() {
   return (
     <footer className="@container relative overflow-clip pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
+      {/* #00331A with Figma's grain tile laid over it: 172.82px tiles, soft-light at 40%. */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[#00331a]" />
+        <div className="absolute inset-0 bg-[#00331A]" />
         <div
           className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left opacity-40 mix-blend-soft-light"
           style={{ backgroundImage: `url(${grainTile.src})` }}
@@ -132,9 +133,9 @@ export function SiteFooter() {
                 className="h-auto w-[351px] max-w-full max-[960px]:order-1"
               />
               <p className="flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-[12px] leading-[1.3] tracking-[-0.36px] whitespace-nowrap text-[rgba(223,227,210,0.6)] xs:flex-nowrap max-[960px]:order-3">
-                <span>Crossword © 2026</span>
+                <span>Crossword</span>
                 <span aria-hidden>|</span>
-                <span>A CometChat Product</span>
+                <span>CometChat, Inc. © 2026</span>
               </p>
             </div>
           </div>

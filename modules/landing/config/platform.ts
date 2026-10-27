@@ -23,7 +23,7 @@ export const platformCards: PlatformCard[] = [
     title: "Intelligence needs guardrails",
     // Shortened from the doc's four paragraphs so the card matches the other two in length (and doesn't overflow).
     paragraphs: [
-      "And beneath it all are the controls businesses need to operate AI at scale: permissions, PII protection, evaluations, observability, cost controls and security. Crossword connects that intelligence across web, mobile, messaging, voice, social and emerging AI surfaces, with 1,000+ integrations, so your customer can move between channels without it starting over.",
+      "Beneath it all are the controls businesses need to operate AI at scale,  permissions, PII protection, evaluations, observability, cost controls and security. Crossword connects the intelligence layer across web, mobile and emerging AI surfaces, along with integrations with commerce, CRM, helpdesk and messaging platforms. What looks like a simple customer conversation on the outside is a coordinated system of agents, models, workflows, data, integrations and guardrails working together.",
     ],
   },
 ];
