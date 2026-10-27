@@ -35,8 +35,8 @@ export const platformColumns: PlatformColumn[] = [
   },
   {
     links: [
-      { label: "AI Assistants", href: "#ai-assistants", description: "Puts your catalog and offers into AI assistant answers.", icons: "assistants" },
-      { label: "Personal Agents", href: "#personal-agents", description: "Gives shoppers’ AI agents your full catalog and offers.", icons: "agents" },
+      { label: "AI Assistants", href: "/ai-assistants", description: "Puts your catalog and offers into AI assistant answers.", icons: "assistants" },
+      { label: "Personal Agents", href: "/personal-agents", description: "Gives shoppers’ AI agents your full catalog and offers.", icons: "agents" },
     ],
   },
 ];

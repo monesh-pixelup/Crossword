@@ -8,15 +8,15 @@ import { faqs } from "../../config/pricing";
  * The kit's FAQ accordion (`.wk-faq .acc`): questions in Crimson 22 (ink-soft, ink when open) on
  * 1px engraved rules, a gold plus that turns into a minus, the answer in Geist below. The first is
  * open; opening one closes the others. Answers ease open and shut over 400ms; with reduced motion
- * they switch at once.
+ * they switch at once. Shows the pricing questions unless another page passes its own `items`.
  */
-export function FaqList() {
+export function FaqList({ items = faqs }: { items?: readonly { q: string; a: string }[] }) {
   const [open, setOpen] = useState(0);
   const id = useId();
 
   return (
     <div className="flex flex-col shadow-[inset_0_1px_0_var(--color-engraved)]">
-      {faqs.map((item, i) => {
+      {items.map((item, i) => {
         const expanded = i === open;
         return (
           <div key={item.q} className="shadow-[inset_0_-1px_0_var(--color-engraved)]">
