@@ -1,29 +1,14 @@
-import badgeFrame from "../../assets/shared/badge-frame.svg";
 import tile from "../../assets/shared/divider-tile.svg";
-
-/** Badge glyphs, in the badge's 74 × 74.95 box. */
-const glyphs = {
-  /** Chat bubble (Customer lifecycle). */
-  chat: "M29.9 29.04h18.92c.52 0 .94.42.94.93v12.76c0 .51-.42.93-.94.94h-6.26l-.07.08-3.13 3.87-3.12-3.87-.07-.09H29.9a.94.94 0 0 1-.95-.93V29.97c0-.51.43-.93.95-.93Zm-4.72-4.8h19.86v1.86H26.13v12.88h-1.9v-13.8c0-.52.43-.94.95-.94Z",
-  /** Bar chart (Shopper experience). */
-  chart:
-    "M27.66 22.88H46.23C46.71 22.88 47.18 23.07 47.52 23.42C47.86 23.76 48.05 24.22 48.05 24.71V47.4C48.05 47.88 47.86 48.35 47.52 48.69C47.18 49.03 46.71 49.22 46.23 49.22H27.66C27.18 49.22 26.72 49.03 26.37 48.69C26.03 48.35 25.84 47.88 25.84 47.4V24.71C25.84 24.22 26.03 23.76 26.37 23.42C26.72 23.07 27.18 22.88 27.66 22.88ZM27.43 47.63H46.46V43.03H27.43V47.63ZM34.65 41.45H46.46V37.88H34.65V41.45ZM40.83 36.29H46.46V32.72H40.83V36.29Z",
-  /** Bookmarked book (Customer intelligence). */
-  book: "M30.48 24.28H46.18C46.36 24.28 46.54 24.35 46.67 24.48C46.79 24.61 46.87 24.78 46.87 24.96V43.44C46.87 43.62 46.79 43.8 46.67 43.93C46.54 44.05 46.36 44.13 46.18 44.13H30.48C29.92 44.13 29.39 44.35 29 44.74C28.61 45.13 28.39 45.66 28.39 46.21V46.45H44.33C44.52 46.45 44.69 46.52 44.82 46.65C44.95 46.78 45.02 46.95 45.02 47.13C45.02 47.32 44.95 47.49 44.82 47.62C44.69 47.75 44.52 47.82 44.33 47.82H27.71C27.52 47.82 27.35 47.75 27.22 47.62C27.09 47.49 27.02 47.32 27.02 47.13V27.74C27.02 26.82 27.38 25.94 28.03 25.29C28.68 24.64 29.56 24.28 30.48 24.28ZM36.71 35.6L37.09 35.32L40.04 33.1C40.08 33.07 40.13 33.05 40.17 33.05C40.22 33.05 40.27 33.07 40.31 33.1L43.27 35.32L43.65 35.6V25.65H36.71V35.6Z",
-  /** Gear (Managed launch). */
-  gear: "M35.02 23.12C36.32 22.93 37.62 22.93 38.89 23.12C38.92 24.58 39.65 25.9 40.94 26.43C42.22 26.97 43.67 26.55 44.72 25.54C45.76 26.3 46.68 27.22 47.46 28.28C46.45 29.33 46.04 30.78 46.57 32.07C47.1 33.35 48.42 34.08 49.88 34.12C50.08 35.42 50.07 36.72 49.88 37.98C48.42 38.02 47.1 38.75 46.57 40.03C46.04 41.32 46.45 42.77 47.46 43.82C46.7 44.85 45.78 45.78 44.73 46.56C43.67 45.55 42.22 45.13 40.94 45.67C39.65 46.2 38.92 47.52 38.89 48.98C37.59 49.17 36.28 49.17 35.02 48.98C34.99 47.52 34.26 46.2 32.97 45.67C31.68 45.13 30.23 45.55 29.18 46.56C28.15 45.8 27.22 44.88 26.44 43.82C27.45 42.77 27.87 41.32 27.34 40.03C26.8 38.75 25.48 38.02 24.02 37.98C23.83 36.68 23.83 35.38 24.03 34.12C25.48 34.08 26.8 33.35 27.34 32.07C27.87 30.78 27.45 29.33 26.44 28.28C27.2 27.25 28.12 26.32 29.18 25.54C30.23 26.55 31.68 26.97 32.97 26.43C34.26 25.9 34.99 24.58 35.02 23.12ZM36.95 31.82C34.62 31.82 32.72 33.71 32.72 36.05C32.72 38.39 34.62 40.28 36.95 40.28C39.29 40.28 41.18 38.39 41.18 36.05C41.18 33.71 39.29 31.82 36.95 31.82Z",
-  /** Quill and sparkle (Blog). */
-  quill:
-    "M50.58 24.89C48.63 28.59 47.3 30.45 45.99 31.7L44.61 33.02L44.38 33.24L44.65 33.41L46.55 34.62C45.13 38.47 41.1 42.87 35.78 43.5C33.89 43.73 32.33 44.46 31.14 45.72C29.98 46.93 29.18 48.62 28.7 50.75H26.44C26.45 50.68 26.46 50.61 26.48 50.54C27.19 46.45 28.3 40.03 31.75 34.64C35.14 29.33 40.79 25.01 50.58 24.89ZM27.1 22.52C27.26 22.16 27.79 22.16 27.94 22.52L28.29 23.33C28.88 24.67 29.93 25.76 31.26 26.4L31.53 26.52L32.52 26.94C32.89 27.1 32.89 27.6 32.52 27.75L31.48 28.2C30.05 28.8 28.91 29.91 28.28 31.29L27.94 32.04C27.78 32.39 27.27 32.39 27.11 32.04L26.77 31.29C26.13 29.91 24.99 28.8 23.57 28.2L22.52 27.75C22.16 27.6 22.16 27.1 22.52 26.94L23.51 26.52C24.97 25.91 26.13 24.76 26.75 23.33L27.1 22.52Z",
-} as const;
+import { AnimatedStamp } from "./animated-stamp";
+import type { StampGlyph } from "./stamp-svgs";
 
 /**
  * Patterned separator across the top of a section, between the page rails,
- * with a notched badge in the middle (`badge={false}` leaves the band plain, as under the Pricing
- * header). It is 24px tall; sections that open with it add 24px to their top padding. Below 768px
+ * with the animated stamp badge in the middle (AnimatedStamp; `badge={false}` leaves the band plain, as
+ * under the Pricing header). It is 24px tall; sections that open with it add 24px to their top padding. Below 768px
  * the band, its pattern and the badge are drawn at 0.75x (18px tall); the sections keep their spacing.
  */
-export function DividerBand({ glyph, badge = true }: { glyph: keyof typeof glyphs; badge?: boolean }) {
+export function DividerBand({ glyph, badge = true }: { glyph: StampGlyph; badge?: boolean }) {
   return (
     <div
       aria-hidden
@@ -31,13 +16,8 @@ export function DividerBand({ glyph, badge = true }: { glyph: keyof typeof glyph
       style={{ backgroundImage: `url(${tile.src})` }}
     >
       {badge && (
-        <div
-          className="absolute top-1/2 left-1/2 z-2 h-[74.94px] w-[74px] -translate-x-1/2 -translate-y-1/2 bg-size-[100%_100%] bg-center bg-no-repeat leading-0 max-md:h-[56.205px] max-md:w-[55.5px]"
-          style={{ backgroundImage: `url(${badgeFrame.src})` }}
-        >
-          <svg viewBox="0 0 74 74.95" fill="none" className="size-full">
-            <path d={glyphs[glyph]} fill="#E0BE60" stroke="#6C2332" strokeWidth={glyph === "quill" ? 0.5 : 0.47} />
-          </svg>
+        <div className="absolute top-1/2 left-1/2 z-2 h-[74.94px] w-[74px] -translate-x-1/2 -translate-y-1/2 leading-0 max-md:h-[56.205px] max-md:w-[55.5px]">
+          <AnimatedStamp glyph={glyph} />
         </div>
       )}
     </div>
