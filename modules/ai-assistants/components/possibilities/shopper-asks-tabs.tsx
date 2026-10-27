@@ -113,7 +113,7 @@ export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] })
               <div className="flex flex-col items-start gap-3">
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{question.label}</h3>
                 {question.description && (
-                  <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.48px] text-black/59">{question.description}</p>
+                  <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.48px] whitespace-pre-line text-black/59">{question.description}</p>
                 )}
               </div>
               <TextLink href={ctaLinks.bookDemo}>Get a demo</TextLink>

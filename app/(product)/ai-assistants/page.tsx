@@ -24,7 +24,7 @@ export default function AiAssistantsPage() {
     <main>
       <AiAssistantsHero />
       <ShopperAsks />
-      <AssistantCampaigns />
+      <AssistantCampaigns copy="Send a price-drop alert or a back-in-stock note straight into the conversation. It lands where the shopper is already spending their time." />
       {/* Figma "Section · Divider": the 75px book band (56px below 768px). */}
       <div className="relative h-[75px] max-md:h-[56px]">
         <BandDivider glyph="book" />

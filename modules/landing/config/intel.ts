@@ -21,9 +21,9 @@ export const FRAME_ORDER: FrameKey[] = ["m", "s", "d", "o"];
 export const KEY: Record<CardState, FrameKey> = { memory: "m", signal: "s", decisions: "d", outcome: "o" };
 
 /** ms each state rests. */
-export const HOLD = 3600;
+export const HOLD = 1200;
 /** ms of a full state change on autoplay. */
-export const TRANS = 1200;
+export const TRANS = 700;
 /** ms of a state change asked for by hover or tap: quick, so the card answers the cursor. */
 export const TRANS_HOVER = 380;
 /** A hovered block opens its card once the cursor rests on it this long. */

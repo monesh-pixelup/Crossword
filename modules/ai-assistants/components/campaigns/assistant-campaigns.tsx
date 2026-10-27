@@ -19,14 +19,17 @@ export function AssistantCampaigns({
   firstLine = "eaches them first",
   secondLine,
   width = 614.744,
+  copy,
 }: {
   id?: string;
   eyebrow?: ReactNode;
   initial?: string;
   firstLine?: ReactNode;
   secondLine?: ReactNode;
-  /** The headline's Figma text-box width. */
+  /** The headline's Figma text-box width (the copy line keeps to it too). */
   width?: number;
+  /** The line under the headline, as in Possibilities; none by default. */
+  copy?: ReactNode;
 }) {
   return (
     <section aria-labelledby={id} className="relative section-pad">
@@ -36,6 +39,11 @@ export function AssistantCampaigns({
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>
           <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} variant="airy" />
+          {copy && (
+            <p className="font-sans text-base leading-6 tracking-[-0.48px] text-black/59" style={{ maxWidth: width }}>
+              {copy}
+            </p>
+          )}
         </div>
 
         {/* TODO: the campaign's motion scene plays in the panel once Figma has one. */}

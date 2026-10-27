@@ -252,13 +252,14 @@ export function startMemoryGraph(root: HTMLElement): () => void {
       const b = boxFor(n.id, to);
       let g = gt;
       let o: number;
-      // Each block fades only while the card covers it, so the pair never dips (no blink).
+      // Each block fades only while the card covers it, so the pair never dips (no blink). The opening
+      // block is gone by the time its card is fully in (openP 0.64), so it never shows under the card.
       if (n.id === closeId) {
         g = mClose;
         o = b[4] * smooth(closeP / 0.3);
       } else if (n.id === openId) {
         g = mOpen;
-        o = a[4] * (1 - smooth((openP - 0.62) / 0.3));
+        o = a[4] * (1 - smooth((openP - 0.38) / 0.26));
       } else o = lerp(a[4], b[4], gt);
       const x = lerp(a[0], b[0], g);
       const y = lerp(a[1], b[1], g);

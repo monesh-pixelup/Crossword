@@ -1,47 +1,9 @@
-import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import stud from "../../assets/shopper/panel-stud.svg";
-import panelTexture from "../../assets/shopper/panel-texture.webp";
 import railAccent from "../../assets/shared/rail-accent.svg";
+import { ShopperPanel } from "../motion/panels";
 import { DividerBand } from "../shared/divider-band";
 import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
-import { ShopperStoryboard } from "./shopper-storyboard";
-
-// Corner studs, as positioned in Figma.
-const studs = [
-  { left: 18.516, top: 572.824 },
-  { left: 1249.797, top: 572.824 },
-  { left: 1249.797, top: 21.297 },
-  { left: 20.789, top: 16.263 },
-];
-
-/**
- * Aubergine damask panel framing the storefront mock-up. The texture export carries the gilt
- * notched frame, so the panel is drawn at its 1280 × 599 design size and zoomed as a whole to
- * the column width (up or down, like the Webflow image): texture, frame, studs and mock-up
- * always stay aligned.
- */
-function ShowcasePanel() {
-  return (
-    <div
-      role="img"
-      aria-label="A shopper searches for Gillette, clicks Harry's sponsored comparison, and lands on a Harry's product page where Crossword compares the razor with Gillette's to win the sale"
-      className="relative h-[599px] w-[1280px] shrink-0 overflow-clip bg-[#462160] select-none scale-to-container [--fit-width:1280px]"
-    >
-      <Image
-        src={panelTexture}
-        alt=""
-        sizes="(min-width: 1440px) calc(86vw - 30px), 1238px"
-        className="absolute top-[17.135px] left-[20.906px] h-[564.729px] w-[1238.18px] max-w-none"
-      />
-      {studs.map((pos) => (
-        <Image key={`${pos.left}-${pos.top}`} src={stud} alt="" className="absolute size-[10px]" style={pos} />
-      ))}
-      <ShopperStoryboard />
-    </div>
-  );
-}
 
 export function ShopperExperience() {
   return (
@@ -71,7 +33,7 @@ export function ShopperExperience() {
         </div>
 
         <div className="@container w-full">
-          <ShowcasePanel />
+          <ShopperPanel />
         </div>
       </div>
     </section>

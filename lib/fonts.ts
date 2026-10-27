@@ -103,9 +103,11 @@ export const geistMono = Geist_Mono({
  * The Sell motion visuals (modules/sell/components/motion) load the weights
  * their source build requested from Google Fonts. Inter and Geist Mono get
  * their own instances so the other sections keep their single weight.
+ * The home page's motion visuals (modules/landing/components/motion/home-v2)
+ * share the Inter instance and add 600.
  */
 export const interMotion = Inter({
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   subsets: ["latin"],
   variable: "--font-face-inter-motion",
   display: "swap",

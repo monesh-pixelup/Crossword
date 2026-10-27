@@ -12,29 +12,34 @@ import panelForest from "@/modules/sell/assets/discovery/panel-conversational-fo
 export type ShopperQuestion = {
   /** The shopper's question, in curly quotes: the list label and the block's title. */
   label: string;
-  /** Shown beside the panel, above the art. */
+  /** Shown beside the panel, above the art. A blank line (\n\n) starts a new paragraph. */
   description?: string;
   /** The empty framed panel the answer plays in. */
   panel: StaticImageData;
 };
 
-/** TODO: Figma only writes the first question's description; confirm the others with the Crossword team. */
 export const shopperQuestions: ShopperQuestion[] = [
   {
     label: "“Which one should I get?”",
-    description: "Crossword showcases your products, with photos, prices and options, lined up next to each other.",
+    description:
+      "Crossword showcases your products, with photos, prices and options, lined up next to each other.\n\nThe shopper asks why one costs more and the answer comes directly from your catalog.",
     panel: panelMaroon,
   },
   {
     label: "“The black one, with the packing cubes.”",
+    description: "The view changes as they talk. Size, color, quantity and bundle are all picked in the chat.",
     panel: panelForest,
   },
   {
     label: "“Choose this one.”",
+    description:
+      "Crossword keeps the product options visible within the ChatGPT conversation. It lets customers browse, compare, and ask follow-up questions without losing their shortlist.",
     panel: panelAubergine,
   },
   {
     label: "“I’m looking for the best value.”",
+    description:
+      "Uses your full enriched catalog to prioritize suitable products within budget, explain price differences, and highlight relevant offers or bundles.",
     panel: panelMaroon,
   },
 ];

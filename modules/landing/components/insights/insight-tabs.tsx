@@ -53,7 +53,6 @@ export function InsightTabs() {
   // Bumped on every switch so re-opening a tab replays its visual.
   const [run, setRun] = useState(0);
   const [inView, setInView] = useState(false);
-  const [seen, setSeen] = useState(false);
   const [focusPaused, setFocusPaused] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -65,7 +64,6 @@ export function InsightTabs() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setInView(entry.isIntersecting);
-        if (entry.isIntersecting) setSeen(true);
       },
       { threshold: 0.25 },
     );
@@ -104,7 +102,7 @@ export function InsightTabs() {
     >
       {/* Side by side, the row never grows past Figma's 640px, so wide screens don't pad the tabs out; the visual zooms to cover. */}
       <div role="tabpanel" id={panelId} aria-labelledby={`${id}-tab-${current}`} className="relative aspect-[738/640] w-full overflow-hidden [container-type:size] lg:max-h-[640px] lg:w-[57.6563%] lg:flex-none">
-        <InsightPanel visual={insightFeatures[current].visual} run={run} play={seen} />
+        <InsightPanel visual={insightFeatures[current].visual} run={run} />
       </div>
 
       <div

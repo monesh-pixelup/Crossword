@@ -215,6 +215,41 @@
   }
 }
 
+/* Customer intelligence card labels: a soft gold highlight sweeps through the text, like a model at work. */
+@keyframes intel-label-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+
+.intel-label-shimmer {
+  color: rgb(0 0 0 / 0.8);
+  background: linear-gradient(
+      100deg,
+      rgb(0 0 0 / 0.8) 40%,
+      #c9a24a 47%,
+      #f0d68a 50%,
+      #c9a24a 53%,
+      rgb(0 0 0 / 0.8) 60%
+    )
+    0 0 / 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: intel-label-shimmer 2.2s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intel-label-shimmer {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
 /* Tab progress (Insights, Sell triggers): fills the active tab's top edge, then the tabs advance. */
 @keyframes insights-progress {
   from {

@@ -24,7 +24,7 @@ const HANDOFF = 40;
 
 /**
  * Lifecycle features as a scroll-driven list beside one sticky mock-up, after
- * Calendly's "A better way to book your meetings". From 992px the heading
+ * Calendly's "A better way to book your meetings". From 1280px the heading
  * sticks at the top of its column and the items scroll up beneath it, fading
  * out under its edge; the item just below the heading is open (the others
  * rest at 20%). When stacked, the mock-up is what sticks and the items pass
@@ -35,7 +35,6 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
   const [active, setActive] = useState(0);
   // Bumped each time the open item changes, so its visual replays.
   const [run, setRun] = useState(0);
-  const [seen, setSeen] = useState(false);
   const activeRef = useRef(0);
   const rootRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
@@ -46,9 +45,9 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
   // The pinned stage label's bar: how far the list is through the open item's stage (0–1), set per frame.
   const progressRef = useRef<HTMLSpanElement>(null);
 
-  /** Where items disappear: under the heading from 992px, under the mock-up below that. */
+  /** Where items disappear: under the heading from 1280px, under the mock-up below that. */
   const coverLine = () => {
-    const desktop = window.matchMedia("(min-width: 992px)").matches;
+    const desktop = window.matchMedia("(min-width: 1280px)").matches;
     return (desktop ? headingRef.current : panelRef.current)?.getBoundingClientRect().bottom ?? 0;
   };
 
@@ -88,20 +87,10 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
 
-    // Visuals wait until the section is first on screen.
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setSeen(true);
-      },
-      { threshold: 0.2 },
-    );
-    if (rootRef.current) observer.observe(rootRef.current);
-
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
-      observer.disconnect();
     };
   }, []);
 
@@ -120,7 +109,7 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
       const last = items.current[steps.length - 1];
       if (!heading || !panel || !list || !spacer || !last) return;
 
-      if (window.matchMedia("(min-width: 992px)").matches) {
+      if (window.matchMedia("(min-width: 1280px)").matches) {
         // Heading and mock-up stick at the same top: the column must end where the mock-up does.
         const slack = panel.offsetHeight - heading.offsetHeight - last.offsetHeight;
         spacer.style.height = `${Math.max(0, slack)}px`;
@@ -182,9 +171,9 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
               on ? "cursor-default" : "cursor-pointer",
             )}
           >
-            {/* Each stage opens with its number and name; from 992px it is pinned under the heading instead (see StageLabel). */}
+            {/* Each stage opens with its number and name; from 1280px it is pinned under the heading instead (see StageLabel). */}
             {step.first && (
-              <span className="mb-4 flex h-9 w-full items-baseline gap-4 leading-[1.1] whitespace-nowrap lg:hidden">
+              <span className="mb-4 flex h-9 w-full items-baseline gap-4 leading-[1.1] whitespace-nowrap xl:hidden">
                 <span
                   className={cn(
                     "w-6 flex-none font-calligraphy text-[48px] tracking-[-2.4px] text-maroon",
@@ -229,32 +218,32 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
   return (
     <div
       ref={rootRef}
-      className="flex w-full flex-col lg:flex-row lg:items-start lg:justify-between lg:gap-12"
+      className="flex w-full flex-col xl:flex-row xl:items-start xl:justify-between xl:gap-12"
     >
       {/* Heading and list; when stacked its children join the column so the mock-up can sit between them. */}
-      <div className="contents lg:flex lg:w-[483.867px] lg:shrink-0 lg:flex-col">
+      <div className="contents xl:flex xl:w-[483.867px] xl:shrink-0 xl:flex-col">
         {/* The heading's sticky scope: it holds every item but the last. */}
-        <div className="contents lg:flex lg:flex-col">
+        <div className="contents xl:flex xl:flex-col">
           <div
             ref={headingRef}
             className={cn(
-              "relative order-1 max-lg:mb-(--space-xxlarge) lg:sticky lg:top-[calc(72.5px+48px)] lg:z-10 lg:bg-cream",
+              "relative order-1 max-xl:mb-(--space-xxlarge) xl:sticky xl:top-[calc(72.5px+48px)] xl:z-10 xl:bg-cream",
               // Pinned 48px below the fixed 72.5px site header. Cream above the stuck heading hides items scrolled past it; a fade below softens their exit.
-              "lg:before:absolute lg:before:inset-x-0 lg:before:bottom-full lg:before:h-[calc(72.5px+48px)] lg:before:bg-cream",
-              "lg:after:pointer-events-none lg:after:absolute lg:after:inset-x-0 lg:after:top-full lg:after:h-10 lg:after:bg-linear-to-b lg:after:from-cream lg:after:to-cream/0",
+              "xl:before:absolute xl:before:inset-x-0 xl:before:bottom-full xl:before:h-[calc(72.5px+48px)] xl:before:bg-cream",
+              "xl:after:pointer-events-none xl:after:absolute xl:after:inset-x-0 xl:after:top-full xl:after:h-10 xl:after:bg-linear-to-b xl:after:from-cream xl:after:to-cream/0",
             )}
           >
             {/*
               80px from the heading to the first item's text: 32px below the heading, then the item's own 48px top
               padding (the list adds none), which keeps that text clear of the 40px fade under the heading.
             */}
-            <div className="lg:pb-8">
+            <div className="xl:pb-8">
               {heading}
               <StageLabel stage={steps[active].stage} progressRef={progressRef} />
             </div>
           </div>
 
-          <div ref={listRef} className="order-3 flex flex-col max-lg:mt-(--space-xxlarge)">
+          <div ref={listRef} className="order-3 flex flex-col max-xl:mt-(--space-xxlarge)">
             {steps.slice(0, -1).map((_, i) => renderItem(i))}
           </div>
         </div>
@@ -271,16 +260,19 @@ export function LifecycleTabs({ heading }: { heading: ReactNode }) {
       */}
       <div
         ref={panelRef}
-        className="@container sticky top-[calc(72.5px+16px)] z-10 order-2 w-full before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-4 before:bg-cream after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 lg:top-[calc(72.5px+48px)] lg:w-auto lg:min-w-0 lg:flex-1 lg:before:hidden lg:after:hidden"
+        className="sticky top-[calc(72.5px+16px)] z-10 order-2 w-full bg-cream before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-4 before:bg-cream after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-10 after:bg-linear-to-b after:from-cream after:to-cream/0 xl:top-[calc(72.5px+48px)] xl:w-auto xl:min-w-0 xl:flex-1 xl:before:hidden xl:after:hidden"
       >
-        <LifecyclePanel visual={steps[active].feature.visual} run={run} play={seen} />
+        {/* Stacked, the mock-up is capped at 60% of the viewport's height so the items below stay readable. */}
+        <div className="@container mx-auto w-full max-xl:max-w-[calc(60svh*738/680)]">
+          <LifecyclePanel visual={steps[active].feature.visual} run={run} />
+        </div>
       </div>
     </div>
   );
 }
 
 /**
- * The open item's stage, pinned under the sticky heading from 992px (Figma 3090:27829): its number and name over a
+ * The open item's stage, pinned under the sticky heading from 1280px (Figma 3090:27829): its number and name over a
  * hairline whose maroon fill tracks the list through that stage. The name crossfades and the fill starts over when
  * the open item moves into the next stage.
  */
@@ -292,7 +284,7 @@ function StageLabel({
   progressRef: RefObject<HTMLSpanElement | null>;
 }) {
   return (
-    <div className="mt-[72px] hidden w-full flex-col gap-[23px] lg:flex" aria-live="polite">
+    <div className="mt-[72px] hidden w-full flex-col gap-[23px] xl:flex" aria-live="polite">
       <span key={stage.number} className="lifecycle-stage-enter flex h-9 items-baseline gap-4 leading-[1.1] whitespace-nowrap">
         <span className={cn("w-6 flex-none font-calligraphy text-[48px] tracking-[-2.4px] text-maroon", trimToCaps)}>
           {stage.number}

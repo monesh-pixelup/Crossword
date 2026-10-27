@@ -1,8 +1,6 @@
 /** Motion visual shown in the panel while a feature is open (see components/motion). */
 export type LifecycleVisual =
   | "gift-journey"
-  | "dynamic-landing-page"
-  | "sleep-search"
   | "ad-journey"
   | "ai-search"
   | "service-resolution"
