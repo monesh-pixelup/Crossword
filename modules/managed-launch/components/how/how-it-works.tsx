@@ -1,30 +1,28 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { cycle, howSteps } from "../../config/launch";
 
 /**
  * Figma "ALT · How it works (checklist cards)": the eyebrow, 24px over a one-line headline with the
- * cycle in Geist 20 8px under it, then 56px below the six to-do cards (410 × 307, 24px apart, three
+ * cycle in Geist 16 8px under it, then 56px below the six to-do cards (410 × 307, 24px apart, three
  * to a row): cream on a 1px engraved/40 border around a 400 × 296 light panel, a gold stud 7px into
  * each corner, and 40px in the number in Tangerine 55, 32px over a Crimson 22 title with its lines
- * 8px under it. Opens with the patterned divider band (24px more top padding).
+ * 8px under it. Follows the Journey library's sand panel directly, so it has no divider band.
  */
 export function HowItWorks() {
   return (
-    <section aria-labelledby="how-title" className="relative section-pad-band">
-      <DividerBand glyph="gear" />
-      {/* The gold section tick (1px × 180px, as SectionTick), 24px lower for the divider band. */}
-      <RailAccent className="absolute top-(--section-pad) left-[calc(var(--frame-inset)-0.5px)] z-2 h-[180px] w-px max-lg:hidden" />
+    <section aria-labelledby="how-title" className="relative section-pad">
+      {/* The gold section tick (1px × 180px, as SectionTick), 24px above the eyebrow, as it sat under the divider band. */}
+      <RailAccent className="absolute top-[calc(var(--section-pad)-24px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[180px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col items-start gap-14">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>Managed launch</Eyebrow>
           <div className="flex flex-col items-start gap-2">
             <SectionTitle id="how-title" initial="H" firstLine="ow it works" width={707.715} variant="airy" />
-            <p className="font-sans text-[20px] leading-6 tracking-[-0.6px] text-black/59">{cycle}</p>
+            <p className="font-sans text-base leading-6 tracking-[-0.48px] text-black/59">{cycle}</p>
           </div>
         </div>
 

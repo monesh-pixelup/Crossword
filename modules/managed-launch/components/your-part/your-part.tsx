@@ -2,19 +2,18 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 
-/** The meeting rhythm, as Figma's partnership timeline: each step's tag, rhythm and line of copy. */
+/** The meeting rhythm, as Figma's partnership timeline: each step's tag and rhythm. */
 const rhythm = [
-  { tag: "First quarter", title: "Weekly", body: "For the first few months, we meet weekly." },
-  { tag: "Next two quarters", title: "Monthly", body: "Then monthly." },
-  { tag: "Onwards", title: "Quarterly", body: "Then quarterly as things mature." },
+  { tag: "First quarter", title: "We meet Weekly" },
+  { tag: "Next two quarters", title: "Then Monthly" },
+  { tag: "Onwards", title: "Then Quarterly" },
 ];
 
 /**
- * Figma "ALT · The partnership (timeline)": a centred two-line headline over a 560px line of copy,
- * then 64px below three equal steps, 24px apart, in the cycle timeline's style: a rail (a 10px gold
- * ring and a dashed gold rule), 20px down a small Geist Mono tag, and 48px under it the rhythm in
- * Crimson 22 over a line of Geist 14, 16px apart. Opens with the patterned divider band (24px more
- * top padding).
+ * Figma "ALT · The partnership (timeline)" (node 3262:512): a centred two-line headline (82px swash, 60px lines,
+ * all at 1.18) 24px over a 560px line of copy, then 64px below three equal steps, 24px apart, in the cycle
+ * timeline's style: a rail (a 10px gold ring and a dashed gold rule), 20px down a small Geist Mono tag, and 48px
+ * under it the rhythm in Crimson Light 40. Opens with the patterned divider band (24px more top padding).
  */
 export function YourPart() {
   return (
@@ -28,17 +27,15 @@ export function YourPart() {
             firstLine="our part is"
             secondLine="surprisingly small"
             width={460}
-            variant="centered"
-            lineGap={8}
+            variant="channels"
           />
-          {/* The centred title's 0.9 leading lets the descenders of "surprisingly" hang ~15px below its box; 16px more keeps them clear of this line. */}
-          <p className="mt-4 max-w-[560px] font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
+          <p className="max-w-[560px] font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
             Your job is to bring us the business context and tell us what&rsquo;s changing. Our job is to turn that into
             better customer experiences.
           </p>
         </div>
 
-        <ol className="grid w-full gap-12 sm:grid-cols-3 sm:gap-6">
+        <ol className="grid w-full gap-12 md:grid-cols-3 md:gap-6">
           {rhythm.map((step) => (
             <li key={step.title} className="flex flex-col items-start gap-5">
               <span aria-hidden className="flex w-full items-center">
@@ -47,10 +44,7 @@ export function YourPart() {
               </span>
               <div className="flex flex-col items-start gap-12">
                 <Eyebrow size="tag">{step.tag}</Eyebrow>
-                <div className="flex flex-col items-start gap-4">
-                  <h3 className="font-serif text-[22px] leading-[1.15] tracking-[-0.88px] text-ink">{step.title}</h3>
-                  <p className="font-sans text-[14px] leading-[1.43] tracking-[-0.28px] text-ink-muted">{step.body}</p>
-                </div>
+                <h3 className="font-serif text-[40px] leading-[1.1] font-light tracking-[-1.6px] text-ink">{step.title}</h3>
               </div>
             </li>
           ))}

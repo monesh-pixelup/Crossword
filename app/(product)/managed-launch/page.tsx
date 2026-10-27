@@ -4,7 +4,9 @@ import {
   Commitment,
   HowItWorks,
   Journey,
+  JourneyLibrary,
   LaunchHero,
+  PilotCta,
   YourPart,
 } from "@/modules/managed-launch";
 
@@ -20,9 +22,11 @@ export default function ManagedLaunchPage() {
       <LaunchHero />
       <Commitment />
       <Journey />
+      <JourneyLibrary />
       <HowItWorks />
       <ChooseJourney />
       <YourPart />
+      <PilotCta />
     </main>
   );
 }

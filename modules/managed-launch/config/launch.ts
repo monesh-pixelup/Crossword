@@ -60,3 +60,23 @@ export const journeyCards: { title: string; body: string }[] = [
     body: "Customer messages regarding a refund. Crossword fetches the recent order. Customer chooses the product for a refund. Crossword understands why the customer is requesting for a refund. Crossword checks the guardrails, like date range of exchange. Crossword offers refund, and another option of solving the issue to reduce returns.",
   },
 ];
+
+/** Journey library (Figma "Section · Journey library (4x4)", row 1): a few of the journeys the team builds. */
+export const libraryJourneys = [
+  {
+    title: "Gift finder",
+    body: "Helps someone who has no idea what to buy. Asks about the person they’re shopping for, then narrows to a few options they can feel good about.",
+  },
+  {
+    title: "Style match",
+    body: "Learns taste, budget, and occasion in a few questions, then builds a shortlist that looks chosen, not generated.",
+  },
+  {
+    title: "Size and fit guide",
+    body: "Answers the question that stops most clothing purchases. Recommends a size from the shopper’s measurements and past orders, and explains the fit.",
+  },
+  {
+    title: "Support",
+    body: "Helps the shopper find the answer they need and process a change all without submitting a ticket. For complex issues, it handoffs to the team with all of the required context.",
+  },
+];
