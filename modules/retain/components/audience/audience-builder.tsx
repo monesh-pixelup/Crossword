@@ -22,7 +22,7 @@ export function AudienceBuilder() {
             <SectionTitle id="audience-title" initial="T" firstLine="urn customer patterns" secondLine="into your audience" width={614.744} />
           </div>
           <p className="max-w-[477.244px] font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
-            Find demand buried in past conversations, even when shoppers never joined a waiting list.
+            Find demand buried in past conversations, even when shoppers never joined a waiting list with Crossword.
           </p>
         </div>
 

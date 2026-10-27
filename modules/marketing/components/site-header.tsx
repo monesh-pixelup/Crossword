@@ -106,7 +106,7 @@ function reveal(open: boolean) {
 
 type Glyph = {
   name: string;
-  /** White artwork for the dark bar, ink for the sand one. */
+  /** White artwork for the dark bar, ink for the cream one. */
   onDark: StaticImageData;
   onSand: StaticImageData;
   width: number;
@@ -138,9 +138,10 @@ const darkChipFill = [
 ].join(", ");
 
 /**
- * Figma "Icon · …": an 18.9 × 18.8 glass chip (8.155px corners, a 33px background blur) with a
- * 0.8155px inside stroke fading from white at 12% to clear top to bottom, filled white at 4% with
- * a radial glow on the dark bar or ink at 10% on the sand one; its glyph sits 3.815px in.
+ * Figma "Icon · …": an 18.9 × 18.8 glass chip (8.155px corners, a 33px background blur). On the
+ * dark bar it has a 0.8155px inside stroke fading from white at 12% to clear top to bottom over a
+ * white 4% fill with a radial glow; on the cream one it is ink at 10% with no stroke. Its glyph
+ * sits 3.815px in.
  */
 function AiChip({ glyph, light }: { glyph: Glyph; light: boolean }) {
   return (
@@ -148,16 +149,18 @@ function AiChip({ glyph, light }: { glyph: Glyph; light: boolean }) {
       className={cn("relative block h-[18.8px] w-[18.9px] shrink-0 rounded-[8.155px] backdrop-blur-[16.494px]", !light && "bg-ink/10")}
       style={light ? { backgroundImage: darkChipFill } : undefined}
     >
-      <span
-        aria-hidden
-        className="absolute inset-0 rounded-[inherit] p-[0.8155px]"
-        style={{
-          background: "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0))",
-          WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-          WebkitMaskComposite: "xor",
-          maskComposite: "exclude",
-        }}
-      />
+      {light && (
+        <span
+          aria-hidden
+          className="absolute inset-0 rounded-[inherit] p-[0.8155px]"
+          style={{
+            background: "linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0))",
+            WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
+      )}
       <span className={cn("absolute top-[3.815px] left-[3.815px] h-[11.2px] w-[11.3px]", glyph.faded && "opacity-60")}>
         <Image
           src={light ? glyph.onDark : glyph.onSand}
@@ -172,16 +175,16 @@ function AiChip({ glyph, light }: { glyph: Glyph; light: boolean }) {
 
 /**
  * Figma "Navbar" (Platform open): a panel the full width of the bar, in the bar's own fill (the
- * translucent dark one, or sand under a 0.5px black/10 rule), 16px down to the columns and 32px
+ * translucent dark one, or cream under the 1px rail rule), 16px down to the columns and 32px
  * under them. Three 200px product columns 125px apart (from 1440px; they close up below), the first
  * under a "SELL" label, the other two bottom-aligned with it, then the 304px "New" card at the right.
  * Each product is a Crimson 16 title over a Geist 12 line, 4px apart and 24px between products; the
- * title turns gold (wine on sand) on hover. AI Assistants and Personal Agents carry their row of
+ * title turns gold (wine on cream) on hover. AI Assistants and Personal Agents carry their row of
  * marks 127px in from the title's left edge.
  */
 function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; fullBleed: boolean; open: boolean; onChoose: () => void }) {
   const gap = "gap-[min(125px,8.68vw)]";
-  const label = cn("font-sans text-[12px] leading-6 tracking-[-0.48px]", light ? "text-cream/40" : "text-ink/40");
+  const label = cn("font-sans text-[12px] leading-6 tracking-[-0.48px]", light ? "text-cream/40" : "text-ink/60");
   return (
     <div className={cn("absolute inset-x-0 top-full isolate", reveal(open))}>
       <div
@@ -189,7 +192,7 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
         className={cn(
           "absolute -z-10",
           fullBleed ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : "inset-0",
-          light ? "bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]" : "bg-sand",
+          light ? "bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]" : "bg-cream",
         )}
       />
       <div className={cn("flex content-width items-start justify-between pt-4 pb-8", gap)}>
@@ -208,12 +211,12 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
                             "font-serif text-base leading-[22.356px] whitespace-nowrap transition-colors duration-150",
                             light
                               ? "text-cream/80 group-hover/link:text-gold group-focus-visible/link:text-gold"
-                              : "text-ink/80 group-hover/link:text-wine group-focus-visible/link:text-wine",
+                              : "text-ink group-hover/link:text-wine group-focus-visible/link:text-wine",
                           )}
                         >
                           {link.label}
                         </span>
-                        <span className={cn("max-w-[198px] font-sans text-[12px] leading-5", light ? "text-cream/40" : "text-ink/40")}>{link.description}</span>
+                        <span className={cn("max-w-[198px] font-sans text-[12px] leading-5", light ? "text-cream/40" : "text-ink/60")}>{link.description}</span>
                       </Link>
                       {icons && (
                         <span className="pointer-events-none absolute top-1 left-[127px] flex items-center gap-[5px]">
@@ -244,7 +247,7 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
 /**
  * Figma "Navbar" (Company open): a 235px list, its links 24px in so they line up under the trigger's
  * label, 12px apart. Over a dark bar it hangs from the bar in the same translucent fill (2px corners,
- * 32px under the last link); under the sand bar it floats 16px below as a sand card (5px corners,
+ * 32px under the last link); under the cream bar it floats 16px below as a cream card (5px corners,
  * 24px under). The top padding of the wrapper bridges that gap for the pointer.
  */
 function ListPanel({ links, light, open, onChoose }: { links: NavLink[]; light: boolean; open: boolean; onChoose: () => void }) {
@@ -253,7 +256,7 @@ function ListPanel({ links, light, open, onChoose }: { links: NavLink[]; light: 
       <ul
         className={cn(
           "flex w-[235px] flex-col gap-3 px-6 pt-4",
-          light ? "rounded-[2px] bg-[rgba(9,9,9,0.71)] pb-8 backdrop-blur-[16px]" : "rounded-[5px] bg-sand pb-6",
+          light ? "rounded-[2px] bg-[rgba(9,9,9,0.71)] pb-8 backdrop-blur-[16px]" : "rounded-[5px] bg-cream pb-6",
         )}
       >
         {links.map((link) => (
@@ -264,7 +267,7 @@ function ListPanel({ links, light, open, onChoose }: { links: NavLink[]; light: 
               className={cn(
                 "block transition-colors duration-150",
                 navText,
-                light ? "text-cream/80 hover:text-cream" : "text-ink/80 hover:text-ink",
+                light ? "text-cream/80 hover:text-cream" : "text-ink hover:text-ink",
               )}
             >
               {link.label}
@@ -374,7 +377,7 @@ function Contents({
 }) {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   useEffect(() => onDropdownChange?.(openMenu !== null), [openMenu, onDropdownChange]);
-  const link = light ? "text-cream/80 transition-colors duration-150 hover:text-cream" : "text-ink/80 transition-colors duration-150 hover:text-ink";
+  const link = light ? "text-cream/80 transition-colors duration-150 hover:text-cream" : "text-ink transition-colors duration-150 hover:text-ink";
   return (
     <>
       <div className="flex items-center gap-8">
@@ -414,13 +417,13 @@ function Contents({
 /**
  * The site header, fixed to the top so it stays in place as the page scrolls.
  *
- * - Most pages: Figma's light navbar, a sand bar with a 0.5px black/10 rule underneath, with a
+ * - Most pages: Figma's light navbar, a cream bar with a 1px rail-coloured (#d2cbba) rule underneath, with a
  *   72.5px spacer holding its place.
  * - TRANSPARENT_ROUTES: no spacer, so the hero runs up under it. The same full-width bar, but
  *   transparent with cream links and the light mark; scrolled past 10px, or while a menu is open,
  *   its translucent dark fill (rgba(9, 9, 9, .71) with a blur) and a white/15 hairline fade in
  *   behind them over 300ms. On HERO_ONLY_ROUTES that lasts while the hero is under the header;
- *   past it the header is the sand bar (still with no spacer).
+ *   past it the header is the cream bar (still with no spacer).
  *
  * Both bars carry the Platform menu (full width, in the bar's fill) and the Company list.
  */
@@ -434,7 +437,7 @@ export function SiteHeader() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   if (transparent) {
-    // Past the hero (HERO_ONLY_ROUTES) the sand bar crossfades in over the dark one, fill, rule and contents together.
+    // Past the hero (HERO_ONLY_ROUTES) the cream bar crossfades in over the dark one, fill, rule and contents together.
     const dark = (scrolled || menuOpen || dropdownOpen) && !pastHero;
     const fade = "transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
     const fill = fullBleed ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : "inset-0";
@@ -442,11 +445,11 @@ export function SiteHeader() {
       <header className="fixed inset-x-0 top-0 z-50">
         {/* The hairlines run the full viewport width, past the 1600px cap. */}
         <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 bottom-0 h-[0.5px] bg-white/15", fade, dark ? "opacity-100" : "opacity-0")} />
-        <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 bottom-0 h-[0.5px] bg-black/10", fade, pastHero ? "opacity-100" : "opacity-0")} />
+        <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-rail", fade, pastHero ? "opacity-100" : "opacity-0")} />
         <div className="relative mx-auto max-w-[1600px] pb-[0.5px]">
           {/* Laid out as the home page's bar (full width, the content row 16px top and bottom); its dark fill fades in once the page scrolls. */}
           <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]", fill, fade, dark ? "opacity-100" : "opacity-0")} />
-          <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-sand", fill, fade, pastHero ? "opacity-100" : "opacity-0")} />
+          <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-cream", fill, fade, pastHero ? "opacity-100" : "opacity-0")} />
 
           {/*
             Both sets of contents share one grid cell and crossfade; the hidden one is inert. Neither
@@ -471,9 +474,9 @@ export function SiteHeader() {
     <>
       <header className="fixed inset-x-0 top-0 z-50">
         {/* The rule runs the full viewport width, past the 1600px cap. */}
-        <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[0.5px] bg-black/10" />
+        <span aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-rail" />
         <div className="relative mx-auto max-w-[1600px] pb-[0.5px]">
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-sand" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-cream" />
 
           {/* Not positioned, so the mobile menu and the Platform menu (absolute, top-full) span the whole bar. */}
           <div className="flex content-width items-center justify-between py-4">
