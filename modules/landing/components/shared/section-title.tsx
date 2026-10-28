@@ -2,9 +2,17 @@ import type { CSSProperties, ReactNode } from "react";
 
 /** Typographic settings that differ between section headlines in Figma. */
 const variants = {
-  /** 60px lines at 1.1 leading (Lifecycle, Shopper experience). */
+  /** 60px lines at 1.1 leading (Shopper experience). */
   default: {
     firstLineHeight: 81,
+    tracking: "tracking-[-3.5538px]",
+    swash: "font-script text-[82px] leading-[1.18] tracking-[4.1px]",
+    line: "leading-[1.1] tracking-[-3px]",
+    second: "",
+  },
+  /** As default, on one line: the swash's 1.18 leading sets it 96.76px tall, as Figma does (Lifecycle). */
+  oneLine: {
+    firstLineHeight: 96.76,
     tracking: "tracking-[-3.5538px]",
     swash: "font-script text-[82px] leading-[1.18] tracking-[4.1px]",
     line: "leading-[1.1] tracking-[-3px]",

@@ -19,13 +19,13 @@ export function useStrangerActive() {
 }
 
 /**
- * The home Lifecycle section's scroll behaviour (`LifecycleTabs`), for static copy beside one
+ * The home Lifecycle section's former scroll behaviour, for static copy beside one
  * panel. From 992px the heading sticks at the top of its column and the items scroll up beneath it,
  * fading out under its edge; the item just below the heading is at full strength (the others rest
  * at 20%), and the panel sticks beside them. When stacked, the panel is what sticks and the items
  * pass under it. The last item stays put once it reaches the heading: everything then scrolls away
  * together. With `belowHeader` both pin 48px below the fixed 72.5px site header instead of 48px
- * from the viewport top, as Lifecycle does. With `flush` the list takes Lifecycle's spacing too: no
+ * from the viewport top, as Lifecycle did. With `flush` the list takes Lifecycle's old spacing too: no
  * top padding of its own (the heading and items set it) and no nudge in from the heading's edge.
  */
 export function StrangerScroll({

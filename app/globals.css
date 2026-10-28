@@ -197,7 +197,7 @@
   }
 }
 
-/* Home lifecycle: the pinned stage label settling in as the list moves into a new stage. */
+/* Home lifecycle: a stage's features settling in as its tab opens. */
 @keyframes lifecycle-stage-in {
   from {
     opacity: 0;
