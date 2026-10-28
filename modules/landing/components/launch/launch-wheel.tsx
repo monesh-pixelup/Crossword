@@ -3,7 +3,12 @@
 import Image, { type StaticImageData } from "next/image";
 import { type CSSProperties, useEffect, useRef } from "react";
 import panelTexture from "../../assets/launch/panel-texture.webp";
-import stampArt from "../../assets/launch/stamp-art.webp";
+import stampConfigure from "../../assets/launch/stamp-configure.webp";
+import stampConnect from "../../assets/launch/stamp-connect.webp";
+import stampImprove from "../../assets/launch/stamp-improve.webp";
+import stampLaunch from "../../assets/launch/stamp-launch.webp";
+import stampTest from "../../assets/launch/stamp-test.webp";
+import stampWatch from "../../assets/launch/stamp-watch.webp";
 import stud from "../../assets/launch/stud.svg";
 
 const studs = [
@@ -16,6 +21,12 @@ const studs = [
 /** "Simply tell us…" → we do the rest. */
 /** The homepage doc's six steps. */
 const homeSteps = ["We connect the systems.", "Configure the experience.", "Test it.", "Launch it.", "Watch it.", "Improve it."];
+
+/**
+ * Figma "Stamps" (3492:23027): each step's own stamp, in step order. Figma renders their guilloché
+ * (a shader fill) and icons; exported at 3x and cut out on transparency, each 97.35 × 93.93 with its tilt.
+ */
+const homeStamps = [stampConnect, stampConfigure, stampTest, stampLaunch, stampWatch, stampImprove];
 
 /** Server markup is Figma's still frame: the middle step active, its neighbours muted, the ends fading out. */
 function stillState(i: number, n: number) {
@@ -43,13 +54,14 @@ type Stamp = HTMLImageElement & { _leaving?: boolean; _falling?: boolean };
 
 /**
  * Every DURATION ms the next step rolls to the centre of the list and its
- * stamp drops from the top of the aubergine panel onto the pile. Clicking a
+ * stamp (the template for that step, cycling when there are fewer stamps
+ * than steps) drops from the top of the aubergine panel onto the pile. Clicking a
  * step rolls to it and drops its stamp. Autoplay starts when the row is in
  * view and pauses off-screen, while the mouse is over the steps, on keyboard
  * focus and while the tab is hidden. With reduced motion there is no autoplay
  * and nothing moves: a click swaps the step and its stamp appears in place.
  */
-function startWheel(row: HTMLElement, list: HTMLOListElement, pile: HTMLElement, template: HTMLImageElement) {
+function startWheel(row: HTMLElement, list: HTMLOListElement, pile: HTMLElement, templates: HTMLImageElement[]) {
   const items = Array.from(list.querySelectorAll<Item>("[data-step]"));
   const buttons = items.map((item) => item.querySelector("button")!);
   const n = items.length;
@@ -161,7 +173,7 @@ function startWheel(row: HTMLElement, list: HTMLOListElement, pile: HTMLElement,
       });
   }
   function drop(step: number) {
-    const stamp = template.cloneNode(false) as Stamp;
+    const stamp = templates[step % templates.length].cloneNode(false) as Stamp;
     const rest = `rotate(${ROTATIONS[step % ROTATIONS.length]}deg)`;
     stamp.removeAttribute("id");
     stamp.loading = "eager";
@@ -255,7 +267,9 @@ function startWheel(row: HTMLElement, list: HTMLOListElement, pile: HTMLElement,
     button.addEventListener("click", onClick);
     return onClick;
   });
-  template.style.display = "none";
+  // Kept to put back on cleanup: the still frame's stamp shows, the others stay hidden.
+  const displays = templates.map((template) => template.style.display);
+  for (const template of templates) template.style.display = "none";
   list.dataset.wheel = "";
   measure();
   paint();
@@ -316,10 +330,12 @@ function startWheel(row: HTMLElement, list: HTMLOListElement, pile: HTMLElement,
     ([entry]) => {
       if (!entry.isIntersecting) return;
       warm.disconnect();
-      const img = new window.Image();
-      img.sizes = template.sizes;
-      img.srcset = template.srcset;
-      img.src = template.src;
+      for (const template of templates) {
+        const img = new window.Image();
+        img.sizes = template.sizes;
+        img.srcset = template.srcset;
+        img.src = template.src;
+      }
     },
     { rootMargin: "100% 0px" },
   );
@@ -348,7 +364,9 @@ function startWheel(row: HTMLElement, list: HTMLOListElement, pile: HTMLElement,
     reduce.removeEventListener("change", onMotionChange);
     window.removeEventListener("resize", onResize);
     pile.replaceChildren();
-    template.style.display = "";
+    templates.forEach((template, i) => {
+      template.style.display = displays[i];
+    });
     items.forEach(cancelRoll);
   };
 }
@@ -356,12 +374,13 @@ function startWheel(row: HTMLElement, list: HTMLOListElement, pile: HTMLElement,
 /**
  * The stamp panel and the steps wheel of the managed-launch row. Rendered
  * inside the row's positioning box, so both keep their Figma placement.
- * The Managed Launch page's Journey row passes its own steps, stamp and label, and a `textScale`
- * that sets its longer one-line steps smaller so they stay inside the page.
+ * The homepage drops each step's own stamp (`homeStamps`); the Managed Launch page's Journey row
+ * passes its own steps, a single `stamp` for all of them and label, and a `textScale` that sets
+ * its longer one-line steps smaller so they stay inside the page.
  */
 export function LaunchWheel({
   steps = homeSteps,
-  stamp = stampArt,
+  stamp,
   label = "How we launch your concierge",
   textScale = 1,
 }: {
@@ -372,15 +391,18 @@ export function LaunchWheel({
 }) {
   const listRef = useRef<HTMLOListElement>(null);
   const pileRef = useRef<HTMLDivElement>(null);
-  const templateRef = useRef<HTMLImageElement>(null);
+  const templateRefs = useRef<(HTMLImageElement | null)[]>([]);
+  const stamps = stamp ? [stamp] : homeStamps;
+  // The still frame shows the middle step's stamp, as its steps show that step active.
+  const still = Math.floor(steps.length / 2) % stamps.length;
 
   useEffect(() => {
     const row = listRef.current?.parentElement;
     const list = listRef.current;
     const pile = pileRef.current;
-    const template = templateRef.current;
-    if (!row || !list || !pile || !template) return;
-    return startWheel(row, list, pile, template);
+    const templates = templateRefs.current.filter((el): el is HTMLImageElement => el !== null);
+    if (!row || !list || !pile || !templates.length) return;
+    return startWheel(row, list, pile, templates);
   }, []);
 
   return (
@@ -401,14 +423,23 @@ export function LaunchWheel({
         {studs.map((pos) => (
           <Image key={`${pos.left}-${pos.top}`} src={stud} alt="" className="absolute size-2" style={pos} />
         ))}
-        {/* The still frame's stamp; the wheel keeps it as the template for the stamps it drops. */}
-        <Image
-          ref={templateRef}
-          src={stamp}
-          alt=""
-          sizes="99px"
-          className="absolute top-[34.677%] left-[34.415%] block h-auto w-[31.171%] max-w-none drop-shadow-[0_2px_4px_rgba(24,8,36,0.35)]"
-        />
+        {/*
+          One template per stamp, for the wheel to clone as it drops them; only the still frame's
+          stamp shows (the others hide inline, which a dropped clone clears).
+        */}
+        {stamps.map((art, i) => (
+          <Image
+            key={art.src}
+            ref={(el) => {
+              templateRefs.current[i] = el;
+            }}
+            src={art}
+            alt=""
+            sizes="99px"
+            style={i === still ? undefined : { display: "none" }}
+            className="absolute top-[34.677%] left-[34.415%] block h-auto w-[31.171%] max-w-none drop-shadow-[0_2px_4px_rgba(24,8,36,0.35)]"
+          />
+        ))}
         <div ref={pileRef} className="absolute inset-0" />
       </div>
       </div>
