@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/cn";
 import { type StampGlyph, stampSvgs } from "./stamp-svgs";
 
-/** A hover replays the stamp at most this often, so sweeping the pointer across it doesn't restart it mid-press. */
+/** A hover replays the stamp at most this often, so sweeping the pointer across it doesn't restart it mid-entrance. */
 const HOVER_REPLAY_MS = 2200;
 
 /**
  * The divider band's animated stamp (see stampSvgs), filling the badge's 74 × 74.95 box: its 78px SVG sits 2px out
- * on every side (58.5px and 1.5px at the band's 0.75x below 768px). The SVG is only added once half of the badge is
- * on screen, so its press-in plays as the band comes into view, then runs into its idle loop; a mouse hover (at most
- * every 2.2s) or a tap replays it from the start, as the Stamp Motion handoff does by swapping in a fresh copy.
+ * on every side (58.5px and 1.5px at the band's 0.75x below 768px). The stamp is always drawn, its animations held
+ * until half of the badge is on screen, so its glyph's entrance plays as the band comes into view, then runs into its
+ * idle loop; a mouse hover (at most every 2.2s) or a tap replays it from the start, as the Stamp Motion handoff does by
+ * swapping in a fresh copy.
  */
 export function AnimatedStamp({ glyph }: { glyph: StampGlyph }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -45,9 +47,14 @@ export function AnimatedStamp({ glyph }: { glyph: StampGlyph }) {
         lastHover.current = Date.now();
         replay();
       }}
-      className="pointer-events-auto absolute -inset-[2px] cursor-pointer max-md:-inset-[1.5px] [&_svg]:block [&_svg]:size-full [&_svg]:overflow-visible"
+      className={cn(
+        "pointer-events-auto absolute -inset-[2px] cursor-pointer max-md:-inset-[1.5px] [&_svg]:block [&_svg]:size-full [&_svg]:overflow-visible",
+        // Held at their start (the glyph not yet in) until the badge is on screen; important, as the SVG's own
+        // `animation` shorthands would otherwise set them running.
+        !inView && "[&_*]:[animation-play-state:paused!important]",
+      )}
     >
-      {inView && <span key={run} className="contents" dangerouslySetInnerHTML={{ __html: stampSvgs[glyph] }} />}
+      <span key={run} className="contents" dangerouslySetInnerHTML={{ __html: stampSvgs[glyph] }} />
     </span>
   );
 }
