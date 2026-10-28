@@ -172,7 +172,19 @@ export function CtaEnvelope() {
             className={`${layer} ${flap} top-[4.9406%] z-2 h-[38.587%] origin-[50%_99.7237%]`}
           />
           <div data-cta="letter-hover" className="absolute top-[28.412%] left-[3.8129%] z-3 h-[40.163%] w-[68.8129%]">
-            <Image data-cta="letter" src={letter} alt="" sizes="(min-width: 1440px) 957px, 69vw" className={card} />
+            {/*
+              The note is live text over the blank card, sized in card units (cqw of the card,
+              1913px in the export) so it scales with the envelope. Caveat 71/89.15 at x 92.5,
+              first baseline 195, turned 0.1° with the card; line 1 is tracked out 0.5px as in Figma.
+            */}
+            <div data-cta="letter" className={`${card} @container`}>
+              <Image src={letter} alt="" sizes="(min-width: 1440px) 957px, 69vw" className="absolute inset-0 block size-full max-w-none" />
+              <p className="absolute top-[6.6388cqw] left-[4.8353cqw] m-0 origin-[0_0.958em] rotate-[0.1deg] font-hand text-[3.7114cqw] leading-[1.2556] font-normal whitespace-nowrap text-[#625f57]">
+                <span className="block tracking-[0.007em]">The rose gold pendant caught</span>
+                <span className="block">your eye. It’s still here if you’d like</span>
+                <span className="block">another look.</span>
+              </p>
+            </div>
           </div>
           <div data-cta="photo-hover" className="absolute top-[34.1304%] left-[63.9245%] z-4 h-[42.2283%] w-[28.2374%]">
             <Image data-cta="photo" src={photo} alt="" sizes="(min-width: 1440px) 393px, 29vw" className={card} />

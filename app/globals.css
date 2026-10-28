@@ -9,6 +9,7 @@
   --font-inter: var(--font-face-inter), ui-sans-serif, system-ui, sans-serif;
   --font-open-sans: var(--font-face-open-sans), ui-sans-serif, system-ui, sans-serif;
   --font-calligraphy: var(--font-tangerine), cursive;
+  --font-hand: var(--font-caveat), cursive;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Brand palette (from Figma) */

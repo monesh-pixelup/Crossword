@@ -1,4 +1,5 @@
 import {
+  Caveat,
   Crimson_Pro,
   DM_Sans,
   Geist,
@@ -90,6 +91,15 @@ export const tangerine = Tangerine({
   preload: false,
 });
 
+/** The handwritten note on the home page's CTA letter (400). */
+export const caveat = Caveat({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  display: "swap",
+  preload: false,
+});
+
 /** Step tags on the Retain timeline (400). */
 export const geistMono = Geist_Mono({
   weight: "400",
@@ -163,6 +173,7 @@ export const fontVariables = [
   inter.variable,
   openSans.variable,
   tangerine.variable,
+  caveat.variable,
   geistMono.variable,
   interMotion.variable,
   geistMonoMotion.variable,

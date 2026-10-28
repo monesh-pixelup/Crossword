@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
+import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
 import panelAubergine from "../../assets/options/dedicated-panel-aubergine.webp";
 import panelForest from "../../assets/options/dedicated-panel-forest.webp";
@@ -16,87 +16,27 @@ import { TextLink } from "../shared/text-link";
  */
 const panels = [panelMaroon, panelForest, panelAubergine];
 
-/** The fixed site header's height plus the 48px the list sits below it while pinned. */
-const PIN_TOP = 72.5 + 48;
+/** Each component's turn (its panel is a still, so the default run) plus the hold. */
+const turns = dedicatedTabs.map(() => tabTurn());
 
 /**
  * Figma "Library · Vertical tabs" (Dedicated landing pages), made scroll-driven as Campaigns & outbound on Retain:
  * every component stacks in the right column (its name in Crimson 22, its line of Geist 16 and a text link over its
- * 821 × 611 panel, maroon, forest green and aubergine in turn), while the 280px list of components stays pinned on the left from 992px. The component whose panel
- * has crossed the middle of the viewport is the active one (ink; the rest ink/60), and the gold rule under its label
- * fills as it scrolls through, until the next one takes over: then the old rule fades and shrinks away. Choosing a
- * component scrolls to it. Below 992px the list is hidden and the components simply stack.
+ * 821 × 611 panel, maroon, forest green and aubergine in turn), while the 280px list of components stays pinned on
+ * the left from 992px. The component whose panel has crossed the middle of the viewport is the active one (ink; the
+ * rest ink/60).
+ *
+ * They also play on their own (see `useAutoplayTabs`): while the list is pinned, the gold rule under the active label
+ * fills over that component's turn, and moves along as the reader scrolls, then the page scrolls on to the next
+ * component. When the next component takes over, the old rule fades and shrinks away. Choosing a component scrolls
+ * to it. Below 992px the list is hidden and the components simply stack.
  */
 export function DedicatedTabList() {
-  const [active, setActive] = useState(0);
-  const steps = useRef<(HTMLDivElement | null)[]>([]);
-  const fills = useRef<(HTMLSpanElement | null)[]>([]);
-  const activeRef = useRef(0);
-
-  useEffect(() => {
-    let frame = 0;
-    const read = () => {
-      frame = 0;
-      const line = window.innerHeight / 2;
-      const tops = steps.current.map((el) => el?.getBoundingClientRect().top ?? 0);
-      // The last component whose top has crossed the middle of the viewport (the first until one has).
-      let current = 0;
-      tops.forEach((top, i) => {
-        if (top <= line) current = i;
-      });
-
-      // Progress through the active component: from its top crossing the line to the next one's.
-      const el = steps.current[current];
-      const span = current < tops.length - 1 ? tops[current + 1] - tops[current] : (el?.offsetHeight ?? 1);
-      const progress = Math.min(1, Math.max(0, (line - tops[current]) / span));
-      const fill = fills.current[current];
-      if (fill) fill.style.scale = `${progress} 1`;
-
-      if (current !== activeRef.current) {
-        activeRef.current = current;
-        setActive(current);
-      }
-    };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(read);
-    };
-    read();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  // Once the outgoing rule has its eased transition (after this render), let it shrink away.
-  const previous = useRef(0);
-  useEffect(() => {
-    const out = previous.current;
-    previous.current = active;
-    if (out === active) return;
-    const frame = requestAnimationFrame(() => {
-      const fill = fills.current[out];
-      if (fill) fill.style.scale = "0 1";
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [active]);
-
-  /** Scrolls component `i` up to just below the header, level with the pinned list. */
-  const open = (i: number) => {
-    const el = steps.current[i];
-    if (!el) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({
-      top: window.scrollY + el.getBoundingClientRect().top - PIN_TOP,
-      behavior: reduce ? "auto" : "smooth",
-    });
-  };
+  const { active, steps, fills, open, pause } = useAutoplayTabs(turns);
 
   return (
     <div className="flex w-full flex-col items-stretch lg:flex-row lg:items-start lg:justify-between lg:gap-8">
-      <nav aria-label="Dedicated landing page components" className="sticky top-[calc(72.5px+48px)] hidden shrink-0 lg:block lg:w-[280px]">
+      <nav aria-label="Dedicated landing page components" {...pause} className="sticky top-[calc(72.5px+48px)] hidden shrink-0 lg:block lg:w-[280px]">
         <ul className="flex flex-col">
           {dedicatedTabs.map((tab, i) => {
             const on = i === active;
@@ -114,7 +54,7 @@ export function DedicatedTabList() {
                 >
                   {/* No left padding: the labels line up with the heading above. */}
                   {tab.label}
-                  {/* Hairline track, with the gold rule that fills as this component scrolls through. */}
+                  {/* Hairline track, with the gold rule that fills over this component's turn (or as it scrolls through). */}
                   <span aria-hidden className="relative h-px w-full bg-black/10">
                     <span
                       ref={(el) => {

@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/cn";
+import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import { resolveCases } from "../../config/resolve";
 import { supportScenesA } from "../motion/index-a";
@@ -11,91 +12,32 @@ import { SupportMotionRoot } from "../motion/root";
 /** The cases' frames take these liveries in turn: maroon, then aubergine, then forest green, repeating. */
 const tones: SceneTone[] = ["maroon", "aubergine", "forest"];
 
-/** The fixed site header's height plus the 48px the list sits below it while pinned. */
-const PIN_TOP = 72.5 + 48;
+/** Each case's turn: its scene's run plus the hold. */
+const turns = resolveCases.map((c) => tabTurn(supportScenesA[c.scene].duration));
 
 /**
  * Figma "Library · Vertical tabs", made scroll-driven like Granola's "how it works": every question
  * type stacks in the right column (its title and line of copy over its notched card, maroon,
- * aubergine and forest green in turn, playing its motion scene), while the 280px list of types stays pinned on the left from 992px.
- * The type whose case has crossed the middle of the viewport is the active one (ink; the rest
- * ink/60), and the gold rule under its label fills as its case scrolls through, until the next one
- * takes over: then the old rule fades and shrinks away. Choosing a type scrolls to its case. Below
- * 992px the list is hidden and the cases simply stack.
+ * aubergine and forest green in turn, playing its motion scene), while the 280px list of types stays
+ * pinned on the left from 992px. The type whose case has crossed the middle of the viewport is the
+ * active one (ink; the rest ink/60).
+ *
+ * They also play on their own (see `useAutoplayTabs`): while the list is pinned, the gold rule under
+ * the active label fills over that case's turn (its scene's run plus a short hold), and moves along
+ * as the reader scrolls, then the page scrolls on to the next case. When the next case takes over,
+ * the old rule fades and shrinks away. Choosing a type scrolls to its case. Below 992px the list is
+ * hidden and the cases simply stack.
  */
 export function ResolveTabs() {
-  const [active, setActive] = useState(0);
   // Bumped each time a case becomes active, so its scene plays from the start again.
   const [plays, setPlays] = useState(() => resolveCases.map(() => 0));
-  const steps = useRef<(HTMLDivElement | null)[]>([]);
-  const fills = useRef<(HTMLSpanElement | null)[]>([]);
-  const activeRef = useRef(0);
-
-  useEffect(() => {
-    let frame = 0;
-    const read = () => {
-      frame = 0;
-      const line = window.innerHeight / 2;
-      const tops = steps.current.map((el) => el?.getBoundingClientRect().top ?? 0);
-      // The last case whose top has crossed the middle of the viewport (the first until one has).
-      let current = 0;
-      tops.forEach((top, i) => {
-        if (top <= line) current = i;
-      });
-
-      // Progress through the active case: from its top crossing the line to the next one's.
-      const el = steps.current[current];
-      const span = current < tops.length - 1 ? tops[current + 1] - tops[current] : (el?.offsetHeight ?? 1);
-      const progress = Math.min(1, Math.max(0, (line - tops[current]) / span));
-      const fill = fills.current[current];
-      if (fill) fill.style.scale = `${progress} 1`;
-
-      if (current !== activeRef.current) {
-        activeRef.current = current;
-        setActive(current);
-        setPlays((p) => p.map((n, i) => (i === current ? n + 1 : n)));
-      }
-    };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(read);
-    };
-    read();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  // Once the outgoing rule has its eased transition (after this render), let it shrink away.
-  const previous = useRef(0);
-  useEffect(() => {
-    const out = previous.current;
-    previous.current = active;
-    if (out === active) return;
-    const frame = requestAnimationFrame(() => {
-      const fill = fills.current[out];
-      if (fill) fill.style.scale = "0 1";
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [active]);
-
-  /** Scrolls case `i` up to just below the header, level with the pinned list. */
-  const open = (i: number) => {
-    const el = steps.current[i];
-    if (!el) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    window.scrollTo({
-      top: window.scrollY + el.getBoundingClientRect().top - PIN_TOP,
-      behavior: reduce ? "auto" : "smooth",
-    });
-  };
+  const { active, steps, fills, open, pause } = useAutoplayTabs(turns, {
+    onActivate: (current) => setPlays((p) => p.map((n, i) => (i === current ? n + 1 : n))),
+  });
 
   return (
     <div className="flex w-full flex-col items-stretch lg:flex-row lg:items-start lg:justify-between lg:gap-8">
-      <nav aria-label="Support questions Crossword handles" className="sticky top-[calc(72.5px+48px)] hidden shrink-0 lg:block lg:w-[280px]">
+      <nav aria-label="Support questions Crossword handles" {...pause} className="sticky top-[calc(72.5px+48px)] hidden shrink-0 lg:block lg:w-[280px]">
         <ul className="flex flex-col">
           {resolveCases.map((c, i) => {
             const on = i === active;
@@ -113,7 +55,7 @@ export function ResolveTabs() {
                 >
                   {/* No left padding: the labels line up with the heading above. */}
                   {c.label}
-                  {/* Hairline track, with the gold rule that fills as this case scrolls through. */}
+                  {/* Hairline track, with the gold rule that fills over this case's turn (or as it scrolls through). */}
                   <span aria-hidden className="relative h-px w-full bg-black/10">
                     <span
                       ref={(el) => {
