@@ -157,7 +157,7 @@ export function HeroScene({
                   alt=""
                   style={style}
                   decoding="async"
-                  // The back wall is the largest paint: fetch it first.
+                  // The scene photo is the largest paint: fetch it first.
                   fetchPriority={i === 0 ? "high" : "auto"}
                 />
               );

@@ -1,14 +1,8 @@
 "use client";
 
 import { type ReactNode, type RefObject, useEffect, useMemo, useRef, useState } from "react";
-import bg from "../../../assets/hero/parallax/01-bg.webp";
-import plant from "../../../assets/hero/parallax/02-plant.webp";
-import deskFascia from "../../../assets/hero/parallax/03-desk-fascia.webp";
-import notebook from "../../../assets/hero/parallax/04-notebook.webp";
-import concierge from "../../../assets/hero/parallax/05-concierge.webp";
-import foregroundLeft from "../../../assets/hero/parallax/06-foreground-left.webp";
-import foregroundRight from "../../../assets/hero/parallax/07-foreground-right.webp";
-import bell from "../../../assets/hero/parallax/08-bell.webp";
+import scene from "../../../assets/hero/parallax/scene.webp";
+import concierge from "../../../assets/hero/parallax/scene-concierge.webp";
 import { Conversation } from "./conversation";
 import { EntryStack } from "./entry-stack";
 import { HeroScene, type SceneLayer, type SceneState } from "./hero-scene";
@@ -17,16 +11,15 @@ import { initialJourneyState, journeyOf, journeys, nextStep, selectJourney } fro
 /** The layer canvas: the frame's width, a little taller, so the photo overruns the frame's foot. */
 const LAYER_SIZE: [number, number] = [1671, 941];
 
-/** Back to front, each boxed on the canvas; the concierge glitches. */
+/**
+ * Figma 3476:26116: the whole scene as one photo (1619 × 971, drawn at Figma's 1443.13 × 865.52, centred on the
+ * 1440 × 863 frame), with the concierge over it to glitch: his 462 × 415 crop of that same photo at (573, 212),
+ * cut out with the previous layered export's matte (the same pose, registered onto the photo), so at rest he
+ * sits on it seamlessly. Boxed on the canvas (1671 canvas units to the frame's 1440px).
+ */
 const LAYERS: SceneLayer[] = [
-  { src: bg, box: [-96, -96, 1863, 1133] },
-  { src: plant, box: [69, 214, 329, 444] },
-  { src: deskFascia, box: [32, 633, 1605, 404] },
-  { src: notebook, box: [542, 615, 443, 44] },
-  { src: concierge, box: [590, 219, 479, 430], glitch: true },
-  { src: foregroundLeft, box: [-96, 68, 344, 969] },
-  { src: foregroundRight, box: [1348, 16, 419, 1021] },
-  { src: bell, box: [425, 570, 109, 93] },
+  { src: scene, box: [-1.816, -1.463, 1674.632, 1004.366] },
+  { src: concierge, box: [590.873, 217.822, 477.875, 429.26], glitch: true },
 ];
 
 /** The v3 export's tuning: a slower, softer, wider glitch, calm over the face. */
