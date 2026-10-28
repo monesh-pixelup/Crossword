@@ -6,7 +6,8 @@ import { commitments } from "../../config/launch";
  * 96px top and bottom, a 433px label column holding just the eyebrow, then the two commitments as stats behind dashed engraved rules, 40px in: a Crimson 200
  * 70px value with its Geist 14 unit beside it, over a Geist Mono caption, 12px apart. The second
  * stat is 466px wide; the first takes the rest. The label column sits beside the stats only from
- * 1280px, where the first stat still has room (433 + 466 + its ~200px); below, it sits above them.
+ * 1280px, where the first stat still has room (433 + 466 + its ~200px), centred on the stats' height; below, it sits
+ * above them.
  * The value shrinks on the narrowest phones (17vw under ~412px) so "Everything" never runs off.
  */
 export function Commitment() {
@@ -18,7 +19,7 @@ export function Commitment() {
         className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-sand shadow-[inset_0_0.5px_0_rgba(0,0,0,0.25),inset_0_-0.5px_0_rgba(0,0,0,0.25)]"
       />
       <div className="relative py-16 md:py-24">
-        <div className="flex content-width flex-col gap-12 min-[1280px]:flex-row min-[1280px]:items-start min-[1280px]:gap-0">
+        <div className="flex content-width flex-col gap-12 min-[1280px]:flex-row min-[1280px]:items-center min-[1280px]:gap-0">
           <div className="flex flex-col items-start min-[1280px]:w-[433px] min-[1280px]:shrink-0 min-[1280px]:pr-10">
             <SnappedEyebrow surface="sand" className="h-8">
               Managed launch and progress

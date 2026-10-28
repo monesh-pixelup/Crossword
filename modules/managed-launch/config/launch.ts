@@ -61,22 +61,35 @@ export const journeyCards: { title: string; body: string }[] = [
   },
 ];
 
-/** Journey library (Figma "Section · Journey library (4x4)", row 1): a few of the journeys the team builds. */
-export const libraryJourneys = [
+/**
+ * Journey library (Figma "Section · Journey library (4x4)", row 1): a few of the journeys the team builds. Each body
+ * opens with a lead in Geist Medium, on its own line unless `inline` (Gift finder's runs on into the text).
+ */
+export const libraryJourneys: { title: string; lead: string; body: string; inline?: boolean }[] = [
   {
     title: "Gift finder",
-    body: "Helps someone who has no idea what to buy. Asks about the person they’re shopping for, then narrows to a few options they can feel good about.",
+    lead: "Help for finding something meaningful and tailored:",
+    body: "Starts when someone lands on a gift page or asks what to get for a person. It asks about the person they’re shopping for, then narrows to a few options they can feel good about",
+    inline: true,
   },
   {
     title: "Style match",
-    body: "Learns taste, budget, and occasion in a few questions, then builds a shortlist that looks chosen, not generated.",
+    lead: "A shortlist after a few questions:",
+    body: "Picks up when a shopper has been moving between product pages without settling on one. It learns taste, budget, and occasion, then builds a shortlist that looks chosen, not generated.",
   },
   {
     title: "Size and fit guide",
-    body: "Answers the question that stops most clothing purchases. Recommends a size from the shopper’s measurements and past orders, and explains the fit.",
+    lead: "The right size before they hesitate:",
+    body: "Steps in when a shopper opens the size chart or keeps going back to the size selector. It recommends a size from their measurements and past orders, and explains the fit.",
   },
   {
-    title: "Support",
-    body: "Helps the shopper find the answer they need and process a change all without submitting a ticket. For complex issues, it handoffs to the team with all of the required context.",
+    title: "Support and exchanges",
+    lead: "Answers in chat without a ticket:",
+    body: "Starts from an order lookup or a return request. It finds the answer or processes the change in the conversation. If it needs a person, it hands it over with the full context.",
+  },
+  {
+    title: "Order tracking",
+    lead: "Live status without contacting support:",
+    body: "Starts when a customer enters an order ID or asks where their order is. It pulls live courier data and shows each milestone with a tracking link.",
   },
 ];
