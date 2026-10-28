@@ -17,6 +17,8 @@ import {
   ServiceResolutionMotion,
   SponsoredComparisonMotion,
 } from "./home-v2";
+import frameTexture from "./home-v2/assets/background-texture.webp";
+import frameBackground from "./home-v2/assets/icons/scene-frame-background.svg";
 
 type Visual = {
   Component: ComponentType;
@@ -120,8 +122,8 @@ function useReplayOnReturn() {
 }
 
 /**
- * The Lifecycle mock-up: the open feature's visual, which draws its own 738 × 680 frame. Drawn at that size and
- * zoomed to its column: filling the width when stacked, fitting beside the list from 1280px. `run` restarts the
+ * The Lifecycle mock-up: the open feature's visual over one shared 738 × 680 frame (the visuals' own backdrops are
+ * hidden, so only the illustration changes between features). Drawn at that size and zoomed to its column: filling the width when stacked, fitting beside the list from 1280px. `run` restarts the
  * script, as does coming back into view; each visual starts itself once it's on screen.
  */
 export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run: number }) {
@@ -132,8 +134,22 @@ export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run:
     <div
       ref={ref}
       {...(entry ? { role: "img", "aria-label": entry.label } : { "aria-hidden": true })}
-      className="relative h-[680px] w-[738px] shrink-0 overflow-clip [--fit-gutter:0px] [--fit-width:738px] scale-to-container xl:ml-auto xl:fit-to-container"
+      className={[
+        "relative h-[680px] w-[738px] shrink-0 overflow-clip [--fit-gutter:0px] [--fit-width:738px] scale-to-container xl:ml-auto xl:fit-to-container",
+        // The visuals' own backdrops (the chat scenes' frame, the others' crimson-bg) give way to the one frame below.
+        "[&_:is(.adj,.ais,.pa,.aia-canvas)]:[background:none] [&_:is(.hm-ill-scene-frame\\_\\_background,.hm-ill-scene-frame\\_\\_texture)]:hidden",
+      ].join(" ")}
     >
+      {/*
+        One frame for every feature, outside the keyed visual so it never redraws as the tabs change: Figma's 738 × 680
+        maroon with a gold ring in each corner, and the damask texture with its notched gold rule 13.16px / 15.98px in.
+      */}
+      <div aria-hidden className="absolute inset-0">
+        {/* eslint-disable-next-line @next/next/no-img-element -- fixed 738 × 680 frame art */}
+        <img src={frameBackground.src} alt="" className="absolute inset-0 size-full" />
+        {/* eslint-disable-next-line @next/next/no-img-element -- fixed 738 × 680 frame art */}
+        <img src={frameTexture.src} alt="" className="absolute top-[15.98px] left-[13.16px] h-[648.036px] w-[711.68px]" />
+      </div>
       <div inert className="contents">
         {entry && (
           <HomeMotion>
