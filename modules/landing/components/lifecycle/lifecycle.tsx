@@ -22,13 +22,9 @@ export function Lifecycle() {
           <SectionTitle
             id="lifecycle-title"
             variant="oneLine"
+            weight="light"
             initial="E"
-            firstLine={
-              <>
-                {"very conversation "}
-                <span className="font-light">has a job to do</span>
-              </>
-            }
+            firstLine="very conversation has a job to do"
             width={753.672}
           />
         </div>

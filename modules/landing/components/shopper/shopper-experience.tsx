@@ -20,6 +20,7 @@ export function ShopperExperience() {
             <Eyebrow>Shopper experience</Eyebrow>
             <SectionTitle
               id="shopper-title"
+              weight="light"
               initial="G"
               firstLine="ive them a reason"
               secondLine="to choose you"

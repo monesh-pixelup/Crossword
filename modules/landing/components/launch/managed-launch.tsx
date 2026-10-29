@@ -35,7 +35,8 @@ export function ManagedLaunch() {
               firstLine={"e build your "}
               secondLine={"concierge for you "}
               width={561.054}
-              variant="centered"
+              variant="launch"
+              weight="light"
             />
           </div>
           <Quote />

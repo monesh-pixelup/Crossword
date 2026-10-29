@@ -35,7 +35,7 @@ function Stats() {
             </span>
             <div className="flex flex-col gap-2">
               <p className="flex items-baseline gap-2.5 whitespace-nowrap">
-                <span className="font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] text-ink">{stat.figure}</span>
+                <span className="font-serif text-(length:--display-size) leading-[1.1] font-light tracking-[-0.05em] text-ink">{stat.figure}</span>
                 <span className="text-[18px] leading-[1.3333] font-medium tracking-[-0.54px] text-black/60">{stat.label}</span>
               </p>
               <p className="max-w-[310px] text-base leading-6 tracking-[-0.32px] text-black/60">{stat.text}</p>
@@ -64,7 +64,8 @@ export function CustomerIntelligence() {
             id="intel-title"
             initial="E"
             firstLine="very interaction makes"
-            secondLine={<span className="font-light">the next one smarter</span>}
+            secondLine="the next one smarter"
+            weight="light"
             width={560}
             variant="intelligence"
           />

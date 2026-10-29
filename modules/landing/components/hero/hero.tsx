@@ -5,7 +5,7 @@ import { TrustedBy } from "./trusted-by";
 
 /**
  * Laid out as the product-page heroes (SellHero): the swash title on the left (script "Y" at 100px,
- * Crimson ExtraLight 80px at -4px, zoomed with --h2-scale; gold "AI agent") and, from 1200px, the CTA
+ * Crimson ExtraLight 70px at -3.5px (-5%), zoomed with --h2-scale; gold "AI agent") and, from 1200px, the CTA
  * column on the right, bottom-aligned with it: the wine button over the intro, 16px apart. Below
  * 1200px the column stacks under the title.
  */
@@ -19,8 +19,8 @@ function HeroCopy() {
       >
         {/* Below 760px, drawn at the section headings' size (82px swash, 60px lines, zoomed with --h2-scale), tracking scaled to match. */}
         <span className="font-script text-[100px] leading-[1.18] font-normal tracking-[-1px] max-[760px]:text-[82px]">Y</span>
-        <span className="text-[80px] leading-[1.1] tracking-[-4px] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">our brand&rsquo;s </span>
-        <span className="text-[80px] leading-[1.1] tracking-[-4px] text-[#eedba5] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">AI agent</span>
+        <span className="text-[70px] leading-[1.1] tracking-[-3.5px] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">our brand&rsquo;s </span>
+        <span className="text-[70px] leading-[1.1] tracking-[-3.5px] text-[#eedba5] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">AI agent</span>
       </h1>
 
       {/*

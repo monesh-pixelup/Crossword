@@ -8,16 +8,19 @@ import { type FooterLink, footerCompanyLinks, footerPlatformGroups } from "../co
 import { FooterFrame } from "./footer-frame";
 
 const heading = "font-serif text-[14px] leading-[1.3] tracking-[0.14px] whitespace-nowrap text-[rgba(223,227,210,0.47)]";
-const linkText = "h-4 w-full font-sans text-[12px] leading-[1.3] tracking-[-0.36px] whitespace-nowrap";
+const linkText = "w-full font-sans leading-[1.3] whitespace-nowrap";
+/** Links (and plain entries) at Geist 14px; the muted group labels (e.g. SELL) stay 12px, as Figma sets them. */
+const linkSize = "h-[18.2px] text-[14px] tracking-[-0.42px]";
+const labelSize = "h-4 text-[12px] tracking-[-0.36px]";
 
 function FooterLinkItem({ link }: { link: FooterLink }) {
   if (!link.href) {
     return (
-      <li className={`${linkText} ${link.muted ? "text-[rgba(223,227,210,0.36)]" : "text-[#dfe3d2]"}`}>{link.label}</li>
+      <li className={`${linkText} ${link.muted ? `${labelSize} text-[rgba(223,227,210,0.36)]` : `${linkSize} text-[#dfe3d2]`}`}>{link.label}</li>
     );
   }
   return (
-    <li className={linkText}>
+    <li className={`${linkText} ${linkSize}`}>
       <Link href={link.href} className="text-[#dfe3d2] transition-colors hover:text-white">
         {link.label}
       </Link>
@@ -60,7 +63,7 @@ function FooterNav() {
 /** "Crossword is shopper-facing AI for your brand." (Figma 3072:19635) with the framed C monogram. */
 function Tagline() {
   return (
-    <p className="relative h-[107.201px] w-[560px] font-serif text-[49.1px] leading-[0.9] font-extralight tracking-[-2.455px] whitespace-nowrap text-[#dfe3d2]">
+    <p className="relative h-[107.201px] w-[560px] font-serif text-[50px] leading-[0.9] font-extralight tracking-[-2.5px] whitespace-nowrap text-[#dfe3d2]">
       <span aria-hidden className="absolute top-[-0.12px] left-[0.81px] h-[107.7px] w-[90.661px]">
         <span className="absolute top-[17.81px] left-[18px] h-[79.404px] w-[40.604px] font-script text-[74.023px] leading-[1.1] tracking-[-3.7012px]">
           C
@@ -132,9 +135,10 @@ export function SiteFooter() {
                 sizes="351px"
                 className="h-auto w-[351px] max-w-full max-[960px]:order-1"
               />
-              <p className="flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-[12px] leading-[1.3] tracking-[-0.36px] whitespace-nowrap text-[rgba(223,227,210,0.6)] xs:flex-nowrap max-[960px]:order-3">
+              <p className="flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-[14px] leading-[1.3] tracking-[-0.42px] whitespace-nowrap text-[rgba(223,227,210,0.6)] xs:flex-nowrap max-[960px]:order-3">
                 <span>Crossword</span>
-                <span aria-hidden>|</span>
+                {/* The divider stays 12px, as in Figma. */}
+                <span aria-hidden className="text-[12px] tracking-[-0.36px]">|</span>
                 <span>CometChat, Inc. © 2026</span>
               </p>
             </div>

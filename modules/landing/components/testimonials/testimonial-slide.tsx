@@ -127,7 +127,7 @@ export function TestimonialSlide({ testimonial, active, index, total }: Testimon
           className={`relative mt-6 flex flex-col items-start gap-2 lg:absolute lg:left-(--l) lg:top-(--t) lg:mt-0 ${move}`}
           style={at(l.author)}
         >
-          <span className="font-calligraphy text-[28px] leading-[1.13] font-bold tracking-[-0.84px] whitespace-nowrap text-[#121212]">
+          <span className="font-calligraphy text-[38px] leading-[1.13] font-bold tracking-[-1.14px] whitespace-nowrap text-[#121212]">
             {testimonial.name}
           </span>
           <span className="font-inter text-[12px] leading-[1.13] tracking-[-0.36px] text-[rgba(18,18,18,0.8)]">

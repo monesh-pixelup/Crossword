@@ -25,15 +25,14 @@ export function Insights() {
           <div className="flex flex-col items-start gap-6">
             <Eyebrow>Insights</Eyebrow>
             {/* Drawn at 60px and zoomed to the breakpoint's h2 size, like SectionTitle. */}
-            <div className="fit-to-container [--fit-width:calc(580px*var(--h2-scale))]">
+            <div className="fit-to-container [--fit-width:calc(543px*var(--h2-scale))]">
               <h2
                 id="insights-title"
-                className="h-[97px] w-[580px] font-serif text-[0px] leading-[0] font-extralight tracking-[-2.5px] whitespace-nowrap text-ink [zoom:var(--h2-scale)]"
+                className="h-[97px] w-[543px] font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap text-ink [zoom:var(--h2-scale)]"
               >
-                {/* The swash begins the word, so it gets the section headings' +4.1px (5%) to clear its flourish, as "E" + "very". */}
-                <span className="font-script text-[82px] leading-[1.18] font-normal tracking-[4.1px]">A</span>
-                <span className="text-[60px] leading-[1.1] tracking-[-3px]">{"sk your "}</span>
-                <span className="text-[60px] leading-[1.1] font-light tracking-[-3px]">store anything</span>
+                {/* Figma: the swash at -5% (-4.1px), the line ExtraLight at 1.18 and -5% (-3px). */}
+                <span className="font-script text-[82px] leading-[1.18] font-normal tracking-[-4.1px]">A</span>
+                <span className="text-[60px] leading-[1.18] tracking-[-3px]">sk your store anything</span>
               </h2>
             </div>
           </div>

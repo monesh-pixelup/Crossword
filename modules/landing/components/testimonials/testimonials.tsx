@@ -17,9 +17,10 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
         id="testimonials-title"
         initial={"T "}
         firstLine="rusted by brands who used"
-        secondLine={<span className="font-light">to do this the hard way</span>}
+        secondLine="to do this the hard way"
         width={612.677}
         variant="calligraphic"
+        weight="light"
       />
     ),
     headerWidth: "max-w-[650px]",

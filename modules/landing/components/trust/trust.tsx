@@ -39,7 +39,7 @@ function Certifications() {
             className="h-[70px] shrink-0"
             style={{ width: cert.badgeWidth }}
           />
-          <h3 className="font-sans text-base leading-6 font-semibold tracking-[-0.64px] whitespace-nowrap text-white/80">
+          <h3 className="font-sans text-[14px] leading-6 font-semibold tracking-[-0.56px] whitespace-nowrap text-white/80">
             {cert.name}
           </h3>
         </li>
@@ -73,20 +73,20 @@ export function Trust() {
         <div className="relative flex w-full max-w-[1030px] flex-col items-start gap-12 md:gap-16 lg:gap-[120px] min-[1440px]:gap-[8.333cqw]">
           <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:gap-[190px]">
             {/*
-              Figma sets both lines at exactly 50px. Browsers grow line 1 to fit the
-              60px swash, so each line is its own fixed-height block. Figma also sits
-              the glyphs 3px higher within those lines (measured against its render).
-              Zoomed with the h3 size: 50 / 42 / 36 / 32px.
+              Figma sets both lines at exactly 60px (Crimson Light 60px, a 70px swash, all at -4%).
+              Browsers grow line 1 to fit the swash, so each line is its own fixed-height block.
+              Figma also sits the glyphs 3px higher within those lines (measured against its render).
+              Zoomed with the h2 size: 60 / 48 / 40 / 36px.
             */}
             <h2
               id="trust-title"
-              className="relative -top-[3px] w-[275.203px] shrink-0 font-serif text-[0px] leading-[0] font-extralight tracking-[-2.15px] whitespace-nowrap text-white/85 [zoom:1] max-lg:[zoom:0.84] max-md:[zoom:0.72] max-xs:[zoom:0.64]"
+              className="relative -top-[3px] w-[303.72px] shrink-0 font-serif text-[0px] leading-[0] font-light tracking-[-2.4px] whitespace-nowrap text-white/85 [zoom:var(--h2-scale)]"
             >
-              <span className="block h-[50px]">
-                <span className="font-script text-[60px] leading-[50px] font-normal">Y</span>
-                <span className="text-[50px] leading-[50px]">our data is</span>
+              <span className="block h-[60px]">
+                <span className="font-script text-[70px] leading-[60px] font-normal tracking-[-2.8px]">Y</span>
+                <span className="text-[60px] leading-[60px]">our data is</span>
               </span>{" "}
-              <span className="block text-[50px] leading-[50px]">safe with us</span>
+              <span className="block text-[60px] leading-[60px]">safe with us</span>
             </h2>
             <div className="flex w-full max-w-[537.055px] min-w-0 flex-col items-start gap-4 lg:flex-[0_1_537px]">
               {/* Figma 3073:22066: one paragraph. */}

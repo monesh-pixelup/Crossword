@@ -18,20 +18,27 @@ const variants = {
     line: "leading-[1.1] tracking-[-3px]",
     second: "",
   },
-  /** Tighter 0.95 leading, uniform -2.5px tracking (Platform overview). */
+  /** One line at 1.18 leading after an untracked swash (Platform overview). */
   compact: {
-    firstLineHeight: 76,
-    tracking: "tracking-[-2.5px]",
+    firstLineHeight: 96.76,
+    tracking: "",
     swash: "font-script text-[82px] leading-[1.18]",
-    line: "leading-[0.95]",
-    // Measured against the Figma render: line 2 is set at -3px, not -2.5px.
-    second: "tracking-[-3px]",
+    line: "leading-[1.18] tracking-[-3px]",
+    second: "",
   },
   /** Centred, 0.9 leading (Managed launch). */
   centered: {
     firstLineHeight: 75,
     tracking: "tracking-[-2.5px] text-center",
     swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[0.9] tracking-[-3px]",
+    second: "",
+  },
+  /** As centered, with the swash at -4.1px (-5%) (Managed launch). */
+  launch: {
+    firstLineHeight: 75,
+    tracking: "text-center",
+    swash: "font-script text-[82px] leading-[1.18] tracking-[-4.1px]",
     line: "leading-[0.9] tracking-[-3px]",
     second: "",
   },
@@ -59,11 +66,11 @@ const variants = {
     line: "leading-[1.1] tracking-[-3px]",
     second: "",
   },
-  /** Centred, Tangerine swash capital (Customer testimonials). */
+  /** Centred, Tangerine swash capital at -4.1px (-5%) (Customer testimonials). */
   calligraphic: {
     firstLineHeight: 73,
     tracking: "tracking-[-2.5px] text-center",
-    swash: "font-calligraphy text-[82px] leading-[1.1]",
+    swash: "font-calligraphy text-[82px] leading-[1.1] tracking-[-4.1px]",
     line: "leading-[0.9] tracking-[-3px]",
     second: "",
   },
@@ -192,6 +199,8 @@ const variants = {
 
 const tones = { ink: "text-ink", light: "text-white/85", cream: "text-cream" } as const;
 
+const weights = { extralight: "font-extralight", light: "font-light" } as const;
+
 type SectionTitleProps = {
   id: string;
   /** Swash capital (Parisienne, or Tangerine for the calligraphic variant). */
@@ -209,6 +218,8 @@ type SectionTitleProps = {
   tone?: keyof typeof tones;
   /** Extra space above the second line, in px at the 60px desktop size (scales with the title). */
   lineGap?: number;
+  /** Weight of the lines (the swash keeps its own): Crimson ExtraLight, or Light as the home page sets them. */
+  weight?: keyof typeof weights;
 };
 
 /**
@@ -218,7 +229,18 @@ type SectionTitleProps = {
  * line under it at its own line-height. Browsers would grow line 1 to fit the
  * swash's taller line-height, so each line is its own block.
  */
-export function SectionTitle({ id, initial, firstLine, secondLine, width, variant = "default", gutter, tone = "ink", lineGap }: SectionTitleProps) {
+export function SectionTitle({
+  id,
+  initial,
+  firstLine,
+  secondLine,
+  width,
+  variant = "default",
+  gutter,
+  tone = "ink",
+  lineGap,
+  weight = "extralight",
+}: SectionTitleProps) {
   const v = variants[variant];
   // Line size in px at desktop (60 unless the variant says otherwise).
   const size = "size" in v ? v.size : 60;
@@ -237,7 +259,7 @@ export function SectionTitle({ id, initial, firstLine, secondLine, width, varian
     >
       <h2
         id={id}
-        className={`font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap ${tones[tone]} ${v.tracking}`}
+        className={`font-serif text-[0px] leading-[0] whitespace-nowrap ${weights[weight]} ${tones[tone]} ${v.tracking}`}
         style={{ width, zoom: "var(--h2-scale)" }}
       >
         <span className="block" style={{ height: v.firstLineHeight, paddingTop: "firstLinePad" in v ? v.firstLinePad : undefined }}>
