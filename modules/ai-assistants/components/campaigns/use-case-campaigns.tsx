@@ -23,7 +23,7 @@ const useCases = [
  * 1.1), with its 477px line of copy 120px across from it, bottom-aligned; then 80px below, two 620px use
  * cases 40px apart. Each is the 620 × 290 forest damask panel (its gold corner-notched frame and studs, a
  * 2x export of 3562:57), and 40px under it a Geist Medium 12 label in wine, a Crimson Light 32 line and
- * Geist 16 copy, 16px apart. Below 992px the copy goes under the headline; below 768px the use cases
+ * Geist 16 copy, 16px apart. Below 1280px the copy goes under the headline (beside the 615px headline it would be squeezed to a sliver), and the gap is 80px until 1440px; below 768px the use cases
  * stack. A 232px gold tick sits on the left rail beside the eyebrow (98px down in Figma).
  */
 export function UseCaseCampaigns() {
@@ -32,12 +32,12 @@ export function UseCaseCampaigns() {
       <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">
-        <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:gap-[120px]">
-          <div className="flex shrink-0 flex-col items-start gap-6">
+        <div className="flex flex-col items-start gap-8 min-[1280px]:flex-row min-[1280px]:items-end min-[1280px]:gap-20 min-[1440px]:gap-[120px]">
+          <div className="flex max-w-full shrink-0 flex-col items-start gap-6">
             <Eyebrow>Campaigns</Eyebrow>
             <SectionTitle id="ai-campaigns-title" initial="R" firstLine="eaches them first" width={614.744} variant="oneLine" weight="light" />
           </div>
-          <p className="max-w-[477px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+          <p className="max-w-[477px] min-w-0 flex-1 font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
             Send a price-drop alert or a back-in-stock note straight into the conversation. It lands where the shopper is
             already spending their time.
           </p>

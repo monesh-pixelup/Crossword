@@ -102,7 +102,7 @@ function Reveal({ open, children }: { open: boolean; children: ReactNode }) {
  * its foot, a maroon bar filling through the stage. Within a stage the open feature shows its chip, copy and
  * LEARN MORE; the others are titles at 50%, between hairlines. Features play on their own: each stays open
  * for its turn while the section is on screen, then the next opens (the last of a stage moves on to the next
- * stage, and the last stage back to the first). Hovering or keyboard focus pauses the turn; with reduced
+ * stage, and the last stage back to the first). Keyboard focus pauses the turn (hovering doesn't); with reduced
  * motion nothing advances on its own. Choosing a tab opens its first feature; choosing a title opens it.
  * Below 1280px the tabs scroll sideways and the mock-up sits above the features.
  */
@@ -115,7 +115,6 @@ export function LifecycleTabs() {
   /** Time spent in the open feature's turn, in ms. */
   const elapsed = useRef(0);
   const inView = useRef(false);
-  const hovered = useRef(false);
   const focused = useRef(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -154,7 +153,7 @@ export function LifecycleTabs() {
 
       const { stage, feature } = positionRef.current;
       const count = lifecycleStages[stage].features.length;
-      if (!reduce.matches && inView.current && !hovered.current && !focused.current) elapsed.current += delta;
+      if (!reduce.matches && inView.current && !focused.current) elapsed.current += delta;
       if (!reduce.matches && elapsed.current >= TURN) {
         const next =
           feature + 1 < count ? { stage, feature: feature + 1 } : { stage: (stage + 1) % lifecycleStages.length, feature: 0 };
@@ -203,12 +202,6 @@ export function LifecycleTabs() {
     <div
       ref={rootRef}
       className="flex w-full flex-col"
-      onPointerEnter={(e) => {
-        if (e.pointerType === "mouse") hovered.current = true;
-      }}
-      onPointerLeave={() => {
-        hovered.current = false;
-      }}
       onFocus={(e) => {
         focused.current = e.target.matches(":focus-visible");
       }}
