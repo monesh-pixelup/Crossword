@@ -30,11 +30,11 @@ export function HumanMode() {
               firstLine=" concierge that"
               secondLine="knows when to step in"
               width={614.744}
-              variant="humanMode"
+              weight="light"
             />
           </div>
 
-          <div className="relative max-w-[723.103px] font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60 min-[1440px]:w-[723.103px]">
+          <div className="relative max-w-[723.103px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60 min-[1440px]:w-[723.103px]">
             <p>
               Most AI shopping assistants wait for the customer to ask, but Crossword does more. It notices when someone
               is exploring a product, offers a useful answer, goes deeper when they have questions, suggests something

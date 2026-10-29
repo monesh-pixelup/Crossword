@@ -23,6 +23,7 @@ export function ProductDiscovery() {
             firstLine="rossword helps your customers"
             secondLine="find it however they describe it."
             width={707.715}
+            weight="light"
           />
         </div>
 

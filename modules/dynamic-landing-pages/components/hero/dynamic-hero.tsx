@@ -4,15 +4,18 @@ import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
 import background from "@/modules/sell/assets/hero/background.webp";
 
-/** Two-line display headline, set like the Sell hero's (70 / 56 / 48 / 44px, 1.07 leading, swash "E"). */
+/**
+ * Two-line display headline (Figma 3257:37445), as the Sell hero's: Crimson ExtraLight 70 / 56 / 48 / 44px at
+ * 1.1 and -5% after a 100px swash "E" (1.4286em), which makes line 1 21px (0.3em) taller (a 175px box).
+ */
 function Headline() {
   return (
     <h1
       id="dlp-hero-title"
-      className="font-serif text-(length:--display-size) leading-[1.07] font-extralight tracking-[-0.05em] whitespace-nowrap text-cream"
+      className="font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-cream"
     >
-      <span className="block pt-[0.117em]">
-        <span className="font-script text-[1.2857em] leading-0 font-normal tracking-[-0.01em]">E</span>
+      <span className="block pt-[0.3em]">
+        <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">E</span>
         very page, built
       </span>
       <span className="block">

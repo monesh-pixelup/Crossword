@@ -36,12 +36,12 @@ export function RoasGap() {
                 </>
               }
               width={614.744}
-              variant="display"
+              weight="light"
             />
           </div>
 
           {/* Side by side, it starts level with the headline rather than the eyebrow: the eyebrow's 32px plus its 24px gap down. */}
-          <div className="flex max-w-[477.244px] flex-col gap-6 font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60 min-[1300px]:mt-14">
+          <div className="flex max-w-[477.244px] flex-col gap-6 font-sans text-base leading-6 tracking-[-0.32px] text-black/60 min-[1300px]:mt-14">
             <p>
               A specific product, a specific offer, a specific audience, all carefully built into the ad. Then the click
               lands on the same generic page everyone sees. The result? You spend to win the click, but lose the

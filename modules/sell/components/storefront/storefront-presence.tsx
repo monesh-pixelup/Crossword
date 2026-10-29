@@ -33,6 +33,7 @@ export function StorefrontPresence() {
               firstLine="its right into"
               secondLine="your storefront"
               width={575.414}
+              weight="light"
             />
             <p className="font-sans text-[14px] leading-5 tracking-[-0.28px] text-black/60">
               Crossword blends into your website so naturally, it feels like another part of the experience.
@@ -68,7 +69,7 @@ export function StorefrontPresence() {
                   />
                 </div>
                 <div className="flex flex-col items-start gap-2 px-5 pb-5">
-                  <h3 className="font-serif text-[24px] leading-[1.1] font-extralight tracking-[-1.2px] text-ink">{card.title}</h3>
+                  <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{card.title}</h3>
                   <p
                     className="font-sans text-[14px] leading-5 tracking-[-0.28px] text-black/60"
                     style={card.descriptionWidth ? { maxWidth: card.descriptionWidth } : undefined}

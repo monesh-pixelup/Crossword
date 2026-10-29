@@ -24,11 +24,11 @@ export function DedicatedTabs() {
               initial="D"
               firstLine="edicated"
               secondLine="landing pages"
-              width={290}
-              variant="humanMode"
+              width={293}
+              weight="light"
             />
           </div>
-          <p className="lg:w-[min(821px,100%_-_312px)] font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
+          <p className="lg:w-[min(821px,100%_-_312px)] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
             Full, ad-specific pages built for a single campaign or audience, with components like quizzes, games, and
             comparisons built in.
           </p>

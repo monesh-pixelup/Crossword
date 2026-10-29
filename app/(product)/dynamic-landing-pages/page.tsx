@@ -5,7 +5,9 @@ import {
   DynamicHero,
   Personalization,
   RoasGap,
+  TwoWays,
 } from "@/modules/dynamic-landing-pages";
+import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 
 export const metadata: Metadata = {
   title: "Dynamic Landing Pages",
@@ -19,6 +21,11 @@ export default function DynamicLandingPagesPage() {
       <DynamicHero />
       <RoasGap />
       <Personalization />
+      <TwoWays />
+      {/* Figma "Divider band": the 75px band (56px below 768px). */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="chat" />
+      </div>
       <DedicatedTabs />
       <AdaptivePages />
     </main>

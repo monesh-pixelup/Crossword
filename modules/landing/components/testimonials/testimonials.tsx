@@ -35,7 +35,8 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
         firstLine="onversion on our PDP"
         secondLine="jumped 31% in six weeks."
         width={612.677}
-        variant="quote"
+        variant="calligraphic"
+        weight="light"
       />
     ),
     headerWidth: "max-w-[650px]",
@@ -77,8 +78,8 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
 
 /**
  * The testimonial carousel under a centred eyebrow and headline. `sell`, `support` and `retain`
- * are Figma's Client testimonial on those pages: their own headline (two 60px lines; Sell's after a
- * Parisienne swash, Support's and Retain's after a Tangerine one, Light at 0.9) and quote.
+ * are Figma's Client testimonial on those pages: their own headline (two Light 60px lines at 0.9 after a
+ * Tangerine swash) and quote.
  */
 export function Testimonials({ variant = "home" }: { variant?: Variant }) {
   const v = variants[variant];

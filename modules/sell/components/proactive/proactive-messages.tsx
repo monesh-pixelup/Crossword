@@ -17,6 +17,7 @@ export function ProactiveMessages() {
             firstLine="tarts the conversation based"
             secondLine="on what they're doing"
             width={688.32}
+            weight="light"
           />
         </div>
 

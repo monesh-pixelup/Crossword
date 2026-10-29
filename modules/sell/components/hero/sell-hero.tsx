@@ -5,18 +5,18 @@ import { ctaLinks } from "@/modules/marketing";
 import background from "../../assets/hero/background.webp";
 
 /**
- * Two-line display headline (70 / 56 / 48 / 44px with --display-size). Figma's box is 158px tall
- * at 70px: the 90px swash "E" pushes line 1's baseline 8.2px lower than a plain 74.9px line, so
- * line 1 carries that as top padding and both lines keep the 1.07 line height.
+ * Two-line display headline (Figma 3257:35912): Crimson ExtraLight 70 / 56 / 48 / 44px at 1.1 and -5%,
+ * after a 100px swash "E" (1.4286em) at -1%. Figma's box is 175px tall: two 77px lines, the swash making
+ * line 1 21px (0.3em) taller, which line 1 carries as top padding.
  */
 function Headline() {
   return (
     <h1
       id="sell-hero-title"
-      className="font-serif text-(length:--display-size) leading-[1.07] font-extralight tracking-[-0.05em] whitespace-nowrap text-cream"
+      className="font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-cream"
     >
-      <span className="block pt-[0.117em]">
-        <span className="font-script text-[1.2857em] leading-0 font-normal tracking-[-0.01em]">E</span>
+      <span className="block pt-[0.3em]">
+        <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">E</span>
         very shopper gets
       </span>
       <span className="block">
@@ -66,7 +66,7 @@ export function SellHero() {
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>
-            <p className="font-sans text-base leading-6 tracking-[-0.16px] text-cream">
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-cream">
               From the first question to the final click, Crossword guides every shopper toward the product that&apos;s
               perfect for them.
             </p>

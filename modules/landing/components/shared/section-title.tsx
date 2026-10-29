@@ -58,14 +58,6 @@ const variants = {
     line: "leading-[0.95]",
     second: "",
   },
-  /** Centred, Parisienne swash and 60px lines at 1.1 (Sell: Client testimonial). */
-  quote: {
-    firstLineHeight: 90.2,
-    tracking: "tracking-[-4.1px] text-center",
-    swash: "font-script text-[82px] leading-[1.1]",
-    line: "leading-[1.1] tracking-[-3px]",
-    second: "",
-  },
   /** Centred, Tangerine swash capital at -4.1px (-5%) (Customer testimonials). */
   calligraphic: {
     firstLineHeight: 73,
@@ -108,17 +100,7 @@ const variants = {
     second: "",
     size: 50,
   },
-  /** Every line at 1.07, the swash adding no height, as the hero headlines (Dynamic landing pages: The ROAS gap). */
-  display: {
-    // 64.2px of line plus 15px above it, so line 1 keeps the 1.18 headings' baseline (67px down).
-    firstLineHeight: 79.2,
-    firstLinePad: 15,
-    tracking: "tracking-[-3.5538px]",
-    swash: "font-script text-[82px] leading-0 tracking-[4.1px]",
-    line: "leading-[1.07] tracking-[-3px]",
-    second: "",
-  },
-  /** As display, with 50px lines under a 77px swash (Dynamic landing pages: The stranger problem). */
+  /** Every line at 1.07, the swash adding no height, as the hero headlines: 50px lines under a 77px swash. */
   displaySmall: {
     // 53.5px of line plus 20px above it, so line 1 keeps the stranger variant's baseline (63px down).
     firstLineHeight: 73.5,
@@ -200,15 +182,6 @@ const variants = {
     swash: "font-script text-[82px] leading-[1.18]",
     line: "leading-[1.1] tracking-[-3px]",
     second: "",
-  },
-  /** 50px lines under a 77px swash (Sell: Conversion assistance). */
-  assist: {
-    firstLineHeight: 74,
-    tracking: "tracking-[-3.5538px]",
-    swash: "font-script text-[77px] leading-[1.18] tracking-[3.85px]",
-    line: "leading-[1.1] tracking-[-2.5px]",
-    second: "",
-    size: 50,
   },
 } as const;
 

@@ -22,10 +22,16 @@ export function ConversionAssist() {
               <SectionTitle
                 id="assist-title"
                 initial="E"
-                firstLine="very hesitation, answered"
-                secondLine="before it becomes a lost sale."
+                firstLine="very hesitation,"
+                secondLine={
+                  <>
+                    answered before it
+                    <br />
+                    becomes a lost sale.
+                  </>
+                }
                 width={553.133}
-                variant="assist"
+                weight="light"
               />
             </div>
           }

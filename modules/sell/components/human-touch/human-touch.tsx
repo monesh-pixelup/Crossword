@@ -21,7 +21,7 @@ export function HumanTouch() {
           <RailAccent className="absolute top-0 left-0 h-[71.69px] w-px" />
           <ScrollHighlight
             text="Your website, with a personal touch. Crossword proactively offers help, understands what your customer is looking for, and makes thoughtful product suggestions along the way."
-            className="max-w-[847.084px] font-serif text-(length:--h4-size) leading-[1.18] font-extralight tracking-[-0.05em] text-ink"
+            className="max-w-[847.084px] font-serif text-(length:--h4-size) leading-[1.1] font-extralight tracking-[-0.05em] text-ink"
           />
         </div>
       </div>

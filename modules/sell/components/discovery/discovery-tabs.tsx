@@ -45,7 +45,7 @@ export function DiscoveryTabs() {
                   onClick={() => open(i)}
                   className={cn(
                     // Inactive labels at ink/60, not Figma's /40, to pass AA on cream (brand guidelines 5.10).
-                    "flex w-full cursor-pointer flex-col items-start gap-2 py-3 pr-5 text-left font-inter text-base leading-[1.1] tracking-[-0.32px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                    "flex w-full cursor-pointer flex-col items-start gap-2 py-3 pr-5 text-left font-sans text-base leading-[1.1] tracking-[-0.32px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
                     on ? "text-ink" : "text-ink/60 hover:text-ink",
                   )}
                 >
@@ -81,7 +81,7 @@ export function DiscoveryTabs() {
               <div className="flex flex-col items-start gap-3">
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.label}</h3>
                 {feature.description && (
-                  <p className="max-w-[595px] font-open-sans text-base leading-6 tracking-[-0.48px] text-black/59">
+                  <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">
                     {feature.description}
                   </p>
                 )}
