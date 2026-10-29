@@ -5,26 +5,22 @@ import { ctaLinks } from "@/modules/marketing";
 import background from "@/modules/sell/assets/hero/background.webp";
 
 /**
- * Three-line display headline, set like the Sell hero's (70 / 56 / 48 / 44px, swash "A"), the last
- * line picked out in gold, which the guidelines allow on dark grounds only. The headline is longer
- * than Sell's, so it breaks over three lines to sit beside the CTA column; below 768px the lines
- * may wrap.
- *
- * The hero copy is pinned to the bottom, so the leading and top padding are rounded to whole
- * pixels (and the eyebrow set to 32px tall): that keeps the eyebrow's 0.5px frame on whole pixels,
- * as on Retain.
+ * Three-line display headline, set like the Sell hero's (70 / 56 / 48 / 44px, Crimson ExtraLight at
+ * 1.1 and -5%) after a 100px swash "A" (1.4286em) at -1%, the last two lines picked out in gold, which
+ * the guidelines allow on dark grounds only. Figma's box is 252px tall, three 77px lines with the swash
+ * pushing line 1 21px (0.3em) taller, which line 1 carries as top padding. Below 768px the lines may wrap.
  */
 function Headline() {
   return (
     <h1
       id="launch-hero-title"
-      className="font-serif text-(length:--display-size) leading-[round(1.07em,1px)] font-extralight tracking-[-0.05em] text-cream md:whitespace-nowrap"
+      className="font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] text-cream md:whitespace-nowrap"
     >
-      <span className="block pt-[round(0.117em,1px)]">
-        <span className="font-script text-[1.2857em] leading-0 font-normal tracking-[-0.01em]">A</span>I shouldn&rsquo;t
+      <span className="block pt-[0.3em]">
+        <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">A</span>I shouldn&rsquo;t
         become
       </span>
-      <span className="block">another thing on</span>
+      <span className="block text-gold">another thing on</span>
       <span className="block text-gold">your to-do list</span>
     </h1>
   );
@@ -70,7 +66,7 @@ export function LaunchHero() {
 
           <div className="flex w-[453.402px] max-w-full flex-col items-start gap-4">
             <StampButton href={ctaLinks.bookDemo} variant="wine">
-              BOOK A DEMO
+              TALK TO SALES
             </StampButton>
             <p className="font-sans text-base leading-6 tracking-[-0.02em] text-cream">
               Crossword builds and manages a personal concierge for your customers.

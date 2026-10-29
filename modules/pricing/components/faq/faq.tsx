@@ -7,8 +7,8 @@ import { BandDivider } from "../shared/band-divider";
 import { FaqList } from "./faq-list";
 
 /**
- * Library · FAQ (Figma 3156:13882), under the chat divider band: a 420px column with the eyebrow,
- * swash headline, a line of copy and a link, 120px from the accordion. Below 992px they stack.
+ * Library · FAQ (Figma 3564:23164), under the chat divider band: a 420px column with the eyebrow,
+ * swash headline and a link, 120px from the accordion. Below 992px they stack.
  */
 export function Faq() {
   return (
@@ -22,10 +22,7 @@ export function Faq() {
       <div className="grid content-width gap-12 lg:grid-cols-[420px_minmax(0,1fr)] lg:gap-[120px]">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>FAQs</Eyebrow>
-          <SectionTitle id="faq-title" initial="H" firstLine="ave a question?" secondLine="Ask Crossword" width={404} variant="humanMode" />
-          <p className="font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
-            Or ask the concierge in the corner. It knows our pricing as well as we do.
-          </p>
+          <SectionTitle id="faq-title" initial="H" firstLine="ave a question?" secondLine="Ask Crossword" width={408} weight="light" />
           <TextLink href={ctaLinks.bookDemo}>Talk to sales</TextLink>
         </div>
 

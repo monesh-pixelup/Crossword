@@ -44,7 +44,7 @@ function NotchedFrame() {
  * two-line headline and a line of 14px copy, then 80px below three equal cards (413.33px at 1280px,
  * 20px apart) on #fdf4de in a black/10 hairline: the 330px textured aubergine panel (the Figma
  * art's purple damask, as Return reduction's, its straight inner rule zoomed out of view) in the Journey panel's gilt notched frame and
- * corner rings, then 20px below the journey's name in Crimson ExtraLight 24 over its steps in Geist 14.
+ * corner rings, then 20px below the journey's name in Crimson 22 over its steps in Geist 14.
  * A 209px gold tick sits on the left rail beside the eyebrow.
  */
 export function ChooseJourney() {
@@ -55,7 +55,7 @@ export function ChooseJourney() {
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex max-w-[575px] flex-col items-start gap-6">
           <Eyebrow>How it works</Eyebrow>
-          <SectionTitle id="choose-journey-title" initial="C" firstLine="hoose" secondLine="the journey" width={300} />
+          <SectionTitle id="choose-journey-title" initial="C" firstLine="hoose" secondLine="the journey" width={300} weight="light" />
           <p className="font-sans text-[14px] leading-5 tracking-[-0.28px] text-black/60">
             You don&rsquo;t need to dream up an AI experience from scratch. We start with a proven journey framework and
             adapt it to the job at hand. Whether it&rsquo;s product discovery, support, product Q&amp;A, or something else,
@@ -72,7 +72,7 @@ export function ChooseJourney() {
                 <NotchedFrame />
               </div>
               <div className="flex flex-col items-start gap-2 px-5 pb-5">
-                <h3 className="font-serif text-[24px] leading-[1.1] font-extralight tracking-[-1.2px] text-ink">{card.title}</h3>
+                <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{card.title}</h3>
                 <p className="font-sans text-[14px] leading-5 tracking-[-0.28px] text-black/60">{card.body}</p>
               </div>
             </li>

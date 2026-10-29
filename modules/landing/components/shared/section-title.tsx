@@ -127,10 +127,18 @@ const variants = {
     line: "leading-[1.18] tracking-[-3px]",
     second: "",
   },
-  /** As channels, but 60px lines at 1.1 under line 1's 81px (Pricing: What does a credit cover?). */
+  /** As channels, but 60px lines at 1.1 under line 1's 81px (Support: Channels; Pricing: Plans, Engineer). */
   credits: {
     firstLineHeight: 81,
     tracking: "tracking-[4.1px] text-center",
+    swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[1.1] tracking-[-3px]",
+    second: "",
+  },
+  /** As credits, the swash untracked (Pricing: What does a credit cover?). */
+  creditCover: {
+    firstLineHeight: 81,
+    tracking: "text-center",
     swash: "font-script text-[82px] leading-[1.18]",
     line: "leading-[1.1] tracking-[-3px]",
     second: "",
@@ -159,12 +167,12 @@ const variants = {
     line: "leading-[1.1] tracking-[-3px]",
     second: "",
   },
-  /** As upsell, left-aligned: 60px lines at 1.18 after an 82px swash at -4.1px, line 1 set 83.2px tall (Managed launch: Journey). */
+  /** Left-aligned: 60px lines at 1.1 under line 1's 81px, after an 82px swash at 1.18 and -4.1px (-5%) (Managed launch: Journey). */
   journey: {
-    firstLineHeight: 83.2,
+    firstLineHeight: 81,
     tracking: "tracking-[-4.1px]",
     swash: "font-script text-[82px] leading-[1.18]",
-    line: "leading-[1.18] tracking-[-3px]",
+    line: "leading-[1.1] tracking-[-3px]",
     second: "",
   },
   /** 60px lines at 1.18 after an untracked 82px swash, line 1 set 83.2px tall as Figma does (Support: Workflows). */

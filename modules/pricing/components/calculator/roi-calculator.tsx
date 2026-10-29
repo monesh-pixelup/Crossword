@@ -50,7 +50,7 @@ function Result({ title, value }: { title: string; value: string }) {
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-2 overflow-clip">
       <p className={label}>{title}</p>
-      <p className="font-serif text-[40px] leading-[1.1] font-light tracking-[-0.04em] whitespace-nowrap text-ink">{value}</p>
+      <p className="font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-ink">{value}</p>
     </div>
   );
 }
@@ -65,7 +65,7 @@ const num = (v: string, fallback = 0) => {
  * The ROI form (Figma 3156:13836): a sand card on a 1px engraved line with studs 7px in, 48px
  * padding and 24px between rows: site traffic and chat engagement rate, average replies per
  * conversation, AOV and conversion rate, then Calculate now and, over a 0.5px rule, the two
- * results (dashes until calculated), and a caption. The engagement rate and replies show the doc's
+ * results (dashes until calculated), the wine ROI panel and a caption (Figma 3564:23117). The engagement rate and replies show the doc's
  * defaults (2% and 5) as placeholders and use them while empty. The cost is traffic × engagement ×
  * replies in credits, at the doc's 1 credit for most replies; the revenue is what the chatting
  * shoppers spend at the conversion rate and AOV. TODO: the doc doesn't give the price per credit or
@@ -115,8 +115,17 @@ export function RoiCalculator() {
         <Result title="Estimated revenue generated" value={shown ? money.format(revenue) : "—"} />
       </div>
 
+      {/* TODO: the ROI needs the cost in dollars; show it once the Crossword team supplies the price per credit. */}
+      <div className="relative flex items-center justify-between gap-4 bg-wine px-5 py-4">
+        <div className="flex min-w-0 flex-col gap-1.5 text-[12px]">
+          <p className="font-mono leading-[1.3] tracking-[0.48px] text-cream uppercase">Return on investment</p>
+          <p className="font-sans leading-normal text-cream/70">Estimated revenue &divide; estimated monthly cost, e.g. 3x</p>
+        </div>
+        <p className="shrink-0 font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-gold">&mdash;</p>
+      </div>
+
       <p className="relative font-sans text-[12px] leading-[1.3] tracking-[-0.03em] text-ink-muted">
-        Illustrative inputs. Your pilot reports the real numbers.
+        AOV and conversion lift based on Crossword average
       </p>
     </div>
   );

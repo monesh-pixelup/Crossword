@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Calculator, Credits, Engineer, Faq, Plans, PricingHero } from "@/modules/pricing";
+import { Calculator, Credits, Engineer, Faq, Plans } from "@/modules/pricing";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <main>
-      <PricingHero />
+      {/* The hero is hidden for now (restore it with its import, and put "/pricing" back on the header's transparent and hero-only routes). */}
       <Plans />
       <Credits />
       <Calculator />

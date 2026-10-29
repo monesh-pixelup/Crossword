@@ -7,7 +7,7 @@ import panel from "../../assets/journey/panel.webp";
 
 /**
  * Figma "Library · Wide panel" (Journey, 3512:24936): the eyebrow over a left-aligned two-line headline, with the
- * process copy (Geist Light 16/24, 477px) bottom-aligned on the right, then 80px below them the 1280 × 599 green
+ * process copy (Geist 16/24, 477px) bottom-aligned on the right, then 80px below them the 1280 × 599 green
  * damask panel in its gold frame (exported from Figma at 2x). The headline and copy sit side by side from 1280px, the
  * copy narrowing to fit; below that the copy goes under the headline.
  */
@@ -28,9 +28,10 @@ export function Journey() {
               secondLine="Crossword grows with every step"
               width={732.406}
               variant="journey"
+              weight="light"
             />
           </div>
-          <p className="w-full max-w-[477.244px] font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60 xl:min-w-0 xl:flex-1">
+          <p className="w-full max-w-[477.244px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60 xl:min-w-0 xl:flex-1">
             You share your objectives. We suggest potential journeys. We adapt the experience to your business. A/B test.
             Measure the results. Make changes. Launch and continue to optimize.
           </p>

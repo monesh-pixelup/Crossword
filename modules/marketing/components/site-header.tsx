@@ -29,13 +29,13 @@ import { MobileMenu } from "./mobile-menu";
  * Pages whose header starts transparent over a full-bleed photo hero and turns into the dark
  * translucent bar once the page scrolls. Everywhere else it is the cream bar.
  */
-const TRANSPARENT_ROUTES = ["/", "/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch", "/pricing", "/ai-assistants", "/personal-agents"];
+const TRANSPARENT_ROUTES = ["/", "/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch", "/ai-assistants", "/personal-agents"]; // Pricing is off these while its hero is hidden.
 
 /**
  * Of those, pages where the dark bar belongs to the hero only: once the hero (the page's first
  * section) has scrolled up past the header, it becomes the cream bar.
  */
-const HERO_ONLY_ROUTES = ["/", "/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch", "/pricing", "/ai-assistants", "/personal-agents"];
+const HERO_ONLY_ROUTES = ["/", "/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch", "/ai-assistants", "/personal-agents"];
 
 /**
  * Of those, pages whose bar fills (dark and cream) run the full viewport width like their hero,

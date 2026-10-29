@@ -21,8 +21,8 @@ export function HowItWorks() {
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>Managed launch</Eyebrow>
           <div className="flex flex-col items-start gap-2">
-            <SectionTitle id="how-title" initial="H" firstLine="ow it works" width={707.715} variant="airy" />
-            <p className="font-sans text-base leading-6 tracking-[-0.48px] text-black/59">{cycle}</p>
+            <SectionTitle id="how-title" initial="H" firstLine="ow it works" width={707.715} variant="oneLine" weight="light" />
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{cycle}</p>
           </div>
         </div>
 
@@ -46,7 +46,7 @@ export function HowItWorks() {
                 #{i + 1}
               </p>
               <div className="relative flex flex-col gap-2">
-                <h3 className="font-serif text-[22px] leading-[1.15] tracking-[-0.88px] text-ink">
+                <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">
                   <span className="sr-only">Step {i + 1}: </span>
                   {step.title}
                 </h3>

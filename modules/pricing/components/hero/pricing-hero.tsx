@@ -5,21 +5,19 @@ import { ctaLinks } from "@/modules/marketing";
 import background from "@/modules/sell/assets/hero/background.webp";
 
 /**
- * Two-line display headline, set like Support's and Retain's (70 / 56 / 48 / 44px, 1.07 leading, swash
- * "C"), its second line picked out in gold, which the guidelines allow on dark grounds only.
- *
- * The hero copy is pinned to the bottom, so any fractional height below the eyebrow pushes its top
- * edge onto a half pixel, where its 0.5px frame and corner curls blur at 1x. The leading and top
- * padding are rounded to whole pixels (and the eyebrow set to 32px tall) so it lands cleanly, as on Retain.
+ * Two-line display headline, set like Support's and Retain's (70 / 56 / 48 / 44px, Crimson ExtraLight at
+ * 1.1 and -5%) after a 100px swash "C" (1.4286em) at -1%, its second line picked out in gold, which the
+ * guidelines allow on dark grounds only. Figma's box is 175px tall, two 77px lines with the swash pushing
+ * line 1 21px (0.3em) taller, which line 1 carries as top padding.
  */
 function Headline() {
   return (
     <h1
       id="pricing-hero-title"
-      className="font-serif text-(length:--display-size) leading-[round(1.07em,1px)] font-extralight tracking-[-0.05em] whitespace-nowrap text-cream"
+      className="font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-cream"
     >
-      <span className="block pt-[round(0.117em,1px)]">
-        <span className="font-script text-[1.2857em] leading-0 font-normal tracking-[-0.01em]">C</span>
+      <span className="block pt-[0.3em]">
+        <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">C</span>
         rossword runs
       </span>
       <span className="block text-gold">on credits</span>

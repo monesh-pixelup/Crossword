@@ -64,9 +64,9 @@ function ArrowButton({ direction, disabled, onClick }: { direction: "prev" | "ne
 /**
  * Figma "Section · Journey library (4x4)" (node 3295:53): a sand panel between the page rails (0.5px black/25
  * hairline, 80px top and bottom inside it, as Workflows on Support), the cream eyebrow over a two-line swash headline
- * (1000px box) and 8px below it an 820px line of Geist Light, with the previous / next arrows (9px apart) level with
+ * (1000px box) and 8px below it an 820px line of Geist, with the previous / next arrows (9px apart) level with
  * its foot on the right. 80px below, the journeys run in a row, 278px each and 28px either side of 10% black rules: the
- * icon tile, a Crimson 22 title and Geist 15 copy in ink muted (opening with its lead in Geist Medium #33322f), 24px
+ * icon tile, a Crimson 22 title and Geist 16 copy in ink muted (opening with its lead in Geist Medium #33322f), 24px
  * apart. Four fill the 1280px row; the rest are a scroll (or an arrow) away, a journey at a time.
  */
 export function JourneyLibrary() {
@@ -112,9 +112,9 @@ export function JourneyLibrary() {
                   firstLine="very Journey is built by people"
                   secondLine="who study this for a living"
                   width={1000}
-                  variant="humanMode"
+                  weight="light"
                 />
-                <p className="max-w-[820px] font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
+                <p className="max-w-[820px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
                   Each one maps the whole path: what the shopper asks, where they stall, what nudges them forward, and when
                   a person should step in. Then it&rsquo;s tested against how real customers behave before it reaches yours.
                 </p>
@@ -143,7 +143,7 @@ export function JourneyLibrary() {
                 <div role="listitem" className="flex w-[278px] shrink-0 snap-start flex-col items-start gap-6">
                   <IconTile icon={icons[i]} />
                   <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{journey.title}</h3>
-                  <p className="font-sans text-[15px] leading-[1.5] tracking-[-0.3px] text-ink-muted">
+                  <p className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">
                     <span className="font-medium text-[#33322f]">{journey.lead}</span>
                     {journey.inline ? " " : <br />}
                     {journey.body}

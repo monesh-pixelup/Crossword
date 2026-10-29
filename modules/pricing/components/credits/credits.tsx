@@ -21,11 +21,12 @@ const none = (
 );
 
 /**
- * Library · Comparison table, Credits (Figma 3221:14126), under the book divider band: a centred
+ * Library · Comparison table, Credits (Figma 3564:22979), under the book divider band: a centred
  * eyebrow, swash headline and copy, then the rate table at 520 / 254 / 253 / 253 of 1280: the
  * interactions in Crimson 22 down the left, the credits column featured (a wine head with a bright
  * gold label over sand cells, the figures in wine), what each is billed per and a note beside it in
- * Geist, centred, 1px engraved rules under every row. Then the pilot button beside a link to the
+ * Geist, centred, 1px engraved rules under every row. "Always free" and "Free for a limited time"
+ * open their groups in 48px rows of wine Geist Medium 12 caps. Then the pilot button beside a link to the
  * calculator. Below 880px the table scrolls sideways, its first column pinned.
  */
 export function Credits() {
@@ -41,7 +42,7 @@ export function Credits() {
       <div className="flex content-width flex-col items-center gap-12 lg:gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
           <Eyebrow>Credits</Eyebrow>
-          <SectionTitle id="credits-title" initial="W" firstLine="hat does a" secondLine="credit cover?" width={321} variant="credits" />
+          <SectionTitle id="credits-title" initial="W" firstLine="hat does a" secondLine="credit cover?" width={323} variant="creditCover" weight="light" />
           <p className="max-w-[560px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
             Credits power every interaction, from a conversational reply to a dynamic landing page. A typical conversation
             runs about 5 credits.
@@ -73,19 +74,33 @@ export function Credits() {
               </tr>
             </thead>
             <tbody>
-              {creditRows.map((row) => (
-                <tr key={row.label}>
-                  <th
-                    scope="row"
-                    className={cn(cell, "sticky left-0 z-1 bg-cream text-left font-serif text-[22px] leading-[1.15] font-normal tracking-[-0.04em] whitespace-nowrap text-ink")}
-                  >
-                    {row.label}
-                  </th>
-                  <td className={cn(cell, "bg-sand text-center font-serif text-[22px] leading-[1.15] tracking-[-0.04em] text-wine")}>{row.credits}</td>
-                  <td className={cn(cell, small, "text-center")}>{row.billedPer ?? none}</td>
-                  <td className={cn(cell, small, "text-center")}>{row.note ?? none}</td>
-                </tr>
-              ))}
+              {creditRows.map((row) =>
+                "group" in row ? (
+                  <tr key={row.group}>
+                    <th
+                      scope="colgroup"
+                      className="sticky left-0 z-1 h-12 border-b border-engraved bg-cream px-3 text-left font-sans text-[12px] leading-[1.2] font-medium tracking-[0.08em] whitespace-nowrap text-wine uppercase md:px-6"
+                    >
+                      {row.group}
+                    </th>
+                    <td className="border-b border-engraved bg-sand" />
+                    <td className="border-b border-engraved" />
+                    <td className="border-b border-engraved" />
+                  </tr>
+                ) : (
+                  <tr key={row.label}>
+                    <th
+                      scope="row"
+                      className={cn(cell, "sticky left-0 z-1 bg-cream text-left font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] whitespace-nowrap text-ink")}
+                    >
+                      {row.label}
+                    </th>
+                    <td className={cn(cell, "bg-sand text-center font-serif text-[22px] leading-[1.1] tracking-[-0.04em] whitespace-nowrap text-wine")}>{row.credits}</td>
+                    <td className={cn(cell, small, "text-center")}>{row.billedPer ?? none}</td>
+                    <td className={cn(cell, small, "text-center")}>{row.note ?? none}</td>
+                  </tr>
+                ),
+              )}
             </tbody>
           </table>
         </div>

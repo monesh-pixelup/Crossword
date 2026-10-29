@@ -6,7 +6,7 @@ import { ctaLinks } from "@/modules/marketing";
 import { TwillPanel } from "../shared/twill-panel";
 
 /**
- * Library · CTA banner (Figma 3156:13867), closing the page: the maroon twill panel with its gold
+ * Library · CTA banner (Figma 3564:23201), closing the page: the maroon twill panel with its gold
  * hairline frame 14px in and studs 8px in, 96px of padding top and bottom and 28px between: a
  * centred Dark eyebrow, cream swash headline and on-dark copy, then the Wine stamp beside a cream
  * text link. 96px below it.
@@ -22,8 +22,9 @@ export function Engineer() {
             initial="E"
             firstLine="very launch comes"
             secondLine="with an engineer"
-            width={500}
-            variant="channels"
+            width={445}
+            variant="credits"
+            weight="light"
             tone="cream"
             gutter={96}
           />

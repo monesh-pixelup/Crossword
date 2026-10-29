@@ -10,12 +10,12 @@ export type Plan = {
   tone: "cream" | "featured" | "sand";
 };
 
-/** Pricing options (Figma 3156:13342). */
+/** Pricing options (Figma 3564:22850): every plan books a demo. */
 export const plans: Plan[] = [
   {
     name: "Free pilot",
     description: "See what Crossword can do with your shoppers, products, and workflows.",
-    cta: { label: "START YOUR FREE PILOT", variant: "primary" },
+    cta: { label: "BOOK A DEMO", variant: "primary" },
     tone: "cream",
   },
   {
@@ -27,7 +27,7 @@ export const plans: Plan[] = [
   {
     name: "Scale",
     description: "Committed volume guarantees best pricing. Scale is built for brands ready to put Crossword across more of the customer journey.",
-    cta: { label: "TALK TO SALES", variant: "outline" },
+    cta: { label: "BOOK A DEMO", variant: "outline" },
     tone: "sand",
   },
 ];
@@ -46,20 +46,27 @@ export const inclusions: { icon: StaticImageData; title: string; body: string }[
 /** A rate table row; `null` is a cell with nothing to say (drawn as a short rule). */
 export type CreditRow = { label: string; credits: string; billedPer: string | null; note: string | null };
 
-/** What does a credit cover? (Figma 3221:14131). */
-export const creditRows: CreditRow[] = [
+/** A label row opening a group of rates (Figma's "Always free", "Free for a limited time"). */
+export type CreditGroup = { group: string };
+
+/** What does a credit cover? (Figma 3564:22984). */
+export const creditRows: (CreditRow | CreditGroup)[] = [
   { label: "Agent conversations and search", credits: "1–2", billedPer: "Reply", note: "Complex replies are 2" },
   { label: "Visual requests", credits: "3", billedPer: "Photo request", note: "Follow-ups at reply rate" },
   { label: "Dynamic landing pages", credits: "1", billedPer: "Page view", note: "Design priced separately" },
   { label: "Personalized proactive messages", credits: "1", billedPer: "Message shown", note: "Static messages are free" },
-  { label: "Audience Builder segments", credits: "Free", billedPer: null, note: "Sending bills as above" },
+  { label: "Audience Builder", credits: "Free", billedPer: null, note: "Sending bills as personalized proactive messages" },
+  { group: "Always free" },
   { label: "Adding to cart and team handoffs", credits: "Free", billedPer: null, note: null },
   { label: "Setup, connectors and knowledge ingestion", credits: "Free", billedPer: null, note: "Includes branded widget" },
+  { group: "Free for a limited time" },
+  { label: "AI Assistant integration", credits: "Limited time free", billedPer: null, note: null },
+  { label: "Personal Agent integration", credits: "Limited time free", billedPer: null, note: null },
 ];
 
-/** What Crossword moves (Figma 3161:27801), two to a row. */
+/** What Crossword moves (Figma 3564:23108), two to a row. */
 export const outcomes = [
-  { title: "Conversion lift", body: "How conversations increase the number of sales." },
+  { title: "Conversion lift", body: "How conversations increase the number of visitors who become customers" },
   { title: "Basket size", body: "How recommendations grow average order value." },
   { title: "Fewer tickets", body: "How instant, knowledge-based answers reduce ticket volume." },
   { title: "Fewer returns", body: "How product matching gets shoppers to the right purchase the first time." },

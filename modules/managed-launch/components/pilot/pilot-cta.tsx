@@ -20,8 +20,9 @@ export function PilotCta() {
             initial="Y"
             firstLine="ou’re getting a team,"
             secondLine="not just a product"
-            width={520}
-            variant="channels"
+            width={507}
+            variant="credits"
+            weight="light"
             tone="cream"
             gutter={96}
           />
