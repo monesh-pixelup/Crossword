@@ -36,11 +36,12 @@ export function HumanHandoff() {
               id="handoff-title"
               initial="H"
               firstLine=" uman-in-the-loop support"
-              width={552}
+              width={653}
               variant="handoff"
               tone="light"
+              weight="light"
             />
-            <p className="max-w-[552px] text-center font-sans text-sm leading-[1.4] tracking-[-0.42px] text-white/60">
+            <p className="max-w-[653px] text-center font-sans text-sm leading-5 tracking-[-0.28px] text-white/60">
               When a conversation needs a human, Crossword brings them in at the right moment &mdash; with the context
               they need to take over.
             </p>

@@ -91,7 +91,15 @@ const variants = {
     second: "",
     size: 50,
   },
-  /** As handoff, but two lines: the second sits 75.2px under the first, as Figma sets it (Retain: Loyalty). */
+  /** Centred, 60px lines at 1.1 under line 1's 81px, after an 82px swash at 1.18 and -4.1px (-5%) (Retain: Loyalty). */
+  loyalty: {
+    firstLineHeight: 81,
+    tracking: "tracking-[-4.1px] text-center",
+    swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[1.1] tracking-[-3px]",
+    second: "",
+  },
+  /** As handoff, but two lines: the second sits 75.2px under the first, as Figma sets it (AI Assistants: Promotions). */
   handoffStacked: {
     firstLineHeight: 75.2,
     tracking: "tracking-[-4.1px] text-center",
@@ -161,6 +169,14 @@ const variants = {
     line: "leading-[1.18] tracking-[-3px]",
     second: "",
   },
+  /** As workflows, with 60px lines at 1.1 under line 1's 81px (Support: Workflows). */
+  workflowsTight: {
+    firstLineHeight: 81,
+    tracking: "",
+    swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[1.1] tracking-[-3px]",
+    second: "",
+  },
   /** As upsell, left-aligned: 60px lines at 1.18 after an 82px swash at -4.1px, line 1 set 83.2px tall (Managed launch: Journey). */
   journey: {
     firstLineHeight: 83.2,
@@ -177,14 +193,13 @@ const variants = {
     line: "leading-[1.18] tracking-[-3px]",
     second: "",
   },
-  /** One centred 50px line after an 82px swash, both at 1.1 leading (Support: Human-in-the-loop). */
+  /** One centred 60px line at 1.1 after an 82px swash at 1.18 and -4.1px (-5%) (Support: Human-in-the-loop). */
   handoff: {
-    firstLineHeight: 90.2,
+    firstLineHeight: 96.76,
     tracking: "tracking-[-4.1px] text-center",
-    swash: "font-script text-[82px] leading-[1.1]",
-    line: "leading-[1.1] tracking-[-2.5px]",
+    swash: "font-script text-[82px] leading-[1.18]",
+    line: "leading-[1.1] tracking-[-3px]",
     second: "",
-    size: 50,
   },
   /** 50px lines under a 77px swash (Sell: Conversion assistance). */
   assist: {

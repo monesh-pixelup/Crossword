@@ -75,7 +75,7 @@ export function ResolveTabs() {
           <div key={c.label} inert={i !== active} className="tab-panel flex w-full flex-col items-start">
             <div className="flex w-full flex-col items-start gap-3 bg-cream px-4 pb-6">
               <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{c.label}</h3>
-              <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.48px] text-black/59">{c.description}</p>
+              <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{c.description}</p>
             </div>
 
             {/* The case's motion scene: a chat in its notched frame (738 × 680, in its turn's livery), filling the column. */}

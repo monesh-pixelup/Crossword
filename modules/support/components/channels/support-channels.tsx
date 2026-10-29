@@ -22,7 +22,7 @@ export function SupportChannels() {
         <div className="flex content-width flex-col items-center gap-12 min-[1033px]:gap-20">
           <div className="flex w-[400px] max-w-full flex-col items-center gap-6 text-center">
             <Eyebrow>Channels</Eyebrow>
-            <SectionTitle id="channels-title" initial="S" firstLine="upport" secondLine="channels" width={220} variant="channels" />
+            <SectionTitle id="channels-title" initial="S" firstLine="upport" secondLine="channels" width={222} variant="credits" weight="light" />
             <p className="font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
               Wherever your customers reach out, they get an answer.
             </p>
@@ -36,7 +36,7 @@ export function SupportChannels() {
               >
                 <div className="flex w-full flex-col items-center justify-center gap-2 bg-[#fff7e4]">
                   <Image src={icon} alt="" className="h-[29.097px] w-[30.916px]" />
-                  <span className="font-serif text-[22px] leading-[1.15] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
+                  <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
                 </div>
                 {studs.map((place) => (
                   <span key={place} aria-hidden className={`pointer-events-none absolute size-[3px] rounded-full bg-gold ${place}`} />

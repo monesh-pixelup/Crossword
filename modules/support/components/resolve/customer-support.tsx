@@ -19,11 +19,11 @@ export function CustomerSupport() {
           <SectionTitle
             id="resolve-title"
             initial="C"
-            firstLine="ustomer support,"
+            firstLine={<span className="font-light">ustomer support,</span>}
             secondLine="handled by Crossword"
             width={707.715}
           />
-          <p className="font-sans text-base leading-6 tracking-[-0.48px] text-black/59">
+          <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59">
             The questions that shouldn&rsquo;t need a ticket.
           </p>
         </div>

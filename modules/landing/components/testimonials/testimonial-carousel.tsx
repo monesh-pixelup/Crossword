@@ -16,7 +16,14 @@ const arrowButton =
  * (844px card + 64px gap) from 992px, 544px below, and 85% of the window on phones.
  * The arrows sit on the active card's edges, and under the card on phones.
  */
-export function TestimonialCarousel({ testimonials = defaultTestimonials }: { testimonials?: Testimonial[] }) {
+export function TestimonialCarousel({
+  testimonials = defaultTestimonials,
+  largeName = false,
+}: {
+  testimonials?: Testimonial[];
+  /** The author's name at 38px, as on the home page (28px elsewhere). */
+  largeName?: boolean;
+}) {
   const [active, setActive] = useState(initialTestimonial);
   const last = testimonials.length - 1;
 
@@ -38,7 +45,7 @@ export function TestimonialCarousel({ testimonials = defaultTestimonials }: { te
           }
         >
           {testimonials.map((t, i) => (
-            <TestimonialSlide key={i} testimonial={t} active={i === active} index={i} total={testimonials.length} />
+            <TestimonialSlide key={i} testimonial={t} active={i === active} index={i} total={testimonials.length} largeName={largeName} />
           ))}
         </div>
       </div>

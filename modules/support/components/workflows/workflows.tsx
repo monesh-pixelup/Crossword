@@ -21,10 +21,10 @@ export function Workflows() {
             <SectionTitle
               id="workflows-title"
               initial="W"
-              firstLine="orkflows with room"
-              secondLine={<span className="font-light">for human judgment</span>}
-              width={518}
-              variant="workflows"
+              firstLine={<span className="font-light">orkflows with room</span>}
+              secondLine="for human judgment"
+              width={525}
+              variant="workflowsTight"
             />
           </div>
 

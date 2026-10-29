@@ -17,8 +17,8 @@ export function ReturnReduction() {
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>Return reduction</Eyebrow>
-          <SectionTitle id="returns-title" initial="M" firstLine="ore confidence at checkout." secondLine="Fewer returns after it" width={760} />
-          <p className="max-w-[760px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+          <SectionTitle id="returns-title" initial="M" firstLine="ore confidence at checkout." secondLine="Fewer returns after it" width={760} weight="light" />
+          <p className="max-w-[760px] font-sans text-sm leading-5 tracking-[-0.28px] text-black/60">
             Crossword helps customers choose with more confidence, so they&rsquo;re less likely to buy the wrong size, shade,
             or product in the first place.
           </p>

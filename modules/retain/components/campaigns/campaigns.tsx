@@ -23,8 +23,8 @@ export function Campaigns() {
           <SectionTitle
             id="campaigns-title"
             initial="O"
-            firstLine="utreach that knows when to"
-            secondLine={<span className="font-light">speak, and when not to</span>}
+            firstLine={<span className="font-light">utreach that knows when to</span>}
+            secondLine="speak, and when not to"
             width={707.715}
           />
         </div>

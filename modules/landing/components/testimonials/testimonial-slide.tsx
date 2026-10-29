@@ -45,9 +45,11 @@ type TestimonialSlideProps = {
   active: boolean;
   index: number;
   total: number;
+  /** The author's name at 38px (home), not 28px. */
+  largeName?: boolean;
 };
 
-export function TestimonialSlide({ testimonial, active, index, total }: TestimonialSlideProps) {
+export function TestimonialSlide({ testimonial, active, index, total, largeName = false }: TestimonialSlideProps) {
   const l = layouts[active ? "active" : "inactive"];
 
   return (
@@ -113,7 +115,7 @@ export function TestimonialSlide({ testimonial, active, index, total }: Testimon
         </div>
 
         <blockquote
-          className={`relative font-serif ${testimonial.smallQuote ? "text-[24px] leading-[1.15] font-light" : "text-(length:--h6-size) leading-[1.1]"} tracking-[-0.04em] text-[#040404] lg:absolute lg:left-(--l) lg:top-(--t) lg:w-[443.706px] ${move}`}
+          className={`relative font-serif text-(length:--h6-size) leading-[1.1] tracking-[-0.04em] text-[#040404] lg:absolute lg:left-(--l) lg:top-(--t) lg:w-[443.706px] ${move}`}
           style={at(l.quote)}
         >
           <Image src={markOpen} alt="" className="absolute top-[0.83px] -left-[22.39px]" />
@@ -127,7 +129,9 @@ export function TestimonialSlide({ testimonial, active, index, total }: Testimon
           className={`relative mt-6 flex flex-col items-start gap-2 lg:absolute lg:left-(--l) lg:top-(--t) lg:mt-0 ${move}`}
           style={at(l.author)}
         >
-          <span className="font-calligraphy text-[38px] leading-[1.13] font-bold tracking-[-1.14px] whitespace-nowrap text-[#121212]">
+          <span
+            className={`font-calligraphy leading-[1.13] font-bold whitespace-nowrap text-[#121212] ${largeName ? "text-[38px] tracking-[-1.14px]" : "text-[28px] tracking-[-0.84px]"}`}
+          >
             {testimonial.name}
           </span>
           <span className="font-inter text-[12px] leading-[1.13] tracking-[-0.36px] text-[rgba(18,18,18,0.8)]">

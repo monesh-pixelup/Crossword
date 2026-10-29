@@ -5,8 +5,6 @@ export type Testimonial = {
   company: string;
   /** Background of the tilted portrait card. */
   cardColor: string;
-  /** Set the quote at 24px instead of the h5 size, for quotes too long for the card (Retain). */
-  smallQuote?: boolean;
 };
 
 // Figma uses the same placeholder testimonial on every slide.
@@ -56,14 +54,13 @@ export const supportTestimonials: Testimonial[] = [
   { ...supportPlaceholder, cardColor: "#004c27" },
 ];
 
-// Retain (Figma "Testimonial carousel", Client testimonial): a longer quote, set smaller to fit the card.
+// Retain (Figma "Testimonial carousel", Client testimonial): a longer quote, at the same 28px as the others.
 const retainPlaceholder = {
   quote:
     "Crossword helps customers make better decisions before they buy. It answers the questions they’d normally have to figure out themselves, recommends products based on what they’re looking for, and helps them feel confident about what they’re choosing. We started seeing fewer wrong-fit purchases almost immediately.",
   name: "Name",
   role: "Title",
   company: "Company",
-  smallQuote: true,
 };
 
 export const retainTestimonials: Testimonial[] = [

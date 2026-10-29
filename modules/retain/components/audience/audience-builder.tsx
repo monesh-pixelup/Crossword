@@ -19,9 +19,9 @@ export function AudienceBuilder() {
         <div className="flex w-full flex-col items-start gap-6 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between min-[1200px]:gap-12">
           <div className="flex max-w-full flex-col items-start gap-6">
             <Eyebrow>Audiences</Eyebrow>
-            <SectionTitle id="audience-title" initial="T" firstLine="urn customer patterns" secondLine="into your audience" width={614.744} />
+            <SectionTitle id="audience-title" initial="T" firstLine="urn customer patterns" secondLine="into your audience" width={614.744} weight="light" />
           </div>
-          <p className="max-w-[477.244px] font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
+          <p className="max-w-[477.244px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
             Find demand buried in past conversations, even when shoppers never joined a waiting list.
           </p>
         </div>

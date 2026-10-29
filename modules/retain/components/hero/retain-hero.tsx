@@ -5,8 +5,9 @@ import { ctaLinks } from "@/modules/marketing";
 import background from "@/modules/sell/assets/hero/background.webp";
 
 /**
- * Two-line display headline, set like the Sell hero's (70 / 56 / 48 / 44px, 1.07 leading, swash
- * "G"), its second line picked out in gold, which the guidelines allow on dark grounds only.
+ * Two-line display headline (Figma 3257:38205): Crimson ExtraLight 70 / 56 / 48 / 44px at 1.1 and -5%,
+ * after a 100px swash "G" (1.4286em) at -1%, which makes line 1 21px (0.3em) taller than the 77px line 2
+ * (a 175px box). Its second line is picked out in gold, which the guidelines allow on dark grounds only.
  *
  * The hero copy is pinned to the bottom, so any fractional height below the eyebrow pushes its top
  * edge onto a half pixel, where its 0.5px frame and corner curls blur at 1x. The leading and top
@@ -16,10 +17,10 @@ function Headline() {
   return (
     <h1
       id="retain-hero-title"
-      className="font-serif text-(length:--display-size) leading-[round(1.07em,1px)] font-extralight tracking-[-0.05em] whitespace-nowrap text-cream"
+      className="font-serif text-(length:--display-size) leading-[round(1.1em,1px)] font-extralight tracking-[-0.05em] whitespace-nowrap text-cream"
     >
-      <span className="block pt-[round(0.117em,1px)]">
-        <span className="font-script text-[1.2857em] leading-0 font-normal tracking-[-0.01em]">G</span>
+      <span className="block pt-[round(0.3em,1px)]">
+        <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">G</span>
         ood to see
       </span>
       <span className="block text-gold">you again</span>

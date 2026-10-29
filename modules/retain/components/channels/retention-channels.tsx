@@ -23,12 +23,12 @@ export function RetentionChannels() {
               initial="O"
               firstLine={
                 <>
-                  ne relationship, sequenced <span className="font-light">across</span>
+                  <span className="font-light">ne relationship, sequenced</span> across
                 </>
               }
-              secondLine={<span className="font-light">every channel</span>}
-              width={745}
-              variant="workflows"
+              secondLine="every channel"
+              width={751}
+              variant="workflowsTight"
             />
           </div>
 

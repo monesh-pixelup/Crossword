@@ -9,7 +9,7 @@ import { TestimonialCarousel } from "./testimonial-carousel";
 type Variant = "home" | "sell" | "support" | "retain";
 
 /** Each page's eyebrow, headline (and the header width it needs) and slides. */
-const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth: string; slides?: Testimonial[] }> = {
+const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth: string; slides?: Testimonial[]; largeName?: boolean }> = {
   home: {
     eyebrow: "Customer Testimonials",
     title: (
@@ -24,6 +24,7 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
       />
     ),
     headerWidth: "max-w-[650px]",
+    largeName: true,
   },
   sell: {
     eyebrow: "Client testimonial",
@@ -49,7 +50,8 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
         firstLine="esolution time dropped from hours to under"
         secondLine="two minutes, without losing the personal touch."
         width={1000}
-        variant="quote"
+        variant="calligraphic"
+        weight="light"
       />
     ),
     headerWidth: "max-w-[1000px]",
@@ -64,7 +66,8 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
         firstLine="eturns dropped 18% in the first quarter"
         secondLine="without changing our return policy."
         width={1000}
-        variant="centered"
+        variant="calligraphic"
+        weight="light"
       />
     ),
     headerWidth: "max-w-[1000px]",
@@ -74,8 +77,8 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
 
 /**
  * The testimonial carousel under a centred eyebrow and headline. `sell`, `support` and `retain`
- * are Figma's Client testimonial on those pages: their own headline (a Parisienne swash, two 60px
- * lines; Retain's set as its other centred headings) and quote.
+ * are Figma's Client testimonial on those pages: their own headline (two 60px lines; Sell's after a
+ * Parisienne swash, Support's and Retain's after a Tangerine one, Light at 0.9) and quote.
  */
 export function Testimonials({ variant = "home" }: { variant?: Variant }) {
   const v = variants[variant];
@@ -94,7 +97,7 @@ export function Testimonials({ variant = "home" }: { variant?: Variant }) {
         </div>
 
         {/* The carousel spans the page rails, not the content column. */}
-        <TestimonialCarousel testimonials={v.slides} />
+        <TestimonialCarousel testimonials={v.slides} largeName={v.largeName} />
       </div>
     </section>
   );

@@ -35,8 +35,9 @@ export function Loyalty() {
               firstLine="emembered,"
               secondLine="not just recorded"
               width={458.609}
-              variant="handoffStacked"
+              variant="loyalty"
               tone="light"
+              weight="light"
             />
           </div>
 

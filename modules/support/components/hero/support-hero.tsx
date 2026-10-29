@@ -5,21 +5,20 @@ import { ctaLinks } from "@/modules/marketing";
 import background from "@/modules/sell/assets/hero/background.webp";
 
 /**
- * Three-line display headline, set like the Sell hero's (70 / 56 / 48 / 44px, 1.07 leading,
- * swash "M"). The headline is longer than Sell's, so it breaks over three lines to sit beside the
- * CTA column; below 768px the lines may wrap.
+ * Two-line display headline (Figma 3257:34146): Crimson ExtraLight 70 / 56 / 48 / 44px at 1.1 and -5%,
+ * after a 100px swash "M" (1.4286em) at -1%. Figma's box is 175px tall, two 77px lines with the swash
+ * pushing line 1 21px (0.3em) taller, which line 1 carries as top padding. Below 768px the lines may wrap.
  */
 function Headline() {
   return (
     <h1
       id="support-hero-title"
-      className="font-serif text-(length:--display-size) leading-[1.07] font-extralight tracking-[-0.05em] text-cream md:whitespace-nowrap"
+      className="font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] text-cream md:whitespace-nowrap"
     >
-      <span className="block pt-[0.117em]">
-        <span className="font-script text-[1.2857em] leading-0 font-normal tracking-[-0.01em]">M</span>
-        ost support tickets
+      <span className="block pt-[0.3em]">
+        <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">M</span>
+        ost support tickets aren&rsquo;t complicated,
       </span>
-      <span className="block">aren&rsquo;t complicated,</span>
       <span className="block text-gold">they&rsquo;re just slow</span>
     </h1>
   );
@@ -61,7 +60,7 @@ export function SupportHero() {
             <Headline />
           </div>
 
-          <div className="flex w-[453.402px] max-w-full flex-col items-start gap-4">
+          <div className="flex w-[481.52px] max-w-full flex-col items-start gap-4">
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>

@@ -22,6 +22,8 @@ const variants = {
     card: "top-[4.51px] right-[3.51px] bottom-[3.4px] left-[3.51px]",
     cell: "mt-[15.35px]",
     copy: "mt-[19.65px]",
+    stepTitle: "tracking-[-0.28px]",
+    stepBody: "leading-5 tracking-[-0.28px]",
   },
   /**
    * Support: Human-in-the-loop (node 2634:20241), 24px numerals in a 27px box (Figma nudges each
@@ -35,6 +37,8 @@ const variants = {
     card: "top-[4.51px] right-[3.51px] bottom-[3.4px] left-[3.51px]",
     cell: "mt-[16.35px]",
     copy: "mt-[18.65px]",
+    stepTitle: "tracking-[-0.28px]",
+    stepBody: "leading-5 tracking-[-0.28px]",
   },
   /**
    * AI Assistants: Promotions & upselling (node 3305:1221), the handoff numerals over a shorter
@@ -50,6 +54,8 @@ const variants = {
     cell: "mt-[18.2px]",
     cellHeight: "h-[192.3px]",
     copy: "mt-[20.5px]",
+    stepTitle: "",
+    stepBody: "leading-[1.4] tracking-[-0.42px]",
   },
 } as const;
 
@@ -123,8 +129,8 @@ export function AubergineSteps({
 
             {/* Kept 17px off both rules while the columns are narrow (768–1279px); at 1062px the right inset is Figma's 11px (354 − 17 − 326). */}
             <div className={`${v.copy} flex flex-col items-start gap-3 pr-[17px] pl-[17px] xl:pr-[11px]`}>
-              <h3 className="font-sans text-sm leading-[1.2] font-medium text-pretty break-words text-white/85">{step.title}</h3>
-              <p className="max-w-[326px] font-sans text-sm leading-[1.4] tracking-[-0.42px] text-pretty break-words text-white/60">{step.description}</p>
+              <h3 className={`font-sans text-sm leading-[1.2] font-medium text-pretty break-words text-white/85 ${v.stepTitle}`}>{step.title}</h3>
+              <p className={`max-w-[326px] font-sans text-sm text-pretty break-words text-white/60 ${v.stepBody}`}>{step.description}</p>
             </div>
           </li>
         );

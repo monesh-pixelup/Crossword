@@ -75,7 +75,7 @@ export function CampaignTabs() {
             <div className="flex w-full flex-col items-start gap-5 bg-cream px-4 pb-6 md:flex-row md:items-end md:justify-between md:gap-8">
               <div className="flex flex-col items-start gap-3">
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{campaign.title}</h3>
-                <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.48px] text-black/59">{campaign.description}</p>
+                <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{campaign.description}</p>
               </div>
               <TextLink href={ctaLinks.learnMore}>Learn more</TextLink>
             </div>
