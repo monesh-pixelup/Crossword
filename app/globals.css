@@ -216,6 +216,40 @@
   }
 }
 
+/*
+ * Vertical tabs (Sell, Support, Retain, …): every tab's panel shares one grid cell (so the column keeps
+ * the tallest one's height) and they crossfade, the outgoing panel fading out as the chosen one
+ * softly comes into focus. Inactive panels are `inert`.
+ */
+.tab-panel {
+  grid-area: 1 / 1;
+  /* Coming in: a slow, soft settle, a beat after the outgoing panel starts to go. */
+  transition:
+    opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.08s,
+    filter 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.08s;
+}
+
+.tab-panel[inert] {
+  opacity: 0;
+  filter: blur(2px);
+  pointer-events: none;
+  /* Going out: a quicker, gentle fade. */
+  transition:
+    opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1),
+    filter 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-panel,
+  .tab-panel[inert] {
+    transition: opacity 0.2s linear;
+  }
+
+  .tab-panel[inert] {
+    filter: none;
+  }
+}
+
 /* Customer intelligence card labels: a soft gold highlight sweeps through the text, like a model at work. */
 @keyframes intel-label-shimmer {
   from {

@@ -6,7 +6,7 @@ import { DedicatedTabList } from "./dedicated-tab-list";
 /**
  * Figma "Library · Vertical tabs" (Dedicated landing pages): the eyebrow and a two-line headline (82px swash, 60px
  * lines, both 1.18) with a line of copy across from it, bottom-aligned and as wide as the cards below (stacked
- * under it below 1024px), then 80px below the components stacked beside their pinned, scroll-driven list, as Campaigns &
+ * under it below 1024px), then 80px below the list of components beside the active one, playing on a timer, as Campaigns &
  * outbound on Retain (see DedicatedTabList). A 232px gold tick sits on the left rail beside the eyebrow.
  */
 export function DedicatedTabs() {

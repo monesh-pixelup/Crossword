@@ -20,23 +20,21 @@ const panels = [panelMaroon, panelForest, panelAubergine];
 const turns = dedicatedTabs.map(() => tabTurn());
 
 /**
- * Figma "Library · Vertical tabs" (Dedicated landing pages), made scroll-driven as Campaigns & outbound on Retain:
- * every component stacks in the right column (its name in Crimson 22, its line of Geist 16 and a text link over its
- * 821 × 611 panel, maroon, forest green and aubergine in turn), while the 280px list of components stays pinned on
- * the left from 992px. The component whose panel has crossed the middle of the viewport is the active one (ink; the
- * rest ink/60).
+ * Figma "Library · Vertical tabs" (Dedicated landing pages), as Campaigns & outbound on Retain: the 280px list of
+ * components on the left from 992px (above the panel below that), and the active component in the right column (its
+ * name in Crimson 22, its line of Geist 16 and a text link over its 821 × 611 panel, maroon, forest green and
+ * aubergine in turn). The active label is ink; the rest ink/60.
  *
- * They also play on their own (see `useAutoplayTabs`): while the list is pinned, the gold rule under the active label
- * fills over that component's turn, and moves along as the reader scrolls, then the page scrolls on to the next
- * component. When the next component takes over, the old rule fades and shrinks away. Choosing a component scrolls
- * to it. Below 992px the list is hidden and the components simply stack.
+ * They play on their own (see `useAutoplayTabs`): the gold rule under the active label fills over that component's
+ * turn, then the next component takes over and the old rule fades and shrinks away. Choosing a component shows it,
+ * starting its turn afresh.
  */
 export function DedicatedTabList() {
-  const { active, steps, fills, open, pause } = useAutoplayTabs(turns);
+  const { active, root, fills, open } = useAutoplayTabs(turns);
 
   return (
-    <div className="flex w-full flex-col items-stretch lg:flex-row lg:items-start lg:justify-between lg:gap-8">
-      <nav aria-label="Dedicated landing page components" {...pause} className="sticky top-[calc(72.5px+48px)] hidden shrink-0 lg:block lg:w-[280px]">
+    <div ref={root} className="flex w-full flex-col items-stretch gap-8 lg:flex-row lg:items-start lg:justify-between">
+      <nav aria-label="Dedicated landing page components" className="shrink-0 lg:w-[280px]">
         <ul className="flex flex-col">
           {dedicatedTabs.map((tab, i) => {
             const on = i === active;
@@ -44,17 +42,17 @@ export function DedicatedTabList() {
               <li key={tab.label}>
                 <button
                   type="button"
-                  aria-current={on ? "step" : undefined}
+                  aria-current={on ? "true" : undefined}
                   onClick={() => open(i)}
                   className={cn(
                     // Inactive labels at ink/60, not Figma's /40, to pass AA on cream (brand guidelines 5.10).
-                    "flex w-full cursor-pointer flex-col items-start gap-2 py-3 pr-5 text-left font-sans text-base leading-[1.1] tracking-[-0.32px] whitespace-nowrap transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                    "flex w-full cursor-pointer flex-col items-start gap-2 py-3 pr-5 text-left font-sans text-base leading-[1.1] tracking-[-0.32px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
                     on ? "text-ink" : "text-ink/60 hover:text-ink",
                   )}
                 >
                   {/* No left padding: the labels line up with the heading above. */}
                   {tab.label}
-                  {/* Hairline track, with the gold rule that fills over this component's turn (or as it scrolls through). */}
+                  {/* Hairline track, with the gold rule that fills over this component's turn. */}
                   <span aria-hidden className="relative h-px w-full bg-black/10">
                     <span
                       ref={(el) => {
@@ -76,15 +74,10 @@ export function DedicatedTabList() {
         </ul>
       </nav>
 
-      <div className="flex w-full min-w-0 flex-col gap-16 lg:flex-[0_1_821px] lg:gap-24">
+      {/* Every component shares one cell and they crossfade (`.tab-panel`). */}
+      <div className="grid w-full min-w-0 lg:flex-[0_1_821px]">
         {dedicatedTabs.map((tab, i) => (
-          <div
-            key={tab.label}
-            ref={(el) => {
-              steps.current[i] = el;
-            }}
-            className="flex w-full flex-col items-start"
-          >
+          <div key={tab.label} inert={i !== active} className="tab-panel flex w-full flex-col items-start">
             <div className="flex w-full flex-col items-start gap-5 bg-cream px-4 pb-6 md:flex-row md:items-end md:justify-between md:gap-8">
               <div className="flex flex-col items-start gap-3">
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{tab.label}</h3>
