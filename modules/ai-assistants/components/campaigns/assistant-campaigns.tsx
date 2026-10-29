@@ -6,11 +6,11 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import panelForest from "@/modules/retain/assets/audience/panel-forest.webp";
 
 /**
- * Section · Campaigns (Figma 3305:453), a "Library · Wide panel": the eyebrow and a one-line swash
- * headline, then 80px below the 1280 × 599 forest damask panel (3305:463) with its gold corner-notched
- * frame and studs: Retain's Audiences panel export, scaled with the column. A 232px gold tick sits on
- * the left rail beside the eyebrow (98px down in Figma). Personal agents' "The case" (3308:352) is the same
- * section with a two-line headline in a 1030px box.
+ * A "Library · Wide panel": the eyebrow and a swash headline, then 80px below the 1280 × 599 forest damask
+ * panel with its gold corner-notched frame and studs: Retain's Audiences panel export, scaled with the column.
+ * A 232px gold tick sits on the left rail beside the eyebrow (98px down in Figma). Personal agents' "The case"
+ * (3308:352) uses it with a two-line headline in a 1030px box; AI Assistants' Campaigns now has its own layout
+ * (UseCaseCampaigns).
  */
 export function AssistantCampaigns({
   id = "ai-campaigns-title",

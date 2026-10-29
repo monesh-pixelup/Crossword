@@ -8,3 +8,4 @@ export { Insights } from "./components/insights/insights";
 export { LoggedInExperience } from "./components/logged-in/logged-in-experience";
 export { ShopperAsks } from "./components/possibilities/shopper-asks";
 export { Promotions } from "./components/promotions/promotions";
+export { UseCaseCampaigns } from "./components/campaigns/use-case-campaigns";
