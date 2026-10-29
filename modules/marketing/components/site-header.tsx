@@ -11,18 +11,18 @@ import crosswordMark from "../assets/crossword-mark.svg";
 import featureCardDark from "../assets/nav/card-dark.webp";
 import chatgptDark from "../assets/nav/glyphs/dark-chatgpt.svg";
 import claudeDark from "../assets/nav/glyphs/dark-claude.svg";
-import geminiDark from "../assets/nav/glyphs/dark-gemini.svg";
 import grokDark from "../assets/nav/glyphs/dark-grok.svg";
 import instinctDark from "../assets/nav/glyphs/dark-instinct.svg";
 import museDark from "../assets/nav/glyphs/dark-muse.svg";
+import perplexityDark from "../assets/nav/glyphs/dark-perplexity.svg";
 import chatgptLight from "../assets/nav/glyphs/light-chatgpt.svg";
 import claudeLight from "../assets/nav/glyphs/light-claude.svg";
-import geminiLight from "../assets/nav/glyphs/light-gemini.svg";
 import grokLight from "../assets/nav/glyphs/light-grok.svg";
 import instinctLight from "../assets/nav/glyphs/light-instinct.svg";
 import museLight from "../assets/nav/glyphs/light-muse.svg";
+import perplexityLight from "../assets/nav/glyphs/light-perplexity.svg";
 import featureCardLight from "../assets/nav/card-light.webp";
-import { ctaLinks, type NavItem, type NavLink, platformColumns, platformFeature, primaryNav } from "../config/navigation";
+import { ctaLinks, type NavItem, type NavLink, type PlatformLink, platformMenu, primaryNav } from "../config/navigation";
 import { MobileMenu } from "./mobile-menu";
 
 /**
@@ -113,21 +113,21 @@ type Glyph = {
   height: number;
   /** Down from the top of the 11.3 × 11.2 glyph box. */
   top?: number;
-  /** Gemini and Claude sit at 60%; the others carry their opacity in their artwork. */
+  /** Claude sits at 60%; the others carry their opacity in their artwork. */
   faded?: boolean;
 };
 
-/** Each row of marks, as Figma's "Icon · …" chips. */
+/** Each channel's "Examples" chips, as Figma's "Chip · …" (3572:91, 3572:106). */
 const assistantIcons: Record<"assistants" | "agents", Glyph[]> = {
   assistants: [
     { name: "ChatGPT", onDark: chatgptDark, onSand: chatgptLight, width: 11.3, height: 11.199 },
-    { name: "Gemini", onDark: geminiDark, onSand: geminiLight, width: 11.2, height: 11.2, faded: true },
     { name: "Claude", onDark: claudeDark, onSand: claudeLight, width: 11.27, height: 9.714, top: 0.74, faded: true },
+    { name: "Perplexity", onDark: perplexityDark, onSand: perplexityLight, width: 11.2, height: 11.2 },
   ],
   agents: [
     { name: "Muse", onDark: museDark, onSand: museLight, width: 11.3, height: 7.494, top: 1.85 },
     { name: "Instinct", onDark: instinctDark, onSand: instinctLight, width: 11.3, height: 11.199 },
-    { name: "Grok", onDark: grokDark, onSand: grokLight, width: 11.302, height: 11.2 },
+    { name: "Grok Bot", onDark: grokDark, onSand: grokLight, width: 11.302, height: 11.2 },
   ],
 };
 
@@ -138,15 +138,18 @@ const darkChipFill = [
 ].join(", ");
 
 /**
- * Figma "Icon · …": an 18.9 × 18.8 glass chip (8.155px corners, a 33px background blur). On the
+ * Figma "Icon · …": an 18.9 × 18.8 glass tile (8.155px corners, a 33px background blur). On the
  * dark bar it has a 0.8155px inside stroke fading from white at 12% to clear top to bottom over a
- * white 4% fill with a radial glow; on the cream one it is ink at 10% with no stroke. Its glyph
- * sits 3.815px in.
+ * white 4% fill with a radial glow; on the cream one it is ink at 6% in a 0.8155px rail-coloured
+ * stroke. Its glyph sits 3.815px in.
  */
-function AiChip({ glyph, light }: { glyph: Glyph; light: boolean }) {
+function AiIcon({ glyph, light }: { glyph: Glyph; light: boolean }) {
   return (
     <span
-      className={cn("relative block h-[18.8px] w-[18.9px] shrink-0 rounded-[8.155px] backdrop-blur-[16.494px]", !light && "bg-ink/10")}
+      className={cn(
+        "relative block h-[18.8px] w-[18.9px] shrink-0 rounded-[8.155px] backdrop-blur-[16.494px]",
+        !light && "bg-ink/6 shadow-[inset_0_0_0_0.8155px_var(--color-rail)]",
+      )}
       style={light ? { backgroundImage: darkChipFill } : undefined}
     >
       {light && (
@@ -164,7 +167,7 @@ function AiChip({ glyph, light }: { glyph: Glyph; light: boolean }) {
       <span className={cn("absolute top-[3.815px] left-[3.815px] h-[11.2px] w-[11.3px]", glyph.faded && "opacity-60")}>
         <Image
           src={light ? glyph.onDark : glyph.onSand}
-          alt={glyph.name}
+          alt=""
           className="absolute left-0 max-w-none"
           style={{ top: glyph.top ?? 0, width: glyph.width, height: glyph.height }}
         />
@@ -174,17 +177,99 @@ function AiChip({ glyph, light }: { glyph: Glyph; light: boolean }) {
 }
 
 /**
- * Figma "Navbar" (Platform open): a panel the full width of the bar, in the bar's own fill (the
- * translucent dark one, or cream under the 1px rail rule), 16px down to the columns and 32px
- * under them. Three 200px product columns 125px apart (from 1440px; they close up below), the first
- * under a "SELL" label, the other two bottom-aligned with it, then the 304px "New" card at the right.
- * Each product is a Crimson 16 title over a Geist 12 line, 4px apart and 24px between products; the
- * title turns gold (wine on cream) on hover. AI Assistants and Personal Agents carry their row of
- * marks 127px in from the title's left edge.
+ * Figma "Chip · …": the icon tile and the name in Geist 12, 4px apart in a 12px-round pill (5 × 4px
+ * padding) on a 1px line: white at 5% in white/10 on the dark bar, ink at 4% in the rail colour on the
+ * cream one.
+ */
+function AiChip({ glyph, light }: { glyph: Glyph; light: boolean }) {
+  return (
+    <span
+      className={cn(
+        "flex items-center gap-1 rounded-[12px] border px-[5px] py-1",
+        light ? "border-white/10 bg-white/5" : "border-rail bg-ink/4",
+      )}
+    >
+      <AiIcon glyph={glyph} light={light} />
+      <span className={cn("font-sans text-[12px] leading-none tracking-[-0.12px] whitespace-nowrap", light ? "text-cream/80" : "text-ink/80")}>
+        {glyph.name}
+      </span>
+    </span>
+  );
+}
+
+/** Figma's 13 × 10 ArrowRight (a 1.25px stroke), in the colour of the text it sits beside. */
+function MenuArrow({ className }: { className?: string }) {
+  return (
+    <svg aria-hidden viewBox="0.625 0.625 13 10" fill="none" className={cn("h-[10px] w-[13px] shrink-0 overflow-visible", className)}>
+      <path d="M.625 5.625h13m-5 5 5-5-5-5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/**
+ * A Platform menu product: its title (Crimson 16, or 18 for the channels) and arrow across the
+ * column, 4px over its Geist 12 line. Title and arrow turn amber (maroon on cream) on hover.
+ */
+function PlatformItem({
+  link,
+  light,
+  large = false,
+  descriptionWidth,
+  onChoose,
+}: {
+  link: PlatformLink;
+  light: boolean;
+  large?: boolean;
+  descriptionWidth?: number;
+  onChoose: () => void;
+}) {
+  const hover = light ? "group-hover/link:text-[#ffb657] group-focus-visible/link:text-[#ffb657]" : "group-hover/link:text-maroon group-focus-visible/link:text-maroon";
+  return (
+    <Link
+      href={link.href}
+      onClick={onChoose}
+      className="group/link flex w-full flex-col items-start gap-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
+    >
+      <span className="flex w-full items-center justify-between gap-4">
+        <span
+          className={cn(
+            "font-serif leading-[1.1] whitespace-nowrap transition-colors duration-150",
+            large ? "text-[18px] tracking-[-0.36px]" : "text-base tracking-[-0.32px]",
+            light ? "text-cream" : "text-ink",
+            hover,
+          )}
+        >
+          {link.label}
+        </span>
+        <MenuArrow className={cn("transition-colors duration-150", light ? "text-cream/85" : "text-ink/70", hover)} />
+      </span>
+      <span
+        className={cn("font-sans text-[12px] leading-5 tracking-[-0.48px]", light ? "text-cream/40" : "text-ink/60")}
+        style={{ maxWidth: descriptionWidth }}
+      >
+        {link.description}
+      </span>
+    </Link>
+  );
+}
+
+/**
+ * Figma "Platform menu · v2" (3572:53; on cream 3584:24912): a panel the full width of the bar, 32px
+ * down to its three columns and 32px under them, in a deeper translucent dark (the bar's
+ * rgba(9, 9, 9, .71) laid twice) or cream over a 1px rail rule. Rules (white/10, or the rail at 50%)
+ * run down between the columns, about 61px either side:
+ * - Website, 311px plus 48px after: its Crimson 18 heading over a Geist 12 line, then 28px apart the
+ *   Sell group (its label 14px over its two products, 20px apart, 24px in from a gold/15 or rail/40
+ *   rule), Customer support and Retention.
+ * - The AI channels, 276px and 48px in either side: AI Assistants and Personal Agents (Crimson 18)
+ *   32px either side of a 0.681px rule, each with its "Examples" label (Geist Medium 11, +8%) 8px
+ *   down and 10px over its chips.
+ * - The 304 × 111 Insight card, 10px over a READ MORE link.
+ * Below 1440px the gaps and columns close up.
  */
 function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; fullBleed: boolean; open: boolean; onChoose: () => void }) {
-  const gap = "gap-[min(125px,8.68vw)]";
-  const label = cn("font-sans text-[12px] leading-6 tracking-[-0.48px]", light ? "text-cream/40" : "text-ink/60");
+  const muted = light ? "text-cream/40" : "text-ink/60";
+  const rule = light ? "bg-white/10" : "bg-rail/50";
   return (
     <div className={cn("absolute inset-x-0 top-full isolate", reveal(open))}>
       <div
@@ -192,51 +277,83 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
         className={cn(
           "absolute -z-10",
           fullBleed ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : "inset-0",
-          light ? "bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]" : "bg-cream",
+          light ? "bg-[rgba(9,9,9,0.916)] backdrop-blur-[16px]" : "border-b border-rail bg-cream",
         )}
       />
-      <div className={cn("flex content-width items-start justify-between pt-4 pb-8", gap)}>
-        <div className={cn("flex min-w-0 items-end", gap)}>
-          {platformColumns.map((column, i) => (
-            <div key={i} className="flex w-[200px] min-w-0 flex-col gap-[26px]">
-              {column.label && <p className={cn(label, "uppercase")}>{column.label}</p>}
-              <ul className="flex flex-col gap-6">
-                {column.links.map((link) => {
-                  const icons = link.icons && assistantIcons[link.icons];
-                  return (
-                    <li key={link.label} className="relative">
-                      <Link href={link.href} onClick={onChoose} className="group/link flex flex-col gap-1 tracking-[-0.48px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon">
-                        <span
-                          className={cn(
-                            "font-serif text-base leading-[22.356px] whitespace-nowrap transition-colors duration-150",
-                            light
-                              ? "text-cream/80 group-hover/link:text-gold group-focus-visible/link:text-gold"
-                              : "text-ink group-hover/link:text-wine group-focus-visible/link:text-wine",
-                          )}
-                        >
-                          {link.label}
-                        </span>
-                        <span className={cn("max-w-[198px] font-sans text-[12px] leading-5", light ? "text-cream/40" : "text-ink/60")}>{link.description}</span>
-                      </Link>
-                      {icons && (
-                        <span className="pointer-events-none absolute top-1 left-[127px] flex items-center gap-[5px]">
-                          {icons.map((glyph) => (
-                            <AiChip key={glyph.name} glyph={glyph} light={light} />
-                          ))}
-                        </span>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
+      <div className="flex content-width items-stretch justify-between gap-6 py-8">
+        <div className="flex w-[359px] min-w-0 shrink flex-col items-start gap-7 pr-12">
+          <div className="flex flex-col items-start gap-1 whitespace-nowrap">
+            <p className={cn("font-serif text-[18px] leading-[1.1] tracking-[-0.36px]", light ? "text-cream" : "text-ink")}>
+              {platformMenu.website.title}
+            </p>
+            <p className={cn("font-sans text-[12px] leading-5 tracking-[-0.48px]", muted)}>{platformMenu.website.description}</p>
+          </div>
+
+          <div className="flex w-full flex-col items-start gap-3.5">
+            <p className={cn("font-serif text-base leading-[1.1] tracking-[-0.32px]", light ? "text-cream" : "text-ink")}>
+              {platformMenu.sell.label}
+            </p>
+            <ul className={cn("flex w-full flex-col gap-5 border-l pl-6", light ? "border-[rgba(224,190,96,0.15)]" : "border-rail/40")}>
+              {platformMenu.sell.links.map((link) => (
+                <li key={link.label}>
+                  <PlatformItem link={link} light={light} onChoose={onChoose} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {platformMenu.more.map((link) => (
+            <PlatformItem key={link.label} link={link} light={light} onChoose={onChoose} />
+          ))}
+        </div>
+
+        <span aria-hidden className={cn("w-px shrink-0", rule)} />
+
+        <div className="flex w-[372px] min-w-0 shrink flex-col gap-8 px-12">
+          {platformMenu.channels.map((channel, i) => (
+            <div key={channel.label} className="contents">
+              {i > 0 && <span aria-hidden className={cn("h-[0.681px] w-full shrink-0", rule)} />}
+              <div className="flex w-full flex-col items-start gap-1">
+                <PlatformItem link={channel} light={light} large descriptionWidth={channel.descriptionWidth} onChoose={onChoose} />
+                <div className="flex flex-col items-start gap-2.5 pt-2">
+                  <p className={cn("font-sans text-[11px] leading-[1.2] font-medium tracking-[0.88px] uppercase", muted)}>Examples</p>
+                  <ul className="flex flex-wrap gap-2">
+                    {assistantIcons[channel.examples].map((glyph) => (
+                      <li key={glyph.name}>
+                        <AiChip glyph={glyph} light={light} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           ))}
         </div>
 
-        <div className="flex w-[304.172px] min-w-0 shrink flex-col gap-6">
-          <p className={cn(label, "uppercase")}>{platformFeature.label}</p>
-          <Link href={platformFeature.href} onClick={onChoose} className="block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon">
-            <Image src={light ? featureCardDark : featureCardLight} alt={platformFeature.alt} sizes="305px" className="h-auto w-full" />
+        <span aria-hidden className={cn("w-px shrink-0", rule)} />
+
+        <div className="flex w-[304.172px] min-w-0 shrink flex-col items-start gap-2.5">
+          <Link href={platformMenu.feature.href} onClick={onChoose} className="block w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon">
+            <Image src={light ? featureCardDark : featureCardLight} alt={platformMenu.feature.alt} sizes="305px" className="h-auto w-full" />
+          </Link>
+          <Link
+            href={platformMenu.feature.href}
+            onClick={onChoose}
+            className={cn(
+              "flex items-center gap-2 border-b p-[2px] font-serif text-[14px] leading-[22px] tracking-[-0.42px] whitespace-nowrap uppercase transition-opacity duration-150 hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon",
+              light ? "border-white/30 text-cream" : "border-black/30 text-ink",
+            )}
+          >
+            {platformMenu.feature.cta}
+            {/* Figma's ArrowRight: a 16px phosphor arrow (#dad5c8) on the dark bar, its 12 × 10 glyph alone (ink) on cream. */}
+            <svg
+              aria-hidden
+              viewBox={light ? "0 0 16 16" : "2 3 12.0004 10.0006"}
+              fill={light ? "#dad5c8" : "#141414"}
+              className={light ? "size-4" : "h-[10.001px] w-3"}
+            >
+              <path d="M13.854 8.354l-4.5 4.5a.5.5 0 0 1-.708-.708L12.293 8.5H2.5a.5.5 0 0 1 0-1h9.793L8.646 3.854a.5.5 0 1 1 .708-.708l4.5 4.5a.5.5 0 0 1 0 .708Z" />
+            </svg>
           </Link>
         </div>
       </div>
@@ -245,8 +362,8 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
 }
 
 /**
- * Figma "Navbar" (Company open): a 235px list, its links 24px in so they line up under the trigger's
- * label, 12px apart. Over a dark bar it hangs from the bar in the same translucent fill (2px corners,
+ * The Resources list (laid out as the old Figma "Navbar" Company menu, as v2 doesn't draw it): a
+ * 235px list, its links 24px in so they line up under the trigger's label, 12px apart. Over a dark bar it hangs from the bar in the same translucent fill (2px corners,
  * 32px under the last link); under the cream bar it floats 16px below as a cream card (5px corners,
  * 24px under). The top padding of the wrapper bridges that gap for the pointer.
  */
@@ -421,11 +538,11 @@ function Contents({
  *   72.5px spacer holding its place.
  * - TRANSPARENT_ROUTES: no spacer, so the hero runs up under it. The same full-width bar, but
  *   transparent with cream links and the light mark; scrolled past 10px, or while a menu is open,
- *   its translucent dark fill (rgba(9, 9, 9, .71) with a blur) and a white/15 hairline fade in
+ *   its translucent dark fill (rgba(9, 9, 9, .71) with a blur) and a 1px white/10 rule fade in
  *   behind them over 300ms. On HERO_ONLY_ROUTES that lasts while the hero is under the header;
  *   past it the header is the cream bar (still with no spacer).
  *
- * Both bars carry the Platform menu (full width, in the bar's fill) and the Company list.
+ * Both bars carry the Platform menu (full width) and the Resources list.
  */
 export function SiteHeader() {
   const pathname = usePathname();
@@ -444,7 +561,7 @@ export function SiteHeader() {
     return (
       <header className="fixed inset-x-0 top-0 z-50">
         {/* The hairlines run the full viewport width, past the 1600px cap. */}
-        <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 bottom-0 h-[0.5px] bg-white/15", fade, dark ? "opacity-100" : "opacity-0")} />
+        <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-white/10", fade, dark ? "opacity-100" : "opacity-0")} />
         <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-rail", fade, pastHero ? "opacity-100" : "opacity-0")} />
         <div className="relative mx-auto max-w-[1600px] pb-[0.5px]">
           {/* Laid out as the home page's bar (full width, the content row 16px top and bottom); its dark fill fades in once the page scrolls. */}

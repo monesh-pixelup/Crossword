@@ -1,55 +1,75 @@
 /** A dropdown entry; `description` is the Geist 12 line under its title in the Platform menu. */
 export type NavLink = { label: string; href: string; description?: string };
 
-/** A Platform menu entry; `icons` sets the row of assistant / agent marks beside its title. */
-export type PlatformLink = NavLink & { description: string; icons?: "assistants" | "agents" };
+/** A Platform menu entry: a Crimson title (with its arrow) over a Geist 12 line. */
+export type PlatformLink = NavLink & { description: string };
 
-/** A Platform menu column, with its small caps label when it has one (e.g. "Sell"). */
-export type PlatformColumn = { label?: string; links: PlatformLink[] };
+/** A Platform menu channel: as a PlatformLink, with its "Examples" chips and its line's Figma width. */
+export type PlatformChannel = PlatformLink & { examples: "assistants" | "agents"; descriptionWidth: number };
 
 export type NavItem = {
   label: string;
   href: string;
   /** Renders a caret; with `children` it opens a dropdown of those pages. */
   hasMenu?: boolean;
-  /** Opens the full-width Platform menu (`platformColumns`) on desktop instead of the list dropdown. */
+  /** Opens the full-width Platform menu (`platformMenu`) on desktop instead of the list dropdown. */
   mega?: boolean;
   children?: NavLink[];
 };
 
 // TODO: point these at real routes as the pages get built.
-/** Figma "Navbar": the Platform menu's three columns of products. */
-export const platformColumns: PlatformColumn[] = [
-  {
+/** Figma "Platform menu · v2" (3572:53): the Website column, the AI channels and the Insight card. */
+export const platformMenu = {
+  website: { title: "Website", description: "Your brand’s agent, on your storefront." },
+  sell: {
     label: "Sell",
     links: [
-      { label: "Conversational Interface", href: "/sell", description: "Turns a shopper’s need into a confident purchase." },
-      { label: "Dynamic Landing Pages", href: "/dynamic-landing-pages", description: "Carries your ad’s message onto the page it lands on." },
+      { label: "Conversational shopping", href: "/sell", description: "Help shoppers find the right products." },
+      { label: "Dynamic landing pages", href: "/dynamic-landing-pages", description: "Match each visit to a relevant experience." },
     ],
   },
-  {
-    links: [
-      { label: "Support", href: "/support", description: "Answers routine questions instantly, hands off the rest." },
-      { label: "Retain", href: "/retain", description: "Remembers every customer, so the next visit starts warm." },
-    ],
-  },
-  {
-    links: [
-      { label: "AI Assistants", href: "/ai-assistants", description: "Puts your catalog and offers into AI assistant answers.", icons: "assistants" },
-      { label: "Personal Agents", href: "/personal-agents", description: "Gives shoppers’ AI agents your full catalog and offers.", icons: "agents" },
-    ],
-  },
-];
+  /** The Website column's products after Sell. */
+  more: [
+    { label: "Customer support", href: "/support", description: "Resolve questions and hand off with context." },
+    { label: "Retention", href: "/retain", description: "Bring customers back with timely outreach." },
+  ],
+  channels: [
+    {
+      label: "AI Assistants",
+      href: "/ai-assistants",
+      description: "Connect your brand to the assistants shoppers already use.",
+      descriptionWidth: 237.539,
+      examples: "assistants",
+    },
+    {
+      label: "Personal Agents",
+      href: "/personal-agents",
+      description: "Connect with agents that help customers shop and manage tasks.",
+      descriptionWidth: 213.086,
+      examples: "agents",
+    },
+  ],
+  feature: { href: "#insights", alt: "Insight: Turning Interest into Action.", cta: "Read more" },
+} satisfies {
+  website: { title: string; description: string };
+  sell: { label: string; links: PlatformLink[] };
+  more: PlatformLink[];
+  channels: PlatformChannel[];
+  feature: { href: string; alt: string; cta: string };
+};
 
-/** The Platform menu's "New" card. */
-export const platformFeature = { label: "New", href: "#insights", alt: "Insight: Turning Interest into Action." };
-
-// TODO: point these at real routes as the pages get built.
+// TODO: point these at real routes as the pages get built, and fill out Resources once Figma lists its pages.
 export const primaryNav: NavItem[] = [
-  { label: "Platform", href: "/sell", hasMenu: true, mega: true, children: platformColumns.flatMap((column) => column.links) },
+  {
+    label: "Platform",
+    href: "/sell",
+    hasMenu: true,
+    mega: true,
+    children: [...platformMenu.sell.links, ...platformMenu.more, ...platformMenu.channels],
+  },
   { label: "Managed Launch", href: "/managed-launch" },
-  { label: "Blog", href: "#blog" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Resources", href: "#blog", hasMenu: true, children: [{ label: "Blog", href: "#blog" }] },
 ];
 
 export const ctaLinks = {
