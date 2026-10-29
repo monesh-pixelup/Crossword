@@ -34,7 +34,6 @@ export default function PersonalAgentsPage() {
         firstLine="our next shopper might"
         secondLine="never see your website."
         aside="But their AI agent will, make it count"
-        asideWidth={481.516}
       />
       <AssistantCampaigns
         id="the-case-title"
@@ -62,7 +61,7 @@ export default function PersonalAgentsPage() {
         initial="W"
         firstLine="hat changes when your"
         secondLine="brand has an agent?"
-        width={595}
+        width={601}
         columns={["The interaction", "Without Crossword", "With Crossword"]}
         rows={agentDifferentiationRows}
       />
@@ -80,7 +79,7 @@ export default function PersonalAgentsPage() {
         initial="P"
         firstLine=" oint agents to"
         secondLine="what you want sold"
-        width={340}
+        width={413}
         copy="Tell Crossword which products or bundles to recommend, and it will bring them up when it fits the request. You stay in control of the offer, even when a personal agent is doing the shopping."
         steps={agentPromotionSteps}
       />
@@ -96,7 +95,7 @@ export default function PersonalAgentsPage() {
         initial="T"
         firstLine=" he agents are already shopping."
         secondLine="Be there when they arrive"
-        width={720}
+        width={724}
       />
     </main>
   );

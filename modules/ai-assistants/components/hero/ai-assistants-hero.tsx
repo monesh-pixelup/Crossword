@@ -6,21 +6,19 @@ import { ctaLinks } from "@/modules/marketing";
 import background from "@/modules/sell/assets/hero/background.webp";
 
 /**
- * Two-line display headline, set like the Sell hero's (70 / 56 / 48 / 44px, 1.07 leading), but with
- * Figma's larger 96px swash "Y" (1.3714em) at +4.8px, which pushes line 1's baseline ~10.7px lower than
- * a plain line; line 1 carries that as top padding. The second line is picked out in gold, which the
- * guidelines allow on dark grounds only. Leading and padding are rounded to whole pixels (and the
- * eyebrow set to 32px tall) so the eyebrow's 0.5px frame stays crisp, as on Retain. Below 768px the
- * lines may wrap.
+ * Two-line display headline, set like Support's and Retain's (70 / 56 / 48 / 44px, Crimson ExtraLight at
+ * 1.1 and -5%) after a 100px swash (1.4286em) at -1%. Figma's box is 175px tall, two 77px lines with the
+ * swash pushing line 1 21px (0.3em) taller, which line 1 carries as top padding. The second line is picked
+ * out in gold, which the guidelines allow on dark grounds only. Below 768px the lines may wrap.
  */
 function Headline({ id, initial, firstLine, secondLine }: { id: string; initial: string; firstLine: ReactNode; secondLine: ReactNode }) {
   return (
     <h1
       id={id}
-      className="font-serif text-(length:--display-size) leading-[round(1.07em,1px)] font-extralight tracking-[-0.05em] text-cream md:whitespace-nowrap"
+      className="font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] text-cream md:whitespace-nowrap"
     >
-      <span className="block pt-[round(0.152em,1px)]">
-        <span className="font-script text-[1.3714em] leading-0 font-normal tracking-[0.05em]">{initial}</span>
+      <span className="block pt-[0.3em]">
+        <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">{initial}</span>
         {firstLine}
       </span>
       <span className="block text-gold">{secondLine}</span>
@@ -32,7 +30,7 @@ function Headline({ id, initial, firstLine, secondLine }: { id: string; initial:
  * Section · Hero (Figma 3305:54), the Layout/Hero Photo variant as on Sell, sized as the Managed launch hero: the full-bleed photo (the
  * whole viewport width, not capped at the site's 1600px) with the copy pinned to the bottom, the overlay
  * header floating over its top. From 1200px the headline and the CTA column sit side by side,
- * bottom-aligned, the CTA column 461.75px wide at the right (898px in at 1440, as in Figma) and free to
+ * bottom-aligned, the CTA column 482px wide at the right and free to
  * narrow; below that they stack.
  */
 export function AiAssistantsHero({
@@ -42,11 +40,11 @@ export function AiAssistantsHero({
   firstLine = "our customers are already",
   secondLine = "asking ChatGPT about you.",
   aside = "Crossword helps you own the experience",
-  asideWidth = 461.75,
+  asideWidth = 482,
 }: {
   id?: string;
   eyebrow?: ReactNode;
-  /** The 96px swash capital opening line 1; the rest of line 1, then the gold line 2. */
+  /** The 100px swash capital opening line 1; the rest of line 1, then the gold line 2. */
   initial?: string;
   firstLine?: ReactNode;
   secondLine?: ReactNode;
@@ -90,7 +88,7 @@ export function AiAssistantsHero({
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>
-            <p className="font-sans text-base leading-6 tracking-[-0.16px] text-cream">{aside}</p>
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-cream">{aside}</p>
           </div>
         </div>
       </div>

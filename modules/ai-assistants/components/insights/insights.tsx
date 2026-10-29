@@ -3,7 +3,7 @@ import { WidePanelSection } from "../wide-panel/wide-panel-section";
 
 /**
  * Figma "Section · Brand aesthetics" (the reporting one, node 3307:28488): the eyebrow and a one-line headline (82px
- * swash, 60px line, both 1.18) on the left, a 477px line of Geist Light 120px after it, centred on it, then 80px below
+ * swash at 1.18, Crimson Light 60 at 1.1) on the left, a 477px line of Geist 120px after it, centred on it, then 80px below
  * the 1280 × 599 aubergine panel (see WidePanelSection). Personal agents (3312:29867) passes its own headline and copy.
  */
 export function Insights({
@@ -27,7 +27,7 @@ export function Insights({
       eyebrow="Insights"
       initial={initial}
       firstLine={firstLine}
-      variant="airy"
+      variant="oneLine"
       layout="inline"
       copyWidth={477.244}
       copy={<p>{copy}</p>}

@@ -6,7 +6,7 @@ import { type ShopperQuestion, shopperQuestions } from "../../config/possibiliti
 import { ShopperAsksTabs } from "./shopper-asks-tabs";
 
 /**
- * Section · Possibilities (Figma 3305:252): the eyebrow, a two-line headline at 1.18 and a line of
+ * Section · Possibilities (Figma 3305:252): the eyebrow, a two-line headline (Crimson Light 60 at 1.1) and a line of
  * Geist copy as wide as it, then 80px below the vertical tabs of shopper questions beside their damask
  * panels. A 232px gold tick sits on the left rail beside the eyebrow (98px down in Figma). Personal agents
  * (3308:184) uses it with its own headline and questions, and no copy line (hidden in Figma).
@@ -42,9 +42,9 @@ export function ShopperAsks({
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>Possibilities</Eyebrow>
-          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} variant="airy" />
+          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} weight="light" />
           {copy && (
-            <p className="font-sans text-base leading-6 tracking-[-0.48px] text-black/59" style={{ maxWidth: width }}>
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59" style={{ maxWidth: width }}>
               {copy}
             </p>
           )}

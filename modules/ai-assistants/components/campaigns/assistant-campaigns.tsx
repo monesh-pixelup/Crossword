@@ -6,7 +6,7 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import panelForest from "@/modules/retain/assets/audience/panel-forest.webp";
 
 /**
- * A "Library · Wide panel": the eyebrow and a swash headline, then 80px below the 1280 × 599 forest damask
+ * A "Library · Wide panel": the eyebrow and a swash headline (Crimson Light 60 at 1.1), then 80px below the 1280 × 599 forest damask
  * panel with its gold corner-notched frame and studs: Retain's Audiences panel export, scaled with the column.
  * A 232px gold tick sits on the left rail beside the eyebrow (98px down in Figma). Personal agents' "The case"
  * (3308:352) uses it with a two-line headline in a 1030px box; AI Assistants' Campaigns now has its own layout
@@ -38,9 +38,9 @@ export function AssistantCampaigns({
       <div className="flex content-width flex-col gap-section">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} variant="airy" />
+          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} weight="light" />
           {copy && (
-            <p className="font-sans text-base leading-6 tracking-[-0.48px] text-black/59" style={{ maxWidth: width }}>
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59" style={{ maxWidth: width }}>
               {copy}
             </p>
           )}

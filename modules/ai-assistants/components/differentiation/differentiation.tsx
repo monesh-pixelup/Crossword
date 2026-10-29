@@ -9,14 +9,14 @@ import { type DifferentiationRow, differentiationRows } from "../../config/diffe
 const rule = "border-b border-engraved/50";
 const head = cn(rule, "px-5 py-[18px] text-left font-serif text-base leading-[1.375] font-medium tracking-[-0.03em] uppercase");
 const cell = cn(rule, "px-5 py-8 align-top");
-const body = "font-sans text-[15px] leading-[1.43] tracking-[-0.02em] text-pretty";
+const body = "font-sans text-base leading-6 tracking-[-0.02em] text-pretty";
 /** The first column stays in view while the table scrolls, from 768px up (below that it would fill the screen). */
 const pinned = "bg-cream md:sticky md:left-0 md:z-1";
 
 /**
  * Section · Differentiation (Figma 3305:792): a centred eyebrow, swash headline and the demo button,
  * then the comparison table (3305:797) at 360 / 440 / 480 of 1280: the moment in Crimson 22 down the
- * left, what happens without Crossword in Geist 15 ink muted, and the featured Crossword column (a wine
+ * left, what happens without Crossword in Geist 16 ink muted, and the featured Crossword column (a wine
  * head with a bright gold label over sand cells, ink soft copy). Rules are engraved at 50% under every
  * row. Below 880px the table scrolls sideways. Personal agents (3308:380) passes its own headline, column
  * heads and rows.
@@ -26,7 +26,7 @@ export function Differentiation({
   initial = "B",
   firstLine = "eing mentioned is not the",
   secondLine = "same as being there",
-  width = 609,
+  width = 616,
   columns = ["The experience", "Without Crossword", "With Crossword connected"],
   rows = differentiationRows,
 }: {
@@ -45,7 +45,7 @@ export function Differentiation({
       <div className="flex content-width flex-col items-center gap-12 lg:gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
           <Eyebrow>Differentiation</Eyebrow>
-          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} variant="channels" />
+          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} variant="credits" weight="light" />
           <StampButton href={ctaLinks.bookDemo}>GET A DEMO</StampButton>
         </div>
 
@@ -74,7 +74,7 @@ export function Differentiation({
                 <tr key={row.experience}>
                   <th
                     scope="row"
-                    className={cn(cell, pinned, "text-left font-serif text-[22px] leading-[1.15] font-normal tracking-[-0.04em] text-ink")}
+                    className={cn(cell, pinned, "text-left font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] text-ink")}
                   >
                     {row.experience}
                   </th>

@@ -129,7 +129,7 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
             aria-expanded={on}
             onClick={() => open(i)}
             className={cn(
-              "w-full text-left font-serif text-(length:--h6-size) leading-[1.1] tracking-[-0.04em] text-[#040404] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
+              "w-full text-left font-serif text-[22px] leading-[1.1] tracking-[-0.04em] text-[#040404] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
               on ? "cursor-default" : "cursor-pointer",
             )}
           >

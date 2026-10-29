@@ -25,8 +25,8 @@ export function AssistantsFaq({
             initial="H"
             firstLine="ave a question?"
             secondLine="Ask Crossword"
-            width={404}
-            variant="humanMode"
+            width={408}
+            weight="light"
           />
         </div>
 

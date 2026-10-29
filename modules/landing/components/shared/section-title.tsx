@@ -74,16 +74,7 @@ const variants = {
     line: "leading-[1.18]",
     second: "",
   },
-  /** 50px lines under a 77px swash, all at 1.18 leading (Dynamic landing pages: The stranger problem). */
-  stranger: {
-    firstLineHeight: 90.86,
-    tracking: "tracking-[-3.5538px]",
-    swash: "font-script text-[77px] leading-[1.18] tracking-[3.85px]",
-    line: "leading-[1.18] tracking-[-2.5px]",
-    second: "",
-    size: 50,
-  },
-  /** Centred, 60px lines at 1.1 under line 1's 81px, after an 82px swash at 1.18 and -4.1px (-5%) (Retain: Loyalty). */
+  /** Centred, 60px lines at 1.1 under line 1's 81px, after an 82px swash at 1.18 and -4.1px (-5%) (Retain: Loyalty; AI Assistants: Promotions). */
   loyalty: {
     firstLineHeight: 81,
     tracking: "tracking-[-4.1px] text-center",
@@ -91,18 +82,9 @@ const variants = {
     line: "leading-[1.1] tracking-[-3px]",
     second: "",
   },
-  /** As handoff, but two lines: the second sits 75.2px under the first, as Figma sets it (AI Assistants: Promotions). */
-  handoffStacked: {
-    firstLineHeight: 75.2,
-    tracking: "tracking-[-4.1px] text-center",
-    swash: "font-script text-[82px] leading-[1.1]",
-    line: "leading-[1.1] tracking-[-2.5px]",
-    second: "",
-    size: 50,
-  },
   /** Every line at 1.07, the swash adding no height, as the hero headlines: 50px lines under a 77px swash. */
   displaySmall: {
-    // 53.5px of line plus 20px above it, so line 1 keeps the stranger variant's baseline (63px down).
+    // 53.5px of line plus 20px above it, so line 1's baseline sits 63px down (as a 77px swash at 1.18 sets it).
     firstLineHeight: 73.5,
     firstLinePad: 20,
     tracking: "tracking-[-3.5538px]",
@@ -111,14 +93,7 @@ const variants = {
     second: "",
     size: 50,
   },
-  /** As default, but every line at 1.18 leading (the Figma library headings, e.g. Two ways). */
-  airy: {
-    firstLineHeight: 96.76,
-    tracking: "tracking-[-3.5538px]",
-    swash: "font-script text-[82px] leading-[1.18] tracking-[4.1px]",
-    line: "leading-[1.18] tracking-[-3px]",
-    second: "",
-  },
+
   /** One centred 60px line after an 82px swash, both at 1.18 leading (Support: Guardrails). */
   guardrails: {
     firstLineHeight: 96.76,

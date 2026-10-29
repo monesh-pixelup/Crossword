@@ -32,8 +32,9 @@ type WidePanelSectionProps = {
   initial: string;
   firstLine: ReactNode;
   secondLine?: ReactNode;
-  variant: "humanMode" | "airy";
-  /** Geist Light copy beside the headline, at most `copyWidth` wide. */
+  /** Two lines (default) or one (oneLine), Crimson Light 60 at 1.1. */
+  variant: "default" | "oneLine";
+  /** Geist copy beside the headline, at most `copyWidth` wide. */
   copy: ReactNode;
   copyWidth: number;
   layout: keyof typeof layouts;
@@ -43,7 +44,7 @@ type WidePanelSectionProps = {
 
 /**
  * Figma "Library · Wide panel", as Brand aesthetics and Insights (nodes 3305:1012, 3307:28488): the eyebrow and
- * headline 24px apart on the left, a line of Geist Light beside them, then 80px below the 1280 × 599 aubergine panel
+ * headline 24px apart on the left, a line of Geist beside them, then 80px below the 1280 × 599 aubergine panel
  * (the damask in its notched gold frame with a ring in each corner, the same art as Human mode on Sell), filling the
  * content width. A 232px gold tick sits on the left rail beside the eyebrow.
  */
@@ -68,11 +69,11 @@ export function WidePanelSection({
         <div className={cn("flex w-full flex-col items-start gap-8", l.row)}>
           <div className={cn("flex shrink-0 flex-col items-start gap-6", l.heading)}>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={614.744} variant={variant} />
+            <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={614.744} variant={variant} weight="light" />
           </div>
 
           <div
-            className={cn("relative max-w-(--copy-width) font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60", l.copy)}
+            className={cn("relative max-w-(--copy-width) font-sans text-base leading-6 tracking-[-0.32px] text-black/60", l.copy)}
             style={{ "--copy-width": `${copyWidth}px` } as CSSProperties}
           >
             {copy}

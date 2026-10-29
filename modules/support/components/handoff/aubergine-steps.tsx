@@ -54,8 +54,8 @@ const variants = {
     cell: "mt-[18.2px]",
     cellHeight: "h-[192.3px]",
     copy: "mt-[20.5px]",
-    stepTitle: "",
-    stepBody: "leading-[1.4] tracking-[-0.42px]",
+    stepTitle: "tracking-[-0.28px]",
+    stepBody: "leading-5 tracking-[-0.28px]",
   },
 } as const;
 

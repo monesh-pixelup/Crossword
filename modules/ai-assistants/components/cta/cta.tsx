@@ -42,7 +42,8 @@ export function AssistantsCta({
             firstLine={firstLine}
             secondLine={secondLine}
             width={width}
-            variant="channels"
+            variant="credits"
+            weight="light"
             tone="cream"
             gutter={96}
           />

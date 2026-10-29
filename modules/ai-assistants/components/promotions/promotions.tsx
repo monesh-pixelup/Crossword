@@ -13,14 +13,14 @@ import { promotionSteps } from "../../config/promotions";
  * Support's Human-in-the-loop: aubergine with Figma's fine noise grain between the page rails, inside
  * the gilt notched frame (8px in from the panel's sides, 19px down), a Dark eyebrow 66.59px down over a centred two-line
  * headline and two lines of 16px copy, then the three numbered steps across 1062px 32px below, in
- * an 800px-tall band. Personal agents (3308:549) passes its own headline (a 340px box), copy and steps.
+ * an 800px-tall band. Personal agents (3308:549) passes its own headline (a 413px box), copy and steps.
  */
 export function Promotions({
   id = "promotions-title",
   initial = "G",
   firstLine = " et the right offer",
   secondLine = "into the conversation",
-  width = 361,
+  width = 440,
   copy = (
     <>
       Tell Crossword which products or bundles to recommend, and it brings them up when they fit what the shopper is
@@ -61,10 +61,11 @@ export function Promotions({
               firstLine={firstLine}
               secondLine={secondLine}
               width={width}
-              variant="handoffStacked"
+              variant="loyalty"
+              weight="light"
               tone="light"
             />
-            <p className="max-w-[600px] text-center font-sans text-base leading-[1.4] tracking-[-0.48px] text-white/60">{copy}</p>
+            <p className="max-w-[600px] text-center font-sans text-base leading-6 tracking-[-0.32px] text-white/60">{copy}</p>
           </div>
 
           {/*
