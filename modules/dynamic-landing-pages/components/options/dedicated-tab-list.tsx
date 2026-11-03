@@ -1,36 +1,28 @@
 "use client";
 
-import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
+import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
-import panelAubergine from "../../assets/options/dedicated-panel-aubergine.webp";
-import panelForest from "../../assets/options/dedicated-panel-forest.webp";
-import panelMaroon from "../../assets/options/dedicated-panel-maroon.webp";
 import { dedicatedTabs } from "../../config/options";
+import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
 import { TextLink } from "../shared/text-link";
 
-/**
- * The panels' liveries in turn: maroon, forest green, aubergine, then round again. Figma draws the maroon one; the
- * others are that render with its damask re-hued to the site's forest and aubergine (the lattice border untouched).
- */
-const panels = [panelMaroon, panelForest, panelAubergine];
-
-/** Each component's turn (its panel is a still, so the default run) plus the hold. */
-const turns = dedicatedTabs.map(() => tabTurn());
+/** Each component's turn: its motion visual's run plus the hold. */
+const turns = dedicatedTabs.map((tab) => tabTurn(dlpScenes[tab.scene].duration));
 
 /**
  * Figma "Library · Vertical tabs" (Dedicated landing pages), as Campaigns & outbound on Retain: the 280px list of
  * components on the left from 992px (above the panel below that), and the active component in the right column (its
- * name in Crimson 22, its line of Geist 16 and a text link over its 821 × 611 panel, maroon, forest green and
- * aubergine in turn). The active label is ink; the rest ink/60.
+ * name in Crimson 22, its line of Geist 16 and a text link over its Sell: Dynamic v2 motion visual, 738 × 680 in its
+ * own framed panel). The active label is ink; the rest ink/60.
  *
  * They play on their own (see `useAutoplayTabs`): the gold rule under the active label fills over that component's
  * turn, then the next component takes over and the old rule fades and shrinks away. Choosing a component shows it,
  * starting its turn afresh.
  */
 export function DedicatedTabList() {
-  const { active, root, fills, open } = useAutoplayTabs(turns);
+  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns);
 
   return (
     <div ref={root} className="flex w-full flex-col items-stretch gap-8 lg:flex-row lg:items-start lg:justify-between">
@@ -74,7 +66,7 @@ export function DedicatedTabList() {
         </ul>
       </nav>
 
-      {/* Every component shares one cell and they crossfade (`.tab-panel`). */}
+      {/* Every component shares one cell and they crossfade (`.tab-panel`); a visual is drawn while its component shows or fades out, keyed to replay from the start. */}
       <div className="grid w-full min-w-0 lg:flex-[0_1_821px]">
         {dedicatedTabs.map((tab, i) => (
           <div key={tab.label} inert={i !== active} className="tab-panel flex w-full flex-col items-start">
@@ -86,9 +78,11 @@ export function DedicatedTabList() {
               <TextLink href={ctaLinks.learnMore}>Learn more</TextLink>
             </div>
 
-            {/* Figma's own render of the panel: a 1px #d2cdc0 border, the lattice ground 16px wide and the damask inside. */}
-            <div className="relative aspect-[821/611] w-full overflow-clip">
-              <Image src={panels[i % panels.length]} alt="" fill sizes="(min-width: 1280px) 821px, 100vw" className="object-cover" />
+            {/* The component's motion visual (738 × 680), filling the column, up to 1.2× its drawn size. */}
+            <div className="relative aspect-[738/680] w-full">
+              {(i === active || i === previous) && (
+                <ScenePanel key={plays[i]} scene={dlpScenes[tab.scene]} active={i === active} root={DlpMotionRoot} maxScale={1.2} />
+              )}
             </div>
           </div>
         ))}

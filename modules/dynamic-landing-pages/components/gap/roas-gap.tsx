@@ -1,15 +1,13 @@
-import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { NotchedFrame, notchMask } from "../shared/livery";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import damaskMaroon from "../../assets/gap/damask-maroon.webp";
+import { DlpScenePanel } from "../motion/dlp-scene-panel";
 
 /**
  * Figma "Library · Wide panel": the eyebrow and a three-line headline on the left, two paragraphs
- * of Geist Light on the right, top-aligned with the headline (below the eyebrow's 32px and its 24px gap), then 80px below a 1280 × 599 maroon panel, its damask
- * inside the frame only and framed like the site's other cards (a gold line 14px in with concave notched corners and a ring
- * in each). A 232px gold tick sits on the left rail beside the eyebrow.
+ * of Geist Light on the right, top-aligned with the headline (below the eyebrow's 32px and its 24px gap), then 80px below
+ * the ROAS gap motion visual (1280 × 600, Sell: Dynamic v2 01: the ad, the lost context, the generic store and the
+ * drop-off, in its own framed panel). A 232px gold tick sits on the left rail beside the eyebrow.
  */
 export function RoasGap() {
   return (
@@ -55,14 +53,12 @@ export function RoasGap() {
           </div>
         </div>
 
-        <div aria-hidden className="relative isolate aspect-[1280/599] w-full overflow-clip bg-maroon">
-          {/* Plain maroon margin; the damask sits inside the frame, its notched corners cut away (laid 4px past the window to crop the hairline baked into the export's border). */}
-          <div className="absolute inset-[14px] overflow-hidden" style={{ mask: notchMask(46), WebkitMask: notchMask(46) }}>
-            <div className="absolute -inset-[4px]">
-              <Image src={damaskMaroon} alt="" fill sizes="(min-width: 1440px) 1260px, 100vw" className="object-fill" />
-            </div>
-          </div>
-          <NotchedFrame inset={14} radius={46} rings />
+        <div className="relative aspect-[1280/600] w-full">
+          {/*
+            Fills the content width (past its drawn 1280px on wide screens). Scaled with a transform: zoomed down to a
+            phone's width its text would hit the browser's minimum font size and overflow.
+          */}
+          <DlpScenePanel slug="roas-gap-motion" fill transform />
         </div>
       </div>
     </section>

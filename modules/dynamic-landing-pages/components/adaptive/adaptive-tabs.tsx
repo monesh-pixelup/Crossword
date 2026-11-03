@@ -3,11 +3,14 @@
 import Image from "next/image";
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
+import { tabTurn } from "@/lib/use-autoplay-tabs";
+import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import stagePhoto from "../../assets/adaptive/stage-photo.webp";
 import { type AdaptiveId, adaptiveFeatures } from "../../config/adaptive";
+import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
 
-/** How long each feature stays up before the next one takes over (the guidelines' `--dur-ambient`). */
-const DURATION_MS = 6000;
+/** How long each feature stays up before the next one takes over: its motion visual's run plus the hold. */
+const turns = adaptiveFeatures.map((feature) => tabTurn(dlpScenes[feature.scene].duration));
 
 /** Each feature's mark, from Figma: drawn in maroon on a bordered tile, or gold on maroon when active. */
 const icons: Record<AdaptiveId, { viewBox: string; paths: string[] }> = {
@@ -57,15 +60,16 @@ function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
 }
 
 /**
- * Figma "Library · Stage + triggers" (Adaptive product pages): the stage photo (738px wide) beside a
- * column of four feature tabs on #ddd rules, each 40px in: its mark, then a Crimson 20 title over a
+ * Figma "Library · Stage + triggers" (Adaptive product pages): the stage (738px wide), playing the
+ * chosen feature's motion visual (Sell: Dynamic v2 10–13, a product page on the stage photo, 738 × 760),
+ * beside a column of four feature tabs on #ddd rules, each 40px in: its mark, then a Crimson 20 title over a
  * line of Open Sans 14, 16px from the mark. The active tab sits on sand with its mark in gold on
  * maroon; the rest rest at 50%, full on hover. The tabs take turns on a timer, a 2px maroon bar
- * filling across the active tab's top edge, then the next takes over (looping); choosing a tab
- * restarts it.
+ * filling across the active tab's top edge over that feature's visual (its run plus a short hold),
+ * then the next takes over (looping); choosing a tab restarts it and its visual.
  *
  * From 1260px the photo (up to 738px, at most 60% of the row) sits beside the tabs; below that,
- * where the tabs would be squeezed into a sliver, the photo stacks over them at its 738:786 shape,
+ * where the tabs would be squeezed into a sliver, the photo stacks over them at the visual's 738:760 shape,
  * and under 768px the tabs pad 24px in rather than 40px.
  *
  * As the guidelines ask (P1, P7, 11.6), the cycle pauses off screen, while a mouse is over the tab
@@ -122,9 +126,15 @@ export function AdaptiveTabs() {
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="relative aspect-[738/786] w-full overflow-hidden min-[1260px]:aspect-auto min-[1260px]:w-[min(738px,60%)] min-[1260px]:shrink-0"
+        className="relative aspect-[738/760] w-full overflow-hidden min-[1260px]:aspect-auto min-[1260px]:w-[min(738px,60%)] min-[1260px]:shrink-0"
       >
+        {/* The bare stage under the visual, until it draws (the visual sits on the same photo). */}
         <Image src={stagePhoto} alt="" fill sizes="(min-width: 1260px) 738px, 100vw" className="object-cover" />
+        {/*
+          The chosen feature's visual, keyed to play from the start each time it is chosen. It covers the stage: beside
+          the tabs, the stage takes the tab column's height, so the visual's photo margins give way rather than leave a band.
+        */}
+        <ScenePanel key={run} scene={dlpScenes[adaptiveFeatures[active].scene]} root={DlpMotionRoot} cover />
       </div>
 
       <div
@@ -174,7 +184,7 @@ export function AdaptiveTabs() {
                   data-paused={!running || undefined}
                   onAnimationEnd={() => select(active === adaptiveFeatures.length - 1 ? 0 : active + 1)}
                   className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-3 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-maroon group-hover/tabs:[animation-play-state:paused] data-paused:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none"
-                  style={{ animationDuration: `${DURATION_MS}ms` }}
+                  style={{ animationDuration: `${turns[i]}ms` }}
                 />
               )}
             </button>

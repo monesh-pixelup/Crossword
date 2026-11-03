@@ -32,6 +32,11 @@ type ScenePanelProps = {
    * would overflow its own boxes; a transform scales the drawn scene instead.
    */
   transform?: boolean;
+  /**
+   * Fill the panel instead (cover, not contain): the scene is scaled to cover it and centred, its
+   * overflow cropped. For a panel whose shape follows the layout rather than the scene's.
+   */
+  cover?: boolean;
   className?: string;
 };
 
@@ -48,6 +53,7 @@ export function ScenePanel({
   sceneProps,
   root: Root = MotionRoot,
   transform = false,
+  cover = false,
   className,
 }: ScenePanelProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -60,7 +66,7 @@ export function ScenePanel({
     const fit = () => {
       const w = el.clientWidth - padding * 2;
       const h = el.clientHeight - padding * 2;
-      setScale(Math.max(0, Math.min(maxScale, w / scene.width, h / scene.height)));
+      setScale(Math.max(0, cover ? Math.max(w / scene.width, h / scene.height) : Math.min(maxScale, w / scene.width, h / scene.height)));
     };
     fit();
     const resize = new ResizeObserver(fit);
@@ -71,7 +77,7 @@ export function ScenePanel({
       resize.disconnect();
       view.disconnect();
     };
-  }, [scene.width, scene.height, padding, maxScale]);
+  }, [scene.width, scene.height, padding, maxScale, cover]);
 
   const { Component } = scene;
   const content = (
