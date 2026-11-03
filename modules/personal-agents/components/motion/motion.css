@@ -1,0 +1,2712 @@
+/*
+ * Personal Agents motion visuals: every style the visuals use, ported from the
+ * "Crossword — Personal Agents motion" source (its src/ stylesheets), in the order
+ * Vite concatenates them (its module graph from the full gallery, kept to the
+ * files these visuals import), each block headed by its source file.
+ * Generated, not hand-written. Mechanical changes:
+ *
+ * - Every selector is prefixed with `.pa-motion` (and `:root` became
+ *   `.pa-motion`). The Sell, Support, Retain, AI Assistants and home visuals use the same `ill-`
+ *   class names with other values, and Next keeps a route's CSS after client
+ *   navigation, so unscoped rules would bleed between pages. Render the
+ *   visuals inside `.pa-motion` (pa-motion.tsx's root does).
+ * - `@keyframes` are renamed with a `pam-` prefix for the same reason.
+ * - Google font families point at the next/font variables (lib/fonts.ts).
+ * - The gallery page's own rules (HomeV2Page.css,
+ *   index.css) are left out, and background urls point at
+ *   modules/personal-agents/assets/motion. One site rule is added at the
+ *   end: see "Site".
+ */
+
+/* The source page's body: Geist at 16px, normal line height, black text, default smoothing. */
+.pa-motion {
+  font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+  text-align: left;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: auto;
+}
+
+/*
+ * The source page had no Tailwind preflight: inside the scope, put back the
+ * browser defaults preflight removes. (Near-)zero specificity, so every rule
+ * below still wins exactly where it did in the source.
+ */
+:where(.pa-motion) *,
+:where(.pa-motion) ::before,
+:where(.pa-motion) ::after {
+  margin: revert;
+  padding: revert;
+  border: revert;
+}
+
+:where(.pa-motion) :where(ol, ul, menu) {
+  list-style: revert;
+}
+
+:where(.pa-motion) :where(img, svg, video, canvas) {
+  display: revert;
+  vertical-align: revert;
+}
+
+:where(.pa-motion) :where(img, video) {
+  max-width: revert;
+}
+
+:where(.pa-motion) :where(button) {
+  font: revert;
+  font-feature-settings: revert;
+  font-variation-settings: revert;
+  letter-spacing: revert;
+  color: revert;
+  background-color: revert;
+  border-radius: revert;
+  opacity: revert;
+  appearance: revert;
+}
+
+:where(.pa-motion) :where(h1, h2, h3, h4, h5, h6) {
+  font-size: revert;
+  font-weight: revert;
+}
+
+/* components/ill/UserTurn.css */
+.pa-motion .ill-user-turn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.pa-motion .ill-user-turn--enter {
+  animation: pam-ill-turn-enter 220ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+}
+
+@keyframes pam-ill-turn-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .ill-user-turn--enter {
+    animation: none;
+  }
+}
+
+/* components/ill/AssistantTurn.css */
+.pa-motion .ill-assistant-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pa-motion .ill-assistant-turn--enter {
+  animation: pam-ill-turn-enter 220ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+}
+
+@keyframes pam-ill-turn-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .ill-assistant-turn--enter {
+    animation: none;
+  }
+}
+
+/* visuals/PersonalAgentsPossibilities/PersonalAgentsPossibilitiesMotion.css */
+/* Personal Agents → Possibilities, motion layer. The thread scrolls under
+   12px/24px fades at its edges (§15); everything else is the static's. */
+.pa-motion .pap-motion .pap-thread { overflow: hidden;
+    mask-image: linear-gradient(transparent, #000 12px, #000 calc(100% - 20px), transparent); }
+.pa-motion .pap-motion .pap-thread > * { flex: none; }
+
+/* Muse: the typing pill's dots pulse in turn. */
+.pa-motion .pap-motion .pap-dots i { animation: pam-pap-dot 1.05s ease-in-out infinite; }
+.pa-motion .pap-motion .pap-dots i:nth-child(2) { animation-delay: .15s; }
+.pa-motion .pap-motion .pap-dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes pam-pap-dot { 0%, 60%, 100% { opacity: .35; transform: none; } 30% { opacity: 1; transform: translateY(-2px); } }
+
+/* Grok Bot: the avatar kicks into gear while busy; the subtitle swaps. */
+.pa-motion .pap-motion .pap-header--busy .pap-logo--grok { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1), 0 0 0 3px rgba(255, 255, 255, .22); }
+.pa-motion .pap-motion .pap-logo--grok { transition: box-shadow 250ms cubic-bezier(.4, 0, .2, 1); }
+.pa-motion .pap-motion .pap-header__title small { animation: pam-pap-swap 220ms cubic-bezier(.32, .72, 0, 1) both; }
+@keyframes pam-pap-swap { from { opacity: 0; transform: translateY(3px); } }
+
+.pa-motion .pap-motion .pap-activity__spin { animation: pam-pap-spin .8s linear infinite; }
+.pa-motion .pap-motion .pap-activity:not(.pap-activity--done) .pap-activity__line {
+    background: linear-gradient(100deg, #a1a1aa 36%, #f4f4f5 50%, #a1a1aa 64%) 0 0 / 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: pam-pap-shimmer 1.6s linear infinite; }
+@keyframes pam-pap-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@keyframes pam-pap-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .pap-motion .pap-dots i,
+.pa-motion .pap-motion .pap-grok *,
+.pa-motion .pap-motion .pap-grok,
+.pa-motion .pap-motion .pap-activity__spin,
+.pa-motion .pap-motion .pap-activity__line,
+.pa-motion .pap-motion .pap-header__title small { animation: none; }
+}
+
+/* Grok Bot avatar states (xAI's Grok Bot design notes; the notes give the
+   states, not timings, so these are ours). Halves and blade move apart:
+   idle: a slow, curious breath. ack: one quick nod as the task lands.
+   working: the mark turns, "in gear". thinking: it rocks while the
+   upper half glints. done: it settles home. */
+.pa-motion .pap-motion .pap-grok__halves,
+.pa-motion .pap-motion .pap-grok__blade { transform-box: fill-box; transform-origin: center; }
+.pa-motion .pap-motion [data-state="idle"] .pap-grok { animation: pam-pap-g-breathe 3.2s ease-in-out infinite; }
+.pa-motion .pap-motion [data-state="ack"] .pap-grok { animation: pam-pap-g-nod 320ms cubic-bezier(.23, 1, .32, 1) both; }
+.pa-motion .pap-motion [data-state="working"] .pap-grok__halves { animation: pam-pap-spin 1.1s cubic-bezier(.65, 0, .35, 1) infinite; }
+.pa-motion .pap-motion [data-state="thinking"] .pap-grok__halves { animation: pam-pap-g-rock 1.2s ease-in-out infinite; }
+.pa-motion .pap-motion [data-state="thinking"] .pap-grok__blade { animation: pam-pap-g-glint 1.2s ease-in-out infinite; }
+.pa-motion .pap-motion [data-state="done"] .pap-grok__halves { animation: pam-pap-g-settle 520ms cubic-bezier(.23, 1, .32, 1) both; }
+@keyframes pam-pap-g-breathe { 0%, 100% { transform: rotate(0) scale(1); } 50% { transform: rotate(-4deg) scale(1.03); } }
+@keyframes pam-pap-g-nod { 0% { transform: scale(1); } 40% { transform: scale(.86); } 100% { transform: scale(1); } }
+@keyframes pam-pap-g-rock { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(14deg); } }
+@keyframes pam-pap-g-glint { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+@keyframes pam-pap-g-settle { from { transform: rotate(-40deg); } to { transform: rotate(0); } }
+
+/* components/ill/StaggerText.css */
+.pa-motion .ill-stagger-text__word {
+  display: inline-block;
+  opacity: 0;
+  animation: pam-ill-stagger-text-word-in 220ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes pam-ill-stagger-text-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .ill-stagger-text__word {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* visuals/PersonalAgentsPossibilities/PersonalAgentsPossibilities.css */
+/* Personal Agents → Possibilities. 789x579 canvas on the AI Assistants
+   backdrop, 500x460 agent window (AI Assistants V3 01). Muse is light,
+   Grok Bot dark; the Trailwell via Crossword card stays white in both,
+   as in the reference. Card anatomy and type steps follow the Storybook
+   mapping (§1): 15/14/13/12/11, medium 500, pill buttons 40px. */
+.pa-motion .pap-section { display: flex; flex-wrap: wrap; gap: 32px; }
+.pa-motion .pap-figure { margin: 0; }
+.pa-motion .pap-canvas { position: relative; width: 789px; height: 579px; flex: none; overflow: hidden; display: grid; place-items: center;
+    background: #5c0f2c url("../../assets/motion/ill-frame/bg_retain.webp") center / cover no-repeat; }
+
+.pa-motion .pap { --bg: #f7f8fa; --bar: #fff; --fg: #16171b; --muted: #6f7178; --line: rgba(22, 23, 27, .08);
+    --bubble: #dbe6fb; --bubble-fg: #16171b; --dots: #e9eaee; --dot: #8a8c93;
+    --card: #fff; --card-fg: #16171b; --card-muted: #6f7178; --plate: #f5f5f5; --primary: #6c2332; --on-primary: #fff; --wash: rgba(108, 35, 50, .08);
+    position: relative; width: 500px; height: 460px; flex: none; overflow: hidden; display: flex; flex-direction: column;
+    border-radius: 20px; background: var(--bg); color: var(--fg);
+    box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18);
+    font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 20px; -webkit-font-smoothing: antialiased; }
+.pa-motion .pap--grok { --bg: #0b0b0d; --bar: #141416; --fg: #f4f4f5; --muted: #a1a1aa; --line: rgba(255, 255, 255, .08);
+    --bubble: #2a2a2e; --bubble-fg: #f4f4f5; --dots: #1f1f23; --dot: #a1a1aa;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 2px 8px rgba(10, 10, 14, .12), 0 24px 56px rgba(10, 10, 14, .28); }
+.pa-motion .pap *,
+.pa-motion .pap *::before,
+.pa-motion .pap *::after { box-sizing: border-box; }
+.pa-motion .pap p { margin: 0; }
+.pa-motion .pap b { font-weight: 500; }
+.pa-motion .pap small { display: block; }
+
+.pa-motion .pap-header { flex: none; display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 16px;
+    background: var(--bar); border-bottom: 1px solid var(--line); }
+.pa-motion .pap-logo { flex: none; width: 32px; height: 32px; display: block; }
+.pa-motion .pap-logo--muse { border-radius: 8px; background: linear-gradient(160deg, #5b7cf5, #3352e0); display: grid; place-items: center; }
+.pa-motion .pap-logo--muse img { width: 20px; height: 20px; }
+.pa-motion .pap-logo--grok { border-radius: 8px; background: #000; display: grid; place-items: center; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.pa-motion .pap-logo--grok svg { width: 32px; height: 32px; }
+.pa-motion .pap-header__title { display: flex; flex-direction: column; }
+.pa-motion .pap-header__title b { font-size: 15px; line-height: 19px; }
+.pa-motion .pap-header__title small { font-size: 12px; line-height: 16px; color: var(--muted); }
+
+.pa-motion .pap-thread { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 14px; padding: 16px 16px 20px; }
+
+.pa-motion .pap-turn--user { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.pa-motion .pap-bubble { max-width: 82%; padding: 10px 14px; border-radius: 18px; background: var(--bubble); color: var(--bubble-fg); }
+/* The bag the shopper is asking about rides with their turn. */
+.pa-motion .pap-ref { display: flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 14px;
+    background: var(--bubble); color: var(--bubble-fg); font-size: 12px; line-height: 16px; }
+.pa-motion .pap-ref img { width: 36px; height: 36px; border-radius: 10px; background: var(--plate); object-fit: contain; padding: 3px; }
+.pa-motion .pap-ref small { color: var(--muted); }
+
+.pa-motion .pap-working { display: flex; align-items: center; gap: 10px; }
+.pa-motion .pap-dots { display: inline-flex; gap: 5px; padding: 11px 13px; border-radius: 999px; background: var(--dots); }
+.pa-motion .pap-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--dot); opacity: .55; }
+.pa-motion .pap-dots i:last-child { opacity: 1; }
+.pa-motion .pap-working__line { font-size: 13px; color: var(--muted); }
+
+.pa-motion .pap-text { color: var(--fg); }
+
+/* Trailwell via Crossword: the merchant's own answer card. */
+.pa-motion .pap-merchant { flex: none; display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 20px;
+    background: var(--card); color: var(--card-fg); box-shadow: 0 0 0 1px rgba(22, 23, 27, .06), 0 2px 8px rgba(10, 10, 14, .06); }
+.pa-motion .pap-via { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 4px;
+    border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(22, 23, 27, .08); font-size: 13px; color: var(--card-muted); }
+.pa-motion .pap-via b { color: var(--card-fg); }
+.pa-motion .pap-via__mark.demo-brand-mark { width: 24px; height: 24px; border-radius: 50%; overflow: hidden; flex: none; }
+.pa-motion .pap-via__mark img { width: 100%; height: 100%; display: block; object-fit: cover; }
+.pa-motion .pap-merchant__reply { font-size: 13px; line-height: 19px; }
+
+/* 01: one row of three equal product cards. */
+.pa-motion .pap-cards { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 8px; }
+.pa-motion .pap-card { display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(22, 23, 27, .08); }
+.pa-motion .pap-card__media { position: relative; height: 106px; margin: 2px 2px 0; border-radius: 14px; background: var(--plate); }
+.pa-motion .pap-card__media img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 10px; object-fit: contain; }
+.pa-motion .pap-badge { position: absolute; top: 6px; left: 6px; padding: 2px 8px; border-radius: 999px; background: #16171b; color: #fff;
+    font-size: 11px; line-height: 16px; font-weight: 500; }
+.pa-motion .pap-card__body { display: flex; flex-direction: column; padding: 8px 10px 10px; font-size: 13px; line-height: 18px; }
+.pa-motion .pap-card__body small { font-size: 12px; line-height: 16px; color: var(--card-muted); }
+.pa-motion .pap-card__price { margin-top: 4px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.pa-motion .pap-stock { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; line-height: 16px; color: #157347; }
+.pa-motion .pap-stock--low { color: #b45309; }
+.pa-motion .pap-stock__dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* 02: the enriched product module. */
+.pa-motion .pap-detail { display: flex; flex-direction: column; border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(22, 23, 27, .08); }
+.pa-motion .pap-detail__head { display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 8px; border-bottom: 1px solid rgba(22, 23, 27, .08); }
+.pa-motion .pap-detail__head img { width: 44px; height: 44px; border-radius: 10px; background: var(--plate); object-fit: contain; padding: 4px; }
+.pa-motion .pap-detail__head > span:nth-child(2) { flex: 1; min-width: 0; }
+.pa-motion .pap-detail__head small { font-size: 12px; line-height: 16px; color: var(--card-muted); }
+.pa-motion .pap-detail__price { font-weight: 500; }
+.pa-motion .pap-benefits { margin: 0; padding: 2px 12px; list-style: none; }
+.pa-motion .pap-benefits li { padding: 6px 0; font-size: 13px; line-height: 18px; }
+.pa-motion .pap-benefits li + li { border-top: 1px solid rgba(22, 23, 27, .06); }
+.pa-motion .pap-benefits small { color: var(--card-muted); font-size: 12px; line-height: 17px; }
+.pa-motion .pap-benefits__icon { flex: none; width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center;
+    background: var(--wash); color: var(--primary); }
+
+/* 02 C: the recommendation, product card with its action. */
+.pa-motion .pap-pick { flex: none; display: flex; gap: 14px; padding: 10px; border-radius: 20px; background: var(--card); color: var(--card-fg);
+    box-shadow: 0 0 0 1.5px var(--primary), 0 8px 24px rgba(10, 10, 14, .12); }
+.pa-motion .pap-pick__media { flex: none; width: 168px; border-radius: 14px; background: var(--plate); display: grid; place-items: center; }
+.pa-motion .pap-pick__media img { width: 148px; height: 148px; object-fit: contain; }
+.pa-motion .pap-pick__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding: 4px 0; }
+.pa-motion .pap-pick__tag { align-self: flex-start; margin-bottom: 6px; padding: 2px 8px; border-radius: 999px; background: var(--wash); color: var(--primary);
+    font-size: 12px; line-height: 16px; font-weight: 500; }
+.pa-motion .pap-pick__body > b { font-size: 15px; line-height: 20px; }
+.pa-motion .pap-pick__body > small { font-size: 12px; line-height: 16px; color: var(--card-muted); }
+.pa-motion .pap-pick__price { margin-top: 6px; font-weight: 500; }
+.pa-motion .pap-pick__actions { margin-top: auto; display: flex; align-items: center; gap: 8px; }
+.pa-motion .pap-btn { flex: 1; display: grid; place-items: center; height: 40px; border-radius: 999px; background: var(--primary); color: var(--on-primary, #fff); }
+.pa-motion .pap-puck { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--wash); color: var(--primary); }
+
+/* 03: offer rows, price and saving on the right, condition underneath. */
+.pa-motion .pap-offers { display: flex; flex-direction: column; gap: 6px; }
+.pa-motion .pap-offer { display: flex; align-items: center; gap: 10px; padding: 6px 12px 6px 6px; border-radius: 14px; box-shadow: inset 0 0 0 1px rgba(22, 23, 27, .08); }
+.pa-motion .pap-offer img { flex: none; width: 52px; height: 52px; border-radius: 10px; background: var(--plate); object-fit: contain; padding: 4px; }
+.pa-motion .pap-offer__text { flex: 1; min-width: 0; display: flex; flex-direction: column; font-size: 13px; line-height: 18px; }
+.pa-motion .pap-offer__text small { font-size: 11px; line-height: 15px; color: var(--card-muted); }
+.pa-motion .pap-offer__text small.pap-offer__label { font-size: 11px; font-weight: 500; color: var(--primary); }
+.pa-motion .pap-offer__price { flex: none; display: grid; grid-template-columns: auto auto; column-gap: 6px; justify-items: end; align-items: baseline;
+    font-size: 13px; line-height: 18px; font-variant-numeric: tabular-nums; }
+.pa-motion .pap-offer__price s { font-size: 12px; color: var(--card-muted); }
+.pa-motion .pap-offer__save { grid-column: 1 / -1; font-size: 12px; line-height: 16px; font-weight: 500; color: #157347; }
+
+/* Grok Bot's own pick sits in Grok's dark theme; only Trailwell's card stays white. */
+.pa-motion .pap--grok .pap-pick { --card: #18181b; --card-fg: #f4f4f5; --card-muted: #a1a1aa; --plate: #232327;
+    box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .55), 0 8px 24px rgba(0, 0, 0, .3); }
+.pa-motion .pap--grok .pap-pick__tag,
+.pa-motion .pap--grok .pap-puck { background: rgba(255, 255, 255, .1); color: #e4e4e7; }
+.pa-motion .pap--grok .pap-merchant { --card: #18181b; --card-fg: #f4f4f5; --card-muted: #a1a1aa; --plate: #232327;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .08); }
+.pa-motion .pap--grok .pap-via,
+.pa-motion .pap--grok .pap-detail { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.pa-motion .pap--grok .pap-detail__head { border-bottom-color: rgba(255, 255, 255, .08); }
+.pa-motion .pap--grok .pap-benefits li + li { border-top-color: rgba(255, 255, 255, .06); }
+.pa-motion .pap--grok .pap-benefits__icon { background: rgba(255, 255, 255, .1); color: #e4e4e7; }
+.pa-motion .pap--grok { --plate: #232327; }
+
+.pa-motion .pap-benefits__row { display: flex; gap: 10px; }
+.pa-motion .pap-cards > .sell-loading-frame { display: flex; }
+.pa-motion .pap-cards > .sell-loading-frame > .pap-card { flex: 1; min-width: 0; }
+
+/* Grok Bot's logged step: live (spinner + shimmer) or done (check, muted). */
+.pa-motion .pap-activity { display: flex; align-items: center; gap: 8px; font-size: 13px; line-height: 18px; color: var(--muted); }
+.pa-motion .pap-activity--done svg { color: #6ee7a0; flex: none; }
+.pa-motion .pap-activity__spin { flex: none; width: 14px; height: 14px; border-radius: 50%; border: 1.6px solid rgba(255, 255, 255, .18); border-top-color: var(--fg); }
+.pa-motion .pap-activity:not(.pap-activity--done) .pap-activity__line { color: var(--fg); }
+
+/* Skeleton covers sit on the card they load in, not the kit's cream page. */
+.pa-motion .pap .sell-loading-frame__overlay { background: var(--card); }
+.pa-motion .pap--grok .ill-skeleton-block { background-color: #26262a; }
+.pa-motion .pap--grok .ill-skeleton-block::after { mix-blend-mode: normal; opacity: .12; }
+.pa-motion .pap--muse .ill-skeleton-block { background-color: #eef0f3; }
+.pa-motion .pap--grok .pap-thread { gap: 12px; }
+
+/* brands/BrandIdentity.css */
+.pa-motion .demo-brand-mark {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--brand-ink);
+  color: var(--brand-paper);
+  overflow: hidden;
+}
+
+.pa-motion .demo-brand-mark > svg,
+.pa-motion .demo-brand-mark > img { display: block; width: 66%; height: 66%; object-fit: contain; }
+.pa-motion .demo-brand-mark[data-brand-id="aurelle"] > img { width: 58.6%; height: auto; transform: translateY(-5.6%); }
+.pa-motion .demo-brand-name { font-family: var(--font-geist), system-ui, sans-serif; letter-spacing: normal; text-transform: none; }
+.pa-motion .demo-brand-wordmark { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.pa-motion .demo-brand-wordmark > .demo-brand-mark { width: 1.15em; height: 1.15em; }
+.pa-motion .demo-brand-wordmark > .demo-brand-name { color: var(--brand-ink); }
+.pa-motion .demo-brand-mark.hm2-nudge__disc { width: 44px; height: 44px; }
+.pa-motion .demo-brand-mark.gjm-orb-mark { width: 100%; height: 100%; }
+
+.pa-motion .demo-brand-storefront .ill-marketplace__gallery-main .ill-media {
+  object-fit: contain;
+  padding: 16px;
+  background: var(--brand-plate);
+}
+
+.pa-motion .demo-brand-mark > .demo-brand-mark__asset { display: block; width: 66%; height: 66%; background: currentColor; mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
+
+/* Supplied marks already contain their own artboard spacing. */
+.pa-motion .demo-brand-mark > img.demo-brand-mark__supplied { width: 100%; height: 100%; transform: none; object-fit: contain; }
+
+.pa-motion .aurelia-mark > .demo-brand-mark.legacy-supplied-mark { width: 100%; height: 100%; }
+
+.pa-motion .pcx-ad__avatar > .demo-brand-mark.goodwell-supplied-avatar { width: 100%; height: 100%; background: transparent; }
+
+/* illustrations/SellMotion/LoadingFrame.css */
+/* Skeleton cover for result content that has no skeleton of its own (a
+   bundle card, a comparison block, a generated image) — same contract as
+   CommerceProductCard's overlay: the real content always renders
+   underneath, the overlay is fully opaque the instant it mounts (never
+   fades in, or the content would show through), and only the exit
+   crossfades. */
+.pa-motion .sell-loading-frame {
+  position: relative;
+}
+
+.pa-motion .sell-loading-frame__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--ill-color-background-page);
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
+  transition:
+    opacity 260ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 260ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 260ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.pa-motion .sell-loading-frame__overlay--hidden {
+  opacity: 0;
+  transform: scale(1.02);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .sell-loading-frame__overlay {
+    transition: opacity 150ms ease;
+    transform: none;
+    filter: none;
+  }
+
+  .pa-motion .sell-loading-frame__overlay--hidden {
+    transform: none;
+    filter: none;
+  }
+}
+
+/* components/ill/SkeletonBlock.css */
+/* Shimmer is a translating overlay (transform-only), not an animated
+   background-position — keeps the sweep on the compositor instead of
+   repainting the gradient every frame. `isolation: isolate` contains the
+   highlight's blend mode to this block's own fill, not sibling blocks or
+   whatever sits behind the card. */
+.pa-motion .ill-skeleton-block {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ill-color-background-subtle);
+}
+
+.pa-motion .ill-skeleton-block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  /* A real white tint, blended in via `screen`, not another cream
+     palette token — every background token in this kit clusters tightly
+     around off-white, so picking a "lighter" token as the old highlight
+     still read as barely-there. Screen-blending white gives the
+     highlight actual headroom to look bright, which no token alone can.
+     Diagonal angle + wide stops (20/50/80%) wash a broad, angled band of
+     light across the shape as it passes, matching the conventional
+     shimmer look (and this component's own Figma-sourced static
+     gradients, which all use diagonal angles too) rather than a thin
+     vertical-edged line sliding sideways. */
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.75) 50%, transparent 80%);
+  mix-blend-mode: screen;
+  animation: pam-ill-skeleton-shimmer 1.4s linear infinite;
+}
+
+@keyframes pam-ill-skeleton-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .ill-skeleton-block::after {
+    animation: none;
+    display: none;
+  }
+}
+
+/* visuals/PersonalAgentsPossibilities/LoggedIn.css */
+/* Personal Agents → Logged-in Experiences. Rides on the Possibilities
+   shell and tokens (--card, --card-fg, --card-muted, --plate, --primary),
+   so the Grok Bot frames inherit the dark card treatment. */
+.pa-motion .pap { --hair: rgba(22, 23, 27, .08); --good: #157347; --good-wash: #e7f6ec; }
+.pa-motion .pap--grok { --hair: rgba(255, 255, 255, .1); --good: #6ee7a0; --good-wash: rgba(110, 231, 160, .14); --wash: rgba(255, 255, 255, .1); }
+.pa-motion .pap--grok,
+.pa-motion .pap--grok .pap-merchant { --primary: #f4f4f5; --on-primary: #0f0f10; }
+
+.pa-motion .pal-actions { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+.pa-motion .pal-btn { flex: none; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 999px;
+    background: var(--primary); color: var(--on-primary, #fff); font-size: 13px; font-weight: 500; }
+.pa-motion .pal-btn--done { background: #2f9e57; }
+.pa-motion .pal-deny { font-size: 13px; color: var(--card-muted, var(--muted)); }
+.pa-motion .pal-done { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; height: 28px; padding: 0 10px; border-radius: 999px;
+    background: var(--good-wash); color: var(--good); font-size: 12px; font-weight: 500; }
+
+/* Sign-in / permission, inside the brand's card. */
+.pa-motion .pal-auth { display: flex; flex-direction: column; gap: 4px; padding: 12px; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--hair); }
+.pa-motion .pal-auth__head { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.pa-motion .pal-auth__lock { width: 24px; height: 24px; border-radius: 8px; display: grid; place-items: center; background: var(--wash); color: var(--primary); }
+.pa-motion .pal-auth > small { font-size: 12px; line-height: 17px; color: var(--card-muted); }
+
+/* The agent's own approval card (reference: "Approve $37.49 to SuperMush?"). */
+.pa-motion .pal-approve { flex: none; display: flex; flex-direction: column; gap: 2px; padding: 12px 16px; border-radius: 16px;
+    background: #fff; box-shadow: 0 0 0 1px rgba(22, 23, 27, .08); }
+.pa-motion .pal-approve > b { font-size: 15px; line-height: 20px; }
+.pa-motion .pal-approve > small { font-size: 12px; line-height: 17px; color: var(--muted); }
+.pa-motion .pap--grok .pal-approve { background: #18181b; box-shadow: 0 0 0 1px rgba(255, 255, 255, .14); }
+.pa-motion .pal-approve .pal-deny { color: var(--muted); }
+
+/* Shared boxes and rows. */
+.pa-motion .pal-box { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--hair); }
+.pa-motion .pal-box__meta { font-size: 12px; line-height: 16px; color: var(--card-muted); }
+.pa-motion .pal-line { display: flex; align-items: center; gap: 10px; }
+.pa-motion .pal-line img { flex: none; width: 40px; height: 40px; border-radius: 10px; background: var(--plate); object-fit: contain; padding: 3px; }
+.pa-motion .pal-line__text { flex: 1; min-width: 0; display: flex; flex-direction: column; font-size: 13px; line-height: 18px; }
+.pa-motion .pal-line__text small { font-size: 12px; line-height: 16px; color: var(--card-muted); }
+.pa-motion .pal-line__price { flex: none; font-size: 13px; font-weight: 500; }
+.pa-motion .pal-muted { color: var(--card-muted); font-weight: 400; }
+
+/* 04: return options as selector plates (picked = 1.5px ring + wash). */
+.pa-motion .pal-options { display: flex; flex-direction: column; gap: 6px; }
+.pa-motion .pal-option { display: flex; gap: 10px; padding: 8px 10px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--hair); font-size: 13px; line-height: 18px; }
+.pa-motion .pal-option small { font-size: 12px; line-height: 16px; color: var(--card-muted); }
+.pa-motion .pal-option__radio { flex: none; width: 16px; height: 16px; margin-top: 1px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px rgba(22, 23, 27, .25); }
+.pa-motion .pal-option--on { background: var(--wash); box-shadow: inset 0 0 0 1.5px var(--primary); }
+.pa-motion .pal-option--on .pal-option__radio { box-shadow: inset 0 0 0 4.5px var(--primary); }
+.pa-motion .pal-band { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 10px; background: var(--good-wash); color: var(--good);
+    font-size: 13px; font-weight: 500; }
+.pa-motion .pal-steps { margin: 0; padding: 0 0 0 18px; font-size: 12px; line-height: 17px; color: var(--card-fg); }
+.pa-motion .pal-steps li + li { margin-top: 2px; }
+.pa-motion .pal-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.pa-motion .pal-track__step { display: flex; flex-direction: column; gap: 4px; font-size: 11px; line-height: 14px; color: var(--card-muted); }
+.pa-motion .pal-track__step i { height: 4px; border-radius: 2px; background: var(--hair); }
+.pa-motion .pal-track__step--on { color: var(--good); font-weight: 500; }
+.pa-motion .pal-track__step--on i { background: var(--good); }
+
+/* 05: account facts, then picks with the best fit ringed. */
+.pa-motion .pal-account { display: grid; grid-template-columns: auto auto 1fr; gap: 6px; }
+.pa-motion .pal-account > span { display: flex; flex-direction: column; padding: 6px 10px; border-radius: 10px; background: var(--plate); }
+.pa-motion .pal-account small { font-size: 11px; line-height: 14px; color: var(--card-muted); }
+.pa-motion .pal-account b { font-size: 13px; line-height: 18px; }
+.pa-motion .pal-picks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pa-motion .pal-pick { display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--hair); }
+.pa-motion .pal-pick--best { box-shadow: inset 0 0 0 1.5px var(--primary); }
+.pa-motion .pal-pick__media { position: relative; height: 96px; margin: 2px 2px 0; border-radius: 14px; overflow: hidden; background: var(--plate); }
+.pa-motion .pal-pick__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pa-motion .pal-badge { position: absolute; top: 6px; left: 6px; padding: 2px 8px; border-radius: 999px; background: var(--primary); color: var(--on-primary, #fff); font-size: 11px; line-height: 16px; font-weight: 500; }
+.pa-motion .pal-pick__body { display: flex; flex-direction: column; padding: 8px 10px 10px; font-size: 13px; line-height: 18px; }
+.pa-motion .pal-pick__body small { font-size: 12px; line-height: 16px; color: var(--card-muted); }
+.pa-motion .pal-pick__price { margin-top: 4px; font-weight: 500; }
+.pa-motion .pal-note { font-size: 12px; line-height: 16px; color: var(--card-muted); }
+.pa-motion .pal-note--good { color: var(--good); font-weight: 500; }
+
+.pa-motion .pal-sum { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; margin: 0; padding-top: 8px; border-top: 1px dashed var(--hair);
+    font-size: 13px; line-height: 18px; font-variant-numeric: tabular-nums; }
+.pa-motion .pal-sum dt { color: var(--card-muted); }
+.pa-motion .pal-sum dd { margin: 0; text-align: right; }
+.pa-motion .pal-sum .pal-sum__credit { color: var(--good); font-weight: 500; }
+.pa-motion .pal-sum .pal-sum__total { color: var(--card-fg); font-weight: 500; font-size: 14px; }
+.pa-motion .pal-remaining { display: flex; justify-content: space-between; padding: 6px 10px; border-radius: 10px; background: var(--wash);
+    font-size: 13px; line-height: 18px; color: var(--primary); }
+
+/* 06: personalization summary, each fact tagged with its source. */
+.pa-motion .pal-profile { margin: 0; padding: 4px 12px; list-style: none; border-radius: 16px; box-shadow: inset 0 0 0 1px var(--hair); }
+.pa-motion .pal-profile li { display: grid; grid-template-columns: 96px 1fr auto; align-items: center; gap: 10px; padding: 7px 0; font-size: 13px; line-height: 18px; }
+.pa-motion .pal-profile li + li { border-top: 1px solid var(--hair); }
+.pa-motion .pal-profile small { font-size: 12px; color: var(--card-muted); }
+.pa-motion .pal-src { font-size: 11px; line-height: 16px; padding: 1px 8px; border-radius: 999px; background: var(--plate); color: var(--card-muted); }
+/* What Muse shared looks different from what the brand account holds. */
+.pa-motion .pal-src--agent { background: none; box-shadow: inset 0 0 0 1px var(--primary); color: var(--primary); border: 0; }
+
+.pa-motion .pal-spot { display: flex; gap: 12px; padding: 8px; border-radius: 16px; box-shadow: inset 0 0 0 1.5px var(--primary); }
+.pa-motion .pal-spot__media { flex: none; width: 120px; border-radius: 12px; overflow: hidden; background: var(--plate); }
+.pa-motion .pal-spot__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pa-motion .pal-spot__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding: 2px 2px 2px 0; font-size: 14px; line-height: 19px; }
+.pa-motion .pal-spot__body > small { font-size: 12px; line-height: 16px; color: var(--card-muted); }
+.pa-motion .pal-spot__body ul { margin: 4px 0 0; padding: 0 0 0 16px; font-size: 12px; line-height: 17px; color: var(--card-fg); }
+.pa-motion .pal-loyalty { margin-top: 6px; display: flex; align-items: baseline; gap: 6px; padding: 6px 10px; border-radius: 10px; background: var(--good-wash);
+    font-size: 12px; line-height: 16px; color: var(--good); }
+.pa-motion .pal-loyalty span { flex: 1; font-weight: 500; }
+.pa-motion .pal-loyalty b { font-size: 14px; color: var(--card-fg); }
+.pa-motion .pal-loyalty s { color: var(--card-muted); }
+.pa-motion .pal-alts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pa-motion .pal-alts .pal-line { padding: 6px 10px 6px 6px; border-radius: 14px; box-shadow: inset 0 0 0 1px var(--hair); }
+.pa-motion .pal-alts .pal-line__text b { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pa-motion .pal-approve__item { margin: 8px 0 4px; padding: 8px; border-radius: 12px; background: var(--bg); }
+.pa-motion .pal-approve .pal-line__text small { color: var(--muted); }
+.pa-motion .pal-picks > .sell-loading-frame { display: flex; }
+.pa-motion .pal-picks > .sell-loading-frame > .pal-pick { flex: 1; min-width: 0; }
+
+/* Logged-in Experiences sit in the live page's 679x579 slot, on AI
+   Assistants 08's backdrop (ConversionAssistanceFrame: purple damask with
+   its gold corner border; same proportions, so it fits without cropping). */
+.pa-motion .pap-logged .pap-canvas { width: 679px; background: #4a2273 url("../../assets/motion/ill-frame/conversion-assistance-bg.webp") center / cover no-repeat; }
+
+/* Accent follows the backdrop (illustrations/README-v2, Bubble color):
+   04–06 sit on purple, so aubergine; Grok's dark UI uses a neutral. */
+.pa-motion .pap-logged .pap:not(.pap--grok) { --primary: #462160; --wash: rgba(70, 33, 96, .08); }
+
+/* illustrations/LaunchAudience/LaunchAudience.css */
+/* Measured from Storybook "Dashboard/Final/Insights" (Cart, Launch and
+   Segment stories) at 1440 wide. The dashboard is laid out 1286×598 —
+   #12's page width — and LandscapeCanvas scales it into the page panel
+   exactly as it scales #12's scene. */
+.pa-motion .la-stage {
+  --la-fg: #070707;
+  --la-muted: #3f3f3f;
+  --la-faint: oklch(0.66 0 0);
+  --la-border: oklch(0.94 0 0);
+  --la-subtle: #fafafa;
+  --la-wash: #f5f5f5;
+  --la-primary: rgb(0, 76, 39);
+  --la-raised: 0 0 0 1px oklch(0 0 0 / 0.07), 0 1px 2px oklch(0 0 0 / 0.08);
+
+  width: 1280px;
+}
+
+/* The dashboard runs to the panel's bottom edge; no page fade over it. */
+.pa-motion .la-stage .ill-landscape-canvas__fade {
+  display: none;
+}
+
+.pa-motion .la-dash {
+  display: flex;
+  gap: 8px;
+  width: 1286px;
+  height: 598px;
+  /* Even 12px around the white surface, so it sits inside the panel
+     rather than running off its bottom edge; the rail ends with it. */
+  padding: 12px 12px 12px 0;
+  box-sizing: border-box;
+  background: rgb(232, 226, 212);
+  color: var(--la-fg);
+  font: 400 13px/19.5px var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pa-motion .la-dash *,
+.pa-motion .la-dash *::before,
+.pa-motion .la-dash *::after {
+  box-sizing: border-box;
+}
+
+.pa-motion .la-dash :where(p, h1, h2, figure) {
+  margin: 0;
+}
+
+.pa-motion .la-icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.pa-motion .la-muted {
+  color: var(--la-muted);
+}
+
+.pa-motion .la-primary {
+  color: var(--la-primary);
+}
+
+.pa-motion .la-serif {
+  font-family: var(--font-crimson-pro), Georgia, serif;
+  font-weight: 200;
+}
+
+.pa-motion .la-serif--24 {
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: -0.96px;
+}
+
+.pa-motion .la-section--nav {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 8px;
+  color: var(--la-faint);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* Rail */
+.pa-motion .la-rail {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  width: 64px;
+  /* The logo starts where the white surface's content does. */
+  padding-top: 12px;
+}
+
+.pa-motion .la-rail__logo {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: var(--la-wash);
+  font-size: 16px;
+}
+
+.pa-motion .la-rail__group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.pa-motion .la-rail__group--end {
+  align-items: center;
+  margin-top: auto;
+}
+
+.pa-motion .la-rail__item {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--la-muted);
+}
+
+.pa-motion .la-rail__item--active {
+  background: #fff;
+  box-shadow: var(--la-raised);
+}
+
+.pa-motion .la-rail__rule {
+  width: 24px;
+  height: 1px;
+  background: rgb(161, 134, 95);
+}
+
+.pa-motion .la-rail__org,
+.pa-motion .la-rail__me {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--la-border);
+  background: #fff;
+  color: var(--la-fg);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pa-motion .la-rail__me {
+  background: var(--la-wash);
+}
+
+/* Main card: chats list + chat */
+.pa-motion .la-main {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--la-border);
+  background: #fff;
+}
+
+.pa-motion .la-list {
+  flex: none;
+  width: 320px;
+  padding: 13px 8px;
+  background: var(--la-subtle);
+}
+
+.pa-motion .la-list__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px 0 8px;
+}
+
+.pa-motion .la-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 32px;
+  margin: 13px 8px 8px;
+  padding: 0 12px;
+  border: 1px solid var(--la-border);
+  background: #fff;
+  color: var(--la-muted);
+}
+
+.pa-motion .la-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  margin-top: 1px;
+  padding: 0 12px;
+}
+
+.pa-motion .la-row--new {
+  font-weight: 500;
+}
+
+.pa-motion .la-row--active {
+  background: #fff;
+  box-shadow: var(--la-raised);
+}
+
+.pa-motion .la-row__text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pa-motion .la-row__age {
+  color: var(--la-muted);
+  font-size: 12px;
+}
+
+/* Chat */
+.pa-motion .la-chat {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding: 24px 39px 20px 40px;
+}
+
+.pa-motion .la-thread {
+  flex: 1;
+  min-height: 0;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.pa-motion .la-user {
+  width: fit-content;
+  max-width: 560px;
+  margin-left: auto;
+  padding: 8px 12px;
+  background: var(--la-wash);
+  font-weight: 500;
+  line-height: 21px;
+}
+
+.pa-motion .la-user--next {
+  margin-top: 16px;
+}
+
+.pa-motion .la-thought {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  margin-top: 16px;
+  color: var(--la-muted);
+}
+
+.pa-motion .la-thought__done {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The shimmer's frozen frame: the label mid-sweep. */
+.pa-motion .la-thinking {
+  background: linear-gradient(90deg, var(--la-faint) 0%, var(--la-fg) 35%, var(--la-faint) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pa-motion .la-reply {
+  margin-top: 14px;
+  line-height: 21px;
+}
+
+/* Audience card — the Launch story's card: 40px tinted head, hero row
+   (avatars, 32px headline), then a hairline-separated breakdown. */
+.pa-motion .la-card {
+  max-width: 672px;
+  margin-top: 12px;
+  border: 1px solid var(--la-border);
+  background: #fff;
+}
+
+.pa-motion .la-card__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--la-border);
+  background: oklch(0.985 0 0);
+}
+
+.pa-motion .la-card__title {
+  flex: 1;
+  color: var(--la-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.pa-motion .la-card__top {
+  padding: 12px 16px 14px;
+  border-bottom: 1px solid var(--la-border);
+}
+
+.pa-motion .la-hero {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--la-border);
+}
+
+.pa-motion .la-faces {
+  display: flex;
+  margin-right: 16px;
+}
+
+.pa-motion .la-faces img {
+  width: 32px;
+  height: 32px;
+  margin-right: -8px;
+  border: 2px solid #fff;
+  background: var(--la-wash);
+}
+
+.pa-motion .la-hero__headline {
+  font-weight: 500;
+}
+
+.pa-motion .la-hero__source {
+  margin-left: 6px;
+  color: var(--la-muted);
+}
+
+/* The Segment story's label/value tags. */
+.pa-motion .la-criteria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pa-motion .la-tag {
+  height: 20px;
+  padding: 0 6px;
+  white-space: nowrap;
+  border: 1px solid var(--la-border);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.pa-motion .la-card__products {
+  padding: 14px 16px 16px;
+}
+
+.pa-motion .la-card__label {
+  margin-bottom: 10px;
+  color: var(--la-muted);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.pa-motion .la-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.pa-motion .la-product__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #f3e6ce;
+}
+
+.pa-motion .la-product__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pa-motion .la-product__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  height: 20px;
+  padding: 0 6px;
+  background: #fff;
+  color: var(--la-primary);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.pa-motion .la-product figcaption {
+  padding-top: 8px;
+}
+
+.pa-motion .la-product__title {
+  font-weight: 500;
+}
+
+.pa-motion .la-product__price {
+  color: var(--la-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.pa-motion .la-product__request {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--la-border);
+  color: var(--la-muted);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.pa-motion .la-product__request .la-icon {
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+}
+
+/* Composer */
+.pa-motion .la-composer {
+  flex: none;
+  height: 96px;
+  border: 1px solid var(--la-border);
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.pa-motion .la-composer__text {
+  height: 48px;
+  padding: 13px 12px 0;
+}
+
+.pa-motion .la-composer__placeholder {
+  color: var(--la-muted);
+}
+
+.pa-motion .la-composer__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px 0;
+}
+
+.pa-motion .la-upload {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 8px;
+  color: var(--la-muted);
+  font-size: 12px;
+}
+
+.pa-motion .la-send {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: var(--la-primary);
+  color: #fff;
+  opacity: 0.5;
+}
+
+/* ---------- Motion (LaunchAudienceMotion) ---------- */
+.pa-motion .la-enter {
+  animation: pam-la-enter 300ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.pa-motion .la-fade {
+  animation: pam-la-fade-in 200ms ease-out both;
+}
+
+@keyframes pam-la-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(2px);
+  }
+}
+
+@keyframes pam-la-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.pa-motion .la-row--enter {
+  animation: pam-la-row-in 400ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes pam-la-row-in {
+  from {
+    height: 0;
+    margin-top: 0;
+    opacity: 0;
+  }
+}
+
+.pa-motion .la-thinking--live {
+  background-size: 300% 100%;
+  animation:
+    pam-la-fade-in 150ms ease-out both,
+    pam-la-shimmer 2s linear infinite;
+  transition: opacity 150ms ease-out;
+}
+
+.pa-motion .la-thinking--out {
+  opacity: 0;
+}
+
+@keyframes pam-la-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+.pa-motion .la-caret {
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  margin-left: 1px;
+  vertical-align: -3px;
+  background: var(--la-fg);
+  animation: pam-la-caret 1s steps(1) infinite;
+}
+
+@keyframes pam-la-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.pa-motion .la-send {
+  transition: opacity 150ms ease-out;
+}
+
+.pa-motion .la-send--ready {
+  opacity: 1;
+}
+
+/* The card resolves out of its skeleton; the launches then rise in one
+   after another. */
+.pa-motion .la-card {
+  position: relative;
+}
+
+.pa-motion .la-product {
+  transition:
+    opacity 300ms ease-out calc(var(--i) * 90ms),
+    transform 400ms cubic-bezier(0.32, 0.72, 0, 1) calc(var(--i) * 90ms);
+}
+
+.pa-motion .la-card--pending .la-product {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.pa-motion .la-skeleton {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 14px 16px;
+  background: #fff;
+  transition: opacity 250ms ease-out;
+}
+
+.pa-motion .la-skeleton > span,
+.pa-motion .la-skeleton__tiles span {
+  display: block;
+  background: linear-gradient(90deg, var(--la-wash) 0%, #ececec 50%, var(--la-wash) 100%);
+  background-size: 200% 100%;
+  animation: pam-la-shimmer 1.4s linear infinite;
+}
+
+.pa-motion .la-skeleton__tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.pa-motion .la-skeleton__tiles span {
+  aspect-ratio: 3 / 2;
+}
+
+.pa-motion .la-skeleton--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .la-dash *,
+.pa-motion .la-dash *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- Corner radii ----------
+   The page panel is rounded (12px, LandscapeCanvas), so the dashboard's
+   surfaces follow it, stepping down with size so nested corners stay
+   concentric: surfaces 12/10, controls 8, chips 6/4. */
+.pa-motion .la-main {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.pa-motion .la-card,
+.pa-motion .la-composer,
+.pa-motion .la-user {
+  border-radius: 10px;
+}
+
+.pa-motion .la-card {
+  overflow: hidden;
+}
+
+.pa-motion .la-search,
+.pa-motion .la-row,
+.pa-motion .la-rail__item,
+.pa-motion .la-rail__logo {
+  border-radius: 8px;
+}
+
+.pa-motion .la-product__media,
+.pa-motion .la-skeleton__tiles span,
+.pa-motion .la-send,
+.pa-motion .la-rail__org,
+.pa-motion .la-rail__me,
+.pa-motion .la-faces img {
+  border-radius: 6px;
+}
+
+.pa-motion .la-rail__me {
+  overflow: hidden;
+}
+
+.pa-motion .la-tag,
+.pa-motion .la-product__badge,
+.pa-motion .la-skeleton > span {
+  border-radius: 4px;
+}
+
+/* illustrations/ChatGptInsights/ChatGptInsights.css */
+/* AI Assistants 12 — the result card inside Retain 11's Insights shell.
+   Type, tokens and radii are LaunchAudience.css's (Storybook Insights);
+   only the card's inner layout is new. Sized so the question, the thought
+   line and the whole card sit above the composer at 1286×598. */
+.pa-motion .cgi .la-chat {
+  padding-top: 20px;
+}
+
+.pa-motion .cgi .la-thread {
+  margin-bottom: 14px;
+}
+
+.pa-motion .cgi-thought {
+  margin-top: 4px;
+}
+
+.pa-motion .cgi-card {
+  max-width: none;
+  margin-top: 4px;
+}
+
+/* Totals: the Buyers story's stat, four across, hairline-divided. */
+.pa-motion .cgi-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--la-border);
+}
+
+.pa-motion .cgi-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 16px;
+}
+
+.pa-motion .cgi-metric + .cgi-metric {
+  border-left: 1px solid var(--la-border);
+}
+
+.pa-motion .cgi-metric__label {
+  color: var(--la-muted);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.pa-motion .cgi-metric__value {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: -0.44px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pa-motion .cgi-body {
+  display: grid;
+  grid-template-columns: 262px 1fr;
+}
+
+/* Recent conversations */
+.pa-motion .cgi-recent {
+  padding: 10px 8px 8px;
+  border-right: 1px solid var(--la-border);
+  background: var(--la-subtle);
+}
+
+.pa-motion .cgi-recent .la-card__label {
+  margin: 0 8px 6px;
+}
+
+.pa-motion .cgi-int {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 8px;
+  padding: 5px 8px;
+  border-radius: 8px;
+}
+
+.pa-motion .cgi-int + .cgi-int {
+  margin-top: 1px;
+}
+
+.pa-motion .cgi-int--open {
+  background: #fff;
+  box-shadow: var(--la-raised);
+}
+
+.pa-motion .cgi-int__top {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+}
+
+.pa-motion .cgi-int__who {
+  font-weight: 500;
+}
+
+.pa-motion .cgi-int__age {
+  color: var(--la-faint);
+  font-size: 12px;
+}
+
+.pa-motion .cgi-int__request {
+  grid-column: 1;
+  overflow: hidden;
+  color: var(--la-muted);
+  font-size: 12px;
+  line-height: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pa-motion .cgi-outcome {
+  display: inline-flex;
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  gap: 4px;
+  align-items: center;
+  background: #fff;
+}
+
+.pa-motion .cgi-outcome--won {
+  border-color: oklch(0.9 0.04 155);
+  background: oklch(0.97 0.02 155);
+  color: var(--la-primary);
+}
+
+.pa-motion .cgi-outcome__amount {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Journey */
+.pa-motion .cgi-journey {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 16px 12px;
+}
+
+.pa-motion .cgi-journey__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.pa-motion .cgi-journey__head .la-muted {
+  font-size: 12px;
+}
+
+/* The steps share the column's height evenly, so the journey ends level
+   with the conversation list. */
+.pa-motion .cgi-steps {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pa-motion .cgi-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  column-gap: 12px;
+  min-height: 40px;
+}
+
+/* One connector behind the dots, first dot's centre to the last's. */
+.pa-motion .cgi-steps {
+  position: relative;
+}
+
+.pa-motion .cgi-steps::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 11.5px;
+  border-left: 1px dashed oklch(0.86 0 0);
+  transform-origin: top;
+  transition: transform 1600ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Motion: the line draws down as the steps land. */
+.pa-motion .cgi-steps--pending::before {
+  transform: scaleY(0);
+}
+
+.pa-motion .cgi-step__dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--la-border);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--la-muted);
+}
+
+.pa-motion .cgi-step__dot .la-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.pa-motion .cgi-step--ordered .cgi-step__dot {
+  border-color: var(--la-primary);
+  background: var(--la-primary);
+  color: #fff;
+}
+
+.pa-motion .cgi-step__body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.pa-motion .cgi-step__label {
+  flex: none;
+  width: 96px;
+  color: var(--la-muted);
+  font-size: 12px;
+}
+
+.pa-motion .cgi-step__text {
+  overflow: hidden;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pa-motion .cgi-step--ordered .cgi-step__text {
+  color: var(--la-primary);
+}
+
+.pa-motion .cgi-step__product {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pa-motion .cgi-step__product img {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: #f4efe6;
+  object-fit: contain;
+}
+
+.pa-motion .cgi-step__name {
+  font-weight: 500;
+}
+
+.pa-motion .cgi-step__price {
+  color: var(--la-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The object each step produced, as a link chip. */
+.pa-motion .cgi-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 6px 0 8px;
+  border: 1px solid var(--la-border);
+  border-radius: 6px;
+  color: var(--la-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.pa-motion .cgi-link .la-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.pa-motion .cgi-step--ordered .cgi-link {
+  border-color: oklch(0.9 0.04 155);
+  background: oklch(0.97 0.02 155);
+  color: var(--la-primary);
+  font-weight: 500;
+}
+
+/* Card head: the source as a tag (Phosphor OpenAiLogo + "ChatGPT"). */
+.pa-motion .cgi-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 7px 0 5px;
+  background: #fff;
+  color: var(--la-fg);
+  font-weight: 500;
+}
+
+.pa-motion .cgi-source .la-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---------- Motion (ChatGptInsightsMotion) ----------
+   Gated parts stay in layout and rise in place: Retain 11's la-enter
+   curve, staggered by --i like its product tiles. */
+.pa-motion .cgi-rise {
+  transition:
+    opacity 300ms ease-out calc(var(--i, 0) * 70ms),
+    transform 400ms cubic-bezier(0.32, 0.72, 0, 1) calc(var(--i, 0) * 70ms),
+    filter 300ms ease-out calc(var(--i, 0) * 70ms);
+}
+
+.pa-motion .cgi-rise--pending {
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(2px);
+}
+
+.pa-motion .cgi-int {
+  transition-property: opacity, transform, filter, background-color, box-shadow;
+}
+
+/* The order step lands as the outcome: its dot fills after it rises. */
+.pa-motion .cgi-step--ordered .cgi-step__dot {
+  transition: background-color 250ms ease-out 200ms, border-color 250ms ease-out 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .cgi-rise {
+    transition: none;
+  }
+}
+
+/* illustrations/PersonalAgentInsights/PersonalAgentInsights.css */
+/* Retain v2 11's frame exactly (1280x599 canvas, 1286x598 dashboard at
+   1168/1286); only the backdrop is the Personal Agents one. */
+.pa-motion .pai .ill-landscape-canvas { background: #5c0f2c url("../../assets/motion/ill-frame/bg_retain.webp") center / cover no-repeat !important; }
+.pa-motion .pai .la-card { max-width: none; }
+
+.pa-motion .pai-pair { display: inline-flex; }
+.pa-motion .pai-pair .pai-mark + .pai-mark { margin-left: -4px; box-shadow: 0 0 0 1.5px #fff; }
+.pa-motion .pai-mark { flex: none; width: 16px; height: 16px; border-radius: 4px; display: grid; place-items: center; overflow: hidden; }
+.pa-motion .pai-mark--muse { background: linear-gradient(160deg, #5b7cf5, #3352e0); }
+.pa-motion .pai-mark--muse img { width: 11px; height: 11px; }
+.pa-motion .pai-mark--grok { background: #000; }
+.pa-motion .pai-mark--grok svg { width: 16px; height: 16px; }
+
+/* Activity table: the Launch story's list rhythm (12px muted header,
+   hairline rows, 13px body). */
+.pa-motion .pai-tr { display: grid; grid-template-columns: 104px 1.15fr 1.25fr 132px; gap: 14px; align-items: start;
+    padding: 7px 16px; border-top: 1px solid var(--la-border); font-size: 12px; line-height: 17px; }
+.pa-motion .pai-tr--head { padding-top: 7px; padding-bottom: 7px; border-top: 0; background: var(--la-subtle);
+    color: var(--la-muted); font-weight: 500; }
+.pa-motion .pai-src { display: flex; gap: 8px; align-items: flex-start; }
+.pa-motion .pai-src .pai-mark { width: 20px; height: 20px; margin-top: 1px; }
+.pa-motion .pai-src .pai-mark--muse img { width: 13px; height: 13px; }
+.pa-motion .pai-src .pai-mark--grok svg { width: 20px; height: 20px; }
+.pa-motion .pai-src b { display: block; font-weight: 500; font-size: 13px; }
+.pa-motion .pai-src small,
+.pa-motion .pai-out small { display: block; color: var(--la-faint); font-size: 11px; line-height: 15px; }
+.pa-motion .pai-req { color: var(--la-fg); }
+.pa-motion .pai-act { color: var(--la-muted); }
+.pa-motion .pai-out { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.pa-motion .pai .pai-outcome { grid-row: auto; grid-column: auto; }
+.pa-motion .pai-outcome--prepared { border-color: oklch(0.9 0.05 75); background: oklch(0.97 0.03 80); color: oklch(0.5 0.11 65); }
+.pa-motion .pai-outcome--recommended { border-color: #ecc9cf; background: #fbf1f2; color: #6c2332; }
+.pa-motion .pai-outcome--return { border-color: var(--la-border); background: var(--la-wash); color: var(--la-muted); }
+.pa-motion .pai-outcome--ordered { border-color: oklch(0.9 0.04 155); background: oklch(0.97 0.02 155); color: var(--la-primary); }
+
+/* Row cascade: one beat, 60ms apart, shorter travel and a stronger
+   ease-out than the shared cgi-rise, so the table lands as one unit. */
+.pa-motion .pai .pai-tr.cgi-rise {
+  transition:
+    opacity 240ms ease-out calc(var(--i, 0) * 60ms),
+    transform 360ms cubic-bezier(0.23, 1, 0.32, 1) calc(var(--i, 0) * 60ms),
+    filter 240ms ease-out calc(var(--i, 0) * 60ms);
+}
+.pa-motion .pai .pai-tr.cgi-rise--pending { transform: translateY(6px); }
+@media (prefers-reduced-motion: reduce) { .pa-motion .pai .pai-tr.cgi-rise { transition: none; } }
+
+/* components/ill/tokens.css */
+/*
+  Bound ILL Colors and ILL Metrics variables, read directly via
+  get_variable_defs on the ILL Component Library (node 1954:271),
+  fileKey TiAeD9ICNjjC8N3zoUJExk. Names and values are literal —
+  not approximated from SVG exports or screenshots.
+*/
+.pa-motion {
+  /* ILL/Color/* */
+  --ill-color-text-inverse: #ffffff;
+  --ill-color-accent-strong: #6c2332;
+  --ill-color-accent-primary: #7d0034;
+  --ill-color-text-primary: #000000;
+  --ill-color-border-default: #cfb8bb;
+  --ill-color-accent-gold: #ffb657;
+  --ill-color-text-body: #161719;
+  --ill-color-background-surface: #f9f4eb;
+  --ill-color-accent-soft: #e0be60;
+  --ill-color-accent-rating: #f0aa3b;
+  --ill-color-text-metadata: #64666c;
+  --ill-color-background-recessed: #efe9db;
+  --ill-color-background-inset: #fef9ec;
+  --ill-color-text-secondary: #606060;
+  --ill-color-background-canvas: #fff9e9;
+  --ill-color-accent-secondary: #462160;
+  --ill-color-text-muted: #9b9b9b;
+  --ill-color-background-subtle: #faedd4;
+  /* Bound separately from Background/Canvas (same #fff9e9 value, distinct
+     name) — read via get_variable_defs scoped to the Template node
+     (1941:13814), where the shell fill resolves to this variable. */
+  --ill-color-background-page: #fff9e9;
+
+  /* Bound separately from Accent/Secondary (same #462160 value, distinct
+     name `var(--color-aubergine)`) — read via get_variable_defs on the
+     Support V3 merchant-helpdesk reference (node 2710:27270), where the
+     Helpdesk Header badge and panel figure resolve to this variable
+     instead of Accent/Secondary. Same treatment as Background/Page
+     above: kept as its own named token rather than merged into the
+     coincidentally-equal one. */
+  --color-aubergine: #462160;
+
+  /* Remaining Figma variables found in the library audit: `stone` and
+     `var(--color-gold)` (same value as Accent/Soft, distinct name —
+     bound by Chip Kind=Open). */
+  --color-stone: #343330;
+  --color-gold: #e0be60;
+  /* Bound on the PlaceItWherever scenario's own placeholder-card fill
+     (Figma node 2745:36229, fileKey TiAeD9ICNjjC8N3zoUJExk) — the flat
+     color review feedback swapped the shared skeleton gradient for. */
+  --color-sand: #f3e9d4;
+
+  /* ILL/Space/* */
+  --ill-space-2: 2px;
+  --ill-space-4: 4px;
+  --ill-space-6: 6px;
+  --ill-space-12: 12px;
+  --ill-space-16: 16px;
+  --ill-space-32: 32px;
+  /* Bound separately from the ILL/Space scale (plain `var(--space-xs)` in
+     Figma, 8px) — read from the Helpdesk Header's container gap. */
+  --space-xs: 8px;
+
+  /* ILL/Radius/* */
+  --ill-radius-sm: 5px;
+  --ill-radius-lg: 16px;
+  --ill-radius-full: 999px;
+
+  /* ILL/Stroke/* */
+  --ill-stroke-hairline: 0.5px;
+  --ill-stroke-default: 1px;
+}
+
+.pa-motion {
+  /* Exact solid fill from REF Sleep-Product, 1941:13628 in TiAeD9ICNjjC8N3zoUJExk. */
+  --color-green: #1f4633;
+}
+
+/* illustrations/WidgetLandscape/WidgetLandscape.css */
+/* ---------- Frame ----------
+   1280x599 backdrop; the page panel sits inside the backdrop's gold
+   border (inset 56px, Visuals 21-23's own page offset), clipped at its
+   bottom edge with a short fade. The widget centers over everything. */
+.pa-motion .ill-landscape-canvas {
+  position: relative;
+  width: 1280px;
+  height: 599px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.pa-motion .ill-landscape-canvas__page {
+  position: absolute;
+  inset: 56px 56px 48px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* The 1286px-wide marketplace scene scaled to the panel's width. */
+.pa-motion .ill-landscape-canvas__scene {
+  width: 1286px;
+  transform: scale(calc(1168 / 1286));
+  transform-origin: 0 0;
+}
+
+.pa-motion .ill-landscape-canvas__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 96px;
+  pointer-events: none;
+}
+
+.pa-motion .ill-landscape-canvas__fade .ill-content-fade {
+  position: static;
+  width: 100%;
+  height: 100%;
+}
+
+.pa-motion .ill-landscape-canvas__widget {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Landscape shells carry a longer exchange than the portrait set, so the
+   transcript uses Support V3's tight rhythm (16px between turns, 10px
+   inside a turn) instead of the 40px default — same precedent, not a
+   new spacing value. */
+.pa-motion .ill-landscape-shell .ill-thread > * + * {
+  margin-top: 16px;
+}
+
+.pa-motion .ill-landscape-shell .ill-assistant-turn {
+  gap: 10px;
+}
+
+/* Shared card surface — the grouped-module recipe the anchor cards in
+   Visuals 21-23 use (Background/Subtle fill, Border/Default hairline). */
+.pa-motion .ill-landscape-card {
+  padding: 12px;
+  background: var(--ill-color-background-subtle);
+  border: 0.565px solid var(--ill-color-border-default);
+  border-radius: 12px;
+}
+
+.pa-motion .ill-landscape-card .ill-thumbnail {
+  border-radius: 8px;
+}
+
+/* ---------- 01 — Audience card ---------- */
+.pa-motion .ill-audience-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+}
+
+.pa-motion .ill-audience-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pa-motion .ill-audience-card__label {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: -0.07px;
+  color: var(--ill-color-text-body);
+}
+
+.pa-motion .ill-audience-card__body {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.pa-motion .ill-audience-card__conditions {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Rows borrow Attribute-Row's own divider and label type. */
+.pa-motion .ill-audience-card__conditions li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: var(--ill-stroke-default) solid #ebdcc6;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 11.5px;
+  letter-spacing: 0.05px;
+  color: #3a342e;
+}
+
+.pa-motion .ill-audience-card__conditions li:last-child {
+  border-bottom: none;
+}
+
+.pa-motion .ill-audience-card__conditions .ill-icon,
+.pa-motion .ill-audience-card__conditions img {
+  flex-shrink: 0;
+}
+
+.pa-motion .ill-audience-card__example {
+  flex: 0 0 300px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: var(--ill-color-background-canvas);
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: 10px;
+}
+
+.pa-motion .ill-audience-card__example-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  font-family: var(--font-geist), sans-serif;
+}
+
+.pa-motion .ill-audience-card__example-request {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--ill-color-text-metadata);
+}
+
+.pa-motion .ill-audience-card__example-match {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ill-color-text-body);
+}
+
+.pa-motion .ill-audience-card__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pa-motion .ill-audience-card__header .ill-button {
+  flex: 0 0 auto;
+  padding: 7px 14px;
+  font-size: 11px;
+}
+
+/* ---------- 02 — Sized product card ----------
+   Product row (text left, price right), then one footer row: the size
+   choice on the left, the card's own CTA in its resolved "Added to
+   cart" state on the right (CommerceProductCard's disabled treatment). */
+.pa-motion .ill-size-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 12px;
+}
+
+.pa-motion .ill-size-card__product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pa-motion .ill-size-card__text {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-geist), sans-serif;
+}
+
+.pa-motion .ill-size-card__brand {
+  font-size: 10px;
+  letter-spacing: -0.057px;
+  color: var(--ill-color-text-metadata);
+}
+
+.pa-motion .ill-size-card__title {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}
+
+.pa-motion .ill-size-card__subtitle {
+  font-size: 11px;
+  color: var(--ill-color-text-metadata);
+}
+
+.pa-motion .ill-size-card__price {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: #1f1b18;
+}
+
+.pa-motion .ill-size-card__sizes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: var(--ill-stroke-default) solid #ebdcc6;
+}
+
+.pa-motion .ill-size-card__sizes-label {
+  margin-right: 4px;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 12px;
+  color: var(--ill-color-text-metadata);
+}
+
+.pa-motion .ill-size-card__sizes .ill-chip {
+  min-width: 34px;
+  justify-content: center;
+  padding: 3px 10px;
+  font-size: 11px;
+}
+
+.pa-motion .ill-size-card__recommended {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 4px;
+  white-space: nowrap;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 11px;
+  color: var(--ill-color-accent-strong);
+}
+
+
+.pa-motion .ill-size-card__added {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: var(--ill-radius-sm);
+  background: var(--ill-color-background-recessed);
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--ill-color-text-body);
+}
+
+/* ---------- Scene: merchant admin (01) ---------- */
+.pa-motion .ill-landscape-admin {
+  gap: 24px;
+}
+
+.pa-motion .ill-landscape-admin__sidebar {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  background: var(--ill-color-background-subtle);
+  border: 0.535px solid var(--ill-color-border-default);
+  border-radius: 15px;
+}
+
+.pa-motion .ill-landscape-admin__sidebar span {
+  height: 9px;
+  width: 70%;
+  border-radius: 4px;
+  background: var(--ill-color-background-recessed);
+}
+
+.pa-motion .ill-landscape-admin__sidebar span:nth-child(odd) {
+  width: 55%;
+}
+
+.pa-motion .ill-landscape-admin__sidebar .ill-landscape-admin__nav-item--active {
+  background: var(--ill-color-accent-soft);
+}
+
+.pa-motion .ill-landscape-admin__main {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pa-motion .ill-landscape-admin__heading {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: #2a2622;
+}
+
+.pa-motion .ill-landscape-admin__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+.pa-motion .ill-landscape-admin__tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-geist), sans-serif;
+}
+
+.pa-motion .ill-landscape-admin__tile-media {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 0.535px solid var(--ill-color-border-default);
+}
+
+.pa-motion .ill-landscape-admin__tile-media .ill-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pa-motion .ill-landscape-admin__tile-title {
+  font-size: 13px;
+  color: #2a2622;
+}
+
+.pa-motion .ill-landscape-admin__tile-price {
+  font-size: 12px;
+  color: var(--ill-color-text-metadata);
+}
+
+/* Main gallery shot fills its frame edge to edge. */
+.pa-motion .ill-landscape-canvas .ill-marketplace__gallery-main .ill-media {
+  object-fit: cover;
+}
+
+/* 02's 460x320 shell is shorter than its four turns, so the transcript
+   opens scrolled to its end — the resolved Medium / Added to cart state
+   stays in view and earlier turns scroll up behind the header, the way
+   a real widget sits after the exchange. column-reverse anchors the
+   initial scroll position to the bottom without script. */
+.pa-motion .ill-landscape-shell--compact .ill-conversation-viewport__content {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+
+/* ---------- Compact (600x370) ---------- */
+
+/* 01 — whole card in view above "Yes!": title + action share the header
+   row, the three conditions sit side by side as columns. The optional
+   example pair is dropped at this size rather than squeezed. */
+.pa-motion .ill-landscape-shell--compact .ill-audience-card {
+  gap: 10px;
+  padding: 12px;
+}
+
+.pa-motion .ill-landscape-shell--compact .ill-audience-card__example {
+  display: none;
+}
+
+.pa-motion .ill-landscape-shell--compact .ill-audience-card__conditions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-top: 10px;
+  border-top: var(--ill-stroke-default) solid #ebdcc6;
+}
+
+.pa-motion .ill-landscape-shell--compact .ill-audience-card__conditions li {
+  align-items: flex-start;
+  gap: 6px;
+  padding: 0 10px;
+  border-bottom: none;
+  border-left: var(--ill-stroke-default) solid #ebdcc6;
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.pa-motion .ill-landscape-shell--compact .ill-audience-card__conditions li:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.pa-motion .ill-landscape-shell--compact .ill-audience-card__conditions li img,
+.pa-motion .ill-landscape-shell--compact .ill-audience-card__conditions li svg {
+  margin-top: 1px;
+}
+
+/* ---------- Scenes: shared ---------- */
+
+/* Skeleton bars on the page behind (Background/Recessed all but
+   disappears on Background/Subtle). */
+.pa-motion .ill-landscape-canvas .ill-marketplace__nav-links span,
+.pa-motion .ill-landscape-admin__sidebar span {
+  /* Literal #dccbbc, per review — no bound token carries this value. */
+  background: #dccbbc;
+  opacity: 0.5;
+}
+
+.pa-motion .ill-landscape-admin__sidebar .ill-landscape-admin__nav-item--active {
+  background: var(--ill-color-accent-soft);
+  opacity: 1;
+}
+
+/* ---------- Scene: jacket PDP (02) ----------
+   Tight top-down stack (no space-between) so the visible band above the
+   frame's bottom edge carries the product details. */
+.pa-motion .ill-landscape-pdp.ill-marketplace__info {
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 20px 24px;
+}
+
+.pa-motion .ill-landscape-pdp__head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pa-motion .ill-landscape-pdp__price-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pa-motion .ill-landscape-pdp__price-row .ill-marketplace__price {
+  margin: 0;
+}
+
+/* Rating at PDP scale — Rating's own 9px stars and 10px count doubled
+   down for a page heading, not the in-card size. */
+.pa-motion .ill-landscape-pdp .ill-rating {
+  gap: 8px;
+}
+
+.pa-motion .ill-landscape-pdp .ill-rating__stars img {
+  width: 15px;
+  height: 15px;
+}
+
+.pa-motion .ill-landscape-pdp .ill-rating__count {
+  font-size: 13px;
+}
+
+.pa-motion .ill-landscape-pdp__description {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #3a342e;
+}
+
+.pa-motion .ill-landscape-pdp__row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 13px;
+}
+
+.pa-motion .ill-landscape-pdp__label {
+  color: var(--ill-color-text-metadata);
+}
+
+.pa-motion .ill-landscape-pdp__value {
+  font-weight: 500;
+  color: #1f1b18;
+}
+
+.pa-motion .ill-landscape-pdp__details {
+  margin: 0;
+  padding: 12px 0 0 16px;
+  border-top: var(--ill-stroke-default) solid #ebdcc6;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 16px;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 13px;
+  color: #3a342e;
+}
+
+/* ---------- Aubergine accents (review) ----------
+   The selected size and the page's Add to Cart use the aubergine
+   variable (--color-aubergine, #462160) in these two landscape frames
+   only. The composer's send button keeps its own Accent/Strong. */
+.pa-motion .ill-landscape-shell .ill-size-card__sizes .ill-chip--action-primary {
+  background: var(--color-aubergine);
+}
+
+.pa-motion .ill-landscape-canvas .ill-marketplace__actions .ill-button--primary {
+  background: var(--color-aubergine);
+}
+
+
+/* 12 only: its composer send button is aubergine too (11 keeps the
+   default Accent/Strong red). */
+.pa-motion .ill-landscape-shell--aubergine .ill-chat-composer .ill-icon-button--accent {
+  background: var(--color-aubergine);
+}
+
+/* "Recommended fit" as Chip's own small Label kind beside M — a real tag
+   rather than tinted 11px text, so it reads at a glance. */
+.pa-motion .ill-size-card__recommended .ill-chip {
+  color: var(--color-aubergine);
+  border-color: rgba(70, 33, 96, 0.25);
+}
+
+/* Landscape motion (11, 12): a typed message longer than two lines
+   would grow the composer — and with it the 370px shell's chat area —
+   on every new line. Cap it at two lines and let earlier lines scroll
+   up out of view the way a real textarea follows its caret:
+   column-reverse anchors the line wrapper to the bottom, so overflow
+   clips off the top — exactly on a line boundary, since the cap is a
+   whole number of line-heights. Only the typing state carries the wrapper, so the
+   statics' placeholder composer is untouched. */
+.pa-motion .ill-landscape-shell .ill-chat-composer__text--typing {
+  display: flex;
+  flex-direction: column-reverse;
+  max-height: 2lh;
+  overflow: hidden;
+}
+
+
+/* 11/12 motion open as just the composer and clip out to the shell
+   (ChatMotionScene's expandAfter) — settle on the shell's own corners. */
+.pa-motion .ill-landscape-canvas__widget .sell-expand {
+  --sell-expanded-radius: 12.701px;
+}
+
+/* Bleed (motion 11/12, after Visual 21): the page runs off the frame's
+   bottom edge — square bottom corners, fading out over the backdrop —
+   and the widget hangs from the bottom at 21's own 33.1px, so the
+   Frame 1 composer sits low on the page instead of mid-frame. */
+.pa-motion .ill-landscape-canvas--bleed .ill-landscape-canvas__page {
+  bottom: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.pa-motion .ill-landscape-canvas--bleed .ill-landscape-canvas__widget {
+  top: auto;
+  bottom: 33.1px;
+  transform: translateX(-50%);
+}
+
+/* components/ill/ContentFade.css */
+/* Pinned to the bottom edge of ConversationViewport (its positioning
+   parent), overlaying scrollable content without participating in its
+   flow — "never wrap transcript content" per the component's own
+   description. Color adapted from the canonical gradient: the Figma
+   source targets Background/Surface (#f9f4eb), authored for fading
+   content against a card-toned backdrop. Here the fade sits directly
+   over the shell's own Background/Page (#fff9e9), so the solid target
+   color is matched to that instead — same stop positions/angle, just the
+   color corrected to what's actually behind it. */
+.pa-motion .ill-content-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 32px;
+  pointer-events: none;
+  background-image: linear-gradient(
+    180.13deg,
+    rgba(255, 249, 233, 0) 3.5575%,
+    rgb(255, 249, 233) 66.118%,
+    rgb(255, 249, 233) 113.61%
+  );
+}
+
+/* visuals/PersonalAgentsPossibilities/Promotions.css */
+/* Promotions & Upselling: the Possibilities shell at compact scale.
+   355x402 canvas, 292x338 window; type steps down one notch (13/12/11). */
+.pa-motion .pap-canvas.pap-canvas--compact { width: 355px; height: 402px; }
+.pa-motion .pap.pap--compact { width: 292px; height: 338px; border-radius: 16px; font-size: 12px; line-height: 17px; }
+.pa-motion .pap--compact .pap-header { height: 44px; padding: 0 12px; gap: 8px; }
+.pa-motion .pap--compact .pap-logo { width: 26px; height: 26px; }
+.pa-motion .pap--compact .pap-logo--muse img { width: 16px; height: 16px; }
+.pa-motion .pap--compact .pap-logo--grok svg { width: 26px; height: 26px; }
+.pa-motion .pap--compact .pap-header__title b { font-size: 13px; line-height: 16px; }
+.pa-motion .pap--compact .pap-header__title small { font-size: 11px; line-height: 14px; }
+.pa-motion .pap--compact .pap-thread { gap: 8px; padding: 10px 10px 12px; }
+.pa-motion .pap--compact .pap-bubble { padding: 7px 11px; border-radius: 16px; max-width: 88%; }
+.pa-motion .pap--compact .pap-merchant { gap: 8px; padding: 10px; border-radius: 16px; }
+.pa-motion .pap--compact .pap-via { height: 26px; padding: 0 10px 0 3px; font-size: 11px; gap: 5px; }
+.pa-motion .pap--compact .pap-via__mark.demo-brand-mark { width: 20px; height: 20px; }
+.pa-motion .pap--compact .pap-merchant__reply { font-size: 12px; line-height: 17px; }
+
+.pa-motion .pap--compact { --hair: rgba(22, 23, 27, .08); --primary: #462160; --wash: rgba(70, 33, 96, .08); --good: #157347; }
+.pa-motion .pap--compact.pap--grok { --hair: rgba(255, 255, 255, .1); --wash: rgba(255, 255, 255, .1); --good: #6ee7a0; }
+.pa-motion .pap--compact.pap--grok .pap-merchant { --primary: #f4f4f5; --on-primary: #0f0f10; }
+.pa-motion .ppr-price { display: inline-flex; align-items: baseline; gap: 5px; font-variant-numeric: tabular-nums; }
+.pa-motion .ppr-price b { font-size: 13px; }
+.pa-motion .ppr-price s { font-size: 11px; color: var(--card-muted); }
+.pa-motion .ppr-terms { font-size: 11px; line-height: 15px; color: var(--card-muted); }
+.pa-motion .ppr-badge { position: absolute; top: 6px; left: 6px; display: inline-flex; align-items: center; justify-content: center;
+    padding: 3px 7px; border-radius: 999px; background: var(--primary); color: var(--on-primary, #fff);
+    font: 500 10px/12px Inter, system-ui, sans-serif; white-space: nowrap; }
+.pa-motion .ppr-badge--dark { background: #16171b; }
+
+/* Badges: the Storybook Badge (filled pill, medium, no border, flex-centred,
+   tight into the top-left), kept below the card's 12px text in the compact
+   frame: 10/12 type, 7px sides; the extra top half-pixel centres Inter optically. */
+
+/* 08: the evaluated bag beside the upgrade, the pick ringed (selector
+   plate), the price difference on it; benefits as checked lines. */
+.pa-motion .ppr-compare { display: flex; flex-direction: column; gap: 6px; }
+.pa-motion .ppr-opt { display: flex; align-items: center; gap: 8px; padding: 5px 8px 5px 5px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--hair); }
+.pa-motion .ppr-opt img { flex: none; width: 36px; height: 36px; border-radius: 8px; background: var(--plate); object-fit: contain; padding: 3px; }
+.pa-motion .ppr-opt > span:nth-child(2) { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.pa-motion .ppr-opt small { font-size: 11px; line-height: 15px; color: var(--card-muted); }
+.pa-motion .ppr-opt--pick { background: var(--wash); box-shadow: inset 0 0 0 1.5px var(--primary); }
+.pa-motion .ppr-diff { flex: none; display: inline-flex; align-items: center; justify-content: center; padding: 3px 7px; border-radius: 999px;
+    background: var(--primary); color: var(--on-primary, #fff); font: 500 10px/12px Inter, system-ui, sans-serif; white-space: nowrap; }
+.pa-motion .ppr-benefits { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 3px; font-size: 11px; line-height: 15px; }
+.pa-motion .ppr-benefits li { display: flex; gap: 6px; align-items: flex-start; }
+.pa-motion .ppr-benefits svg { flex: none; margin-top: 2px; color: var(--good); }
+
+/* 09: one product card carrying its promotion. */
+.pa-motion .ppr-deal { display: flex; flex-direction: column; gap: 6px; padding: 3px 3px 8px; border-radius: 14px; box-shadow: inset 0 0 0 1px var(--hair); }
+.pa-motion .ppr-deal__media { position: relative; height: 84px; border-radius: 11px; background: var(--plate); }
+.pa-motion .ppr-deal__media img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 8px; object-fit: contain; }
+.pa-motion .ppr-deal__body { display: flex; justify-content: space-between; align-items: flex-start; padding: 0 7px; }
+.pa-motion .ppr-deal__body > span:first-child { display: flex; flex-direction: column; }
+.pa-motion .ppr-deal__body small { font-size: 11px; line-height: 15px; color: var(--card-muted); }
+.pa-motion .ppr-deal .ppr-terms { padding: 0 7px; }
+
+/* 10: launch and bundle side by side, conditions under both. */
+.pa-motion .ppr-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.pa-motion .ppr-tile { display: flex; flex-direction: column; gap: 2px; padding: 3px 3px 7px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--hair); }
+.pa-motion .ppr-tile__media { position: relative; height: 64px; margin-bottom: 4px; border-radius: 9px; background: var(--plate); }
+.pa-motion .ppr-tile__media img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 6px; object-fit: contain; }
+.pa-motion .ppr-tile > b,
+.pa-motion .ppr-tile > .ppr-price { padding: 0 5px; }
+.pa-motion .ppr-tile > b { font-size: 11px; line-height: 15px; }
+
+/* Grok Bot, light mode: Grok's own black mark and type on white; its
+   light chrome is neutral grey, with black for the bubble-side accents. */
+.pa-motion .pap.pap--grok.pap--light { --bg: #fff; --bar: #fff; --fg: #0f0f10; --muted: #6b6b70; --line: rgba(15, 15, 16, .08);
+    --bubble: #f0f0f1; --bubble-fg: #0f0f10; --dots: #f0f0f1; --dot: #6b6b70; --plate: #f5f5f5;
+    --hair: rgba(15, 15, 16, .08); --wash: #f0f0f1; --good: #157347;
+    box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+.pa-motion .pap--grok.pap--light .pap-merchant { --card: #fff; --card-fg: #0f0f10; --card-muted: #6b6b70; --plate: #f5f5f5; --primary: #0f0f10;
+    box-shadow: 0 0 0 1px rgba(15, 15, 16, .08), 0 2px 8px rgba(10, 10, 14, .05); }
+.pa-motion .pap--grok.pap--light .pap-via { box-shadow: inset 0 0 0 1px rgba(15, 15, 16, .08); }
+
+/* The compact frames take their own backdrop. */
+.pa-motion .pap-canvas.pap-canvas--compact { background: #5c0f2c url("../../assets/motion/ill-frame/compact_bg.webp") center / cover no-repeat; }
+
+/* Minimal landing, once: the bubble rises, the card follows, then the
+   card's contents settle 60ms apart. Transitions from a resting hidden
+   state, so nothing loops or replays. */
+.pa-motion .ppr-land .pap-thread > *,
+.pa-motion .ppr-land .pap-merchant > * {
+  opacity: 0; transform: translateY(6px); filter: blur(2px);
+  transition: opacity 260ms ease-out, transform 420ms cubic-bezier(0.23, 1, 0.32, 1), filter 260ms ease-out;
+}
+.pa-motion .ppr-land .pap-merchant { transform: translateY(10px); }
+.pa-motion .ppr-land--in .pap-thread > *,
+.pa-motion .ppr-land--in .pap-merchant > * { opacity: 1; transform: none; filter: none; }
+.pa-motion .ppr-land--in .pap-thread > :nth-child(1) { transition-delay: 150ms; }
+.pa-motion .ppr-land--in .pap-thread > :nth-child(2) { transition-delay: 380ms; }
+.pa-motion .ppr-land--in .pap-merchant > :nth-child(1) { transition-delay: 520ms; }
+.pa-motion .ppr-land--in .pap-merchant > :nth-child(2) { transition-delay: 580ms; }
+.pa-motion .ppr-land--in .pap-merchant > :nth-child(3) { transition-delay: 640ms; }
+.pa-motion .ppr-land--in .pap-merchant > :nth-child(4) { transition-delay: 700ms; }
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .ppr-land .pap-thread > *,
+.pa-motion .ppr-land .pap-merchant > * { transform: none; filter: none; transition: opacity 200ms ease-out; }
+}
+.pa-motion .pap--grok.pap--light .pap-merchant { --on-primary: #fff; }
+
+/* visuals/PersonalAgentsPossibilities/TheCase.css */
+/* The Case: AI Assistants 15's frame. LandscapeCanvas (1280x599, green,
+   bleed) scales a 1286x598 scene by 1168/1286; the page fade is off, as
+   on 15. Inside: Grok Bot's dark desktop app. */
+.pa-motion .pac-section { display: flex; flex-direction: column; gap: 32px; }
+.pa-motion .pac-figure { margin: 0; }
+.pa-motion .pac-stage { width: 1280px; }
+.pa-motion .pac-stage .ill-landscape-canvas__fade { display: none; }
+
+.pa-motion .pac-app { --g-bg: #fff; --g-bar: #fff; --g-line: rgba(15, 15, 16, .08); --g-fg: #0f0f10; --g-muted: #6b6b70; --g-accent: rgb(0, 76, 39);
+    --g-field: #f2f2f3; --site: #f3f6ee; --site-plate: #e6ebdd; --site-line: #dfe5d4; --cw: rgb(0, 76, 39); --cw-soft: rgba(0, 76, 39, .035);
+    width: 1286px; height: 598px; display: flex; flex-direction: column; background: var(--g-bg); color: var(--g-fg);
+    font: 400 14px/20px Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.pa-motion .pac-app *,
+.pa-motion .pac-app *::before,
+.pa-motion .pac-app *::after { box-sizing: border-box; }
+.pa-motion .pac-app p { margin: 0; }
+.pa-motion .pac-app b { font-weight: 500; }
+
+.pa-motion .pac-top { flex: none; display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 18px; background: var(--g-bar); border-bottom: 1px solid var(--g-line); }
+.pa-motion .pac-top .pap-logo { width: 32px; height: 32px; }
+.pa-motion .pac-top__title { display: flex; flex-direction: column; flex: 1; }
+.pa-motion .pac-top__title b { font-size: 15px; line-height: 19px; }
+.pa-motion .pac-top__title small { font-size: 12px; line-height: 16px; color: var(--g-muted); }
+.pa-motion .pac-top__pc { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; color: var(--g-muted); background: var(--g-field); }
+.pa-motion .pac-top__pc--on { color: var(--g-accent); background: rgba(0, 76, 39, .08); box-shadow: inset 0 0 0 1px rgba(0, 76, 39, .3); }
+
+.pa-motion .pac-body { flex: 1; min-height: 0; display: flex; }
+
+/* Chat column: the Possibilities Grok shell, unboxed. */
+.pa-motion .pac-chat.pap { width: 430px; height: auto; flex: none; border-radius: 0; box-shadow: none; border-right: 1px solid var(--g-line); }
+.pa-motion .pac-thread { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 14px; padding: 20px 20px 12px; }
+.pa-motion .pac-log { display: flex; flex-direction: column; gap: 6px; }
+.pa-motion .pac-composer { margin: 0 16px 16px; height: 48px; border-radius: 24px; padding: 0 18px; display: flex; align-items: center;
+    background: var(--g-field); box-shadow: inset 0 0 0 1px var(--g-line); color: #8a8a90; font-size: 14px; }
+
+.pa-motion .pac-result { display: flex; align-items: center; gap: 14px; padding: 10px; border-radius: 18px; background: #fff; box-shadow: 0 0 0 1px var(--g-line); }
+.pa-motion .pac-result__media { flex: none; width: 92px; height: 92px; border-radius: 12px; background: var(--site-plate); display: grid; place-items: center; }
+.pa-motion .pac-result__media img { width: 80px; height: 80px; object-fit: contain; }
+.pa-motion .pac-result__body { flex: 1; display: flex; flex-direction: column; }
+.pa-motion .pac-result__body small { font-size: 12px; color: var(--g-muted); }
+.pa-motion .pac-result__body b { font-size: 15px; }
+.pa-motion .pac-result__body span { font-size: 13px; color: var(--g-muted); }
+.pa-motion .pac-done { align-self: flex-start; display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px;
+    background: #e7f6ec; color: #157347; font-size: 12px; font-weight: 500; }
+
+/* Computer panel: browser chrome around the Trailwell storefront. */
+.pa-motion .pac-pc { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 14px; gap: 10px; }
+.pa-motion .pac-pc__bar { flex: none; display: flex; align-items: center; gap: 10px; }
+.pa-motion .pac-pc__nav { display: flex; gap: 6px; color: var(--g-muted); }
+.pa-motion .pac-pc__url { flex: 1; display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 10px; background: var(--g-field);
+    font-size: 12.5px; color: #3f3f46; }
+.pa-motion .pac-pc__live { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--g-accent); }
+.pa-motion .pac-pc__live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.pa-motion .pac-pc__live--off { color: var(--g-muted); }
+
+.pa-motion .pac-store { flex: 1; min-height: 0; border-radius: 12px; background: var(--site); color: #1d2a22; box-shadow: 0 0 0 1px var(--site-line); overflow: hidden; display: flex; flex-direction: column;
+    font-family: var(--font-space-grotesk), Inter, sans-serif; }
+.pa-motion .pac-store__head { flex: none; display: flex; align-items: center; gap: 24px; height: 48px; padding: 0 20px; border-bottom: 1px solid var(--site-line); background: #f8faf4; font-size: 13px; }
+.pa-motion .pac-store__brand { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
+.pa-motion .pac-store__mark.demo-brand-mark { width: 24px; height: 24px; border-radius: 50%; overflow: hidden; }
+.pa-motion .pac-store__mark img { width: 100%; height: 100%; object-fit: cover; }
+.pa-motion .pac-store__head nav { display: flex; gap: 18px; color: #4a5a50; flex: 1; }
+.pa-motion .pac-store__search { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 999px; background: var(--site-plate); color: #4a5a50; font-size: 12px; }
+
+.pa-motion .pac-loading { flex: 1; display: grid; place-content: center; justify-items: center; gap: 10px; color: #7b857e; font: 13px Inter, sans-serif; }
+.pa-motion .pac-spin { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--site-line); border-top-color: #2f4a3a; }
+
+.pa-motion .pac-results { padding: 20px 20px 16px; display: flex; flex-direction: column; gap: 12px; }
+.pa-motion .pac-results .pac-banner { padding: 16px 22px; }
+.pa-motion .pac-results .pac-banner b { font-size: 22px; }
+.pa-motion .pac-results__meta { font-size: 13px; color: #4a5a50; }
+.pa-motion .pac-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.pa-motion .pac-card { position: relative; display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+.pa-motion .pac-card__media { height: 150px; border-radius: 10px; background: var(--site-plate); display: grid; place-items: center; margin-bottom: 8px; }
+.pa-motion .pac-card__media { position: relative; overflow: hidden; }
+.pa-motion .pac-card__media img { position: absolute; inset: 10px; width: calc(100% - 20px); height: calc(100% - 20px); object-fit: contain; }
+.pa-motion .pac-card small { font-size: 13px; color: #6b766f; }
+.pa-motion .pac-card--dim { opacity: .35; }
+.pa-motion .pac-card--match .pac-card__media { box-shadow: 0 0 0 1px var(--cw); background: color-mix(in srgb, var(--cw) 4%, var(--site-plate)); }
+.pa-motion .pac-agent-tag { position: absolute; top: 10px; left: 10px; display: inline-flex; align-items: center; padding: 4px 9px 3px; border-radius: 999px;
+    background: #fff; color: var(--cw); box-shadow: 0 0 0 1px rgba(0, 76, 39, .18), 0 1px 2px rgba(0, 0, 0, .08);
+    font: 500 11px/14px Inter, sans-serif; white-space: nowrap; }
+
+/* State 4: storefront modules, full color in both treatments. */
+.pa-motion .pac-mod { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px var(--site-line); }
+.pa-motion .pac-mod__media { position: relative; flex: none; width: 64px; height: 64px; border-radius: 10px; background: var(--site-plate); display: grid; place-items: center; }
+.pa-motion .pac-mod__media img { width: 54px; height: 54px; object-fit: contain; }
+.pa-motion .pac-mod__media i { position: absolute; right: -5px; bottom: -5px; padding: 1px 6px; border-radius: 999px; background: #2f4a3a; color: #fff; font: 500 10px/15px Inter, sans-serif; font-style: normal; }
+.pa-motion .pac-mod > span:last-child { display: flex; flex-direction: column; font-size: 13px; line-height: 18px; }
+.pa-motion .pac-mod small { font: 500 10px/14px Inter, sans-serif; letter-spacing: .05em; text-transform: uppercase; color: #8a948d; }
+.pa-motion .pac-mod b { font-size: 14px; }
+.pa-motion .pac-mod em { font-style: normal; font-weight: 600; }
+.pa-motion .pac-mod s { color: #9aa29c; }
+.pa-motion .pac-mod > span:last-child > span { color: #6b766f; }
+
+.pa-motion .pac-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.pa-motion .pac-mini__card { display: flex; flex-direction: column; font-size: 12.5px; line-height: 17px; }
+.pa-motion .pac-mini__card small { font-size: 11.5px; color: #6b766f; }
+.pa-motion .pac-mini__media { height: 108px; border-radius: 10px; background: var(--site-plate); display: grid; place-items: center; margin-bottom: 6px; }
+.pa-motion .pac-mini__media img { width: 78%; height: 86%; object-fit: contain; }
+.pa-motion .pac-mini__card--pick .pac-mini__media { box-shadow: 0 0 0 1px var(--cw); background: color-mix(in srgb, var(--cw) 4%, var(--site-plate)); }
+
+/* 4A split: storefront | the agent's read. */
+.pa-motion .pac-split { flex: 1; min-height: 0; display: grid; grid-template-columns: 1.35fr 1fr; }
+.pa-motion .pac-split__shop { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; }
+.pa-motion .pac-split__shop .pac-banner { padding: 14px 18px; }
+.pa-motion .pac-split__shop .pac-banner b { font-size: 20px; line-height: 24px; }
+.pa-motion .pac-split__shop .pac-banner__cta { margin-top: 6px; padding: 4px 12px; font-size: 12px; }
+.pa-motion .pac-split__shop .pac-mini__media { height: 84px; }
+.pa-motion .pac-split__mods { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pa-motion .pac-split__mods .pac-mod { padding: 8px; gap: 8px; }
+.pa-motion .pac-split__mods .pac-mod__media { width: 48px; height: 48px; }
+.pa-motion .pac-split__mods .pac-mod__media img { width: 40px; height: 40px; }
+.pa-motion .pac-split__mods .pac-mod > span:last-child { font-size: 11.5px; line-height: 15px; }
+.pa-motion .pac-split__mods .pac-mod b { font-size: 12.5px; }
+.pa-motion .pac-split__label { font: 500 11px/14px Inter, sans-serif; letter-spacing: .05em; text-transform: uppercase; color: #8a948d; }
+.pa-motion .pac-split__read { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; background: #fff; color: #3f3f46; border-left: 1px solid var(--g-line); }
+.pa-motion .pac-split__label--agent { color: var(--g-accent); }
+.pa-motion .pac-read { flex: 1; margin: 0; font: 12.5px/20px ui-monospace, "SF Mono", Menlo, monospace; white-space: pre; color: #27272a; }
+.pa-motion .pac-read__foot { font: 500 12px/16px Inter, sans-serif; color: #6b6b70; padding-top: 10px; border-top: 1px solid var(--g-line); }
+
+/* 4B scan: the agent's read region (Storybook active state: hairline
+   ring in the primary plus a 10% wash, no glow) over the results only. */
+.pa-motion .pac-scan { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; padding: 14px 20px 16px; }
+.pa-motion .pac-scan .pac-banner { padding: 16px 22px; }
+.pa-motion .pac-scan .pac-banner b { font-size: 22px; }
+.pa-motion .pac-scan__row { flex: 1; display: grid; grid-template-columns: 1.6fr 1fr; gap: 14px; align-items: stretch; }
+.pa-motion .pac-scan__lit { position: relative; padding: 26px 10px 10px; border-radius: 12px; background: transparent; box-shadow: 0 0 0 1px transparent;
+    transition: background-color 400ms ease, box-shadow 400ms ease; }
+.pa-motion .pac-scan--read .pac-scan__lit { background: var(--cw-soft); box-shadow: 0 0 0 1px rgba(0, 76, 39, .55); }
+.pa-motion .pac-scan__tag { opacity: 0; transition: opacity 300ms ease-out; }
+.pa-motion .pac-scan--read .pac-scan__tag { opacity: 1; }
+.pa-motion .pac-scan__tag { position: absolute; top: 6px; left: 10px; display: inline-flex; align-items: center; gap: 5px; font: 500 11px/14px Inter, sans-serif; color: var(--cw); }
+.pa-motion .pac-scan__tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--cw); }
+.pa-motion .pac-scan__side { display: flex; flex-direction: column; gap: 10px; }
+.pa-motion .pac-banner__cta { align-self: flex-start; margin-top: 10px; padding: 6px 14px; border-radius: 999px; background: #fbfaf6; color: #2f4a3a; font-size: 13px; font-weight: 500; }
+.pa-motion .pac-banner { display: flex; flex-direction: column; gap: 2px; padding: 22px 22px; border-radius: 12px; color: #fbfaf6;
+    background: linear-gradient(120deg, #2f4a3a, #46664f); }
+.pa-motion .pac-banner b { font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -.02em; }
+.pa-motion .pac-banner span { font-size: 14px; opacity: .85; }
+
+/* Motion layer (data-animate on the store, set only by the motion page).
+   Each store view enters once; the reveal pulls back to the whole page:
+   the banner drops in, the agent's lit region glows on, then the skipped
+   modules arrive outside it, 70ms apart. */
+.pa-motion .pac-result.pac-late { animation-delay: 250ms; }
+.pa-motion .pac-store[data-animate] > * { animation: pam-pac-in 320ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+/* The pick: the ring draws on and the tag rises; the photo never re-enters. */
+.pa-motion .pac-store[data-animate] .pac-card__media { transition: box-shadow 260ms ease-out; }
+.pa-motion .pac-store[data-animate] .pac-agent-tag { animation: pam-pac-in 260ms cubic-bezier(0.23, 1, 0.32, 1) 80ms both; }
+.pa-motion .pac-store[data-animate] .pac-card--dim { transition: opacity 300ms ease-out; }
+@keyframes pam-pac-in { from { opacity: 0; transform: translateY(8px); filter: blur(2px); } }
+.pa-motion .pap-motion .pac-spin { animation: pam-pap-spin .8s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .pac-store[data-animate] *,
+.pa-motion .pac-store[data-animate] > * { animation: none !important; }
+}
+
+/* 4B: what the agent never read. A light grey-out (not a fade-out) and a
+   neutral badge on each module; the lit results stay full color. */
+.pa-motion .pac-unread { position: relative; }
+.pa-motion .pac-unread__body { transition: filter 400ms ease, opacity 400ms ease; }
+.pa-motion .pac-scan--read .pac-unread__body { filter: grayscale(.85); opacity: .72; }
+.pa-motion .pac-unread__badge { position: absolute; z-index: 1; top: 10px; right: 10px; display: inline-flex; align-items: center; justify-content: center;
+    padding: 6.6px 12px 5.4px; border-radius: 999px; background: #ecdcbb; color: #4e3a1f;
+    font: 500 12px/14.4px Inter, sans-serif; white-space: nowrap;
+    opacity: 0; transform: translateY(3px); transition: opacity 300ms ease-out, transform 300ms ease-out; }
+.pa-motion .pac-scan--read .pac-unread__badge { opacity: 1; transform: none; }
+.pa-motion .pac-scan--read .pac-unread:nth-of-type(1) .pac-unread__badge,
+.pa-motion .pac-scan--read .pac-scan__side .pac-unread__badge { transition-delay: 150ms; }
+.pa-motion .pac-scan { padding-top: 20px; }
+.pa-motion .pac-scan__side { gap: 18px; padding-top: 8px; }
+
+/* Light Grok: the chat column's own tokens, and dark checks on white. */
+.pa-motion .pac-chat.pap.pap--grok { --bg: #fff; --fg: #0f0f10; --muted: #6b6b70; --bubble: #f0f0f1; --bubble-fg: #0f0f10; }
+.pa-motion .pac-app .pap-activity--done svg { color: #157347; }
+.pa-motion .pac-app .pap-activity__spin { border-color: rgba(15, 15, 16, .14); border-top-color: #0f0f10; }
+.pa-motion .pap-motion .pac-app .pap-activity:not(.pap-activity--done) .pap-activity__line {
+    background-image: linear-gradient(100deg, #6b6b70 36%, #d4d4d8 50%, #6b6b70 64%); }
+.pa-motion .pac-top .pap-logo--grok { box-shadow: none; }
+
+/* 3 to 4B in place: only the read state changes, as transitions. */
+.pa-motion .pac-page { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.pa-motion .pac-page > :first-child { flex: 1; }
+
+.pa-motion .pac-mini__media { position: relative; }
+.pa-motion .pac-mini .pac-agent-tag { top: 6px; left: 6px; opacity: 0; transition: opacity 260ms ease-out; }
+.pa-motion .pac-mini__card--pick .pac-agent-tag { opacity: 1; }
+.pa-motion .pac-mini__media { transition: box-shadow 260ms ease-out, background-color 260ms ease-out; }
+@media (prefers-reduced-motion: reduce) { .pa-motion .pac-unread__body,
+.pa-motion .pac-unread__badge,
+.pa-motion .pac-scan__lit,
+.pa-motion .pac-scan__tag,
+.pa-motion .pac-mini__media,
+.pa-motion .pac-mini .pac-agent-tag { transition: none; } }
+
+/* Badges sit inside their modules (Storybook Badge: filled pill, 12/14.4
+   medium, 6x12, no border). The side modules give the badge its own row. */
+.pa-motion .pac-scan__side { gap: 10px; padding-top: 0; }
+.pa-motion .pac-scan__side .pac-mod { padding-top: 40px; }
+
+/* The read region matches the side column's height: both stretch to the
+   row, the side modules share it, and the result cards fill the region. */
+.pa-motion .pac-scan__lit { display: flex; flex-direction: column; }
+.pa-motion .pac-scan__lit .pac-mini { flex: 1; }
+.pa-motion .pac-scan__lit .pac-mini__card { height: 100%; }
+.pa-motion .pac-scan__lit .pac-mini__media { flex: 1; height: auto; min-height: 96px; }
+.pa-motion .pac-scan__side .pac-unread { flex: 1; display: flex; }
+.pa-motion .pac-scan__side .pac-unread__body { flex: 1; display: flex; }
+.pa-motion .pac-scan__side .pac-mod { flex: 1; }
+
+/* Composer: the send disc arms (fills) once there's text; caret blinks. */
+.pa-motion .pac-composer { justify-content: space-between; gap: 12px; padding-right: 7px; }
+.pa-motion .pac-composer--typing { color: var(--g-fg); }
+.pa-motion .pac-composer__text { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; }
+.pa-motion .pac-caret { display: inline-block; width: 1.5px; height: 17px; margin-left: 1px; vertical-align: -3px; background: var(--g-fg); animation: pam-pac-caret 1s steps(1) infinite; }
+@keyframes pam-pac-caret { 50% { opacity: 0; } }
+.pa-motion .pac-send { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: #e4e4e7; color: #fff;
+    transition: background-color 200ms ease-out; }
+.pa-motion .pac-send--ready { background: #0f0f10; }
+@media (prefers-reduced-motion: reduce) { .pa-motion .pac-caret { animation: none; } }
+
+/* Loading: a light beige page, not the site's sage. */
+.pa-motion .pac-store:has(.pac-loading) { background: #f7f1e6; box-shadow: 0 0 0 1px #ebe1cd; }
+.pa-motion .pac-loading { color: #8a7a60; }
+.pa-motion .pac-loading .pac-spin { border-color: #e6dac2; border-top-color: #8a7a60; }
+
+/* Banner: copy left, a larger, squarer CTA on the right edge, sitting at
+   the bottom so the corner badge keeps the top-right. */
+.pa-motion .pac-banner { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.pa-motion .pac-banner__copy { display: flex; flex-direction: column; gap: 2px; }
+.pa-motion .pac-banner .pac-banner__cta { flex: none; align-self: flex-end; margin: 0; height: 44px; padding: 0 22px; display: inline-flex; align-items: center;
+    border-radius: 10px; font-size: 15px; font-weight: 500; }
+.pa-motion .pac-split__shop .pac-banner .pac-banner__cta { height: 34px; padding: 0 14px; font-size: 12.5px; border-radius: 8px; }
+.pa-motion .pac-scan .pac-banner,
+.pa-motion .pac-results .pac-banner { min-height: 136px; }
+.pa-motion .pac-banner__copy { align-self: center; }
+
+/* Banner CTA: centred vertically, a brand-green button. */
+.pa-motion .pac-banner { align-items: center; }
+.pa-motion .pac-banner .pac-banner__cta { align-self: center; background: #8fd19e; color: #12301f; }
+
+/* Before the task: the chat owns the window, its column centred. When Grok
+   starts working, the computer panel slides in from the right and the chat
+   narrows to its column. The panel's content keeps its final width while
+   the panel opens, so nothing inside it reflows. */
+.pa-motion .pac-chat.pap { transition: width 560ms cubic-bezier(0.77, 0, 0.175, 1); }
+.pa-motion .pac-body[data-panel="closed"] .pac-chat.pap { width: 100%; border-right-color: transparent; }
+.pa-motion .pac-thread { width: 100%; max-width: 720px; margin-left: auto; margin-right: auto; }
+.pa-motion .pac-body[data-panel="closed"] .pac-composer { width: 680px; margin: 0 auto 16px; }
+.pa-motion .pac-pc { overflow: hidden; transition: opacity 360ms ease-out 200ms, transform 560ms cubic-bezier(0.77, 0, 0.175, 1); }
+.pa-motion .pac-pc > * { width: 828px; }
+.pa-motion .pac-body[data-panel="closed"] .pac-pc { opacity: 0; transform: translateX(48px); }
+@media (prefers-reduced-motion: reduce) { .pa-motion .pac-chat.pap,
+.pa-motion .pac-pc { transition: none; } }
+
+/*
+ * Site: 00–06 and 08–10 caption themselves with the gallery's tile label
+ * (`.app-stage__tile-label`, styled by the gallery page, not by these
+ * visuals). On the site the section says what the visual is, so the label
+ * is left out and each visual is just its frame (00: 1280 × 599,
+ * 01–03: 789 × 579, 04–06: 679 × 579, 08–10: 355 × 402).
+ */
+.pa-motion .app-stage__tile-label {
+  display: none;
+}

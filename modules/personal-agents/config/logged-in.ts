@@ -4,16 +4,19 @@ import type { LoggedInQuote } from "@/modules/ai-assistants/config/logged-in";
 export const agentQuotes: LoggedInQuote[] = [
   {
     quote: "“I need to send it back.”",
+    scene: "pa-send-it-back-motion",
     description:
       "After the customer signs in and gives permission, Crossword handles orders, returns, exchanges, and support tickets directly with the personal agent.",
   },
   {
     quote: "“Find me a sweater with my store credit.”",
+    scene: "pa-store-credit-motion",
     description:
       "After sign in, Crossword helps the personal agent access the shopper’s account, make fully informed selections, and checkout.",
   },
   {
     quote: "“Something I like.”",
+    scene: "pa-something-i-like-motion",
     description:
       "Crossword combines relevant shopper purchase history, loyalty eligibility, and previous support context with available preferences from the customer’s personal agent.",
   },

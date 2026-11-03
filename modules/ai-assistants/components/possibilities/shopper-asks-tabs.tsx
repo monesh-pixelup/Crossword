@@ -7,7 +7,7 @@ import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text
 import { ctaLinks } from "@/modules/marketing";
 import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import type { ShopperQuestion } from "../../config/possibilities";
-import { AiaMotionRoot, aiaScenes } from "../motion/aia-motion";
+import { motionScene } from "../motion/motion-scenes";
 
 /**
  * Figma "Library · Vertical tabs" (3305:381), as Sell's Product discovery and Retain's Campaigns &
@@ -22,7 +22,7 @@ import { AiaMotionRoot, aiaScenes } from "../motion/aia-motion";
  */
 export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] }) {
   // Each question's turn: its answer's run (the default run for a still panel) plus the hold.
-  const turns = questions.map((question) => tabTurn(question.scene && aiaScenes[question.scene].duration));
+  const turns = questions.map((question) => tabTurn(question.scene && motionScene(question.scene).scene.duration));
   const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns, { axis: "y" });
 
   return (
@@ -88,7 +88,7 @@ export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] })
               <Image src={question.panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
               {question.scene && (i === active || i === previous) && (
                 <div className="absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
-                  <ScenePanel key={plays[i]} scene={aiaScenes[question.scene]} active={i === active} root={AiaMotionRoot} maxScale={Infinity} />
+                  <ScenePanel key={plays[i]} {...motionScene(question.scene)} active={i === active} maxScale={Infinity} />
                 </div>
               )}
             </div>

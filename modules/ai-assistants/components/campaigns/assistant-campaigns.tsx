@@ -1,5 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { AiaScenePanel } from "../motion/aia-scene-panel";
+import type { MotionSlug } from "../motion/motion-scenes";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
@@ -9,8 +11,8 @@ import panelForest from "@/modules/retain/assets/audience/panel-forest.webp";
  * A "Library · Wide panel": the eyebrow and a swash headline (Crimson Light 60 at 1.1), then 80px below the 1280 × 599 forest damask
  * panel with its gold corner-notched frame and studs: Retain's Audiences panel export, scaled with the column.
  * A 232px gold tick sits on the left rail beside the eyebrow (98px down in Figma). Personal agents' "The case"
- * (3308:352) uses it with a two-line headline in a 1030px box; AI Assistants' Campaigns now has its own layout
- * (UseCaseCampaigns).
+ * (3308:352) uses it with a two-line headline in a 1030px box, playing its motion visual (`scene`, 1280 × 599) in the
+ * panel; AI Assistants' Campaigns now has its own layout (UseCaseCampaigns).
  */
 export function AssistantCampaigns({
   id = "ai-campaigns-title",
@@ -20,6 +22,7 @@ export function AssistantCampaigns({
   secondLine,
   width = 614.744,
   copy,
+  scene,
 }: {
   id?: string;
   eyebrow?: ReactNode;
@@ -30,6 +33,8 @@ export function AssistantCampaigns({
   width?: number;
   /** The line under the headline, as in Possibilities; none by default. */
   copy?: ReactNode;
+  /** The motion visual the panel plays (1280 × 599); the bare panel without one. */
+  scene?: MotionSlug;
 }) {
   return (
     <section aria-labelledby={id} className="relative section-pad">
@@ -46,9 +51,13 @@ export function AssistantCampaigns({
           )}
         </div>
 
-        {/* TODO: the campaign's motion scene plays in the panel once Figma has one. */}
         <div className="relative aspect-[1280/599] w-full overflow-clip bg-forest">
-          <Image src={panelForest} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-cover" />
+          {scene ? (
+            // Fills the content width (past its drawn 1280px on wide screens); a transform, so it shrinks cleanly on phones.
+            <AiaScenePanel slug={scene} fill transform />
+          ) : (
+            <Image src={panelForest} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-cover" />
+          )}
         </div>
       </div>
     </section>

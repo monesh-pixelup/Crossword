@@ -40,4 +40,7 @@ on the client only. They are drawn by ScenePanel (`modules/sell/components/motio
 | 12–14 `promo-upgrade`, `promo-offer`, `promo-launches` | 355 × 402 | promotions/promotions.tsx, in the steps' cells (config/promotions.ts) |
 | 15 `insights-motion` | 1280 × 599 | insights/insights.tsx (`scene`, passed by the AI Assistants page) |
 
-The Personal agents page shares these sections with its own copy and no visuals, so it keeps the still panels.
+The Personal agents page shares the possibilities, logged-in, promotions, insights and campaign sections with its own
+copy and its own visuals (modules/personal-agents/components/motion, `pa-` slugs). The sections take either kind of slug:
+`motion-scenes.tsx` looks a slug up in both registries and returns the visual with the scope it renders in, and
+`AiaScenePanel` draws one by slug.

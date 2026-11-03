@@ -2,7 +2,7 @@ import type { StaticImageData } from "next/image";
 import panelMaroon from "@/modules/sell/assets/discovery/panel-conversational.webp";
 import panelAubergine from "@/modules/sell/assets/discovery/panel-conversational-aubergine.webp";
 import panelForest from "@/modules/sell/assets/discovery/panel-conversational-forest.webp";
-import type { AiaSceneSlug } from "../components/motion/aia-motion";
+import type { MotionSlug } from "../components/motion/motion-scenes";
 
 /*
  * The shopper questions in "A shopper asks, Crossword answers" (Figma 3305:381). Each takes one of the
@@ -18,7 +18,7 @@ export type ShopperQuestion = {
   /** The framed panel the answer plays in. */
   panel: StaticImageData;
   /** The answer's motion visual (789 × 579), played inside the panel's lattice frame; the bare panel without one. */
-  scene?: AiaSceneSlug;
+  scene?: MotionSlug;
 };
 
 export const shopperQuestions: ShopperQuestion[] = [

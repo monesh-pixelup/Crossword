@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import panelArt from "@/modules/sell/assets/upsell/panel-aubergine.webp";
 import type { LoggedInQuote } from "../../config/logged-in";
-import { AiaMotionRoot, aiaScenes } from "../motion/aia-motion";
+import { motionScene } from "../motion/motion-scenes";
 
 /**
  * A quote stays open until all but this much of it has slid under the
@@ -21,7 +21,8 @@ const HANDOFF = 40;
  * 20%), each 48px top and bottom with a 1px black/10 rule under it and 16px between the quote and its
  * copy. When stacked, the panel is what sticks and the quotes pass under it. Clicking a quote scrolls it
  * open. The panel is Figma's 687 × 586 aubergine damask (the Upsell art), playing the open quote's motion visual
- * (687 × 586, ChatGPT on a phone in its aubergine frame) where the quote has one. The visuals crossfade
+ * where the quote has one (AI Assistants: 687 × 586, ChatGPT on a phone; Personal Agents: 679 × 579, the agent's
+ * window), each in its own aubergine frame. The visuals crossfade
  * (`.tab-panel`); one is drawn while its quote is open or fading out, keyed to replay from the start.
  */
 export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: LoggedInQuote[] }) {
@@ -194,7 +195,7 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
               quote.scene ? (
                 <div key={quote.quote} inert={i !== active} className="tab-panel relative">
                   {(i === active || i === previous) && (
-                    <ScenePanel key={plays[i]} scene={aiaScenes[quote.scene]} active={i === active} root={AiaMotionRoot} maxScale={Infinity} />
+                    <ScenePanel key={plays[i]} {...motionScene(quote.scene)} active={i === active} maxScale={Infinity} />
                   )}
                 </div>
               ) : null,

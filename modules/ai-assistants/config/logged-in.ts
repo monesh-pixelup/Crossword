@@ -1,11 +1,11 @@
-import type { AiaSceneSlug } from "../components/motion/aia-motion";
+import type { MotionSlug } from "../components/motion/motion-scenes";
 
 export type LoggedInQuote = {
   /** The customer's question, set in curly quotes. */
   quote: string;
   description: string;
   /** The motion visual the panel plays while this quote is open (687 × 586); the bare panel without one. */
-  scene?: AiaSceneSlug;
+  scene?: MotionSlug;
 };
 
 /** Logged in experience, as Figma's quote list (node 3305:912): what a signed-in customer asks, and what Crossword does. */

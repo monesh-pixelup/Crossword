@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
-import type { AiaSceneSlug } from "../motion/aia-motion";
 import { AiaScenePanel } from "../motion/aia-scene-panel";
+import type { MotionSlug } from "../motion/motion-scenes";
 import { WidePanelSection } from "../wide-panel/wide-panel-section";
 
 /**
  * Figma "Section · Brand aesthetics" (the reporting one, node 3307:28488): the eyebrow and a one-line headline (82px
  * swash at 1.18, Crimson Light 60 at 1.1) on the left, a 477px line of Geist 120px after it, centred on it, then 80px below
  * the 1280 × 599 aubergine panel (see WidePanelSection), playing `scene` when given (AI Assistants V3 15, the Insights
- * dashboard, on the AI Assistants page). Personal agents (3312:29867) passes its own headline and copy, and no scene.
+ * dashboard, on the AI Assistants page). Personal agents (3312:29867) passes its own headline, copy and scene (its
+ * own Insights dashboard).
  */
 export function Insights({
   id = "insights-title",
@@ -25,7 +26,7 @@ export function Insights({
   firstLine?: ReactNode;
   copy?: ReactNode;
   /** The motion visual the panel plays (1280 × 599); the bare panel without one. */
-  scene?: AiaSceneSlug;
+  scene?: MotionSlug;
 }) {
   return (
     <WidePanelSection

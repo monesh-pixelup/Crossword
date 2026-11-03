@@ -1,10 +1,10 @@
-import type { AiaSceneSlug } from "../components/motion/aia-motion";
+import type { MotionSlug } from "../components/motion/motion-scenes";
 
 export type PromotionStep = {
   title: string;
   description: string;
   /** The step's motion visual (355 × 402), shown in its cell in place of the stamped card; the card without one. */
-  scene?: AiaSceneSlug;
+  scene?: MotionSlug;
 };
 
 /** Promotions & upselling (Figma 3305:1197): the three numbered steps under the headline. */

@@ -42,6 +42,7 @@ export default function PersonalAgentsPage() {
         firstLine="ou designed a shopping journey. Your"
         secondLine="customer’s personal agent may skip it."
         width={1030}
+        scene="pa-the-case-motion"
       />
       <ShopperAsks
         id="agent-possibilities-title"
@@ -88,6 +89,7 @@ export default function PersonalAgentsPage() {
         initial="Y"
         firstLine="ou know what happened"
         copy="You’ll see what personal agents request, their actions, and the outcomes."
+        scene="pa-insights-motion"
       />
       <AssistantsFaq id="agent-faq-title" items={agentFaqs} />
       <AssistantsCta
