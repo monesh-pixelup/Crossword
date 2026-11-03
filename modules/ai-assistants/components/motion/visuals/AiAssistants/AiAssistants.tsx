@@ -23,7 +23,7 @@ export type Step = 1 | 2 | 3 | 4 | 5;
 
 export type IconName = "send" | "chevron" | "share" | "dots" | "plus" | "mic" | "voice" | "stop" | "copy" | "up" | "down" | "retry" | "gift";
 
-const paths: Record<IconName, JSX.Element> = {
+const paths: Record<IconName, React.JSX.Element> = {
   send: <path d="M12 19V5M6.5 10.5L12 5l5.5 5.5" />,
   chevron: <path d="M7 10l5 5 5-5" />,
   share: <><path d="M12 14V4M8 7.5L12 3.5l4 4" /><path d="M5 12.5V18a2 2 0 002 2h10a2 2 0 002-2v-5.5" /></>,
