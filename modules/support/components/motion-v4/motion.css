@@ -1,0 +1,4895 @@
+/*
+ * Support motion visuals: every style the visuals use, ported from the
+ * "Crossword — Support v4 motion" source (its src/ stylesheets), in the order
+ * Vite concatenates them (its module graph from the full gallery, kept to the
+ * files these visuals import), each block headed by its source file.
+ * Generated, not hand-written. Mechanical changes:
+ *
+ * - Every selector is prefixed with `.sup-motion` (and `:root` became
+ *   `.sup-motion`). The Sell, Retain and home visuals use the same `ill-`
+ *   class names with other values, and Next keeps a route's CSS after client
+ *   navigation, so unscoped rules would bleed between pages. Render the
+ *   visuals inside `.sup-motion` (support-motion.tsx's root does).
+ * - `@keyframes` are renamed with a `sup-` prefix for the same reason.
+ * - Google font families point at the next/font variables (lib/fonts.ts).
+ * - The gallery page's own rules (SupportV3.css's overview grid, HomeV2Page.css,
+ *   index.css) are left out, and background urls point at
+ *   modules/support/assets/motion-v4 (the one site-root url,
+ *   /assets/trailwell-mark.svg, at its public/ copy).
+ */
+
+/* The source page's body: Geist at 16px, normal line height, black text, default smoothing. */
+.sup-motion {
+  font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+  text-align: left;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: auto;
+}
+
+/*
+ * The source page had no Tailwind preflight: inside the scope, put back the
+ * browser defaults preflight removes. (Near-)zero specificity, so every rule
+ * below still wins exactly where it did in the source.
+ */
+:where(.sup-motion) *,
+:where(.sup-motion) ::before,
+:where(.sup-motion) ::after {
+  margin: revert;
+  padding: revert;
+  border: revert;
+}
+
+:where(.sup-motion) :where(ol, ul, menu) {
+  list-style: revert;
+}
+
+:where(.sup-motion) :where(img, svg, video, canvas) {
+  display: revert;
+  vertical-align: revert;
+}
+
+:where(.sup-motion) :where(img, video) {
+  max-width: revert;
+}
+
+:where(.sup-motion) :where(button) {
+  font: revert;
+  font-feature-settings: revert;
+  font-variation-settings: revert;
+  letter-spacing: revert;
+  color: revert;
+  background-color: revert;
+  border-radius: revert;
+  opacity: revert;
+  appearance: revert;
+}
+
+:where(.sup-motion) :where(h1, h2, h3, h4, h5, h6) {
+  font-size: revert;
+  font-weight: revert;
+}
+
+/* visuals/SupportV4/SupportV4.css */
+/* Support-only fixes inside the .sbl layer (SellDynamicV2.css). */
+
+/* 07: the helpdesk header's brand sits in 01's 36px identity capsule,
+   as .ill-chat-header__brand does; the Helpdesk badge stays beside it. */
+.sup-motion .sbl .ill-helpdesk-header__brand {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 12px 0 4px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  font: 500 14px/1 var(--sbl-font);
+  color: var(--ill-color-text-body);
+}
+
+/* 10–12: the 292px window can't hold four 36px pucks and the capsule
+   (the close puck was cut, §15). Keep history and close, as the narrow
+   Storybook sheet does. */
+.sup-motion .sbl .ill-theme-human-loop .ill-chat-header :is([aria-label="New conversation"], [aria-label="Expand"]) {
+  display: none;
+}
+
+/* 09: the window bleeds off the frame's foot on purpose, so 01's
+   disclaimer line would be sliced there; drop it. */
+.sup-motion .sbl .ill-guardrails-shell-crop .ill-shell::after {
+  content: none;
+}
+
+.sup-motion .sv4 {
+  display: contents;
+}
+
+/* 01–06 status badges: Storybook's Badge is sentence case, 12px medium,
+   not an uppercase chip. The Guardrails panel is merchant UI and keeps
+   the original. */
+.sup-motion .sbl .sv4 .ill-chip:not(.ill-guardrails-shell-crop .ill-chip) {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Attribute-row labels read "Back To" / "Arrives In" under capitalize. */
+.sup-motion .sbl .sv4 .ill-attribute-row__label {
+  text-transform: none;
+}
+
+/* 07: the helpdesk stat labels and badge in sentence case. */
+.sup-motion .sbl .sv4 :is(.ill-helpdesk__stat-label, .ill-helpdesk-header__badge-text) {
+  text-transform: none;
+}
+
+/* 02, 04, 06 actions → 40px pills, as Sell: Dynamic v2's insight-frame
+   actions: primary in the primary fill, secondary a bare pill with an
+   inset hairline (04's "Keep Shade 3 Fair"). The helpdesk's "Assign" is
+   merchant UI and keeps the original. */
+.sup-motion .sbl .sv4 .ill-button:not(.ill-helpdesk .ill-button) {
+  height: 40px;
+  min-height: 40px;
+  border-radius: var(--ill-radius-full);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.sup-motion .sbl .sv4 .ill-button--secondary:not(.ill-helpdesk .ill-button) {
+  border: 0;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ill-color-border-default);
+}
+
+/* 04: the shade tiles read as the same outlined pills as the actions
+   below them. Give them a soft fill instead of a ring, so the two rows
+   separate by surface; the proposed shade keeps the kit's "this one"
+   surface (Background/Subtle) plus the picked ring, drawn inset so the
+   two tiles stay the same size (Selector, §7). */
+.sup-motion .sbl .sv4 .ill-support-shade {
+  border: 0;
+  border-radius: 12px;
+  background: var(--ill-color-background-surface);
+}
+
+.sup-motion .sbl .sv4 .ill-support-shade--to {
+  background: var(--ill-color-background-subtle);
+  box-shadow: inset 0 0 0 1.5px rgba(33, 33, 33, 0.5);
+}
+
+/* 01, 03, 05 panel: one 16px inset all round (the tight thread left the
+   foot at 10px), the card spec's 20px radius, and the width of the
+   transcript, so the right edge lines up with the bubble and composer
+   instead of stopping 160px short. */
+.sup-motion .sbl .sv4 .ill-support-panel {
+  max-width: none;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 20px;
+}
+
+.sup-motion .sbl .sv4 .ill-support-panel__header {
+  min-height: 28px;
+}
+
+.sup-motion .sbl .sv4 .ill-support-panel__heading {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* Step type moves up from 10–11.5px to Storybook's 13/12 so the panel
+   reads at the transcript's own scale; nested tiles take radius 12. */
+.sup-motion .sbl .sv4 .ill-support-step__label {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.sup-motion .sbl .sv4 .ill-support-step__detail {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sup-motion .sbl .sv4 .ill-support-steps--boxed .ill-support-step {
+  border-radius: 12px;
+}
+
+/* 07: "Assign" set gold on aubergine; light text reads clearly on the
+   fill and matches the white label on the pill buttons elsewhere. */
+.sup-motion .sbl .sv4 .ill-helpdesk-row__meta .ill-button {
+  color: var(--ill-color-text-inverse);
+}
+
+/* 07: the helpdesk card's aubergine becomes the page's crimson
+   (Accent/Primary, the send arrow and frame colour), and the stat tiles
+   fill the wider card: 30px numbers over 13px labels, taller tiles at
+   the nested radius of 12. */
+.sup-motion .sbl .sv4 .ill-helpdesk__stat {
+  gap: 4px;
+  padding: 18px 8px;
+  border-radius: 12px;
+}
+
+.sup-motion .sbl .sv4 .ill-helpdesk__stat-value {
+  font-size: 30px;
+  line-height: 34px;
+  letter-spacing: -0.4px;
+  color: var(--ill-color-accent-primary);
+}
+
+.sup-motion .sbl .sv4 .ill-helpdesk__stat-label {
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0;
+}
+
+.sup-motion .sbl .sv4 .ill-helpdesk-row__meta .ill-button {
+  background: var(--ill-color-accent-primary);
+}
+
+/* visuals/SellDynamicV2/SellDynamicV2.css */
+/* Sell: Dynamic 03–06 rebuilt against STORYBOOK_MAPPING.md. One layer,
+   scoped to .sbl, over the original visuals and their motion: structure,
+   sizes, type and states follow the Storybook (§2, §7); colours stay the
+   originals' (§11). Each rule is prefixed `.sbl` plus the visual's own
+   scope so it outranks that visual's CSS without touching it. */
+.sup-motion .sbl {
+  --sbl-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  /* 01's colour slots (GiftJourneyV2's .gj2-win), so its ProductCard rail
+     renders the same here. */
+  --gj2-fg: var(--ill-color-text-body);
+  --gj2-muted: var(--ill-color-text-metadata);
+  --gj2-hairline: var(--ill-color-border-default);
+  --gj2-surface: var(--ill-color-background-page);
+  --gj2-card: var(--ill-color-background-page);
+  --gj2-control: var(--ill-color-background-recessed);
+  --gj2-media: #fff9ea;
+  --gj2-primary: var(--ill-color-accent-primary);
+  --gj2-on-primary: var(--ill-color-text-inverse);
+  --gj2-user-bg: var(--ill-color-accent-strong);
+  --gj2-glyph: var(--ill-color-accent-primary);
+  --gj2-gold: var(--ill-color-accent-gold);
+  --gj2-star: var(--ill-color-accent-rating);
+  --gj2-star-empty: var(--ill-color-text-muted);
+  --gj2-skel: var(--ill-color-background-subtle);
+  /* 01's thinking mark (the four-point spark), as a mask. */
+  --sbl-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 13V3M3.5 7.5 8 3l4.5 4.5'/%3E%3C/svg%3E");
+  --sbl-spark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5c.5 4.6 2.9 7 9.5 9.5-6.6 2.5-9 4.9-9.5 9.5-.5-4.6-2.9-7-9.5-9.5 6.6-2.5 9-4.9 9.5-9.5z'/%3E%3C/svg%3E");
+}
+
+.sup-motion .sbl :is(.demo-brand-name, .gj2-head__name, .ill-chat-header__brand) {
+  font-family: var(--font-geist), system-ui, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.sup-motion .sbl .gj2-rail {
+  font-family: var(--sbl-font);
+  color: var(--gj2-fg);
+}
+
+/* ---- Crossword window (kit Shell): radius 28, the original gold edge,
+   16px rhythm, system type. ---- */
+.sup-motion .sbl .ill-shell {
+  border-radius: 28px;
+  font-family: var(--sbl-font);
+}
+
+/* 01's disclaimer footer, on the slot the Shell's inner-glow layer used. */
+.sup-motion .sbl .ill-shell::after {
+  position: static;
+  inset: auto;
+  flex-shrink: 0;
+  margin-top: -6px;
+  content: "AI can make mistakes. Powered by Crossword";
+  text-align: center;
+  font: 300 11px/1.2 var(--sbl-font);
+  color: var(--ill-color-text-metadata);
+  opacity: 0.7;
+  box-shadow: none;
+}
+
+.sup-motion .sbl :is(.ill-chat-message p, .ill-ai-pill span, .ill-chat-composer__text, .ill-chat-header__brand, .ill-button, .ill-ai-status__label) {
+  font-family: var(--sbl-font);
+  letter-spacing: 0;
+}
+
+/* Header, as 01: 36px pucks with a 0.5px inset hairline and the glyph in
+   the primary; the identity capsule is 36px, a 28px brand disc then the
+   name at 14/500; ··· replaces expand. */
+.sup-motion .sbl .ill-chat-header .ill-icon-button--outline {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  box-shadow: inset 0 0 0 0.5px var(--ill-color-border-default);
+}
+
+.sup-motion .sbl .ill-chat-header__group {
+  gap: 6px;
+}
+
+.sup-motion .sbl .ill-chat-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px 0 4px;
+  border: 0;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+  color: var(--ill-color-text-body);
+}
+
+/* Brand disc: the merchant's own mark from the repo — Trailwell's on its
+   ad-avatar blue, Goodwell's on its jar-lid aubergine; Crossword's own
+   logo in the merchant Insights (06–08). */
+.sup-motion .sbl .ill-chat-header__brand::before {
+  content: "";
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+}
+
+.sup-motion .sbl .adj .ill-chat-header__brand::before {
+  background: #244c95 url("../../assets/motion-v4/public/trailwell-mark.svg") center / 20px no-repeat;
+}
+
+.sup-motion .sbl .ais .ill-chat-header__brand::before {
+  background: #4a3a63 url("../../assets/motion-v4/brands/goodwell-mark.svg") center / 18px no-repeat;
+}
+
+.sup-motion .sbl .ill-chat-header [aria-label="Expand"] > * {
+  display: none;
+}
+
+.sup-motion .sbl .ill-chat-header [aria-label="Expand"]::before {
+  content: "···";
+  font: 700 12px/1 var(--sbl-font);
+  letter-spacing: 1px;
+  color: var(--ill-color-accent-primary);
+}
+
+/* Messages: bubble radius 18 all round, 12px padding, 14/1.45; the AI
+   reply is plain full-width text, emphasis 500 in ink. */
+.sup-motion .sbl .ill-chat-message--user {
+  padding: 12px;
+  border-radius: 18px;
+}
+
+.sup-motion .sbl .ill-chat-message p {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.sup-motion .sbl .ill-chat-message--assistant {
+  max-width: 100%;
+}
+
+.sup-motion .sbl .ill-chat-message--assistant strong {
+  font-weight: 500;
+  color: inherit;
+}
+
+/* Follow-up / starter chips: 32px pill, 0 12px, 13px, no icon, hairline
+   ring on the page fill. Picked = 10% primary wash + 1.5px ring. */
+.sup-motion .sbl .ill-ai-pills {
+  gap: 8px;
+}
+
+.sup-motion .sbl .ill-ai-pill {
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--ill-radius-full);
+  background: var(--ill-color-background-page);
+  box-shadow: 0 0 0 0.5px var(--ill-color-border-default), 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Icon sets display inline, so the override needs the flag. */
+.sup-motion .sbl .ill-ai-pill > img {
+  display: none !important;
+}
+
+.sup-motion .sbl .ill-ai-pill span {
+  font-size: 13px;
+  color: var(--ill-color-text-body);
+}
+
+.sup-motion .sbl .ill-ai-pill--selected {
+  background: color-mix(in srgb, var(--ill-color-accent-strong) 10%, var(--ill-color-background-page));
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ill-color-accent-strong) 24%, transparent);
+}
+
+.sup-motion .sbl .ill-ai-pill--selected span {
+  color: var(--ill-color-accent-strong);
+  font-weight: 500;
+}
+
+/* Composer: 48px capsule, recessed fill with an inset hairline ring,
+   36px send disc. */
+.sup-motion .sbl .ill-shell > .ill-chat-composer {
+  height: 48px;
+  padding: 0 6px 0 16px;
+  border: 0;
+  border-radius: var(--ill-radius-full);
+  box-shadow: inset 0 0 0 1px var(--ill-color-border-default);
+}
+
+/* Send, as 01: at rest a surface disc with the glyph in the primary;
+   armed (typing) the burgundy disc with its gold ring. */
+.sup-motion .sbl :is(.ill-chat-composer, .ask-input) .ill-icon-button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: var(--ill-color-background-page);
+  box-shadow: 0 0 0 0.5px var(--ill-color-border-default);
+  transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sup-motion .sbl :is(.ill-chat-composer, .ask-input) .ill-icon-button > * {
+  display: none !important;
+}
+
+.sup-motion .sbl :is(.ill-chat-composer, .ask-input) .ill-icon-button::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: var(--ill-color-accent-primary);
+  -webkit-mask: var(--sbl-arrow) center / contain no-repeat;
+  mask: var(--sbl-arrow) center / contain no-repeat;
+}
+
+.sup-motion .sbl .ill-chat-composer:has(.ill-chat-composer__text--typing) .ill-icon-button {
+  background: var(--ill-color-accent-strong);
+  box-shadow: 0 0 0 1px var(--ill-color-accent-gold);
+}
+
+.sup-motion .sbl .ill-chat-composer:has(.ill-chat-composer__text--typing) .ill-icon-button::before {
+  background: var(--ill-color-accent-gold);
+}
+
+/* Thinking, as 01: the spark (20px, secondary accent) replaces the kit's
+   status icon, then one 13px line swept by the shimmer. */
+.sup-motion .sbl .ill-ai-status > svg,
+.sup-motion .sbl .ill-ai-status > :first-child:not(.ill-ai-status__label-stack),
+.sup-motion .sbl .adj-thinking > img {
+  display: none !important;
+}
+
+.sup-motion .sbl .ill-ai-status::before,
+.sup-motion .sbl .adj-thinking::before {
+  content: "";
+  flex: none;
+  width: 20px;
+  height: 20px;
+  background: var(--ill-color-accent-secondary);
+  -webkit-mask: var(--sbl-spark) center / contain no-repeat;
+  mask: var(--sbl-spark) center / contain no-repeat;
+  animation: sup-sbl-spark 3517ms cubic-bezier(0.33, 0, 0.67, 1) infinite;
+}
+
+@keyframes sup-sbl-spark {
+  0% { transform: scale(0.4) rotate(0); }
+  7% { transform: scale(1.15) rotate(0); }
+  37% { transform: scale(1) rotate(0); }
+  85% { transform: scale(1) rotate(360deg); }
+  100% { transform: scale(0.4) rotate(360deg); }
+}
+
+.sup-motion .sbl .ill-ai-status__label {
+  font-size: 13px;
+  font-weight: 400;
+  color: transparent;
+  background: linear-gradient(100deg, var(--ill-color-text-metadata) 36%, #cfc6b4 50%, var(--ill-color-text-metadata) 64%) 0 0 / 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: sup-sbl-shimmer 2s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+.sup-motion .sbl .adj-thinking span {
+  color: transparent;
+  background: linear-gradient(100deg, var(--ill-color-text-metadata) 36%, #cfc6b4 50%, var(--ill-color-text-metadata) 64%) 0 0 / 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: sup-sbl-shimmer 2s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+@keyframes sup-sbl-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
+}
+
+/* Buttons: pill CTAs, 14/400. */
+.sup-motion .sbl .ill-button--primary {
+  border-radius: var(--ill-radius-full);
+  font-weight: 400;
+}
+
+/* ---- 03 Ad journey ---- */
+.sup-motion .sbl .adj .adj-widget {
+  box-shadow:
+    0 0 0 2px var(--ill-color-accent-soft),
+    0 0 18.989px rgba(224, 190, 96, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.14);
+  border: 0;
+}
+
+.sup-motion .sbl .adj .adj-widget--expanded {
+  gap: 12px;
+}
+
+.sup-motion .sbl .adj-thread {
+  gap: 16px;
+}
+
+.sup-motion .sbl .adj-thread .ill-assistant-turn {
+  gap: 10px;
+}
+
+.sup-motion .sbl .adj .ill-ai-pill {
+  padding: 0 12px;
+}
+
+.sup-motion .sbl .adj .ill-ai-pill span {
+  font-size: 13px;
+}
+
+/* Quiz answers → Radio plates: radius 16, recessed fill, 12px padding;
+   picked = page fill + primary 10% with a 1.5px ring; the key is a 20px
+   radio dot. */
+.sup-motion .sbl .adj-quiz__label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sup-motion .sbl .adj-quiz__rows {
+  gap: 6px;
+}
+
+/* 36px (not the product's 48px plate) so three answers clear the
+   composer in the 520px storefront. */
+.sup-motion .sbl .adj-quiz__rows .ill-button {
+  height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.sup-motion .sbl .adj-quiz__rows .adj-answer:not(.adj-answer--selected) {
+  border: 0;
+  background: var(--ill-color-background-recessed);
+}
+
+.sup-motion .sbl .adj-quiz__rows .adj-answer--selected {
+  background: color-mix(in srgb, var(--ill-color-accent-strong) 10%, var(--ill-color-background-page));
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ill-color-accent-strong) 24%, transparent);
+  color: var(--ill-color-accent-strong);
+  font-weight: 500;
+}
+
+.sup-motion .sbl .adj-answer__key {
+  background: var(--ill-color-background-page);
+  box-shadow: inset 0 0 0 1px var(--ill-color-border-default);
+}
+
+.sup-motion .sbl .adj-thinking {
+  gap: 8px;
+  font-size: 13px;
+}
+
+/* Pick cards: card radius 20, hairline + soft cast, pill CTA. */
+.sup-motion .sbl .adj .ill-rec-card {
+  border-radius: 20px;
+  box-shadow: 0 0 0 0.5px var(--ill-color-border-default), 0 2px 8px rgba(10, 10, 14, 0.05);
+}
+
+.sup-motion .sbl .adj .ill-rec-card__media {
+  border-radius: 14px;
+}
+
+.sup-motion .sbl .adj .ill-rec-card .ill-button {
+  height: 32px;
+  font-size: 12px;
+}
+
+.sup-motion .sbl .adj .ill-rec-card .ill-product-meta__title {
+  font-size: 13px;
+}
+
+/* ---- 04 AI Search ---- */
+/* The search panel's Ask AI rows → Ai Embed suggestion chips: pill rows,
+   13px, hairline ring; the picked one takes the chip's picked state. */
+.sup-motion .sbl .ais-dropdown {
+  border-radius: 20px;
+}
+
+.sup-motion .sbl .ais-field {
+  border-radius: var(--ill-radius-full);
+}
+
+.sup-motion .sbl .ais-dropdown .ill-ai-pill {
+  height: 32px;
+  border-radius: var(--ill-radius-full);
+  padding: 0 32px 0 12px;
+}
+
+.sup-motion .sbl .ais-dropdown .ill-ai-pill--selected span {
+  color: var(--ill-color-accent-strong);
+}
+
+.sup-motion .sbl .ais .ais-cw {
+  font-family: var(--sbl-font);
+}
+
+.sup-motion .sbl .ais-thread {
+  gap: 16px;
+}
+
+/* Result cards: radius 20, hairline + soft cast, pill CTA. The card's
+   internal geometry stays as measured so the skeleton lands on it. */
+.sup-motion .sbl .ais .ill-commerce-card,
+.sup-motion .sbl .ais .ill-commerce-card-skeleton {
+  border-radius: 20px;
+  box-shadow: 0 0 0 0.5px var(--ill-color-border-default), 0 2px 8px rgba(10, 10, 14, 0.05);
+}
+
+.sup-motion .sbl .ais .ill-commerce-card__media,
+.sup-motion .sbl .ais .ill-commerce-card-skeleton__media {
+  border-radius: 16px;
+}
+
+.sup-motion .sbl .ais .ill-commerce-card__cta {
+  border-radius: var(--ill-radius-full);
+  font-family: var(--sbl-font);
+  font-weight: 400;
+}
+
+.sup-motion .sbl .ais .ill-rec-card {
+  border-radius: 20px;
+}
+
+.sup-motion .sbl .ais .ill-rec-card__media {
+  border-radius: 14px;
+}
+
+/* PDP sizes → selector seats: 40px, radius 12, picked = 10% wash + ring. */
+.sup-motion .sbl .ais-variants .ill-button {
+  height: 36px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--ill-color-background-recessed);
+}
+
+.sup-motion .sbl .ais-variants .ill-button:not(.ais-variant) {
+  background: color-mix(in srgb, var(--ill-color-accent-strong) 10%, var(--ill-color-background-page));
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ill-color-accent-strong) 24%, transparent);
+  color: var(--ill-color-accent-strong);
+}
+
+.sup-motion .sbl .ais .ais-details__cta {
+  height: 40px;
+  border-radius: var(--ill-radius-full);
+}
+
+/* ---- 05 V2 Personal agents: only Crossword's replies change ---- */
+/* Badge: sentence case, 12/500 pill, hairline tone. */
+/* Block (not flex) so ::first-letter applies. */
+.sup-motion .sbl .pa .ill-chip {
+  display: inline-block;
+  padding: 3px 9px;
+  font-family: var(--sbl-font);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: lowercase;
+  letter-spacing: 0;
+}
+
+.sup-motion .sbl .pa .ill-chip::first-letter {
+  text-transform: uppercase;
+}
+
+.sup-motion .sbl .pa-call {
+  border-radius: 20px;
+  font-family: var(--sbl-font);
+}
+
+.sup-motion .sbl .pa-call__tool {
+  font-weight: 500;
+}
+
+/* Picks → List View rows: 48px thumb on the media plate (radius 10). */
+.sup-motion .sbl .pa-pick {
+  border-radius: 14px;
+}
+
+.sup-motion .sbl .pa-pick .ill-product-reference__media {
+  border-radius: 10px;
+}
+
+.sup-motion .sbl .pa-pick .ill-product-reference__price,
+.sup-motion .sbl .pa-offer__title {
+  font-weight: 500;
+}
+
+.sup-motion .sbl .pa-offer {
+  border-radius: 14px;
+}
+
+.sup-motion .sbl .pa-offer__icon {
+  border-radius: 10px;
+}
+
+/* 04 · 07: the opened card stays, its sibling recedes (01's card is the
+   rail's first; the PDP product is the first pick). */
+.sup-motion .sbl .ais-picks--picking .gj2-card:not(:first-child) {
+  opacity: 0.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .sbl .ill-ai-status::before,
+.sup-motion .sbl .adj-thinking::before {
+    animation: none;
+  }
+
+  .sup-motion .sbl .ill-ai-status__label {
+    animation: none;
+    color: var(--ill-color-text-metadata);
+  }
+}
+
+/* 03 motion: one surface morphs behind transparent shells
+   (AdJourneyMotion's .adjm-surface), so the window's radius lives there
+   and the shells carry no ring of their own. */
+.sup-motion .sbl .adjm .adjm-surface {
+  border-radius: 28px;
+}
+
+.sup-motion .sbl .adjm .adjm-surface::after {
+  box-shadow: none;
+}
+
+.sup-motion .sbl .adjm .adj .adj-widget,
+.sup-motion .sbl .adjm .adjm-compact,
+.sup-motion .sbl .adjm .adjm-expanded {
+  box-shadow: none;
+}
+
+/* The Shell's own ::after keeps a scenario inset glow on some visuals
+   (.adj .adj-widget::after); the footer note never carries it. */
+.sup-motion .sbl .ill-shell::after {
+  box-shadow: none !important;
+  background: none !important;
+}
+
+/* 03 — 01's full card (329px) doesn't fit the 212px thread of the
+   original window, so: the expanded window rises over the storefront
+   nav (the product window floats over the page), 01's card keeps its
+   anatomy on a 120px tile (192 in 01's larger frame), and the static
+   frames open at the end of the turn, as the original's 06 does. */
+.sup-motion .sbl .adj .adj-widget--expanded {
+  top: -65px;
+}
+
+/* 03's window is the smallest (≈240px clear inside the transcript fades):
+   a landscape 72px tile keeps all three packs whole in it. */
+.sup-motion .sbl .adj .gj2-card__tile {
+  height: 72px;
+}
+
+.sup-motion .sbl .adj-figure .adj-widget--expanded:has(.gj2-rail) .ill-conversation-viewport__content {
+  flex-direction: column-reverse;
+}
+
+.sup-motion .sbl .adj-figure .adj-widget--expanded:has(.gj2-rail) .ill-conversation-viewport::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  pointer-events: none;
+  background: linear-gradient(var(--ill-color-background-page), rgba(255, 249, 233, 0));
+}
+
+/* 04 — same fit as 03: 01's card on a 120px tile, static frames open at
+   the end of the turn, and 01's footer (the takeover hid the Shell's
+   ::after) is back. */
+.sup-motion .sbl .ais .gj2-card__tile {
+  height: 120px;
+}
+
+.sup-motion .sbl .ais .ais-cw::after {
+  display: block;
+}
+
+.sup-motion .sbl .ais .ais-cw {
+  gap: 12px;
+}
+
+.sup-motion .sbl .ais-figure .ais-cw .ill-conversation-viewport__content {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.sup-motion .sbl .ais-figure .ais-cw .ill-conversation-viewport::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  pointer-events: none;
+  background: linear-gradient(var(--ill-color-background-page), rgba(255, 249, 233, 0));
+}
+
+/* ---- Insights 06–08 (merchant chat, InsightFrame) ---- */
+/* Identity: Crossword's logo disc, the name in sentence case (the data
+   says "CROSSWORD"; the capsule re-says it rather than shouting). */
+.sup-motion .sbl .ill-insight-frame .ill-chat-header__brand::before {
+  background: url("../../assets/motion-v4/ill-icons/crossword-logo.svg") center / cover no-repeat;
+}
+
+.sup-motion .sbl .ill-insight-frame .ill-chat-header__brand {
+  font-size: 0;
+}
+
+.sup-motion .sbl .ill-insight-frame .ill-chat-header__brand::after {
+  content: "Crossword";
+  font-size: 14px;
+}
+
+/* Result cards (06's cohort, 08's segment, 07's revenue total) → the
+   Storybook card: page fill, radius 20, hairline + soft cast, 13px rows
+   on hairline rules. */
+.sup-motion .sbl :is(.ill-ai-card, .ill-at-card, .ill-ctr-footnote) {
+  border: 0;
+  border-radius: 20px;
+  background: var(--ill-color-background-page);
+  box-shadow: 0 0 0 0.5px var(--ill-color-border-default), 0 2px 8px rgba(10, 10, 14, 0.05);
+  font-family: var(--sbl-font);
+}
+
+.sup-motion .sbl :is(.ill-ai-card, .ill-at-card) :is(.ill-ai-card__title, .ill-at-card__title) {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* 01's spark leads the card head instead of the insight glyph. */
+.sup-motion .sbl :is(.ill-ai-card__heading, .ill-at-card__heading) > img {
+  display: none !important;
+}
+
+.sup-motion .sbl :is(.ill-ai-card__heading, .ill-at-card__heading)::before {
+  content: "";
+  flex: none;
+  width: 16px;
+  height: 16px;
+  background: var(--ill-color-accent-secondary);
+  -webkit-mask: var(--sbl-spark) center / contain no-repeat;
+  mask: var(--sbl-spark) center / contain no-repeat;
+}
+
+.sup-motion .sbl .ill-insight-frame .ill-attribute-row {
+  font-family: var(--sbl-font);
+}
+
+.sup-motion .sbl .ill-insight-frame :is(.ill-attribute-row__label, .ill-attribute-row__value) {
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+/* Actions → 40px pills: primary in the primary fill, secondary a bare
+   pill with an inset hairline (07's "Use it" / "Not now"). */
+/* flex: none — in a height-limited column a flex item shrinks below its
+   height (08's "Create offer" rendered 29px). */
+.sup-motion .sbl .ill-insight-frame .ill-button {
+  flex: none;
+  height: 40px;
+  border-radius: var(--ill-radius-full);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.sup-motion .sbl .ill-insight-frame .ill-button--secondary {
+  border: 0;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ill-color-border-default);
+}
+
+/* 07's product reference → List View row: 48px thumb on the media plate
+   (radius 10), brand and name on one line, price under it. */
+.sup-motion .sbl .ill-insight-frame .ill-product-reference__media {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 10px;
+  background: var(--gj2-media);
+}
+
+.sup-motion .sbl .ill-insight-frame .ill-product-reference {
+  font-family: var(--sbl-font);
+}
+
+/* 06's landing chips → Storybook starter chips. */
+.sup-motion .sbl .ask-landing__chip {
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--ill-radius-full);
+  background: var(--ill-color-background-page);
+  box-shadow: 0 0 0 0.5px var(--ill-color-border-default), 0 1px 4px rgba(0, 0, 0, 0.06);
+  font-family: var(--sbl-font);
+  font-size: 13px;
+}
+
+.sup-motion .sbl .ask-landing__chip > img {
+  display: none !important;
+}
+
+/* 06–08: the footer and the 48px composer cost ~30px of the fixed 515px
+   window; 01's 12px rhythm instead of the old 22.6px gaps gives it back,
+   so each turn's last CTA stays clear of the composer fade. */
+.sup-motion .sbl .ill-insight-frame .ill-shell {
+  gap: 12px;
+  padding-top: 16px;
+  padding-bottom: 10px;
+}
+
+/* ---- 09 · the composer opening (Storybook launcher.tsx, "the orb
+   becomes it", and BarArriving's woken bar) ----
+   The landing composer is the product's bar: a 56px capsule at the woken
+   440px width. On send that same box grows into the window — 400ms on
+   cubic-bezier(.32,.72,0,1) — and its 28px radius never animates: at 56px
+   tall it draws the capsule, at full size the window. Nothing travels:
+   the bar's own input clears as it sends, the header settles in at 240ms
+   (0.2s fade), the transcript doesn't wait, and the composer lands last
+   at 280ms, rising .4rem — the beat that says the bar became a window. */
+.sup-motion .sbl .ask-landing__composer {
+  width: 440px;
+  height: 56px;
+}
+
+.sup-motion .sbl .ask-stage .ask-surface {
+  border: 0;
+  border-radius: 28px;
+  box-shadow:
+    0 0 0 2px var(--ill-color-accent-soft),
+    0 6px 16px rgba(0, 0, 0, 0.12),
+    0 18px 30px -6px rgba(0, 0, 0, 0.16);
+}
+
+.sup-motion .sbl .ask-stage .ask-surface::after {
+  content: none;
+}
+
+.sup-motion .sbl .ask-stage--expanded .ask-surface {
+  /* Layout properties re-lay every frame; its own layer keeps the 400ms
+     morph smooth (the constant radius needs a real box, so no scale). */
+  will-change: top, left, width, height;
+  box-shadow:
+    0 0 0 2px var(--ill-color-accent-soft),
+    0 0 18.989px rgba(224, 190, 96, 0.4),
+    0 4.234px 8.679px rgba(0, 0, 0, 0.25);
+  transition:
+    top 400ms cubic-bezier(0.32, 0.72, 0, 1),
+    left 400ms cubic-bezier(0.32, 0.72, 0, 1),
+    width 400ms cubic-bezier(0.32, 0.72, 0, 1),
+    height 400ms cubic-bezier(0.32, 0.72, 0, 1),
+    box-shadow 400ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* The bar's input, seated in the capsule: 16px in, the 36px send disc
+   6px from the end. */
+.sup-motion .sbl .ask-stage .ask-input {
+  padding: 0 10px 0 20px;
+  border: 0;
+  border-radius: 28px;
+  font-family: var(--sbl-font);
+}
+
+.sup-motion .sbl .ask-stage .ask-input__text {
+  font-family: var(--sbl-font);
+  letter-spacing: 0;
+}
+
+/* Sent: the bar's input clears in place (it became the user's bubble);
+   it doesn't travel into the window. */
+.sup-motion .sbl .ask-stage--expanded .ask-input {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease-out;
+}
+
+/* The window's own parts, on the launcher's beats. */
+.sup-motion .sbl .ask-stage--expanded .ask-shell > * {
+  animation: sup-sbl-win-content 0.2s ease-out 0.24s both;
+}
+
+.sup-motion .sbl .ask-stage--expanded .ask-shell > :nth-child(2) {
+  animation-delay: 0s;
+}
+
+.sup-motion .sbl .ask-stage .ask-shell > .ill-chat-composer {
+  visibility: visible;
+}
+
+.sup-motion .sbl .ask-stage--expanded .ask-shell > .ill-chat-composer {
+  animation: sup-sbl-win-input 0.26s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+/* Explicit end frames: the shell's parts rest at opacity 0 until the
+   open (AskInsight.css), so a from-only keyframe would end invisible. */
+@keyframes sup-sbl-win-content {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sup-sbl-win-input {
+  from { opacity: 0; transform: translateY(0.4rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .sbl .ask-stage--expanded .ask-surface,
+.sup-motion .sbl .ask-stage--expanded .ask-input {
+    transition: none;
+  }
+
+  .sup-motion .sbl .ask-stage--expanded .ask-shell > *,
+.sup-motion .sbl .ask-stage--expanded .ask-shell > .ill-chat-composer {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ---- 09 · composer typing (crossword-chat-motion's ChatComposer
+   `typing` treatment, as 01's composer): revealText at 26ms a character
+   with ±30% jitter, a 1×14 caret on a 900ms step-end blink, and the typed
+   line wraps left-aligned while the capsule grows to hold it — the card
+   behind follows on 200ms (AskInsight `growComposer`). The disc sits at
+   the capsule's foot, so a second line grows the bar up past it. ---- */
+.sup-motion .sbl .ask-stage .ask-input--grow {
+  align-items: flex-end;
+  padding: 10px 10px 10px 20px;
+}
+
+.sup-motion .sbl .ask-stage .ask-input--grow .ask-input__text {
+  align-self: center;
+}
+
+.sup-motion .sbl .ask-stage .ask-input--grow .ask-input__query {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ill-color-text-body);
+}
+
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-surface {
+  transition: height 200ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* The send disc arms once there's something to send — the burgundy disc
+   with its gold ring and arrow, as 01's — and stays armed through the
+   press. */
+.sup-motion .sbl .ask-stage .ask-input--ready .ill-icon-button {
+  background: var(--ill-color-accent-strong);
+  box-shadow: 0 0 0 1px var(--ill-color-accent-gold);
+}
+
+.sup-motion .sbl .ask-stage .ask-input--ready .ill-icon-button::before {
+  background: var(--ill-color-accent-gold);
+}
+
+/* ---- 09 · the composer reveal (BarArriving.stories.tsx, "Arriving",
+   from the motion study, frame counts over 60) — the landing bar arrives
+   before the query types (the sequencer holds 1400ms for it):
+     +400ms lead, then
+     orb      200ms  the 56px orb fades in where it stands (no rise)
+     stretch  520ms  straight out to its own width as the orb lands
+                     (+150ms), on cubic-bezier(.62,0,.38,1) — no held
+                     orb, which read as a stall — the send disc riding
+                     the growing right end on the same beat
+     arrow    750ms  rises into the disc from below its rim, at +520ms
+     field    150ms  the line fades in at +500ms, a beat before typing
+   Fills are backwards: each ends where the static rules stand. ---- */
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) :is(.ask-surface, .ask-input) {
+  animation:
+    sup-sbl-arr-in 200ms ease-out 400ms backwards,
+    sup-sbl-arr-grow 520ms cubic-bezier(0.62, 0, 0.38, 1) 550ms backwards;
+}
+
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-input {
+  overflow: hidden;
+}
+
+@keyframes sup-sbl-arr-in {
+  from { opacity: 0; }
+}
+
+/* The box is placed by its measured left/width, so the orb is held at
+   the bar's centre with a translate of half the difference (440 − 56). */
+@keyframes sup-sbl-arr-grow {
+  0% {
+    width: 56px;
+    translate: 192px 0;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-input .ill-icon-button {
+  overflow: hidden;
+}
+
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-input .ill-icon-button::before {
+  animation: sup-sbl-arr-mark 750ms cubic-bezier(0.333, 0, 0, 1) 920ms both;
+}
+
+@keyframes sup-sbl-arr-mark {
+  from { transform: translateY(3.375rem); }
+  to { transform: none; }
+}
+
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-input__text {
+  animation: sup-sbl-arr-line 150ms cubic-bezier(0.333, 0, 0.667, 1) 900ms both;
+}
+
+@keyframes sup-sbl-arr-line {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .sbl .ask-stage :is(.ask-surface, .ask-input, .ask-input__text),
+.sup-motion .sbl .ask-stage .ask-input .ill-icon-button::before {
+    animation: none;
+  }
+}
+
+/* ---- 09 · the suggestion chips (BarArriving.stories.tsx) ----
+   Arriving (the Storybook's nearest-first pop, refined in review): each
+   chip grows from .9 as it fades in — never from nothing — on a strong
+   ease-out, 250ms, 60ms apart so the row lands as one, as the bar
+   finishes opening.
+   Leaving: the shopper typed rather than picked, so no chip travels;
+   they all breathe out where they stand — 183ms on
+   cubic-bezier(.2,0,.8,1). */
+.sup-motion .sbl .ask-landing__chips {
+  transform: none;
+  filter: none;
+}
+
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-landing__chip {
+  transform-origin: 50% 50%;
+  animation: sup-sbl-chip-pop 250ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-landing__chip:nth-child(1) { animation-delay: 1000ms; }
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-landing__chip:nth-child(2) { animation-delay: 1060ms; }
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-landing__chip:nth-child(3) { animation-delay: 1120ms; }
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-landing__chip:nth-child(4) { animation-delay: 1180ms; }
+
+@keyframes sup-sbl-chip-pop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.sup-motion .sbl .ask-stage--expanded .ask-landing__chips {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  transition: none;
+}
+
+.sup-motion .sbl .ask-stage--expanded .ask-landing__chip {
+  animation: sup-sbl-chip-out 183ms cubic-bezier(0.2, 0, 0.8, 1) forwards;
+}
+
+@keyframes sup-sbl-chip-out {
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .sbl .ask-landing__chip,
+.sup-motion .sbl .ask-stage--expanded .ask-landing__chip {
+    animation: none;
+  }
+
+  .sup-motion .sbl .ask-stage--expanded .ask-landing__chip {
+    opacity: 0;
+  }
+}
+
+/* Once open, no entrance animation: swapping the reveal off would hand
+   the box back to AskInsight's own landing-in (opacity 0 → 1, 320ms),
+   which replayed as the window faded out and back in on send. */
+.sup-motion .sbl .ask-stage--expanded :is(.ask-surface, .ask-input) {
+  animation: none;
+}
+
+/* ---- 09 · one shape at the start, and the heading with it ----
+   The orb arrives alone: the send disc no longer sits inside it as a
+   second circle. It grows in from .9 with a fade as the bar stretches
+   (+650ms, 220ms strong ease-out), already riding the right end, and the
+   arrow still rises into it after. The heading leads the entrance: a
+   500ms fade with a 6px settle and a soft 4px blur, landing as the orb
+   appears, so the landing builds as one sequence. */
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-input .ill-icon-button {
+  animation: sup-sbl-disc-in 220ms cubic-bezier(0.23, 1, 0.32, 1) 650ms both;
+}
+
+@keyframes sup-sbl-disc-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: none; }
+}
+
+.sup-motion .sbl .ask-stage:not(.ask-stage--expanded) .ask-landing__headline {
+  animation: sup-sbl-head-in 500ms cubic-bezier(0.23, 1, 0.32, 1) 100ms both;
+}
+
+@keyframes sup-sbl-head-in {
+  from { opacity: 0; transform: translateY(6px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .sbl .ask-stage .ask-input .ill-icon-button,
+.sup-motion .sbl .ask-stage .ask-landing__headline {
+    animation: none;
+  }
+}
+
+/* 03 · landing: the chips' ring and cast sit outside their boxes, and
+   the compact window clips flush at the row — 3px of room all round
+   keeps their rounded ends whole. */
+.sup-motion .sbl .adj-widget--compact .ill-conversation-viewport__content {
+  padding: 3px 3px 4px;
+}
+
+/* 03 / 04 · the conversations clip flush at their content box; 3px of
+   side room and 6px below keep every ring, chip end and card cast whole
+   (03's compact landing has its own rule above). */
+.sup-motion .sbl :is(.adj-widget--expanded, .ais-cw) .ill-conversation-viewport__content {
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 6px;
+}
+
+/* Every other layered conversation that clips flush: 04's motion window
+   and the Insights 06–08 — the same 3px of side room and 6px below, so
+   the result cards' ring and cast and the trailing chips stay whole. */
+.sup-motion .sbl :is(.ais-stage, .ill-insight-frame, .ais) .ill-conversation-viewport__content {
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 6px;
+}
+
+/* 04's motion follows the latest turn by lining its bottom up with the
+   window's edge (padding ignored), so the trailing chips carry their own
+   room below for their cast. */
+.sup-motion .sbl .aism-cw .ill-ai-pills {
+  padding-bottom: 5px;
+}
+
+/* ---- The transcript fades, as the product's (ChatWindow
+   .nw-win__scroll): every layered shell's conversation masks a 12px band
+   under the header and 24px before the composer, each inside matching
+   padding, so resting content is never softened. This replaces the kit's
+   32px colour overlay (ContentFade) and the end-anchored frames' ::before
+   top fade. ---- */
+.sup-motion .sbl .ill-shell .ill-conversation-viewport {
+  -webkit-mask-image: linear-gradient(transparent, #000 12px, #000 calc(100% - 24px), transparent);
+  mask-image: linear-gradient(transparent, #000 12px, #000 calc(100% - 24px), transparent);
+}
+
+.sup-motion .sbl .ill-shell .ill-conversation-viewport::before,
+.sup-motion .sbl .ill-shell .ill-content-fade {
+  display: none;
+}
+
+.sup-motion .sbl .ill-shell .ill-conversation-viewport__content {
+  padding-top: 12px;
+  padding-bottom: 24px;
+}
+
+/* components/ill/tokens.css */
+/*
+  Bound ILL Colors and ILL Metrics variables, read directly via
+  get_variable_defs on the ILL Component Library (node 1954:271),
+  fileKey TiAeD9ICNjjC8N3zoUJExk. Names and values are literal —
+  not approximated from SVG exports or screenshots.
+*/
+.sup-motion {
+  /* ILL/Color/* */
+  --ill-color-text-inverse: #ffffff;
+  --ill-color-accent-strong: #6c2332;
+  --ill-color-accent-primary: #7d0034;
+  --ill-color-text-primary: #000000;
+  --ill-color-border-default: #cfb8bb;
+  --ill-color-accent-gold: #ffb657;
+  --ill-color-text-body: #161719;
+  --ill-color-background-surface: #f9f4eb;
+  --ill-color-accent-soft: #e0be60;
+  --ill-color-accent-rating: #f0aa3b;
+  --ill-color-text-metadata: #64666c;
+  --ill-color-background-recessed: #efe9db;
+  --ill-color-background-inset: #fef9ec;
+  --ill-color-text-secondary: #606060;
+  --ill-color-background-canvas: #fff9e9;
+  --ill-color-accent-secondary: #462160;
+  --ill-color-text-muted: #9b9b9b;
+  --ill-color-background-subtle: #faedd4;
+  /* Bound separately from Background/Canvas (same #fff9e9 value, distinct
+     name) — read via get_variable_defs scoped to the Template node
+     (1941:13814), where the shell fill resolves to this variable. */
+  --ill-color-background-page: #fff9e9;
+
+  /* Bound separately from Accent/Secondary (same #462160 value, distinct
+     name `var(--color-aubergine)`) — read via get_variable_defs on the
+     Support V3 merchant-helpdesk reference (node 2710:27270), where the
+     Helpdesk Header badge and panel figure resolve to this variable
+     instead of Accent/Secondary. Same treatment as Background/Page
+     above: kept as its own named token rather than merged into the
+     coincidentally-equal one. */
+  --color-aubergine: #462160;
+
+  /* Remaining Figma variables found in the library audit: `stone` and
+     `var(--color-gold)` (same value as Accent/Soft, distinct name —
+     bound by Chip Kind=Open). */
+  --color-stone: #343330;
+  --color-gold: #e0be60;
+  /* Bound on the PlaceItWherever scenario's own placeholder-card fill
+     (Figma node 2745:36229, fileKey TiAeD9ICNjjC8N3zoUJExk) — the flat
+     color review feedback swapped the shared skeleton gradient for. */
+  --color-sand: #f3e9d4;
+
+  /* ILL/Space/* */
+  --ill-space-2: 2px;
+  --ill-space-4: 4px;
+  --ill-space-6: 6px;
+  --ill-space-12: 12px;
+  --ill-space-16: 16px;
+  --ill-space-32: 32px;
+  /* Bound separately from the ILL/Space scale (plain `var(--space-xs)` in
+     Figma, 8px) — read from the Helpdesk Header's container gap. */
+  --space-xs: 8px;
+
+  /* ILL/Radius/* */
+  --ill-radius-sm: 5px;
+  --ill-radius-lg: 16px;
+  --ill-radius-full: 999px;
+
+  /* ILL/Stroke/* */
+  --ill-stroke-hairline: 0.5px;
+  --ill-stroke-default: 1px;
+}
+
+.sup-motion {
+  /* Exact solid fill from REF Sleep-Product, 1941:13628 in TiAeD9ICNjjC8N3zoUJExk. */
+  --color-green: #1f4633;
+}
+
+/* brands/BrandIdentity.css */
+.sup-motion .demo-brand-mark {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--brand-ink);
+  color: var(--brand-paper);
+  overflow: hidden;
+}
+
+.sup-motion .demo-brand-mark > svg,
+.sup-motion .demo-brand-mark > img { display: block; width: 66%; height: 66%; object-fit: contain; }
+.sup-motion .demo-brand-mark[data-brand-id="aurelle"] > img { width: 58.6%; height: auto; transform: translateY(-5.6%); }
+.sup-motion .demo-brand-name { font-family: var(--font-geist), system-ui, sans-serif; letter-spacing: normal; text-transform: none; }
+.sup-motion .demo-brand-wordmark { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.sup-motion .demo-brand-wordmark > .demo-brand-mark { width: 1.15em; height: 1.15em; }
+.sup-motion .demo-brand-wordmark > .demo-brand-name { color: var(--brand-ink); }
+.sup-motion .demo-brand-mark.hm2-nudge__disc { width: 44px; height: 44px; }
+.sup-motion .demo-brand-mark.gjm-orb-mark { width: 100%; height: 100%; }
+
+.sup-motion .demo-brand-storefront .ill-marketplace__gallery-main .ill-media {
+  object-fit: contain;
+  padding: 16px;
+  background: var(--brand-plate);
+}
+
+.sup-motion .demo-brand-mark > .demo-brand-mark__asset { display: block; width: 66%; height: 66%; background: currentColor; mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
+
+/* Supplied marks already contain their own artboard spacing. */
+.sup-motion .demo-brand-mark > img.demo-brand-mark__supplied { width: 100%; height: 100%; transform: none; object-fit: contain; }
+
+.sup-motion .aurelia-mark > .demo-brand-mark.legacy-supplied-mark { width: 100%; height: 100%; }
+
+.sup-motion .pcx-ad__avatar > .demo-brand-mark.goodwell-supplied-avatar { width: 100%; height: 100%; background: transparent; }
+
+/* components/ill/Media.css */
+.sup-motion .ill-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Neutral placeholder fill using the Background/Subtle token — swapped
+   for real product photography via the `src` prop. */
+.sup-motion .ill-media--placeholder {
+  background: var(--ill-color-background-subtle);
+}
+
+/* Transparent product cutouts are letterboxed, not cropped — the subject
+   is centred with its own margin, so cover would clip it in wide cards. */
+.sup-motion .ill-media--cutout {
+  object-fit: contain;
+  background: var(--ill-color-background-subtle);
+}
+
+/* components/ill/Chip.css */
+.sup-motion .ill-chip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--ill-color-background-surface);
+  border: var(--ill-stroke-hairline) solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--ill-radius-full);
+  padding: var(--ill-space-4) var(--ill-space-12);
+  font-family: var(--font-geist), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12px;
+  text-transform: uppercase;
+  color: var(--ill-color-text-body);
+  white-space: nowrap;
+}
+
+/* Size=sm — 9px compact status-badge variant (design feedback); only
+   font-size changes, everything else (padding, border, uppercase) stays
+   Label kind's own. */
+.sup-motion .ill-chip--sm {
+  font-size: 9px;
+}
+
+/* Kind=Discount (1954:313) — exact literal values from the Figma
+   instance: Accent/Soft fill, no border, 7px type, no uppercase. */
+.sup-motion .ill-chip--discount {
+  background: var(--ill-color-accent-soft);
+  border: none;
+  border-radius: var(--ill-radius-full);
+  padding: 6px;
+  font-size: 7px;
+  line-height: 10px;
+  letter-spacing: -0.1217px;
+  text-transform: none;
+  color: var(--ill-color-text-primary);
+}
+
+/* Kind=Action — filled resolved-action chip; border stays Label kind's
+   own hairline, only the fill/text color change per tone. */
+.sup-motion .ill-chip--action {
+  border: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+.sup-motion .ill-chip--action-primary {
+  background: var(--ill-color-accent-primary);
+  color: var(--ill-color-text-inverse);
+}
+
+.sup-motion .ill-chip--action-gold {
+  background: var(--ill-color-accent-soft);
+  color: var(--ill-color-text-body);
+}
+
+/* components/ill/Button.css */
+/* node 1954:297 — exact authored values: Geist Medium 10px / 15px,
+   padding 7px 10px, radius ILL/Radius/Sm. (Was DM Sans 9.735px with
+   scaled 7.301/9.735/4.868 literals.) */
+.sup-motion .ill-button {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 7px 10px;
+  border-radius: var(--ill-radius-sm);
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: -0.1px;
+  line-height: 15px;
+  cursor: pointer;
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.sup-motion .ill-button:active {
+  transform: scale(0.97);
+}
+
+/* node 1954:282 */
+.sup-motion .ill-button--primary {
+  border: none;
+  background: var(--ill-color-accent-strong);
+  color: var(--ill-color-text-inverse);
+}
+
+/* node 1954:293 */
+.sup-motion .ill-button--secondary {
+  background: #faecd4;
+  border: var(--ill-stroke-hairline) solid rgba(23, 23, 23, 0.2);
+  color: #171717;
+}
+
+/* node 1954:296 — Accent/Compact/Default */
+.sup-motion .ill-button--accent {
+  padding: 8px 9px;
+  border-radius: var(--ill-radius-full);
+  border: none;
+  background: var(--ill-color-accent-primary);
+  color: var(--ill-color-text-inverse);
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: normal;
+  letter-spacing: -0.0679px;
+}
+
+/* node 1964:218 — Ghost/Wide/Default (neutral #ececec fill, Geist
+   Regular 12px, Text/Primary). */
+.sup-motion .ill-button--ghost {
+  gap: 5px;
+  border: none;
+  background: #ececec;
+  color: var(--ill-color-text-primary);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: -0.24px;
+}
+
+/* components/ill/StaggerText.css */
+.sup-motion .ill-stagger-text__word {
+  display: inline-block;
+  opacity: 0;
+  animation: sup-ill-stagger-text-word-in 220ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes sup-ill-stagger-text-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-stagger-text__word {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* components/ill/ContentFade.css */
+/* Pinned to the bottom edge of ConversationViewport (its positioning
+   parent), overlaying scrollable content without participating in its
+   flow — "never wrap transcript content" per the component's own
+   description. Color adapted from the canonical gradient: the Figma
+   source targets Background/Surface (#f9f4eb), authored for fading
+   content against a card-toned backdrop. Here the fade sits directly
+   over the shell's own Background/Page (#fff9e9), so the solid target
+   color is matched to that instead — same stop positions/angle, just the
+   color corrected to what's actually behind it. */
+.sup-motion .ill-content-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 32px;
+  pointer-events: none;
+  background-image: linear-gradient(
+    180.13deg,
+    rgba(255, 249, 233, 0) 3.5575%,
+    rgb(255, 249, 233) 66.118%,
+    rgb(255, 249, 233) 113.61%
+  );
+}
+
+/* visuals/AiAssistantsV3/ProductImage.css */
+.sup-motion .aiv3-product-image {
+  --product-media-background: #f5f5f5;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+.sup-motion .aiv3-product-image[data-media-tone="paper"] { --product-media-background: #fbedd4; }
+.sup-motion :is(.aiv3, .mcp) img.aiv3-product-image { background: var(--product-media-background); }
+
+.sup-motion :is(.aiv3, .mcp) :is(.aia-tile__media, .aiv3-config__media, .aiv3-spot__media, .aiv3w-card__media, .mcp-hero__media, .mcp-duo__media) {
+  position: relative;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+.sup-motion :is(.aiv3, .mcp) :is(.aia-tile__media, .aiv3-config__media, .aiv3-spot__media, .aiv3w-card__media, .mcp-hero__media, .mcp-duo__media):has(> [data-media-tone="paper"]) {
+  background: #fbedd4;
+}
+.sup-motion :is(.aiv3, .mcp) :is(.aia-tile__media, .aiv3-config__media, .aiv3-spot__media, .aiv3w-card__media, .mcp-hero__media, .mcp-duo__media) > .aiv3-product-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+}
+.sup-motion .aiv3 .aiv3-config__media { min-height: 88px; }
+.sup-motion .aiv3 .aiv3-spot__media { min-height: 80px; }
+.sup-motion :is(.aiv3, .mcp) .aiv3-product-image:is(.aiv3-row__thumb, .aiv3w-track__thumb, .mcp-line__thumb) { padding: 3px; }
+.sup-motion :is(.aiv3w-ref, .mcp-ref, .aiv3-bundle) > .aiv3-product-image { padding: 3px; }
+
+/* The necklace photo ends at the chain; keep its top edge flush with the media slot. */
+.sup-motion :is(.aiv3, .mcp) img.aiv3-product-image[data-media-fit="cover"] {
+  padding: 0;
+  object-fit: cover;
+}
+
+/* components/ill/Shell.css */
+/* Shell chrome pulled from the canonical ILL/Template/Chat-Conversation
+   instance (node 1941:13814, fileKey TiAeD9ICNjjC8N3zoUJExk) — the
+   reusable shell resource: background bound to Color/Background/Page,
+   border to Color/Accent/Soft, and the full multi-layer shadow bound to
+   the named effect style ILL/Effect/Shell/Glow. Padding/gap/radius are
+   exact literals from that same node (not tokenized, and not simplified
+   to a hairline per the brief).
+
+   Fixed at 450x500 for every illustration in the series — the shell no
+   longer grows with content. Internal layers (header, conversation
+   viewport, composer) are stacked in a flex column; only the viewport
+   flexes/clips, so header and composer stay put regardless of how much
+   conversation content there is. */
+.sup-motion .ill-shell {
+  width: 450px;
+  height: 500px;
+  max-width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 22.616px;
+  padding: 22.616px;
+  background: var(--ill-color-background-page);
+  border: 2px solid var(--ill-color-accent-soft);
+  border-radius: 12.701px;
+  box-shadow:
+    0px 0px 18.989px rgba(224, 190, 96, 0.4),
+    0px 0px 5.172px 1.293px rgba(0, 0, 0, 0.02),
+    0px 4.234px 8.679px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+/* ILL/Effect/Shell/Glow's inner-shadow layer, rendered on a separate
+   inset overlay exactly as the template structures it (own absolute
+   layer at inset -2px, not a plain inset box-shadow on the shell itself). */
+.sup-motion .ill-shell::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0px 0px 20px rgba(108, 35, 50, 0.45);
+}
+
+/* Header and composer are fixed layers — default flex sizing (don't
+   grow, don't shrink below content) is correct since ConversationViewport
+   is the only child that claims flex:1. */
+.sup-motion .ill-shell > .ill-chat-header,
+.sup-motion .ill-shell > .ill-chat-composer {
+  flex-shrink: 0;
+}
+
+/* components/ill/ChatHeader.css */
+.sup-motion .ill-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* node 1954:336 / 1954:345 */
+.sup-motion .ill-chat-header__group {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+/* node 1964:194 "brand" — padding and border color are literal, not
+   bound to an ILL variable (unlike the composer's padding, this one
+   was not expressed as var(--ill/space/*) in the source). */
+.sup-motion .ill-chat-header__brand {
+  background: var(--ill-color-background-surface);
+  border: var(--ill-stroke-hairline) solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--ill-radius-full);
+  padding: 4px 12px;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.12px;
+  text-transform: uppercase;
+  color: var(--ill-color-text-body);
+  white-space: nowrap;
+}
+
+.sup-motion .sbl .ill-chat-header .ill-chat-header__brand:has(> .demo-brand-wordmark) {
+  font-size: 14px;
+}
+
+.sup-motion .sbl .ill-chat-header .ill-chat-header__brand:has(> .demo-brand-wordmark)::before,
+.sup-motion .sbl .ill-chat-header .ill-chat-header__brand:has(> .demo-brand-wordmark)::after {
+  display: none;
+}
+
+.sup-motion .ill-chat-header__brand > .demo-brand-wordmark > .demo-brand-mark {
+  width: 28px;
+  height: 28px;
+}
+
+.sup-motion .ill-chat-header__brand .demo-brand-name {
+  font-family: inherit;
+  color: inherit;
+  letter-spacing: 0;
+}
+
+/* components/ill/IconButton.css */
+.sup-motion .ill-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.sup-motion .ill-icon-button:active {
+  transform: scale(0.93);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-icon-button {
+    transition: none;
+  }
+}
+
+/* One-shot scripted press (Support V3 Motion / 08b's "send button
+   responds with a subtle scale-down interaction") — driven by a class
+   instead of a pointer event, since this plays on a scripted send, not
+   a click. scale(0.97) is emil-design-eng's own canonical button-press
+   scale verbatim (0.95–0.98; an earlier 0.88 read as a cartoonish
+   squish). 120ms, the low end of its 100-160ms button-press band, for a
+   snappier tap. */
+.sup-motion .ill-icon-button--pressed {
+  transform: scale(0.97);
+  transition: transform 120ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-icon-button--pressed {
+    transition: none;
+  }
+}
+
+/* Template instance (node 1941:13879) rotates the base rightward Send
+   glyph -90deg so it points up inside the composer button. */
+.sup-motion .ill-icon-button__glyph--rotated {
+  display: flex;
+  transform: rotate(-90deg);
+}
+
+/* Node 1954:301 Outlined/Sm (action.history etc.) — authored 29px,
+   0.5px border, ILL/Radius/Full. */
+.sup-motion .ill-icon-button--outline {
+  width: 29px;
+  height: 29px;
+  background: transparent;
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: var(--ill-radius-full);
+}
+
+/* Node 1960:85 Outlined/Md */
+.sup-motion .ill-icon-button--outline-md {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: var(--ill-radius-full);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sup-motion .ill-icon-button--outline:hover {
+    background: var(--ill-color-background-surface);
+  }
+}
+
+/* Node 1954:305 Filled/Md (action.send) — 1px border + 1px padding
+   (ILL/Stroke/Default), full radius. */
+.sup-motion .ill-icon-button--accent {
+  width: 40px;
+  height: 40px;
+  padding: 1px;
+  background: var(--ill-color-accent-strong);
+  border: var(--ill-stroke-default) solid var(--ill-color-accent-gold);
+  border-radius: var(--ill-radius-full);
+}
+
+/* Node 1960:88 Filled/Sm */
+.sup-motion .ill-icon-button--accent-sm {
+  width: 29px;
+  height: 29px;
+  padding: 1px;
+  background: var(--ill-color-accent-strong);
+  border: var(--ill-stroke-default) solid var(--ill-color-accent-gold);
+  border-radius: var(--ill-radius-full);
+}
+
+/* components/ill/ChatComposer.css */
+.sup-motion .ill-chat-composer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: var(--ill-color-background-recessed);
+  border: var(--ill-stroke-hairline) solid var(--ill-color-border-default);
+  border-radius: 113px;
+  padding: var(--ill-space-4) var(--ill-space-4) var(--ill-space-4) var(--ill-space-16);
+}
+
+.sup-motion .ill-chat-composer__text {
+  flex: 1 0 0;
+  min-width: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.0681px;
+  color: var(--ill-color-text-secondary);
+}
+
+.sup-motion .ill-chat-composer__caret {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  margin-left: 1px;
+  vertical-align: -2px;
+  background: var(--ill-color-text-secondary);
+  animation: sup-ill-chat-composer-caret-blink 900ms step-end infinite;
+}
+
+@keyframes sup-ill-chat-composer-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-chat-composer__caret {
+    animation: none;
+  }
+}
+
+/* Expanded composer card — node 2725:28996 (Support V3 "Merchant
+   insight" composing beat). Literal canvas fill + Accent/Soft border +
+   the same inset glow Shell's own ::after layer uses, not a token this
+   component otherwise carries. */
+.sup-motion .ill-chat-composer--expanded {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 22.616px;
+  padding: 16px;
+  border-radius: 12.701px;
+  background: var(--ill-color-background-canvas);
+  border: 2px solid var(--ill-color-accent-soft);
+  box-shadow: 0px 4.234px 4.34px rgba(0, 0, 0, 0.25);
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+  transition:
+    opacity 200ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 200ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 200ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* No prior state to animate from on mount otherwise (Support V3
+     Motion / 08a's "fades in with a subtle 12px upward movement", here
+     unified to 8px — see the exit rule below and
+     MerchantInsightMotion.css's reply-enter for why).
+     200ms — the low end of emil-design-eng's modals/drawers band (sat
+     at 260ms before, trimmed further on request for a snappier feel). */
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* The composer clears and fades out on send — 140ms, clearly faster
+   than the 200ms entrance (emil-design-eng: "make exit faster than
+   enter"). The added blur pairs this exit with the incoming bubble's
+   own blur-based entrance (UserTurn's shared keyframe) — now that the
+   two overlap in time (Support V3 Motion / 08's isSent calc starts the
+   bubble the instant this exit begins), the matching blur treatment is
+   what actually sells it as one continuous handoff rather than two
+   unrelated fades happening to coincide.
+   Plain `ease-out`, not the shared "ease-drawer" curve: this exit is
+   part of the same "composer goes away, first chat module shows up"
+   moment as turn 1's bubble entrance and the FLIP reposition (both
+   swapped to the same simpler curve — MerchantInsightMotion.css/.tsx),
+   so all of it moves on one shared, plainer curve instead of mixing
+   ease-drawer's steep-rise-then-drag shape with a flatter one. This
+   `expanded` variant is only ever used by this one scenario, so the
+   change doesn't reach any other call site of ChatComposer. */
+.sup-motion .ill-chat-composer--expanded--hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(3px);
+  transition:
+    opacity 140ms ease-out,
+    transform 140ms ease-out,
+    filter 140ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-chat-composer--expanded,
+.sup-motion .ill-chat-composer--expanded--hidden {
+    transition: none;
+  }
+}
+
+.sup-motion .ill-chat-composer--expanded::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0px 0px 20px rgba(108, 35, 50, 0.45);
+}
+
+.sup-motion .ill-chat-composer--expanded__text {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.0681px;
+  color: #383838;
+}
+
+.sup-motion .ill-chat-composer--expanded__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sup-motion .ill-chat-composer--expanded__upload {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.0681px;
+  color: var(--ill-color-text-secondary);
+}
+
+/* components/ill/ConversationViewport.css */
+.sup-motion .ill-conversation-viewport {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Bottom padding reserves room equal to the fade's height so the last
+   message can scroll fully clear of it rather than sitting underneath —
+   "move fully above the composer when needed." */
+.sup-motion .ill-conversation-viewport__content {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 32px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sup-motion .ill-conversation-viewport__content::-webkit-scrollbar {
+  display: none;
+}
+
+/* components/ill/SkeletonBlock.css */
+/* Shimmer is a translating overlay (transform-only), not an animated
+   background-position — keeps the sweep on the compositor instead of
+   repainting the gradient every frame. `isolation: isolate` contains the
+   highlight's blend mode to this block's own fill, not sibling blocks or
+   whatever sits behind the card. */
+.sup-motion .ill-skeleton-block {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ill-color-background-subtle);
+}
+
+.sup-motion .ill-skeleton-block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  /* A real white tint, blended in via `screen`, not another cream
+     palette token — every background token in this kit clusters tightly
+     around off-white, so picking a "lighter" token as the old highlight
+     still read as barely-there. Screen-blending white gives the
+     highlight actual headroom to look bright, which no token alone can.
+     Diagonal angle + wide stops (20/50/80%) wash a broad, angled band of
+     light across the shape as it passes, matching the conventional
+     shimmer look (and this component's own Figma-sourced static
+     gradients, which all use diagonal angles too) rather than a thin
+     vertical-edged line sliding sideways. */
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.75) 50%, transparent 80%);
+  mix-blend-mode: screen;
+  animation: sup-ill-skeleton-shimmer 1.4s linear infinite;
+}
+
+@keyframes sup-ill-skeleton-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-skeleton-block::after {
+    animation: none;
+    display: none;
+  }
+}
+
+/* components/ill/ChatMessage.css */
+.sup-motion .ill-chat-message p {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.0681px;
+  line-height: normal;
+}
+
+/* node 1954:355 */
+.sup-motion .ill-chat-message--user {
+  align-self: flex-end;
+  max-width: 78%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ill-color-accent-strong);
+  padding: 9px;
+  border-radius: 14px;
+}
+
+.sup-motion .ill-chat-message--user p {
+  color: var(--ill-color-text-inverse);
+}
+
+/* node 1954:358 — color is a literal #161719 in the source (not bound to
+   the Text/Body variable, even though the values coincide). */
+.sup-motion .ill-chat-message--assistant {
+  max-width: 92%;
+}
+
+.sup-motion .ill-chat-message--assistant p {
+  color: #161719;
+}
+
+/* Inline emphasis within a reply — existing type scale, heavier weight
+   and the accent color, not a new component. */
+.sup-motion .ill-chat-message--assistant strong {
+  font-weight: 600;
+  color: var(--ill-color-accent-strong);
+}
+
+/* components/ill/UserTurn.css */
+.sup-motion .ill-user-turn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.sup-motion .ill-user-turn--enter {
+  animation: sup-ill-turn-enter 220ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+}
+
+@keyframes sup-ill-turn-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-user-turn--enter {
+    animation: none;
+  }
+}
+
+/* components/ill/AssistantTurn.css */
+.sup-motion .ill-assistant-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sup-motion .ill-assistant-turn--enter {
+  animation: sup-ill-turn-enter 220ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+}
+
+@keyframes sup-ill-turn-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-assistant-turn--enter {
+    animation: none;
+  }
+}
+
+/* components/ill/SceneFrame.css */
+/* Figma node 1941:613 ("Reference bg", also audited against node
+   2246:1951) — the 738x680 decorative frame every home-page scene sits
+   inside. Three layers, literal Figma geometry:
+     1. background.svg — deep red (#7d0034) fill, full-bleed 738x680,
+        plus the 4 corner rivets (circles) at their own 738x680
+        coordinates.
+     2. background-texture.webp — the woven damask overlay (node
+        2246:1954 "Subtract"). It is NOT full-bleed: Figma insets it
+        13.16px left/right and 15.98px top/bottom (711.68x648.036 inside
+        738x680), leaving the red frame showing as a border around it.
+        Stretching it to 100%/100% (zero padding) was the earlier bug.
+     3. the scene itself (a Shell-based illustration or other visual),
+        centered.
+
+   The frame is a fixed 738x680 box scaled as one rigid unit via
+   container query units on `.ill-scene-frame-scale`, so the frame and
+   whatever fixed-size scene it wraps always shrink in lockstep instead
+   of the scene clipping out of a shrinking frame. */
+.sup-motion .ill-scene-frame-scale {
+  width: 100%;
+  max-width: 738px;
+  aspect-ratio: 738 / 680;
+  container-type: inline-size;
+  overflow: hidden;
+}
+
+.sup-motion .ill-scene-frame {
+  position: relative;
+  width: 738px;
+  height: 680px;
+  transform: scale(calc(100cqw / 738));
+  transform-origin: top left;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sup-motion .ill-scene-frame__background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sup-motion .ill-scene-frame__texture {
+  position: absolute;
+  left: 13.16px;
+  top: 15.98px;
+  width: 711.68px;
+  height: 648.036px;
+  display: block;
+}
+
+.sup-motion .ill-scene-frame__content {
+  position: relative;
+}
+
+/* `height` set: the fill is the background.svg's own #7D0034 (its rect),
+   and the texture is scaled to the new inset box, not cropped, so its
+   notched gold outline keeps all four corners. */
+.sup-motion .ill-scene-frame--sized {
+  background: #7d0034;
+}
+
+.sup-motion .ill-scene-frame--sized .ill-scene-frame__texture {
+  height: calc(100% - 31.96px);
+  object-fit: fill;
+}
+
+/* components/ill/ProductReference.css */
+/* ILL/Module/Product/Reference (2071:16875) — exact literal values from
+   the Figma source. Horizontal, content-width (not a fixed/percentage
+   column like the old code-only version). */
+.sup-motion .ill-product-reference {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 9px;
+}
+
+.sup-motion .ill-product-reference__media {
+  flex-shrink: 0;
+  width: 59px;
+  height: 59px;
+  border-radius: 8px;
+  background: #ffefd2;
+  overflow: hidden;
+}
+
+.sup-motion .ill-product-reference__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sup-motion .ill-product-reference__brand {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 10px;
+  letter-spacing: -0.057px;
+  color: var(--ill-color-text-metadata);
+}
+
+.sup-motion .ill-product-reference__title {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  /* literal in the source (#1f1b18) — doesn't match any bound text token */
+  color: #1f1b18;
+}
+
+.sup-motion .ill-product-reference__price {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 12px;
+  color: var(--ill-color-text-primary);
+}
+
+/* components/ill/AiStatus.css */
+.sup-motion .ill-ai-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+  transition:
+    opacity 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 180ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Without this, the row has no prior state to transition from on
+     mount, so it pops in instantly — only its exit (--hidden) was
+     animated. This gives it a real entrance, matching the exit. */
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(3px);
+  }
+}
+
+.sup-motion .ill-ai-status--hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(3px);
+  /* Faster than the 180ms entrance — the reply is already on its way by
+     the time this exits, so it should get out of the way quickly. */
+  transition:
+    opacity 130ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 130ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 130ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.sup-motion .ill-ai-status__label-stack {
+  position: relative;
+  display: inline-grid;
+}
+
+.sup-motion .ill-ai-status__label {
+  grid-area: 1 / 1;
+  font-family: var(--font-face-dm-sans-opsz), sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.24px;
+  color: var(--ill-color-accent-secondary);
+  font-variation-settings: "opsz" 14;
+  white-space: nowrap;
+  opacity: 1;
+  filter: blur(0px);
+  transition:
+    opacity 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 180ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  @starting-style {
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+.sup-motion .ill-ai-status__label--exiting {
+  opacity: 0;
+  filter: blur(2px);
+
+  /* Overrides the base rule's @starting-style(0) — without this, a
+     freshly-inserted exiting span starts and ends at 0 with nothing to
+     transition, so it vanishes instantly instead of fading out. This
+     gives it 1/blur(0) as its "before" value so it actually animates
+     down, matching the entering label's blur-fade so the swap reads as
+     one continuous crossfade instead of two different transitions. */
+  @starting-style {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-ai-status {
+    transition: none;
+  }
+
+  .sup-motion .ill-ai-status__label {
+    transition: none;
+  }
+}
+
+/* components/ill/AiStatusIcon.css */
+.sup-motion .ill-ai-status-icon {
+  display: block;
+  flex-shrink: 0;
+
+  /* Shared curves, reused across every keyframe below instead of
+     repeating literals — also makes it obvious these are the same two
+     curves everywhere, not several close-but-different ones.
+     --ill-ease-bloom matches AiStatus.css's own row enter/exit curve
+     exactly (cubic-bezier(0.32, 0.72, 0, 1)), reused here (not a
+     separate "ease-in" for exit) so the icon's bloom/exit are paired
+     with the row's own entrance/exit on the same curve shape, just
+     shorter on exit — same pattern AiStatus.css already uses for
+     itself. --ill-ease-move is a stronger ease-in-out for motion
+     that's already on-screen (the spin, the spokes/ticks pulses) —
+     plain `ease-in-out` is too weak to read as intentional. */
+  --ill-ease-bloom: cubic-bezier(0.32, 0.72, 0, 1);
+  --ill-ease-move: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/*
+  Phase timeline — single source of truth for all three keyframes below.
+  Total loop: 3000ms (slowed from an earlier 2200ms version — these
+  percentages carried over unchanged, only the total duration grew, so
+  they're expressed as % here rather than ms, which would've gone stale
+  the moment the duration changed again).
+
+    0%       Bloom starts (compact, scale 0.35)
+    22%      Bloom overshoots slightly (scale 1.08) before settling
+    27.27%   Bloom settles to scale 1 / half-spin 1 starts
+    54.55%   Half-spin 1 complete (180deg) / half-spin 2 starts
+    81.82%   Half-spin 2 complete (360deg) / exit starts
+    100%     Exit complete (compact again) -> loop
+
+  Spokes (the 4 long strokes) pulse once per half-spin, deliberately
+  locked to those same boundaries (dip at the midpoint of each half,
+  back to 1 at each boundary) — a slow, deep breath paired with the
+  turn itself.
+
+  Ticks (the 4 short strokes) pulse twice per half-spin but are
+  deliberately NOT locked to the half-spin boundaries: without an
+  offset, every tick pulse would land back at scale(1) in the exact
+  same instant as the spokes and the rotation's own re-ease at 54.55%/
+  81.82% — three layers hitting "neutral" simultaneously reads as one
+  synchronized beat, undoing the point of giving ticks their own
+  faster pace. Ticks start a touch after the spokes/rotation layer (at
+  30%, not 27.27%) and finish each pulse with enough idle buffer before
+  54.55%/81.82% that they're already resting, not mid-transition, when
+  those boundaries hit. The same offset also gives the bloom itself a
+  touch of stagger — ticks' first reaction trails the spokes'/
+  rotation's, instead of every layer settling into the entrance as one
+  flat block.
+
+  Ticks only dip to scale(0.7) rather than the spokes' 0.4: ticks are
+  already short (~1.6 units vs. the spokes' ~3.5) and round-capped, and
+  every stroke uses vectorEffect="non-scaling-stroke" so width never
+  shrinks with them — converge a short, round-capped line too far and
+  it stops reading as a line at all and starts reading as a dot. 0.7
+  keeps roughly a 1.8:1 length-to-width ratio at the deepest point,
+  the floor for it to still look like a stroke rather than a blob; the
+  spokes' longer starting length and square (butt) caps give them more
+  room, so 0.4 stays safely above that same floor for them.
+
+  The center square pulses too, inverted relative to the spokes — it
+  grows a touch exactly when the spokes converge (and matches the
+  spokes' own boundaries/easing, since they're a direct pair), then
+  settles back as they expand. Idle during bloom/exit, same as spokes.
+*/
+
+.sup-motion .ill-ai-status-icon__shape {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: sup-ill-ai-status-icon-cycle 3000ms infinite;
+}
+
+/* Paused (not reset) while AiStatus's `visible` prop is false — resumes
+   from exactly where it left off rather than re-blooming. Applies to
+   all three layers so they stay in lockstep when frozen/resumed. */
+.sup-motion .ill-ai-status--hidden .ill-ai-status-icon__shape,
+.sup-motion .ill-ai-status--hidden .ill-ai-status-icon__spokes,
+.sup-motion .ill-ai-status--hidden .ill-ai-status-icon__ticks,
+.sup-motion .ill-ai-status--hidden .ill-ai-status-icon__center {
+  animation-play-state: paused;
+}
+
+.sup-motion .ill-ai-status-icon__spokes {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: sup-ill-ai-status-icon-spokes-pulse 3000ms infinite;
+}
+
+.sup-motion .ill-ai-status-icon__ticks {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: sup-ill-ai-status-icon-ticks-pulse 3000ms infinite;
+}
+
+.sup-motion .ill-ai-status-icon__center {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: sup-ill-ai-status-icon-center-pulse 3000ms infinite;
+}
+
+@keyframes sup-ill-ai-status-icon-cycle {
+  0% {
+    transform: scale(0.35) rotate(0deg);
+    animation-timing-function: var(--ill-ease-bloom);
+  }
+  22% {
+    transform: scale(1.08) rotate(0deg);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  27.27% {
+    transform: scale(1) rotate(0deg);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  54.55% {
+    transform: scale(1) rotate(180deg);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  81.82% {
+    transform: scale(1) rotate(360deg);
+    animation-timing-function: var(--ill-ease-bloom);
+  }
+  100% {
+    transform: scale(0.45) rotate(360deg);
+  }
+}
+
+@keyframes sup-ill-ai-status-icon-spokes-pulse {
+  0%,
+  27.27% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  40.91% {
+    transform: scale(0.4);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  54.55% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  68.18% {
+    transform: scale(0.4);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  81.82%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes sup-ill-ai-status-icon-ticks-pulse {
+  0%,
+  30% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  33.41% {
+    transform: scale(0.7);
+  }
+  36.82% {
+    transform: scale(1);
+  }
+  43.64% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  47.05% {
+    transform: scale(0.7);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  50.45% {
+    transform: scale(1);
+  }
+  58.64% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  62.05% {
+    transform: scale(0.7);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  65.45% {
+    transform: scale(1);
+  }
+  72.27% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  75.68% {
+    transform: scale(0.7);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  79.09%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Inverted relative to the spokes: grows a touch exactly when the
+   spokes converge, settles back as they expand — same boundaries and
+   curve as the spokes' own pulse, since this is a direct pair with it,
+   not an independently-timed layer like the ticks. */
+@keyframes sup-ill-ai-status-icon-center-pulse {
+  0%,
+  27.27% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  40.91% {
+    transform: scale(1.15);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  54.55% {
+    transform: scale(1);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  68.18% {
+    transform: scale(1.15);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  81.82%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-ai-status-icon__shape,
+.sup-motion .ill-ai-status-icon__spokes,
+.sup-motion .ill-ai-status-icon__ticks,
+.sup-motion .ill-ai-status-icon__center {
+    animation: none;
+  }
+}
+
+/* components/ill/Thread.css */
+.sup-motion .ill-thread {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ILL/Assembly/Chat/Transcript's literal gap between turns */
+.sup-motion .ill-thread > * + * {
+  margin-top: 40px;
+}
+
+/* components/ill/AttributeRow.css */
+/* node 1954:421 — exact literal values from the Figma component (fills
+   are literal in the source, not bound to a named variable). Includes the
+   authored 1px #ebdcc6 bottom divider the first build left out. */
+.sup-motion .ill-attribute-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ill-space-32);
+  padding: var(--ill-space-6) 0;
+  border-bottom: var(--ill-stroke-default) solid #ebdcc6;
+}
+
+.sup-motion .ill-attribute-row__label {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.11px;
+  text-transform: capitalize;
+  color: #3a342e;
+}
+
+.sup-motion .ill-attribute-row__value {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}
+
+/* illustrations/SupportV3/SupportV3.css */
+/* Support V3 — series-local styles. Every value is either an ILL token
+   or an exact literal already authored elsewhere in the kit (cited per
+   block); nothing is approximated from screenshots. */
+
+/* ---------- Tight thread (opt-in) ----------
+   Measured need: several scenarios' content ran past the fixed 520px
+   shell's safe area, the last few pixels sitting under — or in two
+   cases past — ConversationViewport's ContentFade. Reclaiming that
+   space by shifting/scrolling the conversation up has no slack to pull
+   from (the first turn already sits flush at the viewport's own top),
+   so it only trades a bottom overlap for an equally-sized top clip —
+   verified live, worse than the original problem. The real fix is less
+   vertical space per scenario, per the kit's own layout convention
+   ("solve density through composition... trim... restructure" rather
+   than force a uniform size across an unmatched set).
+   Opt-in via wrapping a scenario's own <Thread> in this class, rather
+   than touching Thread.css/AssistantTurn.css's own gap (shared by every
+   illustration in the kit) — so only the scenarios that actually need
+   it get tightened, and e.g. 01/05 stay pixel-identical. */
+.sup-motion .ill-support-thread--tight .ill-thread > * + * {
+  margin-top: 16px;
+}
+
+.sup-motion .ill-support-thread--tight .ill-assistant-turn {
+  gap: 10px;
+}
+
+.sup-motion .ill-support-thread--tight .ill-support-panel {
+  padding-bottom: 10px;
+  gap: 8px;
+}
+
+/* ---------- Panel ----------
+   ILL/Module/Support (node 2700:23533) — the kit's own dedicated support-
+   card surface, read directly via get_design_context. Fill updated in
+   Figma to a flat #fff9e9 — same value as Background/Canvas, but still
+   exported as a raw literal (not bound to that variable), so kept
+   literal here too rather than remapped to the token, per the kit's
+   "don't map an unbound value to the nearest token" rule — the same
+   treatment tokens.css already gives Background/Page for this exact
+   coincidence. Border (0.909px Border/Default, vs Card-Commerce's
+   0.564px) and shadow (tighter, non-inset) stay distinct from the
+   product-card family. Radius/padding/gap are exact literals from the
+   same node. */
+.sup-motion .ill-support-panel {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ill-space-12);
+  padding: var(--ill-space-12) var(--ill-space-16) var(--ill-space-16);
+  border-radius: 18.047px;
+  border: 0.909px solid var(--ill-color-border-default);
+  background: #fff9e9;
+  box-shadow: 0px 2px 2.5px rgba(224, 190, 96, 0.78);
+  overflow: hidden;
+}
+
+/* Motion-only loading state (Support V3 Motion) — see SupportPanel's
+   `loading` prop. Same skeleton-overlay contract as CommerceProductCard:
+   opaque the instant it mounts, crossfades only on exit. */
+.sup-motion .ill-support-panel__skeleton-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--ill-color-background-page);
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0px);
+  transition:
+    opacity 260ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 260ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 260ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Absolutely placed at the rect measured off the real content. */
+.sup-motion .ill-support-panel__skeleton-shape {
+  position: absolute;
+}
+
+.sup-motion .ill-support-panel__skeleton-shape--outline {
+  box-sizing: border-box;
+  border: 1px solid var(--ill-color-border-default);
+}
+
+.sup-motion .ill-support-panel__skeleton-overlay--hidden {
+  opacity: 0;
+  transform: scale(1.02);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-support-panel__skeleton-overlay {
+    transition: opacity 150ms ease;
+    transform: none;
+    filter: none;
+  }
+
+  .sup-motion .ill-support-panel__skeleton-overlay--hidden {
+    transform: none;
+    filter: none;
+  }
+}
+
+/* The panel's real content (header + whatever a scenario composes as
+   children) while/after loading — see SupportPanel's `justRevealed`.
+   Targets every direct child except the overlay itself, so a
+   multi-child panel (e.g. 04's shade tiles + action row) reveals as one
+   group without needing an extra wrapper div that would otherwise break
+   the panel's own `gap` between those children. Static illustrations
+   never set `loading`, so neither class is ever applied there. */
+.sup-motion .ill-support-panel--content-hidden > :not(.ill-support-panel__skeleton-overlay) {
+  opacity: 0;
+}
+
+/* Delayed past the overlay's own 260ms exit so the content visibly
+   arrives *after* the skeleton has finished dissolving, not underneath
+   or simultaneous with it. */
+.sup-motion .ill-support-panel--content-reveal > :not(.ill-support-panel__skeleton-overlay) {
+  animation: sup-ill-support-panel-content-reveal 260ms cubic-bezier(0.32, 0.72, 0, 1) 140ms both;
+}
+
+@keyframes sup-ill-support-panel-content-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-support-panel--content-hidden > :not(.ill-support-panel__skeleton-overlay) {
+    opacity: 1;
+  }
+
+  .sup-motion .ill-support-panel--content-reveal > :not(.ill-support-panel__skeleton-overlay) {
+    animation: none;
+  }
+}
+
+.sup-motion .ill-support-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ill-space-12);
+  min-height: 24px;
+}
+
+/* Product/Reference title scale (2071:16875): Geist 500 12px, literal
+   #1f1b18 — the kit's existing "name of the thing" treatment. */
+.sup-motion .ill-support-panel__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--ill-space-6);
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}
+
+/* Inline emphasis inside a heading — ChatMessage's own emphasis
+   treatment (600, Accent/Strong). */
+.sup-motion .ill-support-panel__heading strong {
+  font-weight: 600;
+  color: var(--ill-color-accent-strong);
+}
+
+/* Hairline divider — Assistant/Insight's literal border tone. */
+.sup-motion .ill-support-divider {
+  height: 0.532px;
+  background: rgba(159, 159, 159, 0.3);
+}
+
+/* ---------- Status steps ---------- */
+.sup-motion .ill-support-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.sup-motion .ill-support-step {
+  position: relative;
+  display: flex;
+}
+
+.sup-motion .ill-support-step__marker {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--ill-radius-full);
+  background: var(--ill-color-accent-strong);
+}
+
+/* Current step: same dot, ringed in Background/Subtle so "you are here"
+   reads without a second color. */
+.sup-motion .ill-support-step--current .ill-support-step__marker {
+  box-shadow: 0 0 0 4px var(--ill-color-background-subtle);
+}
+
+.sup-motion .ill-support-step--upcoming .ill-support-step__marker {
+  background: var(--ill-color-background-canvas);
+  border: 1px solid var(--ill-color-border-default);
+}
+
+.sup-motion .ill-support-step__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Attribute-Row value scale (1954:421). */
+.sup-motion .ill-support-step__label {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 11.5px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}
+
+.sup-motion .ill-support-step--upcoming .ill-support-step__label {
+  color: var(--ill-color-text-metadata);
+}
+
+/* Product/Reference brand scale (10px, Text/Metadata). */
+.sup-motion .ill-support-step__detail {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 10px;
+  letter-spacing: -0.057px;
+  color: var(--ill-color-text-metadata);
+}
+
+/* Connector between markers: solid Accent/Strong once travelled,
+   dashed Border/Default for the leg still ahead. */
+.sup-motion .ill-support-step::after {
+  content: "";
+  position: absolute;
+}
+
+.sup-motion .ill-support-step:last-child::after {
+  display: none;
+}
+
+/* Horizontal — label sits under its marker, a connected dot timeline
+   (reverted back to this after a tab-bar treatment was tried and asked
+   back out for 01 specifically). */
+.sup-motion .ill-support-steps--horizontal {
+  gap: 0;
+}
+
+.sup-motion .ill-support-steps--horizontal .ill-support-step {
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sup-motion .ill-support-steps--horizontal .ill-support-step::after {
+  top: 4.5px;
+  left: 18px;
+  right: 8px;
+  border-top: 1px solid var(--ill-color-accent-strong);
+}
+
+.sup-motion .ill-support-steps--horizontal .ill-support-step--current::after {
+  border-top: 1px dashed var(--ill-color-border-default);
+}
+
+/* Boxed — 02's own treatment: each step its own bordered tile, no
+   marker/connector; the current tile (positionally the center one here)
+   highlighted on Background/Subtle, same surface the kit already uses
+   elsewhere for "this one" (InsightHighlight, the shade/swap tiles). */
+.sup-motion .ill-support-steps--boxed {
+  gap: var(--ill-space-6);
+}
+
+/* Radius fix: var(--ill-radius-lg) (16px) nested only 16px inside the
+   panel's own 18.047px radius read as two same-size roundnesses
+   stacked, not a nested relationship. 8px is Product/Reference's own
+   literal for a small nested surface (2071:16875's media) — reused here
+   rather than inventing a new value — and reads as properly nested
+   against the panel's own larger radius. */
+.sup-motion .ill-support-steps--boxed .ill-support-step {
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px var(--ill-space-12);
+  border-radius: 8px;
+  border: 0.564px solid var(--ill-color-border-default);
+}
+
+.sup-motion .ill-support-steps--boxed .ill-support-step--current {
+  background: var(--ill-color-background-subtle);
+  border-color: transparent;
+}
+
+/* Vertical — label beside its marker, connector runs down. */
+.sup-motion .ill-support-steps--vertical {
+  flex-direction: column;
+  gap: var(--ill-space-12);
+}
+
+.sup-motion .ill-support-steps--vertical .ill-support-step {
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.sup-motion .ill-support-steps--vertical .ill-support-step__marker {
+  margin-top: 3.5px;
+}
+
+/* Label stacked above its detail, same as the horizontal orientation —
+   design feedback flagged the earlier row layout ("Prepaid return label
+   In your email" run together inline). */
+.sup-motion .ill-support-steps--vertical .ill-support-step__text {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.sup-motion .ill-support-steps--vertical .ill-support-step::after {
+  left: 4.5px;
+  top: 17px;
+  bottom: -9px;
+  border-left: 1px dashed var(--ill-color-border-default);
+}
+
+/* ---------- 03 Size exchange: relative swap ----------
+   Two plain siblings, no connector glyph (static-first rule: no "→"). */
+.sup-motion .ill-support-swap {
+  display: flex;
+  gap: var(--ill-space-4);
+}
+
+.sup-motion .ill-support-swap__side {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px var(--ill-space-12);
+  border-radius: var(--ill-radius-lg);
+  border: 0.564px solid var(--ill-color-border-default);
+}
+
+.sup-motion .ill-support-swap__side--to {
+  background: var(--ill-color-background-subtle);
+  border-color: transparent;
+}
+
+.sup-motion .ill-support-swap__label {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 10px;
+  letter-spacing: -0.057px;
+  color: var(--ill-color-text-metadata);
+}
+
+.sup-motion .ill-support-swap__value {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}
+
+.sup-motion .ill-support-swap__side--to .ill-support-swap__value {
+  font-weight: 600;
+  color: var(--ill-color-accent-strong);
+}
+
+/* ---------- 04 Shade change ---------- */
+.sup-motion .ill-support-shades {
+  display: flex;
+  gap: var(--ill-space-6);
+}
+
+/* Unselected tile: Card-Commerce media hairline; the proposed shade
+   takes PDP/Thumbnail's own State=Selected border (1.001px, literal
+   rgba(33,33,33,0.5)) — the kit's existing "this one" state. */
+.sup-motion .ill-support-shade {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px var(--ill-space-12);
+  border-radius: var(--ill-radius-lg);
+  border: 0.564px solid var(--ill-color-border-default);
+}
+
+.sup-motion .ill-support-shade--to {
+  border: 1.001px solid rgba(33, 33, 33, 0.5);
+  background: var(--ill-color-background-inset);
+}
+
+.sup-motion .ill-support-shade__swatch {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--ill-radius-full);
+  border: 0.5px solid rgba(0, 0, 0, 0.11);
+}
+
+.sup-motion .ill-support-shade__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.sup-motion .ill-support-shade__label {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 10px;
+  letter-spacing: -0.057px;
+  color: var(--ill-color-text-metadata);
+}
+
+.sup-motion .ill-support-shade__name {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}
+
+.sup-motion .ill-support-shade--from .ill-support-shade__name {
+  color: var(--ill-color-text-metadata);
+}
+
+.sup-motion .ill-support-actions {
+  display: flex;
+  gap: var(--ill-space-6);
+}
+
+/* ---------- 05 Refund ----------
+   ILL/Module/Support's own reference instance (2700:23533) is this exact
+   scenario — amount + status row on the left of a hairline divider,
+   Return/Back to/Arrives in facts on the right. Values below are its
+   literal type scale, not approximated. */
+.sup-motion .ill-support-refund {
+  display: flex;
+  align-items: stretch;
+  gap: var(--ill-space-16);
+}
+
+.sup-motion .ill-support-refund__amount {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--ill-space-6);
+  padding-right: var(--ill-space-16);
+  border-right: 0.909px solid rgba(159, 159, 159, 0.3);
+}
+
+/* The amount's own row: label + status chip side by side, beneath the
+   figure rather than above it. */
+.sup-motion .ill-support-refund__status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sup-motion .ill-support-refund__label {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 12px;
+  letter-spacing: -0.057px;
+  color: var(--ill-color-text-metadata);
+}
+
+/* The one focal figure in the set — Geist Regular 28px / Accent/Strong,
+   the node's own literal scale (not DM Sans; not approximated), so the
+   amount is the largest element in the frame per the brief. */
+.sup-motion .ill-support-refund__value {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 28px;
+  letter-spacing: -0.6084px;
+  color: var(--ill-color-accent-strong);
+}
+
+.sup-motion .ill-support-refund__facts {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Layout-only: give Attribute-Row's label a fixed column so the three
+   values align, and match the source node's tighter 4px gap / 2px
+   vertical rhythm for this instance. Type and color are the component's
+   own. */
+.sup-motion .ill-support-refund__facts .ill-attribute-row {
+  gap: 4px;
+  padding: 2px 0;
+  border-bottom: none;
+}
+
+.sup-motion .ill-support-refund__facts .ill-attribute-row__label {
+  flex-shrink: 0;
+  width: 62px;
+  color: var(--ill-color-text-metadata);
+}
+
+/* ---------- 07 Merchant helpdesk — "Operational Queue" ----------
+   Started from the dedicated Figma reference instance (node 2710:27270),
+   revised per design feedback toward a flatter, denser ops-queue read
+   (named inbox + "view all", equally-sized metric tiles, a labeled
+   "Needs attention" section, status folded into each row's issue line
+   instead of its own chip, a plain chevron for rows with no action), then
+   its colors/radius finalized against a second dedicated reference (node
+   2742:33688). No ILL/* module covers this surface on its own (same
+   documented gap as the rest of Support V3's panel content). */
+/* Colors/radius read directly off the dedicated Figma reference instance
+   (node 2742:33688) — a flatter surface than the shared .ill-support-panel
+   default (Background/Subtle, not Background/Page; a 5px radius and
+   0.667px border, not 18.047px/0.909px; no shadow). */
+.sup-motion .ill-helpdesk-panel {
+  background: var(--ill-color-background-subtle);
+  border: 0.667px solid var(--ill-color-border-default);
+  border-radius: 5px;
+  padding: 12px 16px 10px;
+  box-shadow: none;
+}
+
+.sup-motion .ill-helpdesk {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ill-space-12);
+}
+
+.sup-motion .ill-helpdesk__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ill-space-12);
+}
+
+/* Product/Reference title scale — the kit's existing "name of the
+   thing" treatment, same one the panel heading itself uses. */
+.sup-motion .ill-helpdesk__header-title {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}
+
+.sup-motion .ill-helpdesk__header-action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 10px;
+  letter-spacing: -0.057px;
+  color: var(--ill-color-text-metadata);
+}
+
+.sup-motion .ill-helpdesk__overview {
+  display: flex;
+  align-items: stretch;
+  gap: var(--ill-space-6);
+}
+
+/* Equally sized, filling the row (design feedback) — was fixed-width,
+   hugging each tile's own content. Radius is tighter than the kit's
+   usual --ill-radius-lg (16px) — at this tile's compact height that
+   token reads as a pill, not the flat rectangular tile feedback asked
+   for. Number stacked above label (design feedback: the inline "12
+   ACTIVE" arrangement read sloppy) — the standard stat-tile pattern,
+   number as the clear visual anchor with the label as a caption under it
+   rather than competing with it on one line. */
+.sup-motion .ill-helpdesk__stat {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px var(--ill-space-6);
+  border: 1px solid var(--ill-color-border-default);
+  border-radius: 8px;
+  background: var(--ill-color-background-surface);
+}
+
+/* Accent/Secondary (aubergine) directly, per the Figma reference — not
+   Accent/Strong re-pointed via `.ill-theme-helpdesk`, unlike the bubble/
+   send-button/Assign-button colors elsewhere in this scene. */
+.sup-motion .ill-helpdesk__stat-value {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.2px;
+  color: var(--ill-color-accent-secondary);
+}
+
+.sup-motion .ill-helpdesk__stat-label {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  color: var(--ill-color-text-metadata);
+}
+
+.sup-motion .ill-helpdesk__section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ill-space-12);
+}
+
+.sup-motion .ill-helpdesk__section-title {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: -0.057px;
+  color: var(--ill-color-text-metadata);
+}
+
+.sup-motion .ill-helpdesk__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sup-motion .ill-helpdesk-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ill-space-12);
+  padding: var(--ill-space-6) 0;
+}
+
+/* 0.909px — this panel's own border weight (ill-support-panel, 05's
+   amount divider), not the generic 0.532px insight hairline. */
+.sup-motion .ill-helpdesk-row + .ill-helpdesk-row {
+  border-top: 0.909px solid rgba(159, 159, 159, 0.3);
+}
+
+.sup-motion .ill-helpdesk-row__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+/* Product/Reference title scale — the kit's existing "name of the
+   thing" treatment, same one the panel heading itself uses. */
+.sup-motion .ill-helpdesk-row__name {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  letter-spacing: -0.07px;
+  color: #1f1b18;
+}
+
+/* Issue + status read as one line now (e.g. "Delivery issue ·
+   Escalated") instead of a separate status chip. */
+.sup-motion .ill-helpdesk-row__issue {
+  font-family: var(--font-geist), sans-serif;
+  font-size: 10px;
+  letter-spacing: -0.057px;
+  color: var(--ill-color-text-metadata);
+}
+
+.sup-motion .ill-helpdesk-row__meta {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--ill-space-6);
+}
+
+/* Assign — filled Accent/Secondary (aubergine) with Accent/Soft ("gold",
+   #e0be60) text, DM Sans Medium, per the dedicated Figma reference (node
+   2742:33688). Reuses Button/Primary as its base (filled, no default
+   border) rather than a new appearance, with this scene's own color/type
+   layered on scoped to this one row context — Button otherwise defaults
+   to filling its flex row (built for full-width CTAs elsewhere). */
+.sup-motion .ill-helpdesk-row__meta .ill-button {
+  flex: 0 0 auto;
+  padding: 5px 10px;
+  border: 0.667px solid rgba(23, 23, 23, 0.2);
+  background: var(--ill-color-accent-secondary);
+  font-family: var(--font-face-dm-sans-opsz), sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 13px;
+  letter-spacing: -0.0974px;
+  color: var(--ill-color-accent-soft);
+}
+
+/* Sophie's row has no next action yet — a plain disclosure chevron
+   (Primitive/Caret-Down, rotated to point into the row) instead of a
+   second pill, per feedback ("subtle chevron"). */
+.sup-motion .ill-helpdesk-row__chevron {
+  display: flex;
+  transform: rotate(-90deg);
+  opacity: 0.6;
+}
+
+/* ---------- Scene theme: aubergine ----------
+   Design feedback: the Brand-facing chat bubble, the composer's Send
+   button, and this panel's stat figures should read as aubergine
+   (Accent/Secondary, #462160) rather than the series' usual Accent/
+   Strong wine — but only in this scene. ChatMessage/IconButton/this
+   panel's own CSS all key off --ill-color-accent-strong already, so
+   re-pointing that one custom property on the shell's root re-themes
+   all three without a single shared file touched or any other scenario
+   affected (each Shell instance is its own subtree). */
+.sup-motion .ill-theme-helpdesk {
+  --ill-color-accent-strong: var(--color-aubergine);
+}
+
+/* Design feedback: against the aubergine fill, the Send button's border
+   should read as actual gold, not Accent/Gold's own literal (#ffb657,
+   closer to yellow-orange) — Accent/Soft is the token already used as
+   "gold" elsewhere in this scene (the Open action chip). Scoped to this
+   theme only; the other six scenarios' Send button keeps its original
+   wine + Accent/Gold pairing. */
+.sup-motion .ill-theme-helpdesk .ill-icon-button--accent {
+  border-color: var(--ill-color-accent-soft);
+}
+
+/* ---------- 06 Return eligibility ----------
+   Deliberately not a bordered panel: two short conditions on
+   Background/Subtle tiles (the InsightHighlight surface), a status chip
+   and a single compact action — a verdict, not a policy document. */
+.sup-motion .ill-support-eligibility {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ill-space-12);
+  max-width: 420px;
+}
+
+.sup-motion .ill-support-conditions {
+  align-self: stretch;
+  display: flex;
+  gap: var(--ill-space-6);
+}
+
+.sup-motion .ill-support-condition {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--ill-space-12) var(--ill-space-16);
+  border-radius: var(--ill-radius-lg);
+  background: var(--ill-color-background-subtle);
+}
+
+/* InsightHighlight's statement treatment, verbatim. */
+.sup-motion .ill-support-condition__value {
+  margin: 0;
+  font-family: var(--font-face-dm-sans-opsz), sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 14.603px;
+  line-height: 19px;
+  letter-spacing: -0.6084px;
+  color: var(--ill-color-accent-strong);
+}
+
+.sup-motion .ill-support-condition__label {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-size: 11px;
+  color: #3a342e;
+}
+
+/* Full-width primary CTA under the conditions — Button's own default
+   flex:1 only fills a row, so align-self:stretch makes it fill this
+   column the same way the conditions row above it does. */
+.sup-motion .ill-support-eligibility > .ill-button {
+  align-self: stretch;
+}
+
+/* components/ill/HelpdeskHeader.css */
+/* node 2710:27238 "Container" — wraps the brand label and the Helpdesk
+   badge. Padding/radius are literal from that node; no fill (unlike Chat/
+   Header's own brand pill, which sits on Background/Surface), so the
+   label floats free and only the badge beside it carries chrome. The 8px
+   gap is bound to `var(--space-xs)`. */
+.sup-motion .ill-helpdesk-header__center {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--ill-space-4) var(--ill-space-12);
+  border-radius: 113.08px;
+}
+
+/* node 2710:27239 — same uppercase brand-pill type scale as Chat/Header's
+   own brand label (Geist Regular 12px, Text/Body, 0.12px tracking). */
+.sup-motion .ill-helpdesk-header__brand {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.12px;
+  text-transform: uppercase;
+  color: var(--ill-color-text-body);
+  white-space: nowrap;
+}
+
+.sup-motion .ill-helpdesk-header__brand > .demo-brand-wordmark > .demo-brand-mark {
+  width: 24px;
+  height: 24px;
+}
+
+.sup-motion .ill-helpdesk-header__brand .demo-brand-name {
+  font-family: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+/* node 2710:27240 — hairline border at a literal 30%-alpha Accent/
+   Secondary ("aubergine"), fill is a two-stop literal gradient (80%-alpha
+   white composited over solid Accent/Secondary, per the source paints)
+   rather than a flat token, since the badge is intentionally lighter
+   than the solid accent color. Updated from the component's earlier
+   Accent/Primary (wine) treatment to Accent/Secondary (aubergine) per
+   the latest Figma revision. */
+.sup-motion .ill-helpdesk-header__badge {
+  display: flex;
+  align-items: center;
+  padding: var(--ill-space-2) var(--ill-space-6);
+  border-radius: var(--ill-radius-full);
+  border: var(--ill-stroke-hairline) solid rgba(70, 33, 96, 0.3);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%),
+    linear-gradient(90deg, rgb(70, 33, 96) 0%, rgb(70, 33, 96) 100%);
+}
+
+/* node 2710:27241 */
+.sup-motion .ill-helpdesk-header__badge-text {
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.12px;
+  text-transform: uppercase;
+  color: var(--ill-color-text-body);
+  white-space: nowrap;
+}
+
+/* visuals/visualCanvasFramed.css */
+/* Framed variant shared by Visuals 21-23 (ProactiveIntervention,
+   ComparisonGuidance, ReturnVisitComparison) — Figma node 2752:2738.
+   Scoped by modifier because the base `.ill-visual-canvas` classes are
+   shared across those three files.
+   Viewport 1280x509, fill #f3e7d3, 1px rgba(0,0,0,.25) border on top and
+   sides only. Positions below are the node's own, less the 1px border
+   (absolute offsets start inside it). */
+.sup-motion .ill-visual-canvas.ill-visual-canvas--framed {
+  width: 1280px;
+  height: 509px;
+  background: #f3e7d3;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: none;
+}
+
+/* Marketplace at (57.149, 57), 1165.701px wide: the 1286px scene scaled
+   by 1165.701 / 1286, clipped by the viewport's bottom edge. */
+.sup-motion .ill-visual-canvas--framed .ill-visual-canvas__background {
+  position: absolute;
+  left: 56.149px;
+  top: 56px;
+  height: auto;
+  transform: scale(0.90646);
+  transform-origin: 0 0;
+}
+
+/* Gradient node 2754:3539: 1527x353 at (-123.5, 258.598), above the
+   marketplace and beneath the widget (DOM order). */
+.sup-motion .ill-visual-canvas--framed .ill-visual-canvas__fade {
+  left: -124.5px;
+  top: 257.598px;
+  width: 1527px;
+  height: 353px;
+}
+
+.sup-motion .ill-visual-canvas--framed .ill-visual-canvas__widget.ill-visual-canvas__widget--centered {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* illustrations/SellMotion/ProactiveMotion.css */
+/* Pins every proactive widget's bottom edge to the same canvas
+   coordinate, so each widget's composer — a fixed distance above its own
+   bottom edge regardless of the widget's height — lands at the identical
+   y position across all three (21-23), rather than each one keeping its
+   own static-page position. In the framed 1280x509 canvas
+   (visualCanvasFramed.css) the offset is set so the tallest widget —
+   22's, 442.8px with its reply reserved — sits centred:
+   (509 - 442.8) / 2 = 33.1px; 21 and 23 are shorter and fit below it.
+   Horizontally centred to match the static pages. */
+.sup-motion .ill-visual-canvas--framed .ill-visual-canvas__widget.sell-widget-align-composer {
+  top: auto;
+  bottom: 33.1px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* A proactive widget's final layout is reserved from the first frame (a
+   hidden ghost holds the reply's and the actions' space), so the thinking
+   row, the cascading reply and the buttons land in place — the frame
+   never grows or shifts as the message arrives. */
+.sup-motion .sell-reserve {
+  position: relative;
+}
+
+.sup-motion .sell-hidden {
+  visibility: hidden;
+}
+
+.sup-motion .sell-reserve__live {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Frame 1 -> Frame 2 (Figma: compact composer -> full widget). The widget
+   is laid out in its final state from the first frame; only what's
+   visible of it changes. Frame 1 clips the shell down to the composer
+   pill's own rect (its offsets are measured, see ExpandShell), and the
+   expansion eases that clip out past the shell's edges — so the composer
+   never moves, the container grows upward around it, and nothing scales
+   or reflows. The final inset is negative so the shell's glow shadow,
+   clipped while compact, comes in with the edges rather than popping. */
+.sup-motion .sell-expand {
+  clip-path: inset(
+    var(--sell-clip-top, 0px) var(--sell-clip-right, 0px) var(--sell-clip-bottom, 0px)
+      var(--sell-clip-left, 0px) round var(--sell-clip-radius, 0px)
+  );
+}
+
+/* The transition lives on the expanded state only: measuring the clip in
+   the compact state (first paint, a font-load re-measure) must snap, not
+   animate the widget shrinking down to the pill. */
+.sup-motion .sell-expand--expanded {
+  clip-path: inset(-48px round var(--sell-expanded-radius, 17.077px));
+  transition: clip-path 600ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Until measured, show nothing rather than a flash of the full widget. */
+.sup-motion .sell-expand--unmeasured {
+  visibility: hidden;
+}
+
+/* The pill arriving on the page before anything is typed — opacity and a
+   few px of rise only, no scale. */
+.sup-motion .sell-widget-enter {
+  animation: sup-sell-widget-in 320ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+}
+
+@keyframes sup-sell-widget-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header and conversation content fade in, staggered, once the shell has
+   started opening — each section by its own --sell-i. */
+.sup-motion .sell-expand-item {
+  opacity: 0;
+}
+
+.sup-motion .sell-expand--expanded .sell-expand-item {
+  animation: sup-sell-expand-item-in 360ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation-delay: calc(180ms + var(--sell-i, 0) * 70ms);
+}
+
+@keyframes sup-sell-expand-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .sell-widget-enter,
+.sup-motion .sell-expand--expanded .sell-expand-item {
+    animation: none;
+  }
+
+  .sup-motion .sell-expand--expanded .sell-expand-item {
+    opacity: 1;
+  }
+
+  .sup-motion .sell-expand--expanded {
+    transition: none;
+  }
+}
+
+/* illustrations/SupportV3/MerchantInsight.css */
+/* Support V3 / 08 — Merchant insight. Its own ornate card (node
+   2725:28975 and siblings "frame 1"–"frame 5", 687x586), not the shared
+   SceneFrame: that frame is a literal deep-red + damask treatment used
+   by the other seven scenes, while this one is aubergine blended with
+   forest green under the brand's gold border and corner rings — a
+   different decorative skin, so it's kept local to this scenario rather
+   than overloading SceneFrame with a second color scheme. Scaled the
+   same way SceneFrame scales (container-query width, transform-scale)
+   so it behaves consistently in the nav preview. */
+.sup-motion .ill-insight-frame-scale {
+  width: 100%;
+  max-width: 687px;
+  aspect-ratio: 687 / 586;
+  container-type: inline-size;
+  overflow: hidden;
+}
+
+.sup-motion .ill-insight-card {
+  position: relative;
+  box-sizing: border-box;
+  width: 687px;
+  height: 586px;
+  transform: scale(calc(100cqw / 687));
+  transform-origin: top left;
+  overflow: hidden;
+  border-radius: 12.701px;
+  border: 1px solid var(--ill-color-accent-soft);
+  background: #462160;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The forest-green cast over the whole card — a literal mix-blend layer
+   (node 2725:28977/29009/…), not a flat fill: Figma hue-blends a forest
+   green over everything below it (the aubergine base AND the gray
+   woven texture), which is what turns that texture's own grayscale
+   damask into the deep green fabric read in the reference while
+   keeping its light/dark detail. Painted last (on top of the texture
+   image, below the corner rings/content) so it recolors both layers
+   beneath it. */
+.sup-motion .ill-insight-card__hue {
+  position: absolute;
+  inset: -10px -1px;
+  background: #004c27;
+  mix-blend-mode: color;
+  pointer-events: none;
+}
+
+.sup-motion .ill-insight-card__border {
+  position: absolute;
+  left: 20.68px;
+  top: 18.75px;
+  width: 646.637px;
+  height: 548.275px;
+  pointer-events: none;
+  /* The reference's woven texture reads much darker than this export's
+     own gray (a lighter "paper" grade of the same damask asset used
+     elsewhere in the kit) — darkened here so the Color-blend layer
+     below lands on the reference's deep forest green rather than mint. */
+  filter: brightness(0.4);
+}
+
+/* Four corner rings (node 2725:28991 etc.), centered as one 649x551
+   box so they sit flush with the gold border's own corners regardless
+   of which state's content is inside. */
+.sup-motion .ill-insight-card__dots {
+  position: absolute;
+  inset: 17.5px 19px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.sup-motion .ill-insight-card__dots-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* The actual chat shell (header / conversation viewport / composer) —
+   a real, unmodified `Shell` instance, same as every other scene, just
+   centered inside this card's decorative backdrop instead of
+   SceneFrame's. `ill-theme-helpdesk` (defined in SupportV3.css) is the
+   only override: it re-points `--ill-color-accent-strong` to aubergine
+   and the send button's border to gold, exactly as MerchantHelpdesk.tsx
+   applies it for 07 — no color inversion needed here, since the Shell
+   keeps its own cream canvas rather than sitting on this card's green
+   texture directly. */
+.sup-motion .ill-insight-card__content {
+  position: relative;
+  z-index: 1;
+}
+
+/* illustrations/SupportV3/motion/MerchantInsightMotion.css */
+/* Support V3 Motion / 08 — Merchant insight. Scoped entirely under
+   .ill-insight-card (shared with the static sibling via MerchantInsight.css)
+   so none of this reaches the static scenario, which never renders
+   AiStatus or a reply-enter wrapper. AiStatus itself keeps its default
+   colors (Accent/Secondary label, literal icon stroke/fill) unmodified —
+   the conversation now sits in a real Shell's cream canvas, same as
+   every other motion scenario using AiStatus (OrderTrackingMotion etc.),
+   not this card's dark forest backdrop, so no inversion is needed. */
+
+/* 16px vertical breathing room around each AiStatus module (both
+   turns) — it sat flush against the turn's own flex gap otherwise,
+   reading cramped next to the message above/below it. */
+.sup-motion .ill-insight-card .ill-ai-status {
+  padding: 16px 0;
+}
+
+/* First turn's AiStatus module only — its *row* travel distance, not
+   just the icon's bloom (see the scale override below): the shared
+   AiStatus row (AiStatus.css) slides in/out translateY(8px), and that
+   8px slide is what actually read as "bounce," more than the icon's own
+   scale. Cut to 3px here — barely perceptible, an arrival rather than a
+   settle. Turn 2's AiStatus keeps the shared 8px; only "the first" was
+   asked for.
+   Curve+duration also overridden (not just distance): the shared
+   "ease-drawer" curve (cubic-bezier(0.32, 0.72, 0, 1)) has a steep, fast
+   rise in its first third then a long, flat, dragging tail for the
+   rest — reads as a tall spike, not a simple line, and sluggish at the
+   finish despite being fast at the start. Plain `ease-out` here instead:
+   genuinely simpler (no custom curve to read), and still frontloaded
+   (fast start = responsive) without the exaggerated tail. Scoped to
+   just this first module's own reveal, matching the FLIP's own curve
+   below so the two stay paired rather than drifting apart again. */
+.sup-motion .ill-insight-first-status .ill-ai-status {
+  transition:
+    opacity 150ms ease-out,
+    transform 150ms ease-out,
+    filter 150ms ease-out;
+
+  @starting-style {
+    transform: translateY(3px);
+  }
+}
+
+.sup-motion .ill-insight-first-status .ill-ai-status--hidden {
+  transform: translateY(3px);
+}
+
+/* The human bubble's own entrance — 180ms local override, snappier than
+   the kit's shared 220ms default (still the same ease-drawer curve).
+   Scoped to this card only; every other scenario using UserTurn/
+   AssistantTurn's animateIn keeps the shared 220ms. */
+.sup-motion .ill-insight-card .ill-user-turn--enter,
+.sup-motion .ill-insight-card .ill-assistant-turn--enter {
+  animation-duration: 180ms;
+}
+
+/* Turn 1's own bubble only — "only for when the composer goes away and
+   the first chat module shows up," not turn 2's later follow-up
+   (different moment, composer never involved there). Same plain
+   `ease-out` swap as the first module's own reveal and the FLIP, so all
+   three move together at just this one moment. */
+.sup-motion .ill-insight-first-turn.ill-user-turn--enter {
+  animation-duration: 150ms;
+  animation-timing-function: ease-out;
+}
+
+/* First turn's AiStatus module only — "ILL/Module/Assistant/Status" is
+   this codebase's own name for AiStatus, so "the first chat module" is
+   this component's first instance, not UserTurn/AssistantTurn (those
+   don't overshoot; this is the only element in the scenario with a
+   literal numeric bounce). Its shared bloom keyframe
+   (AiStatusIcon.css's ill-ai-status-icon-cycle) overshoots to scale(1.08)
+   at the 22% mark before settling to 1 — that's redefined here at
+   scale(1.01), "extremely negligible," for just this one instance via a
+   scoped animation-name override (can't override a single keyframe step
+   with a plain property rule). Turn 2's AiStatus keeps the shared,
+   normal bloom — only "the first" was asked for. */
+@keyframes sup-ill-insight-first-status-cycle {
+  0% {
+    transform: scale(0.35) rotate(0deg);
+    animation-timing-function: var(--ill-ease-bloom);
+  }
+  22% {
+    transform: scale(1.01) rotate(0deg);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  27.27% {
+    transform: scale(1) rotate(0deg);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  54.55% {
+    transform: scale(1) rotate(180deg);
+    animation-timing-function: var(--ill-ease-move);
+  }
+  81.82% {
+    transform: scale(1) rotate(360deg);
+    animation-timing-function: var(--ill-ease-bloom);
+  }
+  100% {
+    transform: scale(0.45) rotate(360deg);
+  }
+}
+
+.sup-motion .ill-insight-first-status .ill-ai-status-icon__shape {
+  animation-name: sup-ill-insight-first-status-cycle;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-insight-first-status .ill-ai-status-icon__shape {
+    animation: none;
+  }
+}
+
+/* The AI reply's single block fade. Deliberately not StaggerText's
+   per-word cascade: these two replies run 30–40 words, and StaggerText's
+   45ms-per-word stagger (tuned for GiftJourneyMotion's shorter picks)
+   would stretch past 1.5s. 180ms — trimmed from 250ms for a snappier
+   feel, still comfortably within emil-design-eng's tooltip/dropdown
+   band and its "stay under 300ms" rule. Same ease-out-shaped curve as
+   the kit's other entrances, including the blur — every other
+   entrance/exit in this scenario (the composer, the bubble, AiStatus)
+   pairs opacity+transform with a blur-fade; this was the one exception,
+   landing flatter than its neighbors. 8px travel, not 10px — unified
+   with the composer's and bubble's own entrance distance so none of
+   this scenario's small-element entrances differ from each other for
+   no reason. */
+.sup-motion .ill-insight-reply-enter {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+  transition:
+    opacity 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 180ms cubic-bezier(0.32, 0.72, 0, 1),
+    filter 180ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-insight-card .ill-user-turn--enter,
+.sup-motion .ill-insight-card .ill-assistant-turn--enter {
+    animation: none;
+  }
+
+  .sup-motion .ill-insight-reply-enter {
+    transition: none;
+  }
+}
+
+/* illustrations/SupportV3/Guardrails.css */
+/* Support V3 / 09 — Guardrails (node 2812:23073). Fixed 1280x498 frame,
+   scaled as one rigid unit via container-query transform — same technique
+   SceneFrame and Merchant Insight's own card already use, so this frame
+   and the content inside it always shrink in lockstep. */
+.sup-motion .ill-guardrails-scale {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 1280 / 498;
+  container-type: inline-size;
+  overflow: hidden;
+}
+
+.sup-motion .ill-guardrails-frame {
+  position: relative;
+  width: 1280px;
+  height: 498px;
+  /* Dividing by the unitless `1280` (matching SceneFrame.css/
+     MerchantInsight.css's own `scale(calc(100cqw / N))`) produces a
+     *length* (cqw ÷ number stays a length), which is invalid as scale()'s
+     unitless factor — the whole declaration gets dropped, so the frame
+     never actually shrinks below its native 1280x498 and silently
+     overflows the (correctly-shrunk) wrapper around it instead of
+     scaling into it. Dividing by `1280px` instead makes it length ÷
+     length, which cancels to the plain number scale() needs. Confirmed
+     via computed-style inspection that this same bug is present in the
+     two shared frames above; left unfixed there since that's out of this
+     scene's scope, but worth a look. */
+  transform: scale(calc(100cqw / 1280px));
+  transform-origin: top left;
+  overflow: hidden;
+}
+
+/* Page-feedback request: the ground (aubergine fill, watermark, gold
+   outline, four corner rings) as one flattened image sized to the
+   frame's own exact aspect ratio (3840x1494 = 3x 1280x498) — replaces
+   the earlier solid-color fill plus three separately hand-placed SVG
+   layers, which were themselves the repeated source of this scene's
+   alignment drift. Covers the frame exactly, no positioning math needed. */
+.sup-motion .ill-guardrails-frame__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* The panel, connector and card are one centered group (node 2812:23086
+   — flex row, `items-center`, no gap between children, positioned via
+   `left:50%; top:50%; translate(-50%,-50%)` on the frame). Reproduced as
+   a real flex row rather than three independently-placed absolute
+   children, so the browser centers the group — and vertically centers
+   the shorter panel/connector against the taller card — the same way
+   Figma does. */
+.sup-motion .ill-guardrails-row {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+}
+
+/* Connecting line between the guardrails panel and the conversation —
+   a 2px gradient-faded gold stroke, now a plain flex child instead of an
+   absolutely-positioned one. */
+.sup-motion .ill-guardrails-frame__connector {
+  width: 98.369px;
+  height: 2px;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+/* ---------- Guardrails panel ----------
+   Width is content-driven (rules block below is the explicit 355px;
+   this wraps it in 24px padding), not a literal — node 2812:23073 sizes
+   the panel from its content rather than a fixed width. */
+
+.sup-motion .ill-guardrails-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  gap: 21.271px;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.27);
+  border: 0.709px solid var(--ill-color-accent-gold);
+  border-radius: 11.344px;
+}
+
+.sup-motion .ill-guardrails-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 5.672px;
+  width: 100%;
+}
+
+.sup-motion .ill-guardrails-panel__title p {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 19.853px;
+  line-height: 25.525px;
+  letter-spacing: -0.3971px;
+  color: var(--ill-color-text-inverse);
+}
+
+.sup-motion .ill-guardrails-panel__rules {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 355px;
+}
+
+/* Updated per node 2743:33835 — each row now carries its own leading
+   icon and title color (Accent/Secondary, not the old literal #442638),
+   and the trailing glyph is a disclosure caret, not the old shared
+   "lock". Every literal here (padding, radius, border, gap) already
+   matches this build's own established scale exactly — Figma's node
+   needed no further scaling down. Border re-synced to 1.333px (was
+   1.418px) against that same node's latest revision. */
+.sup-motion .ill-guardrails-rule {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 36.869px;
+  padding: 14.18px;
+  background: var(--ill-color-background-subtle, #faedd4);
+  border: 1.333px solid #eedcc2;
+  border-radius: 5.672px;
+}
+
+.sup-motion .ill-guardrails-rule__leading-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.sup-motion .ill-guardrails-rule__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.836px;
+}
+
+.sup-motion .ill-guardrails-rule__title {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 17px;
+  letter-spacing: -0.26px;
+  color: var(--ill-color-accent-secondary);
+  white-space: nowrap;
+}
+
+.sup-motion .ill-guardrails-rule__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* ---------- Conversation card (node 2812:23123/23124) ----------
+   The card-wrap is this group's third flex child (550x447, matching the
+   card's own width); the crop window sits inside it at its literal
+   53px-down offset rather than flush with the wrap's own top. */
+.sup-motion .ill-guardrails-card-wrap {
+  position: relative;
+  width: 550px;
+  height: 447px;
+  flex-shrink: 0;
+}
+
+.sup-motion .ill-guardrails-shell-crop {
+  position: absolute;
+  left: 0;
+  top: 53px;
+  width: 550px;
+  height: 392px;
+  overflow: hidden;
+}
+
+/* Card flush with the crop's own top-left (0, 0) — node 2812:23125's own
+   centering math (top: calc(50% + 64.17px) on a 520-tall card inside a
+   392-tall crop) resolves to ~0px from the crop's top, i.e. flush, not a
+   meaningfully different offset. Its own conversation area is a fixed
+   214px box (see the `.ill-conversation-viewport` override below), so
+   nothing needs to push the card upward or sideways; doing either only
+   clips the header's corner radius with no corresponding benefit. */
+.sup-motion .ill-guardrails-shell-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Reproduces Figma's own card structure: its conversation area is a
+   *fixed* 214px clipped box, not flex-filled, which is what lets a
+   520-tall card keep its composer within a 392px crop with margin to
+   spare (see the Shell-call comment in Guardrails.tsx). Scoped to this
+   one card rather than changing ConversationViewport.css, whose flex:1
+   fill is an intentional, shared behavior the rest of the series depends
+   on. */
+.sup-motion .ill-guardrails-shell-inner .ill-conversation-viewport {
+  flex: none;
+  height: 214px;
+}
+
+/* The merchant's own turn (node 2726:30480) is bound to Accent/Secondary
+   ("aubergine"), not the series' usual Accent/Strong wine. */
+.sup-motion .ill-guardrails-shell-inner .ill-chat-message--user {
+  background: var(--color-aubergine);
+}
+
+/* Send button updated to aubergine per design feedback — scoped the same
+   way as the bubble above (a direct override, not a repoint of
+   --ill-color-accent-strong, which other scenes' own composer/bubble
+   pairs still key off unchanged). */
+.sup-motion .ill-guardrails-shell-inner .ill-icon-button--accent {
+  background: var(--color-aubergine);
+}
+
+/* `align-items: flex-start` overrides flex-column's default `stretch`:
+   without it the Chip (an inline-sized pill, 154px wide in Figma)
+   stretched to the full width of the reply column instead of hugging
+   its own content — design feedback flagged this as "fix the chip
+   size". */
+.sup-motion .ill-guardrails-reply {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.sup-motion .ill-guardrails-policy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* illustrations/SupportV3/motion/SupportV3Motion.css */
+/* Support V3 Motion / 09-12 — motion-only additions. Every rule is
+   scoped to a class only the motion siblings render (`.ill-support-motion`
+   on their Shell, or a modifier they alone toggle), so the static 09-12
+   scenarios sharing Guardrails.css / HumanLoop.css are untouched. */
+
+/* ---------- 09 — Guardrails ----------
+   The portal slot is layout-neutral: its portaled children (panel,
+   connector-wrap) render as ordinary flex items of `.ill-guardrails-row`,
+   exactly as in the static. */
+.sup-motion .ill-guardrails-panel-slot {
+  display: contents;
+}
+
+/* Flow intro: panel fades in, connector draws to the shell, the shell
+   fades in at the line's end. Each element sits `--pending` (invisible,
+   layout intact) until its beat, then keeps its one-shot class so the
+   keyframe plays once per run. Same enter curve as the chat turns, so
+   both halves of the frame move with one voice. */
+.sup-motion .ill-guardrails-motion--pending {
+  opacity: 0;
+}
+
+/* The panel's surface only fades (no travel — it's the container); its
+   title and rows then cascade in on the turn-enter, 50ms apart, so the
+   rules read as loading one by one. Last row starts at 210ms; the panel
+   beat (420ms) lets it mostly settle before the line starts drawing. */
+.sup-motion .ill-guardrails-motion--enter {
+  animation: sup-ill-guardrails-fade 200ms cubic-bezier(0.23, 1, 0.32, 1) backwards;
+}
+
+.sup-motion .ill-guardrails-motion--enter .ill-guardrails-panel__title,
+.sup-motion .ill-guardrails-motion--enter .ill-guardrails-rule {
+  animation: sup-ill-turn-enter 280ms cubic-bezier(0.32, 0.72, 0, 1) 60ms backwards;
+}
+
+.sup-motion .ill-guardrails-motion--enter .ill-guardrails-rule:nth-child(1) {
+  animation-delay: 110ms;
+}
+
+.sup-motion .ill-guardrails-motion--enter .ill-guardrails-rule:nth-child(2) {
+  animation-delay: 160ms;
+}
+
+.sup-motion .ill-guardrails-motion--enter .ill-guardrails-rule:nth-child(3) {
+  animation-delay: 210ms;
+}
+
+@keyframes sup-ill-guardrails-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Travelling across the frame, not entering it: ease-in-out. A clip wipe
+   on the existing asset, so the line itself is untouched. */
+.sup-motion .ill-guardrails-frame__connector.ill-guardrails-motion--pending {
+  opacity: 1;
+  clip-path: inset(0 100% 0 0);
+}
+
+.sup-motion .ill-guardrails-motion--draw {
+  animation: sup-ill-guardrails-draw 300ms cubic-bezier(0.77, 0, 0.175, 1) backwards;
+}
+
+@keyframes sup-ill-guardrails-draw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Grows out of the line's end (its left edge), not its own center. */
+.sup-motion .ill-guardrails-motion--shell-enter {
+  transform-origin: left center;
+  animation: sup-ill-guardrails-shell-in 280ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+}
+
+@keyframes sup-ill-guardrails-shell-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Wraps the connector image so the pulse (below) can anchor to the
+   connector's own rendered box instead of a literal frame coordinate —
+   the connector is now a flex item in `.ill-guardrails-row` (positioned
+   by the browser, not a hand-placed left/top), so there's no longer a
+   fixed page coordinate for the pulse to key off. */
+.sup-motion .ill-guardrails-connector-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* The check: a bright band runs back along the connector, shell → panel,
+   while Crossword checks. 1px taller than the connector on each edge
+   (inset -1px 0), same box the literal coordinates reproduced before. */
+.sup-motion .ill-guardrails-pulse {
+  position: absolute;
+  inset: -1px 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sup-motion .ill-guardrails-pulse::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: 40%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #fff4d6 50%, transparent);
+  box-shadow: 0 0 6px rgba(224, 190, 96, 0.8);
+  animation: sup-ill-guardrails-pulse 420ms cubic-bezier(0.77, 0, 0.175, 1) both;
+}
+
+@keyframes sup-ill-guardrails-pulse {
+  from {
+    transform: translateX(250%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* The checked rule lights as the pulse arrives (the delay sits on the
+   active state only, so the release has none). Drawn as an overlay ring
+   whose opacity transitions, rather than transitioning box-shadow. */
+.sup-motion .ill-guardrails-panel-slot .ill-guardrails-rule {
+  position: relative;
+}
+
+.sup-motion .ill-guardrails-panel-slot .ill-guardrails-rule::after {
+  content: "";
+  position: absolute;
+  inset: -1.333px;
+  border-radius: inherit;
+  border: 1.333px solid var(--ill-color-accent-gold);
+  box-shadow: 0 0 0 3px rgba(224, 190, 96, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  /* Release: quicker than the light-up, the system has moved on. */
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.sup-motion .ill-guardrails-panel-slot .ill-guardrails-rule--checking::after {
+  opacity: 1;
+  transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1) 340ms;
+}
+
+/* ---------- 10 — Live human takeover ----------
+   The breaker mounts at its own beat; it can't take an Enter wrapper
+   (its styles key off being a direct .ill-thread child), so it carries
+   the turn-enter keyframe itself. */
+.sup-motion .ill-support-motion .ill-thread > .ill-chat-breaker {
+  animation: sup-ill-turn-enter 320ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+}
+
+/* ---------- 11 — Merchant approval ----------
+   One press on "Approve 15%": in, then back to rest. A keyframe applied
+   for the duration of the `approve` beat, so it plays once and the
+   button ends exactly at its static size. Delayed so the eye can settle
+   on the button before it's pressed. */
+.sup-motion .ill-approval-press .ill-button {
+  animation: sup-ill-approval-press 360ms cubic-bezier(0.23, 1, 0.32, 1) 120ms both;
+}
+
+@keyframes sup-ill-approval-press {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ---------- 12 — Whisper to the agent ----------
+   The footer ("Guidance received.") holds its space from the card's
+   first frame — the anchor's reserved 134px is sized to the full card —
+   and only becomes visible, with the turn-enter, on the `ack` beat. */
+.sup-motion .ill-whisper-float--pending .ill-insight__footer {
+  visibility: hidden;
+}
+
+.sup-motion .ill-whisper-float--ack .ill-insight__footer {
+  animation: sup-ill-turn-enter 320ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sup-motion .ill-guardrails-panel-slot .ill-guardrails-rule::after,
+.sup-motion .ill-guardrails-panel-slot .ill-guardrails-rule--checking::after {
+    transition: none;
+  }
+
+  .sup-motion .ill-guardrails-motion--enter,
+.sup-motion .ill-guardrails-motion--enter .ill-guardrails-panel__title,
+.sup-motion .ill-guardrails-motion--enter .ill-guardrails-rule,
+.sup-motion .ill-guardrails-motion--draw,
+.sup-motion .ill-guardrails-motion--shell-enter,
+.sup-motion .ill-guardrails-pulse::after {
+    animation: none;
+  }
+
+  .sup-motion .ill-support-motion .ill-thread > .ill-chat-breaker,
+.sup-motion .ill-approval-press .ill-button,
+.sup-motion .ill-whisper-float--ack .ill-insight__footer {
+    animation: none;
+  }
+}
+
+/* illustrations/SupportV3/HumanLoop.css */
+/* Human-in-the-loop / 10-12 — a new three-moment set. No ILL/* precedent
+   exists for a live human taking over a thread, a merchant approval, or a
+   private aside to the agent (confirmed gap via search_design_system on
+   the ILL library) — all three stay inside the series' existing shell/
+   thread/panel vocabulary, adding only the small, scene-local pieces below
+   where that vocabulary has nothing to reuse. "Private · X" is this set's
+   own house phrase for marking merchant/internal-only content, reused
+   verbatim across 11 and 12 rather than two different ways of saying it. */
+
+/* Scene theme: aubergine, for this set only. Same mechanism
+   `.ill-theme-helpdesk` already uses on 07 — the brand-facing chat
+   bubble (and the composer's send button, which key off the same
+   variable) re-points from the series' usual wine to aubergine, scoped
+   to each of these three Shells via `className`, not a shared-file
+   change. */
+.sup-motion .ill-theme-human-loop {
+  --ill-color-accent-strong: var(--color-aubergine);
+}
+
+/* ---------- Scene scale: 292x338.905, for this set only ----------
+   Figma node 2742:31378 was updated (2026-10-17) to a real, larger
+   intended size — 292x338.905, not the earlier 280x320 draft — with
+   every literal (border width, radius, padding, gap, shadow blur, icon
+   size, font size, letter-spacing) scaled down from this series' usual
+   450x500 by one consistent ratio, ≈0.9112 (confirmed via border-radius
+   11.573/12.701, padding/gap 20.607/22.616, and the shell glow shadow
+   17.302/18.989 — all land on the same ratio). Values below are copied
+   from that node directly where it shows them; the few it doesn't
+   (11/12's approval-privacy/insight pieces, not part of 10's own card)
+   are this same ratio applied to their full-size
+   values instead — confirmed against the node's own literal handoff-
+   label numbers (12.107px / 15.514px / -0.2422px), which match what
+   that ratio produces from Assistant/Insight's source-label scale
+   (13.288 x0.9112 = 12.108, 17.027 x0.9112 = 15.517, -0.2658 x0.9112 =
+   -0.2422) almost exactly. */
+.sup-motion .ill-theme-human-loop {
+  gap: 20.607px;
+  padding: 20.607px;
+  border-width: 1.822px;
+  border-radius: 11.573px;
+  box-shadow:
+    0px 0px 17.302px rgba(224, 190, 96, 0.4),
+    0px 0px 4.712px 1.178px rgba(0, 0, 0, 0.02),
+    0px 3.858px 7.908px rgba(0, 0, 0, 0.25);
+}
+
+.sup-motion .ill-theme-human-loop::after {
+  inset: -1.822px;
+  box-shadow: inset 0px 0px 18.22px rgba(108, 35, 50, 0.45);
+}
+
+/* Header: icon-button circle + its own glyph, the group gap, and the
+   brand pill. */
+.sup-motion .ill-theme-human-loop .ill-chat-header__group {
+  gap: 4.121px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-icon-button--outline {
+  width: 26.784px;
+  height: 26.784px;
+  border-width: 0.607px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-icon-button--outline img {
+  width: 8.785px;
+  height: 8.785px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-chat-header__brand {
+  padding: 3.645px 10.934px;
+  border-width: 0.607px;
+  font-size: 10px;
+  letter-spacing: 0.1093px;
+}
+
+/* Thread's own 40px turn gap, scaled. */
+.sup-motion .ill-theme-human-loop .ill-thread > * + * {
+  margin-top: 36.446px;
+}
+
+/* Chat bubble + plain reply text. */
+.sup-motion .ill-theme-human-loop .ill-chat-message p {
+  font-size: 12px;
+  letter-spacing: -0.062px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-chat-message--user {
+  padding: 8.242px;
+  border-radius: 12.756px;
+}
+
+/* Composer: pill padding/gap/font, send button + its icon. */
+.sup-motion .ill-theme-human-loop .ill-chat-composer {
+  gap: 8.242px;
+  border-width: 0.607px;
+  border-radius: 103.033px;
+  padding: 3.645px 3.645px 3.645px 14.578px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-chat-composer__text {
+  font-size: 12px;
+  letter-spacing: -0.062px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-icon-button--accent {
+  width: 36.446px;
+  height: 36.446px;
+  padding: 0.672px;
+  border-width: 0.607px;
+  border-radius: 30.371px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-icon-button--accent img {
+  width: 18.223px;
+  height: 18.223px;
+}
+
+/* ChatBreaker (10's handoff marker) — hairline, gap, lead-in margin,
+   label size, same ratio as the rest of the card. */
+.sup-motion .ill-theme-human-loop .ill-thread > .ill-chat-breaker {
+  margin-top: 31.928px;
+  gap: 10.934px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-chat-breaker::before,
+.sup-motion .ill-theme-human-loop .ill-chat-breaker::after {
+  height: 0.485px;
+}
+
+/* Unlike chrome (padding/radius/border, ~0.9112 of full-size), this
+   card's content column is narrower by a steeper ratio relative to its
+   font sizes (292px card vs. this series' usual 450px, while fonts stay
+   close to full size) — the assistant's own reply wraps to several
+   lines in the Figma reference for the same reason. The breaker's
+   single-line text (not part of the original Figma reference) needs the
+   same allowance, so it wraps instead of overflowing the card. */
+.sup-motion .ill-theme-human-loop .ill-chat-breaker span {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: normal;
+  text-align: center;
+  font-size: 11.221px;
+  letter-spacing: -0.1122px;
+}
+
+/* Page-feedback request: a photographic backdrop behind the card for
+   this set's three scenes, sized to the 355x402 container the feedback
+   measured — ~31.5px of the backdrop showing on every side of the
+   292x338.905 shell, centered inside SceneFrame's content area. */
+.sup-motion .ill-human-loop-backdrop {
+  position: relative;
+  width: 355px;
+  height: 402px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sup-motion .ill-human-loop-backdrop__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.sup-motion .ill-human-loop-backdrop > .ill-shell {
+  position: relative;
+}
+
+/* ---------- 10 — Live human takeover ----------
+   The human's turn (last in the thread) gets one small addition on top of
+   the plain Assistant/Message treatment every reply already uses: a muted
+   label, reusing Assistant/Insight's own source-label type scale (node
+   1954:437) rather than a new one, plus a thin gold rule (the shell's own
+   border color) to read as "a different voice just started". */
+.sup-motion .ill-handoff-turn {
+  padding-left: 12px;
+  border-left: 2px solid var(--ill-color-accent-gold);
+}
+
+.sup-motion .ill-handoff-turn__label {
+  margin: 0 0 6px;
+  font-family: var(--font-face-dm-sans-opsz), sans-serif;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  font-size: 13.288px;
+  line-height: 17.027px;
+  letter-spacing: -0.2658px;
+  color: var(--ill-color-accent-secondary);
+}
+
+/* ---------- 11 — Merchant approval, inline card ----------
+   One dialog box: the approval card is Support/Panel, mounted straight
+   into the AssistantTurn that holds "I can check that for you" — same
+   place OrderTracking/ProductUsage already mount their own panel under a
+   reply, not a second surface beside the shell. The privacy row is the
+   one new piece, reusing Assistant/Insight's source-row layout (icon +
+   label) with the set's own "Private · X" phrase instead of a source
+   name. */
+.sup-motion .ill-approval-privacy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.sup-motion .ill-approval-privacy__text {
+  margin: 0;
+  font-family: var(--font-face-dm-sans-opsz), sans-serif;
+  font-weight: 500;
+  font-optical-sizing: auto;
+  font-size: 11.5px;
+  letter-spacing: 0.05px;
+  color: var(--ill-color-text-muted);
+}
+
+/* Scene-local pieces (.ill-handoff-turn, .ill-approval-privacy), scaled to
+   match — figma shows handoff-turn's own label directly (used as literal
+   below); approval-privacy isn't part of that card, so its full-size
+   values are scaled by the same ~0.9112 ratio instead. */
+.sup-motion .ill-theme-human-loop .ill-handoff-turn {
+  padding-left: 10.934px;
+  border-left-width: 1.822px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-handoff-turn__label {
+  margin: 0 0 5.467px;
+  font-size: 12.107px;
+  line-height: 15.514px;
+  letter-spacing: -0.2422px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-approval-privacy {
+  gap: 5.467px;
+  margin-bottom: 1.822px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-approval-privacy__text {
+  font-size: 10.479px;
+  letter-spacing: 0.0456px;
+}
+
+/* ---------- 12 — Whisper to the agent, floating note ----------
+   The whisper itself is Assistant/Insight's own "Whisper to Crossword"
+   card (see AssistantInsight.tsx's `attribution`/`footer` props) — this
+   file only positions that card, pinned over the transcript instead of
+   stacked inside it, rather than drawing its own surface. Used only
+   within .ill-theme-human-loop, so the reserve/offset values below are
+   authored directly at this set's already-scaled literals (no separate
+   full-size/scaled pair, since there's no unscaled call site to keep
+   pixel-identical). Plain box, no speech-bubble tail (dropped per design
+   feedback) — a clear gap separates it from the reply below instead of a
+   pointer implying it's attached to it.
+   (This was "12 alt"; the earlier inline version of 12 — two turns in the
+   transcript marked private via .ill-whisper-exchange — was dropped in
+   favor of this floating-card treatment.) */
+/* Reserves clear air above the reply itself — the card plus a clear gap
+   sits in this space, rather than overlapping and hiding any of the
+   customer-visible text below it. Fits the card's actual rendered
+   height (measured live) plus a 14px gap before the reply. */
+.sup-motion .ill-whisper-float-anchor {
+  position: relative;
+  padding-top: 134px;
+}
+
+.sup-motion .ill-whisper-float {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Page-feedback request: no shadow on the floating card. No box-shadow is
+   set anywhere else in its ancestor chain either, so this is a direct,
+   explicit no-op guard rather than an override of a located rule. */
+.sup-motion .ill-whisper-float .ill-insight {
+  box-shadow: none;
+}
+
+/* AssistantInsight / InsightHighlight (11's approval card), same
+   proportional scale. */
+.sup-motion .ill-theme-human-loop .ill-insight__source-label {
+  font-size: 12.107px;
+  line-height: 15.514px;
+  letter-spacing: -0.2422px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-insight__body {
+  font-size: 11.221px;
+  line-height: 14.96px;
+  letter-spacing: -0.1122px;
+}
+
+/* Page-feedback request: reduce the compact (non-stacked) card's height —
+   11's two-line body (source row + wrapped reasoning) was carrying the
+   component's own full-size padding/gap at this card's reduced scale.
+   Tightened by the same ~0.9112 ratio as the rest of this theme; the
+   stacked whisper variant (12 alt) keeps its own separate spacing below,
+   unaffected. */
+.sup-motion .ill-theme-human-loop .ill-insight:not(.ill-insight--stacked) {
+  padding: 7.3px 10.9px;
+  column-gap: 7.3px;
+  row-gap: 3px;
+}
+
+/* Stacked variant's own spacing (node 2742:33561's 14px/9px/12px), same
+   ~0.9112 ratio as every other scene-local piece in this theme. */
+.sup-motion .ill-theme-human-loop .ill-insight--stacked {
+  gap: 6.5px;
+  padding: 11px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-insight--stacked .ill-insight__source {
+  gap: 3.645px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-insight__footer {
+  padding-top: 9px;
+}
+
+.sup-motion .ill-theme-human-loop .ill-insight__footer-status {
+  gap: 10.934px;
+}
+
+/* The statement is now Button/Primary (aubergine fill via the theme's own
+   --ill-color-accent-strong override, default inverse text) rather than
+   a plain paragraph — scoped narrowly to InsightHighlight's own button so
+   no other Button usage in this theme (there isn't one yet) is touched. */
+.sup-motion .ill-theme-human-loop .ill-insight-highlight .ill-button {
+  padding: 6.652px 8.871px;
+  border-radius: 4.436px;
+  font-size: 8.871px;
+  line-height: 13.307px;
+  letter-spacing: -0.0887px;
+}
+
+/* components/ill/ChatBreaker.css */
+/* Scoped to a direct Thread child (its only expected placement) so it
+   can override Thread's own 40px turn gap down to a tighter 35px lead-in
+   — a deliberate value for this one module, not Thread's default. */
+.sup-motion .ill-thread > .ill-chat-breaker {
+  margin: 0;
+  margin-top: 35px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sup-motion .ill-chat-breaker::before,
+.sup-motion .ill-chat-breaker::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 0.532px;
+  background: rgba(159, 159, 159, 0.3);
+}
+
+.sup-motion .ill-chat-breaker span {
+  flex: 0 0 auto;
+  font-family: var(--font-face-dm-sans-opsz), sans-serif;
+  font-weight: 500;
+  font-size: 12.313px;
+  letter-spacing: -0.1231px;
+  color: var(--ill-color-text-metadata);
+}
+
+/* components/ill/AssistantInsight.css */
+/* node 1954:437 — border color/width and radius are literal (no bound
+   variable matches rgba(159,159,159,0.3) or 7.507px) */
+.sup-motion .ill-insight {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 4px;
+  padding: 8px 12px;
+  background: var(--ill-color-background-canvas);
+  border: var(--ill-stroke-hairline) solid rgba(159, 159, 159, 0.3);
+  border-radius: 8px;
+}
+
+/* node 1954:423 — source + body now sit on one compact line rather than
+   stacked rows; flagged by design review as taking up too much vertical
+   space for two short facts. */
+.sup-motion .ill-insight__source {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* node 1954:434 */
+.sup-motion .ill-insight__source-label {
+  margin: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 17px;
+  letter-spacing: -0.26px;
+  color: var(--ill-color-accent-secondary);
+}
+
+/* node 1954:435 — the two context lines are now joined into one running
+   line instead of stacked paragraphs (design feedback: the stacked block
+   read as too tall for two short facts). Dropped the 63%-width wrap
+   constraint since it no longer serves a purpose on a single line. */
+.sup-motion .ill-insight__body {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.12px;
+  color: rgba(0, 0, 0, 0.7);
+  white-space: pre-line;
+}
+
+/* ---------- Stacked variant (node 2742:33561, now its own named
+   component — "ILL/Module/Assistant/Whisper", not an Insight variant) ----------
+   The compact variant above wraps source + body on one row by design
+   (see its own comment — a design-review fix for excess height). This
+   variant has more to show (a named attribution line, a status footer)
+   so it stacks instead: header row, body block, divider, footer row.
+   Padding/gap/background are this node's own literals — distinct from
+   the compact variant's tuned-down values, which stay as they are. The
+   node's own fill (`--color-parchment, #faedd4`) is this project's own
+   bound Background/Subtle token, so bound to that rather than kept
+   literal. */
+.sup-motion .ill-insight--stacked {
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 9px;
+  padding: 14px;
+  background: var(--ill-color-background-subtle);
+}
+
+.sup-motion .ill-insight--stacked .ill-insight__source {
+  gap: 4px;
+}
+
+/* node 2742:33584 — divider + status row. Figma exports this border as
+   `var(--color-rail, #d2cbba)`, a token name not bound in our own
+   tokens.css, so kept as the literal fallback value directly. */
+.sup-motion .ill-insight__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-rail, #d2cbba);
+}
+
+.sup-motion .ill-insight__footer-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* components/ill/InsightHighlight.css */
+.sup-motion .ill-insight-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ill-space-12);
+  padding: var(--ill-space-16);
+  background: var(--ill-color-background-subtle);
+  border-radius: var(--ill-radius-lg);
+}
+
+.sup-motion .ill-insight-highlight__cta {
+  display: flex;
+}

@@ -4,20 +4,15 @@ import { cn } from "@/lib/cn";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import { resolveCases } from "../../config/resolve";
-import { supportScenesA } from "../motion/index-a";
-import { type SceneTone, SceneToneContext } from "../motion/parts-a";
-import { SupportMotionRoot } from "../motion/root";
-
-/** The cases' frames take these liveries in turn: maroon, then aubergine, then forest green, repeating. */
-const tones: SceneTone[] = ["maroon", "aubergine", "forest"];
+import { SupportMotionRoot, supportScenes } from "../motion-v4/support-motion";
 
 /** Each case's turn: its scene's run plus the hold. */
-const turns = resolveCases.map((c) => tabTurn(supportScenesA[c.scene].duration));
+const turns = resolveCases.map((c) => tabTurn(supportScenes[c.scene].duration));
 
 /**
  * Figma "Library · Vertical tabs": the 280px list of question types on the left from 992px (above the
  * case below that), and the active type's case in the right column (its title and line of copy over
- * its notched card, maroon, aubergine and forest green in turn, playing its motion scene). The active
+ * its notched card, playing its Support v4 motion visual). The active
  * label is ink; the rest ink/60.
  *
  * They play on their own (see `useAutoplayTabs`): the gold rule under the active label fills over that
@@ -78,12 +73,10 @@ export function ResolveTabs() {
               <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{c.description}</p>
             </div>
 
-            {/* The case's motion scene: a chat in its notched frame (738 × 680, in its turn's livery), filling the column. */}
+            {/* The case's motion scene: a chat in its notched frame (738 × 680), filling the column. */}
             <div className="relative aspect-[738/680] w-full">
               {(i === active || i === previous) && (
-                <SceneToneContext value={tones[i % tones.length]}>
-                  <ScenePanel key={plays[i]} scene={supportScenesA[c.scene]} active={i === active} root={SupportMotionRoot} maxScale={1.2} />
-                </SceneToneContext>
+                <ScenePanel key={plays[i]} scene={supportScenes[c.scene]} active={i === active} root={SupportMotionRoot} maxScale={1.2} />
               )}
             </div>
           </div>

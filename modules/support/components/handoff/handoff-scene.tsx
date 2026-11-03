@@ -1,8 +1,7 @@
 "use client";
 
 import { type SceneEntry, ScenePanel } from "@/modules/sell/components/motion/scene-panel";
-import { supportScenesB } from "../motion/index-b";
-import { SupportMotionRoot } from "../motion/root";
+import { SupportMotionRoot, supportScenes } from "../motion-v4/support-motion";
 
 /** The human-in-the-loop scenes, one per handoff mode, in order. */
 const slugs = ["human-takeover", "merchant-approval", "whisper-to-agent"] as const;
@@ -12,8 +11,8 @@ const CARD = { left: 191.5, top: 139, width: 355, height: 402 };
 
 /** Each scene cropped to its card, so the step's cell can hold just the card. */
 const cards: SceneEntry[] = slugs.map((slug) => {
-  const scene = supportScenesB[slug];
-  const Scene = scene.Component;
+  const scene = supportScenes[slug];
+  const Scene: SceneEntry["Component"] = scene.Component;
   function Card({ play }: { play?: boolean }) {
     return (
       <div className="relative overflow-hidden" style={{ width: CARD.width, height: CARD.height }}>
