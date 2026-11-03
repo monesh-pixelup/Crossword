@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 import panelMaroon from "@/modules/sell/assets/discovery/panel-conversational.webp";
 import panelAubergine from "@/modules/sell/assets/discovery/panel-conversational-aubergine.webp";
 import panelForest from "@/modules/sell/assets/discovery/panel-conversational-forest.webp";
+import type { AiaSceneSlug } from "../components/motion/aia-motion";
 
 /*
  * The shopper questions in "A shopper asks, Crossword answers" (Figma 3305:381). Each takes one of the
@@ -14,30 +15,36 @@ export type ShopperQuestion = {
   label: string;
   /** Shown beside the panel, above the art. A blank line (\n\n) starts a new paragraph. */
   description?: string;
-  /** The empty framed panel the answer plays in. */
+  /** The framed panel the answer plays in. */
   panel: StaticImageData;
+  /** The answer's motion visual (789 × 579), played inside the panel's lattice frame; the bare panel without one. */
+  scene?: AiaSceneSlug;
 };
 
 export const shopperQuestions: ShopperQuestion[] = [
   {
     label: "“Which one should I get?”",
+    scene: "which-one-motion",
     description:
       "Crossword showcases your products, with photos, prices and options, lined up next to each other.\n\nThe shopper asks why one costs more and the answer comes directly from your catalog.",
     panel: panelMaroon,
   },
   {
     label: "“The black one, with the packing cubes.”",
+    scene: "black-with-cubes-motion",
     description: "The view changes as they talk. Size, color, quantity and bundle are all picked in the chat.",
     panel: panelForest,
   },
   {
     label: "“Choose this one.”",
+    scene: "choose-this-one-motion",
     description:
       "Crossword keeps the product options visible within the ChatGPT conversation. It lets customers browse, compare, and ask follow-up questions without losing their shortlist.",
     panel: panelAubergine,
   },
   {
     label: "“I’m looking for the best value.”",
+    scene: "best-value-motion",
     description:
       "Uses your full enriched catalog to prioritize suitable products within budget, explain price differences, and highlight relevant offers or bundles.",
     panel: panelMaroon,

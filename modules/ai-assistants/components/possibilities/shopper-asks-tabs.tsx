@@ -5,13 +5,15 @@ import { cn } from "@/lib/cn";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
 import { ctaLinks } from "@/modules/marketing";
+import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import type { ShopperQuestion } from "../../config/possibilities";
+import { AiaMotionRoot, aiaScenes } from "../motion/aia-motion";
 
 /**
  * Figma "Library · Vertical tabs" (3305:381), as Sell's Product discovery and Retain's Campaigns &
  * outbound: the list of questions on the left from 992px (above the panel below that), and the active
  * question in the right column (its title in Crimson 22, a line of Geist 16 and GET A DEMO over its
- * framed 821 × 611 damask panel). Styled as Figma draws it, not as on Sell and Retain: each label 24px in
+ * framed 821 × 611 damask panel, its answer's motion visual playing inside the lattice frame). Styled as Figma draws it, not as on Sell and Retain: each label 24px in
  * (12 / 20px padding), the active one ink on cream with a 2px gold bar down its left edge, the rest ink/40.
  *
  * They play on their own (see `useAutoplayTabs`): the gold bar grows down the active label over that
@@ -19,9 +21,9 @@ import type { ShopperQuestion } from "../../config/possibilities";
  * question shows it, starting its turn afresh.
  */
 export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] }) {
-  // Each question's turn (its panel is a still, so the default run) plus the hold.
-  const turns = questions.map(() => tabTurn());
-  const { active, root, fills, open } = useAutoplayTabs(turns, { axis: "y" });
+  // Each question's turn: its answer's run (the default run for a still panel) plus the hold.
+  const turns = questions.map((question) => tabTurn(question.scene && aiaScenes[question.scene].duration));
+  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns, { axis: "y" });
 
   return (
     <div ref={root} className="flex w-full flex-col items-stretch gap-8 lg:flex-row lg:items-start lg:justify-between">
@@ -63,7 +65,7 @@ export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] })
         </ul>
       </nav>
 
-      {/* Every question shares one cell and they crossfade (`.tab-panel`). */}
+      {/* Every question shares one cell and they crossfade (`.tab-panel`); a visual is drawn while its question shows or fades out, keyed to replay from the start. */}
       <div className="grid w-full min-w-0 lg:flex-[0_1_820px]">
         {questions.map((question, i) => (
           <div key={question.label} inert={i !== active} className="tab-panel flex w-full flex-col items-start">
@@ -79,10 +81,17 @@ export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] })
 
             {/*
               Panel art exported with its studded lattice frame and 1px #d2cdc0 border (821 × 611; Figma's
-              is 821 × 613 here, a 579px damask in 16px of lattice). It fills the 820px column.
-              TODO: the answer's motion scene plays in it once Figma has one.
+              is 821 × 613 here, a 579px damask in 16px of lattice). It fills the 820px column. The answer's
+              motion visual (789 × 579, its own damask) covers the damask, 16px in: the window the lattice leaves.
             */}
-            <Image src={question.panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
+            <div className="relative w-full">
+              <Image src={question.panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
+              {question.scene && (i === active || i === previous) && (
+                <div className="absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
+                  <ScenePanel key={plays[i]} scene={aiaScenes[question.scene]} active={i === active} root={AiaMotionRoot} maxScale={Infinity} />
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>

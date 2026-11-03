@@ -33,7 +33,7 @@ export default function AiAssistantsPage() {
       <LoggedInExperience />
       <BrandAesthetics />
       <Promotions />
-      <Insights />
+      <Insights scene="insights-motion" />
       <AssistantsFaq />
       <AssistantsCta />
     </main>

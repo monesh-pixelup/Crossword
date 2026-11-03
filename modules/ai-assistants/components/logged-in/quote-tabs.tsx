@@ -3,8 +3,10 @@
 import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
+import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import panelArt from "@/modules/sell/assets/upsell/panel-aubergine.webp";
 import type { LoggedInQuote } from "../../config/logged-in";
+import { AiaMotionRoot, aiaScenes } from "../motion/aia-motion";
 
 /**
  * A quote stays open until all but this much of it has slid under the
@@ -18,10 +20,14 @@ const HANDOFF = 40;
  * it, fading out under its edge; the quote just below the heading is open (full strength, the others at
  * 20%), each 48px top and bottom with a 1px black/10 rule under it and 16px between the quote and its
  * copy. When stacked, the panel is what sticks and the quotes pass under it. Clicking a quote scrolls it
- * open. The panel is Figma's 687 × 586 aubergine damask (the Upsell art), a placeholder for motion scenes.
+ * open. The panel is Figma's 687 × 586 aubergine damask (the Upsell art), playing the open quote's motion visual
+ * (687 × 586, ChatGPT on a phone in its aubergine frame) where the quote has one. The visuals crossfade
+ * (`.tab-panel`); one is drawn while its quote is open or fading out, keyed to replay from the start.
  */
 export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: LoggedInQuote[] }) {
   const [active, setActive] = useState(0);
+  const [previous, setPrevious] = useState(0);
+  const [plays, setPlays] = useState(() => quotes.map(() => 0));
   const activeRef = useRef(0);
   const headingRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -45,8 +51,10 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
       let open = items.current.findIndex((item) => item && item.getBoundingClientRect().bottom > line);
       if (open < 0) open = quotes.length - 1;
       if (open !== activeRef.current) {
+        setPrevious(activeRef.current);
         activeRef.current = open;
         setActive(open);
+        setPlays((p) => p.map((n, j) => (j === open ? n + 1 : n)));
       }
     };
     const schedule = () => {
@@ -181,6 +189,17 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
       >
         <div className="relative mx-auto aspect-[687/586] w-full max-w-[calc((100svh-72.5px-48px)*687/586)] overflow-hidden bg-[#462160] min-[1313px]:max-w-none">
           <Image src={panelArt} alt="" fill sizes="(min-width: 1313px) 687px, 100vw" className="object-cover" />
+          <div className="absolute inset-0 grid">
+            {quotes.map((quote, i) =>
+              quote.scene ? (
+                <div key={quote.quote} inert={i !== active} className="tab-panel relative">
+                  {(i === active || i === previous) && (
+                    <ScenePanel key={plays[i]} scene={aiaScenes[quote.scene]} active={i === active} root={AiaMotionRoot} maxScale={Infinity} />
+                  )}
+                </div>
+              ) : null,
+            )}
+          </div>
         </div>
       </div>
     </div>

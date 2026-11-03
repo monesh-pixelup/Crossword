@@ -1,18 +1,20 @@
-import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import panel from "../../assets/campaigns/use-case-panel.webp";
+import type { AiaSceneSlug } from "../motion/aia-motion";
+import { AiaScenePanel } from "../motion/aia-scene-panel";
 
-/** Figma's two use cases (3562:56, 3562:74). */
-const useCases = [
+/** Figma's two use cases (3562:56, 3562:74), each with its motion visual. */
+const useCases: { label: string; title: string; body: string; scene: AiaSceneSlug }[] = [
   {
     label: "Back in stock",
+    scene: "back-in-stock-motion",
     title: "Tell me when my size is back.",
     body: "They ask once and then forget about it. When it’s in stock, ChatGPT tells them. The same works for price drops, exchanges and support replies.",
   },
   {
     label: "Price drop",
+    scene: "price-drop-motion",
     title: "Let me know when it drops below my budget.",
     body: "Crossword follows a customer-defined price condition, and proactively informs them when the time is right.",
   },
@@ -21,8 +23,8 @@ const useCases = [
 /**
  * Section · Campaigns (Figma 3305:453): the eyebrow over a one-line swash headline (Crimson Light 60 at
  * 1.1), with its 477px line of copy 120px across from it, bottom-aligned; then 80px below, two 620px use
- * cases 40px apart. Each is the 620 × 290 forest damask panel (its gold corner-notched frame and studs, a
- * 2x export of 3562:57), and 40px under it a Geist Medium 12 label in wine, a Crimson Light 32 line and
+ * cases 40px apart. Each is its motion visual (620 × 420: ChatGPT on the forest damask in its gold
+ * corner-notched frame, the alert landing in the conversation), and 40px under it a Geist Medium 12 label in wine, a Crimson Light 32 line and
  * Geist 16 copy, 16px apart. Below 1280px the copy goes under the headline (beside the 615px headline it would be squeezed to a sliver), and the gap is 80px until 1440px; below 768px the use cases
  * stack. A 232px gold tick sits on the left rail beside the eyebrow (98px down in Figma).
  */
@@ -46,9 +48,9 @@ export function UseCaseCampaigns() {
         <ul className="grid w-full grid-cols-1 gap-16 md:grid-cols-2 md:gap-10">
           {useCases.map((useCase) => (
             <li key={useCase.label} className="flex min-w-0 flex-col items-start">
-              {/* TODO: the use case's motion scene plays in the panel once Figma has one. */}
-              <div className="relative aspect-[620/290.141] w-full overflow-clip bg-forest">
-                <Image src={panel} alt="" fill sizes="(min-width: 1440px) 620px, (min-width: 768px) 50vw, 100vw" className="object-cover" />
+              {/* The use case's motion visual, filling the column (past its drawn 620px where the column is wider). */}
+              <div className="relative aspect-[620/420] w-full">
+                <AiaScenePanel slug={useCase.scene} fill />
               </div>
               <h3 className="mt-10 flex flex-col items-start gap-4">
                 <span className="font-sans text-[12px] leading-[1.2] font-medium tracking-[0.96px] text-[#6c2332] uppercase">{useCase.label}</span>

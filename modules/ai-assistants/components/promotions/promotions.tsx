@@ -6,14 +6,17 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import ground from "@/modules/support/assets/handoff/ground.webp";
 import { AubergineSteps } from "@/modules/support/components/handoff/aubergine-steps";
 import card from "../../assets/promotions/card.svg";
-import { promotionSteps } from "../../config/promotions";
+import { type PromotionStep, promotionSteps } from "../../config/promotions";
+import { AiaScenePanel } from "../motion/aia-scene-panel";
 
 /**
  * Figma "Section · Promotions & upselling" (node 3305:1197), the Aubergine steps livery laid out as
  * Support's Human-in-the-loop: aubergine with Figma's fine noise grain between the page rails, inside
  * the gilt notched frame (8px in from the panel's sides, 19px down), a Dark eyebrow 66.59px down over a centred two-line
  * headline and two lines of 16px copy, then the three numbered steps across 1062px 32px below, in
- * an 800px-tall band. Personal agents (3308:549) passes its own headline (a 413px box), copy and steps.
+ * an 800px-tall band. Where every step has a motion visual (AI Assistants V3 12–14), each cell holds its 355 × 402
+ * visual instead of the stamped card, as Support's Human-in-the-loop. Personal agents (3308:549) passes its own
+ * headline (a 413px box), copy and steps.
  */
 export function Promotions({
   id = "promotions-title",
@@ -36,8 +39,9 @@ export function Promotions({
   /** The headline's Figma text-box width. */
   width?: number;
   copy?: ReactNode;
-  steps?: { title: string; description: string }[];
+  steps?: PromotionStep[];
 }) {
+  const scenes = steps.map((step) => step.scene);
   return (
     <section aria-labelledby={id} className="relative px-(--frame-inset)">
       {/*
@@ -81,7 +85,19 @@ export function Promotions({
               } as CSSProperties
             }
           >
-            <AubergineSteps steps={steps} variant="promotions" cardArt={card} />
+            <AubergineSteps
+              steps={steps}
+              variant="promotions"
+              cardArt={card}
+              media={
+                scenes.every(Boolean)
+                  ? (i) => {
+                      const scene = scenes[i];
+                      return scene ? <AiaScenePanel slug={scene} fill /> : null;
+                    }
+                  : undefined
+              }
+            />
           </div>
         </div>
       </div>
