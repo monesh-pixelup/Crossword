@@ -18,8 +18,8 @@ const handbagAlt2 = handbagAlt2Image.src;
 // shoppers" label rather than inventing a number.
 
 export const demandDiscovery = {
-  brand: "HALDEN",
-  url: "ADMIN.HALDEN.CO/NEW-ARRIVALS",
+  brand: "MARAIS",
+  url: "ADMIN.MARAIS.CO/NEW-ARRIVALS",
   // Background admin page — this week's launches, the products the
   // audience is being matched against.
   arrivals: [
@@ -51,12 +51,12 @@ export const demandDiscovery = {
 };
 
 export const sizeConfidence = {
-  brand: "OSTROM",
-  url: "OSTROM.CO/JACKETS/WAXED-FIELD-JACKET",
+  brand: "MARAIS",
+  url: "MARAIS.CO/JACKETS/WAXED-FIELD-JACKET",
   product: {
     image: jacket,
-    alt: "Ostrom Waxed Field Jacket in olive",
-    brand: "OSTROM",
+    alt: "Marais Waxed Field Jacket in olive",
+    brand: "MARAIS",
     title: "Waxed Field Jacket",
     subtitle: "Olive · Waxed cotton",
     price: "$189",

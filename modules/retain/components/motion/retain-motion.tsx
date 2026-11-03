@@ -2,39 +2,41 @@
 
 import { type ComponentType, type CSSProperties, useSyncExternalStore } from "react";
 import { useStrangerActive } from "@/modules/dynamic-landing-pages/components/personalization/stranger-scroll";
-import { BackInStockMotion } from "./illustrations/RetainMotion/BackInStockMotion";
-import { BrowseRecoveryMotion } from "./illustrations/RetainMotion/BrowseRecoveryMotion";
-import { CartRecoveryMotion } from "./illustrations/RetainMotion/CartRecoveryMotion";
-import { PriceDropMotion } from "./illustrations/RetainMotion/PriceDropMotion";
-import { ReplenishmentMotion } from "./illustrations/RetainMotion/ReplenishmentMotion";
-import { OutboundCampaignMotion } from "./illustrations/CampaignsMotion/OutboundCampaignMotion";
-import { PostPurchaseFollowUpMotion } from "./illustrations/CampaignsMotion/PostPurchaseFollowUpMotion";
-import { ReviewSolicitationMotion } from "./illustrations/CampaignsMotion/ReviewSolicitationMotion";
-import { SegmentedCampaignMotion } from "./illustrations/CampaignsMotion/SegmentedCampaignMotion";
-import { WinBackCampaignMotion } from "./illustrations/CampaignsMotion/WinBackCampaignMotion";
-import { DemandDiscoveryMotion } from "./illustrations/WidgetLandscapeMotion/DemandDiscoveryMotion";
-import { SizeConfidenceMotion } from "./illustrations/WidgetLandscapeMotion/SizeConfidenceMotion";
+import {
+  BackInStockV2Motion,
+  BrowseRecoveryV2Motion,
+  CartRecoveryV2Motion,
+  LaunchAudienceV2Motion,
+  OutboundCampaignV2Motion,
+  PostPurchaseFollowUpV2Motion,
+  PriceDropV2Motion,
+  ReplenishmentV2Motion,
+  ReviewSolicitationV2Motion,
+  SegmentedCampaignV2Motion,
+  SizeConfidenceDrawerV2Motion,
+  WinBackCampaignV2Motion,
+} from "./visuals/RetainV2/RetainV2";
 import "./motion.css";
 
-/** Retain motion 01–05, in the order of the Proactive recovery items (config/recovery.ts). */
+/** Retain v2 motion 01–05, in the order of the Proactive recovery items (config/recovery.ts). */
 const recoveryScenes: ComponentType[] = [
-  CartRecoveryMotion,
-  BrowseRecoveryMotion,
-  BackInStockMotion,
-  PriceDropMotion,
-  ReplenishmentMotion,
+  CartRecoveryV2Motion,
+  BrowseRecoveryV2Motion,
+  BackInStockV2Motion,
+  PriceDropV2Motion,
+  ReplenishmentV2Motion,
 ];
 
 /** Liveries the campaigns take in turn: maroon (the source's), then aubergine, then forest green. */
 export const campaignTones = ["maroon", "aubergine", "forest"] as const;
 
-/** Retain motion 06–10, in the order of the campaigns (config/campaigns.ts). */
+/** Retain v2 motion 06–10, in the order of the campaigns (config/campaigns.ts). */
 const campaignScenes: ComponentType[] = [
-  OutboundCampaignMotion,
-  SegmentedCampaignMotion,
-  PostPurchaseFollowUpMotion,
-  WinBackCampaignMotion,
-  ReviewSolicitationMotion,
+  OutboundCampaignV2Motion,
+  SegmentedCampaignV2Motion,
+  PostPurchaseFollowUpV2Motion,
+  WinBackCampaignV2Motion,
+  ReviewSolicitationV2Motion,
 ];
 
 const subscribe = () => () => {};
@@ -89,12 +91,12 @@ export function CampaignMotion({ index }: { index: number }) {
   return <MotionStage scene={campaignScenes[index]} width={821} height={611} tone={tone === "maroon" ? undefined : tone} />;
 }
 
-/** Audiences' 1280 × 599 panel: discovering demand from past conversations. */
+/** Audiences' 1280 × 599 panel: turning customer patterns into an audience, on the Insights dashboard. */
 export function AudienceMotion() {
-  return <MotionStage scene={DemandDiscoveryMotion} width={1280} height={599} />;
+  return <MotionStage scene={LaunchAudienceV2Motion} width={1280} height={599} />;
 }
 
-/** Return reduction's 1280 × 599 panel: a confident size, then it's in the cart. */
+/** Return reduction's 1280 × 599 panel: Ask AI opens a drawer with a confident size, then it's in the cart. */
 export function ReturnMotion() {
-  return <MotionStage scene={SizeConfidenceMotion} width={1280} height={599} />;
+  return <MotionStage scene={SizeConfidenceDrawerV2Motion} width={1280} height={599} />;
 }

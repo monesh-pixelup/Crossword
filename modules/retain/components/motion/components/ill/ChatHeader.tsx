@@ -1,3 +1,5 @@
+import { BrandWordmark } from "../../brands/BrandIdentity";
+import registry from "../../brands/registry.json";
 import { IconButton } from "./IconButton";
 
 // ILL/Module/Chat/Header (node 1954:352).
@@ -25,6 +27,7 @@ export function ChatHeader({
   onClose,
 }: ChatHeaderProps) {
   const showControlsLeft = showHistory || showAdd;
+  const registered = Object.values(registry).some((entry) => entry.name.toLowerCase() === brand.toLowerCase());
   return (
     <header className="ill-chat-header">
       {showControlsLeft && (
@@ -33,7 +36,7 @@ export function ChatHeader({
           {showAdd && <IconButton icon="add" label="New conversation" variant="outline" />}
         </div>
       )}
-      <div className="ill-chat-header__brand">{brand}</div>
+      <div className="ill-chat-header__brand">{registered ? <BrandWordmark brand={brand} /> : brand}</div>
       <div className="ill-chat-header__group">
         {showExpand && <IconButton icon="expand" label="Expand" variant="outline" />}
         {showClose && <IconButton icon="close" label="Close" variant="outline" onClick={onClose} />}

@@ -7,7 +7,7 @@ import handbagAlt1Image from "../../../../assets/motion/scenarios/retain/handbag
 import handbagAlt2Image from "../../../../assets/motion/scenarios/retain/handbag-alt-2.jpg";
 import moisturizerImage from "../../../../assets/motion/scenarios/dynamic-landing-page/moisturizer.webp";
 import vitaminCSerumImage from "../../../../assets/motion/scenarios/product-usage/vitamin-c-serum.webp";
-import hydratingSerumImage from "../../../../assets/motion/scenarios/human-mode/hydrating-serum.png";
+import { catalog } from "../../brands/catalog";
 
 const jacket = jacketImage.src;
 const jacketShare = jacketShareImage.src;
@@ -16,7 +16,6 @@ const handbagAlt1 = handbagAlt1Image.src;
 const handbagAlt2 = handbagAlt2Image.src;
 const moisturizer = moisturizerImage.src;
 const vitaminCSerum = vitaminCSerumImage.src;
-const hydratingSerum = hydratingSerumImage.src;
 
 // Retain — five proactive retention messages. Crossword speaks first in
 // every one (no shopper ask), so there are no UserTurns. Dialogue is the
@@ -24,37 +23,37 @@ const hydratingSerum = hydratingSerumImage.src;
 // claims (size, shade, price, discount, "your usual").
 
 export const cartRecovery = {
-  brand: "Ostrom",
+  brand: "Marais",
   timestamp: "Today 4:12 PM",
   message:
     "Still thinking about the jacket you added? It’s still in your size, and I can hold your cart for 24 more hours if you need a bit more time.",
   product: {
     image: jacket,
-    alt: "Ostrom Waxed Field Jacket in olive",
+    alt: "Marais Waxed Field Jacket in olive",
     title: "Waxed Field Jacket",
     detail: "Olive · Size M · $189",
   },
   // What Messages renders for the cart link: the page's share image,
   // its <title>, and the domain.
-  preview: { image: jacketShare, title: "Your cart · Waxed Field Jacket, Size M", domain: "ostrom.co" },
+  preview: { image: jacketShare, title: "Your cart · Waxed Field Jacket, Size M", domain: "marais.co" },
 };
 
 export const browseRecovery = {
-  brand: "VELMORE",
+  brand: "MARAIS",
   message:
     "Still looking for a new handbag? The one you spent the most time on is back in stock, and I found two similar options you might like. Want to see them?",
   viewed: {
     image: handbagViewed,
-    alt: "Velmore Margot top-handle bag in cognac",
-    brand: "VELMORE",
+    alt: "Marais Margot top-handle bag in cognac",
+    brand: "MARAIS",
     title: "Margot Top-Handle Bag, Cognac",
     price: "$248",
   },
   viewedLabel: "Recently viewed",
   similarLabel: "Similar options",
   similar: [
-    { id: "alt-1", image: handbagAlt1, alt: "Velmore Isla slouch shoulder bag", title: "Isla Shoulder Bag", price: "$215" },
-    { id: "alt-2", image: handbagAlt2, alt: "Velmore Noor mini top-handle bag", title: "Noor Mini Top-Handle", price: "$265" },
+    { id: "alt-1", image: handbagAlt1, alt: "Marais Isla slouch shoulder bag", title: "Isla Shoulder Bag", price: "$215" },
+    { id: "alt-2", image: handbagAlt2, alt: "Marais Noor mini top-handle bag", title: "Noor Mini Top-Handle", price: "$265" },
   ],
 };
 
@@ -92,15 +91,15 @@ export const priceDrop = {
 };
 
 export const replenishment = {
-  brand: "SORELLE LABS",
+  brand: catalog.sorelleHydrating.brand,
   message:
     "Running low on your usual serum? It’s around the time you normally restock. Want me to add it to your cart?",
   product: {
-    image: hydratingSerum,
-    alt: "Sorelle Labs Daily Hydrating Serum",
-    brand: "SORELLE LABS",
-    title: "Daily Hydrating Serum, 30 ml",
-    price: "$52",
+    image: catalog.sorelleHydrating.image,
+    alt: `${catalog.sorelleHydrating.brand} ${catalog.sorelleHydrating.title}`,
+    brand: catalog.sorelleHydrating.brand,
+    title: `${catalog.sorelleHydrating.title}, 30 ml`,
+    price: catalog.sorelleHydrating.price,
   },
   label: "Your usual",
   lastOrder: "1 × 30 ml",

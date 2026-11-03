@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Media } from "./Media";
 import { Icon } from "./Icon";
-import { Button } from "./Button";
+import { Button, type ButtonAppearance } from "./Button";
 import { ProductMeta } from "./ProductMeta";
 import { SkeletonBlock } from "./SkeletonBlock";
 import { useLineCount } from "./useLineCount";
@@ -36,17 +36,21 @@ export interface RecommendationProduct {
 // same card plus a full-width "Add to cart" action, reusing Button's
 // existing `accent` appearance verbatim (bg Accent/Primary, full radius,
 // 11px type — identical to the variant's own `action.primary` instance).
-// Defaults off, so every non-CTA call site is unaffected.
+// Defaults off, so every non-CTA call site is unaffected. `ctaAppearance`
+// swaps that button's Button appearance (e.g. "secondary" for Sell: Ad
+// Journey's picks, per review); defaults to the variant's own "accent".
 export function RecommendationProductCard({
   product,
   loading = false,
   resolveDelayMs,
   cta = false,
+  ctaAppearance = "accent",
 }: {
   product: RecommendationProduct;
   loading?: boolean;
   resolveDelayMs?: number;
   cta?: boolean;
+  ctaAppearance?: ButtonAppearance;
 }) {
   const cardRef = useRef<HTMLElement>(null);
   const titleLines = useLineCount(cardRef, ".ill-rec-card__title");
@@ -73,7 +77,7 @@ export function RecommendationProductCard({
           <p className="ill-rec-card__title">{product.name}</p>
         )}
       </div>
-      {cta && <Button appearance="accent" label="Add to cart" />}
+      {cta && <Button appearance={ctaAppearance} label="Add to cart" />}
       {showOverlay && (
         <div
           className={`ill-rec-card__skeleton-overlay${loading ? "" : " ill-rec-card__skeleton-overlay--hidden"}`}

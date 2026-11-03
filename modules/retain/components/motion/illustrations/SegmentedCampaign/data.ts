@@ -1,13 +1,7 @@
 import type { RecommendationProduct } from "../../components/ill/RecommendationProductCard";
-import faceWashImage from "../../../../assets/motion/scenarios/dynamic-landing-page/face-wash.webp";
-import hydratingSerumImage from "../../../../assets/motion/scenarios/human-mode/hydrating-serum.png";
-import moisturizerImage from "../../../../assets/motion/scenarios/dynamic-landing-page/moisturizer.webp";
+import { catalog } from "../../brands/catalog";
 
-const faceWash = faceWashImage.src;
-const hydratingSerum = hydratingSerumImage.src;
-const moisturizer = moisturizerImage.src;
-
-export const brand = "DERMA HOUSE";
+export const brand = catalog.sorelleHydrating.brand;
 
 export const script = {
   assistantMessage:
@@ -24,7 +18,12 @@ export const signal = {
 export const shortlistLabel = "Picked for you";
 
 export const shortlist: RecommendationProduct[] = [
-  { id: "cleanser", name: "Gentle Face Wash", price: "$24", image: faceWash },
-  { id: "serum", name: "Hydrating Serum", price: "$48", image: hydratingSerum },
-  { id: "moisturizer", name: "Barrier Moisturizer", price: "$36", image: moisturizer },
-];
+  catalog.sorelleHydrating,
+  catalog.sorelleCream,
+  catalog.sorelleGel,
+].map((product) => ({
+  id: product.id,
+  name: product.title,
+  price: product.price,
+  image: product.image,
+}));

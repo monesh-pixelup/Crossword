@@ -1,20 +1,20 @@
 import type { AiPillOption } from "../../components/ill/AiPills";
-import curlingIronImage from "../../../../assets/motion/scenarios/retain/curling-iron.png";
+import { catalog } from "../../brands/catalog";
 
-const curlingIron = curlingIronImage.src;
+const product = catalog.strideCourt01;
 
-export const brand = "VELA";
+export const brand = product.brand;
 
 export const script = {
   assistantMessage:
-    "How's the new curling iron working out? If you'd like, I can show you a few products that work well with it.",
+    "How are the new Court 01s feeling? If you'd like, I can show you a few pieces that work well with them.",
 };
 
 export const purchase = {
-  image: curlingIron,
-  alt: "Ceramic curling iron",
-  brand: "VELA",
-  title: "Ceramic Curling Iron 25mm",
+  image: product.image,
+  alt: `${product.title} in ${product.color}`,
+  brand: product.brand,
+  title: product.title,
   status: "Delivered Oct 14",
 };
 

@@ -1,3 +1,5 @@
+import { cutoutSrcs } from "../../assets/products/cutouts";
+import { ProductImage } from "../../visuals/AiAssistantsV3/ProductImage";
 import { Media } from "./Media";
 
 // ILL/Module/Product/Reference (node 2071:16875) — added to the Figma
@@ -23,7 +25,7 @@ export function ProductReference({ image, alt, brand, title, price, size }: Prod
   return (
     <div className="ill-product-reference">
       <div className="ill-product-reference__media" style={size ? { width: size, height: size } : undefined}>
-        <Media src={image} alt={alt} />
+        {image ? <ProductImage src={image} alt={alt} className={`ill-media${cutoutSrcs.has(image) ? " ill-media--cutout" : ""}`} /> : <Media alt={alt} />}
       </div>
       <div className="ill-product-reference__text">
         {brand && <p className="ill-product-reference__brand">{brand}</p>}

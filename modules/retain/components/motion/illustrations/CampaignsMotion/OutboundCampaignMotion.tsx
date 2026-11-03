@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import backImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/back.svg";
-import brandMarkImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/brand-mark.svg";
 import chevronImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/chevron.svg";
 import tailInImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/tail-in.svg";
 import plusImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/plus.svg";
@@ -10,9 +9,9 @@ import { useLandedOnScreen } from "../../components/ill/useLandedOnScreen";
 import { LoadingFrame } from "../SellMotion/LoadingFrame";
 import { useChatTimeline, type Beat } from "../SellMotion/useChatTimeline";
 import { CampaignFrame } from "../CampaignFrame";
+import { BrandMark } from "../../brands/BrandIdentity";
 
 const back = backImage.src;
-const brandMark = brandMarkImage.src;
 const chevron = chevronImage.src;
 const tailIn = tailInImage.src;
 const plus = plusImage.src;
@@ -43,9 +42,7 @@ function OutboundCampaignMotionWidget() {
               height={13.179}
             />
             <div className="ill-im-shell__contact">
-              <span className="ill-im-shell__avatar">
-                <img src={brandMark} alt="" width={10.535} height={10.433} />
-              </span>
+              <BrandMark brand={brand} className="ill-im-shell__avatar" />
               <span className="ill-im-shell__name">
                 {brand}
                 <img src={chevron} alt="" width={2.028} height={3.548} />
@@ -70,13 +67,6 @@ function OutboundCampaignMotionWidget() {
                 <p className="ill-im-shell__bubble">
                   {script.assistantMessage}
                 </p>
-                <img
-                  className="ill-im-shell__tail"
-                  src={tailIn}
-                  alt=""
-                  width={12.173}
-                  height={7.101}
-                />
               </div>
             </div>
           )}
@@ -103,6 +93,8 @@ function OutboundCampaignMotionWidget() {
               </div>
             </LoadingFrame>
           )}
+          {/* Tail on the last bubble of the run, per Messages. */}
+          {t.passed("preview") && <img className="ill-outbound__tail" src={tailIn} alt="" width={12.173} height={7.101} />}
         </div>
 
         <footer className="ill-im-shell__toolbar">

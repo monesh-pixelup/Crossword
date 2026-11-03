@@ -7,7 +7,7 @@ import { AudienceMotion } from "../motion/retain-motion";
  * Figma "Library · Wide panel" (Audiences): the eyebrow and a two-line headline on the left, a line
  * of Geist Light copy bottom-aligned on the right (stacked under the headline below 1200px, where
  * the two no longer fit side by side), then 80px below the 1280 × 599 Retain motion visual
- * (discovering demand from past conversations), zoomed as a whole to the column width. A 232px
+ * (turning customer patterns into an audience), zoomed as a whole to the column width. A 232px
  * gold tick sits on the left rail beside the eyebrow.
  */
 export function AudienceBuilder() {

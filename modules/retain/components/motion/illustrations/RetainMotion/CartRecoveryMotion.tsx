@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import backImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/back.svg";
-import brandMarkImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/brand-mark.svg";
 import chevronImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/chevron.svg";
 import tailInImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/tail-in.svg";
 import plusImage from "../../../../assets/motion/scenarios/channel-deployment/imessage/plus.svg";
@@ -10,9 +9,9 @@ import { useLandedOnScreen } from "../../components/ill/useLandedOnScreen";
 import { cartRecovery as s } from "../Retain/data";
 import { LoadingFrame } from "../SellMotion/LoadingFrame";
 import { useChatTimeline, type Beat } from "../SellMotion/useChatTimeline";
+import { BrandMark } from "../../brands/BrandIdentity";
 
 const back = backImage.src;
-const brandMark = brandMarkImage.src;
 const chevron = chevronImage.src;
 const tailIn = tailInImage.src;
 const plus = plusImage.src;
@@ -45,9 +44,7 @@ export function CartRecoveryMotion() {
                 height={13.179}
               />
               <div className="ill-im-shell__contact">
-                <span className="ill-im-shell__avatar">
-                  <img src={brandMark} alt="" width={10.535} height={10.433} />
-                </span>
+                <BrandMark brand={s.brand} className="ill-im-shell__avatar" />
                 <span className="ill-im-shell__name">
                   {s.brand}
                   <img src={chevron} alt="" width={2.028} height={3.548} />

@@ -30,6 +30,9 @@ const FADE_CLEARANCE = 40;
 // open around it once the named beat has passed — ProactiveMotionScene's
 // Frame 1 -> Frame 2 expand, for a chat scene that starts on a typed ask
 // (Retain's landscape 11 and 12). Unset, the shell is there from the start.
+// `observeRef` gates the timeline on a different element being on screen —
+// for a shell that starts off-canvas (12b's drawer), which would otherwise
+// never count as landed.
 export function ChatMotionScene({
   brand,
   beats,
@@ -41,6 +44,7 @@ export function ChatMotionScene({
   threadClassName,
   alignTallTurnTop = false,
   expandAfter,
+  observeRef,
 }: {
   brand: string;
   beats: Beat[];
@@ -52,6 +56,7 @@ export function ChatMotionScene({
   threadClassName?: string;
   alignTallTurnTop?: boolean;
   expandAfter?: string;
+  observeRef?: React.RefObject<Element | null>;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   // With `expandAfter`, the on-screen check watches the unclipped wrapper:
@@ -59,7 +64,7 @@ export function ChatMotionScene({
   // Frame 1 would never cover enough of the shell to count as landed.
   const expandRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
-  const active = useLandedOnScreen(expandAfter ? expandRef : rootRef);
+  const active = useLandedOnScreen(observeRef ?? (expandAfter ? expandRef : rootRef));
   const timeline = useChatTimeline(beats, active);
   const { index, runKey, reducedMotion, composer } = timeline;
 

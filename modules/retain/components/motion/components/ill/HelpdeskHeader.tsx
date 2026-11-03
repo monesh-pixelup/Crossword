@@ -1,4 +1,6 @@
 import { IconButton } from "./IconButton";
+import { BrandWordmark } from "../../brands/BrandIdentity";
+import registry from "../../brands/registry.json";
 
 // ILL/Module/Helpdesk/Header (node 2710:27221), the sibling instance next
 // to Chat/Header (node 2710:27220) under the same frame. "Use at the top
@@ -15,6 +17,7 @@ import { IconButton } from "./IconButton";
 // existing call site leaves `tone` unset and keeps the default glyphs.
 export function HelpdeskHeader({ brand, tone = "default" }: { brand: string; tone?: "default" | "gold" }) {
   const gold = tone === "gold";
+  const registered = Object.values(registry).some((entry) => entry.name.toLowerCase() === brand.toLowerCase());
   return (
     <header className="ill-chat-header">
       <div className="ill-chat-header__group">
@@ -22,7 +25,7 @@ export function HelpdeskHeader({ brand, tone = "default" }: { brand: string; ton
         <IconButton icon={gold ? "addGold" : "add"} label="New conversation" variant="outline" />
       </div>
       <div className="ill-helpdesk-header__center">
-        <span className="ill-helpdesk-header__brand">{brand}</span>
+        <span className="ill-helpdesk-header__brand">{registered ? <BrandWordmark brand={brand} /> : brand}</span>
         <span className="ill-helpdesk-header__badge">
           <span className="ill-helpdesk-header__badge-text">Helpdesk</span>
         </span>

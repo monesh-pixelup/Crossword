@@ -25,7 +25,9 @@ const cartIcon = cartIconImage.src;
 // marked as the recommended fit, and the card's own CTA in its resolved
 // "Added to cart" state (provenance rule 6: the action lives on the
 // product, not as a separate confirmation module).
-export function JacketPdpScene() {
+// `askAi` (12b) adds the store's "Ask AI" entry point to the header's
+// right side, beside the cart — the pill that opens the chat drawer.
+export function JacketPdpScene({ askAi = false }: { askAi?: boolean } = {}) {
   const p = s.product;
   return (
     <div className="ill-marketplace">
@@ -38,6 +40,12 @@ export function JacketPdpScene() {
           <span />
           <span />
         </div>
+        {askAi && (
+          <span className="ill-marketplace__ask">
+            <Icon name="spark" size={12} />
+            Ask AI
+          </span>
+        )}
         <img className="ill-marketplace__cart" src={cartIcon} alt="" aria-hidden="true" width={20} height={20} />
       </div>
       <div className="ill-marketplace__body">

@@ -1,4 +1,4 @@
-import { cutoutSrcs } from "../../../../assets/motion/products/cutouts";
+import { cutoutSrcs } from "../../assets/products/cutouts";
 
 // ILL/Primitive/Media (node 1954:334). "Layout variants represent
 // recurring crop structures only; imagery remains data." Renders a real

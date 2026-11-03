@@ -1,17 +1,19 @@
-import { cutouts } from "../../../../assets/motion/products/cutouts";
+import { catalog } from "../../brands/catalog";
 
-export const brand = "AUDEN";
+const product = catalog.auraEarbuds;
+
+export const brand = product.brand;
 
 export const script = {
   assistantMessage:
-    "How did everything work out with your new headphones? If you have a minute, we'd love to hear what you think.",
+    "How did everything work out with your new earbuds? If you have a minute, we'd love to hear what you think.",
 };
 
 export const purchase = {
-  image: cutouts.auden,
-  alt: "Auden Wave Pro headphones in black",
-  brand: "AUDEN",
-  title: "Wave Pro Headphones",
+  image: product.image,
+  alt: `${product.title} in ${product.color}`,
+  brand: product.brand,
+  title: product.title,
   status: "Delivered Oct 9",
 };
 
