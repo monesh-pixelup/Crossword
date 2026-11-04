@@ -9,7 +9,7 @@ import { faqs } from "../../config/pricing";
  * 1px engraved rules, a gold plus that turns into a minus, the answer in Geist below. The first is
  * open; opening one closes the others. Answers ease open and shut over 400ms; with reduced motion
  * they switch at once. Shows the pricing questions unless another page passes its own `items`.
- * `variant="plain"` (AI Assistants, Figma 3305:1628): no rule above the first question, 4px side insets and
+ * `variant="plain"` (AI Assistants 3305:1628, Pricing 3564:23164): no rule above the first question, 4px side insets and
  * the plus/minus drawn in ink-soft (#33322F) rather than gold.
  */
 export function FaqList({

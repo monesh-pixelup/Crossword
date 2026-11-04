@@ -8,7 +8,8 @@ import { FaqList } from "./faq-list";
 
 /**
  * Library · FAQ (Figma 3564:23164), under the chat divider band: a 420px column with the eyebrow,
- * swash headline and a link, 120px from the accordion. Below 992px they stack.
+ * swash headline and a link, 120px from the accordion (the plain style: ink-soft plus/minus, no top rule, 4px
+ * insets). Below 992px they stack.
  */
 export function Faq() {
   return (
@@ -26,7 +27,7 @@ export function Faq() {
           <TextLink href={ctaLinks.bookDemo}>Talk to sales</TextLink>
         </div>
 
-        <FaqList />
+        <FaqList variant="plain" />
       </div>
     </section>
   );
