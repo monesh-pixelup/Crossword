@@ -5,8 +5,15 @@ import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import damaskScroll from "../../assets/personalization/damask-scroll.webp";
 import stamp from "../../assets/personalization/stamp.webp";
+import changeIcon1 from "../../assets/personalization/change-icon-1.svg";
+import changeIcon2 from "../../assets/personalization/change-icon-2.svg";
+import changeIcon3 from "../../assets/personalization/change-icon-3.svg";
+import changeIcon4 from "../../assets/personalization/change-icon-4.svg";
+import changeIcon5 from "../../assets/personalization/change-icon-5.svg";
+import changeIcon6 from "../../assets/personalization/change-icon-6.svg";
+import changeIcon7 from "../../assets/personalization/change-icon-7.svg";
 
-/** What changes on the page once Crossword knows the shopper (Figma's six rows). */
+/** What changes on the page once Crossword knows the shopper (Figma's seven rows, the last the closing line). */
 const changes = [
   "The headline speaks to their purpose.",
   "The most relevant benefits come first.",
@@ -14,16 +21,20 @@ const changes = [
   "Comparisons reflect their priorities.",
   "Size, fit, color and budget are carried through the experience.",
   "Recommendations take into account what customers already own.",
+  "A shopping experience that feels like it was made for them.",
 ];
+
+/** Each row's 24px maroon icon tile (Figma 3602:30824 and on), exported with its 1.2px drop shadow on every side. */
+const changeIcons = [changeIcon1, changeIcon2, changeIcon3, changeIcon4, changeIcon5, changeIcon6, changeIcon7];
 
 /**
  * Figma "Section · The stranger problem (v2)" (3364:53): the eyebrow over a one-line headline (82px
  * swash, Crimson Light 60 at 1.1) with, 80px across and bottom-aligned, the 560px problem in two Geist
  * 16 paragraphs 14px apart (the second Medium, in ink). 64px below, a 4px-rounded split panel: the
- * 520px maroon solution (twill over a 20% damask scroll, a plain block behind its Crimson Light 32 and
+ * 520px maroon solution (twill over a 20% damask scroll, a plain block behind its Crimson ExtraLight 40 and
  * Geist 16 in cream, 56px in, and a tilted postage stamp low on the left) beside the sand list of
- * changes (Geist Mono 12 numerals in maroon, 20px from Crimson 22 lines, 16px above and below each and
- * a #d2cbba rule between them; 48 / 56px in), closing on a maroon line 24px under the last. Below 1280px
+ * changes (a 24px maroon icon tile per row, 20px from Crimson 22 lines, 16px above and below each and
+ * a #d2cbba rule between them; 48 / 56px in), the seventh row the closing line. Below 1280px
  * the problem goes under the headline, and below 1200px the solution goes over the list; on phones the
  * padding tightens and the solution's heading and the list's lines step down (28px, 19px). A 232px gold tick sits on the
  * left rail beside the eyebrow.
@@ -83,7 +94,8 @@ export function Personalization() {
                   style={{ backgroundImage: `url(${twillTile.src})` }}
                 />
               </span>
-              <h3 className="font-serif text-[28px] leading-[1.1] font-light tracking-[-0.04em] text-cream md:text-[32px]">Now you have a solution</h3>
+              {/* Figma 3364:97: Crimson ExtraLight 40 at -2px (-5%). */}
+              <h3 className="font-serif text-(length:--h4-size) leading-[1.1] font-extralight tracking-[-0.05em] text-cream">Now you have a solution</h3>
               <p className="font-sans text-base leading-6 tracking-[-0.32px] text-[rgba(255,249,234,0.82)]">
                 Crossword turns customer understanding into a more personal shopping experience. It brings together what a
                 shopper has told you, what they&rsquo;ve bought before, what they care about and what they&rsquo;re looking
@@ -107,17 +119,15 @@ export function Personalization() {
           <div className="flex min-w-0 flex-col bg-[#f3e7d4] px-6 py-6 sm:px-8 sm:py-8 md:px-14 md:py-12 min-[1200px]:flex-1">
             <ol className="flex flex-col">
               {changes.map((change, i) => (
-                <li key={change} className="flex items-baseline gap-4 border-b border-[#d2cbba] py-4 last:border-b-0 sm:items-center sm:gap-5">
-                  <span className="shrink-0 font-mono text-[12px] tracking-[1.2px] whitespace-nowrap text-maroon">
-                    {String(i + 1).padStart(2, "0")}
+                <li key={change} className="flex items-center gap-4 border-b border-[#d2cbba] py-4 last:border-b-0 sm:gap-5">
+                  <span aria-hidden className="relative size-6 shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- static SVG icon, nothing to optimize */}
+                    <img src={changeIcons[i].src} alt="" className="absolute -inset-[1.2px] block size-[26.4px] max-w-none" />
                   </span>
                   <span className="min-w-0 flex-1 font-serif text-[19px] leading-[1.15] tracking-[-0.04em] text-[#141414] sm:text-[22px] sm:leading-[1.1]">{change}</span>
                 </li>
               ))}
             </ol>
-            <p className="pt-6 font-serif text-[19px] leading-[1.15] tracking-[-0.04em] text-maroon sm:text-[22px] sm:leading-[1.1]">
-              A shopping experience that feels like it was made for them.
-            </p>
           </div>
         </div>
       </div>

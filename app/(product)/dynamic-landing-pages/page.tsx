@@ -20,13 +20,22 @@ export default function DynamicLandingPagesPage() {
     <main>
       <DynamicHero />
       <RoasGap />
-      <Personalization />
-      <TwoWays />
-      {/* Figma "Divider band": the 75px band (56px below 768px). */}
+      {/* Figma "Divider band" between each section from here on: the 75px band (56px below 768px), its glyph naming the next section. */}
       <div className="relative h-[75px] max-md:h-[56px]">
-        <BandDivider glyph="chat" />
+        <BandDivider glyph="quill" />
+      </div>
+      <Personalization />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="gear" />
+      </div>
+      <TwoWays />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="book" />
       </div>
       <DedicatedTabs />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="gear" />
+      </div>
       <AdaptivePages />
     </main>
   );

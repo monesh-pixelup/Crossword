@@ -1,0 +1,33 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="26.4" height="26.4" viewBox="0 0 26.4 26.4" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Frame 2147245091" filter="url(#filter0_d_0_69)">
+<g clip-path="url(#clip0_0_69)">
+<path d="M1.2 1.2H25.2V25.2H1.2V1.2Z" fill="#7D0034"/>
+<g id="Icon &#194;&#183; Made for them">
+<path id="Vector" d="M14.2 10.5333C14.2 11.822 13.1553 12.8667 11.8667 12.8667C10.578 12.8667 9.53333 11.822 9.53333 10.5333C9.53333 9.24467 10.578 8.2 11.8667 8.2C13.1553 8.2 14.2 9.24467 14.2 10.5333Z" stroke-width="1.13333" stroke-linecap="round" stroke-linejoin="round" stroke="#FFB657"/>
+<path id="Vector_2" d="M7.53333 18.5333C7.53333 17.3841 7.98988 16.2819 8.80254 15.4692C9.61519 14.6565 10.7174 14.2 11.8667 14.2C13.0159 14.2 14.1181 14.6565 14.9308 15.4692C15.7435 16.2819 16.2 17.3841 16.2 18.5333" stroke-width="1.13333" stroke-linecap="round" stroke-linejoin="round" stroke="#FFB657"/>
+<path id="Vector_3" d="M17.8667 6.86667V8.53333M17.8667 8.53333V10.2M17.8667 8.53333H16.2M17.8667 8.53333H19.5333" stroke-width="1.13333" stroke-linecap="round" stroke-linejoin="round" stroke="#FFB657"/>
+</g>
+<path id="Rectangle 149480744" d="M13.2 -5.0437L31.4434 13.1997L13.2 31.443L-5.04336 13.1997L13.2 -5.0437Z" stroke-width="0.6" stroke="#FFB657"/>
+<circle id="Ellipse 43801" cx="2.39766" cy="2.40059" r="0.6" fill="#FFB657"/>
+<circle id="Ellipse 43802" cx="24.0031" cy="2.40059" r="0.6" fill="#FFB657"/>
+<circle id="Ellipse 43803" cx="24.0031" cy="23.9997" r="0.6" fill="#FFB657"/>
+<circle id="Ellipse 43804" cx="2.39766" cy="23.9997" r="0.6" fill="#FFB657"/>
+</g>
+<path d="M25.4998 0.900195V25.4998H0.900195V0.900195H25.4998Z" stroke="#EFE9DB" stroke-width="0.6"/>
+</g>
+<defs>
+<filter id="filter0_d_0_69" x="0" y="0" width="26.4" height="26.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="0.6" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_0_69"/>
+<feOffset/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.713726 0 0 0 0 0.341176 0 0 0 1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_69"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_69" result="shape"/>
+</filter>
+<clipPath id="clip0_0_69">
+<path d="M1.2 1.2H25.2V25.2H1.2V1.2Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>
