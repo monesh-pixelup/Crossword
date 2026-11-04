@@ -12,14 +12,14 @@ import { initialJourneyState, journeyOf, journeys, nextStep, selectJourney } fro
 const LAYER_SIZE: [number, number] = [1671, 941];
 
 /**
- * Figma 3476:26116: the whole scene as one photo (1619 × 971, drawn at Figma's 1443.13 × 865.52, centred on the
- * 1440 × 863 frame), with the concierge over it to glitch: his 462 × 415 crop of that same photo at (573, 212),
- * cut out with the previous layered export's matte (the same pose, registered onto the photo), so at rest he
- * sits on it seamlessly. Boxed on the canvas (1671 canvas units to the frame's 1440px).
+ * Figma 3476:26116: the whole scene as one photo (the 3x export, kept at 2x: 2886 × 1730, drawn at Figma's
+ * 1443.13 × 865.52, centred on the 1440 × 863 frame), with the concierge over it to glitch: his 814 × 731 crop of
+ * that same photo, cut out with the previous layered export's matte (the same pose, registered onto the photo), so at
+ * rest he sits on it seamlessly. Boxed on the canvas (1671 canvas units to the frame's 1440px).
  */
 const LAYERS: SceneLayer[] = [
   { src: scene, box: [-1.816, -1.463, 1674.632, 1004.366] },
-  { src: concierge, box: [590.873, 217.822, 477.875, 429.26], glitch: true },
+  { src: concierge, box: [579.858, 213.731, 472.223, 424.195], glitch: true },
 ];
 
 /** The v3 export's tuning: a slower, softer, wider glitch, calm over the face. */
