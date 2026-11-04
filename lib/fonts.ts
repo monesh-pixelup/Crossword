@@ -7,7 +7,6 @@ import {
   Inter,
   Instrument_Serif,
   Noto_Serif,
-  Open_Sans,
   Playfair_Display,
   Quicksand,
   Space_Grotesk,
@@ -74,13 +73,19 @@ export const inter = Inter({
   preload: false,
 });
 
-/** Section eyebrow labels (600) and feature descriptions (400). */
-export const openSans = Open_Sans({
-  weight: ["400", "600"],
-  subsets: ["latin"],
+/**
+ * Section eyebrow labels (600) and feature descriptions (400). Self-hosted: Google's latin variable file
+ * (wght 400–600, fonts.googleapis.com/css2?family=Open+Sans:wght@400..600), because fetching Open Sans
+ * through next/font/google broke the Turbopack build on Vercel ("next/font/google queries have exactly one entry").
+ */
+export const openSans = localFont({
+  src: "./fonts/open-sans-latin.woff2",
+  weight: "400 600",
+  style: "normal",
   variable: "--font-face-open-sans",
   display: "swap",
   preload: false,
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
 /** Calligraphic numbers, swash capitals (400) and signatures (700). */
