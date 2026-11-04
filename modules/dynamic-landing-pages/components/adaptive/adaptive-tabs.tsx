@@ -12,47 +12,97 @@ import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
 /** How long each feature stays up before the next one takes over: its motion visual's run plus the hold. */
 const turns = adaptiveFeatures.map((feature) => tabTurn(dlpScenes[feature.scene].duration));
 
-/** Each feature's mark, from Figma: drawn in maroon on a bordered tile, or gold on maroon when active. */
-const icons: Record<AdaptiveId, { viewBox: string; paths: string[] }> = {
+/**
+ * Each feature's glyph, from Figma (1.1px round strokes), with the centre of its bounding box: the marks are drawn
+ * centred on their tile, which Figma's exports miss by 0.3–1px.
+ */
+const glyphs: Record<AdaptiveId, { paths: string[]; center: [number, number] }> = {
   ask: {
-    viewBox: "1.1 1.1 22 22",
     paths: [
-      "M12.5978 7.21041C9.3119 7.21041 6.62344 9.35123 6.62344 11.9899C6.62344 13.4835 7.46981 14.7779 8.81404 15.6741L8.11703 18.1634L10.7059 16.8192C11.3034 16.9685 11.9506 17.0681 12.5978 17.0681C15.8837 17.0681 18.5722 14.9273 18.5722 12.2886C18.5722 9.64994 15.8837 7.21041 12.5978 7.21041Z",
-      "M12.5954 9.94866L13.1928 11.3427L14.5868 11.9401L13.1928 12.5376L12.5954 13.9316L11.9979 12.5376L10.6039 11.9401L11.9979 11.3427L12.5954 9.94866Z",
+      "M12.5978 7.21133C9.3119 7.21133 6.62344 9.35214 6.62344 11.9908C6.62344 13.4844 7.46981 14.7789 8.81404 15.675L8.11703 18.1643L10.7059 16.8201C11.3034 16.9695 11.9506 17.069 12.5978 17.069C15.8837 17.069 18.5722 14.9282 18.5722 12.2895C18.5722 9.65086 15.8837 7.21133 12.5978 7.21133Z",
+      "M12.5954 9.94961L13.1928 11.3436L14.5868 11.9411L13.1928 12.5385L12.5954 13.9325L11.9979 12.5385L10.6039 11.9411L11.9979 11.3436L12.5954 9.94961Z",
     ],
+    center: [12.598, 12.688],
   },
-  gist: { viewBox: "0 0 20.625 20.625", paths: ["M6.125 7.14612H15.499M6.125 9.95832H15.499M6.125 12.7705H12.6868M6.125 15.5827H10.3433"] },
+  gist: {
+    paths: ["M6.125 7.14648H15.499M6.125 9.95869H15.499M6.125 12.7709H12.6868M6.125 15.5831H10.3433"],
+    center: [10.812, 11.365],
+  },
   direct: {
-    viewBox: "0 0 20.625 20.625",
     paths: [
-      "M9.8746 13.7079C11.9455 13.7079 13.6242 12.0291 13.6242 9.95828C13.6242 7.88743 11.9455 6.20868 9.8746 6.20868C7.80375 6.20868 6.125 7.88743 6.125 9.95828C6.125 12.0291 7.80375 13.7079 9.8746 13.7079Z",
-      "M12.6875 12.7705L15.9684 16.0514",
+      "M13.6242 9.95859C13.6242 12.0294 11.9455 13.7082 9.8746 13.7082C7.80375 13.7082 6.125 12.0294 6.125 9.95859C6.125 7.88774 7.80375 6.20898 9.8746 6.20898C11.9455 6.20898 13.6242 7.88774 13.6242 9.95859Z",
+      "M12.6875 12.7695L15.9684 16.0504",
     ],
+    center: [11.047, 11.13],
   },
   upsell: {
-    viewBox: "0 0 20.625 20.625",
     paths: [
-      "M5.1873 6.20869H6.5934L7.9995 12.7705H14.5613L15.9674 8.08349H7.5308",
-      "M8.93743 15.817C9.32571 15.817 9.64048 15.5022 9.64048 15.1139C9.64048 14.7257 9.32571 14.4109 8.93743 14.4109C8.54914 14.4109 8.23438 14.7257 8.23438 15.1139C8.23438 15.5022 8.54914 15.817 8.93743 15.817Z",
-      "M13.6249 15.817C14.0132 15.817 14.328 15.5022 14.328 15.1139C14.328 14.7257 14.0132 14.4109 13.6249 14.4109C13.2366 14.4109 12.9219 14.7257 12.9219 15.1139C12.9219 15.5022 13.2366 15.817 13.6249 15.817Z",
-      "M11.2811 8.55225V11.3644M9.875 9.95835H12.6872",
+      "M5.1875 6.20898H6.5936L7.9997 12.7708H14.5615L15.9676 8.08379H7.531",
+      "M9.64048 15.1132C9.64048 15.5015 9.32571 15.8163 8.93743 15.8163C8.54914 15.8163 8.23438 15.5015 8.23438 15.1132C8.23438 14.7249 8.54914 14.4102 8.93743 14.4102C9.32571 14.4102 9.64048 14.7249 9.64048 15.1132Z",
+      "M14.328 15.1132C14.328 15.5015 14.0132 15.8163 13.6249 15.8163C13.2366 15.8163 12.9219 15.5015 12.9219 15.1132C12.9219 14.7249 13.2366 14.4102 13.6249 14.4102C14.0132 14.4102 14.328 14.7249 14.328 15.1132Z",
+      "M11.2811 8.55273V9.95884M11.2811 9.95884V11.3649M11.2811 9.95884H9.875M11.2811 9.95884H12.6872",
     ],
+    center: [10.578, 11.013],
   },
 };
 
-function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
-  const { viewBox, paths } = icons[id];
+function Glyph({ id, at, color }: { id: AdaptiveId; at: number; color: string }) {
+  const { paths, center } = glyphs[id];
   return (
-    <span
-      aria-hidden
-      className={cn(
-        "flex size-[22px] shrink-0 items-center justify-center transition-colors duration-300",
-        on ? "bg-maroon text-[#ffb657] shadow-[0_1px_1px_rgba(0,0,0,0.12)]" : "text-[#8c1f3d] shadow-[inset_0_0_0_0.688px_rgba(0,0,0,0.19)]",
-      )}
-    >
-      <svg viewBox={viewBox} fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" className="size-[20.625px]">
-        {paths.map((d) => (
-          <path key={d} d={d} />
+    <g transform={`translate(${at - center[0]} ${at - center[1]})`} stroke={color} strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
+      {paths.map((d) => (
+        <path key={d} d={d} />
+      ))}
+    </g>
+  );
+}
+
+/**
+ * Each feature's mark, from Figma (3257:37821, 3257:37835): a tile with a fine diamond and a dot in each corner. The
+ * active one is a 22px maroon tile, its glyph, diamond and dots in gold, with a 0.55px #efe9db ring around it; the rest
+ * are a 0.688px black/19 frame (0.688px in) around a 20.625px tile, the glyph in #cfcabe and the diamond and dots in
+ * black/16.
+ */
+function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
+  if (on) {
+    return (
+      <span aria-hidden className="block size-[22px] shrink-0 bg-[#7d0034] shadow-[0_0_0_0.55px_#efe9db]">
+        <svg viewBox="1.1 1.1 22 22" fill="none" className="block size-[22px]">
+          <Glyph id={id} at={12.1} color="#ffb657" />
+          <path d="M12.1 -4.62437L28.8231 12.0987L12.1 28.8218L-4.62308 12.0987L12.1 -4.62437Z" stroke="#ffb657" strokeWidth="0.55" />
+          {[
+            [2.19688, 2.20078],
+            [22.0016, 2.20078],
+            [22.0016, 21.9996],
+            [2.19688, 21.9996],
+          ].map(([cx, cy]) => (
+            <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.55" fill="#ffb657" />
+          ))}
+        </svg>
+      </span>
+    );
+  }
+  return (
+    <span aria-hidden className="block shrink-0 border-[0.688px] border-black/19 p-[0.688px]">
+      <svg viewBox="0 0 20.625 20.625" fill="none" className="block size-[20.625px]">
+        <Glyph id={id} at={10.3125} color="#cfcabe" />
+        <rect
+          x="10.3125"
+          y="-5.36568"
+          width="22.1719"
+          height="22.1719"
+          transform="rotate(45 10.3125 -5.36568)"
+          stroke="black"
+          strokeOpacity="0.16"
+          strokeWidth="0.515625"
+        />
+        {[
+          [1.03125, 1.03125],
+          [19.5938, 1.03125],
+          [19.5938, 19.5938],
+          [1.03125, 19.5938],
+        ].map(([cx, cy]) => (
+          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.515625" fill="black" fillOpacity="0.16" />
         ))}
       </svg>
     </span>

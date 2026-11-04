@@ -21,6 +21,18 @@ const COMPACT_BELOW = 760;
 
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 
+/**
+ * The UI layer's transform (from its top-left corner) on a frame `width` wide: zoomed to the frame's width, or, past
+ * `max`, drawn `max` wide and centred on the frame across and down.
+ */
+function uiTransform(width: number, max = Infinity) {
+  const uiW = Math.min(width, max);
+  const s = uiW / FRAME_W;
+  const x = (width - uiW) / 2;
+  const y = ((width - uiW) * FRAME_H) / FRAME_W / 2;
+  return x > 0 ? `translate(${x}px, ${y}px) scale(${s})` : `scale(${s})`;
+}
+
 /** The frame width (null until measured on the client) and whether the compact layout is on. */
 export type SceneState = { width: number | null; compact: boolean };
 
@@ -38,6 +50,11 @@ type HeroSceneProps = {
   aboveFrame?: (state: SceneState) => ReactNode;
   /** Unscaled content over the photo, under the UI. */
   overlayContent?: (state: SceneState) => ReactNode;
+  /**
+   * The widest the UI layer is drawn: on a frame wider than this it stops growing and is centred on the frame (across
+   * and down), so the cards and conversation keep to a centred column while the photo runs the full width.
+   */
+  uiMaxWidth?: number;
   /** The 1440 × 863 UI layer, zoomed with the frame (laid out as a column when compact). */
   children: (state: SceneState) => ReactNode;
 };
@@ -57,6 +74,7 @@ export function HeroScene({
   scaleBelow,
   aboveFrame,
   overlayContent,
+  uiMaxWidth,
   children,
 }: HeroSceneProps) {
   const root = useRef<HTMLDivElement>(null);
@@ -172,7 +190,7 @@ export function HeroScene({
           style={
             compact
               ? undefined
-              : { transform: `scale(${(width ?? FRAME_W) / FRAME_W})`, visibility: width === null ? "hidden" : undefined }
+              : { transform: uiTransform(width ?? FRAME_W, uiMaxWidth), visibility: width === null ? "hidden" : undefined }
           }
         >
           {children(state)}

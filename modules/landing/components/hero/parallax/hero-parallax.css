@@ -171,12 +171,22 @@
   display: contents;
 }
 
+/*
+ * Desktop: the cards and the conversation are drawn --ui-zoom up (the cards from their anchor, the conversation
+ * from its centre) and pulled --ui-spread further apart either side of the concierge.
+ */
+.hero-scene {
+  --ui-zoom: 1.1;
+  --ui-spread: 70px;
+}
+
 .hero-scene .entry-stack {
   position: absolute;
-  left: 367.5px;
+  left: calc(367.5px - var(--ui-spread));
   top: 385.3px;
   width: 0;
   height: 0;
+  scale: var(--ui-zoom);
 }
 
 .hero-scene .entry-card {
@@ -385,10 +395,11 @@
   --ease-move:  cubic-bezier(.45, 0, .15, 1);
   --ease-settle:  cubic-bezier(.33, 1, .68, 1);
   position: absolute;
-  left: 888px;
+  left: calc(888px + var(--ui-spread));
   top: 191px;
   width: 361px;
   height: 346px;
+  scale: var(--ui-zoom);
   overflow: hidden;
   pointer-events: auto;
   transition: transform .85s cubic-bezier(.33,0,.2,1);
@@ -729,6 +740,7 @@
   position: relative;
   left: auto;
   top: auto;
+  scale: none;
   grid-area: 1 / 1;
   width: 100%;
   max-width: 361px;
