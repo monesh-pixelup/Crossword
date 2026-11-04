@@ -11,7 +11,7 @@ import { HandoffScene } from "./handoff-scene";
 /**
  * Layout/Livery, Aubergine steps variant (Figma "Library · Aubergine steps", node 2634:20241):
  * aubergine with Figma's fine noise grain between the page rails inside the gilt notched frame, a
- * Dark eyebrow 64.59px down over a one-line centred headline and two lines of 14px copy, then the
+ * Dark eyebrow 64.59px down over a one-line centred headline and Geist 16/24 copy (471px wide), then the
  * three numbered steps across 1062px (their numeral boxes 274.59px down), in an 800px-tall panel.
  */
 export function HumanHandoff() {
@@ -41,7 +41,7 @@ export function HumanHandoff() {
               tone="light"
               weight="light"
             />
-            <p className="max-w-[653px] text-center font-sans text-sm leading-5 tracking-[-0.28px] text-white/60">
+            <p className="max-w-[471px] text-center font-sans text-base leading-6 tracking-[-0.32px] text-white/60">
               When a conversation needs a human, Crossword brings them in at the right moment &mdash; with the context
               they need to take over.
             </p>

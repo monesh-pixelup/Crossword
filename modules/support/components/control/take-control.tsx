@@ -5,7 +5,7 @@ import { SupportScenePanel } from "../motion/support-scene-panel";
 
 /**
  * Figma "Library · Accordion + media" (You keep complete control): on the left the eyebrow, a
- * two-line headline (77px swash, 50px lines at 1.1, the page's other headings' leading) and a 462.87px line of copy, 18px apart; on
+ * two-line headline (77px swash, 50px lines at 1.1, the page's other headings' leading) and a 553px line of copy, 18px apart; on
  * the right, 10px down, the 687 × 586 merchant-insight motion scene (a helpdesk chat in a green
  * notched frame). A 209px gold
  * tick sits on the left rail beside the eyebrow.
@@ -18,9 +18,9 @@ export function TakeControl() {
       {/* Side by side from 1301px, where the 687px scene fits at its size beside the copy; stacked below. */}
       <div className="flex content-width flex-col gap-14 min-[1301px]:flex-row min-[1301px]:items-start min-[1301px]:justify-between min-[1301px]:gap-8">
         <div className="flex flex-col items-start gap-[18px] min-[1301px]:shrink-0">
-          <Eyebrow>You keep complete control</Eyebrow>
+          <Eyebrow>Human has complete control</Eyebrow>
           <SectionTitle id="control-title" initial="T" firstLine="ake control," secondLine="whenever you like" width={553.133} weight="light" />
-          <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+          <p className="max-w-[553px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
             Crossword gives the human-in-the-loop full context. Every conversation, workflow, order, page viewed, note and
             stuck moment. Crossword can surface the important bits, while the human stays in control.
           </p>

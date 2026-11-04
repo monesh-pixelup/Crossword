@@ -7,10 +7,11 @@ import { ctaLinks } from "@/modules/marketing/config/navigation";
 import { SupportHelpdeskIntegration } from "../motion/helpdesk-integration";
 import { SupportScenePanel } from "../motion/support-scene-panel";
 
-/** Figma's tag pill: Geist Medium 14 caps on #ffeec2 in a 0.5px ink/40 hairline, cap-trimmed inside 6px. */
+/** Figma's tag pill: Open Sans SemiBold 12 caps at +1.44px on #ffeec2 in a 0.5px ink/40 hairline, cap-trimmed inside 6px. */
 const tag =
-  "border-[0.5px] border-black/40 bg-[#ffeec2] p-1.5 font-sans text-[14px] leading-[1.2] font-medium tracking-[-0.28px] text-ink-muted uppercase [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]";
-const title = "font-serif text-(length:--h5-size) leading-[1.1] font-light tracking-[-0.04em] text-[#040404]";
+  "border-[0.5px] border-black/40 bg-[#ffeec2] p-1.5 font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] text-ink-muted uppercase [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]";
+/** Crimson Light 32 at -1.6px (-5%). */
+const title = "font-serif text-(length:--h5-size) leading-[1.1] font-light tracking-[-0.05em] text-[#040404]";
 const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60";
 
 /**
@@ -29,7 +30,7 @@ export function HelpdeskOptions() {
 
       <div className="flex content-width flex-col gap-section">
         <div className="flex flex-col items-start gap-6">
-          <Eyebrow>Helpdesk</Eyebrow>
+          <Eyebrow>Crossword helpdesk</Eyebrow>
           <SectionTitle
             id="helpdesk-title"
             initial="C"

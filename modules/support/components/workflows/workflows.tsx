@@ -7,7 +7,7 @@ import { workflows } from "../../config/workflows";
  * Figma "Library · Node diagram (Workflows + illustration)": a sand panel between the page rails
  * (0.5px black/25 hairline, 80px top and bottom inside it), the eyebrow and a two-line headline in a 210px
  * header, then 120px below the two workflows side by side (equal halves, 115px either side of a black/10
- * rule): a 32px wine icon tile, a Crimson 28 title and a line of copy in black/50, 24px apart. The
+ * rule): a 32px wine icon tile, then 24px below a Crimson 24 title 16px over a line of copy in black/50. The
  * damask ornament sits over the section's top-right corner.
  */
 export function Workflows() {
@@ -44,8 +44,11 @@ export function Workflows() {
                     {/* eslint-disable-next-line @next/next/no-img-element -- static SVG, nothing to optimize */}
                     <img src={w.icon.src} alt="" className="absolute -inset-[1.6px] block size-[35.2px] max-w-none" />
                   </span>
-                  <h3 className="font-serif text-[28px] leading-[1.1] tracking-[-1.12px] text-ink">{w.title}</h3>
-                  <p className={`font-sans text-base leading-6 tracking-[-0.32px] text-black/50 ${i > 0 ? "max-w-[453.973px]" : ""}`}>{w.body}</p>
+                  {/* Figma 3700:14741: the Crimson 24 title 16px over its copy. */}
+                  <div className="flex flex-col items-start gap-4">
+                    <h3 className="font-serif text-[24px] leading-[1.1] tracking-[-1.2px] text-ink">{w.title}</h3>
+                    <p className={`font-sans text-base leading-6 tracking-[-0.32px] text-black/50 ${i > 0 ? "max-w-[453.973px]" : ""}`}>{w.body}</p>
+                  </div>
                 </div>
               </div>
             ))}
