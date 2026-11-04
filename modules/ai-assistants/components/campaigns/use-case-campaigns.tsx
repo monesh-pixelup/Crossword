@@ -24,7 +24,7 @@ const useCases: { label: string; title: string; body: string; scene: AiaSceneSlu
  * Section · Campaigns (Figma 3305:453): the eyebrow over a one-line swash headline (Crimson Light 60 at
  * 1.1), with its 477px line of copy 120px across from it, bottom-aligned; then 80px below, two 620px use
  * cases 40px apart. Each is its motion visual (620 × 420: ChatGPT on the forest damask in its gold
- * corner-notched frame, the alert landing in the conversation), and 40px under it a Geist Medium 12 label in wine, a Crimson Light 32 line and
+ * corner-notched frame, the alert landing in the conversation), and 40px under it an Open Sans SemiBold 12 label in wine, a Crimson ExtraLight 40 line and
  * Geist 16 copy, 16px apart. Below 1280px the copy goes under the headline (beside the 615px headline it would be squeezed to a sliver), and the gap is 80px until 1440px; below 768px the use cases
  * stack. A 232px gold tick sits on the left rail beside the eyebrow (98px down in Figma).
  */
@@ -53,8 +53,8 @@ export function UseCaseCampaigns() {
                 <AiaScenePanel slug={useCase.scene} fill />
               </div>
               <h3 className="mt-10 flex flex-col items-start gap-4">
-                <span className="font-sans text-[12px] leading-[1.2] font-medium tracking-[0.96px] text-[#6c2332] uppercase">{useCase.label}</span>
-                <span className="max-w-[580px] font-serif text-[32px] leading-[1.1] font-light tracking-[-1.28px] text-[#141414]">
+                <span className="font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] text-[#6c2332] uppercase">{useCase.label}</span>
+                <span className="max-w-[580px] font-serif text-(length:--h4-size) leading-[1.1] font-extralight tracking-[-0.05em] text-[#141414]">
                   {useCase.title}
                 </span>
               </h3>

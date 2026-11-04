@@ -70,8 +70,8 @@ const variants = {
     cell: "mt-[18.2px]",
     cellHeight: "h-[192.3px]",
     copy: "mt-[20.5px]",
-    stepTitle: "font-sans text-sm leading-[1.2] font-medium tracking-[-0.28px]",
-    stepBody: "text-sm leading-5 tracking-[-0.28px]",
+    stepTitle: "font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px]",
+    stepBody: "text-base leading-6 tracking-[-0.32px]",
   },
 } as const;
 

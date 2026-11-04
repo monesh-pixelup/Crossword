@@ -24,16 +24,28 @@ export default function AiAssistantsPage() {
     <main>
       <AiAssistantsHero />
       <ShopperAsks />
+      {/* Figma "Divider band" between sections: the 75px band (56px below 768px), its glyph naming the next section. */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="chart" />
+      </div>
       <UseCaseCampaigns />
-      {/* Figma "Section · Divider": the 75px book band (56px below 768px). */}
       <div className="relative h-[75px] max-md:h-[56px]">
         <BandDivider glyph="book" />
       </div>
       <Differentiation />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="gear" />
+      </div>
       <LoggedInExperience layout="accordion" />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="quill" />
+      </div>
       <BrandAesthetics />
       <Promotions />
       <Insights scene="insights-motion" />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="chat" />
+      </div>
       <AssistantsFaq />
       <AssistantsCta />
     </main>

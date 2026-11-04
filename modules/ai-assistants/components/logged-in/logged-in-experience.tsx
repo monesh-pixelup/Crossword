@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { cn } from "@/lib/cn";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { type LoggedInQuote, loggedInQuotes } from "../../config/logged-in";
@@ -44,7 +45,10 @@ export function LoggedInExperience({
     <div className="flex flex-col items-start gap-[18px]">
       <Eyebrow>{eyebrow}</Eyebrow>
       <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={553.133} weight="light" />
-      <p className="max-w-[520px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{copy}</p>
+      {/* Figma 3305:909: the accordion layout's copy runs the heading's full 725px column. */}
+      <p className={cn("font-sans text-base leading-6 tracking-[-0.32px] text-black/60", layout === "accordion" ? "max-w-[725px]" : "max-w-[520px]")}>
+        {copy}
+      </p>
     </div>
   );
 
