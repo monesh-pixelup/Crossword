@@ -66,9 +66,12 @@ export function SellHero() {
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>
+            {/* Figma 3257:35921: the opening clause in cream, the rest at cream/60. */}
             <p className="font-sans text-base leading-6 tracking-[-0.32px] text-cream">
-              From the first question to the final click, Crossword guides every shopper toward the product that&apos;s
-              perfect for them.
+              From the first question to the final click,{" "}
+              <span className="text-cream/60">
+                Crossword guides every shopper toward the product that&apos;s perfect for them.
+              </span>
             </p>
           </div>
         </div>

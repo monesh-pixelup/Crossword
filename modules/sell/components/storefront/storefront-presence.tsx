@@ -17,7 +17,7 @@ export function StorefrontPresence() {
   return (
     <>
       <section aria-labelledby="storefront-title" className="relative section-pad-band">
-        <DividerBand glyph="chat" />
+        <DividerBand glyph="book" />
         <Image
           src={railAccent}
           alt=""
@@ -36,7 +36,7 @@ export function StorefrontPresence() {
               width={575.414}
               weight="light"
             />
-            <p className="font-sans text-[14px] leading-5 tracking-[-0.28px] text-black/60">
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
               Crossword blends into your website so naturally, it feels like another part of the experience.
             </p>
           </div>
@@ -56,7 +56,7 @@ export function StorefrontPresence() {
                 <div className="flex flex-col items-start gap-2 px-5 pb-5">
                   <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{card.title}</h3>
                   <p
-                    className="font-sans text-[14px] leading-5 tracking-[-0.28px] text-black/60"
+                    className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60"
                     style={card.descriptionWidth ? { maxWidth: card.descriptionWidth } : undefined}
                   >
                     {card.description}
@@ -70,7 +70,7 @@ export function StorefrontPresence() {
 
       {/* A second band closes the section, under its bottom padding, before the testimonials. */}
       <div className="relative h-6">
-        <DividerBand glyph="chat" />
+        <DividerBand glyph="quill" />
       </div>
     </>
   );

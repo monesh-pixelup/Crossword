@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "@/modules/landing/assets/hero/decor/rail-accent.svg";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
@@ -11,13 +12,15 @@ import { AssistList } from "./assist-list";
  */
 export function ConversionAssist() {
   return (
-    <section aria-labelledby="assist-title" className="relative section-pad">
-      {/* The left rail's 232px gold accent, 103.49px down. */}
+    <section aria-labelledby="assist-title" className="relative section-pad-band">
+      {/* Figma "Divider band": the patterned band opens the section. */}
+      <DividerBand glyph="book" />
+      {/* The left rail's 232px gold accent, 103.49px down (plus the band's 24px). */}
       <Image
         src={railAccent}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute top-[103.49px] left-[calc(var(--frame-inset)-0.5px)]"
+        className="pointer-events-none absolute top-[127.49px] left-[calc(var(--frame-inset)-0.5px)]"
       />
 
       <div className="flex content-width flex-col items-start gap-section">

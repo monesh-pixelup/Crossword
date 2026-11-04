@@ -41,6 +41,8 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
     ),
     headerWidth: "max-w-[650px]",
     slides: sellTestimonials,
+    // Figma 3257:36676: the signature at Tangerine Bold 38.
+    largeName: true,
   },
   support: {
     eyebrow: "Client testimonial",
