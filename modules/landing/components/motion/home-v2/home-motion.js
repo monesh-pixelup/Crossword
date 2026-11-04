@@ -5393,7 +5393,7 @@ function AiAssistantsMotion() {
 ({
   eyebrow: catalog.goodwellSleep60.title
 });
-const insightsBackground = "/images/landing/home-v2/assets/insights-background-XsNT8ufi.webp";
+const insightsBackground = "/images/landing/home-v2/assets/insights-background-green.webp";
 function InsightFrame({ children }) {
   return /* @__PURE__ */ jsx("div", { className: "hm-ill-insight-frame-scale", children: /* @__PURE__ */ jsxs("div", { className: "hm-ill-insight-frame", children: [
     /* @__PURE__ */ jsx("img", { className: "hm-ill-insight-frame__background", src: insightsBackground, alt: "", "aria-hidden": "true" }),
