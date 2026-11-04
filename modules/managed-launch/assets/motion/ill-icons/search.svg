@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="ILL/Primitive/Icon" clip-path="url(#clip0_0_23)">
+<path id="Vector" d="M7.25 4.125C7.25 5.85089 5.85089 7.25 4.125 7.25C2.39911 7.25 1 5.85089 1 4.125C1 2.39911 2.39911 1 4.125 1C5.85089 1 7.25 2.39911 7.25 4.125Z" stroke-width="1.5" stroke="#6E696D"/>
+<path id="Vector_2" d="M7 7L9.5 9.5" stroke-width="1.5" stroke-linecap="round" stroke="#6E696D"/>
+</g>
+<defs>
+<clipPath id="clip0_0_23">
+<rect width="10" height="10" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -45,22 +45,6 @@ export const howSteps: { title: string; lines: string[] }[] = [
   },
 ];
 
-/** Choose the journey (Figma "Three-card row (Journeys)"): the three example journeys, as written there. */
-export const journeyCards: { title: string; body: string }[] = [
-  {
-    title: "‘Product discovery’ journey",
-    body: "Customer is on the homepage or collection pages. User asks Crossword a question. Crossword suggests product recommendations. Crossword measures whether the customer added the product to the cart.",
-  },
-  {
-    title: "‘Product Q&A’ journey",
-    body: "Customer is on the product page. Crossword sends a welcome message and some starter questions. Customer chooses a starter question. Crossword answers the customer’s question. Crossword measures whether the customer added the product to the cart.",
-  },
-  {
-    title: "‘Support’ journey",
-    body: "Customer messages regarding a refund. Crossword fetches the recent order. Customer chooses the product for a refund. Crossword understands why the customer is requesting for a refund. Crossword checks the guardrails, like date range of exchange. Crossword offers refund, and another option of solving the issue to reduce returns.",
-  },
-];
-
 /**
  * Journey library (Figma "Section · Journey library (4x4)", row 1): a few of the journeys the team builds. Each body
  * opens with a lead in Geist Medium, on its own line unless `inline` (Gift finder's runs on into the text).

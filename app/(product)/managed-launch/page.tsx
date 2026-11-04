@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import {
-  ChooseJourney,
   Commitment,
   HowItWorks,
   Journey,
@@ -24,7 +23,6 @@ export default function ManagedLaunchPage() {
       <Journey />
       <JourneyLibrary />
       <HowItWorks />
-      <ChooseJourney />
       <YourPart />
       <PilotCta />
     </main>

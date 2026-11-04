@@ -1,14 +1,13 @@
-import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "@/modules/landing/assets/shared/rail-accent.svg";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import panel from "../../assets/journey/panel.webp";
+import { ManagedLaunchPanel } from "../motion/ml-motion";
 
 /**
  * Figma "Library · Wide panel" (Journey, 3512:24936): the eyebrow over a left-aligned two-line headline, with the
- * process copy (Geist 16/24, 477px) bottom-aligned on the right, then 80px below them the 1280 × 599 green
- * damask panel in its gold frame (exported from Figma at 2x). The headline and copy sit side by side from 1280px, the
+ * process copy (Geist 16/24, 477px) bottom-aligned on the right, then 80px below them the Managed Launch motion
+ * visual (1280 × 599: the launch checklist beside Aurelle's storefront, on the green damask in its gold frame). The headline and copy sit side by side from 1280px, the
  * copy narrowing to fit; below that the copy goes under the headline.
  */
 export function Journey() {
@@ -37,7 +36,9 @@ export function Journey() {
           </p>
         </div>
 
-        <Image src={panel} alt="" sizes="(min-width: 1440px) 1280px, 100vw" className="h-auto w-full" />
+        <div className="relative aspect-[1280/599] w-full">
+          <ManagedLaunchPanel />
+        </div>
       </div>
     </section>
   );
