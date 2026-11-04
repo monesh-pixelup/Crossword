@@ -58,7 +58,7 @@ export const platformMenu = {
   feature: { href: string; alt: string; cta: string };
 };
 
-// TODO: point these at real routes as the pages get built, and fill out Resources once Figma lists its pages.
+// TODO: point these at real routes as the pages get built.
 export const primaryNav: NavItem[] = [
   {
     label: "Platform",
@@ -69,7 +69,6 @@ export const primaryNav: NavItem[] = [
   },
   { label: "Managed Launch", href: "/managed-launch" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Resources", href: "#blog", hasMenu: true, children: [{ label: "Blog", href: "#blog" }] },
 ];
 
 export const ctaLinks = {

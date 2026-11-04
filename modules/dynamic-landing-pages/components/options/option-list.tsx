@@ -97,9 +97,13 @@ export function OptionList() {
             <li
               key={option.title}
               tabIndex={0}
-              onMouseEnter={() => !on && focus(i)}
+              // Chosen by click or keyboard focus, never by hover.
+              onClick={() => !on && focus(i)}
               onFocus={() => !on && focus(i)}
-              className="flex flex-col gap-8 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon"
+              className={cn(
+                "flex flex-col gap-8 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
+                !on && "cursor-pointer",
+              )}
             >
               <div className={cn("flex flex-col items-start gap-3 transition-opacity duration-300 ease-out motion-reduce:transition-none", !on && "opacity-50")}>
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{option.title}</h3>

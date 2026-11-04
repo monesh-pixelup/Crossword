@@ -39,7 +39,7 @@ const HERO_ONLY_ROUTES = ["/", "/dynamic-landing-pages", "/sell", "/support", "/
 
 /**
  * Of those, pages whose bar fills (dark and cream) run the full viewport width like their hero,
- * past the 1600px cap; the contents and the rails keep to the cap.
+ * past the 1440px cap; the contents and the rails keep to the cap.
  */
 const FULL_BLEED_ROUTES = ["/", "/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch", "/pricing", "/ai-assistants", "/personal-agents"];
 
@@ -560,10 +560,10 @@ export function SiteHeader() {
     const fill = fullBleed ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : "inset-0";
     return (
       <header className="fixed inset-x-0 top-0 z-50">
-        {/* The hairlines run the full viewport width, past the 1600px cap. */}
+        {/* The hairlines run the full viewport width, past the 1440px cap. */}
         <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-white/10", fade, dark ? "opacity-100" : "opacity-0")} />
         <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-rail", fade, pastHero ? "opacity-100" : "opacity-0")} />
-        <div className="relative mx-auto max-w-[1600px] pb-[0.5px]">
+        <div className="relative mx-auto max-w-[1440px] pb-[0.5px]">
           {/* Laid out as the home page's bar (full width, the content row 16px top and bottom); its dark fill fades in once the page scrolls. */}
           <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]", fill, fade, dark ? "opacity-100" : "opacity-0")} />
           <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-cream", fill, fade, pastHero ? "opacity-100" : "opacity-0")} />
@@ -590,9 +590,9 @@ export function SiteHeader() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
-        {/* The rule runs the full viewport width, past the 1600px cap. */}
+        {/* The rule runs the full viewport width, past the 1440px cap. */}
         <span aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-rail" />
-        <div className="relative mx-auto max-w-[1600px] pb-[0.5px]">
+        <div className="relative mx-auto max-w-[1440px] pb-[0.5px]">
           <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-cream" />
 
           {/* Not positioned, so the mobile menu and the Platform menu (absolute, top-full) span the whole bar. */}

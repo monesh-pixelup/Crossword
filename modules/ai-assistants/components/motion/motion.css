@@ -4157,7 +4157,16 @@
 .aia-motion .apd-info dd { margin: 0; }
 
 /* 11 keeps the original desktop frame; 05/06 moved to a smaller, zoomed one. */
-.aia-motion .aiv3w-canvas.apd-canvas { width: 1280px; height: 599px; background-image: url("../../assets/motion/ill-frame/ai_assistants_bg.webp"); }
+/* The maroon damask has no frame of its own, so the wide panels' gold frame (1px #D2B75C, 21.33px / 17.33px in,
+   notched corners of radius 49.47px and a 4.5px ring in each, as on Personal Agents' Insights) is drawn over it. */
+.aia-motion .aiv3w-canvas.apd-canvas {
+  width: 1280px;
+  height: 599px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 599' fill='none' stroke='%23D2B75C'%3E%3Cpath d='M54 17.33H1225.67A49.47 49.47 0 0 0 1258.33 43.5V555.17A49.47 49.47 0 0 0 1225.67 581.33H54A49.47 49.47 0 0 0 21.33 555.17V43.5A49.47 49.47 0 0 0 54 17.33Z'/%3E%3Ccircle cx='25.5' cy='21.33' r='4.5'/%3E%3Ccircle cx='1254.17' cy='21.33' r='4.5'/%3E%3Ccircle cx='25.5' cy='577.33' r='4.5'/%3E%3Ccircle cx='1254.17' cy='577.33' r='4.5'/%3E%3C/svg%3E"), url("../../assets/motion/ill-frame/ai_assistants_bg.webp");
+  background-size: 100% 100%, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+}
 .aia-motion .aia.aiv3w.apd { width: 1120px; height: 551px; zoom: 1; }
 .aia-motion .aiv3w.apd .aia-gpt { font-size: 14px; line-height: 22px; }
 

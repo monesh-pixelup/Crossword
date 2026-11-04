@@ -73,6 +73,18 @@
   left: 0;
 }
 
+/* Wide screens, where the frame runs taller than the 1200px hero and is cropped: the photo is raised 4% of its height. */
+@media (min-width: 1441px) {
+  .hero-scene:not(.hero-scene--compact) .hero-scene__photo {
+    translate: 0 -4%;
+  }
+
+  /* The cards (left) and the conversation (right) are raised with it. */
+  .hero-scene:not(.hero-scene--compact) :is(.entry-stack, .conversation) {
+    translate: 0 -60px;
+  }
+}
+
 .hero-scene__layer {
   position: absolute;
   top: 0;

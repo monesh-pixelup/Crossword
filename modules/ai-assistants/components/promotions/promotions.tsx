@@ -81,7 +81,7 @@ export function Promotions({
             className="w-full max-md:max-w-[440px]"
             style={
               {
-                "--steps-overshoot": "min(57px, max(0px, (min(100vw, 1600px) - 2 * var(--frame-inset) - 80px - 1062px) / 2) + 16px)",
+                "--steps-overshoot": "min(57px, max(0px, (min(100vw, 1440px) - 2 * var(--frame-inset) - 80px - 1062px) / 2) + 16px)",
               } as CSSProperties
             }
           >

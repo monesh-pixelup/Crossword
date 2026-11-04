@@ -28,7 +28,7 @@ function Headline({ id, initial, firstLine, secondLine }: { id: string; initial:
 
 /**
  * Section · Hero (Figma 3305:54), the Layout/Hero Photo variant as on Sell, sized as the Managed launch hero: the full-bleed photo (the
- * whole viewport width, not capped at the site's 1600px) with the copy pinned to the bottom, the overlay
+ * whole viewport width, not capped at the site's 1440px) with the copy pinned to the bottom, the overlay
  * header floating over its top. From 1200px the headline and the CTA column sit side by side,
  * bottom-aligned, the CTA column 482px wide at the right and free to
  * narrow; below that they stack.
@@ -55,7 +55,7 @@ export function AiAssistantsHero({
 }) {
   return (
     <section aria-labelledby={id} className="relative bg-night">
-      {/* The photo runs the full viewport width, out past the site's 1600px cap on wide screens (SiteShell clips the overrun). */}
+      {/* The photo runs the full viewport width, out past the site's 1440px cap on wide screens (SiteShell clips the overrun). */}
       <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-night">
         <Image
           src={background}
@@ -74,7 +74,7 @@ export function AiAssistantsHero({
         rounded up to a whole 121px so the eyebrow's frame stays on whole pixels): where the stacked copy is taller than
         the frame leaves room for (760–1199px), the hero grows rather than running it under the header.
       */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[121px] pb-16 min-[760px]:min-h-[min(calc(100vw*863/1440),100svh)] min-[760px]:pb-[max(min(88.5px,100vw*88.5/1440),calc(min(100vw*863/1440,100svh)_-_100vw*863*0.8975/1440))]">
+      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[121px] pb-16 min-[760px]:min-h-[min(calc(100vw*863/1440),100svh,1200px)] min-[760px]:pb-[max(min(88.5px,100vw*88.5/1440),calc(min(100vw*863/1440,100svh,1200px)_-_100vw*863*0.8975/1440))]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
           {/* Figma sets the eyebrow 12px above the headline here (24px on the other heroes). */}
           <div className="flex flex-col items-start gap-3">

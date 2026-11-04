@@ -143,7 +143,7 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
               */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute bottom-[calc(-5.69%_+_max(0px,100%_-_100svh_/_var(--scene-scale,1)))] -left-[5.975%] h-[40.91%] w-[114.17%] bg-linear-to-t from-black from-[29.752%] to-transparent mix-blend-multiply blur-[17px]"
+                className="pointer-events-none absolute bottom-[calc(-5.69%_+_max(0px,100%_-_min(100svh,1200px)_/_var(--scene-scale,1)))] -left-[5.975%] h-[40.91%] w-[114.17%] bg-linear-to-t from-black from-[29.752%] to-transparent mix-blend-multiply blur-[17px]"
               />
               {/*
                 The copy's last line sits where Figma's row ends: 88.5px above the 863px frame's bottom, or 88.5px above
@@ -151,7 +151,7 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
                 page's width (not the frame's, which can be narrower), so its content column lines up with the other
                 sections' headings.
               */}
-              <div className="pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_100svh_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),1440px)] -translate-x-1/2">
+              <div className="pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_min(100svh,1200px)_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),1440px)] -translate-x-1/2">
                 {copy}
               </div>
             </>
