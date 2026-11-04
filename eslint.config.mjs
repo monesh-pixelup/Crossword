@@ -16,7 +16,7 @@ const eslintConfig = defineConfig([
     "crossword-motion-sell conversational interface/**",
   ]),
   {
-    // Decompiled as is from the "Crossword — Home page visuals (v2, motion)" build (a separate Vite project): it reads
+    // Built as is from the "Crossword — Home page motion visuals (v2)" source (a separate Vite project): it reads
     // refs during render on purpose (a slot remembers it was loading, so its cover stays for one more frame), resets
     // its timelines from effects, keeps the build's unused bindings and draws its images with plain <img>, as the
     // source does.

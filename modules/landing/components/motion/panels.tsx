@@ -43,7 +43,7 @@ export const lifecycleVisuals: Record<LifecycleVisual, Visual> = {
   "ad-journey": {
     Component: AdJourneyMotion,
     label:
-      "A shopper taps a Trailwell backpack ad, the store opens with the Crossword guide, and two quick questions narrow it down to three backpacks",
+      "A shopper taps a Goodwell gummies ad, the store opens with the Crossword guide, and two quick questions narrow it down to evening gummies to compare",
   },
   "ai-search": {
     Component: AiSearchMotion,

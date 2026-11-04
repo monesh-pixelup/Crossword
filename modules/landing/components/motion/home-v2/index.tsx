@@ -4,22 +4,25 @@ import type { ReactNode } from "react";
 import "./home-motion.css";
 
 /*
- * The home page's motion visuals, ported from the "Crossword — Home page visuals (v2, motion)" build
- * (homev2-motion-export). The .jsx modules are decompiled from its bundle as is: same markup, classes, copy and
- * timings, with only the `ill-`/`sell-` classes renamed `hm-ill-`/`hm-sell-` (see home-motion.css) and assets
- * imported from ./assets (photos as WebP) or served from public/images/landing/home-v2.
+ * The home page's motion visuals, built from the "Crossword — Home page motion visuals (v2)" source
+ * (Crossword-Homev2-Motion/source): home-motion.js is its Vite build of the 11 visuals, unminified with React
+ * external, so markup, classes, copy and timings are the source's own. Only the `ill-`/`sell-` classes are renamed
+ * `hm-ill-`/`hm-sell-` (see home-motion.css), brand fonts point at the next/font variables, and assets are served
+ * from public/images/landing/home-v2/assets (photos as WebP).
  */
-export { AdJourneyMotion } from "./ad-journey";
-export { AiAssistantsMotion } from "./ai-assistants";
-export { AiSearchMotion } from "./ai-search";
-export { AnonymousTrafficMotion } from "./anonymous-traffic";
-export { AskInsightMotion } from "./ask-insight";
-export { GiftJourneyMotion } from "./gift-journey";
-export { PersonalAgentsMotion } from "./personal-agents";
-export { RetentionGrowthMotion } from "./retention-growth";
-export { RevenueAttributionMotion } from "./revenue-attribution";
-export { ServiceResolutionMotion } from "./service-resolution";
-export { SponsoredComparisonMotion } from "./sponsored-comparison";
+export {
+  AdJourneyMotion,
+  AiAssistantsMotion,
+  AiSearchMotion,
+  AnonymousTrafficMotion,
+  AskInsightMotion,
+  GiftJourneyMotion,
+  PersonalAgentsMotion,
+  RetentionGrowthMotion,
+  RevenueAttributionMotion,
+  ServiceResolutionMotion,
+  SponsoredComparisonMotion,
+} from "./home-motion";
 
 /** The scope home-motion.css lives under: the source page's `:root` tokens and body type. */
 export function HomeMotion({ children }: { children: ReactNode }) {

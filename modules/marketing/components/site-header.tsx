@@ -24,7 +24,6 @@ import perplexityLight from "../assets/nav/glyphs/light-perplexity.svg";
 import featureCardLight from "../assets/nav/card-light.webp";
 import { ctaLinks, type NavItem, type NavLink, type PlatformLink, platformMenu, primaryNav } from "../config/navigation";
 import { MobileMenu } from "./mobile-menu";
-import { Rails } from "./rails";
 
 /**
  * Pages whose header starts transparent over a full-bleed photo hero and turns into the dark
@@ -42,16 +41,7 @@ const HERO_ONLY_ROUTES = ["/", "/dynamic-landing-pages", "/sell", "/support", "/
  * Of those, pages whose bar fills (dark and cream) run the full viewport width like their hero,
  * past the 1600px cap; the contents and the rails keep to the cap.
  */
-const FULL_BLEED_ROUTES: string[] = [];
-
-/**
- * Every page's hero sits between the page's two hairline rails (--frame-inset in from each side of the 1600px
- * cap), so on every page the bar's fills, its rule and the Platform panel's fill keep between the rails too.
- */
-const INSET_ALL = true;
-
-/** Between the rails: --frame-inset in from each side of the centred 1600px cap. */
-const railInset = "max(var(--frame-inset), calc((100% - 1600px) / 2 + var(--frame-inset)))";
+const FULL_BLEED_ROUTES = ["/", "/dynamic-landing-pages", "/sell", "/support", "/retain", "/managed-launch", "/pricing", "/ai-assistants", "/personal-agents"];
 
 /** Scrolled past this many pixels, the transparent header takes on its dark bar. */
 const THRESHOLD = 10;
@@ -277,20 +267,7 @@ function PlatformItem({
  * - The 304 × 111 Insight card, 10px over a READ MORE link.
  * Below 1440px the gaps and columns close up.
  */
-function PlatformPanel({
-  light,
-  fullBleed,
-  inset,
-  open,
-  onChoose,
-}: {
-  light: boolean;
-  fullBleed: boolean;
-  /** The fill keeps between the rails (every page, INSET_ALL). */
-  inset: boolean;
-  open: boolean;
-  onChoose: () => void;
-}) {
+function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; fullBleed: boolean; open: boolean; onChoose: () => void }) {
   const muted = light ? "text-cream/40" : "text-ink/60";
   const rule = light ? "bg-white/10" : "bg-rail/50";
   return (
@@ -299,7 +276,7 @@ function PlatformPanel({
         aria-hidden
         className={cn(
           "absolute -z-10",
-          fullBleed ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : inset ? "inset-y-0 inset-x-(--frame-inset)" : "inset-0",
+          fullBleed ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : "inset-0",
           light ? "bg-[rgba(9,9,9,0.916)] backdrop-blur-[16px]" : "border-b border-rail bg-cream",
         )}
       />
@@ -432,7 +409,6 @@ function MenuItem({
   link,
   light,
   fullBleed,
-  inset,
   open,
   setOpen,
 }: {
@@ -440,7 +416,6 @@ function MenuItem({
   link: string;
   light: boolean;
   fullBleed: boolean;
-  inset: boolean;
   open: boolean;
   setOpen: (open: boolean) => void;
 }) {
@@ -495,27 +470,25 @@ function MenuItem({
         {item.label}
         {item.hasMenu && <Caret open={open} light={light} />}
       </Link>
-      {menu === "mega" && <PlatformPanel light={light} fullBleed={fullBleed} inset={inset} open={open} onChoose={choose} />}
+      {menu === "mega" && <PlatformPanel light={light} fullBleed={fullBleed} open={open} onChoose={choose} />}
       {menu === "list" && item.children && <ListPanel links={item.children} light={light} open={open} onChoose={choose} />}
     </li>
   );
 }
 
 /**
- * The links and buttons, shared by both headers; `light` sets them cream for dark grounds,
- * `fullBleed` runs the Platform panel's fill the full viewport width and `inset` keeps it between the rails. `onMenuChange` hears when the
+ * The links and buttons, shared by both headers; `light` sets them cream for dark grounds and
+ * `fullBleed` runs the Platform panel's fill the full viewport width. `onMenuChange` hears when the
  * mobile menu opens or closes, `onDropdownChange` when a desktop menu does.
  */
 function Contents({
   light,
   fullBleed = false,
-  inset = false,
   onMenuChange,
   onDropdownChange,
 }: {
   light: boolean;
   fullBleed?: boolean;
-  inset?: boolean;
   onMenuChange?: (open: boolean) => void;
   onDropdownChange?: (open: boolean) => void;
 }) {
@@ -539,7 +512,6 @@ function Contents({
                 link={link}
                 light={light}
                 fullBleed={fullBleed}
-                inset={inset}
                 open={openMenu === item.label}
                 // Closing only clears this item's own menu, so a menu just opened elsewhere stays open.
                 setOpen={(open) => setOpenMenu((current) => (open ? item.label : current === item.label ? null : current))}
@@ -570,14 +542,12 @@ function Contents({
  *   behind them over 300ms. On HERO_ONLY_ROUTES that lasts while the hero is under the header;
  *   past it the header is the cream bar (still with no spacer).
  *
- * Both bars carry the Platform menu (full width) and the Resources list. On every page (INSET_ALL) the fills, the rule and
- * the Platform menu's fill keep between the rails, as the hero does; the contents keep to the page's content box.
+ * Both bars carry the Platform menu (full width) and the Resources list.
  */
 export function SiteHeader() {
   const pathname = usePathname();
   const transparent = TRANSPARENT_ROUTES.includes(pathname);
   const fullBleed = FULL_BLEED_ROUTES.includes(pathname);
-  const inset = INSET_ALL;
   const { scrolled, pastHero } = useScrolled(transparent, HERO_ONLY_ROUTES.includes(pathname));
   // Whether the overlay bar's mobile menu or a desktop menu is open: the bar takes on the dark fill even unscrolled.
   const [menuOpen, setMenuOpen] = useState(false);
@@ -587,24 +557,16 @@ export function SiteHeader() {
     // Past the hero (HERO_ONLY_ROUTES) the cream bar crossfades in over the dark one, fill, rule and contents together.
     const dark = (scrolled || menuOpen || dropdownOpen) && !pastHero;
     const fade = "transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
-    const fill = fullBleed ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : inset ? "inset-y-0 inset-x-(--frame-inset)" : "inset-0";
-    // The hairlines run the full viewport width, past the 1600px cap, unless they keep between the rails (INSET_ALL).
-    const line = cn("pointer-events-none absolute -bottom-[0.5px] h-px", !inset && "inset-x-0");
-    const lineInset = inset ? { left: railInset, right: railInset } : undefined;
+    const fill = fullBleed ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : "inset-0";
     return (
       <header className="fixed inset-x-0 top-0 z-50">
-        <span aria-hidden className={cn(line, "bg-white/10", fade, dark ? "opacity-100" : "opacity-0")} style={lineInset} />
-        <span aria-hidden className={cn(line, "bg-rail", fade, pastHero ? "opacity-100" : "opacity-0")} style={lineInset} />
+        {/* The hairlines run the full viewport width, past the 1600px cap. */}
+        <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-white/10", fade, dark ? "opacity-100" : "opacity-0")} />
+        <span aria-hidden className={cn("pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-rail", fade, pastHero ? "opacity-100" : "opacity-0")} />
         <div className="relative mx-auto max-w-[1600px] pb-[0.5px]">
           {/* Laid out as the home page's bar (full width, the content row 16px top and bottom); its dark fill fades in once the page scrolls. */}
           <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-[rgba(9,9,9,0.71)] backdrop-blur-[16px]", fill, fade, dark ? "opacity-100" : "opacity-0")} />
           <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-cream", fill, fade, pastHero ? "opacity-100" : "opacity-0")} />
-          {/*
-            On every page (INSET_ALL) the fills stop at the rails, which sit centred on their edges. The page's rails are under the
-            fixed bar, and the fill rounds over the left one's device pixel (the right one's lands just outside it), so the
-            bar draws the same two rails over its fills: the line shows on both sides, as on the page below.
-          */}
-          {inset && <Rails />}
 
           {/*
             Both sets of contents share one grid cell and crossfade; the hidden one is inert. Neither
@@ -612,11 +574,11 @@ export function SiteHeader() {
           */}
           <div className="grid">
             <div inert={pastHero} className={cn("col-start-1 row-start-1 flex content-width items-center justify-between py-4", fade, pastHero ? "opacity-0" : "opacity-100")}>
-              <Contents light fullBleed={fullBleed} inset={inset} onMenuChange={setMenuOpen} onDropdownChange={setDropdownOpen} />
+              <Contents light fullBleed={fullBleed} onMenuChange={setMenuOpen} onDropdownChange={setDropdownOpen} />
             </div>
             {HERO_ONLY_ROUTES.includes(pathname) && (
               <div inert={!pastHero} className={cn("col-start-1 row-start-1 flex content-width items-center justify-between py-4", fade, pastHero ? "opacity-100" : "opacity-0")}>
-                <Contents light={false} fullBleed={fullBleed} inset={inset} />
+                <Contents light={false} fullBleed={fullBleed} />
               </div>
             )}
           </div>
@@ -628,19 +590,14 @@ export function SiteHeader() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
-        {/* The rule and the fill keep between the rails, as on the pages with a hero; the bar redraws the rails over its fill. */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -bottom-[0.5px] h-px bg-rail"
-          style={inset ? { left: railInset, right: railInset } : { left: 0, right: 0 }}
-        />
+        {/* The rule runs the full viewport width, past the 1600px cap. */}
+        <span aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-[0.5px] h-px bg-rail" />
         <div className="relative mx-auto max-w-[1600px] pb-[0.5px]">
-          <div aria-hidden className={cn("pointer-events-none absolute -z-10 bg-cream", inset ? "inset-y-0 inset-x-(--frame-inset)" : "inset-0")} />
-          {inset && <Rails />}
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-cream" />
 
           {/* Not positioned, so the mobile menu and the Platform menu (absolute, top-full) span the whole bar. */}
           <div className="flex content-width items-center justify-between py-4">
-            <Contents light={false} inset={inset} />
+            <Contents light={false} />
           </div>
         </div>
       </header>
