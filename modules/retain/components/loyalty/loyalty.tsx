@@ -41,7 +41,7 @@ export function Loyalty() {
             />
           </div>
 
-          <AubergineSteps steps={loyaltyCards} />
+          <AubergineSteps steps={loyaltyCards} variant="retainLoyalty" />
         </div>
       </div>
       <PageRails />

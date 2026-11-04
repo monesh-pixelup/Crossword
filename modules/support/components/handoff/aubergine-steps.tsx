@@ -26,6 +26,21 @@ const variants = {
     stepBody: "text-sm leading-5 tracking-[-0.28px]",
   },
   /**
+   * Retain: Loyalty after its type update (Figma 3257:38481): the loyalty layout with Crimson 22 titles at
+   * -0.88px over Geist 16/24 copy at -0.32px.
+   */
+  retainLoyalty: {
+    item: "md:min-h-[416.09px] md:pb-[33.5px]",
+    ruleTop: "-top-[0.62px]",
+    lineTop: "top-0",
+    lineBottom: "-bottom-[0.45px]",
+    card: "top-[4.51px] right-[3.51px] bottom-[3.4px] left-[3.51px]",
+    cell: "mt-[15.35px]",
+    copy: "mt-[19.65px]",
+    stepTitle: "font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px]",
+    stepBody: "text-base leading-6 tracking-[-0.32px]",
+  },
+  /**
    * Support: Human-in-the-loop (node 2634:20241), 24px numerals in a 27px box (Figma nudges each
    * one in by its own amount), the cell 16.35px under it and the copy 18.65px under the cell.
    */

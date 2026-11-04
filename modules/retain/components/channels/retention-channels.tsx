@@ -7,7 +7,7 @@ import { PageRails } from "../shared/page-rails";
  * Figma "ALT · Retention channels (node diagram + illustration)", laid out as Workflows on Support: a
  * sand panel between the page rails (0.5px black/25 hairline, 80px top and bottom inside it), the
  * eyebrow and a two-line headline in a 210px header, then 120px below the two channels side by side
- * (equal halves, 115px either side of a black/10 rule): a 32px wine icon tile, a Crimson 28 title and a
+ * (equal halves, 115px either side of a black/10 rule): a 32px wine icon tile, a Crimson 24 title and a
  * line of copy in black/50, 24px apart.
  */
 export function RetentionChannels() {
@@ -48,7 +48,7 @@ export function RetentionChannels() {
                     {/* eslint-disable-next-line @next/next/no-img-element -- static SVG, nothing to optimize */}
                     <img src={c.icon.src} alt="" className="absolute -inset-[1.6px] block size-[35.2px] max-w-none" />
                   </span>
-                  <h3 className="font-serif text-[28px] leading-[1.1] tracking-[-1.12px] text-ink">{c.title}</h3>
+                  <h3 className="font-serif text-[24px] leading-[1.1] tracking-[-1.2px] text-ink">{c.title}</h3>
                   <p className={`font-sans text-base leading-6 tracking-[-0.32px] text-black/50 ${i > 0 ? "max-w-[453.973px]" : ""}`}>
                     {c.body}
                   </p>
