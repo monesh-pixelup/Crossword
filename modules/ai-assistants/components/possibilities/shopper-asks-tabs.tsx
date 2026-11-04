@@ -16,14 +16,14 @@ import { motionScene } from "../motion/motion-scenes";
  * framed 821 × 611 damask panel, its answer's motion visual playing inside the lattice frame). Styled as Figma draws it, not as on Sell and Retain: each label 24px in
  * (12 / 20px padding), the active one ink on cream with a 2px gold bar down its left edge, the rest ink/40.
  *
- * They play on their own (see `useAutoplayTabs`): the gold bar grows down the active label over that
- * question's turn, then the next question takes over and the old bar fades and shrinks away. Choosing a
- * question shows it, starting its turn afresh.
+ * They play on their own (see `useAutoplayTabs`): each question stays up for its turn, then the next takes over,
+ * its gold bar showing at full height while the old one fades away. Choosing a question shows it, starting its
+ * turn afresh.
  */
 export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] }) {
   // Each question's turn: its answer's run (the default run for a still panel) plus the hold.
   const turns = questions.map((question) => tabTurn(question.scene && motionScene(question.scene).scene.duration));
-  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns, { axis: "y" });
+  const { active, previous, plays, root, open } = useAutoplayTabs(turns, { axis: "y" });
 
   return (
     <div ref={root} className="flex w-full flex-col items-stretch gap-8 lg:flex-row lg:items-start lg:justify-between">
@@ -44,18 +44,12 @@ export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] })
                   )}
                 >
                   {question.label}
-                  {/* The active label's 2px gold bar (Figma's inset shadow), growing down it over the question's turn. */}
+                  {/* The active label's 2px gold bar (Figma's inset shadow), at its full height (not a progress bar); it fades away once the next question takes over. */}
                   <span
                     aria-hidden
-                    ref={(el) => {
-                      fills.current[i] = el;
-                    }}
                     className={cn(
-                      "pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top bg-gold [scale:1_0]",
-                      // Driven every frame while active; eased away (and faded) once the next question takes over.
-                      on
-                        ? "opacity-100 transition-none"
-                        : "opacity-0 transition-[scale,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                      "pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-gold transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                      on ? "opacity-100" : "opacity-0",
                     )}
                   />
                 </button>
