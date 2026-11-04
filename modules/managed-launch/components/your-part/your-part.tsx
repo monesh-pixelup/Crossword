@@ -12,8 +12,8 @@ const rhythm = [
 /**
  * Figma "ALT · The partnership (timeline)" (node 3262:512): a centred two-line headline (82px swash at 1.18, 60px Light
  * lines at 1.1) 24px over a 560px line of copy, then 64px below three equal steps, 24px apart, in the cycle
- * timeline's style: a rail (a 10px gold ring and a dashed gold rule), 20px down a small Geist Mono tag, and 48px
- * under it the rhythm in Crimson ExtraLight 40. Opens with the patterned divider band (24px more top padding).
+ * timeline's style: a rail (a 10px gold ring and a dashed gold rule), 20px down a small Open Sans SemiBold tag, and 48px
+ * under it the rhythm in Crimson Light 32 at -1.6px. Opens with the patterned divider band (24px more top padding).
  */
 export function YourPart() {
   return (
@@ -45,7 +45,7 @@ export function YourPart() {
               </span>
               <div className="flex flex-col items-start gap-12">
                 <Eyebrow size="tag">{step.tag}</Eyebrow>
-                <h3 className="font-serif text-[40px] leading-[1.1] font-extralight tracking-[-2px] text-ink">{step.title}</h3>
+                <h3 className="font-serif text-[32px] leading-[1.1] font-light tracking-[-1.6px] text-ink">{step.title}</h3>
               </div>
             </li>
           ))}

@@ -4,7 +4,7 @@ import { commitments } from "../../config/launch";
 /**
  * Figma "Library · Stats band" (Managed launch and progress): a sand band the full viewport width,
  * 96px top and bottom, a 433px label column holding just the eyebrow, then the two commitments as stats behind dashed engraved rules, 40px in: a Crimson Light
- * 70px value with its Geist 14 unit beside it, over a Geist Mono caption, 12px apart. The second
+ * 70px value with its Geist 16 unit beside it, over an Open Sans SemiBold 12 caption (+1.44px), 12px apart. The second
  * stat is 466px wide; the first takes the rest. The label column sits beside the stats only from
  * 1280px, where the first stat still has room (433 + 466 + its ~200px), centred on the stats' height; below, it sits
  * above them.
@@ -34,14 +34,14 @@ export function Commitment() {
                   i === commitments.length - 1 ? "md:w-[466px] md:shrink-0" : "md:flex-1"
                 }`}
               >
-                <dt className="font-mono text-[12px] leading-[1.3] tracking-[0.48px] whitespace-nowrap text-label-olive uppercase">
+                <dt className="font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-label-olive uppercase">
                   {c.label}
                 </dt>
                 <dd className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                   <span className="font-serif text-[min(70px,17vw)] leading-[1.1] font-light tracking-[-0.05em] whitespace-nowrap text-ink">
                     {c.value}
                   </span>
-                  <span className="font-sans text-[14px] leading-[1.43] tracking-[-0.28px] text-ink-muted">{c.unit}</span>
+                  <span className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">{c.unit}</span>
                 </dd>
               </div>
             ))}

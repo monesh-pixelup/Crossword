@@ -21,7 +21,7 @@ type EyebrowProps = {
   children: ReactNode;
   /** Match the background the label sits on. */
   surface?: keyof typeof surfaces;
-  /** `tag`: the small step tag (Geist Mono 12 caps, 2px tall padding), as Figma's Timeline. */
+  /** `tag`: the small step tag (Open Sans SemiBold 12 caps at 1.3, 2px tall padding), as Figma's Timeline (3262:522). */
   size?: "label" | "tag";
   className?: string;
 };
@@ -67,7 +67,7 @@ export function Eyebrow({ children, surface = "cream", size = "label", className
       <span
         className={cn(
           "text-center text-[12px] whitespace-nowrap uppercase",
-          tag ? "font-mono leading-[1.3] tracking-[0.48px]" : "font-open-sans leading-[0.9] font-semibold tracking-[1.44px]",
+          tag ? "font-open-sans leading-[1.3] font-semibold tracking-[1.44px]" : "font-open-sans leading-[0.9] font-semibold tracking-[1.44px]",
         )}
       >
         {children}
