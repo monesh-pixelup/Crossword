@@ -18,7 +18,7 @@ function Note({ title, body }: { title: string; body: string }) {
 /**
  * ROI calculator (Figma 3564:23102, “Library · Contact form”), under the chart divider band: on the
  * left the eyebrow, swash headline and copy, then what Crossword moves, two notes to a row on 0.5px
- * rules; 96px from it on the right the 600px calculator, the two centred on each other. Below
+ * rules; 96px from it on the right the 600px calculator, the two top-aligned. Below
  * 1200px they stack.
  */
 export function Calculator() {
@@ -31,7 +31,7 @@ export function Calculator() {
       <BandDivider glyph="chart" />
       <RailAccent className="absolute top-[calc(var(--section-pad)+75px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[214px] w-px max-lg:hidden" />
 
-      <div className="flex content-width flex-col gap-12 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:gap-24">
+      <div className="flex content-width flex-col gap-12 min-[1200px]:flex-row min-[1200px]:items-start min-[1200px]:gap-24">
         <div className="flex min-w-0 flex-1 flex-col items-start gap-7">
           <Eyebrow>ROI calculator</Eyebrow>
           <SectionTitle id="calculator-title" initial="C" firstLine="alculate your ROI" secondLine="with Crossword" width={415} weight="light" />

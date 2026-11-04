@@ -9,10 +9,11 @@ import { calculatorDefaults } from "../../config/pricing";
 const credits = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
 const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: 1 });
 
-const label = "font-mono text-[12px] leading-[1.3] tracking-[0.48px] whitespace-nowrap text-label-olive uppercase";
+/** Figma's field and result labels: Open Sans SemiBold 12 caps, 1.3 leading, +1.44px. */
+const label = "font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-label-olive uppercase";
 
 /**
- * A field: a Geist Mono caps label over a 48px cream input on a 1px engraved line, with a maroon
+ * A field: an Open Sans caps label over a 48px cream input on a 1px engraved line, with a maroon
  * focus ring (guidelines 11.13). Empty, it shows its placeholder (a default, where it has one).
  */
 function Field({
@@ -118,7 +119,7 @@ export function RoiCalculator() {
       {/* TODO: the ROI needs the cost in dollars; show it once the Crossword team supplies the price per credit. */}
       <div className="relative flex items-center justify-between gap-4 bg-wine px-5 py-4">
         <div className="flex min-w-0 flex-col gap-1.5 text-[12px]">
-          <p className="font-mono leading-[1.3] tracking-[0.48px] text-cream uppercase">Return on investment</p>
+          <p className="font-open-sans leading-[1.3] font-semibold tracking-[1.44px] text-[#ffb657] uppercase">Return on investment</p>
           <p className="font-sans leading-normal text-cream/70">Estimated revenue &divide; estimated monthly cost, e.g. 3x</p>
         </div>
         <p className="shrink-0 font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-gold">&mdash;</p>

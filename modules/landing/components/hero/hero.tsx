@@ -32,9 +32,13 @@ function HeroCopy() {
         <StampButton href={ctaLinks.bookDemo} variant="wine">
           BOOK A DEMO
         </StampButton>
-        <p className="font-sans text-base leading-6 tracking-[-0.64px] text-white">
-          Crossword helps customers buy, get support, and keep coming back. On your
-          website, in ChatGPT &amp; Claude and through their personal AI agents like Muse &amp; Instinct.
+        {/* Figma 3073:20861: Geist 16/24 at -0.64px in cream #FFF9EA, "Crossword" at full strength and the rest at 60%. */}
+        <p className="font-sans text-base leading-6 font-normal tracking-[-0.64px] text-[#fff9ea]">
+          Crossword{" "}
+          <span className="text-[#fff9ea]/60">
+            helps customers buy, get support, and keep coming back. On your website, in ChatGPT &amp; Claude and through
+            their personal AI agents like Muse &amp; Instinct.
+          </span>
         </p>
       </div>
     </div>
