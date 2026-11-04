@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { type LoggedInQuote, loggedInQuotes } from "../../config/logged-in";
+import { QuoteAccordion } from "./quote-accordion";
 import { QuoteTabs } from "./quote-tabs";
 
 /**
@@ -10,6 +11,10 @@ import { QuoteTabs } from "./quote-tabs";
  * 1.18, Crimson Light 60 at 1.1) and a 520px line of Geist, 18px apart, over the customer quotes; on the right the
  * aubergine damask panel (see QuoteTabs). A 209px gold tick sits on the left rail beside the eyebrow. Personal
  * agents (3308:447) passes its own eyebrow, headline, copy and quotes.
+ *
+ * `layout="accordion"` (AI Assistants) uses the new "Library · Accordion + media" layout, as Sell's Conversion
+ * assistance: the eyebrow, headline and copy across the top, then 80px below them the quotes as an accordion in a
+ * 520px column beside the 687 × 586 panel. The default keeps the scroll-driven list beside a sticky panel.
  */
 export function LoggedInExperience({
   id = "logged-in-title",
@@ -24,6 +29,7 @@ export function LoggedInExperience({
     </>
   ),
   quotes = loggedInQuotes,
+  layout = "scroll",
 }: {
   id?: string;
   eyebrow?: ReactNode;
@@ -32,22 +38,35 @@ export function LoggedInExperience({
   secondLine?: ReactNode;
   copy?: ReactNode;
   quotes?: LoggedInQuote[];
+  layout?: "scroll" | "accordion";
 }) {
+  const heading = (
+    <div className="flex flex-col items-start gap-[18px]">
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={553.133} weight="light" />
+      <p className="max-w-[520px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{copy}</p>
+    </div>
+  );
+
+  if (layout === "accordion") {
+    return (
+      <section aria-labelledby={id} className="relative section-pad">
+        <RailAccent className="absolute top-[calc(var(--section-pad)-16.51px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
+
+        <div className="flex content-width flex-col items-start gap-section">
+          {heading}
+          <QuoteAccordion quotes={quotes} />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section aria-labelledby={id} className="relative section-pad">
       <RailAccent className="absolute top-[calc(var(--section-pad)-16.51px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
 
       <div className="content-width">
-        <QuoteTabs
-          heading={
-            <div className="flex flex-col items-start gap-[18px]">
-              <Eyebrow>{eyebrow}</Eyebrow>
-              <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={553.133} weight="light" />
-              <p className="max-w-[520px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{copy}</p>
-            </div>
-          }
-          quotes={quotes}
-        />
+        <QuoteTabs heading={heading} quotes={quotes} />
       </div>
     </section>
   );

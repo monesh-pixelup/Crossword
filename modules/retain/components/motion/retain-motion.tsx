@@ -1,7 +1,6 @@
 "use client";
 
 import { type ComponentType, type CSSProperties, useSyncExternalStore } from "react";
-import { useStrangerActive } from "@/modules/dynamic-landing-pages/components/personalization/stranger-scroll";
 import {
   BackInStockV2Motion,
   BrowseRecoveryV2Motion,
@@ -79,10 +78,9 @@ function MotionStage({
   );
 }
 
-/** Proactive recovery's panel: the 687 × 586 visual of the recovery moment currently open beside it. */
-export function RecoveryMotion() {
-  const active = useStrangerActive();
-  return <MotionStage scene={recoveryScenes[active] ?? recoveryScenes[0]} width={687} height={586} />;
+/** Proactive recovery's panel: the 687 × 586 visual of the recovery moment open beside it (`index` in config/recovery.ts). */
+export function RecoveryMotion({ index }: { index: number }) {
+  return <MotionStage scene={recoveryScenes[index] ?? recoveryScenes[0]} width={687} height={586} />;
 }
 
 /** A campaign's 821 × 611 panel, by its index in config/campaigns.ts, in its turn's livery. */

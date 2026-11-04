@@ -30,7 +30,7 @@ export default function AiAssistantsPage() {
         <BandDivider glyph="book" />
       </div>
       <Differentiation />
-      <LoggedInExperience />
+      <LoggedInExperience layout="accordion" />
       <BrandAesthetics />
       <Promotions />
       <Insights scene="insights-motion" />

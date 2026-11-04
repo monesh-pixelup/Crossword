@@ -36,7 +36,7 @@ client only. It exports:
 
 | Export | Visuals | Used in |
 | --- | --- | --- |
-| `RecoveryMotion` | 01–05 (687 × 586), follows the open item through `useStrangerActive()` | recovery/proactive-recovery.tsx |
+| `RecoveryMotion` | 01–05 (687 × 586), shows the open item (`index`) | recovery/proactive-recovery.tsx |
 | `CampaignMotion` | 06–10 (821 × 611), by campaign index | campaigns/campaign-tabs.tsx |
 | `AudienceMotion` | 11, Launch audience (1280 × 599) | audience/audience-builder.tsx |
 | `ReturnMotion` | 12, Size confidence in the Ask AI drawer (1280 × 599) | returns/return-reduction.tsx |

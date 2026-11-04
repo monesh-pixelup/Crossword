@@ -74,6 +74,7 @@ export default function PersonalAgentsPage() {
         secondLine="generic agent"
         copy="Generic agents can only browse and guess. You know the customer, so your agent can pull up their orders, apply their account details and finish the job."
         quotes={agentQuotes}
+        layout="accordion"
       />
       <Promotions
         id="agent-promotions-title"
