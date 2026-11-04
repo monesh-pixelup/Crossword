@@ -20,7 +20,7 @@ const eslintConfig = defineConfig([
     // refs during render on purpose (a slot remembers it was loading, so its cover stays for one more frame), resets
     // its timelines from effects, keeps the build's unused bindings and draws its images with plain <img>, as the
     // source does.
-    files: ["modules/landing/components/motion/home-v2/**"],
+    files: ["modules/landing/components/motion/home-v2/**", "modules/sell/components/motion-v2/**"],
     rules: {
       "react-hooks/refs": "off",
       "react-hooks/set-state-in-effect": "off",

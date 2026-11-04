@@ -6,11 +6,11 @@ import { cn } from "@/lib/cn";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import arrowRight from "../../assets/discovery/arrow-right.svg";
 import { discoveryFeatures } from "../../config/discovery";
-import { discoveryScenesA } from "../motion/discovery/index-a";
-import { discoveryScenesB } from "../motion/discovery/index-b";
-import { ScenePanel } from "../motion/scene-panel";
+import { ScenePanel, type SceneEntry } from "../motion/scene-panel";
+import { SellMotionRoot } from "../motion-v2";
+import { discoveryScenes as scenes } from "../motion-v2/scenes";
 
-const discoveryScenes = { ...discoveryScenesA, ...discoveryScenesB } as Record<string, (typeof discoveryScenesB)[keyof typeof discoveryScenesB]>;
+const discoveryScenes: Record<string, SceneEntry> = scenes;
 
 /** Each feature's turn: its scene's run plus the hold. */
 const turns = discoveryFeatures.map((feature) => tabTurn(discoveryScenes[feature.scene]?.duration));
@@ -96,18 +96,18 @@ export function DiscoveryTabs() {
             </div>
 
             {/*
-              Panel art exported with its studded lattice frame and 1px #d2cdc0 border (821 × 611 in
-              Figma); it fills the 820px column. The feature's chat scene (450 × 500) plays centred
-              in it, at full size in the 820px column and zoomed down with it below that.
+              The feature's visual (738 × 680: the maroon frame with its chat window, as in the source), filling the
+              820px column and scaled down with it below that; drawn while its feature shows or fades out.
             */}
-            <div className="relative w-full">
-              <Image src={feature.panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
+            <div className="relative aspect-[738/680] w-full">
               {discoveryScenes[feature.scene] && (i === active || i === previous) && (
                 <ScenePanel
                   key={plays[i]}
                   scene={discoveryScenes[feature.scene]}
                   active={i === active}
-                  className="absolute inset-x-0 inset-y-[6%]"
+                  root={SellMotionRoot}
+                  maxScale={Infinity}
+                  transform
                 />
               )}
             </div>

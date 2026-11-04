@@ -3,8 +3,9 @@
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { assistFeatures } from "../../config/assist";
-import { assistScenes } from "../motion/assist";
 import { ScenePanel } from "../motion/scene-panel";
+import { SellMotionRoot } from "../motion-v2";
+import { assistScenes } from "../motion-v2/scenes";
 
 /**
  * An item stays open until all but this much of it has slid under the
@@ -192,13 +193,13 @@ export function AssistList({ header }: { header: ReactNode }) {
         className="sticky top-[calc(72.5px+24px)] z-10 order-2 w-full bg-cream before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-6 before:bg-cream min-[1313px]:before:hidden after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-16 after:bg-linear-to-b after:from-cream after:from-25% after:to-cream/0 min-[1313px]:top-[calc(72.5px+48px)] min-[1313px]:w-auto min-[1313px]:max-w-[687px] min-[1313px]:min-w-0 min-[1313px]:flex-1 min-[1313px]:bg-transparent min-[1313px]:after:hidden"
       >
         {/*
-          The open item's chat scene on its art (687 × 586), zoomed to fill its box; keyed so switching items replays from
+          The open item's visual (687 × 586, its phone chat on the aubergine frame), zoomed to fill its box; keyed so switching items replays from
           the start. Stacked, the box spans the options' width, the scene growing past its drawn size to fill it, but never
           taller than the screen leaves room for while pinned (the screen less the header, the 24px above and 24px below):
           on a short screen it is as wide as still fits, centred. Side by side it is the column's width (up to 687px).
         */}
         <div className="relative mx-auto aspect-[687/586] w-full max-w-[calc((100svh-72.5px-48px)*687/586)] min-[1313px]:max-w-none">
-          <ScenePanel key={active} scene={assistScenes[assistFeatures[active].scene]} maxScale={Infinity} />
+          <ScenePanel key={active} scene={assistScenes[assistFeatures[active].scene]} root={SellMotionRoot} maxScale={Infinity} />
         </div>
       </div>
     </div>

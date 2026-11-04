@@ -5,6 +5,7 @@ import {
   Geist,
   Geist_Mono,
   Inter,
+  Instrument_Serif,
   Noto_Serif,
   Open_Sans,
   Playfair_Display,
@@ -132,8 +133,13 @@ export const geistMonoMotion = Geist_Mono({
   preload: false,
 });
 
+/*
+ * Playfair Display, Noto Serif, Quicksand, Space Grotesk and Instrument Serif also set the Sell motion visuals'
+ * storefront brands (modules/sell/components/motion-v2), in the weights and styles their source build requested.
+ */
 export const playfairDisplay = Playfair_Display({
-  weight: "600",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-playfair-display",
   display: "swap",
@@ -141,7 +147,8 @@ export const playfairDisplay = Playfair_Display({
 });
 
 export const notoSerif = Noto_Serif({
-  weight: "400",
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
   variable: "--font-noto-serif",
   display: "swap",
@@ -149,7 +156,7 @@ export const notoSerif = Noto_Serif({
 });
 
 export const quicksand = Quicksand({
-  weight: ["500", "700"],
+  weight: ["500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-quicksand",
   display: "swap",
@@ -157,9 +164,18 @@ export const quicksand = Quicksand({
 });
 
 export const spaceGrotesk = Space_Grotesk({
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   subsets: ["latin"],
   variable: "--font-space-grotesk",
+  display: "swap",
+  preload: false,
+});
+
+export const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-instrument-serif",
   display: "swap",
   preload: false,
 });
@@ -181,4 +197,5 @@ export const fontVariables = [
   notoSerif.variable,
   quicksand.variable,
   spaceGrotesk.variable,
+  instrumentSerif.variable,
 ].join(" ");

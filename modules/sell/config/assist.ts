@@ -1,4 +1,4 @@
-import type { AssistSceneSlug } from "../components/motion/assist";
+import type { AssistSceneSlug } from "../components/motion-v2/scenes";
 
 export type AssistFeature = {
   title: string;

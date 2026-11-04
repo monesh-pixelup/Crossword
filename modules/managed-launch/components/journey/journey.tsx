@@ -30,10 +30,6 @@ export function Journey() {
               weight="light"
             />
           </div>
-          <p className="w-full max-w-[477.244px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60 xl:min-w-0 xl:flex-1">
-            You share your objectives. We suggest potential journeys. We adapt the experience to your business. A/B test.
-            Measure the results. Make changes. Launch and continue to optimize.
-          </p>
         </div>
 
         <div className="relative aspect-[1280/599] w-full">

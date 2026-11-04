@@ -1,8 +1,9 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import { humanModeScene } from "../motion/human-mode";
 import { ScenePanel } from "../motion/scene-panel";
+import { SellMotionRoot } from "../motion-v2";
+import { humanModeScene } from "../motion-v2/scenes";
 
 /**
  * Figma "Library · Wide panel (Human mode)", as Audiences on Retain: the eyebrow and a two-line
@@ -52,7 +53,7 @@ export function HumanMode() {
           with a transform: zoomed down to a phone's width its text would hit the browser's minimum font size and overflow.
         */}
         <div className="relative aspect-[1280/599] w-full overflow-hidden">
-          <ScenePanel scene={humanModeScene} maxScale={Infinity} transform />
+          <ScenePanel scene={humanModeScene} root={SellMotionRoot} maxScale={Infinity} transform />
         </div>
       </div>
     </section>

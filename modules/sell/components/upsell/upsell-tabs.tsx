@@ -1,12 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import panelArt from "../../assets/upsell/panel-aubergine.webp";
 import { upsellFeatures } from "../../config/upsell";
 import { ScenePanel } from "../motion/scene-panel";
-import { upsellScenes } from "../motion/upsell";
+import { SellMotionRoot } from "../motion-v2";
+import { upsellScenes } from "../motion-v2/scenes";
 
 /** How long each feature stays open before the next one takes over, at least. */
 const DURATION_MS = 6000;
@@ -69,8 +68,7 @@ function IconTile({ path, on }: { path: string; on: boolean }) {
 
 /**
  * Figma "Layout" (Upsell & cross-sell, node 2914:36238): one sand panel (#f3e7d3, 0.5px black/25 border) with the
- * features as a list in the 596px left column and, on the right, the 687 × 586 aubergine damask panel playing the
- * open feature's chat scene. The list (centred under 40px top padding, 42px in from both sides, so its rules end as
+ * features as a list in the 596px left column and, on the right, the open feature's motion visual at 687px wide. The list (centred under 40px top padding, 42px in from both sides, so its rules end as
  * far from the panel as they start from the card's edge) is 49px from row to rule: the open feature shows its tile, Crimson Light 24 title and line of Geist 16 (8px under it), its rule
  * 24px below; the others are their tile and title at 40%. Every rule is black/20. The features take turns on a
  * timer (long enough for each scene to play out and hold) while the section is on screen; choosing one restarts its
@@ -211,20 +209,19 @@ export function UpsellTabs() {
       </div>
 
       {/*
-        Figma's 687 × 586 panel art (aubergine damask, gold notched frame, four studs) with the scene at its drawn size,
-        centred. Side by side it runs 4px past the card's right edge, over its border, as in Figma (0.5 + 596 + 687 =
-        1283.5 of 1280), which leaves the list column its 596px.
+        The open feature's visual (the source's 738 × 680 maroon frame with its phone chat), drawn at 687px wide side by
+        side (its height following the frame's 738:680), where Figma's 687 × 586 panel was. Side by side it runs 4px past
+        the card's right edge, over its border, as in Figma (0.5 + 596 + 687 = 1283.5 of 1280), which leaves the list
+        column its 596px. Keyed so each feature (and each reselection) replays from the start, fading in as it opens.
       */}
       <div
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="relative aspect-[687/586] w-full shrink-0 overflow-hidden bg-[#462160] min-[1280px]:-mr-1 min-[1280px]:w-[687px]"
+        className="relative aspect-[738/680] w-full shrink-0 overflow-hidden min-[1280px]:-mr-1 min-[1280px]:w-[687px]"
       >
-        <Image src={panelArt} alt="" fill sizes="(min-width: 1280px) 687px, 100vw" className="object-cover" />
-        {/* Each scene fades in over the art as its feature opens, rather than cutting in. */}
         <div key={`${active}-${run}`} className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0">
-          <ScenePanel scene={scene} active={visible} padding={20} />
+          <ScenePanel scene={scene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />
         </div>
       </div>
     </div>

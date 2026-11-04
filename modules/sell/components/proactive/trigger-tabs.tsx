@@ -3,8 +3,9 @@
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { proactiveTriggerScenes, proactiveTriggers } from "../../config/proactive";
-import { proactiveScenes } from "../motion/proactive";
 import { ScenePanel } from "../motion/scene-panel";
+import { SellMotionRoot } from "../motion-v2";
+import { proactiveScenes } from "../motion-v2/scenes";
 
 /** How long each trigger stays up before the next one takes over, at least. */
 const DURATION_MS = 6000;
@@ -78,7 +79,7 @@ export function TriggerTabs() {
           edge to edge. Scaled with a transform: zoomed down to a small screen's width, its text would hit the browser's
           minimum font size and overflow.
         */}
-        {scene && <ScenePanel key={`${active}-${run}`} scene={scene} active={visible} maxScale={Infinity} transform />}
+        {scene && <ScenePanel key={`${active}-${run}`} scene={scene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />}
       </div>
 
       <div role="tablist" aria-label="Proactive message triggers" onKeyDown={onKeyDown} className="flex w-full flex-col md:flex-row">
