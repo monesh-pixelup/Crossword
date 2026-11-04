@@ -31,6 +31,7 @@ export function LoggedInExperience({
   ),
   quotes = loggedInQuotes,
   layout = "scroll",
+  copyWidth,
 }: {
   id?: string;
   eyebrow?: ReactNode;
@@ -40,13 +41,18 @@ export function LoggedInExperience({
   copy?: ReactNode;
   quotes?: LoggedInQuote[];
   layout?: "scroll" | "accordion";
+  /** The copy's max width in px where Figma sets its own (Personal Agents: 539.027). */
+  copyWidth?: number;
 }) {
   const heading = (
     <div className="flex flex-col items-start gap-[18px]">
       <Eyebrow>{eyebrow}</Eyebrow>
       <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={553.133} weight="light" />
       {/* Figma 3305:909: the accordion layout's copy runs the heading's full 725px column. */}
-      <p className={cn("font-sans text-base leading-6 tracking-[-0.32px] text-black/60", layout === "accordion" ? "max-w-[725px]" : "max-w-[520px]")}>
+      <p
+        className={cn("font-sans text-base leading-6 tracking-[-0.32px] text-black/60", layout === "accordion" ? "max-w-[725px]" : "max-w-[520px]")}
+        style={copyWidth ? { maxWidth: copyWidth } : undefined}
+      >
         {copy}
       </p>
     </div>

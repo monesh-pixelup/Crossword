@@ -66,6 +66,10 @@ export default function PersonalAgentsPage() {
         columns={["The interaction", "Without Crossword", "With Crossword"]}
         rows={agentDifferentiationRows}
       />
+      {/* Figma "Divider band": the 75px gear band (56px below 768px). */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="gear" />
+      </div>
       <LoggedInExperience
         id="agent-logged-in-title"
         eyebrow="Logged-in experiences"
@@ -75,6 +79,7 @@ export default function PersonalAgentsPage() {
         copy="Generic agents can only browse and guess. You know the customer, so your agent can pull up their orders, apply their account details and finish the job."
         quotes={agentQuotes}
         layout="accordion"
+        copyWidth={539.027}
       />
       <Promotions
         id="agent-promotions-title"
@@ -92,6 +97,10 @@ export default function PersonalAgentsPage() {
         copy="You’ll see what personal agents request, their actions, and the outcomes."
         scene="pa-insights-motion"
       />
+      {/* Figma "Divider band": the 75px chat band (56px below 768px). */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="chat" />
+      </div>
       <AssistantsFaq id="agent-faq-title" items={agentFaqs} />
       <AssistantsCta
         id="agent-cta-title"
