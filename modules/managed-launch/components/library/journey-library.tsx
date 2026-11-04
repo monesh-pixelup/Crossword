@@ -109,8 +109,8 @@ export function JourneyLibrary() {
                 <SectionTitle
                   id="journey-library-title"
                   initial="E"
-                  firstLine="very Journey is built by people"
-                  secondLine="who study this for a living"
+                  firstLine="very Journey is built by us:"
+                  secondLine="people who study this for a living"
                   width={1000}
                   weight="light"
                 />
