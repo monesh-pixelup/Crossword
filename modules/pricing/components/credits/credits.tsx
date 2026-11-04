@@ -8,14 +8,16 @@ import { ctaLinks } from "@/modules/marketing";
 import { creditRows } from "../../config/pricing";
 import { BandDivider } from "../shared/band-divider";
 
-const cell = "border-b border-engraved px-3 py-[22px] md:px-6";
-const head = "border-b border-engraved px-3 py-[18px] font-serif text-base leading-[1.375] font-medium tracking-[-0.03em] uppercase md:px-6";
-const small = "font-sans text-[14px] leading-[1.43] tracking-[-0.02em] text-ink-muted";
+/** Every row sits on a 1px engraved/50 rule. */
+const rule = "border-b border-engraved/50";
+const cell = `${rule} px-5 py-8 text-left align-top`;
+const head = `${rule} px-5 py-[18px] text-left align-top font-serif text-base leading-[22px] font-medium tracking-[-0.48px] whitespace-nowrap uppercase`;
+const body = "font-sans text-base leading-6 font-normal tracking-[-0.32px]";
 
-/** A cell with nothing to say: a 14px rule in ink muted. */
+/** A cell with nothing to say: a 14px rule in ink muted, 11px down (centred on the 24px line). */
 const none = (
   <>
-    <span aria-hidden className="mx-auto block h-px w-3.5 bg-ink-muted" />
+    <span aria-hidden className="mt-[11px] block h-px w-3.5 bg-ink-muted" />
     <span className="sr-only">None</span>
   </>
 );
@@ -24,9 +26,10 @@ const none = (
  * Library · Comparison table, Credits (Figma 3564:22979), under the book divider band: a centred
  * eyebrow, swash headline and copy, then the rate table at 520 / 254 / 253 / 253 of 1280: the
  * interactions in Crimson 22 down the left, the credits column featured (a wine head with a bright
- * gold label over sand cells, the figures in wine), what each is billed per and a note beside it in
- * Geist, centred, 1px engraved rules under every row. "Always free" and "Free for a limited time"
- * open their groups in 48px rows of wine Geist Medium 12 caps. Then the pilot button beside a link to the
+ * gold label over sand cells, the figures in Geist 16 ink-soft), what each is billed per and a note
+ * beside it in Geist 16 ink-muted (notes wrap at 200px), every cell left-aligned at 20px / 32px with
+ * 1px engraved/50 rules under every row. "Always free" and "Free for a limited time" open their groups
+ * in 48px rows of wine Open Sans SemiBold 12 caps. Then the pilot button beside a link to the
  * calculator. Below 880px the table scrolls sideways, its first column pinned.
  */
 export function Credits() {
@@ -59,7 +62,7 @@ export function Credits() {
             </colgroup>
             <thead>
               <tr>
-                <th scope="col" className="sticky left-0 z-1 border-b border-engraved bg-cream">
+                <th scope="col" className={cn(rule, "sticky left-0 z-1 bg-cream")}>
                   <span className="sr-only">Interaction</span>
                 </th>
                 <th scope="col" className={cn(head, "bg-wine text-gold-bright")}>
@@ -79,13 +82,16 @@ export function Credits() {
                   <tr key={row.group}>
                     <th
                       scope="colgroup"
-                      className="sticky left-0 z-1 h-12 border-b border-engraved bg-cream px-3 text-left font-sans text-[12px] leading-[1.2] font-medium tracking-[0.08em] whitespace-nowrap text-wine uppercase md:px-6"
+                      className={cn(
+                        rule,
+                        "sticky left-0 z-1 h-12 bg-cream pr-6 pl-5 text-left font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-wine uppercase",
+                      )}
                     >
                       {row.group}
                     </th>
-                    <td className="border-b border-engraved bg-sand" />
-                    <td className="border-b border-engraved" />
-                    <td className="border-b border-engraved" />
+                    <td className={cn(rule, "bg-sand")} />
+                    <td className={rule} />
+                    <td className={rule} />
                   </tr>
                 ) : (
                   <tr key={row.label}>
@@ -95,9 +101,11 @@ export function Credits() {
                     >
                       {row.label}
                     </th>
-                    <td className={cn(cell, "bg-sand text-center font-serif text-[22px] leading-[1.1] tracking-[-0.04em] whitespace-nowrap text-wine")}>{row.credits}</td>
-                    <td className={cn(cell, small, "text-center")}>{row.billedPer ?? none}</td>
-                    <td className={cn(cell, small, "text-center")}>{row.note ?? none}</td>
+                    <td className={cn(cell, body, "bg-sand whitespace-nowrap text-ink-soft")}>{row.credits}</td>
+                    <td className={cn(cell, body, "text-pretty text-ink-muted")}>{row.billedPer ?? none}</td>
+                    <td className={cn(cell, body, "text-pretty text-ink-muted")}>
+                      {row.note ? <span className="block max-w-[200px]">{row.note}</span> : none}
+                    </td>
                   </tr>
                 ),
               )}

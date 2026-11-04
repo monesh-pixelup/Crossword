@@ -30,7 +30,7 @@ export function AssistantsFaq({
           />
         </div>
 
-        <FaqList items={items} />
+        <FaqList items={items} variant="plain" />
       </div>
     </section>
   );

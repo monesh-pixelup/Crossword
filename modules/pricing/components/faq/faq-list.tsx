@@ -9,17 +9,26 @@ import { faqs } from "../../config/pricing";
  * 1px engraved rules, a gold plus that turns into a minus, the answer in Geist below. The first is
  * open; opening one closes the others. Answers ease open and shut over 400ms; with reduced motion
  * they switch at once. Shows the pricing questions unless another page passes its own `items`.
+ * `variant="plain"` (AI Assistants, Figma 3305:1628): no rule above the first question, 4px side insets and
+ * the plus/minus drawn in ink-soft (#33322F) rather than gold.
  */
-export function FaqList({ items = faqs }: { items?: readonly { q: string; a: string }[] }) {
+export function FaqList({
+  items = faqs,
+  variant = "kit",
+}: {
+  items?: readonly { q: string; a: string }[];
+  variant?: "kit" | "plain";
+}) {
+  const plain = variant === "plain";
   const [open, setOpen] = useState(0);
   const id = useId();
 
   return (
-    <div className="flex flex-col shadow-[inset_0_1px_0_var(--color-engraved)]">
+    <div className={cn("flex flex-col", !plain && "shadow-[inset_0_1px_0_var(--color-engraved)]")}>
       {items.map((item, i) => {
         const expanded = i === open;
         return (
-          <div key={item.q} className="shadow-[inset_0_-1px_0_var(--color-engraved)]">
+          <div key={item.q} className={cn("shadow-[inset_0_-1px_0_var(--color-engraved)]", plain && "px-1")}>
             <h3>
               <button
                 type="button"
@@ -41,10 +50,11 @@ export function FaqList({ items = faqs }: { items?: readonly { q: string; a: str
                     expanded && "rotate-180",
                   )}
                 >
-                  <span className="absolute inset-x-0 top-[6.3px] h-[1.4px] bg-gold" />
+                  <span className={cn("absolute inset-x-0 top-[6.3px] h-[1.4px]", plain ? "bg-ink-soft" : "bg-gold")} />
                   <span
                     className={cn(
-                      "absolute inset-y-0 left-[6.3px] w-[1.4px] bg-gold transition-[scale,opacity] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                      "absolute inset-y-0 left-[6.3px] w-[1.4px] transition-[scale,opacity] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                      plain ? "bg-ink-soft" : "bg-gold",
                       expanded ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100",
                     )}
                   />
