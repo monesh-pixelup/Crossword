@@ -258,9 +258,12 @@ export function LifecycleTabs() {
               >
                 {s.name}
               </span>
-              {/* Along the open tab's foot, 0.75px past each edge: the #b6af9f track, with the maroon fill through the stage. */}
+              {/*
+                Along the open tab's foot, flush with its bottom edge so no sliver of the edge or track shows under it: a 2px
+                track (ink 10%) with the maroon fill running through the stage.
+              */}
               {on && (
-                <span aria-hidden className="pointer-events-none absolute bottom-[0.75px] -left-[0.75px] h-px w-[calc(100%+0.8px)] bg-[#b6af9f]">
+                <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-[2px] bg-black/10">
                   <span ref={fillRef} className="absolute inset-0 origin-left bg-maroon [scale:0_1]" />
                 </span>
               )}
