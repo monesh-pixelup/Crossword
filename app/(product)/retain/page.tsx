@@ -26,7 +26,7 @@ export default function RetainPage() {
       <Loyalty />
       <ReturnReduction />
       <RetentionChannels />
-      <Testimonials variant="retain" />
+      {/* <Testimonials variant="retain" /> */}
     </main>
   );
 }

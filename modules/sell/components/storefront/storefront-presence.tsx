@@ -68,10 +68,11 @@ export function StorefrontPresence() {
         </div>
       </section>
 
-      {/* A second band closes the section, under its bottom padding, before the testimonials. */}
+      {/* The closing band (under the bottom padding, before the testimonials) is off while the testimonials are hidden:
       <div className="relative h-6">
         <DividerBand glyph="quill" />
       </div>
+      */}
     </>
   );
 }

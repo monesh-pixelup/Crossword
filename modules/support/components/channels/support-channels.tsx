@@ -47,10 +47,11 @@ export function SupportChannels() {
         </div>
       </section>
 
-      {/* The band draws itself across the top of this 24px strip, between the page rails. */}
+      {/* The closing band (a 24px strip before the testimonials) is off while the testimonials are hidden:
       <div className="relative h-6">
         <DividerBand glyph="chat" />
       </div>
+      */}
     </>
   );
 }

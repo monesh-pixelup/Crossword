@@ -28,7 +28,7 @@ export default function SellPage() {
       <ConversionAssist />
       <ProactiveMessages />
       <StorefrontPresence />
-      <Testimonials variant="sell" />
+      {/* <Testimonials variant="sell" /> */}
     </main>
   );
 }

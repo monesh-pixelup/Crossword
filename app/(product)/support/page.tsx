@@ -28,7 +28,7 @@ export default function SupportPage() {
       <Workflows />
       <Guardrails />
       <SupportChannels />
-      <Testimonials variant="support" />
+      {/* <Testimonials variant="support" /> */}
     </main>
   );
 }
