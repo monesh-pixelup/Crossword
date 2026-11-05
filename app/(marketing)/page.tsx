@@ -11,6 +11,7 @@ import {
   Testimonials,
   Trust,
 } from "@/modules/landing";
+import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 
 export default function HomePage() {
   return (
@@ -25,6 +26,10 @@ export default function HomePage() {
       <Trust />
       <Testimonials />
       <Blog />
+      {/* The patterned divider band across the top of the envelope section, between the page rails. */}
+      <div className="relative h-6 max-md:h-[18px]">
+        <DividerBand glyph="chat" />
+      </div>
       <CtaEnvelope />
     </main>
   );

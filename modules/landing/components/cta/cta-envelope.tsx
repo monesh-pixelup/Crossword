@@ -3,7 +3,9 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { ctaLinks } from "@/modules/marketing";
 import back from "../../assets/cta/back.webp";
 import flapOpen from "../../assets/cta/flap-open.webp";
 import letter from "../../assets/cta/letter.webp";
@@ -23,13 +25,18 @@ const P = {
    * time: from the envelope's top at scrollFrom % of the viewport until the seal (64% down the
    * envelope) is at scrollTo %. scrub = seconds the animation takes to catch up with the scroll.
    */
-  trigger: { scrollFrom: 80, scrollTo: 45, scrub: 0.6 },
+  trigger: { scrollFrom: 95, scrollTo: 62, scrub: 0.6 },
   seal: { pressScale: 0.94, pressDur: 0.14, releaseDur: 0.42, bounce: 3 },
   closed: { start: 0.26, dur: 0.42, ease: "power2.in", shadowFade: 0.3 },
   open: { ease: "power2.out" },
   perspective: 2200,
   letter: { delay: 0.37, dur: 0.95, ease: "power3.out", fromY: 100, fromRotate: -0.6 },
   photo: { delay: 0.12, dur: 1.05, ease: "back.out(1.3)", fromY: 62, fromRotate: -10 },
+  /**
+   * Where the letter and photo settle once out (yPercent of their own height, negative is up): a little higher than
+   * their drawn place, so more of each shows out of the pocket before any hover.
+   */
+  rest: { letterY: -6, photoY: -6 },
   /** Hovering the letter or photo lifts it; leaving settles it back. Both ways ease out. */
   hover: { y: -36, dur: 0.6, ease: "power3.out" },
 };
@@ -102,13 +109,13 @@ export function CtaEnvelope() {
           .fromTo(
             el.letter,
             { yPercent: P.letter.fromY, rotation: P.letter.fromRotate },
-            { yPercent: 0, rotation: 0, duration: P.letter.dur, ease: P.letter.ease },
+            { yPercent: P.rest.letterY, rotation: 0, duration: P.letter.dur, ease: P.letter.ease },
             letterAt,
           )
           .fromTo(
             el.photo,
             { yPercent: P.photo.fromY, rotation: P.photo.fromRotate },
-            { yPercent: 0, rotation: 0, duration: P.photo.dur, ease: P.photo.ease },
+            { yPercent: P.rest.photoY, rotation: 0, duration: P.photo.dur, ease: P.photo.ease },
             photoAt,
           );
 
@@ -270,7 +277,14 @@ export function CtaEnvelope() {
         <div className="absolute top-[49.9029cqw] left-1/2 z-11 flex w-[min(389.68px,28.0345cqw)] -translate-x-1/2 flex-col items-center gap-y-[1.5108cqw] max-md:relative max-md:top-auto max-md:left-auto max-md:mx-auto max-md:mt-[-17.1223cqw] max-md:w-auto max-md:translate-x-0 max-md:gap-y-5 max-md:px-5 max-md:pb-14">
           {/* Crimson 40px in Figma's 389.68px box at the 1440px frame (the envelope 1390px wide), never larger, scaling down with the envelope below that. */}
           <h2 id="cta-title" className="m-0 pt-[0.2656em] text-center font-serif text-[min(40px,2.8777cqw)] leading-[1.1] font-normal tracking-[-0.06em] text-[#b4ab9b] [filter:url(#cta-deboss)] max-md:max-w-[11em] max-md:text-[2rem] max-[480px]:text-[1.75rem]">
-            <span className="font-script text-[1.5em] leading-0 tracking-[-0.05em]">E</span>xplore a no strings attached pilot with us today
+            <span className="font-script text-[1.5em] leading-0 tracking-[-0.05em]">E</span>xplore a no strings attached{" "}
+            {/* The call to action, underlined with the site's text-link hairline (ink 30%), fading on hover like the other links. */}
+            <Link
+              href={ctaLinks.bookDemo}
+              className="underline decoration-[rgba(40,40,40,0.3)] decoration-1 underline-offset-[0.12em] transition-opacity duration-150 hover:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
+            >
+              pilot with us today
+            </Link>
           </h2>
         </div>
       </div>
