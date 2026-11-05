@@ -7,15 +7,19 @@ import { DividerBand } from "../shared/divider-band";
 import { SectionTitle } from "../shared/section-title";
 import { LaunchWheel } from "./launch-wheel";
 
-/** One line from 992px; wraps below, with the marks tucked into the corners on small phones. */
+/**
+ * Figma 3073:21810: the line centred in the 827px box, 72px in from both sides (16px top and bottom), the opening mark
+ * 26.16px in at the top left and the closing mark, turned, 26.16px in near the bottom right. One line from 992px; wraps
+ * below, with the marks tucked into the corners on small phones.
+ */
 function Quote() {
   return (
-    <blockquote className="relative w-full max-w-[827px] border border-black/10 bg-[rgba(243,233,212,0.5)] px-5 py-11 xs:py-4 xs:pr-16 xs:pl-[72px]">
-      <p className="font-serif text-[22px] leading-[1.1] tracking-[-0.04em] text-[#040404] lg:whitespace-nowrap">
+    <blockquote className="relative flex w-full max-w-[827px] items-center justify-center border border-black/10 bg-[rgba(243,233,212,0.5)] px-5 py-11 xs:px-[72px] xs:py-4">
+      <p className="text-center font-serif text-[22px] leading-[1.1] tracking-[-0.04em] text-[#040404] lg:whitespace-nowrap">
         We want this, but we don&apos;t have the people, time or expertise to build it ourselves.
       </p>
       <Image src={quoteMark} alt="" className="absolute top-2 left-3 xs:top-[12.39px] xs:left-[26.16px]" />
-      <Image src={quoteMark} alt="" className="absolute right-3 bottom-2 rotate-180 xs:right-[26.16px] xs:bottom-[12.75px]" />
+      <Image src={quoteMark} alt="" className="absolute right-3 bottom-2 rotate-180 xs:right-[26.16px] xs:bottom-[10.95px]" />
     </blockquote>
   );
 }
@@ -25,7 +29,8 @@ export function ManagedLaunch() {
     <section aria-labelledby="launch-title" className="relative section-pad-band">
       <DividerBand glyph="gear" />
 
-      <div className="flex content-width flex-col items-center gap-section">
+      {/* Figma 3073:21775: 44px from the quote down to the 360px row (the header still 80px above the quote). */}
+      <div className="flex content-width flex-col items-center gap-section lg:gap-11">
         <div className="flex w-full flex-col items-center gap-section">
           <div className="flex flex-col items-center gap-6">
             <Eyebrow>Managed launch</Eyebrow>
