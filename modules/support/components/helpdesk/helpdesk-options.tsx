@@ -1,11 +1,26 @@
+import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
 import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
-import { SupportHelpdeskIntegration } from "../motion/helpdesk-integration";
+import freshdesk from "../../assets/helpdesk/freshdesk.svg";
+import gorgias from "../../assets/helpdesk/gorgias.svg";
+import yourHelpDesk from "../../assets/helpdesk/your-help-desk.svg";
+import zendesk from "../../assets/helpdesk/zendesk.svg";
 import { SupportScenePanel } from "../motion/support-scene-panel";
+
+/** The help desks Crossword connects to (Figma 3799:16889), each with its 31 × 29 gold mark. */
+const helpdesks = [
+  { name: "Zendesk", icon: zendesk },
+  { name: "Gorgias", icon: gorgias },
+  { name: "Freshdesk", icon: freshdesk },
+  { name: "Your help desk", icon: yourHelpDesk },
+];
+
+/** Four 3px gold studs, 5px into each corner of a tile. */
+const studs = ["top-[5px] left-[5px]", "top-[5px] right-[5px]", "bottom-[5px] left-[5px]", "right-[5px] bottom-[5px]"];
 
 /** Figma's tag pill: Open Sans SemiBold 12 caps at +1.44px on #ffeec2 in a 0.5px ink/40 hairline, cap-trimmed inside 6px. */
 const tag =
@@ -15,11 +30,10 @@ const title = "font-serif text-(length:--h5-size) leading-[1.1] font-light track
 const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60";
 
 /**
- * Figma "Library · Numbered panel (Helpdesk)": the eyebrow and headline, then the two options as
- * alternating rows 120px apart (copy left of its maroon panel, then the panel left of its copy),
- * spread across the content width. Each option is a tag, a 32px title, a line of copy and a text
- * link; the panels are the support scenes' maroon frame (row 1 playing the Crossword inbox scene,
- * row 2 the static helpdesk-integration illustration). Opens with the patterned divider band (24px more top padding), so the gold
+ * Figma "Library · Numbered panel (Helpdesk)" (3257:34848): the eyebrow and headline, then the two options
+ * 120px apart. Row 1 is the copy (a tag, a 32px title, a line of copy and a text link) beside the Crossword
+ * inbox scene in its maroon frame; row 2 is the helpdesk integration as a centred sand panel over four help
+ * desk tiles. Opens with the patterned divider band (24px more top padding), so the gold
  * section tick (1px × 180px, as SectionTick) starts 24px lower too.
  */
 export function HelpdeskOptions() {
@@ -64,26 +78,35 @@ export function HelpdeskOptions() {
             </div>
           </div>
 
-          {/* Row 2: panel first; the copy sits in a 675px column (32px top, 48px bottom) centred on the row, against its right edge. */}
-          <div className="flex w-full flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,738px)_minmax(320px,1fr)] lg:items-center lg:gap-8">
-            <div className="flex flex-col items-start justify-center lg:order-2 lg:h-[675px] lg:justify-self-end lg:pt-8 lg:pb-12">
-              <div className="flex flex-col items-start gap-6">
-                <div className="flex flex-col items-start gap-4">
-                  <p className={tag}>Helpdesk integration</p>
-                  <h3 className={title}>Keep the helpdesk you already have.</h3>
-                  <p className={body}>
-                    Connect Crossword to Zendesk, Gorgias, Freshdesk or the helpdesk you already use, with
-                    conversations and ticket status synced both ways.
-                  </p>
-                </div>
-                <TextLink href={ctaLinks.bookDemo}>Ask us about it</TextLink>
-              </div>
+          {/*
+            Row 2 (Figma 3799:16878, "Helpdesk integration · centred"): a sand panel (1px black/12 line, 80px in) with the
+            tag, title, copy and link centred and 16px apart, then 48px below the four help desks as tiles, 188 × 128 and
+            16px apart, styled as Support channels' tiles. Below 992px the copy wraps and the tiles go two to a row.
+          */}
+          <div className="flex w-full flex-col items-center gap-12 border border-black/12 bg-[#f3e9d4] px-5 py-14 md:px-10 lg:p-20">
+            <div className="flex flex-col items-center gap-4 text-center">
+              <p className={tag}>Helpdesk integration</p>
+              <h3 className={title}>Keep the helpdesk you already have.</h3>
+              <p className="max-w-[720px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60 lg:max-w-none lg:whitespace-nowrap">
+                Connect Crossword to Zendesk, Gorgias, Freshdesk or your own help desk, with conversations and ticket status
+                synced both ways.
+              </p>
+              <TextLink href={ctaLinks.bookDemo}>Ask us about it</TextLink>
             </div>
 
-            {/* The same maroon frame as row 1's (and its 1.2× cap), holding the static helpdesk-integration illustration. */}
-            <div className="relative aspect-[738/680] w-full lg:order-1">
-              <SupportHelpdeskIntegration maxScale={1.2} />
-            </div>
+            <ul className="grid w-full max-w-[400px] grid-cols-2 gap-4 sm:max-w-none sm:w-auto sm:grid-cols-4">
+              {helpdesks.map(({ name, icon }) => (
+                <li key={name} className="relative flex h-32 border border-engraved/10 bg-sand px-[1.5px] py-[2.951px] text-center sm:w-[188px]">
+                  <div className="flex w-full flex-col items-center justify-center gap-2 bg-[#fff7e4]">
+                    <Image src={icon} alt="" className="h-[29px] w-[31px]" />
+                    <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
+                  </div>
+                  {studs.map((place) => (
+                    <span key={place} aria-hidden className={`pointer-events-none absolute size-[3px] rounded-full bg-gold ${place}`} />
+                  ))}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

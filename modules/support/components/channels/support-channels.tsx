@@ -20,9 +20,9 @@ export function SupportChannels() {
     <>
       <section aria-labelledby="channels-title" className="relative section-pad">
         <div className="flex content-width flex-col items-center gap-12 min-[1033px]:gap-20">
-          <div className="flex w-[400px] max-w-full flex-col items-center gap-6 text-center">
+          <div className="flex w-[520px] max-w-full flex-col items-center gap-6 text-center">
             <Eyebrow>Channels</Eyebrow>
-            <SectionTitle id="channels-title" initial="S" firstLine="upport" secondLine="channels" width={222} variant="credits" weight="light" />
+            <SectionTitle id="channels-title" initial="S" firstLine="upport channels" width={520} variant="credits" weight="light" />
             <p className="font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
               Wherever your customers reach out, someone answers.
             </p>
