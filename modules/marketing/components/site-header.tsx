@@ -228,8 +228,16 @@ function PlatformItem({
     <Link
       href={link.href}
       onClick={onChoose}
-      className="group/link flex w-full flex-col items-start gap-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
+      className="group/link relative isolate flex w-full flex-col items-start gap-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
     >
+      {/* The same soft wash as the open Platform trigger, behind the link while hovered or focused. */}
+      <span
+        aria-hidden
+        className={cn(
+          "pointer-events-none absolute -inset-x-3 -inset-y-2 -z-10 rounded-[2px] opacity-0 transition-opacity duration-150 group-hover/link:opacity-100 group-focus-visible/link:opacity-100",
+          light ? "bg-white/5" : "bg-ink/5",
+        )}
+      />
       <span className="flex w-full items-center justify-between gap-4">
         <span
           className={cn(
@@ -262,8 +270,8 @@ function PlatformItem({
  *   Sell group (its label 14px over its two products, 20px apart, 24px in from a gold/15 or rail/40
  *   rule), Customer support and Retention.
  * - The AI channels, 276px and 48px in either side: AI Assistants and Personal Agents (Crimson 18)
- *   32px either side of a 0.681px rule, each with its "Examples" label (Geist Medium 11, +8%) 8px
- *   down and 10px over its chips.
+ *   32px either side of a 0.681px rule, each with its chips 8px
+ *   down.
  * - The 304 × 111 Insight card, 10px over a READ MORE link.
  * Below 1440px the gaps and columns close up.
  */
@@ -315,8 +323,7 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
               {i > 0 && <span aria-hidden className={cn("h-[0.681px] w-full shrink-0", rule)} />}
               <div className="flex w-full flex-col items-start gap-1">
                 <PlatformItem link={channel} light={light} large descriptionWidth={channel.descriptionWidth} onChoose={onChoose} />
-                <div className="flex flex-col items-start gap-2.5 pt-2">
-                  <p className={cn("font-sans text-[11px] leading-[1.2] font-medium tracking-[0.88px] uppercase", muted)}>Examples</p>
+                <div className="flex flex-col items-start pt-2">
                   <ul className="flex flex-wrap gap-2">
                     {assistantIcons[channel.examples].map((glyph) => (
                       <li key={glyph.name}>
