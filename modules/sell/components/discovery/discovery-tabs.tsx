@@ -73,10 +73,20 @@ export function DiscoveryTabs() {
         </ul>
       </nav>
 
-      {/* Every feature shares one cell and they crossfade (`.tab-panel`); a scene is drawn while its feature shows or fades out, keyed to replay from the start. */}
-      <div className="grid w-full min-w-0 lg:flex-[0_1_820px]">
+      {/*
+        Every feature shares one cell and they crossfade (`.tab-panel`); a scene is drawn while its feature shows or fades
+        out, keyed to replay from the start. The cell is two rows, shared through subgrid: the copy row is as tall as the
+        tallest feature's copy, so each feature's copy starts at the same top and its visual at the same place below,
+        whichever is showing.
+      */}
+      <div className="grid w-full min-w-0 grid-rows-[auto_auto] lg:flex-[0_1_820px]">
         {discoveryFeatures.map((feature, i) => (
-          <div key={feature.label} inert={i !== active} className="tab-panel flex w-full flex-col items-start">
+          <div
+            key={feature.label}
+            inert={i !== active}
+            className="tab-panel grid w-full grid-rows-subgrid items-start"
+            style={{ gridArea: "1 / 1 / 3 / 2" }}
+          >
             <div className="flex w-full flex-col items-start gap-5 bg-cream px-4 pb-6 md:flex-row md:items-end md:justify-between md:gap-8">
               <div className="flex flex-col items-start gap-3">
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.label}</h3>
