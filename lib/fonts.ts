@@ -1,29 +1,24 @@
-import {
-  Caveat,
-  Crimson_Pro,
-  DM_Sans,
-  Geist,
-  Geist_Mono,
-  Inter,
-  Instrument_Serif,
-  Noto_Serif,
-  Playfair_Display,
-  Quicksand,
-  Space_Grotesk,
-  Tangerine,
-} from "next/font/google";
 import localFont from "next/font/local";
 
 /**
- * Every typeface in the design system, self-hosted via next/font.
+ * Every typeface in the design system, self-hosted via next/font/local from lib/fonts.
  * Only fonts that paint above-the-fold text are preloaded; the rest load on
  * demand to keep the critical path lean.
+ *
+ * All of them used to come through next/font/google, but on Vercel's build machines Google sometimes answers with
+ * font URLs Turbopack can't resolve ("next/font/google queries have exactly one entry"), failing the build (it hit
+ * Open Sans, then Inter). So every face is the latin woff2 Google serves, downloaded once into lib/fonts: variable
+ * files where the family is variable (covering the weights the site uses), static ones otherwise. To refresh one,
+ * fetch fonts.googleapis.com/css2?family=<Family>:<axes> with a modern browser user agent and take its latin file.
  */
 
-export const crimsonPro = Crimson_Pro({
-  subsets: ["latin"],
+export const crimsonPro = localFont({
+  src: "./fonts/crimson-pro-normal-200-900.woff2",
+  weight: "200 900",
+  style: "normal",
   variable: "--font-crimson-pro",
   display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
 /**
@@ -39,17 +34,23 @@ export const parisienne = localFont({
   display: "swap",
 });
 
-export const geist = Geist({
-  subsets: ["latin"],
+export const geist = localFont({
+  src: "./fonts/geist-normal-100-900.woff2",
+  weight: "100 900",
+  style: "normal",
   variable: "--font-geist",
   display: "swap",
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
-export const dmSans = DM_Sans({
-  subsets: ["latin"],
+export const dmSans = localFont({
+  src: "./fonts/dm-sans-normal-100-1000.woff2",
+  weight: "100 1000",
+  style: "normal",
   variable: "--font-face-dm-sans",
   display: "swap",
   preload: false,
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
 /**
@@ -57,26 +58,29 @@ export const dmSans = DM_Sans({
  * small sizes (9.7–14px) with optical sizing on, as their source build did.
  * Kept separate so the other sections' DM Sans renders unchanged.
  */
-export const dmSansOpsz = DM_Sans({
-  subsets: ["latin"],
-  axes: ["opsz"],
+export const dmSansOpsz = localFont({
+  src: "./fonts/dm-sans-opsz-normal-100-1000.woff2",
+  weight: "100 1000",
+  style: "normal",
   variable: "--font-face-dm-sans-opsz",
   display: "swap",
   preload: false,
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
-export const inter = Inter({
-  weight: "400",
-  subsets: ["latin"],
+/** Inter's variable latin file (wght 400–600) serves both Inter instances: the single-weight one and the motion one. */
+export const inter = localFont({
+  src: "./fonts/inter-normal-400-600.woff2",
+  weight: "400 600",
+  style: "normal",
   variable: "--font-face-inter",
   display: "swap",
   preload: false,
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
 /**
- * Section eyebrow labels (600) and feature descriptions (400). Self-hosted: Google's latin variable file
- * (wght 400–600, fonts.googleapis.com/css2?family=Open+Sans:wght@400..600), because fetching Open Sans
- * through next/font/google broke the Turbopack build on Vercel ("next/font/google queries have exactly one entry").
+ * Section eyebrow labels (600) and feature descriptions (400). Google's latin variable file (wght 400–600).
  */
 export const openSans = localFont({
   src: "./fonts/open-sans-latin.woff2",
@@ -89,100 +93,120 @@ export const openSans = localFont({
 });
 
 /** Calligraphic numbers, swash capitals (400) and signatures (700). */
-export const tangerine = Tangerine({
-  weight: ["400", "700"],
-  subsets: ["latin"],
+export const tangerine = localFont({
+  src: [
+    { path: "./fonts/tangerine-normal-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/tangerine-normal-700.woff2", weight: "700", style: "normal" },
+  ],
   variable: "--font-tangerine",
   display: "swap",
   preload: false,
+  fallback: ["cursive"],
 });
 
 /** The handwritten note on the home page's CTA letter (400). */
-export const caveat = Caveat({
+export const caveat = localFont({
+  src: "./fonts/caveat-normal-400.woff2",
   weight: "400",
-  subsets: ["latin"],
+  style: "normal",
   variable: "--font-caveat",
   display: "swap",
   preload: false,
+  fallback: ["cursive"],
 });
 
+/** Geist Mono's variable latin file (wght 400–500) serves both instances: step tags on the Retain timeline (400) and the motion visuals. */
 /** Step tags on the Retain timeline (400). */
-export const geistMono = Geist_Mono({
-  weight: "400",
-  subsets: ["latin"],
+export const geistMono = localFont({
+  src: "./fonts/geist-mono-normal-400-500.woff2",
+  weight: "400 500",
+  style: "normal",
   variable: "--font-geist-mono",
   display: "swap",
   preload: false,
+  fallback: ["ui-monospace", "Menlo", "monospace"],
 });
 
 /*
- * The Sell motion visuals (modules/sell/components/motion) load the weights
- * their source build requested from Google Fonts. Inter and Geist Mono get
- * their own instances so the other sections keep their single weight.
- * The home page's motion visuals (modules/landing/components/motion/home-v2)
- * share the Inter instance and add 600.
+ * The Sell motion visuals (modules/sell/components/motion) use the weights their source build requested from Google
+ * Fonts. Inter and Geist Mono keep their own CSS variables for them, from the same variable files.
+ * The home page's motion visuals (modules/landing/components/motion/home-v2) share the Inter instance and add 600.
  */
-export const interMotion = Inter({
-  weight: ["400", "500", "600"],
-  subsets: ["latin"],
+export const interMotion = localFont({
+  src: "./fonts/inter-normal-400-600.woff2",
+  weight: "400 600",
+  style: "normal",
   variable: "--font-face-inter-motion",
   display: "swap",
   preload: false,
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
-export const geistMonoMotion = Geist_Mono({
-  weight: ["400", "500"],
-  subsets: ["latin"],
+export const geistMonoMotion = localFont({
+  src: "./fonts/geist-mono-normal-400-500.woff2",
+  weight: "400 500",
+  style: "normal",
   variable: "--font-geist-mono-motion",
   display: "swap",
   preload: false,
+  fallback: ["ui-monospace", "Menlo", "monospace"],
 });
 
 /*
  * Playfair Display, Noto Serif, Quicksand, Space Grotesk and Instrument Serif also set the Sell motion visuals'
  * storefront brands (modules/sell/components/motion-v2), in the weights and styles their source build requested.
  */
-export const playfairDisplay = Playfair_Display({
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
+export const playfairDisplay = localFont({
+  src: [
+    { path: "./fonts/playfair-display-normal-400-600.woff2", weight: "400 600", style: "normal" },
+    { path: "./fonts/playfair-display-italic-400-600.woff2", weight: "400 600", style: "italic" },
+  ],
   variable: "--font-playfair-display",
   display: "swap",
   preload: false,
+  fallback: ["Georgia", "serif"],
 });
 
-export const notoSerif = Noto_Serif({
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
+export const notoSerif = localFont({
+  src: [
+    { path: "./fonts/noto-serif-normal-400-500.woff2", weight: "400 500", style: "normal" },
+    { path: "./fonts/noto-serif-italic-400-500.woff2", weight: "400 500", style: "italic" },
+  ],
   variable: "--font-noto-serif",
   display: "swap",
   preload: false,
+  fallback: ["Georgia", "serif"],
 });
 
-export const quicksand = Quicksand({
-  weight: ["500", "600", "700"],
-  subsets: ["latin"],
+export const quicksand = localFont({
+  src: "./fonts/quicksand-normal-500-700.woff2",
+  weight: "500 700",
+  style: "normal",
   variable: "--font-quicksand",
   display: "swap",
   preload: false,
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
-export const spaceGrotesk = Space_Grotesk({
-  weight: ["400", "500", "600"],
-  subsets: ["latin"],
+export const spaceGrotesk = localFont({
+  src: "./fonts/space-grotesk-normal-400-600.woff2",
+  weight: "400 600",
+  style: "normal",
   variable: "--font-space-grotesk",
   display: "swap",
   preload: false,
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
-export const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
+export const instrumentSerif = localFont({
+  src: [
+    { path: "./fonts/instrument-serif-normal-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/instrument-serif-italic-400.woff2", weight: "400", style: "italic" },
+  ],
   variable: "--font-instrument-serif",
   display: "swap",
   preload: false,
+  fallback: ["Georgia", "serif"],
 });
 
 export const fontVariables = [
