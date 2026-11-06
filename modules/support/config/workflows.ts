@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
-import handoffIcon from "../assets/workflows/handoff-icon.svg";
-import workflowIcon from "../assets/workflows/workflow-icon.svg";
+import handoffIcon from "../assets/workflows/handoff-glyph.svg";
+import workflowIcon from "../assets/workflows/workflow-glyph.svg";
 
 /** The two workflows, as Figma's Node diagram: the usual path and the hand-over to a person. */
 export const workflows: { icon: StaticImageData; title: string; body: string }[] = [

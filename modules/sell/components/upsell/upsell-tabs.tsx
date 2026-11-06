@@ -14,53 +14,28 @@ const DURATION_MS = 6000;
 const HOLD_MS = 2500;
 
 /**
- * Figma's 24px icon tile: a 0.75px border (black/30 open, black/19 otherwise) around the 22.5px tile, its line glyph
- * (maroon open, black/40 otherwise) under a rotated square and four corner dots (black/30 open, black/16 otherwise).
+ * Figma 3257:36264's icons. The open feature's is a maroon badge (Figma 3786:21472): the glyph at 14.8px in #ffb657,
+ * 4.6px in, inside a 0.46px #efe9db line and a 0.46px #ffb657 ring. The others are a 0.75px black/19 tile around the
+ * 22.5px glyph box, the glyph (16.36px, 3.6px in) in black/40. `path` is the glyph in that 22.5px box.
  */
 function IconTile({ path, on }: { path: string; on: boolean }) {
-  const deco = on ? 0.3 : 0.16;
-  return (
-    <span
-      aria-hidden
-      className={cn(
-        "flex shrink-0 items-center border-[0.75px] p-[0.75px] transition-colors duration-300 ease-out",
-        on ? "border-black/30" : "border-black/19",
-      )}
-    >
-      <svg
-        width="22.5"
-        height="22.5"
-        viewBox="0 0 22.5 22.5"
-        fill="none"
-        // The glyph's and marks' colours ease with the tile's border.
-        className="block overflow-hidden *:transition-[stroke,stroke-opacity,fill-opacity] *:duration-300 *:ease-out"
+  if (on) {
+    return (
+      <span
+        aria-hidden
+        className="flex shrink-0 items-center overflow-clip border-[0.46px] border-[#efe9db] bg-maroon p-[4.603px] shadow-[0_0_0_0.46px_#ffb657]"
       >
-        <path
-          d={path}
-          stroke={on ? "#8C1F3D" : "black"}
-          strokeOpacity={on ? 1 : 0.4}
-          strokeWidth="1.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <rect
-          x="11.25"
-          y="-5.85341"
-          width="24.1875"
-          height="24.1875"
-          transform="rotate(45 11.25 -5.85341)"
-          stroke="black"
-          strokeOpacity={deco}
-          strokeWidth="0.5625"
-        />
-        {[
-          [1.125, 1.125],
-          [21.375, 1.125],
-          [21.375, 21.375],
-          [1.125, 21.375],
-        ].map(([cx, cy]) => (
-          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.5625" fill="black" fillOpacity={deco} />
-        ))}
+        {/* The glyph's own 16.36px box inside the 22.5px one, drawn at 14.8px: its 1.2px stroke scales to Figma's 1.085px. */}
+        <svg width="14.795" height="14.795" viewBox="3.615 3.705 16.362 16.362" fill="none" className="block">
+          <path d={path} stroke="#FFB657" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+    );
+  }
+  return (
+    <span aria-hidden className="flex shrink-0 items-center border-[0.75px] border-black/19 p-[0.75px]">
+      <svg width="22.5" height="22.5" viewBox="0 0 22.5 22.5" fill="none" className="block overflow-hidden">
+        <path d={path} stroke="black" strokeOpacity="0.4" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </span>
   );

@@ -11,27 +11,29 @@ import styleMatch from "../../assets/library/style-match.svg";
 import support from "../../assets/library/support.svg";
 import { libraryJourneys } from "../../config/launch";
 
-/** Each journey's 22px gold icon, in the order of libraryJourneys (Order tracking's is Figma's filled shopping bag). */
+/** Each journey's gold glyph, in the order of libraryJourneys (Order tracking's is Figma's 14.9px shopping bag). */
 const icons: StaticImageData[] = [giftFinder, styleMatch, sizeFit, support, orderTracking];
 
 /** One step of the row: a 278px journey plus the 28px either side of the rule after it. */
 const STEP = 278 + 56;
 
 /**
- * Figma's 32px icon tile: maroon inside a 0.8px #efe9db border ringed by 0.8px of gold, a gold square turned 45°
- * (35.2px, clipped to the tile), a 1.6px gold stud in each corner, and the 22px icon centred (0.13px low) in a
- * 21.719px clip.
+ * Figma 3295:169 "Icon badge": maroon inside a 0.8px #efe9db line, the 22px glyph in a 21.719px clip, 5.141px in.
+ * Order tracking's (3512:25099) is its 14.932px shopping bag, 8.534px in, the same size overall.
  */
-function IconTile({ icon }: { icon: StaticImageData }) {
+function IconTile({ icon, small = false }: { icon: StaticImageData; small?: boolean }) {
   return (
-    <span aria-hidden className="relative size-8 shrink-0 overflow-clip border-[0.8px] border-[#efe9db] bg-maroon shadow-[0_0_0_0.8px_#ffb657]">
-      <span className="absolute top-[calc(50%+0.13px)] left-1/2 size-[21.719px] -translate-1/2 overflow-clip">
-        <Image src={icon} alt="" className="absolute top-0 left-0 size-[22px] max-w-none" />
-      </span>
-      <span className="absolute top-1/2 left-1/2 size-[35.2px] -translate-1/2 rotate-45 border-[0.8px] border-[#ffb657]" />
-      {["top-0 left-0", "top-0 right-0", "right-0 bottom-0", "bottom-0 left-0"].map((corner) => (
-        <span key={corner} className={`absolute ${corner} size-[1.6px] rounded-full bg-[#ffb657]`} />
-      ))}
+    <span
+      aria-hidden
+      className={`flex shrink-0 items-center justify-center border-[0.8px] border-[#efe9db] bg-maroon ${small ? "p-[8.534px]" : "p-[5.141px]"}`}
+    >
+      {small ? (
+        <Image src={icon} alt="" className="block size-[14.932px] max-w-none" />
+      ) : (
+        <span className="relative block size-[21.719px] overflow-clip">
+          <Image src={icon} alt="" className="absolute top-0 left-0 size-[22px] max-w-none" />
+        </span>
+      )}
     </span>
   );
 }
@@ -141,7 +143,7 @@ export function JourneyLibrary() {
                   </span>
                 )}
                 <div role="listitem" className="flex w-[278px] shrink-0 snap-start flex-col items-start gap-6">
-                  <IconTile icon={icons[i]} />
+                  <IconTile icon={icons[i]} small={icons[i] === orderTracking} />
                   <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{journey.title}</h3>
                   <p className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">
                     <span className="font-medium text-[#33322f]">{journey.lead}</span>

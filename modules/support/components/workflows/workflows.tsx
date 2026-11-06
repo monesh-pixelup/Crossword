@@ -7,7 +7,7 @@ import { workflows } from "../../config/workflows";
  * Figma "Library · Node diagram (Workflows + illustration)": a sand panel between the page rails
  * (0.5px black/25 hairline, 80px top and bottom inside it), the eyebrow and a two-line headline in a 210px
  * header, then 120px below the two workflows side by side (equal halves, 115px either side of a black/10
- * rule): a 32px wine icon tile, then 24px below a Crimson 24 title 16px over a line of copy in black/50. The
+ * rule): a maroon icon badge (its glyph 5.14px in), then 24px below a Crimson 24 title 16px over a line of copy in black/50. The
  * damask ornament sits over the section's top-right corner.
  */
 export function Workflows() {
@@ -39,10 +39,10 @@ export function Workflows() {
                   </span>
                 )}
                 <div className="flex min-w-0 flex-col items-start gap-6 md:flex-1 md:basis-0">
-                  {/* Figma's 35.2px export: the 32px tile plus its 1.6px drop shadow on every side. */}
-                  <span aria-hidden className="relative size-8 shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element -- static SVG, nothing to optimize */}
-                    <img src={w.icon.src} alt="" className="absolute -inset-[1.6px] block size-[35.2px] max-w-none" />
+                  {/* Figma 3257:34949 "Icon badge": the 21.72px glyph on maroon, 5.14px in, inside a 0.8px #efe9db line. */}
+                  <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.8px] border-[#efe9db] bg-maroon p-[5.141px]">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- static SVG glyph, nothing to optimize */}
+                    <img src={w.icon.src} alt="" className="block size-[21.719px] max-w-none" />
                   </span>
                   {/* Figma 3700:14741: the Crimson 24 title 16px over its copy. */}
                   <div className="flex flex-col items-start gap-4">

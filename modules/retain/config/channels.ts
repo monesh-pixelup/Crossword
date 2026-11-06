@@ -1,8 +1,8 @@
 import type { StaticImageData } from "next/image";
-import outboundIcon from "../assets/channels/outbound-icon.svg";
-import sequencingIcon from "../assets/channels/sequencing-icon.svg";
+import outboundIcon from "../assets/channels/outbound-glyph.svg";
+import sequencingIcon from "../assets/channels/sequencing-glyph.svg";
 
-/** Retention channels, as Figma's node diagram: the two ways Crossword reaches out, each with its wine icon tile. */
+/** Retention channels, as Figma's node diagram: the two ways Crossword reaches out, each with its maroon icon badge glyph. */
 export const retentionChannels: { icon: StaticImageData; title: string; body: string }[] = [
   {
     icon: sequencingIcon,

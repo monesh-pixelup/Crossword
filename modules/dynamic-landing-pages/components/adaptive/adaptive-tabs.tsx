@@ -58,53 +58,27 @@ function Glyph({ id, at, color }: { id: AdaptiveId; at: number; color: string })
 }
 
 /**
- * Each feature's mark, from Figma (3257:37821, 3257:37835): a tile with a fine diamond and a dot in each corner. The
- * active one is a 22px maroon tile, its glyph, diamond and dots in gold, with a 0.55px #efe9db ring around it; the rest
- * are a 0.688px black/19 frame (0.688px in) around a 20.625px tile, the glyph in #cfcabe and the diamond and dots in
- * black/16.
+ * Each feature's mark, from Figma 3257:37819. The open one is a maroon icon badge (3257:37821): its glyph in #ffb657 in a
+ * 15.93px box, 3.03px in, inside a 0.55px #efe9db line. The rest are a 0.688px black/19 frame (0.688px in) around a
+ * 20.62px badge, the glyph (15px box, 2.81px in) in #cfcabe. No diamond or corner dots.
  */
 function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
   if (on) {
     return (
-      <span aria-hidden className="block size-[22px] shrink-0 bg-[#7d0034] shadow-[0_0_0_0.55px_#efe9db]">
-        <svg viewBox="1.1 1.1 22 22" fill="none" className="block size-[22px]">
-          <Glyph id={id} at={12.1} color="#ffb657" />
-          <path d="M12.1 -4.62437L28.8231 12.0987L12.1 28.8218L-4.62308 12.0987L12.1 -4.62437Z" stroke="#ffb657" strokeWidth="0.55" />
-          {[
-            [2.19688, 2.20078],
-            [22.0016, 2.20078],
-            [22.0016, 21.9996],
-            [2.19688, 21.9996],
-          ].map(([cx, cy]) => (
-            <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.55" fill="#ffb657" />
-          ))}
+      <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.55px] border-[#efe9db] bg-[#7d0034] p-[3.034px]">
+        <svg viewBox="0 0 15.932 15.932" fill="none" className="block size-[15.932px]">
+          <Glyph id={id} at={7.966} color="#ffb657" />
         </svg>
       </span>
     );
   }
   return (
-    <span aria-hidden className="block shrink-0 border-[0.688px] border-black/19 p-[0.688px]">
-      <svg viewBox="0 0 20.625 20.625" fill="none" className="block size-[20.625px]">
-        <Glyph id={id} at={10.3125} color="#cfcabe" />
-        <rect
-          x="10.3125"
-          y="-5.36568"
-          width="22.1719"
-          height="22.1719"
-          transform="rotate(45 10.3125 -5.36568)"
-          stroke="black"
-          strokeOpacity="0.16"
-          strokeWidth="0.515625"
-        />
-        {[
-          [1.03125, 1.03125],
-          [19.5938, 1.03125],
-          [19.5938, 19.5938],
-          [1.03125, 19.5938],
-        ].map(([cx, cy]) => (
-          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.515625" fill="black" fillOpacity="0.16" />
-        ))}
-      </svg>
+    <span aria-hidden className="flex shrink-0 items-center border-[0.688px] border-black/19 p-[0.688px]">
+      <span className="flex items-center justify-center p-[2.813px]">
+        <svg viewBox="0 0 14.998 14.998" fill="none" className="block size-[14.998px]">
+          <Glyph id={id} at={7.499} color="#cfcabe" />
+        </svg>
+      </span>
     </span>
   );
 }
@@ -217,15 +191,21 @@ export function AdaptiveTabs() {
                 selected ? "bg-sand" : "hover:bg-sand/40",
               )}
             >
-              <Mark id={feature.id} on={selected} />
+              {/*
+                Figma 3794:6208: the mark beside the title (10px apart, centred on it), and the description under them,
+                32px in so it lines up with the title. Closed features (mark included) sit at 50%.
+              */}
               <span
                 className={cn(
-                  "flex max-w-[424px] flex-col items-start gap-2.5 transition-opacity duration-300",
+                  "flex min-w-0 flex-1 flex-col items-start gap-2.5 transition-opacity duration-300",
                   !selected && "opacity-50 group-hover:opacity-100",
                 )}
               >
-                <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.title}</span>
-                <span className="font-sans text-[14px] leading-5 tracking-[-0.42px] text-black/59">{feature.description}</span>
+                <span className="flex w-full items-center gap-2.5">
+                  <Mark id={feature.id} on={selected} />
+                  <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.title}</span>
+                </span>
+                <span className="pl-8 font-sans text-[14px] leading-5 tracking-[-0.42px] text-black/59">{feature.description}</span>
               </span>
               {selected && (
                 <span
