@@ -2,7 +2,8 @@ import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
-import background from "@/modules/sell/assets/hero/background.webp";
+// Figma 3262:56 (image 10027): this page's own photo, the stone and branch vase on a marble shelf against the slatted wall.
+import background from "../../assets/hero/background.webp";
 
 /**
  * Three-line display headline, set like the Sell hero's (70 / 56 / 48 / 44px, Crimson ExtraLight at

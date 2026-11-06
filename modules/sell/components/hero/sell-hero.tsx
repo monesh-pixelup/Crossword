@@ -2,7 +2,9 @@ import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
-import background from "../../assets/hero/background.webp";
+// Figma 3257:35808 (image 10027): this page's own photo, the globe and bookshelves against the panelled wall. The old
+// background.webp beside it is still the other product heroes' photo.
+import background from "../../assets/hero/background-sell.webp";
 
 /**
  * Two-line display headline (Figma 3257:35912): Crimson ExtraLight 70 / 56 / 48 / 44px at 1.1 and -5%,

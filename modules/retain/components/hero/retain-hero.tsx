@@ -2,7 +2,8 @@ import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
-import background from "@/modules/sell/assets/hero/background.webp";
+// Figma 3257:38101 (image 10027): this page's own photo, the velvet armchair and marble side table against the slatted wall.
+import background from "../../assets/hero/background.webp";
 
 /**
  * Two-line display headline (Figma 3257:38205): Crimson ExtraLight 70 / 56 / 48 / 44px at 1.1 and -5%,

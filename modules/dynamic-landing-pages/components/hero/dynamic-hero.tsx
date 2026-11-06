@@ -2,7 +2,8 @@ import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
-import background from "@/modules/sell/assets/hero/background.webp";
+// Figma 3257:37341 (image 10027): this page's own photo, the carafe and glasses on a marble table against the slatted wall.
+import background from "../../assets/hero/background.webp";
 
 /**
  * Two-line display headline (Figma 3257:37445), as the Sell hero's: Crimson ExtraLight 70 / 56 / 48 / 44px at

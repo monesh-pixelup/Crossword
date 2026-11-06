@@ -2,7 +2,8 @@ import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
-import background from "@/modules/sell/assets/hero/background.webp";
+// Figma 3257:34042 (image 10027): the Support hero's own photo, the console table and trunk against the panelled wall.
+import background from "../../assets/hero/background.webp";
 
 /**
  * Two-line display headline (Figma 3257:34146): Crimson ExtraLight 70 / 56 / 48 / 44px at 1.1 and -5%,
@@ -17,9 +18,11 @@ function Headline() {
     >
       <span className="block pt-[0.3em]">
         <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">M</span>
-        ost support tickets aren&rsquo;t complicated,
+        ost support tickets aren&rsquo;t
       </span>
-      <span className="block text-gold">they&rsquo;re just slow</span>
+      <span className="block">
+        complicated, <span className="text-gold">they&rsquo;re just slow</span>
+      </span>
     </h1>
   );
 }

@@ -1,9 +1,10 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
-import background from "@/modules/sell/assets/hero/background.webp";
+// Figma 3305:56 (image 10027): this page's own photo, the writing desk with its open book, pen and letters.
+import aiAssistantsBackground from "../../assets/hero/background.webp";
 
 /**
  * Two-line display headline, set like Support's and Retain's (70 / 56 / 48 / 44px, Crimson ExtraLight at
@@ -41,6 +42,7 @@ export function AiAssistantsHero({
   secondLine = "asking ChatGPT about you.",
   aside = "Crossword helps you own the experience",
   asideWidth = 482,
+  background = aiAssistantsBackground,
 }: {
   id?: string;
   eyebrow?: ReactNode;
@@ -52,6 +54,8 @@ export function AiAssistantsHero({
   aside?: ReactNode;
   /** The CTA column's width in Figma (it narrows to fit). */
   asideWidth?: number;
+  /** The hero photo: AI Assistants' own by default; Personal Agents passes its own. */
+  background?: StaticImageData;
 }) {
   return (
     <section aria-labelledby={id} className="relative bg-night">
