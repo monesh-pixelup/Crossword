@@ -41,7 +41,7 @@ function PlanBody({ plan }: { plan: Plan }) {
  * Library · Three plans (Figma 3564:22839): a centred eyebrow, swash headline and line of copy, 64px
  * over the three plans, 24px apart and as tall as the tallest: cream and sand cards on a 1px
  * engraved line with studs 7px in; between them Pay-as-you-go on the maroon twill in a 1px gold line,
- * its hairline frame 9px in and studs 3px in. Every card has its title over the button at the foot (at
+ * its hairline frame 9px in (no corner studs). Every card has its title over the button at the foot (at
  * least 28px under the copy), so the three buttons sit level. 40px below, the three things included in every plan, under the eyebrow on its top
  * edge. 40px below that, the early-stage program on sand: a wine label, a Crimson 22 line and a 720px
  * line of copy, with the waitlist button across from them. Gold accents on both rails beside the
@@ -69,7 +69,6 @@ export function Plans() {
                 {plan.tone === "featured" ? (
                   <TwillPanel
                     frameInset={9}
-                    studInset={3}
                     className="flex w-full flex-col items-start justify-between gap-7 p-7 shadow-[inset_0_0_0_1px_var(--color-gold)] xs:p-10"
                   >
                     <PlanBody plan={plan} />

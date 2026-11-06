@@ -27,7 +27,7 @@ export const plans: Plan[] = [
   {
     name: "Scale",
     description: "Committed volume guarantees best pricing. Scale is built for brands ready to put Crossword across more of the customer journey.",
-    cta: { label: "BOOK A DEMO", variant: "outline" },
+    cta: { label: "BOOK A DEMO", variant: "primary" },
     tone: "sand",
   },
 ];

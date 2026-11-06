@@ -6,8 +6,8 @@ import { Studs } from "@/modules/dynamic-landing-pages/components/shared/livery"
 type TwillPanelProps = {
   /** The 0.75px gold hairline frame, this many px in from the edges. */
   frameInset: number;
-  /** The four gold studs, this many px into the corners. */
-  studInset: number;
+  /** The four gold studs, this many px into the corners; left out, no studs. */
+  studInset?: number;
   className?: string;
   children: ReactNode;
 };
@@ -31,7 +31,7 @@ export function TwillPanel({ frameInset, studInset, className, children }: Twill
         className="pointer-events-none absolute shadow-[inset_0_0_0_0.75px_var(--color-gold)]"
         style={{ inset: frameInset }}
       />
-      <Studs inset={studInset} />
+      {studInset !== undefined && <Studs inset={studInset} />}
       {children}
     </div>
   );
