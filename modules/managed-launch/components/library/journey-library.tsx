@@ -68,8 +68,8 @@ function ArrowButton({ direction, disabled, onClick }: { direction: "prev" | "ne
  * hairline, 80px top and bottom inside it, as Workflows on Support), the cream eyebrow over a two-line swash headline
  * (1000px box) and 8px below it an 820px line of Geist, with the previous / next arrows (9px apart) level with
  * its foot on the right. 80px below, the journeys run in a row, 278px each and 28px either side of 10% black rules: the
- * icon tile, a Crimson 22 title and Geist 16 copy in ink muted (opening with its lead in Geist Medium #33322f), 24px
- * apart. Four fill the 1280px row; the rest are a scroll (or an arrow) away, a journey at a time.
+ * icon tile, then 24px below it a Crimson 22 title and, 8px under, Geist 16 copy in ink muted (opening with its lead in Geist Medium #33322f).
+ * Four fill the 1280px row; the rest are a scroll (or an arrow) away, a journey at a time.
  */
 export function JourneyLibrary() {
   const rowRef = useRef<HTMLDivElement>(null);
@@ -144,12 +144,15 @@ export function JourneyLibrary() {
                 )}
                 <div role="listitem" className="flex w-[278px] shrink-0 snap-start flex-col items-start gap-6">
                   <IconTile icon={icons[i]} small={icons[i] === orderTracking} />
-                  <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{journey.title}</h3>
-                  <p className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">
-                    <span className="font-medium text-[#33322f]">{journey.lead}</span>
-                    {journey.inline ? " " : <br />}
-                    {journey.body}
-                  </p>
+                  {/* Figma 3512:25002: the title and its copy 8px apart, 24px under the badge. */}
+                  <div className="flex flex-col items-start gap-2">
+                    <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{journey.title}</h3>
+                    <p className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">
+                      <span className="font-medium text-[#33322f]">{journey.lead}</span>
+                      {journey.inline ? " " : <br />}
+                      {journey.body}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
