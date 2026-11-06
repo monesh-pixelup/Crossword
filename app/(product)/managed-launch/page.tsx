@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import {
   Commitment,
   HowItWorks,
@@ -20,6 +21,12 @@ export default function ManagedLaunchPage() {
     <main>
       <LaunchHero />
       <Commitment />
+      {/* Figma 3810:34470: a plain 75px divider band (no badge) under Managed launch and progress. */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <div className="absolute inset-x-0 top-[25.5px] max-md:top-[19px]">
+          <DividerBand glyph="chat" badge={false} />
+        </div>
+      </div>
       <Journey />
       <JourneyLibrary />
       <HowItWorks />

@@ -1,51 +1,163 @@
-import { SnappedEyebrow } from "@/components/ui/eyebrow";
+import Image from "next/image";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
+import flourishBottom from "../../assets/commitment/flourish-bottom.webp";
+import flourishTop from "../../assets/commitment/flourish-top.webp";
+import paper from "../../assets/commitment/paper-note.webp";
+import rule1 from "../../assets/commitment/rule-1.svg";
+import rule2 from "../../assets/commitment/rule-2.svg";
+import rule3 from "../../assets/commitment/rule-3.svg";
+import ruleLeft from "../../assets/commitment/rule-left.svg";
+import ruleRight from "../../assets/commitment/rule-right.svg";
+import seal from "../../assets/commitment/seal.webp";
+import stamp from "../../assets/commitment/stamp.webp";
 import { commitments } from "../../config/launch";
 
+/** The two stats' tops on the note (Figma 3810:34381 and 3810:34390). */
+const statTops = ["top-[88px]", "top-[291px]"];
+
 /**
- * Figma "Library · Stats band" (Managed launch and progress): a sand band the full viewport width,
- * 96px top and bottom, a 433px label column holding just the eyebrow, then the two commitments as stats behind dashed engraved rules, 40px in: a Crimson Light
- * 70px value with its Geist 16 unit beside it, over an Open Sans SemiBold 12 caption (+1.44px), 12px apart. The second
- * stat is 466px wide; the first takes the rest. The label column sits beside the stats only from
- * 1280px, where the first stat still has room (433 + 466 + its ~200px), centred on the stats' height; below, it sits
- * above them.
- * The value shrinks on the narrowest phones (17vw under ~412px) so "Everything" never runs off.
+ * The note, its wax seal and its postage stamp, placed in Figma's composition coordinates (frame 3810:34271).
+ * The seal and stamp are WebGPU shader art in Figma, so they ship as exports at their rotated bounds.
  */
-export function Commitment() {
+function Note() {
   return (
-    <section aria-label="Managed launch and progress" className="relative">
-      {/* The sand runs the full viewport width, out past the site's 1440px cap on wide screens (SiteShell clips the overrun). */}
-      <div
-        aria-hidden
-        className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-sand shadow-[inset_0_0.5px_0_rgba(0,0,0,0.25),inset_0_-0.5px_0_rgba(0,0,0,0.25)]"
-      />
-      <div className="relative py-16 md:py-24">
-        <div className="flex content-width flex-col gap-12 min-[1280px]:flex-row min-[1280px]:items-center min-[1280px]:gap-0">
-          <div className="flex flex-col items-start min-[1280px]:w-[433px] min-[1280px]:shrink-0 min-[1280px]:pr-10">
-            <SnappedEyebrow surface="sand" className="h-8">
-              Managed launch and progress
-            </SnappedEyebrow>
+    <>
+      {/* The paper note: 474 × 484, turned 1.18°, its box 483.9 × 493.692. */}
+      <div className="absolute top-[75px] left-[448.73px] flex h-[493.692px] w-[483.9px] items-center justify-center">
+        <div className="relative h-[484px] w-[474px] flex-none rotate-[1.18deg] overflow-clip shadow-[0px_5px_7.7px_0px_rgba(0,0,0,0.08)]">
+          {/*
+            The paper: Figma stacks white/30, the paper texture (multiply, 49%) and a cream colour-blend layer, blending
+            through to the page. A browser isolates the turned note and loses that grain, so this is the result baked
+            into one image: the cream paper (#faf4e5) with the texture's grain at Figma's measured strength.
+          */}
+          <Image
+            src={paper}
+            alt=""
+            aria-hidden
+            sizes="474px"
+            unoptimized
+            className="pointer-events-none absolute inset-0 size-full max-w-none object-cover object-bottom"
+          />
+
+          <div
+            aria-hidden
+            className="absolute top-[13.76px] left-1/2 flex w-[435.348px] -translate-x-1/2 items-center justify-between font-hand tracking-[-0.7115px] whitespace-nowrap text-[rgba(18,18,18,0.61)]"
+          >
+            <p className="rotate-[0.14deg] text-[23.718px] leading-[1.13]">Crossword</p>
+            <p className="rotate-[0.14deg] leading-[1.13]">
+              <span className="text-[19.72px]">EST </span>
+              <span className="text-[23.718px]">.2026</span>
+            </p>
           </div>
 
-          <dl className="flex flex-1 flex-col md:flex-row">
+          <dl>
             {commitments.map((c, i) => (
-              <div
-                key={c.label}
-                className={`flex flex-col-reverse gap-3 border-dashed border-engraved py-8 first:pt-0 md:border-l md:px-10 md:py-0 max-md:border-t max-md:first:border-t-0 ${
-                  i === commitments.length - 1 ? "md:w-[466px] md:shrink-0" : "md:flex-1"
-                }`}
-              >
-                <dt className="font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-label-olive uppercase">
-                  {c.label}
+              <div key={c.label} className={`absolute left-[59px] flex w-[358px] flex-col items-start gap-1 ${statTops[i]}`}>
+                <dt>
+                  <Eyebrow surface="paper">{c.label}</Eyebrow>
                 </dt>
-                <dd className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span className="font-serif text-[min(70px,17vw)] leading-[1.1] font-light tracking-[-0.05em] whitespace-nowrap text-ink">
-                    {c.value}
-                  </span>
-                  <span className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">{c.unit}</span>
+                <dd className="flex items-baseline gap-2 pt-3 whitespace-nowrap">
+                  <span className="font-serif text-[70px] leading-[1.1] font-light tracking-[-3.5px] text-[#141414]">{c.value}</span>
+                  <span className="font-sans text-[18px] leading-6 font-medium tracking-[-0.54px] text-black/60">{c.unit}</span>
                 </dd>
               </div>
             ))}
           </dl>
+        </div>
+      </div>
+
+      {/* Wax seal (120.387px, turned -14.23°) over the note's left edge. */}
+      <Image src={seal} alt="" sizes="121px" className="absolute top-[347px] left-[366px] size-[120.387px] max-w-none" />
+      {/* Postage stamp (turned 20.85°) over the note's right edge. */}
+      <Image src={stamp} alt="" sizes="98px" className="absolute top-[175.9px] left-[873.66px] h-[95.068px] w-[97.367px] max-w-none" />
+    </>
+  );
+}
+
+/** A 1px hand-drawn hairline (black 7%), as Figma's vectors. */
+function Rule({ src, className, vertical }: { src: typeof rule1; className: string; vertical?: boolean }) {
+  return vertical ? (
+    <div className={`absolute flex w-0 items-center justify-center ${className}`}>
+      <Image src={src} alt="" className="h-px max-w-none flex-none rotate-90" style={{ width: src.width }} />
+    </div>
+  ) : (
+    <Image src={src} alt="" className={`absolute h-px max-w-none -translate-y-1/2 ${className}`} />
+  );
+}
+
+/**
+ * Figma "Library · Wide panel" (3810:34213), Managed launch and progress: on the cream page, between its rails, a
+ * paper note (turned 1.18°) holding the two commitments, each an engraved eyebrow over a Crimson Light 70 value and its
+ * Geist Medium 18 unit, with "Crossword" and "EST .2026" handwritten across its top. A wax seal and a postage stamp
+ * overlap its edges; faint hand-drawn hairlines cross behind it and two scroll flourishes sit in the top-right and
+ * bottom-left corners. The gold rail accent runs 232px down the left rail from 98px.
+ *
+ * From 992px the whole 1440 × 619 composition scales to the column; below, the note with its seal and stamp alone
+ * (606 × 494) scales to the content width.
+ */
+export function Commitment() {
+  return (
+    <section aria-label="Managed launch and progress" className="relative">
+      <RailAccent className="absolute top-[98px] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
+
+      {/* Desktop: the full composition. */}
+      <div className="@container w-full max-lg:hidden">
+        <div className="relative h-[619px] w-[1440px] overflow-clip scale-to-container [--fit-width:1440px]">
+          <div className="absolute top-[-1px] left-9 h-[644px] w-[1368px]">
+            <div aria-hidden>
+              <Rule src={rule1} className="top-[168.18px] left-[187.2px] w-[936.484px]" />
+              <Rule src={rule2} className="top-[328.48px] left-[217.57px] w-[1048.43px]" />
+              <Rule src={rule3} className="top-[488.79px] left-[75.54px] w-[920.141px]" />
+              <Rule src={ruleLeft} vertical className="top-px left-[306.4px] h-[532.441px]" />
+              <Rule src={ruleRight} vertical className="top-[120.81px] left-[1036.97px] h-[494.359px]" />
+
+              {/* Top-right flourish (Figma 3810:34398): a 96.371 × 165.638 window turned 90°, at 80%. */}
+              <div className="absolute top-0 left-[1202.69px] flex h-[96.371px] w-[165.638px] items-center justify-center">
+                <div className="relative h-[165.638px] w-[96.371px] flex-none rotate-90 overflow-clip opacity-80">
+                  <div className="absolute top-[-105.23px] left-[calc(50%-125.49px)] flex h-[571.808px] w-[422.115px] -translate-x-1/2 items-center justify-center mix-blend-luminosity">
+                    <Image
+                      src={flourishTop}
+                      alt=""
+                      sizes="535px"
+                      className="h-[364.335px] w-[534.216px] max-w-none flex-none rotate-[96.46deg] opacity-52"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom-left flourish (Figma 3810:34400): a 77.97 × 177.599 window, flipped, at 80%. */}
+              <div className="absolute top-[470px] left-[9.73px] flex h-[177.599px] w-[77.97px] items-center justify-center">
+                <div className="relative h-[177.599px] w-[77.97px] flex-none -scale-y-100 rotate-180 overflow-clip opacity-80">
+                  <div className="absolute top-[-60.67px] left-[calc(50%-34.45px)] flex h-[507.965px] w-[426.579px] -translate-x-1/2 items-center justify-center mix-blend-luminosity">
+                    <div className="relative h-[323.977px] w-[439.075px] flex-none rotate-75 opacity-52">
+                      <Image
+                        src={flourishBottom}
+                        alt=""
+                        sizes="434px"
+                        className="absolute top-[5.67%] left-[1.34%] h-[94.33%] w-[98.66%] max-w-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <Note />
+          </div>
+        </div>
+      </div>
+
+      {/* Below 992px: the note with its seal and stamp (x 366–972, y 75–569 of the composition). */}
+      <div className="py-16 md:py-24 lg:hidden">
+        <div className="content-width">
+          <div className="mx-auto @container w-full max-w-[606px]">
+            <div className="relative h-[494px] w-[606px] scale-to-container [--fit-width:606px]">
+              <div className="absolute top-[-75px] left-[-366px]">
+                <Note />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

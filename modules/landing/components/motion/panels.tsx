@@ -136,8 +136,11 @@ export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run:
       {...(entry ? { role: "img", "aria-label": entry.label } : { "aria-hidden": true })}
       className={[
         "relative h-[680px] w-[738px] shrink-0 overflow-clip [--fit-gutter:0px] [--fit-width:738px] scale-to-container xl:ml-auto xl:fit-to-container",
-        // The visuals' own backdrops (the chat scenes' frame, the others' crimson-bg) give way to the one frame below.
-        "[&_:is(.adj,.ais,.pa,.aia-canvas)]:[background:none] [&_:is(.hm-ill-scene-frame\\_\\_background,.hm-ill-scene-frame\\_\\_texture)]:hidden",
+        // Every backdrop a visual can draw (the chat scenes' frame and its sized variant, the sponsored and insight frames,
+        // the others' crimson and stage photos) is stripped: only the one card below (the first tab's) ever shows, and
+        // switching tabs changes the visual alone.
+        "[&_:is(.adj,.ais,.pa,.aia-canvas,.ask,.hm-ill-scene-frame--sized,.hm-ill-sponsored-frame)]:[background:none]",
+        "[&_:is(.hm-ill-scene-frame\\_\\_background,.hm-ill-scene-frame\\_\\_texture,.hm-ill-sponsored-frame\\_\\_texture,.hm-ill-sponsored-frame\\_\\_outline,.hm-ill-sponsored-frame\\_\\_dot,.hm-ill-insight-frame\\_\\_background)]:hidden",
       ].join(" ")}
     >
       {/*

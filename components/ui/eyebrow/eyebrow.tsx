@@ -5,6 +5,8 @@ import { cn } from "@/lib/cn";
 const surfaces = {
   cream: "bg-cream text-[#766640] drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)]",
   sand: "bg-sand text-[#766640] drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)]",
+  /** Transparent on paper (Managed launch's commitment note), olive label. */
+  paper: "text-[#766640] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.11)]",
   /** Transparent on the dark green panels, with a pale label. */
   green: "text-[#d6d1c6] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.11)]",
 } as const;
