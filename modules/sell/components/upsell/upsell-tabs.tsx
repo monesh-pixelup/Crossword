@@ -4,8 +4,8 @@ import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { upsellFeatures } from "../../config/upsell";
 import { ScenePanel } from "../motion/scene-panel";
-import { SellMotionRoot } from "../motion-v2";
-import { upsellScenes } from "../motion-v2/scenes";
+import { SellCameraMotionRoot } from "../motion-camera";
+import { upsellCameraScenes } from "../motion-camera/scenes";
 
 /** How long each feature stays open before the next one takes over, at least. */
 const DURATION_MS = 6000;
@@ -83,7 +83,7 @@ export function UpsellTabs() {
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
   const last = upsellFeatures.length - 1;
-  const scene = upsellScenes[upsellFeatures[active].scene];
+  const scene = upsellCameraScenes[upsellFeatures[active].scene];
 
   useEffect(() => {
     const el = root.current;
@@ -221,7 +221,7 @@ export function UpsellTabs() {
         className="relative aspect-[738/680] w-full shrink-0 overflow-hidden min-[1280px]:-mr-1 min-[1280px]:w-[687px]"
       >
         <div key={`${active}-${run}`} className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0">
-          <ScenePanel scene={scene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />
+          <ScenePanel scene={scene} active={visible} root={SellCameraMotionRoot} maxScale={Infinity} transform />
         </div>
       </div>
     </div>
