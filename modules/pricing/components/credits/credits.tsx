@@ -30,7 +30,7 @@ const none = (
  * beside it in Geist 16 ink-muted (notes wrap at 200px), every cell left-aligned at 20px / 32px with
  * 1px engraved/50 rules under every row. "Always free" and "Free for a limited time" open their groups
  * in 48px rows of wine Open Sans SemiBold 12 caps. Then the pilot button beside a link to the
- * calculator. Below 880px the table scrolls sideways, its first column pinned.
+ * calculator. Below 880px the table scrolls sideways; from 768px its first column stays pinned, on phones the whole table scrolls (as AI Assistants' Differentiation).
  */
 export function Credits() {
   return (
@@ -62,7 +62,7 @@ export function Credits() {
             </colgroup>
             <thead>
               <tr>
-                <th scope="col" className={cn(rule, "sticky left-0 z-1 bg-cream")}>
+                <th scope="col" className={cn(rule, "bg-cream md:sticky md:left-0 md:z-1")}>
                   <span className="sr-only">Interaction</span>
                 </th>
                 <th scope="col" className={cn(head, "bg-wine text-gold-bright")}>
@@ -84,7 +84,7 @@ export function Credits() {
                       scope="colgroup"
                       className={cn(
                         rule,
-                        "sticky left-0 z-1 h-12 bg-cream pr-6 pl-5 text-left font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-wine uppercase",
+                        "h-12 bg-cream md:sticky md:left-0 md:z-1 pr-6 pl-5 text-left font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-wine uppercase",
                       )}
                     >
                       {row.group}
@@ -97,7 +97,7 @@ export function Credits() {
                   <tr key={row.label}>
                     <th
                       scope="row"
-                      className={cn(cell, "sticky left-0 z-1 bg-cream text-left font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] whitespace-nowrap text-ink")}
+                      className={cn(cell, "bg-cream text-left md:sticky md:left-0 md:z-1 font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] text-pretty text-ink")}
                     >
                       {row.label}
                     </th>

@@ -112,8 +112,16 @@ export function JourneyLibrary() {
                   id="journey-library-title"
                   initial="E"
                   firstLine="very Journey is built by us:"
-                  secondLine="people who study this for a living"
+                  secondLine={
+                    <>
+                      {/* Below 768px the long second line breaks in two, so the headline keeps the other sections' size. */}
+                      people who study this
+                      <br className="md:hidden" />
+                      <span className="max-md:hidden"> </span>for a living
+                    </>
+                  }
                   width={1000}
+                  mobileWidth={700}
                   weight="light"
                 />
                 <p className="max-w-[820px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
