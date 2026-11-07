@@ -101,7 +101,8 @@ export function UpsellTabs() {
       ref={root}
       className="flex w-full flex-col bg-[#f3e7d3] p-[0.5px] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] min-[1280px]:flex-row min-[1280px]:items-start"
     >
-      <div className="flex min-w-0 flex-1 flex-col justify-center self-stretch px-6 py-8 md:px-10 md:py-10 min-[1280px]:items-start min-[1280px]:pt-10 min-[1280px]:pr-[42px] min-[1280px]:pb-0 min-[1280px]:pl-[42px]">
+      {/* Stacked (below 1280px), 49px above the first row and below the last, as between each row and its rule. */}
+      <div className="flex min-w-0 flex-1 flex-col justify-center self-stretch px-6 py-[49px] md:px-10 min-[1280px]:items-start min-[1280px]:pt-10 min-[1280px]:pr-[42px] min-[1280px]:pb-0 min-[1280px]:pl-[42px]">
         <div
           role="tablist"
           aria-orientation="vertical"
@@ -174,7 +175,8 @@ export function UpsellTabs() {
                   className={cn(
                     "h-0 transition-[margin] duration-300 ease-out max-[1279px]:-mx-6 md:max-[1279px]:-mx-10",
                     on ? "mt-[24.5px] mb-[0.5px]" : "mt-[49px] mb-0",
-                    i !== last && "shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]",
+                    // The last is not drawn; stacked (below 1280px) its gap goes too, so the list ends on the panel's padding.
+                    i !== last ? "shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]" : "max-[1279px]:hidden",
                   )}
                 />
               </div>

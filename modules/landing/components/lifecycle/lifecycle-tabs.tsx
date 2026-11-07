@@ -236,7 +236,10 @@ export function LifecycleTabs() {
                 // Below 1280px each tab is at least as wide as its name and they grow to fill the row, scrolling
                 // sideways only once they no longer fit; from 1280px they share the row equally.
                 "group relative flex h-[52px] flex-[1_0_auto] items-center px-5 text-left shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:h-[58.5px] md:px-8 xl:flex-1 xl:basis-0 xl:pr-0",
-                on ? "cursor-default bg-[#f3e9d4]" : "cursor-pointer bg-[rgba(243,233,212,0.37)]",
+                // Below 768px the closed tabs are all one width (room for "Personal Agents"), their names centred.
+                on
+                  ? "cursor-default bg-[#f3e9d4]"
+                  : "cursor-pointer bg-[rgba(243,233,212,0.37)] max-md:w-[168px] max-md:flex-none max-md:justify-center",
               )}
             >
               {/* The badge opens out ahead of the name (19px gap) on the open tab. */}

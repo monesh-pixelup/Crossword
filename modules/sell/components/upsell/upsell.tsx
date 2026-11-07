@@ -23,7 +23,7 @@ export function Upsell() {
             initial="A"
             firstLine=" bigger cart, because it makes"
             secondLine="sense, not because it was pushed"
-            width={1000}
+            width={760}
             weight="light"
           />
         </div>

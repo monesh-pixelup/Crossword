@@ -8,14 +8,12 @@ import { ChatMessage } from "../../../components/ill/ChatMessage";
 import { AiStatus } from "../../../components/ill/AiStatus";
 import { useLandedOnScreen } from "../../../components/ill/useLandedOnScreen";
 import { animateScrollTo } from "../../../components/ill/scrollEase";
-import cardBorderImage from "@/modules/support/assets/motion-v4/scenarios/merchant-insight/card-border.png";
-import cornerDotImage from "@/modules/support/assets/motion-v4/scenarios/merchant-insight/corner-dot.svg";
+import frameTextureImage from "@/modules/support/assets/motion-v4/scenarios/merchant-insight/frame-texture-green.webp";
 import { merchantInsight } from "../data";
 import { useMerchantInsightPlayback } from "./useMerchantInsightPlayback";
 
 
-const cardBorder = cardBorderImage.src;
-const cornerDot = cornerDotImage.src;
+const frameTexture = frameTextureImage.src;
 
 const turns = [
   {
@@ -95,18 +93,21 @@ export function MerchantInsightMotion() {
   return (
     <div ref={rootRef} className="ill-insight-frame-scale">
       <div className="ill-insight-card" key={runKey} data-phase={phase} data-turn={turnIndex}>
-        <img className="ill-insight-card__border" src={cardBorder} alt="" aria-hidden="true" />
-        <div className="ill-insight-card__hue" aria-hidden="true" />
-        <div className="ill-insight-card__dots" aria-hidden="true">
-          <div className="ill-insight-card__dots-row">
-            <img src={cornerDot} alt="" width={10} height={10} />
-            <img src={cornerDot} alt="" width={10} height={10} />
-          </div>
-          <div className="ill-insight-card__dots-row">
-            <img src={cornerDot} alt="" width={10} height={10} />
-            <img src={cornerDot} alt="" width={10} height={10} />
-          </div>
-        </div>
+        {/*
+          The site's livery frame (as SceneFrame, the helpdesk's maroon one) in forest green: square corners, the damask
+          with its notched gold outline 13.16 / 15.98px in, and a gold ring by each corner.
+        */}
+        <img className="ill-insight-card__texture" src={frameTexture} alt="" aria-hidden="true" />
+        <svg className="ill-insight-card__rings" viewBox="0 0 687 586" aria-hidden="true">
+          {[
+            [26, 24],
+            [661, 24],
+            [26, 562],
+            [661, 562],
+          ].map(([cx, cy]) => (
+            <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={4.5} fill="none" stroke="#D2B75C" />
+          ))}
+        </svg>
         <div className="ill-insight-card__content">
           <Shell
             brand={merchantInsight.brand}

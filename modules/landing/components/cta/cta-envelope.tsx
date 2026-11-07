@@ -166,8 +166,8 @@ export function CtaEnvelope() {
   }, []);
 
   return (
-    <section ref={root} aria-labelledby="cta-title" className="relative isolate overflow-hidden">
-      {/* The envelope runs from frame line to frame line (Figma: x 25 → 1415 at 1440). */}
+    <section ref={root} aria-labelledby="cta-title" className="relative isolate overflow-hidden max-md:pt-10">
+      {/* The envelope runs from frame line to frame line (Figma: x 25 → 1415 at 1440). Phones: 40px clear of the divider band above. */}
       <div className="@container relative mx-[25px] max-md:mx-[13px] max-[480px]:mx-[9px]">
         <div data-cta="envelope" className="relative aspect-[1390/920] w-full" aria-hidden>
           <Image src={back} alt="" sizes="(min-width: 1440px) 1390px, 100vw" className={`${layer} top-[43.4188%] left-0 z-1 h-[21.8478%] w-full`} />
