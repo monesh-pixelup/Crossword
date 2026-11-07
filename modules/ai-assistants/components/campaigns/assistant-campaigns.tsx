@@ -21,6 +21,7 @@ export function AssistantCampaigns({
   firstLine = "eaches them first",
   secondLine,
   width = 614.744,
+  mobileWidth,
   copy,
   scene,
 }: {
@@ -31,6 +32,8 @@ export function AssistantCampaigns({
   secondLine?: ReactNode;
   /** The headline's Figma text-box width (the copy line keeps to it too). */
   width?: number;
+  /** The headline's width below 768px, where its lines are re-broken shorter (see SectionTitle). */
+  mobileWidth?: number;
   /** The line under the headline, as in Possibilities; none by default. */
   copy?: ReactNode;
   /** The motion visual the panel plays (1280 × 599); the bare panel without one. */
@@ -43,7 +46,7 @@ export function AssistantCampaigns({
       <div className="flex content-width flex-col gap-section">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>
-          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} weight="light" />
+          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} mobileWidth={mobileWidth} weight="light" />
           {copy && (
             <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59" style={{ maxWidth: width }}>
               {copy}

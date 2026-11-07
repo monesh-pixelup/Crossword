@@ -191,6 +191,11 @@ type SectionTitleProps = {
   lineGap?: number;
   /** Weight of the lines (the swash keeps its own): Crimson ExtraLight, or Light as the home page sets them. */
   weight?: keyof typeof weights;
+  /**
+   * The text-box width below 768px, for a headline whose lines are re-broken shorter there (with `md:hidden` /
+   * `max-md:hidden` pieces in its lines), so it keeps the other headlines' size on phones.
+   */
+  mobileWidth?: number;
 };
 
 /**
@@ -211,6 +216,7 @@ export function SectionTitle({
   tone = "ink",
   lineGap,
   weight = "extralight",
+  mobileWidth,
 }: SectionTitleProps) {
   const v = variants[variant];
   // Line size in px at desktop (60 unless the variant says otherwise).
@@ -220,10 +226,16 @@ export function SectionTitle({
     // The headline is drawn at its 60px desktop size and zoomed to the breakpoint's h2 size
     // (--h2-scale: 60 / 48 / 40 / 36px); if that still doesn't fit, fit-to-container shrinks it.
     <div
-      className="fit-to-container"
+      className={mobileWidth !== undefined ? "fit-to-container [--title-w:var(--title-w-lg)] max-md:[--title-w:var(--title-w-sm)]" : "fit-to-container"}
       style={
         {
-          "--fit-width": `calc(${Math.ceil(width)}px * var(--h2-scale))`,
+          ...(mobileWidth !== undefined
+            ? {
+                "--title-w-lg": `${width}px`,
+                "--title-w-sm": `${mobileWidth}px`,
+                "--fit-width": "calc(var(--title-w) * var(--h2-scale))",
+              }
+            : { "--fit-width": `calc(${Math.ceil(width)}px * var(--h2-scale))` }),
           ...(gutter !== undefined && { "--fit-gutter": `${gutter}px` }),
         } as CSSProperties
       }
@@ -231,7 +243,7 @@ export function SectionTitle({
       <h2
         id={id}
         className={`font-serif text-[0px] leading-[0] whitespace-nowrap ${weights[weight]} ${tones[tone]} ${v.tracking}`}
-        style={{ width, zoom: "var(--h2-scale)" }}
+        style={{ width: mobileWidth !== undefined ? "var(--title-w)" : width, zoom: "var(--h2-scale)" }}
       >
         <span className="block" style={{ height: v.firstLineHeight, paddingTop: "firstLinePad" in v ? v.firstLinePad : undefined }}>
           <span className={`font-normal ${v.swash}`}>{initial}</span>

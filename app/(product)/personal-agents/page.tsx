@@ -42,9 +42,21 @@ export default function PersonalAgentsPage() {
         id="the-case-title"
         eyebrow="The case"
         initial="Y"
-        firstLine="ou designed a shopping journey. Your"
-        secondLine="customer’s personal agent may skip it."
+        /* Below 768px the two long lines re-break into three shorter ones, so the headline keeps the other sections' size. */
+        firstLine={
+          <>
+            ou designed a shopping journey.<span className="max-md:hidden"> Your</span>
+          </>
+        }
+        secondLine={
+          <>
+            <span className="md:hidden">Your </span>customer’s personal agent
+            <br className="md:hidden" />
+            <span className="max-md:hidden"> </span>may skip it.
+          </>
+        }
         width={1030}
+        mobileWidth={760}
         scene="pa-the-case-motion"
       />
       <ShopperAsks
