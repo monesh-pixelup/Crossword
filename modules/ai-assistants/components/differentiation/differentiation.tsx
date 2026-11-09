@@ -4,21 +4,25 @@ import { StampButton } from "@/components/ui/stamp-button";
 import { cn } from "@/lib/cn";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing";
+import { LatticeFrame } from "@/modules/pricing/components/shared/lattice-frame";
 import { type DifferentiationRow, differentiationRows } from "../../config/differentiation";
 
 const rule = "border-b border-engraved/50";
-const head = cn(rule, "px-5 py-[18px] text-left font-serif text-base leading-[1.375] font-medium tracking-[-0.03em] uppercase");
+const head = cn(rule, "px-5 py-[18px] text-left align-top font-serif text-[18px] leading-[22px] font-medium tracking-[-0.54px] uppercase");
 const cell = cn(rule, "px-5 py-8 align-top");
-const body = "font-sans text-base leading-6 tracking-[-0.02em] text-pretty";
+const body = "font-sans text-[18px] leading-6 tracking-[-0.36px] text-pretty";
+/** The body rows' fill (Figma #faf3e2); the Crossword column stays sand. */
+const rowFill = "bg-[#faf3e2]";
 /** The first column stays in view while the table scrolls, from 768px up (below that it would fill the screen). */
-const pinned = "bg-cream md:sticky md:left-0 md:z-1";
+const pinned = "md:sticky md:left-0 md:z-1";
 
 /**
  * Section · Differentiation (Figma 3305:792): a centred eyebrow, swash headline and the demo button,
- * then the comparison table (3305:797) at 360 / 440 / 480 of 1280: the moment in Crimson 22 down the
- * left, what happens without Crossword in Geist 16 ink muted, and the featured Crossword column (a wine
- * head with a bright gold label over sand cells, ink soft copy). Rules are engraved at 50% under every
- * row. Below 880px the table scrolls sideways. Personal agents (3308:380) passes its own headline, column
+ * then 64px below the comparison table (3305:797) in the studded lattice frame (3906:6242, as Pricing's credits
+ * table): a cream head row (Crimson Medium 18 caps, the Crossword head wine with a bright gold label), then the rows
+ * on #faf3e2 at 360 / 440 / 482 of 1282: the moment in Crimson 22 down the left, what happens without Crossword in
+ * Geist 18 ink muted, and the featured Crossword column on sand (ink soft copy). Rules are engraved at 50% under every
+ * row. Below 880px the table scrolls sideways inside the frame. Personal agents (3308:380) passes its own headline, column
  * heads and rows.
  */
 export function Differentiation({
@@ -49,16 +53,16 @@ export function Differentiation({
           <StampButton href={ctaLinks.bookDemo}>GET A DEMO</StampButton>
         </div>
 
-        <div className="w-full overflow-x-auto">
+        <LatticeFrame>
           <table className="w-full min-w-[880px] table-fixed border-collapse">
             <colgroup>
-              <col className="w-[28.125%]" />
-              <col className="w-[34.375%]" />
-              <col className="w-[37.5%]" />
+              <col className="w-[28.081%]" />
+              <col className="w-[34.321%]" />
+              <col className="w-[37.598%]" />
             </colgroup>
             <thead>
               <tr>
-                <th scope="col" className={cn(head, pinned, "text-ink-soft")}>
+                <th scope="col" className={cn(head, pinned, "bg-cream text-ink-soft")}>
                   {columns[0]}
                 </th>
                 <th scope="col" className={cn(head, "text-ink-soft")}>
@@ -74,12 +78,12 @@ export function Differentiation({
                 <tr key={row.experience}>
                   <th
                     scope="row"
-                    className={cn(cell, pinned, "text-left font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] text-ink")}
+                    className={cn(cell, pinned, rowFill, "text-left font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] text-ink")}
                   >
                     {row.experience}
                   </th>
                   {/* Figma sets the copy in 330px and 392px boxes, narrower than the cells. */}
-                  <td className={cell}>
+                  <td className={cn(cell, rowFill)}>
                     <p className={cn(body, "max-w-[330px] text-ink-muted")}>{row.without}</p>
                   </td>
                   <td className={cn(cell, "bg-sand")}>
@@ -89,7 +93,7 @@ export function Differentiation({
               ))}
             </tbody>
           </table>
-        </div>
+        </LatticeFrame>
       </div>
     </section>
   );

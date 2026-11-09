@@ -7,12 +7,16 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import { ctaLinks } from "@/modules/marketing";
 import { creditRows } from "../../config/pricing";
 import { BandDivider } from "../shared/band-divider";
+import { LatticeFrame } from "../shared/lattice-frame";
 
 /** Every row sits on a 1px engraved/50 rule. */
 const rule = "border-b border-engraved/50";
 const cell = `${rule} px-5 py-8 text-left align-top`;
-const head = `${rule} px-5 py-[18px] text-left align-top font-serif text-base leading-[22px] font-medium tracking-[-0.48px] whitespace-nowrap uppercase`;
-const body = "font-sans text-base leading-6 font-normal tracking-[-0.32px]";
+const head = `${rule} px-5 py-[18px] text-left align-top font-serif text-[18px] leading-[22px] font-medium tracking-[-0.54px] whitespace-nowrap uppercase`;
+const body = "font-sans text-[18px] leading-6 font-normal tracking-[-0.36px]";
+/** The body rows' fill (Figma #faf3e2); the credits column stays sand. */
+const rowFill = "bg-[#faf3e2]";
+
 
 /** A cell with nothing to say: a 14px rule in ink muted, 11px down (centred on the 24px line). */
 const none = (
@@ -24,13 +28,16 @@ const none = (
 
 /**
  * Library · Comparison table, Credits (Figma 3564:22979), under the book divider band: a centred
- * eyebrow, swash headline and copy, then the rate table at 520 / 254 / 253 / 253 of 1280: the
- * interactions in Crimson 22 down the left, the credits column featured (a wine head with a bright
- * gold label over sand cells, the figures in Geist 16 ink-soft), what each is billed per and a note
- * beside it in Geist 16 ink-muted (notes wrap at 200px), every cell left-aligned at 20px / 32px with
- * 1px engraved/50 rules under every row. "Always free" and "Free for a limited time" open their groups
- * in 66px rows (Figma 3564:23038) of wine Open Sans SemiBold 12 caps, 16px from the top. Then the pilot button beside a link to the
- * calculator. Below 880px the table scrolls sideways; from 768px its first column stays pinned, on phones the whole table scrolls (as AI Assistants' Differentiation).
+ * eyebrow, swash headline and copy, and 24px under it the pilot button beside a link to the calculator. 64px below,
+ * the rate table (Figma 3904:16873) in a 1px #d2cdc0 frame 10px wider than the content each side, its 8px band a
+ * studded lattice; inside, a 1px engraved/50 line round the table at 520 / 254 / 253 / 253 of 1280: a cream head
+ * row (Crimson Medium 18 caps, the credits head wine with a bright gold label), then the rows on #faf3e2: the
+ * interactions in Crimson 22 down the left, the credits column on sand (Geist 18 ink-soft), what each is billed per
+ * and a note beside it in Geist 18 ink-muted (notes wrap at 200px), every cell left-aligned at 20px / 32px with 1px
+ * engraved/50 rules under every row. "Always free" and "Free for a limited time" open their groups in 48px rows of
+ * wine Open Sans SemiBold 12 caps, centred, the fill running across. Below 880px the table scrolls sideways inside
+ * the frame; from 768px its first column stays pinned, on phones the whole table scrolls (as AI Assistants'
+ * Differentiation).
  */
 export function Credits() {
   return (
@@ -50,9 +57,13 @@ export function Credits() {
             Credits power every interaction, from a conversational reply to a dynamic landing page. A typical conversation
             runs about 5 credits.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            <StampButton href={ctaLinks.bookDemo}>START YOUR FREE PILOT</StampButton>
+            <TextLink href="#calculator">Estimate your usage</TextLink>
+          </div>
         </div>
 
-        <div className="w-full overflow-x-auto">
+        <LatticeFrame>
           <table className="w-full min-w-[880px] table-fixed border-collapse">
             <colgroup>
               <col className="w-[40.625%]" />
@@ -84,26 +95,27 @@ export function Credits() {
                       scope="colgroup"
                       className={cn(
                         rule,
-                        "h-[65px] bg-cream md:sticky md:left-0 md:z-1 pt-4 pr-6 pl-5 align-top text-left font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-wine uppercase",
+                        rowFill,
+                        "h-12 md:sticky md:left-0 md:z-1 pr-6 pl-5 align-middle text-left font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-wine uppercase",
                       )}
                     >
                       {row.group}
                     </th>
-                    <td className={cn(rule, "bg-sand")} />
-                    <td className={rule} />
-                    <td className={rule} />
+                    <td className={cn(rule, rowFill)} />
+                    <td className={cn(rule, rowFill)} />
+                    <td className={cn(rule, rowFill)} />
                   </tr>
                 ) : (
                   <tr key={row.label}>
                     <th
                       scope="row"
-                      className={cn(cell, "bg-cream text-left md:sticky md:left-0 md:z-1 font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] text-pretty text-ink")}
+                      className={cn(cell, rowFill, "text-left md:sticky md:left-0 md:z-1 font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] text-pretty text-ink")}
                     >
                       {row.label}
                     </th>
                     <td className={cn(cell, body, "bg-sand whitespace-nowrap text-ink-soft")}>{row.credits}</td>
-                    <td className={cn(cell, body, "text-pretty text-ink-muted")}>{row.billedPer ?? none}</td>
-                    <td className={cn(cell, body, "text-pretty text-ink-muted")}>
+                    <td className={cn(cell, body, rowFill, "text-pretty text-ink-muted")}>{row.billedPer ?? none}</td>
+                    <td className={cn(cell, body, rowFill, "text-pretty text-ink-muted")}>
                       {row.note ? <span className="block max-w-[200px]">{row.note}</span> : none}
                     </td>
                   </tr>
@@ -111,12 +123,7 @@ export function Credits() {
               )}
             </tbody>
           </table>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-          <StampButton href={ctaLinks.bookDemo}>START YOUR FREE PILOT</StampButton>
-          <TextLink href="#calculator">Estimate your usage</TextLink>
-        </div>
+        </LatticeFrame>
       </div>
     </section>
   );
