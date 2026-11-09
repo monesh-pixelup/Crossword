@@ -104,6 +104,8 @@ export default function PersonalAgentsPage() {
         width={413}
         copy="Tell Crossword which products or bundles to recommend, and it will bring them up when it fits the request. You stay in control of the offer, even when a personal agent is doing the shopping."
         steps={agentPromotionSteps}
+        // Kept at its earlier spacing on this page, by request.
+        titleVariant="loyalty"
       />
       <Insights
         id="agent-insights-title"

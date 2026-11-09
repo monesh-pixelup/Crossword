@@ -31,6 +31,7 @@ export function Promotions({
     </>
   ),
   steps = promotionSteps,
+  titleVariant = "dynamicCentered",
 }: {
   id?: string;
   initial?: string;
@@ -40,6 +41,8 @@ export function Promotions({
   width?: number;
   copy?: ReactNode;
   steps?: PromotionStep[];
+  /** The headline's line spacing: Figma's 0.9 (AI Assistants), or the earlier 1.1 (`loyalty`, kept on Personal agents). */
+  titleVariant?: "dynamicCentered" | "loyalty";
 }) {
   const scenes = steps.map((step) => step.scene);
   return (
@@ -65,7 +68,7 @@ export function Promotions({
               firstLine={firstLine}
               secondLine={secondLine}
               width={width}
-              variant="dynamicCentered"
+              variant={titleVariant}
               weight="light"
               tone="light"
             />
