@@ -4,6 +4,9 @@ import frame from "@/modules/dynamic-landing-pages/assets/options/frame.svg";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import ground from "@/modules/support/assets/handoff/ground.webp";
 import { AubergineSteps } from "@/modules/support/components/handoff/aubergine-steps";
+import stampLoyalty from "../../assets/loyalty/stamp-loyalty.webp";
+import stampRecommendations from "../../assets/loyalty/stamp-recommendations.webp";
+import stampSubscription from "../../assets/loyalty/stamp-subscription.webp";
 import { loyaltyCards } from "../../config/loyalty";
 import { PageRails } from "../shared/page-rails";
 
@@ -40,7 +43,12 @@ export function Loyalty() {
             />
           </div>
 
-          <AubergineSteps steps={loyaltyCards} variant="retainLoyalty" />
+          {/* Figma 3257:38506 / 38601 / 38696: a stamp per step (heart pendant, starred wreath, calendar). */}
+          <AubergineSteps
+            steps={loyaltyCards}
+            variant="retainLoyalty"
+            stamps={[stampRecommendations, stampLoyalty, stampSubscription]}
+          />
         </div>
       </div>
       <PageRails />

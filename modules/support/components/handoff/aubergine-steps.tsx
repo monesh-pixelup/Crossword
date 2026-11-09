@@ -94,6 +94,7 @@ export function AubergineSteps({
   variant = "loyalty",
   media,
   cardArt = card,
+  stamps,
 }: {
   steps: { title: string; description: string }[];
   variant?: keyof typeof variants;
@@ -101,6 +102,8 @@ export function AubergineSteps({
   media?: (index: number) => ReactNode;
   /** The notched card behind each stamp, when a variant's cell is drawn at another height. */
   cardArt?: StaticImageData;
+  /** Each step's own stamp, in order (Loyalty on Retain); otherwise every step shows the quill stamp. */
+  stamps?: StaticImageData[];
 }) {
   const v = variants[variant];
   return (
@@ -141,7 +144,7 @@ export function AubergineSteps({
                 // Notched card (345.65 × 222.09px in Figma), 5.51px from the cell's top and centred across it.
                 <div className={`absolute flex items-center justify-center ${v.card}`}>
                   <Image src={cardArt} alt="" fill className="max-w-none" />
-                  <Image src={stamp} alt="" sizes="88px" className="relative h-auto w-[87.67px]" />
+                  <Image src={stamps?.[i] ?? stamp} alt="" sizes="88px" className="relative h-auto w-[87.67px]" />
                 </div>
               )}
             </div>
