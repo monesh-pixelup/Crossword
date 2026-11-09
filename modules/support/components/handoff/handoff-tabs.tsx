@@ -11,6 +11,9 @@ const DURATION_MS = 6000;
 /** How long a mode's scene holds once it has played out, before the next takes over. */
 const HOLD_MS = 2500;
 
+/** The phone accordion's open / close: the row eases its height while the card fades. */
+const ACCORDION_MS = 500;
+
 /**
  * Figma "Stage + triggers" (3836:17091), as Proactive messages on Sell: a 1280 × 599 sand stage (#f3e7d3, a 1px
  * black/25 line on its top and sides) playing the open mode's motion card, centred and 48px clear of its top and
@@ -18,7 +21,10 @@ const HOLD_MS = 2500;
  * a line of Geist 16 at black/59; the open one is cream with 32px under its copy, the others at 50%. A 2px gold bar
  * fills across the open tab's top edge (Figma shows it part-way, at 156.95px) while its scene plays and holds, then
  * the next takes over. Choosing a tab restarts its turn; the turn only runs while the section is on screen, and not
- * at all with reduced motion (the bar then sits full). Below 768px the tabs stack.
+ * at all with reduced motion (the bar then sits full).
+ *
+ * Below 768px the tabs stack as an accordion, as Insights on the home page: the open mode's card opens out right under
+ * its copy on a sand stage, easing open as the last one's closes, and they change only when tapped (the bar sits full).
  */
 export function HandoffTabs() {
   const [active, setActive] = useState(0);
@@ -29,6 +35,24 @@ export function HandoffTabs() {
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
   const last = handoffModes.length - 1;
+  // Which layout is showing (null until known): only its card is drawn, and only from 768px do the tabs turn on a timer.
+  const [wide, setWide] = useState<boolean | null>(null);
+  // The accordion item closing as another opens, kept drawn until it has eased shut.
+  const [closing, setClosing] = useState<number | null>(null);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 48rem)");
+    const update = () => setWide(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (closing === null) return;
+    const timer = window.setTimeout(() => setClosing(null), ACCORDION_MS);
+    return () => window.clearTimeout(timer);
+  }, [closing]);
 
   useEffect(() => {
     const el = root.current;
@@ -42,6 +66,7 @@ export function HandoffTabs() {
   const duration = Math.max(DURATION_MS, handoffDuration(active) + HOLD_MS);
 
   const select = (i: number) => {
+    if (i !== active) setClosing(active);
     setActive(i);
     setRun((r) => r + 1);
   };
@@ -65,55 +90,86 @@ export function HandoffTabs() {
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="relative flex aspect-[1280/599] w-full items-center justify-center overflow-hidden border-x border-t border-black/25 bg-[#f3e7d3] max-md:aspect-[4/5]"
+        className="relative flex aspect-[1280/599] w-full items-center justify-center overflow-hidden border-x border-t border-black/25 bg-[#f3e7d3] max-md:hidden"
       >
         {/* The mode's 355 × 402 card, as tall as the stage less 48px top and bottom, fading in as it takes over. */}
-        <div
-          key={`${active}-${run}`}
-          className="relative aspect-[355/402] h-[calc(100%-96px)] max-md:h-[calc(100%-48px)] transition-opacity duration-300 ease-out starting:opacity-0"
-        >
-          <HandoffScene index={active} active={visible} />
-        </div>
+        {wide !== false && (
+          <div
+            key={`${active}-${run}`}
+            className="relative aspect-[355/402] h-[calc(100%-96px)] transition-opacity duration-300 ease-out starting:opacity-0"
+          >
+            <HandoffScene index={active} active={visible} />
+          </div>
+        )}
       </div>
 
-      <div role="tablist" aria-label="Human-in-the-loop modes" onKeyDown={onKeyDown} className="flex w-full flex-col md:flex-row">
+      <div role="tablist" aria-label="Human-in-the-loop modes" onKeyDown={onKeyDown} className="flex w-full flex-col max-md:border-b max-md:border-black/25 md:flex-row">
         {handoffModes.map((mode, i) => {
           const selected = i === active;
           return (
-            <button
-              key={mode.title}
-              ref={(el) => {
-                tabs.current[i] = el;
-              }}
-              type="button"
-              role="tab"
-              id={`${id}-tab-${i}`}
-              aria-selected={selected}
-              aria-controls={`${id}-panel`}
-              tabIndex={selected ? 0 : -1}
-              onClick={() => select(i)}
-              className={cn(
-                // Each tab draws its top, bottom and left edges; the last closes the row on the right.
-                // Stacked below 768px, each draws its top and sides instead and the last its bottom.
-                "relative flex flex-1 cursor-pointer items-start border-black/25 px-6 py-8 text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:self-stretch md:border-y md:border-l md:p-10 md:last:border-r",
-                "max-md:border-x max-md:border-t max-md:last:border-b",
-                selected ? "bg-cream md:pb-8" : "hover:bg-cream/60",
-              )}
-            >
-              <span className={cn("flex flex-col items-start gap-4 transition-opacity duration-300", !selected && "opacity-50")}>
-                <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{mode.title}</span>
-                <span className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{mode.description}</span>
-              </span>
-              {selected && (
-                <span
-                  key={run}
-                  aria-hidden
-                  onAnimationEnd={() => select(active === last ? 0 : active + 1)}
-                  className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold motion-reduce:w-full motion-reduce:animate-none"
-                  style={{ animationDuration: `${duration}ms`, animationPlayState: visible ? "running" : "paused" }}
-                />
-              )}
-            </button>
+            <div key={mode.title} className="flex flex-1 flex-col border-black/25 md:last:border-r">
+              <button
+                ref={(el) => {
+                  tabs.current[i] = el;
+                }}
+                type="button"
+                role="tab"
+                id={`${id}-tab-${i}`}
+                aria-selected={selected}
+                aria-controls={`${id}-panel`}
+                tabIndex={selected ? 0 : -1}
+                onClick={() => select(i)}
+                className={cn(
+                  // Each tab draws its top, bottom and left edges; the last one's wrapper closes the row on the right.
+                  // Stacked below 768px, each draws its top and sides instead and the list closes the bottom.
+                  "relative flex flex-1 cursor-pointer items-start border-black/25 px-6 py-8 text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:border-y md:border-l md:p-10",
+                  "max-md:border-x max-md:border-t",
+                  selected ? "bg-cream md:pb-8" : "hover:bg-cream/60",
+                )}
+              >
+                <span className={cn("flex flex-col items-start gap-4 transition-opacity duration-300", !selected && "opacity-50")}>
+                  <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{mode.title}</span>
+                  <span className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{mode.description}</span>
+                </span>
+                {/* Below 768px the tabs change only when tapped: the open tab's bar sits full instead of running its turn. */}
+                {selected && wide === false && (
+                  <span aria-hidden className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-[calc(100%+2.02px)] bg-gold" />
+                )}
+                {selected && wide !== false && (
+                  <span
+                    key={run}
+                    aria-hidden
+                    onAnimationEnd={() => select(active === last ? 0 : active + 1)}
+                    className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold motion-reduce:w-full motion-reduce:animate-none"
+                    style={{ animationDuration: `${duration}ms`, animationPlayState: visible ? "running" : "paused" }}
+                  />
+                )}
+              </button>
+              {/*
+                Below 768px: the open mode's card on its sand stage (4:5, the card 24px clear top and bottom) under its copy,
+                easing open while it's open and shut as another opens; it carries the tab's side lines on down.
+              */}
+              <div
+                aria-hidden={!selected}
+                className={cn(
+                  "grid border-x border-black/25 bg-cream transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:hidden",
+                  selected ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                )}
+                style={{ transitionDuration: `${ACCORDION_MS}ms` }}
+              >
+                <div className="min-h-0 overflow-hidden">
+                  <div className="px-6 pb-8">
+                    <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden bg-[#f3e7d3]">
+                      {wide !== true && (selected || i === closing) && (
+                        <div className="relative aspect-[355/402] h-[calc(100%-48px)]">
+                          <HandoffScene key={`${i}-${run}`} index={i} active={visible && selected} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         })}
       </div>

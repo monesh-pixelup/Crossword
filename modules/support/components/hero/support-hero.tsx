@@ -16,12 +16,17 @@ function Headline() {
       id="support-hero-title"
       className="font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] text-cream md:whitespace-nowrap"
     >
+      {/*
+        From 768px: "Most support tickets aren't" over "complicated, they're just slow". On phones "complicated," joins the first
+        sentence (wrapping over two lines) and the gold "they're just slow" starts its own line.
+      */}
       <span className="block pt-[0.3em]">
         <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">M</span>
-        ost support tickets aren&rsquo;t
+        ost support tickets aren&rsquo;t<span className="md:hidden"> complicated,</span>
       </span>
       <span className="block">
-        complicated, <span className="text-gold">they&rsquo;re just slow</span>
+        <span className="max-md:hidden">complicated, </span>
+        <span className="text-gold">they&rsquo;re just slow</span>
       </span>
     </h1>
   );
