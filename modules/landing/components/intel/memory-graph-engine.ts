@@ -28,7 +28,7 @@ import {
  * while the graph is on screen. The outgoing card shrinks back into its block;
  * the next block grows into its card, which springs in. Staggered pop-in on
  * first view, mouse parallax on the blocks and a small magnetic lean on the
- * focus card. Hovering (or tapping) one of the four blocks that has a card
+ * focus card. Hovering (or tapping) one of the five blocks that has a card
  * turns it into that card; the open card holds while the cursor is on it.
  *
  * The markup's static styles show the Memory frame, so without JS (or with
@@ -73,6 +73,9 @@ const seg = (t: number, start: number, dur: number) => clamp((t - start) / dur);
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const pct = (v: number, total: number) => `${(v / total) * 100}%`;
 
+/** How many storyboard frames the graph loops through. */
+const FRAMES = FRAME_ORDER.length;
+
 const nodeData = Object.fromEntries(NODES.map((n) => [n.id, n]));
 const lineData = Object.fromEntries(LINES.map((l) => [l.id, l]));
 const glowData = Object.fromEntries(GLOW.map((g) => [g.id, g]));
@@ -98,8 +101,8 @@ export function boxFor(id: string, k: FrameKey): Box {
     return [b[0], b[1], b[2], b[3], 0];
   }
   const i = FRAME_ORDER.indexOf(k);
-  for (let step = 1; step < 4; step++) {
-    const p = node.frames[FRAME_ORDER[(i - step + 4) % 4]];
+  for (let step = 1; step < FRAMES; step++) {
+    const p = node.frames[FRAME_ORDER[(i - step + FRAMES) % FRAMES]];
     if (p) return [p[0], p[1], p[2], p[3], 0];
   }
   return [0, 0, 0, 0, 0];
@@ -110,8 +113,8 @@ export function lineFor(id: string, k: FrameKey): { p: LinePoints; o: number } {
   const d = frames[k];
   if (d) return { p: d, o: 1 };
   const i = FRAME_ORDER.indexOf(k);
-  for (let step = 1; step < 4; step++) {
-    const p = frames[FRAME_ORDER[(i - step + 4) % 4]];
+  for (let step = 1; step < FRAMES; step++) {
+    const p = frames[FRAME_ORDER[(i - step + FRAMES) % FRAMES]];
     if (p) return { p, o: 0 };
   }
   return { p: [0, 0, 0, 0], o: 0 };
@@ -387,7 +390,7 @@ export function startMemoryGraph(root: HTMLElement): () => void {
   let pending: FrameKey | null = null;
   let overCard = false;
 
-  // Hover: the four blocks that have a card turn into it when hovered. While the cursor stays
+  // Hover: the five blocks that have a card turn into it when hovered. While the cursor stays
   // on the open card, autoplay holds; it resumes HOLD ms after it leaves.
   function hitTest(cx: number, cy: number): { state: FrameKey; card: boolean } | null {
     const r = root.getBoundingClientRect();
@@ -476,7 +479,7 @@ export function startMemoryGraph(root: HTMLElement): () => void {
         timer += dt;
         if (timer >= HOLD) {
           timer = 0;
-          stateIdx = (stateIdx + 1) % 4;
+          stateIdx = (stateIdx + 1) % FRAMES;
           from = to;
           to = KEY[STATES[stateIdx]];
           t = 0;

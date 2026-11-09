@@ -6,6 +6,7 @@ import { cn } from "@/lib/cn";
 import cardDecisions from "../../assets/intel/card-decisions.webp";
 import cardMemory from "../../assets/intel/card-memory.webp";
 import cardOutcome from "../../assets/intel/card-outcome.webp";
+import cardProfile from "../../assets/intel/card-profile.webp";
 import cardSignal from "../../assets/intel/card-signal.webp";
 import { type CardState, GLOW, GRAPH_H as H, GRAPH_W as W, LINES, NODES, type NodeKind, SPRITE, STATES } from "../../config/intel";
 import { boxFor, lineFor, pathOf, startMemoryGraph } from "./memory-graph-engine";
@@ -15,6 +16,7 @@ const cardImages: Record<CardState, StaticImageData> = {
   signal: cardSignal,
   decisions: cardDecisions,
   outcome: cardOutcome,
+  profile: cardProfile,
 };
 
 const nodeStyles: Record<NodeKind, string> = {
@@ -35,6 +37,7 @@ const cardLabels: Record<CardState, { text: string; left: number; top: number; i
   signal: { text: "Signal", left: 116, top: 52, imageW: 803, imageH: 514 },
   decisions: { text: "Decisions", left: 103, top: 49, imageW: 793, imageH: 556 },
   outcome: { text: "Outcome", left: 102, top: 49, imageW: 744, imageH: 513 },
+  profile: { text: "Customer profile", left: 102, top: 49, imageW: 730, imageH: 564 },
 };
 /** Label font size in stage units: 12-unit capitals, as in the art. */
 const LABEL_SIZE = 20;
