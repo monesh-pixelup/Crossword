@@ -139,8 +139,9 @@ export function MobileMenu({ tone = "dark", onOpenChange }: { tone?: "dark" | "l
           </ul>
         </nav>
         <div {...stagger(open, primaryNav.length)}>
-          <div className="mt-8 flex gap-3">
-            <StampButton href={ctaLinks.bookDemo} variant={light ? "wine-gold" : "primary-soft"}>
+          {/* Full width in the mobile menu, its label centred. */}
+          <div className="mt-8 flex">
+            <StampButton href={ctaLinks.bookDemo} variant={light ? "wine-gold" : "primary-soft"} className="w-full justify-center">
               BOOK A DEMO
             </StampButton>
           </div>
