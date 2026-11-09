@@ -34,14 +34,19 @@ export function YourPart() {
           </p>
         </div>
 
-        <ol className="grid w-full gap-12 md:grid-cols-3 md:gap-6">
+        {/*
+          From 768px the steps sit side by side, each under its stretch of the horizontal rail. On phones the rail turns
+          vertical down the left (each ring level with its tag, the dashed line running on to the next one) with the steps
+          stacked to its right, 40px apart.
+        */}
+        <ol className="grid w-full max-md:max-w-[400px] md:grid-cols-3 md:gap-6">
           {rhythm.map((step) => (
-            <li key={step.title} className="flex flex-col items-start gap-5">
-              <span aria-hidden className="flex w-full items-center">
+            <li key={step.title} className="group flex items-start gap-5 max-md:pb-10 max-md:last:pb-0 md:flex-col">
+              <span aria-hidden className="flex items-center max-md:mt-[5.3px] max-md:flex-col max-md:self-stretch md:w-full">
                 <span className="size-2.5 shrink-0 rounded-full shadow-[inset_0_0_0_1.3px_var(--color-gold)]" />
-                <span className="flex-1 border-t border-dashed border-gold" />
+                <span className="flex-1 border-dashed border-gold max-md:-mb-[45.3px] max-md:border-l max-md:group-last:hidden md:border-t" />
               </span>
-              <div className="flex flex-col items-start gap-12">
+              <div className="flex flex-col items-start gap-4 md:gap-12">
                 <Eyebrow size="tag">{step.tag}</Eyebrow>
                 <h3 className="font-serif text-[32px] leading-[1.1] font-light tracking-[-1.6px] text-ink">{step.title}</h3>
               </div>
