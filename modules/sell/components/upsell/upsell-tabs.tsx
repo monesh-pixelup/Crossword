@@ -14,16 +14,17 @@ const DURATION_MS = 6000;
 const HOLD_MS = 2500;
 
 /**
- * Figma 3257:36264's icons. The open feature's is a maroon badge (Figma 3786:21472): the glyph at 14.8px in #ffb657,
- * 4.6px in, inside a 0.46px #efe9db line and a 0.46px #ffb657 ring. The others are a 0.75px black/19 tile around the
- * 22.5px glyph box, the glyph (16.36px, 3.6px in) in black/40. `path` is the glyph in that 22.5px box.
+ * Figma 3257:36264's icons, each a 24px square. The open feature's is a maroon badge (Figma 3786:21472): the glyph at
+ * 14.8px in #ffb657, 4.6px in (its 0.46px #efe9db line counted inside), with a 0.46px #ffb657 ring. The others are a
+ * 0.75px black/19 line around the 22.5px glyph box, the glyph (16.36px, 3.6px in) in black/40. `path` is the glyph in
+ * that 22.5px box.
  */
 function IconTile({ path, on }: { path: string; on: boolean }) {
   if (on) {
     return (
       <span
         aria-hidden
-        className="flex shrink-0 items-center overflow-clip border-[0.46px] border-[#efe9db] bg-maroon p-[4.603px] shadow-[0_0_0_0.46px_#ffb657]"
+        className="flex size-6 shrink-0 items-center overflow-clip border-[0.46px] border-[#efe9db] bg-maroon p-[4.143px] shadow-[0_0_0_0.46px_#ffb657]"
       >
         {/* The glyph's own 16.36px box inside the 22.5px one, drawn at 14.8px: its 1.2px stroke scales to Figma's 1.085px. */}
         <svg width="14.795" height="14.795" viewBox="3.615 3.705 16.362 16.362" fill="none" className="block">
@@ -33,7 +34,7 @@ function IconTile({ path, on }: { path: string; on: boolean }) {
     );
   }
   return (
-    <span aria-hidden className="flex shrink-0 items-center border-[0.75px] border-black/19 p-[0.75px]">
+    <span aria-hidden className="flex size-6 shrink-0 items-center border-[0.75px] border-black/19">
       <svg width="22.5" height="22.5" viewBox="0 0 22.5 22.5" fill="none" className="block overflow-hidden">
         <path d={path} stroke="black" strokeOpacity="0.4" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
@@ -43,8 +44,9 @@ function IconTile({ path, on }: { path: string; on: boolean }) {
 
 /**
  * Figma "Layout" (Upsell & cross-sell, node 2914:36238): one sand panel (#f3e7d3, 0.5px black/25 border) with the
- * features as a list in the 596px left column and, on the right, the open feature's motion visual at 687px wide. The list (centred under 40px top padding, 42px in from both sides, so its rules end as
- * far from the panel as they start from the card's edge) is 49px from row to rule: the open feature shows its tile, Crimson Light 24 title and line of Geist 16 (8px under it), its rule
+ * features as a list in the 596px left column and, on the right, the open feature's motion visual at 687px wide. The list
+ * (Figma 3257:36264: 520px wide, at the top of the column 40px down and 42px in, so its rules end 34px short of the
+ * visual) is 32px from row to rule: the open feature shows its tile, Crimson Light 24 title and line of Geist 16 (8px under it), its rule
  * 24px below; the others are their tile and title at 40%. Every rule is black/20. The features take turns on a
  * timer (long enough for each scene to play out and hold) while the section is on screen; choosing one restarts its
  * timer. Side by side from 1280px; narrower, the list sits over the panel, which spans the width.
@@ -102,7 +104,7 @@ export function UpsellTabs() {
       className="flex w-full flex-col bg-[#f3e7d3] p-[0.5px] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] min-[1280px]:flex-row min-[1280px]:items-start"
     >
       {/* Stacked (below 1280px), 32px above the first row and below the last, as between each row and its rule. */}
-      <div className="flex min-w-0 flex-1 flex-col justify-center self-stretch px-6 py-8 md:px-10 min-[1280px]:items-start min-[1280px]:pt-10 min-[1280px]:pr-[42px] min-[1280px]:pb-0 min-[1280px]:pl-[42px]">
+      <div className="flex min-w-0 flex-1 flex-col justify-center self-stretch px-6 py-8 md:px-10 min-[1280px]:items-start min-[1280px]:justify-start min-[1280px]:pt-10 min-[1280px]:pr-[34px] min-[1280px]:pb-0 min-[1280px]:pl-[42px]">
         <div
           role="tablist"
           aria-orientation="vertical"
@@ -126,14 +128,12 @@ export function UpsellTabs() {
                   tabIndex={on ? 0 : -1}
                   onClick={() => select(i)}
                   className={cn(
-                    "flex w-full items-start gap-3 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
-                    on ? "cursor-default" : "cursor-pointer",
+                    "flex w-full gap-3 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
+                    on ? "cursor-default items-start" : "cursor-pointer items-center",
                   )}
                 >
-                  {/* Top-aligned with the open title, centred on a closed one's 26px title box (1px down), easing between. */}
-                  <span className={cn("flex transition-[margin] duration-300 ease-out", !on && "mt-px")}>
-                    <IconTile path={feature.icon} on={on} />
-                  </span>
+                  {/* Figma: the 24px tile top-aligned with the open title, centred on a closed one's 24px row. */}
+                  <IconTile path={feature.icon} on={on} />
                   <span className="flex min-w-0 flex-col">
                     <span
                       className={cn(
