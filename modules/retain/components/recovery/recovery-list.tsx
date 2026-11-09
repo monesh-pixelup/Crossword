@@ -23,6 +23,8 @@ export function RecoveryList() {
       // Figma 3257:38266: the panel ends 7px short of the content edge (586px across, 687px wide, in the 1280px row).
       panelClassName="bg-aubergine lg:mr-[7px]"
       spacedRules
+      // Below 992px each moment's visual opens under it, accordion-style, and they change only when tapped.
+      stackedAccordion
       renderPanel={(active) => <RecoveryMotion index={active} />}
     />
   );
