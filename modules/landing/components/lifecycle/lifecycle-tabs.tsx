@@ -16,7 +16,7 @@ const TURN = 9000;
 
 type Position = { stage: number; feature: number };
 
-/** Each stage's glyph, from Figma's tab badges (3495:23536): shopping bag, headset, arrows, sparkles and robot. */
+/** Each stage's glyph, from Figma's tab badges (3495:23536): shopping bag, headset, arrows, sparkles and robot (Phosphor fill). */
 const glyphs: Record<string, ReactNode> = {
   Sell: (
     <g fill="currentColor" transform="translate(-1.1 -1.1)">
@@ -60,24 +60,17 @@ const glyphs: Record<string, ReactNode> = {
 };
 
 /**
- * The open stage's badge (Figma 3495:23537): its glyph in gold on maroon, under a gold diamond clipped to the
- * square, with a gold dot in each corner, ringed 0.55px cream then 0.55px gold.
+ * The open stage's badge (Figma 3786:16662, the plain badge the other pages' tabs use): a 24px maroon square with a
+ * 0.6px #efe9db line inside it and a 0.6px #ffb657 ring outside, its gold glyph (Phosphor's 16px icon box) centred.
  */
 function StageBadge({ glyph }: { glyph: ReactNode }) {
   return (
-    <svg
-      aria-hidden
-      viewBox="0 0 22 22"
-      fill="none"
-      className="size-[22px] bg-maroon text-[#ffb657] shadow-[0_0_0_0.55px_#efe9db,0_0_0_1.1px_#ffb657]"
-    >
-      {glyph}
-      <path stroke="currentColor" strokeWidth="0.55" d="M11 -5.724L27.723 10.999L11 27.722L-5.723 10.999Z" />
-      <circle fill="currentColor" r="0.55" cx="1.097" cy="1.101" />
-      <circle fill="currentColor" r="0.55" cx="20.902" cy="1.101" />
-      <circle fill="currentColor" r="0.55" cx="20.902" cy="20.9" />
-      <circle fill="currentColor" r="0.55" cx="1.097" cy="20.9" />
-    </svg>
+    <span aria-hidden className="block size-6 bg-maroon shadow-[inset_0_0_0_0.6px_#efe9db,0_0_0_0.6px_#ffb657]">
+      {/* The glyphs are drawn about (11.03, 11.03) at 1 unit per px; this box centres them in the 24px square. */}
+      <svg viewBox="-0.97 -0.97 24 24" fill="none" className="block size-6 text-[#ffb657]">
+        {glyph}
+      </svg>
+    </span>
   );
 }
 
@@ -242,11 +235,11 @@ export function LifecycleTabs() {
                   : "cursor-pointer bg-[rgba(243,233,212,0.37)] max-md:w-[168px] max-md:flex-none max-md:justify-center",
               )}
             >
-              {/* The badge opens out ahead of the name (19px gap) on the open tab. */}
+              {/* The badge opens out ahead of the name (16px gap, as Figma 3786:16661) on the open tab. */}
               <span
                 className={cn(
-                  "relative h-[22px] shrink-0 transition-[width,margin-right,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-                  on ? "mr-[19px] w-[22px] opacity-100" : "mr-0 w-0 opacity-0",
+                  "relative h-6 shrink-0 transition-[width,margin-right,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                  on ? "mr-4 w-6 opacity-100" : "mr-0 w-0 opacity-0",
                 )}
               >
                 <span className="absolute top-0 left-0">
