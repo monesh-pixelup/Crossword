@@ -39,7 +39,7 @@ function Certifications() {
             className="h-[70px] shrink-0"
             style={{ width: cert.badgeWidth }}
           />
-          <h3 className="font-sans text-[14px] leading-6 font-semibold tracking-[-0.56px] whitespace-nowrap text-white/80">
+          <h3 className="font-sans text-[14px] leading-6 font-semibold tracking-[-0.56px] whitespace-nowrap text-white/50">
             {cert.name}
           </h3>
         </li>
@@ -52,8 +52,8 @@ function Certifications() {
 export function Trust() {
   return (
     <section aria-labelledby="trust-title" className="relative py-12 md:py-16 lg:py-[87px] min-[1440px]:py-[6.04cqw]">
-      {/* The green spans the same width as the patterned divider band (inset to the frame rails). */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-(--frame-inset) inset-y-0 bg-[#00331a]" />
+      {/* Figma 3073:22066's deeper #002613 green, spanning the same width as the patterned divider band (inset to the frame rails). */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-(--frame-inset) inset-y-0 bg-[#002613]" />
       {/*
         Card: at least 626px tall with its content centred; padding steps down per breakpoint.
         Past the 1440px Figma frame it keeps Figma's 1280 x 626 proportions (and the band's padding
