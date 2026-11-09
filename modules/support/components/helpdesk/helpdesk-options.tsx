@@ -67,7 +67,7 @@ export function HelpdeskOptions() {
                 <h3 className={title}>A free help desk, with unlimited seats.</h3>
                 <p className={body}>Give your team one place to see, assign and resolve customer conversations.</p>
               </div>
-              <TextLink href={ctaLinks.learnMore}>Learn more</TextLink>
+              <TextLink href={ctaLinks.learnMore}>Get started</TextLink>
             </div>
 
             {/*

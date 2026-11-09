@@ -20,7 +20,7 @@ const turns = discoveryFeatures.map((feature) => tabTurn(discoveryScenes[feature
  * Figma "Library · Vertical tabs" (3257:35922), as AI Assistants' Shopper asks and Retain's Campaigns & outbound: the list
  * of features on the left from 992px (above the panel below that), each label 24px in (10.2px tall padding around its
  * 24px line, so 44.4px rows; 20px after), the active one ink on cream with a 2px gold bar down its left edge, the rest
- * ink/40; and the active feature in the 820px right column (its title, description and LEARN MORE, 24px over the
+ * ink/40; and the active feature in the 820px right column (its title, description and GET STARTED, 24px over the
  * framed 821 × 611 maroon damask panel, its motion visual playing inside the lattice frame).
  *
  * They play on their own (see `useAutoplayTabs`): each feature stays up for its turn (its scene's run plus a short
@@ -91,7 +91,7 @@ export function DiscoveryTabs() {
                 href={feature.href}
                 className="flex shrink-0 items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-[#fff9e9] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-opacity duration-150 hover:opacity-50"
               >
-                LEARN MORE
+                GET STARTED
                 <Image src={arrowRight} alt="" className="size-3" />
               </Link>
             </div>

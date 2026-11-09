@@ -8,11 +8,11 @@ import { channels } from "../../config/channels";
 const studs = ["top-[5px] left-[5px]", "top-[5px] right-[5px]", "bottom-[5px] left-[5px]", "right-[5px] bottom-[5px]"];
 
 /**
- * Figma "Library · Integrations": a centred 400px header (eyebrow, headline and a line of copy, 24px
- * apart), then 80px below it the tiles in one centred row, 153 × 128 and 16px apart: sand on a 1px
- * engraved/10 border around a 148 × 120 light panel (2.5px in from the sides, 3.95px from top and
- * bottom), a gold stud in each corner, and the channel's 30.9 × 29.1 mark over its name in Crimson
- * 22, 8px apart. Narrower than the row, the tiles wrap into a 2-, 3- or 4-column grid. The patterned
+ * Figma "Library · Integrations" (3257:35061): a centred header (eyebrow, the headline on one line, kept from before
+ * rather than Figma's two, and a line of copy, 24px apart), then 80px below it the tiles in one row across the 1280px, 169 × 121.1 and 16px apart: a 1px
+ * engraved/10 border round the light #fff7e4 panel, which fills it (29px over the channel's 30.9 × 29.1 mark and under
+ * its name in Crimson 22, 8px apart, 17px in at the sides), a gold stud 5px into each corner. Narrower than the row,
+ * the tiles wrap (centred) or, on smaller screens, sit in a 2-, 3- or 4-column grid. The patterned
  * divider band closes it, under its bottom padding, before the next section.
  */
 export function SupportChannels() {
@@ -32,9 +32,9 @@ export function SupportChannels() {
             {channels.map(({ name, icon }) => (
               <li
                 key={name}
-                className="relative flex h-32 border border-engraved/10 bg-sand px-[1.5px] py-[2.951px] text-center min-[1033px]:w-[153px]"
+                className="relative flex h-[121.1px] border border-engraved/10 bg-sand text-center min-[1033px]:w-[169px]"
               >
-                <div className="flex w-full flex-col items-center justify-center gap-2 bg-[#fff7e4]">
+                <div className="flex w-full flex-col items-center justify-center gap-2 bg-[#fff7e4] px-[17px] py-[29px]">
                   <Image src={icon} alt="" className="h-[29.097px] w-[30.916px]" />
                   <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
                 </div>

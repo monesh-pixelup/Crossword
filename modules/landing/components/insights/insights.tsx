@@ -40,7 +40,7 @@ export function Insights() {
             href="#insights"
             className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-opacity duration-150 hover:opacity-50"
           >
-            LEARN MORE
+            GET STARTED
             <Image src={arrowRight} alt="" className="size-4" />
           </Link>
         </div>

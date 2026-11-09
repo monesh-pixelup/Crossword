@@ -24,7 +24,7 @@ export type LifecycleStage = {
 };
 
 // Labels follow the motion visuals.
-// TODO: real "Learn more" links.
+// TODO: real "Get started" links.
 export const lifecycleStages: LifecycleStage[] = [
   {
     number: "01",

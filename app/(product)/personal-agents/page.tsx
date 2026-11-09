@@ -113,7 +113,6 @@ export default function PersonalAgentsPage() {
         firstLine="ou know what happened"
         copy="You’ll see what personal agents request, their actions, and the outcomes."
         scene="pa-insights-motion"
-        layout="inline"
       />
       {/* Figma "Divider band": the 75px chat band (56px below 768px). */}
       <div className="relative h-[75px] max-md:h-[56px]">

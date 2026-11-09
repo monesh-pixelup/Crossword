@@ -101,7 +101,7 @@ export function Trust() {
                 href="#trust"
                 className="flex items-center gap-2 border-b border-white/30 p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#d9dddb] transition-opacity duration-150 hover:opacity-50"
               >
-                LEARN MORE
+                GET STARTED
                 <Image src={arrowRight} alt="" className="size-4" />
               </Link>
             </div>

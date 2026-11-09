@@ -66,7 +66,7 @@ function ArrowButton({ direction, disabled, onClick }: { direction: "prev" | "ne
 /**
  * Figma "Section · Journey library (4x4)" (node 3295:53): a sand panel between the page rails (0.5px black/25
  * hairline, 80px top and bottom inside it, as Workflows on Support), the cream eyebrow over a two-line swash headline
- * (1000px box) and 8px below it an 820px line of Geist, with the previous / next arrows (9px apart) level with
+ * (1000px box) and 24px below it an 820px line of Geist, with the previous / next arrows (9px apart) level with
  * its foot on the right. 80px below, the journeys run in a row, 278px each and 28px either side of 10% black rules: the
  * icon tile, then 24px below it a Crimson 22 title and, 8px under, Geist 16 copy in ink muted (opening with its lead in Geist Medium #33322f).
  * Four fill the 1280px row; the rest are a scroll (or an arrow) away, a journey at a time.
@@ -108,7 +108,8 @@ export function JourneyLibrary() {
           <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
             <div className="flex min-w-0 flex-col items-start gap-6">
               <Eyebrow>A few of the many</Eyebrow>
-              <div className="flex flex-col items-start gap-2">
+              {/* Figma 3295:56: the eyebrow, headline and copy 24px apart. */}
+              <div className="flex flex-col items-start gap-6">
                 <SectionTitle
                   id="journey-library-title"
                   initial="E"

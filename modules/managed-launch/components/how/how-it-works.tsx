@@ -39,12 +39,12 @@ export function HowItWorks() {
               {/* The 400 × 296 light panel, centred (Figma nudges it 0.36px up). */}
               <span aria-hidden className="pointer-events-none absolute inset-x-1 top-[4.14px] bottom-[4.86px] bg-[#fff7e4]" />
               <Studs inset={7} />
-              {/* Tangerine's figures are old-style: its 1 and 2 sit at x-height, so they're set 1.5× to stand as tall as 3–6 (same baseline). */}
+              {/* Figma 3262:415: every number in Tangerine 55 as set, its old-style 1 and 2 at x-height beside the taller 3–6. */}
               <p
                 aria-hidden
                 className="relative font-calligraphy text-[55px] leading-[1.1] tracking-[-2.75px] text-maroon [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]"
               >
-                #{i < 2 ? <span className="text-[1.5em] leading-0">{i + 1}</span> : i + 1}
+                #{i + 1}
               </p>
               <div className="relative flex flex-col gap-2">
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">

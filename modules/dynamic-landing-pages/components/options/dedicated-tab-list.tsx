@@ -79,7 +79,7 @@ export function DedicatedTabList() {
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{tab.label}</h3>
                 <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{tab.description}</p>
               </div>
-              <TextLink href={ctaLinks.learnMore}>Learn more</TextLink>
+              <TextLink href={ctaLinks.learnMore}>Get started</TextLink>
             </div>
 
             {/*
