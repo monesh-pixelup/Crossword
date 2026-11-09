@@ -274,9 +274,9 @@ export function CtaEnvelope() {
           aria-hidden
           className="absolute inset-x-0 top-[75.5396cqw] bottom-0 z-7 hidden bg-sand shadow-[inset_1px_0_0_rgba(113,77,17,0.25),inset_-1px_0_0_rgba(113,77,17,0.25),0_-0.5252cqw_2.1007cqw_rgba(0,0,0,0.12)] [clip-path:inset(1px_-4cqw_-4cqw_-4cqw)] max-md:block"
         />
-        <div className="absolute top-[49.9029cqw] left-1/2 z-11 flex w-[min(389.68px,28.0345cqw)] -translate-x-1/2 flex-col items-center gap-y-[1.5108cqw] max-md:relative max-md:top-auto max-md:left-auto max-md:mx-auto max-md:mt-[-17.1223cqw] max-md:w-auto max-md:translate-x-0 max-md:gap-y-5 max-md:px-5 max-md:pb-14">
+        <div className="absolute top-[49.9029cqw] left-1/2 z-11 flex w-[min(389.68px,28.0345cqw)] -translate-x-1/2 flex-col items-center gap-y-[1.5108cqw] max-md:relative max-md:top-auto max-md:left-auto max-md:mx-auto max-md:mt-[-5cqw] max-md:w-auto max-md:translate-x-0 max-md:gap-y-5 max-md:px-5 max-md:pb-14">
           {/* Crimson 40px in Figma's 389.68px box at the 1440px frame (the envelope 1390px wide), never larger, scaling down with the envelope below that. */}
-          <h2 id="cta-title" className="m-0 pt-[0.2656em] text-center font-serif text-[min(40px,2.8777cqw)] leading-[1.1] font-normal tracking-[-0.06em] text-[#b4ab9b] [filter:url(#cta-deboss)] max-md:max-w-[11em] max-md:text-[2rem] max-[480px]:text-[1.75rem]">
+          <h2 id="cta-title" className="m-0 pt-[0.2656em] text-center font-serif text-[min(40px,2.8777cqw)] leading-[1.1] font-normal tracking-[-0.06em] text-[#b4ab9b] [filter:url(#cta-deboss)] max-md:max-w-[11em] max-md:text-[1.375rem] max-[480px]:text-[1.125rem]">
             <span className="font-script text-[1.5em] leading-0 tracking-[-0.05em]">E</span>xplore a no strings attached{" "}
             {/* The call to action, underlined with the site's text-link hairline (ink 30%), fading on hover like the other links. */}
             <Link

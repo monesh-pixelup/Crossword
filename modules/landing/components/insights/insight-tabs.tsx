@@ -30,12 +30,19 @@ const icons: ReactNode[] = [
   />,
 ];
 
+/** The accordion's open / close: the row eases its height while the visual fades. */
+const ACCORDION_MS = 500;
+
 /**
  * Insights tabs: the feature list beside the open tab's motion visual. The
  * active tab's top edge fills while its visual plays plus a hold, then the
  * next tab opens. Visuals start once the tabs are first on screen. Runs only
  * while in view, keeps running on hover, pauses on keyboard focus; no
  * auto-rotation with reduced motion.
+ *
+ * Below 992px the tabs are an accordion (as henrylabs.ai's "Built for a new era of shopping" on phones): the open
+ * tab's visual opens out right under it, easing its height open as the last one's closes. There they don't advance on
+ * their own; the visitor taps to change them.
  */
 export function InsightTabs() {
   const id = useId();
@@ -47,6 +54,24 @@ export function InsightTabs() {
   const rootRef = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const count = insightFeatures.length;
+  // Which layout is showing (null until known), so only its copy of the visual is drawn and plays.
+  const [wide, setWide] = useState<boolean | null>(null);
+  // The accordion item closing as another opens, kept drawn until it has eased shut.
+  const [closing, setClosing] = useState<number | null>(null);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 62rem)");
+    const update = () => setWide(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (closing === null) return;
+    const timer = window.setTimeout(() => setClosing(null), ACCORDION_MS);
+    return () => window.clearTimeout(timer);
+  }, [closing]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -63,6 +88,7 @@ export function InsightTabs() {
 
   const open = (i: number) => {
     if (i === current) return;
+    setClosing(current);
     setCurrent(i);
     setRun((r) => r + 1);
   };
@@ -91,8 +117,9 @@ export function InsightTabs() {
       }}
     >
       {/* Side by side, the row never grows past Figma's 640px, so wide screens don't pad the tabs out; the visual zooms to cover. */}
-      <div role="tabpanel" id={panelId} aria-labelledby={`${id}-tab-${current}`} className="relative aspect-[738/640] w-full overflow-hidden [container-type:size] lg:max-h-[640px] lg:w-[57.6563%] lg:flex-none">
-        <InsightPanel visual={insightFeatures[current].visual} run={run} />
+      {/* Side by side (from 992px) the open tab's visual has its own column; below that it opens under its tab. */}
+      <div role="tabpanel" id={panelId} aria-labelledby={`${id}-tab-${current}`} className="relative aspect-[738/640] w-full overflow-hidden [container-type:size] max-lg:hidden lg:max-h-[640px] lg:w-[57.6563%] lg:flex-none">
+        {wide !== false && <InsightPanel visual={insightFeatures[current].visual} run={run} />}
       </div>
 
       <div
@@ -104,74 +131,99 @@ export function InsightTabs() {
       >
         {insightFeatures.map((feature, i) => {
           const on = i === current;
+          const drawn = wide !== true && (on || i === closing);
           return (
-            <button
-              key={feature.title}
-              ref={(el) => {
-                tabs.current[i] = el;
-              }}
-              type="button"
-              role="tab"
-              id={`${id}-tab-${i}`}
-              aria-selected={on}
-              aria-controls={panelId}
-              tabIndex={on ? 0 : -1}
-              onClick={() => open(i)}
-              className={cn(
-                // Edges are inset shadows: Figma strokes sit inside the box and take no space.
-                // Tabs share edges; the list closes the bottom.
-                "relative flex w-full cursor-pointer items-start gap-3 p-5 text-left shadow-[inset_1px_0_0_#ddd,inset_-1px_0_0_#ddd,inset_0_1px_0_#ddd] transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon min-[480px]:gap-4 min-[480px]:p-6 md:p-8 min-[992px]:p-10",
-                on ? "bg-sand" : "bg-transparent",
-              )}
-            >
-              {on && (
-                <span
+            <div key={feature.title} className={cn("flex flex-col transition-colors duration-300", on ? "bg-sand" : "bg-transparent")}>
+              <button
+                ref={(el) => {
+                  tabs.current[i] = el;
+                }}
+                type="button"
+                role="tab"
+                id={`${id}-tab-${i}`}
+                aria-selected={on}
+                aria-controls={panelId}
+                tabIndex={on ? 0 : -1}
+                onClick={() => open(i)}
+                className={cn(
+                  // Edges are inset shadows: Figma strokes sit inside the box and take no space.
+                  // Tabs share edges; the list closes the bottom.
+                  "relative flex w-full flex-1 cursor-pointer items-start gap-3 p-5 text-left shadow-[inset_1px_0_0_#ddd,inset_-1px_0_0_#ddd,inset_0_1px_0_#ddd] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon min-[480px]:gap-4 min-[480px]:p-6 md:p-8 min-[992px]:p-10",
+                )}
+              >
+                {/* Below 992px the tabs only change when tapped: the open tab's bar sits full instead of running its turn. */}
+                {on && wide === false && (
+                  <span aria-hidden className="pointer-events-none absolute top-0 left-0 z-1 h-[2px] w-full bg-maroon" />
+                )}
+                {on && wide !== false && (
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute top-0 left-0 z-1 h-[2px] w-0 animate-[insights-progress_linear_forwards] bg-maroon motion-reduce:w-full motion-reduce:animate-none"
+                    style={{
+                      animationDuration: `${insightVisuals[feature.visual].duration + HOLD}ms`,
+                      animationPlayState: inView && !focusPaused ? "running" : "paused",
+                    }}
+                    onAnimationEnd={() => open((i + 1) % count)}
+                  />
+                )}
+                {/*
+                  The badge the other tabs on the site use (Lifecycle, Upsell): a 24px square, the glyph centred. Open, it's
+                  maroon with a 0.6px #efe9db line inside and a 0.6px #ffb657 ring outside, the glyph gold; closed, a 0.75px
+                  black/19 line with the glyph at black/40.
+                */}
+                <svg
                   aria-hidden
-                  className="pointer-events-none absolute top-0 left-0 z-1 h-[2px] w-0 animate-[insights-progress_linear_forwards] bg-maroon motion-reduce:w-full motion-reduce:animate-none"
-                  style={{
-                    animationDuration: `${insightVisuals[feature.visual].duration + HOLD}ms`,
-                    animationPlayState: inView && !focusPaused ? "running" : "paused",
-                  }}
-                  onAnimationEnd={() => open((i + 1) % count)}
-                />
-              )}
-              {/*
-                The badge the other tabs on the site use (Lifecycle, Upsell): a 24px square, the glyph centred. Open, it's
-                maroon with a 0.6px #efe9db line inside and a 0.6px #ffb657 ring outside, the glyph gold; closed, a 0.75px
-                black/19 line with the glyph at black/40.
-              */}
-              <svg
-                aria-hidden
-                viewBox="-1 -1 24 24"
-                fill="none"
-                className={cn(
-                  "size-6 flex-none transition-[background-color,color,box-shadow] duration-300",
-                  on
-                    ? "bg-maroon text-[#ffb657] shadow-[inset_0_0_0_0.6px_#efe9db,0_0_0_0.6px_#ffb657]"
-                    : "text-black/40 shadow-[inset_0_0_0_0.75px_rgba(0,0,0,0.19)]",
-                )}
-              >
-                {icons[i]}
-              </svg>
-              <span
-                className={cn(
-                  "flex min-w-0 flex-auto flex-col items-start gap-2.5 transition-opacity duration-300",
-                  !on && "opacity-50",
-                )}
-              >
-                <span className="max-w-[403.95px] font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">
-                  {feature.title}
-                </span>
-                <span
+                  viewBox="-1 -1 24 24"
+                  fill="none"
                   className={cn(
-                    "font-open-sans text-[14px] leading-5 tracking-[-0.42px] text-black/60",
-                    feature.narrow ? "max-w-[359.64px]" : "max-w-[391.67px]",
+                    "size-6 flex-none transition-[background-color,color,box-shadow] duration-300",
+                    on
+                      ? "bg-maroon text-[#ffb657] shadow-[inset_0_0_0_0.6px_#efe9db,0_0_0_0.6px_#ffb657]"
+                      : "text-black/40 shadow-[inset_0_0_0_0.75px_rgba(0,0,0,0.19)]",
                   )}
                 >
-                  {feature.body}
+                  {icons[i]}
+                </svg>
+                <span
+                  className={cn(
+                    "flex min-w-0 flex-auto flex-col items-start gap-2.5 transition-opacity duration-300",
+                    !on && "opacity-50",
+                  )}
+                >
+                  <span className="max-w-[403.95px] font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">
+                    {feature.title}
+                  </span>
+                  <span
+                    className={cn(
+                      "font-open-sans text-[14px] leading-5 tracking-[-0.42px] text-black/60",
+                      feature.narrow ? "max-w-[359.64px]" : "max-w-[391.67px]",
+                    )}
+                  >
+                    {feature.body}
+                  </span>
                 </span>
-              </span>
-            </button>
+              </button>
+              {/*
+                Below 992px: the accordion row under the tab, easing open to the visual (at its 738:640 shape, inset like the
+                tab's copy) while the tab is open, and shut as another opens. The tab's side edges run on down beside it.
+              */}
+              <div
+                aria-hidden={!on}
+                className={cn(
+                  "grid shadow-[inset_1px_0_0_#ddd,inset_-1px_0_0_#ddd] transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none lg:hidden",
+                  on ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                )}
+                style={{ transitionDuration: `${ACCORDION_MS}ms` }}
+              >
+                <div className="min-h-0 overflow-hidden">
+                  <div className="px-5 pb-5 min-[480px]:px-6 min-[480px]:pb-6 md:px-8 md:pb-8">
+                    <div className="relative aspect-[738/640] w-full overflow-hidden [container-type:size]">
+                      {drawn && <InsightPanel visual={feature.visual} run={run} />}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         })}
       </div>

@@ -66,10 +66,13 @@ export function Eyebrow({ children, surface = "cream", size = "label", className
         className,
       )}
     >
+      {/* Section labels drop to 10px below 768px, their 12% tracking with them; step tags keep 12px. */}
       <span
         className={cn(
           "text-center text-[12px] whitespace-nowrap uppercase",
-          tag ? "font-open-sans leading-[1.3] font-semibold tracking-[1.44px]" : "font-open-sans leading-[0.9] font-semibold tracking-[1.44px]",
+          tag
+            ? "font-open-sans leading-[1.3] font-semibold tracking-[1.44px]"
+            : "font-open-sans leading-[0.9] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:tracking-[1.2px]",
         )}
       >
         {children}

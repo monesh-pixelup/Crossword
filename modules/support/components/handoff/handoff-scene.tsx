@@ -31,7 +31,10 @@ const cards: SceneEntry[] = slugs.map((slug) => {
  * Scaled with a transform (see ScenePanel), so the card's text keeps its size relative to its boxes, and
  * to cover the cell, so sub-pixel rounding of the cell's height never leaves a sliver of the cell showing.
  */
-export function HandoffScene({ index }: { index: number }) {
+export function HandoffScene({ index, active }: { index: number; active?: boolean }) {
   const scene = cards[index];
-  return scene ? <ScenePanel scene={scene} root={SupportMotionRoot} maxScale={Infinity} transform cover /> : null;
+  return scene ? <ScenePanel scene={scene} active={active} root={SupportMotionRoot} maxScale={Infinity} transform cover /> : null;
 }
+
+/** The `i`th handoff mode's scene run, in ms (for timing its tab's turn). */
+export const handoffDuration = (index: number) => cards[index]?.duration ?? 0;

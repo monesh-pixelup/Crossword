@@ -33,7 +33,7 @@ function FooterNav() {
   return (
     <nav
       aria-label="Footer"
-      className="flex flex-wrap items-start gap-x-8 gap-y-10 xs:gap-x-12 md:gap-x-[126px]"
+      className="flex flex-wrap items-start gap-x-16 gap-y-10 xs:gap-x-20 md:gap-x-[126px]"
     >
       <div className="flex w-[91px] flex-col items-start gap-[37px]">
         <h2 className={heading}>{"{ COMPANY }"}</h2>

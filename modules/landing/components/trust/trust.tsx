@@ -27,8 +27,8 @@ function Certifications() {
           key={cert.name}
           className={cn(
             // Dividers are 0.5px inset shadows (no layout space), between columns from 768px.
-            // The phone grids have none for now.
-            "flex min-w-0 flex-col items-start gap-6 py-6 md:py-8",
+            // The phone grids have none for now, and centre each badge and its name in its column so the columns sit evenly.
+            "flex min-w-0 flex-col items-center gap-6 py-6 text-center md:items-start md:py-8 md:text-left",
             i > 0 && "md:pl-[24.5px] md:shadow-[inset_0.5px_0_0_rgba(255,255,255,0.1)]",
           )}
         >

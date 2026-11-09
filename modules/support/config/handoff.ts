@@ -2,11 +2,11 @@ import type { ChatMessage } from "./chat";
 
 export type HandoffMode = { title: string; description: string; thread: ChatMessage[] };
 
-/** Human-in-the-loop support: the three ways a person joins the conversation (content doc). */
+/** Human-in-the-loop support: the three ways a person joins the conversation (worded as in Figma 3836:17093). */
 export const handoffModes: HandoffMode[] = [
   {
     title: "Live human takeover",
-    description: "When a conversation needs a person, Crossword hands it over without losing the context.",
+    description: "When a conversation needs a person, Crossword hands it to your team in the help desk, with the full history, so nothing gets lost.",
     thread: [
       { from: "user", text: "I’ve been going back and forth on this. Can someone help me?" },
       {
@@ -17,8 +17,8 @@ export const handoffModes: HandoffMode[] = [
     ],
   },
   {
-    title: "Human as a copilot",
-    description: "Let the agent ask, the human decide, and the conversation keep moving.",
+    title: "Human as a co-pilot",
+    description: "The agent asks, the human decides. Your team approves the next step, like a refund, and the conversation keeps moving.",
     thread: [
       { from: "user", text: "I love the set, but can you give me 20% off?" },
       { from: "crossword", text: "I can check that for you. One moment." },
@@ -32,7 +32,7 @@ export const handoffModes: HandoffMode[] = [
   },
   {
     title: "Whisper to the agent",
-    description: "Give the agent a little direction without taking over the whole conversation.",
+    description: "Leave a private note to steer the agent without taking over the conversation. The shopper never sees it.",
     thread: [
       { from: "fromHuman", text: "This is a premium customer. Keep the response warm and personal." },
       { from: "toHuman", text: "Absolutely. I’ll keep that in mind." },
