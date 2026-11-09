@@ -24,6 +24,8 @@ export function QuoteAccordion({ quotes }: { quotes: LoggedInQuote[] }) {
       panelClassName="bg-[#462160] lg:mr-[7px]"
       spacedRules
       lastRule={false}
+      // Below 992px each quote's visual opens under it, accordion-style, and they change only when tapped.
+      stackedAccordion
       panelBackground={<Image src={panelArt} alt="" fill sizes="(min-width: 1024px) 687px, 100vw" className="object-cover" />}
       renderPanel={(active) => {
         const slug = quotes[active].scene;
