@@ -10,6 +10,9 @@ import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
 /** How long each option stays in focus before the next takes over: its motion visual's run plus the hold. */
 const turns = dynamicOptions.map((option) => tabTurn(dlpScenes[option.scene].duration));
 
+/** The stacked accordion's open / close: the row eases its height while the visual fades. */
+const ACCORDION_MS = 500;
+
 type Options = {
   /** The option in focus. */
   active: number;
@@ -18,9 +21,17 @@ type Options = {
   /** Counts each option's turns in focus, to key its visual so it plays from the start each time. */
   plays: number[];
   focus: (i: number) => void;
+  /** Whether the options sit beside the panel (from 1260px); null until known. Stacked, they're an accordion. */
+  wide: boolean | null;
 };
 
-const OptionsContext = createContext<Options>({ active: 0, previous: 0, plays: dynamicOptions.map(() => 0), focus: () => {} });
+const OptionsContext = createContext<Options>({
+  active: 0,
+  previous: 0,
+  plays: dynamicOptions.map(() => 0),
+  focus: () => {},
+  wide: null,
+});
 
 /** Shares the option in focus between the list (OptionList) and the panel beside it (OptionPanel). */
 export function OptionsProvider({ children }: { children: ReactNode }) {
@@ -28,6 +39,14 @@ export function OptionsProvider({ children }: { children: ReactNode }) {
   const [previous, setPrevious] = useState(0);
   const [plays, setPlays] = useState(() => dynamicOptions.map(() => 0));
   const activeRef = useRef(0);
+  const [wide, setWide] = useState<boolean | null>(null);
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 1260px)");
+    const update = () => setWide(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
   const focus = (i: number) => {
     if (i === activeRef.current) return;
     setPrevious(activeRef.current);
@@ -35,7 +54,7 @@ export function OptionsProvider({ children }: { children: ReactNode }) {
     setActive(i);
     setPlays((p) => p.map((n, j) => (j === i ? n + 1 : n)));
   };
-  return <OptionsContext value={{ active, previous, plays, focus }}>{children}</OptionsContext>;
+  return <OptionsContext value={{ active, previous, plays, focus, wide }}>{children}</OptionsContext>;
 }
 
 /**
@@ -45,9 +64,22 @@ export function OptionsProvider({ children }: { children: ReactNode }) {
  * list is on screen a 2px maroon bar fills along the focused option's rule, over its motion visual's
  * run plus a short hold; when it fills, the next option takes over (looping back to the first).
  * Hovering or focusing an option brings it into focus. Render inside OptionsProvider.
+ *
+ * Below 1260px (stacked) the options are an accordion, as Insights on the home page: the focused option's visual opens
+ * out under its copy, easing open as the other's closes, and they change only when tapped (the bar then sits full).
  */
 export function OptionList() {
-  const { active, focus } = useContext(OptionsContext);
+  const { active, plays, focus, wide } = useContext(OptionsContext);
+  // The accordion item closing as the other opens, kept drawn until it has eased shut.
+  const [closing, setClosing] = useState<number | null>(null);
+  const shown = useRef(active);
+  useEffect(() => {
+    if (shown.current === active) return;
+    setClosing(shown.current);
+    shown.current = active;
+    const timer = window.setTimeout(() => setClosing(null), ACCORDION_MS);
+    return () => window.clearTimeout(timer);
+  }, [active]);
   const [visible, setVisible] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const bars = useRef<(HTMLSpanElement | null)[]>([]);
@@ -70,7 +102,13 @@ export function OptionList() {
   useEffect(() => {
     const bar = bars.current[active];
     if (!bar) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Stacked, or with reduced motion, nothing moves on by itself: the bar sits full.
+    if (!wide || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      bar.style.scale = "1 1";
+      return () => {
+        bar.style.scale = "";
+      };
+    }
     const run = bar.animate([{ scale: "0 1" }, { scale: "1 1" }], { duration: turns[active], easing: "linear", fill: "forwards" });
     run.pause();
     animation.current = run;
@@ -79,7 +117,7 @@ export function OptionList() {
       () => {},
     );
     return () => run.cancel();
-  }, [active]);
+  }, [active, wide]);
 
   useEffect(() => {
     const run = animation.current;
@@ -109,6 +147,23 @@ export function OptionList() {
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{option.title}</h3>
                 <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{option.description}</p>
               </div>
+              {/* Stacked: the option's visual (at its 687:586 shape) 32px under its copy while in focus, easing shut as the other opens. */}
+              <div
+                aria-hidden={!on}
+                className={cn(
+                  "-mt-8 grid transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none min-[1260px]:hidden",
+                  on ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                )}
+                style={{ transitionDuration: `${ACCORDION_MS}ms` }}
+              >
+                <div className="min-h-0 overflow-hidden">
+                  <div className="relative mt-8 aspect-[687/586] w-full">
+                    {wide !== true && (on || i === closing) && (
+                      <ScenePanel key={`${i}-${plays[i]}`} scene={dlpScenes[option.scene]} active={on} root={DlpMotionRoot} />
+                    )}
+                  </div>
+                </div>
+              </div>
               {/* The rule, with the progress bar that runs on the option in focus. */}
               <span
                 aria-hidden
@@ -136,7 +191,9 @@ export function OptionList() {
  * OptionsProvider.
  */
 export function OptionPanel() {
-  const { active, previous, plays } = useContext(OptionsContext);
+  const { active, previous, plays, wide } = useContext(OptionsContext);
+  // Stacked, each option's visual opens under it instead (see OptionList).
+  if (wide === false) return null;
   return (
     <div className="grid h-full w-full">
       {dynamicOptions.map((option, i) => (

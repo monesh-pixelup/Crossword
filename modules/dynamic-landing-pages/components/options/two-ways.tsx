@@ -7,7 +7,7 @@ import { OptionList, OptionPanel, OptionsProvider } from "./option-list";
  * Figma "Section · Options (Two ways to go dynamic)" (3361:299): on the left the eyebrow, 18px above a
  * two-line headline (82px swash, Crimson Light 60 at 0.9, 129px tall), and 84px under it the two options, 6px in; on the
  * right, 10px down, the 687 × 586 panel playing the focused option's motion visual (Sell: Dynamic v2 02 or
- * 09, each in its own framed panel). Below 1260px the panel goes under the options at its 687:586 shape.
+ * 09, each in its own framed panel). Below 1260px the options are an accordion, each visual opening under its option.
  * A 209px gold tick sits on the left rail beside the eyebrow.
  */
 export function TwoWays() {
@@ -27,7 +27,7 @@ export function TwoWays() {
             </div>
           </div>
 
-          <div className="relative aspect-[687/586] w-full min-[1260px]:mt-2.5 min-[1260px]:w-[687px] min-[1260px]:shrink">
+          <div className="relative aspect-[687/586] w-full max-[1259px]:hidden min-[1260px]:mt-2.5 min-[1260px]:w-[687px] min-[1260px]:shrink">
             <OptionPanel />
           </div>
         </div>

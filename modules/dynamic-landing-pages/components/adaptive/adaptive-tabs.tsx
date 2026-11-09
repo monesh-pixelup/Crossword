@@ -12,6 +12,9 @@ import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
 /** How long each feature stays up before the next one takes over: its motion visual's run plus the hold. */
 const turns = adaptiveFeatures.map((feature) => tabTurn(dlpScenes[feature.scene].duration));
 
+/** The stacked accordion's open / close: the row eases its height while the visual fades. */
+const ACCORDION_MS = 500;
+
 /**
  * Each feature's glyph, from Figma (1.1px round strokes), with the centre of its bounding box: the marks are drawn
  * centred on their tile, which Figma's exports miss by 0.3–1px.
@@ -100,6 +103,9 @@ function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
  * column, and while a tab has keyboard focus. A click doesn't count as focus here, so choosing a tab
  * with the mouse never leaves the cycle stuck. Under reduced motion the bar sits full and nothing
  * advances.
+ *
+ * Below 1260px (stacked) the tabs are an accordion, as Insights on the home page: the open feature's visual opens out
+ * right under it, easing open as the last one's closes, and they change only when tapped (the bar then sits full).
  */
 export function AdaptiveTabs() {
   const [active, setActive] = useState(0);
@@ -110,6 +116,24 @@ export function AdaptiveTabs() {
   const root = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
+  // Which layout is showing (null until known): only its visual is drawn, and only side by side do the tabs turn on a timer.
+  const [wide, setWide] = useState<boolean | null>(null);
+  // The accordion item closing as another opens, kept drawn until it has eased shut.
+  const [closing, setClosing] = useState<number | null>(null);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 1260px)");
+    const update = () => setWide(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (closing === null) return;
+    const timer = window.setTimeout(() => setClosing(null), ACCORDION_MS);
+    return () => window.clearTimeout(timer);
+  }, [closing]);
 
   useEffect(() => {
     const el = root.current;
@@ -120,6 +144,7 @@ export function AdaptiveTabs() {
   }, []);
 
   const select = (i: number) => {
+    if (i !== active) setClosing(active);
     setActive(i);
     setRun((r) => r + 1);
   };
@@ -150,7 +175,7 @@ export function AdaptiveTabs() {
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="relative aspect-[738/760] w-full overflow-hidden min-[1260px]:aspect-auto min-[1260px]:w-[min(738px,60%)] min-[1260px]:shrink-0"
+        className="relative w-full overflow-hidden max-[1259px]:hidden min-[1260px]:w-[min(738px,60%)] min-[1260px]:shrink-0"
       >
         {/* The bare stage under the visual, until it draws (the visual sits on the same photo). */}
         <Image src={stagePhoto} alt="" fill sizes="(min-width: 1260px) 738px, 100vw" className="object-cover" />
@@ -158,7 +183,7 @@ export function AdaptiveTabs() {
           The chosen feature's visual, keyed to play from the start each time it is chosen. It covers the stage: beside
           the tabs, the stage takes the tab column's height, so the visual's photo margins give way rather than leave a band.
         */}
-        <ScenePanel key={run} scene={dlpScenes[adaptiveFeatures[active].scene]} root={DlpMotionRoot} cover />
+        {wide !== false && <ScenePanel key={run} scene={dlpScenes[adaptiveFeatures[active].scene]} root={DlpMotionRoot} cover />}
       </div>
 
       <div
@@ -173,51 +198,86 @@ export function AdaptiveTabs() {
         {adaptiveFeatures.map((feature, i) => {
           const selected = i === active;
           return (
-            <button
+            <div
               key={feature.id}
-              ref={(el) => {
-                tabs.current[i] = el;
-              }}
-              type="button"
-              role="tab"
-              id={`${id}-tab-${i}`}
-              aria-selected={selected}
-              aria-controls={`${id}-panel`}
-              tabIndex={selected ? 0 : -1}
-              onClick={() => select(i)}
               className={cn(
                 // Each tab draws its top and sides; the last closes the column at the bottom.
-                "group relative flex cursor-pointer items-start gap-4 border-x border-t border-[#ddd] p-6 text-left md:p-10 transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] last:border-b focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                "flex flex-col border-x border-t border-[#ddd] transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] last:border-b",
                 selected ? "bg-sand" : "hover:bg-sand/40",
               )}
             >
-              {/*
-                Figma 3794:6208: the mark beside the title (10px apart, centred on it), and the description under them,
-                32px in so it lines up with the title. Closed features (mark included) sit at 50%.
-              */}
-              <span
+              <button
+                ref={(el) => {
+                  tabs.current[i] = el;
+                }}
+                type="button"
+                role="tab"
+                id={`${id}-tab-${i}`}
+                aria-selected={selected}
+                aria-controls={`${id}-panel`}
+                tabIndex={selected ? 0 : -1}
+                onClick={() => select(i)}
                 className={cn(
-                  "flex min-w-0 flex-1 flex-col items-start gap-2.5 transition-opacity duration-300",
-                  !selected && "opacity-50 group-hover:opacity-100",
+                  "group relative flex flex-1 cursor-pointer items-start gap-4 p-6 text-left md:p-10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
                 )}
               >
-                <span className="flex w-full items-center gap-2.5">
-                  <Mark id={feature.id} on={selected} />
-                  <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.title}</span>
-                </span>
-                <span className="pl-8 font-sans text-[14px] leading-5 tracking-[-0.42px] text-black/59">{feature.description}</span>
-              </span>
-              {selected && (
+                {/*
+                  Figma 3794:6208: the mark beside the title (10px apart, centred on it), and the description under them,
+                  32px in so it lines up with the title. Closed features (mark included) sit at 50%.
+                */}
                 <span
-                  key={run}
-                  aria-hidden
-                  data-paused={!running || undefined}
-                  onAnimationEnd={() => select(active === adaptiveFeatures.length - 1 ? 0 : active + 1)}
-                  className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-3 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-maroon group-hover/tabs:[animation-play-state:paused] data-paused:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none"
-                  style={{ animationDuration: `${turns[i]}ms` }}
-                />
-              )}
-            </button>
+                  className={cn(
+                    "flex min-w-0 flex-1 flex-col items-start gap-2.5 transition-opacity duration-300",
+                    !selected && "opacity-50 group-hover:opacity-100",
+                  )}
+                >
+                  <span className="flex w-full items-center gap-2.5">
+                    <Mark id={feature.id} on={selected} />
+                    <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.title}</span>
+                  </span>
+                  <span className="pl-8 font-sans text-[14px] leading-5 tracking-[-0.42px] text-black/59">{feature.description}</span>
+                </span>
+                {/* Stacked, the tabs change only when tapped: the open tab's bar sits full instead of running its turn. */}
+                {selected && wide === false && (
+                  <span aria-hidden className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-3 h-0.5 w-[calc(100%+2.02px)] bg-maroon" />
+                )}
+                {selected && wide !== false && (
+                  <span
+                    key={run}
+                    aria-hidden
+                    data-paused={!running || undefined}
+                    onAnimationEnd={() => select(active === adaptiveFeatures.length - 1 ? 0 : active + 1)}
+                    className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-3 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-maroon group-hover/tabs:[animation-play-state:paused] data-paused:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none"
+                    style={{ animationDuration: `${turns[i]}ms` }}
+                  />
+                )}
+              </button>
+              {/*
+                Stacked: the open feature's visual (the product page on the stage photo, at its 738:760 shape) under its copy,
+                easing open while it's open and shut as another opens.
+              */}
+              <div
+                aria-hidden={!selected}
+                className={cn(
+                  "grid transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none min-[1260px]:hidden",
+                  selected ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                )}
+                style={{ transitionDuration: `${ACCORDION_MS}ms` }}
+              >
+                <div className="min-h-0 overflow-hidden">
+                  <div className="px-6 pb-6 md:px-10 md:pb-10">
+                    <div className="relative aspect-[738/760] w-full overflow-hidden">
+                      {wide !== true && (selected || i === closing) && (
+                        <>
+                          <Image src={stagePhoto} alt="" fill sizes="100vw" className="object-cover" />
+                          <ScenePanel key={`${i}-${run}`} scene={dlpScenes[feature.scene]} root={DlpMotionRoot} cover />
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         })}
       </div>
