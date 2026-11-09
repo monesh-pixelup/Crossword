@@ -8,17 +8,7 @@ import { InsightPanel, insightVisuals } from "../motion/panels";
 /** How long a tab stays open once its visual has played out, before the tabs advance. */
 const HOLD = 3000;
 
-const corners = (
-  <>
-    <circle fill="currentColor" r="0.55" cy="1.1" cx="1.1" />
-    <circle fill="currentColor" r="0.55" cy="1.1" cx="20.9" />
-    <circle fill="currentColor" r="0.55" cy="20.9" cx="20.9" />
-    <circle fill="currentColor" r="0.55" cy="20.9" cx="1.1" />
-    <path strokeWidth="0.55" stroke="currentColor" d="M0 5.277L5.277 0M16.723 0L22 5.277M22 16.723L16.723 22M5.277 22L0 16.723" />
-  </>
-);
-
-/** Tab glyphs (Phosphor binoculars, link, user-search) inside the octagon frame. */
+/** Tab glyphs (Phosphor binoculars, link, user-search), each drawn about (11, 11) at 1 unit per px. */
 const icons: ReactNode[] = [
   <path
     key="ask"
@@ -145,18 +135,22 @@ export function InsightTabs() {
                   onAnimationEnd={() => open((i + 1) % count)}
                 />
               )}
+              {/*
+                The badge the other tabs on the site use (Lifecycle, Upsell): a 24px square, the glyph centred. Open, it's
+                maroon with a 0.6px #efe9db line inside and a 0.6px #ffb657 ring outside, the glyph gold; closed, a 0.75px
+                black/19 line with the glyph at black/40.
+              */}
               <svg
                 aria-hidden
-                viewBox="0 0 22 22"
+                viewBox="-1 -1 24 24"
                 fill="none"
                 className={cn(
-                  "size-[22px] flex-none transition-[background-color,color,box-shadow] duration-300",
+                  "size-6 flex-none transition-[background-color,color,box-shadow] duration-300",
                   on
-                    ? "bg-maroon text-[#ffb657] shadow-[0_0_0_0.55px_#efe9db,0_0_0_1.1px_#ffb657]"
-                    : "text-black/16 shadow-[0_0_0_0.6875px_#00000030]",
+                    ? "bg-maroon text-[#ffb657] shadow-[inset_0_0_0_0.6px_#efe9db,0_0_0_0.6px_#ffb657]"
+                    : "text-black/40 shadow-[inset_0_0_0_0.75px_rgba(0,0,0,0.19)]",
                 )}
               >
-                {corners}
                 {icons[i]}
               </svg>
               <span
