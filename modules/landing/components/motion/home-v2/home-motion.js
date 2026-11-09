@@ -1,10 +1,10 @@
 "use client";
 
-// Built from the "Crossword — Home page motion visuals (v2)" source (Crossword-Homev2-Motion/source) with Vite,
+// Built from the "Crossword — Home v2 Motion (01–11)" source (Crossword-Homev2-Motion-01-11/source) with Vite,
 // unminified, React external. See ./index.tsx for the mechanical changes.
 
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import { useState, useEffect, useRef, useLayoutEffect, Fragment as Fragment$1, useMemo, createContext, useContext, forwardRef } from "react";
+import { useState, useEffect, useRef, useLayoutEffect, Fragment as Fragment$1, createContext, forwardRef, useMemo, useContext } from "react";
 const frameBackground = "/images/landing/home-v2/assets/background-GiCSjLb9.svg";
 const frameTexture$1 = "/images/landing/home-v2/assets/background-texture-C4nqYl4R.webp";
 function SceneFrame({
@@ -155,27 +155,28 @@ function revealText(text, {
     window.clearTimeout(timeoutId);
   };
 }
-const THINKING_STAGE_1_MS$6 = 300;
-const THINKING_STAGE_2_MS$6 = 500;
-const THINKING_EXIT_MS$6 = 150;
-const CHAR_INTERVAL_MS$6 = 26;
-const REPLY_STAGGER_MS$6 = 45;
-const REPLY_WORD_ANIM_MS$6 = 220;
-const REPLY_SETTLE_MS$6 = 150;
+const THINKING_STAGE_1_MS$3 = 300;
+const THINKING_STAGE_2_MS$3 = 500;
+const THINKING_EXIT_MS$3 = 150;
+const CHAR_INTERVAL_MS$3 = 26;
+const REPLY_STAGGER_MS$3 = 45;
+const REPLY_WORD_ANIM_MS$3 = 220;
+const REPLY_SETTLE_MS$3 = 150;
 const PRODUCTS_SKELETON_HOLD_MS$1 = 550;
-function prefersReducedMotion$6() {
+function prefersReducedMotion$3() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
-function replyRevealMs$6(text) {
+function replyRevealMs$3(text) {
   const wordCount2 = text.split(/\s+/).filter(Boolean).length;
-  return wordCount2 * REPLY_STAGGER_MS$6 + REPLY_WORD_ANIM_MS$6 + REPLY_SETTLE_MS$6;
+  return wordCount2 * REPLY_STAGGER_MS$3 + REPLY_WORD_ANIM_MS$3 + REPLY_SETTLE_MS$3;
 }
 function pauseMs$2(turn) {
+  var _a;
   const base = 350 + Math.min(turn.assistantMessage.length * 3, 500);
-  return turn.products?.length ? base + 500 : base;
+  return ((_a = turn.products) == null ? void 0 : _a.length) ? base + 500 : base;
 }
 function useConversationPlayback$2(turns2) {
-  const reducedMotion = useRef(prefersReducedMotion$6()).current;
+  const reducedMotion = useRef(prefersReducedMotion$3()).current;
   const [turnIndex, setTurnIndex] = useState(reducedMotion ? turns2.length : 0);
   const [phase, setPhase] = useState("composing");
   const [composerValue, setComposerValue] = useState("");
@@ -183,6 +184,7 @@ function useConversationPlayback$2(turns2) {
   const [statusLabel, setStatusLabel] = useState("Thinking");
   const [productsLoading, setProductsLoading] = useState(false);
   useEffect(() => {
+    var _a;
     if (reducedMotion) return;
     if (turnIndex >= turns2.length) return;
     const turn = turns2[turnIndex];
@@ -194,7 +196,7 @@ function useConversationPlayback$2(turns2) {
       setComposerTyping(true);
       setComposerValue("");
       const cancel = revealText(turn.userMessage, {
-        msPerStep: CHAR_INTERVAL_MS$6,
+        msPerStep: CHAR_INTERVAL_MS$3,
         onTick: setComposerValue,
         onDone: () => {
           after(220, () => {
@@ -211,24 +213,25 @@ function useConversationPlayback$2(turns2) {
       };
     }
     if (phase === "thinking") {
-      const hasProducts = Boolean(turn.products?.length || turn.singleCard);
-      after(THINKING_STAGE_1_MS$6, () => {
+      const hasProducts = Boolean(((_a = turn.products) == null ? void 0 : _a.length) || turn.singleCard);
+      after(THINKING_STAGE_1_MS$3, () => {
         setStatusLabel(hasProducts ? "Finding the right options" : "Reading your ask");
       });
-      after(THINKING_STAGE_1_MS$6 + THINKING_STAGE_2_MS$6, () => {
+      after(THINKING_STAGE_1_MS$3 + THINKING_STAGE_2_MS$3, () => {
         setPhase("thinkingExit");
       });
       return () => timeouts.forEach(window.clearTimeout);
     }
     if (phase === "thinkingExit") {
-      after(THINKING_EXIT_MS$6, () => {
+      after(THINKING_EXIT_MS$3, () => {
         setPhase("replying");
       });
       return () => timeouts.forEach(window.clearTimeout);
     }
     if (phase === "replying") {
-      after(replyRevealMs$6(turn.assistantMessage), () => {
-        if (turn.products?.length || turn.singleCard) {
+      after(replyRevealMs$3(turn.assistantMessage), () => {
+        var _a2;
+        if (((_a2 = turn.products) == null ? void 0 : _a2.length) || turn.singleCard) {
           setProductsLoading(true);
           setPhase("productsLoading");
         } else {
@@ -265,6 +268,8 @@ function useConversationPlayback$2(turns2) {
   };
 }
 const amberChairImage = "/images/landing/home-v2/assets/amber-oak-lounge-chair-Dc-4UdBJ.webp";
+const amberOpalLampImage = "/images/landing/home-v2/assets/amber-oak-opal-glass-lamp-CSWTBSbc.webp";
+const amberPleatedLampImage = "/images/landing/home-v2/assets/amber-oak-pleated-linen-lamp-DU9AZH7n.webp";
 const trailwellWeekenderImage = "/images/landing/home-v2/assets/trailwell-weekender-FcXfEIMe.webp";
 const trailwellRoamImage = "/images/landing/home-v2/assets/trailwell-roam-E1xpy3ga.webp";
 const trailwellOvernightImage = "/images/landing/home-v2/assets/trailwell-overnight-Bh3WrqOg.webp";
@@ -447,7 +452,7 @@ const crestline = {
   ink: "oklch(0.387478 0.051296 162.242973)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-space-grotesk), system-ui, sans-serif',
+  font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Graphite and ivory outdoor equipment on neutral studio backgrounds.",
@@ -462,7 +467,7 @@ const brewhaus = {
   ink: "oklch(0.362916 0.031371 68.517470)",
   paper: "oklch(0.900982 0.029332 82.592444)",
   plate: "oklch(0.900982 0.029332 82.592444)",
-  font: 'var(--font-space-grotesk), system-ui, sans-serif',
+  font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Brushed steel machines and cream coffee packaging; warm studio light.",
@@ -477,7 +482,7 @@ const waveline = {
   ink: "oklch(0.393233 0.051477 222.864924)",
   paper: "oklch(0.937245 0.014436 213.099208)",
   plate: "oklch(0.937245 0.014436 213.099208)",
-  font: 'var(--font-space-grotesk), system-ui, sans-serif',
+  font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents."
@@ -525,7 +530,7 @@ const trailwell = {
   ink: "oklch(0.404438 0.043777 153.864096)",
   paper: "oklch(0.932657 0.021677 118.236881)",
   plate: "oklch(0.932657 0.021677 118.236881)",
-  font: 'var(--font-space-grotesk), system-ui, sans-serif',
+  font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Outdoor utility, olive fabric and durable metal bottles.",
@@ -540,7 +545,7 @@ const stride = {
   ink: "oklch(0.385568 0.040481 186.036186)",
   paper: "oklch(0.927348 0.013483 167.158983)",
   plate: "oklch(0.927348 0.013483 167.158983)",
-  font: 'var(--font-space-grotesk), system-ui, sans-serif',
+  font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Minimal footwear; black, tan and white are separate image assets, never CSS colour filters.",
@@ -566,7 +571,7 @@ const formwork = {
   ink: "oklch(0.379113 0.017648 231.725316)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-space-grotesk), system-ui, sans-serif',
+  font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair."
@@ -577,7 +582,7 @@ const proteinmax = {
   ink: "oklch(0.397889 0.104174 19.963898)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-space-grotesk), system-ui, sans-serif',
+  font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Black protein tubs, red accents and consistent PROTEINMAX labels.",
@@ -603,7 +608,7 @@ const aeria = {
   ink: "oklch(0.423822 0.051456 208.468768)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-space-grotesk), system-ui, sans-serif',
+  font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks."
@@ -1040,6 +1045,22 @@ const catalog = {
     title: "Copper-Rim Bedside Lamp",
     image: cutouts.bedsideLamp,
     price: "$98"
+  },
+  amberOpalGlass: {
+    id: "amber-oak-opal-glass-lamp",
+    brandId: "amber-and-oak",
+    brand: registry["amber-and-oak"].name,
+    title: "Opal Glass Table Lamp",
+    image: amberOpalLampImage,
+    price: "$138"
+  },
+  amberPleatedLinen: {
+    id: "amber-oak-pleated-linen-lamp",
+    brandId: "amber-and-oak",
+    brand: registry["amber-and-oak"].name,
+    title: "Pleated Linen Table Lamp",
+    image: amberPleatedLampImage,
+    price: "$118"
   },
   dusklightArc: {
     id: "dusklight-arc",
@@ -1493,11 +1514,12 @@ function ChatFoot({ value }) {
   const valueRef = useRef(null);
   const [height, setHeight] = useState(void 0);
   useLayoutEffect(() => {
+    var _a;
     if (!value) {
       setHeight(void 0);
       return;
     }
-    const content2 = valueRef.current?.offsetHeight ?? 0;
+    const content2 = ((_a = valueRef.current) == null ? void 0 : _a.offsetHeight) ?? 0;
     setHeight(Math.max(48, content2 + 12));
   }, [value]);
   return /* @__PURE__ */ jsxs("footer", { className: "gj2-foot", children: [
@@ -1671,19 +1693,20 @@ const turns = [
 ];
 const WAIT_FIRST = "Thinking…";
 const WAIT_CARDS = "Fetching the product…";
-const WORD_STAGGER_MS = REPLY_STAGGER_MS$6;
+const WORD_STAGGER_MS = REPLY_STAGGER_MS$3;
 const SKELETON_HOLD_MS = PRODUCTS_SKELETON_HOLD_MS$1;
 const FADE_CLEARANCE = 32;
 function GiftJourneyV2Motion() {
   const rootRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
-  const [landing2, setLanding] = useState(0);
+  const [landing, setLanding] = useState(0);
   useEffect(() => {
     if (landed) setLanding((n) => n + 1);
   }, [landed]);
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: landing2 > 0 ? /* @__PURE__ */ jsx(Conversation$2, {}, landing2) : /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx("div", { className: "gj2-win" }) }) });
+  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: landing > 0 ? /* @__PURE__ */ jsx(Conversation$3, {}, landing) : /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx("div", { className: "gj2-win" }) }) });
 }
-function Conversation$2({ sheet = false } = {}) {
+function Conversation$3({ sheet = false } = {}) {
+  var _a, _b;
   const { turnIndex, phase, composerValue, productsLoading, reducedMotion } = useConversationPlayback$2(turns);
   const transcriptRef = useRef(null);
   const userScrolledRef = useRef(false);
@@ -1706,7 +1729,7 @@ function Conversation$2({ sheet = false } = {}) {
   useEffect(() => {
     if (userScrolledRef.current) return;
     const viewport = transcriptRef.current;
-    const target = viewport?.lastElementChild;
+    const target = viewport == null ? void 0 : viewport.lastElementChild;
     if (!viewport || !target) return;
     const viewportRect = viewport.getBoundingClientRect();
     const targetRect = target.getBoundingClientRect();
@@ -1716,11 +1739,12 @@ function Conversation$2({ sheet = false } = {}) {
     else animateScrollTo(viewport, top);
   }, [turnIndex, phase, productsLoading, reducedMotion]);
   const composing = turnIndex < turns.length && phase === "composing";
-  const tapping = composing && Boolean(tappedChip(turns[turnIndex - 1]?.followups, turns[turnIndex]?.userMessage));
+  const tapping = composing && Boolean(tappedChip((_a = turns[turnIndex - 1]) == null ? void 0 : _a.followups, (_b = turns[turnIndex]) == null ? void 0 : _b.userMessage));
   const win = /* @__PURE__ */ jsxs("div", { className: sheet ? "gj2-win gjm-sheet" : "gj2-win", children: [
     sheet && /* @__PURE__ */ jsx("span", { className: "gjm-grab", "aria-hidden": "true" }),
     /* @__PURE__ */ jsx(ChatHead, {}),
     /* @__PURE__ */ jsx("div", { className: "gj2-transcript gj2-transcript--scroll", ref: transcriptRef, children: turns.map((turn, i) => {
+      var _a2, _b2;
       const isPast = i < turnIndex;
       const isSent = i === turnIndex && phase !== "composing";
       if (!isPast && !isSent) return null;
@@ -1729,7 +1753,7 @@ function Conversation$2({ sheet = false } = {}) {
       const showReply = isPast || isCurrent && !thinking;
       const showCards = isPast || isCurrent && (phase === "productsLoading" || phase === "pausing");
       const cardsLoading = isCurrent && phase === "productsLoading";
-      const hasCards = Boolean(turn.products?.length || turn.singleCard);
+      const hasCards = Boolean(((_a2 = turn.products) == null ? void 0 : _a2.length) || turn.singleCard);
       const animate = !reducedMotion;
       const showFollowups = isPast || isCurrent && phase === "pausing";
       return /* @__PURE__ */ jsxs(Fragment$1, { children: [
@@ -1755,7 +1779,7 @@ function Conversation$2({ sheet = false } = {}) {
           Followups,
           {
             items: turn.followups,
-            picked: turnIndex > i ? tappedChip(turn.followups, turns[i + 1]?.userMessage) : void 0,
+            picked: turnIndex > i ? tappedChip(turn.followups, (_b2 = turns[i + 1]) == null ? void 0 : _b2.userMessage) : void 0,
             className: [animate && "gj2-followups--in", animate && tapping && turnIndex === i + 1 && "gj2-followups--tap"].filter(Boolean).join(" ") || void 0
           }
         )
@@ -1776,126 +1800,12 @@ function StreamedReply({ text, animate }) {
 function SparkGlyph() {
   return /* @__PURE__ */ jsx("svg", { viewBox: "0 0 24 24", width: 20, height: 20, fill: "currentColor", "aria-hidden": "true", children: /* @__PURE__ */ jsx("path", { d: "M12 2.5c.5 4.6 2.9 7 9.5 9.5-6.6 2.5-9 4.9-9.5 9.5-.5-4.6-2.9-7-9.5-9.5 6.6-2.5 9-4.9 9.5-9.5z" }) });
 }
-const THINKING_STAGE_1_MS$5 = 300;
-const THINKING_STAGE_2_MS$5 = 500;
-const THINKING_SINGLE_MS = 600;
-const THINKING_EXIT_MS$5 = 150;
-const CHAR_INTERVAL_MS$5 = 26;
-const REPLY_STAGGER_MS$5 = 45;
-const REPLY_WORD_ANIM_MS$5 = 220;
-const REPLY_SETTLE_MS$5 = 150;
-const APPEAR_MS = 450;
-const LOAD_MS = 650;
-const FIRST_COMPOSE_LEAD_MS = 350;
-const NEXT_COMPOSE_LEAD_MS = 900;
-const SENT_SETTLE_MS = 220;
-function prefersReducedMotion$5() {
-  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-function wordCount$1(text) {
-  return text.replace(/\*\*/g, "").split(/\s+/).filter(Boolean).length;
-}
-function replyRevealMs$5(text) {
-  return wordCount$1(text) * REPLY_STAGGER_MS$5 + REPLY_WORD_ANIM_MS$5 + REPLY_SETTLE_MS$5;
-}
-function useChatTimeline(beats2, active) {
-  const reducedMotion = useRef(prefersReducedMotion$5()).current;
-  const [index, setIndex] = useState(reducedMotion ? beats2.length : 0);
-  const [typed, setTyped] = useState({ index: -1, value: "" });
-  const [thinkStage, setThinkStage] = useState({ index: -1, stage: 0 });
-  const [exitingIndex, setExitingIndex] = useState(-1);
-  const [runKey, setRunKey] = useState(0);
-  const wasActiveRef = useRef(active);
-  useEffect(() => {
-    if (active && !wasActiveRef.current && !reducedMotion) {
-      setIndex(0);
-      setTyped({ index: -1, value: "" });
-      setThinkStage({ index: -1, stage: 0 });
-      setExitingIndex(-1);
-      setRunKey((k) => k + 1);
-    }
-    wasActiveRef.current = active;
-  }, [active, reducedMotion]);
-  useEffect(() => {
-    if (reducedMotion || !active || index >= beats2.length) return;
-    const beat = beats2[index];
-    const timeouts = [];
-    let cancelReveal;
-    const after = (ms, fn) => {
-      timeouts.push(window.setTimeout(fn, ms));
-    };
-    const next = () => setIndex((i) => i + 1);
-    const cleanup = () => {
-      cancelReveal?.();
-      timeouts.forEach(window.clearTimeout);
-    };
-    switch (beat.type) {
-      case "compose": {
-        if (!beat.text) {
-          after(beat.holdMs ?? 700, next);
-          break;
-        }
-        const text = beat.text;
-        after(beat.leadMs ?? (index === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS), () => {
-          cancelReveal = revealText(text, {
-            msPerStep: beat.msPerChar ?? CHAR_INTERVAL_MS$5,
-            onTick: (value) => setTyped({ index, value }),
-            onDone: () => after(SENT_SETTLE_MS, next)
-          });
-        });
-        break;
-      }
-      case "think": {
-        let holdMs = THINKING_SINGLE_MS;
-        if (beat.labels.length === 2) {
-          after(THINKING_STAGE_1_MS$5, () => setThinkStage({ index, stage: 1 }));
-          holdMs = THINKING_STAGE_1_MS$5 + THINKING_STAGE_2_MS$5;
-        }
-        after(holdMs, () => setExitingIndex(index));
-        after(holdMs + THINKING_EXIT_MS$5, next);
-        break;
-      }
-      case "text":
-        after(replyRevealMs$5(beat.text), next);
-        break;
-      case "appear":
-        after(beat.ms ?? APPEAR_MS, next);
-        break;
-      case "load":
-        after(beat.ms ?? LOAD_MS, next);
-        break;
-      case "pause":
-        after(beat.ms, next);
-        break;
-    }
-    return cleanup;
-  }, [index, active, reducedMotion, beats2]);
-  return useMemo(() => {
-    const at = (id) => {
-      const i = beats2.findIndex((b) => b.id === id);
-      if (i < 0) throw new Error(`Unknown beat "${id}"`);
-      return i;
-    };
-    const current = beats2[index];
-    const typedValue = typed.index === index ? typed.value : "";
-    return {
-      reached: (id) => index >= at(id),
-      passed: (id) => index > at(id),
-      loading: (id) => index === at(id),
-      status: (id) => {
-        const beat = beats2[index];
-        if (index !== at(id) || beat.type !== "think") return null;
-        const stage = thinkStage.index === index ? thinkStage.stage : 0;
-        return { label: beat.labels[stage] ?? beat.labels[0], visible: exitingIndex !== index };
-      },
-      composer: current?.type === "compose" && current.text ? { value: typedValue, typing: true } : null,
-      index,
-      done: index >= beats2.length,
-      reducedMotion,
-      runKey
-    };
-  }, [beats2, index, typed, thinkStage, exitingIndex, reducedMotion, runKey]);
-}
+const StorybookCardSkin = createContext(false);
+const StorybookComposerDefault = createContext(false);
+const goodwellSocialAd = "/images/landing/home-v2/assets/goodwell-social-ad-v1-DbWVCc2n.webp";
+const addressIcon = "/images/landing/home-v2/assets/address-QPOEXXur.svg";
+const igMore = "/images/landing/home-v2/assets/ig-more-DwYmQdK1.svg";
+const igChevron = "/images/landing/home-v2/assets/ig-chevron-DsNho9PV.svg";
 const history = "/images/landing/home-v2/assets/history-BevL6311.svg";
 const add = "/images/landing/home-v2/assets/add-Cbob5SpL.svg";
 const expand = "/images/landing/home-v2/assets/expand-DCmbcy1L.svg";
@@ -1922,7 +1832,6 @@ const userSound = "/images/landing/home-v2/assets/user-sound-B1mWE2AQ.svg";
 const warning = "/images/landing/home-v2/assets/warning-B_MVWxpy.svg";
 const caretRight = "/images/landing/home-v2/assets/caret-right-N4DMqoC_.svg";
 const search$1 = "/images/landing/home-v2/assets/search-6aT0QOjO.svg";
-const addressIcon = "/images/landing/home-v2/assets/address-QPOEXXur.svg";
 const spark = "/images/landing/home-v2/assets/spark-CL1SvstU.svg";
 const usersThree = "/images/landing/home-v2/assets/users-three-CNldQr4E.svg";
 const shoppingCart = "/images/landing/home-v2/assets/shopping-cart-9S1-ijDB.svg";
@@ -2024,419 +1933,6 @@ function BrowserChrome({ url, field = "address" }) {
     ] })
   ] });
 }
-const razor = "/images/landing/home-v2/assets/razor-CXHMOIgQ.webp";
-const searchState = {
-  query: "Gillette",
-  brand: "Harry’s",
-  sponsored: "Sponsored",
-  title: "Harry’s vs. Gillette"
-};
-const pdpState = {
-  url: "harrys.com",
-  storeName: "Harry’s",
-  productName: "Harry’s (5-blade)",
-  addToCart: "Add to cart",
-  price: "$63.32",
-  originalPrice: "$74.49",
-  discount: "15% off",
-  rating: 4,
-  image: razor,
-  imageAlt: "Harry’s 5-blade razor with handle, blade cover and cartridge"
-};
-const comparison = {
-  poweredBy: "Powered by",
-  poweredByBrand: "Crossword",
-  title: "Why Harry’s is better than Gillette",
-  columnA: "Harry’s (5-blade)",
-  columnB: "Gillette Fusion5",
-  rows: [
-    { label: "Number of Blades", valueA: "5", valueB: "5" },
-    { label: "Flexible Head", valueA: "Yes", valueB: "Yes" },
-    { label: "Precision Trimmer", valueA: "Yes", valueB: "No" },
-    { label: "Cost per Refill", valueA: "~$2/blade", valueB: "~$4–5/blade" },
-    { label: "Cost per Refill", valueA: "~$2/blade", valueB: "~$4–5/blade" }
-  ]
-};
-const defaultScenario$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  comparison,
-  pdpState,
-  searchState
-}, Symbol.toStringTag, { value: "Module" }));
-function ComparisonRow({
-  label,
-  valueA,
-  valueB
-}) {
-  return /* @__PURE__ */ jsxs("div", { className: "hm-ill-comparison-row", children: [
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-comparison-row__cell hm-ill-comparison-row__label", children: label }),
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-comparison-row__cell hm-ill-comparison-row__value-a", children: valueA }),
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-comparison-row__cell hm-ill-comparison-row__value-b", children: valueB })
-  ] });
-}
-function SkeletonBlock({
-  width,
-  height,
-  aspectRatio,
-  radius
-}) {
-  return /* @__PURE__ */ jsx(
-    "div",
-    {
-      className: "hm-ill-skeleton-block",
-      style: {
-        width,
-        height,
-        aspectRatio,
-        borderRadius: radius
-      }
-    }
-  );
-}
-function SkeletonCover({
-  loading,
-  radius = 0,
-  className,
-  shapes,
-  inset = 0
-}) {
-  const wasLoadingRef = useRef(loading);
-  const showOverlay = loading || wasLoadingRef.current;
-  useEffect(() => {
-    wasLoadingRef.current = loading;
-  }, [loading]);
-  return /* @__PURE__ */ jsx("div", { className: `hm-ill-sponsored__cover ${className}`, children: showOverlay && /* @__PURE__ */ jsx(
-    "div",
-    {
-      className: `hm-sell-loading-frame__overlay${loading ? "" : " hm-sell-loading-frame__overlay--hidden"}`,
-      style: { borderRadius: radius },
-      children: /* @__PURE__ */ jsx("div", { style: { position: "absolute", left: inset, right: inset, top: 0, bottom: 0 }, children: shapes.map((s, i) => /* @__PURE__ */ jsx(
-        "div",
-        {
-          style: {
-            position: "absolute",
-            left: s.x,
-            right: s.right,
-            top: s.y,
-            // a "100%" shape needs a sized wrapper to be 100% of
-            width: typeof s.w === "string" ? s.w : void 0,
-            height: typeof s.h === "string" ? s.h : void 0
-          },
-          children: /* @__PURE__ */ jsx(SkeletonBlock, { width: s.w, height: s.h, radius: s.r ?? 4 })
-        },
-        i
-      )) })
-    }
-  ) });
-}
-const bag = "/images/landing/home-v2/assets/bag-B7O3GVmE.svg";
-const heart = "/images/landing/home-v2/assets/heart-ozq9Thds.svg";
-const insightMark = "/images/landing/home-v2/assets/insight-mark-Dd8J1nJH.svg";
-const starFull = "/images/landing/home-v2/assets/star-full-Du_I1bJs.svg";
-const starFullAlt = "/images/landing/home-v2/assets/star-full-b-Bl8WkEtW.svg";
-const starPartial = "/images/landing/home-v2/assets/star-partial-CXJDJrC6.svg";
-const frameTexture = "/images/landing/home-v2/assets/subtract-BWuQXYCQ.webp";
-const frameOutline = "/images/landing/home-v2/assets/outline-DIDwLK1o.svg";
-const frameDot = "/images/landing/home-v2/assets/ellipse-DuY5ZmjU.svg";
-const SponsoredScenarioContext = createContext(defaultScenario$1);
-SponsoredScenarioContext.Provider;
-const useSponsoredScenario = () => useContext(SponsoredScenarioContext);
-function PurpleFrame({ children, centered = true }) {
-  return /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-frame-scale", children: /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored-frame", children: [
-    /* @__PURE__ */ jsx("img", { className: "hm-ill-sponsored-frame__texture", src: frameTexture, alt: "", "aria-hidden": "true" }),
-    /* @__PURE__ */ jsx("img", { className: "hm-ill-sponsored-frame__outline", src: frameOutline, alt: "", "aria-hidden": "true" }),
-    [
-      { left: 18.52, top: 572.82 },
-      { left: 1249.8, top: 572.82 },
-      { left: 1249.8, top: 21.3 },
-      { left: 20.79, top: 16.26 }
-    ].map((dot) => /* @__PURE__ */ jsx("img", { className: "hm-ill-sponsored-frame__dot", style: dot, src: frameDot, alt: "", "aria-hidden": "true" }, `${dot.left}-${dot.top}`)),
-    centered ? /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-frame__content", children }) : children
-  ] }) });
-}
-const stars = [starFull, starFullAlt, starFull, starFullAlt, starPartial];
-function SearchState({ className }) {
-  const { searchState: searchState2, brandId } = useSponsoredScenario();
-  return /* @__PURE__ */ jsxs("div", { className: ["hm-ill-sponsored hm-ill-sponsored--search", className].filter(Boolean).join(" "), children: [
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__search-chrome", children: /* @__PURE__ */ jsx(BrowserChrome, { url: searchState2.query, field: "search" }) }),
-    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__results", children: [
-      /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__ad", children: [
-        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__ad-head", children: [
-          /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__ad-brand", children: [
-            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__ad-logo", children: brandId ? /* @__PURE__ */ jsx(BrandMark, { brand: brandId }) : "H" }),
-            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__ad-label", children: searchState2.brand })
-          ] }),
-          /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__ad-label", children: searchState2.sponsored })
-        ] }),
-        /* @__PURE__ */ jsx("p", { className: "hm-ill-sponsored__ad-title", children: searchState2.title }),
-        /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__bar hm-ill-sponsored__bar--ad-1" }),
-        /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__bar hm-ill-sponsored__bar--ad-2" })
-      ] }),
-      /* @__PURE__ */ jsx(SkeletonResult, { nameWidth: 74, titleWidth: 188, lineWidth: 268 }),
-      /* @__PURE__ */ jsx(SkeletonResult, { nameWidth: 58, titleWidth: 158, lineWidth: 243 })
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__fade", "aria-hidden": "true" })
-  ] });
-}
-function SkeletonResult({ nameWidth, titleWidth, lineWidth }) {
-  return /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__result", children: [
-    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__result-source", children: [
-      /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__result-icon" }),
-      /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__result-bar", style: { width: nameWidth } })
-    ] }),
-    /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__result-title", style: { width: titleWidth } }),
-    /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__result-bar", style: { width: lineWidth } })
-  ] });
-}
-const galleryShapes = [{ x: 0, y: 0, w: "100%", h: "100%", r: 11.4 }];
-const infoTitleShapes = [
-  { x: 0, y: 6, w: 163.3, h: 16, r: 5 },
-  { right: 126.9, y: 0.5, w: 28, h: 26.9, r: 14 },
-  { right: 0, y: 0.5, w: 118.3, h: 28, r: 14 }
-];
-const infoPriceShapes = [
-  { x: 0, y: 7.5, w: 50.9, h: 13, r: 4 },
-  { x: 58.9, y: 7.5, w: 49.7, h: 13, r: 4 },
-  { x: 116.5, y: 5, w: 48, h: 18, r: 9 },
-  { right: 0, y: 6, w: 88, h: 16, r: 5 }
-];
-const comparisonShapes = [
-  { x: 13.5, y: 33.5, w: 18.3, h: 17.2, r: 8 },
-  { x: 36.1, y: 37, w: 213.7, h: 11, r: 4 },
-  { x: 142.4, y: 81.3, w: 86.1, h: 8, r: 4 },
-  { x: 281.4, y: 81.3, w: 80.8, h: 8, r: 4 },
-  { x: 24.5, y: 123.4, w: 88.6, h: 8, r: 4 },
-  { x: 155.4, y: 123.4, w: 24, h: 9, r: 4 },
-  { x: 286.4, y: 123.4, w: 24, h: 9, r: 4 },
-  { x: 24.5, y: 157.4, w: 66, h: 8, r: 4 },
-  { x: 155.4, y: 157.4, w: 24, h: 9, r: 4 },
-  { x: 286.4, y: 157.4, w: 24, h: 9, r: 4 },
-  { x: 24.5, y: 191.4, w: 87.7, h: 8, r: 4 },
-  { x: 155.4, y: 191.4, w: 24, h: 9, r: 4 },
-  { x: 286.4, y: 191.4, w: 24, h: 9, r: 4 },
-  { x: 24.5, y: 225.4, w: 68.9, h: 8, r: 4 },
-  { x: 155.4, y: 225.4, w: 62, h: 9, r: 4 },
-  { x: 286.4, y: 225.4, w: 77.6, h: 9, r: 4 },
-  { x: 24.5, y: 259.4, w: 68.9, h: 8, r: 4 },
-  { x: 155.4, y: 259.4, w: 62, h: 9, r: 4 },
-  { x: 286.4, y: 259.4, w: 77.6, h: 9, r: 4 }
-];
-function PdpState({
-  loading,
-  className,
-  comparisonSlot
-}) {
-  const { pdpState: pdpState2, comparison: comparison2, brandId, storeNameOnly } = useSponsoredScenario();
-  return /* @__PURE__ */ jsxs("div", { className: ["hm-ill-sponsored hm-ill-sponsored--pdp", className].filter(Boolean).join(" "), children: [
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__pdp-chrome", children: /* @__PURE__ */ jsx(BrowserChrome, { url: pdpState2.url }) }),
-    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__store-nav", children: [
-      /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__store-name", children: brandId ? storeNameOnly ? /* @__PURE__ */ jsx(BrandName, { brand: brandId }) : /* @__PURE__ */ jsx(BrandWordmark, { brand: brandId }) : pdpState2.storeName }),
-      /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__store-links", children: [
-        /* @__PURE__ */ jsx("span", { style: { width: 44.09 } }),
-        /* @__PURE__ */ jsx("span", { style: { width: 53.77 } }),
-        /* @__PURE__ */ jsx("span", { style: { width: 37.64 } }),
-        /* @__PURE__ */ jsx("span", { style: { width: 49.47 } })
-      ] }),
-      /* @__PURE__ */ jsx("img", { src: bag, alt: "", width: 20.432, height: 20.432 })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__gallery", children: [
-      /* @__PURE__ */ jsx(ProductImage, { src: pdpState2.image, alt: pdpState2.imageAlt }),
-      loading && /* @__PURE__ */ jsx(SkeletonCover, { loading: loading.gallery, radius: 11.4, className: "hm-ill-sponsored__cover--gallery", shapes: galleryShapes })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__info", children: [
-      /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__info-main", children: [
-        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__info-top", children: [
-          /* @__PURE__ */ jsx("h2", { className: "hm-ill-sponsored__product-name", children: pdpState2.productName }),
-          /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__actions", children: [
-            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__wishlist", children: /* @__PURE__ */ jsx("img", { src: heart, alt: "", width: 12.904, height: 12.904 }) }),
-            /* @__PURE__ */ jsx("button", { type: "button", className: "hm-ill-sponsored__cart", children: pdpState2.addToCart })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__info-meta", children: [
-          /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__price-row", children: [
-            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__price", children: pdpState2.price }),
-            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__price hm-ill-sponsored__price--was", children: pdpState2.originalPrice }),
-            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__discount", children: pdpState2.discount })
-          ] }),
-          pdpState2.rating > 0 && /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__stars", role: "img", "aria-label": `Rated ${pdpState2.rating} out of 5`, children: stars.map((src, i) => /* @__PURE__ */ jsx("img", { src, alt: "", width: 16.01, height: 16.01 }, i)) })
-        ] })
-      ] }),
-      comparisonSlot ?? /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__comparison", children: [
-        /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__column-highlight", "aria-hidden": "true" }),
-        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__comparison-title", children: [
-          /* @__PURE__ */ jsx("img", { src: insightMark, alt: "", width: 18.281, height: 17.206 }),
-          /* @__PURE__ */ jsx("p", { children: comparison2.title })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__table", children: [
-          /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__table-head", children: [
-            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__table-head-gap" }),
-            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__table-head-a", children: comparison2.columnA }),
-            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__table-head-b", children: comparison2.columnB })
-          ] }),
-          comparison2.rows.map((row, i) => /* @__PURE__ */ jsx(ComparisonRow, { label: row.label, valueA: row.valueA, valueB: row.valueB }, i))
-        ] }),
-        /* @__PURE__ */ jsxs(
-          "div",
-          {
-            className: [
-              "hm-ill-sponsored__powered",
-              loading && "hm-ill-sponsored__powered--cross",
-              loading?.comparison && "hm-ill-sponsored__powered--pending"
-            ].filter(Boolean).join(" "),
-            children: [
-              /* @__PURE__ */ jsx(Icon, { name: "spark", size: 9.678 }),
-              /* @__PURE__ */ jsx("span", { children: comparison2.poweredBy }),
-              /* @__PURE__ */ jsx("strong", { children: comparison2.poweredByBrand })
-            ]
-          }
-        ),
-        loading && /* @__PURE__ */ jsx(SkeletonCover, { loading: loading.comparison, radius: 8.073, className: "hm-ill-sponsored__cover--comparison", shapes: comparisonShapes })
-      ] }),
-      loading && /* @__PURE__ */ jsxs(Fragment, { children: [
-        /* @__PURE__ */ jsx(SkeletonCover, { loading: loading.title, radius: 4, className: "hm-ill-sponsored__cover--title", shapes: infoTitleShapes, inset: 25.825 }),
-        /* @__PURE__ */ jsx(SkeletonCover, { loading: loading.price, radius: 4, className: "hm-ill-sponsored__cover--price", shapes: infoPriceShapes, inset: 25.825 })
-      ] })
-    ] })
-  ] });
-}
-const baseBeats = [
-  { id: "idle", type: "pause", ms: 300 },
-  // The window's run (left edge 650ms, right edge trailing by 160ms, 730ms
-  // in all). This beat ends while the right edge is still arriving: the
-  // photo's slot resolves and the photo scales in then, so the photo is
-  // already landing as the window finishes, not after it.
-  { id: "open", type: "appear", ms: 480 },
-  // The right side resolves in turn as the window settles, the comparison
-  // module last.
-  { id: "title", type: "load", ms: 250 },
-  { id: "price", type: "load", ms: 200 },
-  { id: "comparison", type: "load", ms: 300 }
-];
-function useAssetsReady() {
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    let cancelled = false;
-    const photo = new Image();
-    photo.src = pdpState.image;
-    Promise.all([document.fonts?.ready, photo.decode().catch(() => void 0)]).then(() => {
-      if (!cancelled) setReady(true);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-  return ready;
-}
-function SponsoredComparisonMotion({
-  comparison: comparison2,
-  comparisonMs = 300
-} = {}) {
-  const beats2 = baseBeats.map((b) => b.id === "comparison" ? { ...b, ms: comparisonMs } : b);
-  const rootRef = useRef(null);
-  const landed = useLandedOnScreen(rootRef);
-  const assetsReady = useAssetsReady();
-  const t = useChatTimeline(beats2, landed && assetsReady);
-  const open = t.reached("open");
-  const imageIn = t.passed("open");
-  const sceneClass = [
-    "hm-ill-sponsored-motion__scene",
-    open && "hm-ill-sponsored-motion__scene--open",
-    imageIn && "hm-ill-sponsored-motion__scene--image"
-  ].filter(Boolean).join(" ");
-  return /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion", ref: rootRef, children: /* @__PURE__ */ jsx(PurpleFrame, { centered: false, children: /* @__PURE__ */ jsxs("div", { className: sceneClass, children: [
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__shell" }),
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__content", children: /* @__PURE__ */ jsx(
-      PdpState,
-      {
-        className: "hm-ill-sponsored-motion__pdp",
-        loading: {
-          gallery: !t.passed("open"),
-          title: !t.passed("title"),
-          price: !t.passed("price"),
-          comparison: !t.passed("comparison")
-        },
-        comparisonSlot: comparison2?.(t)
-      }
-    ) }),
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__search", children: /* @__PURE__ */ jsx(SearchState, { className: "hm-ill-sponsored-motion__search-card" }) }),
-    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored-motion__chrome", children: [
-      /* @__PURE__ */ jsx(BrowserChrome, { url: searchState.query, field: "search" }),
-      /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__chrome-address", children: /* @__PURE__ */ jsx(BrowserChrome, { url: pdpState.url }) })
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__glow" })
-  ] }) }) });
-}
-function ComparisonEmbed({ phase }) {
-  const { comparison: source } = useSponsoredScenario();
-  const comparison2 = { ...source, rows: source.rows.filter((row, i, all) => all.findIndex((r) => r.label === row.label) === i) };
-  const thinking = phase === "thinking";
-  const pending = phase === "loading" || thinking;
-  return /* @__PURE__ */ jsxs("section", { className: ["sc2-embed", phase && `sc2-embed--${phase}`].filter(Boolean).join(" "), children: [
-    /* @__PURE__ */ jsxs("header", { className: "sc2-embed__head", children: [
-      /* @__PURE__ */ jsx(SparkleGlyph, {}),
-      /* @__PURE__ */ jsx("h3", { className: "sc2-embed__title", children: comparison2.title }),
-      phase && phase !== "loading" && /* @__PURE__ */ jsx("span", { className: thinking ? "sc2-wait" : "sc2-wait sc2-wait--out", "aria-hidden": !thinking, children: "Thinking…" })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "sc2-table-wrap", children: [
-      phase && /* @__PURE__ */ jsx("div", { className: pending ? "sc2-skel" : "sc2-skel sc2-skel--hidden", "aria-hidden": "true", children: Array.from({ length: 7 }, (_, i) => /* @__PURE__ */ jsx("span", { className: "sc2-skel__row", style: { animationDelay: `${i * 0.05}s` } }, i)) }),
-      /* @__PURE__ */ jsxs("div", { className: "sc2-table", role: "table", children: [
-        /* @__PURE__ */ jsxs("div", { className: "sc2-table__row sc2-table__row--head", role: "row", children: [
-          /* @__PURE__ */ jsx("span", { role: "columnheader", children: "What matters" }),
-          /* @__PURE__ */ jsx("span", { role: "columnheader", children: comparison2.columnA }),
-          /* @__PURE__ */ jsx("span", { role: "columnheader", children: comparison2.columnB })
-        ] }),
-        comparison2.rows.map((row, i) => /* @__PURE__ */ jsxs("div", { className: "sc2-table__row", role: "row", style: { "--sc2-i": i + 1 }, children: [
-          /* @__PURE__ */ jsx("span", { role: "rowheader", children: row.label }),
-          /* @__PURE__ */ jsx("span", { role: "cell", children: row.valueA }),
-          /* @__PURE__ */ jsx("span", { role: "cell", children: row.valueB })
-        ] }, i)),
-        /* @__PURE__ */ jsxs("div", { className: "sc2-table__row sc2-table__row--foot", role: "row", style: { "--sc2-i": comparison2.rows.length + 1 }, children: [
-          /* @__PURE__ */ jsx("span", { role: "rowheader", children: "Details" }),
-          /* @__PURE__ */ jsxs("span", { role: "cell", className: "sc2-view", children: [
-            /* @__PURE__ */ jsx("span", { className: "sc2-view__word", children: "View" }),
-            " ",
-            /* @__PURE__ */ jsx(ViewOutGlyph, {})
-          ] }),
-          /* @__PURE__ */ jsxs("span", { role: "cell", className: "sc2-view", children: [
-            /* @__PURE__ */ jsx("span", { className: "sc2-view__word", children: "View" }),
-            " ",
-            /* @__PURE__ */ jsx(ViewOutGlyph, {})
-          ] })
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("p", { className: "sc2-embed__note", children: [
-      comparison2.poweredBy,
-      " ",
-      /* @__PURE__ */ jsx("u", { children: comparison2.poweredByBrand })
-    ] })
-  ] });
-}
-function SparkleGlyph() {
-  return /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 256 256", width: 16, height: 16, fill: "none", stroke: "currentColor", strokeWidth: 16, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true", children: [
-    /* @__PURE__ */ jsx("path", { d: "M84.27,171.73l-55.09-20.3a7.92,7.92,0,0,1,0-14.86l55.09-20.3,20.3-55.09a7.92,7.92,0,0,1,14.86,0l20.3,55.09,55.09,20.3a7.92,7.92,0,0,1,0,14.86l-55.09,20.3-20.3,55.09a7.92,7.92,0,0,1-14.86,0Z" }),
-    /* @__PURE__ */ jsx("line", { x1: "176", y1: "16", x2: "176", y2: "64" }),
-    /* @__PURE__ */ jsx("line", { x1: "200", y1: "40", x2: "152", y2: "40" })
-  ] });
-}
-function ViewOutGlyph() {
-  return /* @__PURE__ */ jsx("svg", { viewBox: "0 0 12 12", width: 10, height: 10, fill: "none", stroke: "currentColor", strokeWidth: 1.2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true", children: /* @__PURE__ */ jsx("path", { d: "M3.5 8.5l5-5M4.5 3.5h4v4" }) });
-}
-const COMPARISON_THINK_MS = 1600;
-function SponsoredComparisonV2Motion() {
-  return /* @__PURE__ */ jsx("div", { className: "sc2-motion", children: /* @__PURE__ */ jsx(
-    SponsoredComparisonMotion,
-    {
-      comparisonMs: COMPARISON_THINK_MS,
-      comparison: (t) => /* @__PURE__ */ jsx(ComparisonEmbed, { phase: t.passed("comparison") ? "in" : "thinking" })
-    }
-  ) });
-}
-const StorybookCardSkin = createContext(false);
-const StorybookComposerDefault = createContext(false);
-const goodwellSocialAd = "/images/landing/home-v2/assets/goodwell-social-ad-v1-DbWVCc2n.webp";
-const igMore = "/images/landing/home-v2/assets/ig-more-DwYmQdK1.svg";
-const igChevron = "/images/landing/home-v2/assets/ig-chevron-DsNho9PV.svg";
 function Media({ src, alt }) {
   if (src) {
     return /* @__PURE__ */ jsx("img", { className: `hm-ill-media${cutoutSrcs.has(src) ? " hm-ill-media--cutout" : ""}`, src, alt });
@@ -2498,11 +1994,11 @@ function StaggerText({ text, boldText }) {
     ] }, `bold-${i}`))
   ] });
 }
-const asset = (name) => `/images/landing/home-v2/assets/${name}.webp`;
+const returnReductionBg = "/images/landing/home-v2/assets/return_reduction_bg_3x-PTzwbPCJ.webp";
+const asset = (name) => `${"/images/landing/home-v2/"}assets/${name}.png`;
 const sellDynamicProducts = {
   sleep60: catalog.goodwellSleep60.image,
   sleep28: catalog.goodwellSleep28.image,
-  energy: catalog.goodwellEnergy.image,
   focus: catalog.goodwellFocus.image,
   calm: catalog.goodwellCalm.image,
   cream: catalog.sorelleCream.image,
@@ -2693,6 +2189,30 @@ function ChatHeader({
     ] })
   ] });
 }
+const MAX_LINES = 5;
+function GrowComposer({ value = "Ask anything...", typing = false }) {
+  const textRef = useRef(null);
+  const [lines, setLines] = useState(1);
+  useLayoutEffect(() => {
+    const el = textRef.current;
+    const content2 = el == null ? void 0 : el.querySelector(".hm-ill-grow-composer__content");
+    if (!el || !content2) return;
+    const lh = parseFloat(getComputedStyle(el).lineHeight);
+    setLines(Math.round(content2.offsetHeight / lh));
+  }, [value, typing]);
+  const className = [
+    "hm-ill-chat-composer hm-ill-grow-composer",
+    lines > 1 && "hm-ill-grow-composer--multiline",
+    lines > MAX_LINES && "hm-ill-grow-composer--capped"
+  ].filter(Boolean).join(" ");
+  return /* @__PURE__ */ jsxs("div", { className, children: [
+    /* @__PURE__ */ jsx("span", { ref: textRef, className: "hm-ill-chat-composer__text hm-ill-grow-composer__text", children: /* @__PURE__ */ jsx("span", { className: "hm-ill-grow-composer__clip", children: /* @__PURE__ */ jsxs("span", { className: "hm-ill-grow-composer__content", children: [
+      value,
+      typing && /* @__PURE__ */ jsx("span", { className: "hm-ill-chat-composer__caret" })
+    ] }) }) }),
+    /* @__PURE__ */ jsx(IconButton, { icon: "send", label: "Send", variant: "accent" })
+  ] });
+}
 function ChatComposer({
   value = "Ask anything...",
   typing = false,
@@ -2750,6 +2270,7 @@ function Shell({
   rootRef,
   header,
   composer,
+  growComposer = false,
   className
 }) {
   return /* @__PURE__ */ jsxs(
@@ -2761,7 +2282,7 @@ function Shell({
       children: [
         header ?? /* @__PURE__ */ jsx(ChatHeader, { brand: brand2 }),
         /* @__PURE__ */ jsx(ConversationViewport, { ref: viewportRef, children }),
-        composer ?? /* @__PURE__ */ jsx(ChatComposer, { value: composerValue, typing: composerTyping })
+        composer ?? (growComposer ? /* @__PURE__ */ jsx(GrowComposer, { value: composerValue, typing: composerTyping }) : /* @__PURE__ */ jsx(ChatComposer, { value: composerValue, typing: composerTyping }))
       ]
     }
   );
@@ -2799,10 +2320,30 @@ function ProductMeta({
     rating !== void 0 && ratingCount && /* @__PURE__ */ jsx(Rating, { value: rating, count: ratingCount })
   ] });
 }
+function SkeletonBlock({
+  width,
+  height,
+  aspectRatio,
+  radius
+}) {
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: "hm-ill-skeleton-block",
+      style: {
+        width,
+        height,
+        aspectRatio,
+        borderRadius: radius
+      }
+    }
+  );
+}
 function useLineCount(root, selector, max = Infinity) {
   const [lines, setLines] = useState(1);
   useLayoutEffect(() => {
-    const el = root.current?.querySelector(selector);
+    var _a;
+    const el = (_a = root.current) == null ? void 0 : _a.querySelector(selector);
     if (!el) return;
     const measure = () => {
       const range = document.createRange();
@@ -2951,73 +2492,78 @@ function StoreNavItems() {
     /* @__PURE__ */ jsx("span", {})
   ] });
 }
-const sleepThreeQuarter = "/images/landing/home-v2/assets/goodwell-sleep-three-quarter-CwUI_ana.webp";
-const sleepElevated = "/images/landing/home-v2/assets/goodwell-sleep-elevated-T1ADQ_Ns.webp";
-const brand$4 = "Goodwell";
-const domain$2 = "goodwell.com";
+const tripodAngle = "/images/landing/home-v2/assets/amber-tripod-angle-CKeA7390.webp";
+const tripodRoom = "/images/landing/home-v2/assets/amber-tripod-room-vTF0ni1E.webp";
+const tripodDetail = "/images/landing/home-v2/assets/amber-tripod-detail-BKu19Fpx.webp";
+const brand$4 = "Amber & Oak";
+const domain$2 = "amberandoak.com";
+const productPath = "warm-tripod-table-lamp";
 const page$1 = {
-  headline: "Feel good, one gummy at a time.",
-  sub: "Functional gummies for sleep, energy and focus.",
-  shop: "Shop gummies"
+  eyebrow: "AMBER & OAK LIGHTING",
+  headline: "Make room for a softer glow.",
+  sub: "Considered lamps for the spaces you live in.",
+  shop: "Explore the lamps"
 };
-const gummies = {
-  sleep60: { ...catalog.goodwellSleep60, image: catalog.goodwellSleep60.image, name: "Daily Sleep Gummies", variant: "60 Count", price: "$29.99", rating: 4.8, reviews: "2,140" },
-  sleep28: { ...catalog.goodwellSleep28, image: catalog.goodwellSleep28.image, name: "Daily Sleep Gummies", variant: "28 Count", price: "$17.99", rating: 4.7, reviews: "860" },
-  energy: { ...catalog.goodwellEnergy, image: catalog.goodwellEnergy.image, name: "Clean Energy Gummies", variant: "60 Count", price: "$27.99", rating: 4.6, reviews: "1,310" },
-  focus: { ...catalog.goodwellFocus, image: catalog.goodwellFocus.image, name: "Daily Focus Gummies", variant: "60 Count", price: "$27.99", rating: 4.7, reviews: "980" },
-  calm: { ...catalog.goodwellCalm, image: catalog.goodwellCalm.image, name: "Calm Mood Gummies", variant: "60 Count", price: "$26.99", rating: 4.5, reviews: "720" },
-  immunity: { ...catalog.goodwellImmunity, image: catalog.goodwellImmunity.image, name: "Immunity Gummies", variant: "60 Count", price: "$24.99", rating: 4.6, reviews: "1,050" }
-};
-const shelf = [gummies.sleep60, gummies.energy, gummies.focus, gummies.calm];
+const tripod = { ...catalog.amberTripod, name: catalog.amberTripod.title, variant: "Warm wood", price: catalog.amberTripod.price };
+const dome = { ...catalog.amberDome, name: catalog.amberDome.title, variant: "Ambient light", price: catalog.amberDome.price };
+const bedside = { ...catalog.amberBedside, name: catalog.amberBedside.title, variant: "Copper rim", price: catalog.amberBedside.price };
+const opal = { ...catalog.amberOpalGlass, name: catalog.amberOpalGlass.title, variant: "Opal glass", price: catalog.amberOpalGlass.price };
+const pleated = { ...catalog.amberPleatedLinen, name: catalog.amberPleatedLinen.title, variant: "Pleated linen", price: catalog.amberPleatedLinen.price };
+const heroProduct = opal;
+const shelf = [pleated, dome, bedside];
 const search = {
   placeholder: "Search products or ask anything",
   askLabel: "Ask AI",
   suggestions: [
-    { id: "sleep", text: "Something to help me sleep better" },
-    { id: "energy", image: sellDynamicProducts.energy, text: "Energy without caffeine" },
-    { id: "focus", image: sellDynamicProducts.focus, text: "Gummies for daily focus" }
+    { id: "living-room", text: "Warm lighting for my living room" },
+    { id: "bedside", text: "A soft light for my bedside" },
+    { id: "table-lamp", text: "A table lamp in natural materials" }
   ],
-  selected: "sleep",
+  selected: "living-room",
   recentLabel: "Recent searches",
-  recent: [gummies.immunity, gummies.focus, gummies.calm]
+  recent: [opal, pleated, bedside]
 };
 const results = {
-  query: "Something to help me sleep better",
-  answer: "For better sleep and easier mornings, I'd recommend our Daily Sleep Gummies, made with magnesium and calming botanicals.",
-  picks: [gummies.sleep60, gummies.sleep28],
-  moreLabel: "Explore more wellness gummies",
-  more: [gummies.calm, gummies.focus, gummies.energy, gummies.immunity],
+  query: "Warm lighting for my living room",
+  answer: "The Warm Tripod Table Lamp brings a fabric shade and warm wood; the Mod Dome Table Lamp offers a more sculptural look.",
+  picks: [tripod, dome],
+  moreLabel: "More lamps to explore",
+  more: [bedside, opal, pleated],
   composer: "Refine your search…",
   followUps: [
-    { id: "no-melatonin", text: "No melatonin" },
-    { id: "compare", text: "Compare these" },
-    { id: "under-25", text: "Under $25" }
+    { id: "bedside", text: "For a bedside" },
+    { id: "compare-lamps", text: "Compare the lamps" },
+    { id: "under-100", text: "Under $100" }
   ]
 };
 const pdp = {
-  product: gummies.sleep60,
+  product: tripod,
   gallery: [
-    { src: catalog.goodwellSleep60.image, alt: "Goodwell Daily Sleep Gummies, 60 count — front view" },
-    { src: sleepThreeQuarter, alt: "Goodwell Daily Sleep Gummies — three-quarter view" },
-    { src: sleepElevated, alt: "Goodwell Daily Sleep Gummies — elevated lid view" },
-    { src: goodwellSocialAd, alt: "Daily Sleep with Calm Mood and Daily Focus in the Goodwell campaign" }
+    { src: tripod.image, alt: "Warm Tripod Table Lamp, front view" },
+    { src: tripodAngle, alt: "Warm Tripod Table Lamp, alternate angle" },
+    { src: tripodRoom, alt: "Warm Tripod Table Lamp on a side table" },
+    { src: tripodDetail, alt: "Detail of the Warm Tripod Table Lamp shade and wood base" }
   ],
-  blurb: "Magnesium and calming botanicals to help you wind down and wake up easier.",
-  variants: [gummies.sleep60, gummies.sleep28],
+  blurb: "Warm wood and a fabric shade bring a softer light to your space.",
+  // Placeholders, not from the brief: the rating and the three reasons it
+  // matches the shopper's query.
+  rating: { value: 4.8, count: "126" },
+  matchLabel: "Matches your search",
+  matches: ["Warm light", "Fabric shade", "Side-table size"],
   askLabel: "Ask AI about this product",
   suggestions: [
     { id: "why", text: "Why did you recommend this?" },
-    { id: "melatonin", text: "Does it contain melatonin?" },
-    { id: "compare", text: "Compare with 28 Count" }
+    { id: "compare", text: "Compare it with the Mod Dome" },
+    { id: "bedside", text: "For a bedside?" }
   ],
   backLabel: "Back to AI search"
 };
 function ProductVisual({ product: product2, className }) {
   return /* @__PURE__ */ jsx("div", { className: ["ais-product-visual", className].filter(Boolean).join(" "), children: /* @__PURE__ */ jsx(ProductImage, { src: product2.image, alt: `${product2.name}, ${product2.variant}` }) });
 }
-function Nav({ searching }) {
+function Nav({ searching, merchant: merchant2 = brand$4 }) {
   return /* @__PURE__ */ jsxs("header", { className: "hm-ill-chat-header ais-nav", children: [
-    /* @__PURE__ */ jsx("span", { className: "ais-nav__logo", children: /* @__PURE__ */ jsx(BrandWordmark, { brand: brand$4 }) }),
+    /* @__PURE__ */ jsx("span", { className: "ais-nav__logo", children: /* @__PURE__ */ jsx(BrandWordmark, { brand: merchant2 }) }),
     /* @__PURE__ */ jsx(StoreNavItems, {}),
     /* @__PURE__ */ jsxs("div", { className: "hm-ill-chat-header__group", children: [
       /* @__PURE__ */ jsxs("span", { className: "ais-nav__ask", children: [
@@ -3033,11 +2579,12 @@ function Home() {
   return /* @__PURE__ */ jsxs("div", { className: "ais-home", children: [
     /* @__PURE__ */ jsxs("div", { className: "ais-hero", children: [
       /* @__PURE__ */ jsxs("div", { className: "ais-hero__copy", children: [
+        /* @__PURE__ */ jsx("span", { className: "ais-hero__eyebrow", children: page$1.eyebrow }),
         /* @__PURE__ */ jsx("h2", { children: page$1.headline }),
         /* @__PURE__ */ jsx("p", { children: page$1.sub }),
         /* @__PURE__ */ jsx("span", { className: "ais-btn", children: page$1.shop })
       ] }),
-      /* @__PURE__ */ jsx(ProductVisual, { product: pdp.product, className: "ais-hero__img" })
+      /* @__PURE__ */ jsx(ProductVisual, { product: heroProduct, className: "ais-hero__img" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "ais-shelf", children: [
       "Best sellers ",
@@ -3081,7 +2628,7 @@ function SearchDropdown({ picked }) {
   ] });
 }
 function toCard(g) {
-  return { id: g.id, image: g.image, title: `${g.name} ${g.variant}`, price: g.price, rating: g.rating, ratingCount: g.reviews };
+  return { id: g.id, image: g.image, title: g.name, price: g.price };
 }
 function Pdp() {
   const p = pdp.product;
@@ -3105,12 +2652,17 @@ function Pdp() {
           /* @__PURE__ */ jsx("h2", { children: p.name }),
           /* @__PURE__ */ jsxs("div", { className: "ais-details__meta", children: [
             /* @__PURE__ */ jsx("span", { className: "ais-details__price", children: p.price }),
-            /* @__PURE__ */ jsx(Rating, { value: p.rating, count: p.reviews })
+            /* @__PURE__ */ jsx(Rating, { value: pdp.rating.value, count: pdp.rating.count })
           ] })
         ] }),
+        /* @__PURE__ */ jsxs("div", { className: "ais-match", children: [
+          /* @__PURE__ */ jsxs("p", { className: "ais-match__label", children: [
+            /* @__PURE__ */ jsx(Icon, { name: "spark", size: 10 }),
+            pdp.matchLabel
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "ais-match__tags", children: pdp.matches.map((m) => /* @__PURE__ */ jsx("span", { className: "ais-match__tag", children: m }, m)) })
+        ] }),
         /* @__PURE__ */ jsx("p", { className: "ais-details__blurb", children: pdp.blurb }),
-        /* @__PURE__ */ jsx("p", { className: "ais-label", children: "Size" }),
-        /* @__PURE__ */ jsx("div", { className: "ais-variants", children: pdp.variants.map((v) => /* @__PURE__ */ jsx(Button, { appearance: "secondary", label: v.variant, className: v.id === p.id ? "ais-variant--selected" : "ais-variant" }, v.id)) }),
         /* @__PURE__ */ jsx(Button, { appearance: "primary", label: "Add to cart", className: "ais-details__cta" })
       ] }),
       /* @__PURE__ */ jsxs("section", { className: "ais-ask", children: [
@@ -3123,6 +2675,22 @@ function Pdp() {
     ] })
   ] });
 }
+const sleepThreeQuarter = "/images/landing/home-v2/assets/goodwell-sleep-three-quarter-CwUI_ana.webp";
+const sleepElevated = "/images/landing/home-v2/assets/goodwell-sleep-elevated-T1ADQ_Ns.webp";
+({
+  sleep60: { ...catalog.goodwellSleep60, image: catalog.goodwellSleep60.image },
+  sleep28: { ...catalog.goodwellSleep28, image: catalog.goodwellSleep28.image },
+  focus: { ...catalog.goodwellFocus, image: catalog.goodwellFocus.image },
+  calm: { ...catalog.goodwellCalm, image: catalog.goodwellCalm.image }
+});
+({
+  gallery: [
+    { src: catalog.goodwellSleep60.image, alt: "Goodwell Daily Sleep Gummies, 60 count — front view" },
+    { src: sleepThreeQuarter, alt: "Goodwell Daily Sleep Gummies — three-quarter view" },
+    { src: sleepElevated, alt: "Goodwell Daily Sleep Gummies — elevated lid view" },
+    { src: goodwellSocialAd, alt: "Daily Sleep with Calm Mood and Daily Focus in the Goodwell campaign" }
+  ]
+});
 [
   { id: "price", label: "Price", values: [catalog.goodwellSleep60.price, catalog.moonrestSleep.price] },
   { id: "gummies", label: "Gummies", values: ["60", "50"] },
@@ -3131,11 +2699,132 @@ function Pdp() {
   { id: "melatonin", label: "Melatonin", values: ["Melatonin‑free", "Contains melatonin"], highlight: true },
   { id: "ingredients", label: "Ingredients", values: ["L-Theanine, Chamomile", "Melatonin, Chamomile"] }
 ];
+const THINKING_STAGE_1_MS$2 = 300;
+const THINKING_STAGE_2_MS$2 = 500;
+const THINKING_SINGLE_MS = 600;
+const THINKING_EXIT_MS$2 = 150;
+const CHAR_INTERVAL_MS$2 = 26;
+const REPLY_STAGGER_MS$2 = 45;
+const REPLY_WORD_ANIM_MS$2 = 220;
+const REPLY_SETTLE_MS$2 = 150;
+const APPEAR_MS = 450;
+const LOAD_MS = 650;
+const FIRST_COMPOSE_LEAD_MS = 350;
+const NEXT_COMPOSE_LEAD_MS = 900;
+const SENT_SETTLE_MS = 220;
+function prefersReducedMotion$2() {
+  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+function wordCount(text) {
+  return text.replace(/\*\*/g, "").split(/\s+/).filter(Boolean).length;
+}
+function replyRevealMs$2(text) {
+  return wordCount(text) * REPLY_STAGGER_MS$2 + REPLY_WORD_ANIM_MS$2 + REPLY_SETTLE_MS$2;
+}
+function useChatTimeline(beats2, active) {
+  const reducedMotion = useRef(prefersReducedMotion$2()).current;
+  const [index, setIndex] = useState(reducedMotion ? beats2.length : 0);
+  const [typed, setTyped] = useState({ index: -1, value: "" });
+  const [thinkStage, setThinkStage] = useState({ index: -1, stage: 0 });
+  const [exitingIndex, setExitingIndex] = useState(-1);
+  const [runKey, setRunKey] = useState(0);
+  const wasActiveRef = useRef(active);
+  useEffect(() => {
+    if (active && !wasActiveRef.current && !reducedMotion) {
+      setIndex(0);
+      setTyped({ index: -1, value: "" });
+      setThinkStage({ index: -1, stage: 0 });
+      setExitingIndex(-1);
+      setRunKey((k) => k + 1);
+    }
+    wasActiveRef.current = active;
+  }, [active, reducedMotion]);
+  useEffect(() => {
+    if (reducedMotion || !active || index >= beats2.length) return;
+    const beat = beats2[index];
+    const timeouts = [];
+    let cancelReveal;
+    const after = (ms, fn) => {
+      timeouts.push(window.setTimeout(fn, ms));
+    };
+    const next = () => setIndex((i) => i + 1);
+    const cleanup = () => {
+      cancelReveal == null ? void 0 : cancelReveal();
+      timeouts.forEach(window.clearTimeout);
+    };
+    switch (beat.type) {
+      case "compose": {
+        if (!beat.text) {
+          after(beat.holdMs ?? 700, next);
+          break;
+        }
+        const text = beat.text;
+        after(beat.leadMs ?? (index === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS), () => {
+          cancelReveal = revealText(text, {
+            msPerStep: beat.msPerChar ?? CHAR_INTERVAL_MS$2,
+            onTick: (value) => setTyped({ index, value }),
+            onDone: () => after(SENT_SETTLE_MS, next)
+          });
+        });
+        break;
+      }
+      case "think": {
+        let holdMs = THINKING_SINGLE_MS;
+        if (beat.labels.length === 2) {
+          after(THINKING_STAGE_1_MS$2, () => setThinkStage({ index, stage: 1 }));
+          holdMs = THINKING_STAGE_1_MS$2 + THINKING_STAGE_2_MS$2;
+        }
+        after(holdMs, () => setExitingIndex(index));
+        after(holdMs + THINKING_EXIT_MS$2, next);
+        break;
+      }
+      case "text":
+        after(replyRevealMs$2(beat.text), next);
+        break;
+      case "appear":
+        after(beat.ms ?? APPEAR_MS, next);
+        break;
+      case "load":
+        after(beat.ms ?? LOAD_MS, next);
+        break;
+      case "pause":
+        after(beat.ms, next);
+        break;
+    }
+    return cleanup;
+  }, [index, active, reducedMotion, beats2]);
+  return useMemo(() => {
+    const at = (id) => {
+      const i = beats2.findIndex((b) => b.id === id);
+      if (i < 0) throw new Error(`Unknown beat "${id}"`);
+      return i;
+    };
+    const current = beats2[index];
+    const typedValue = typed.index === index ? typed.value : "";
+    return {
+      reached: (id) => index >= at(id),
+      passed: (id) => index > at(id),
+      loading: (id) => index === at(id),
+      status: (id) => {
+        const beat = beats2[index];
+        if (index !== at(id) || beat.type !== "think") return null;
+        const stage = thinkStage.index === index ? thinkStage.stage : 0;
+        return { label: beat.labels[stage] ?? beat.labels[0], visible: exitingIndex !== index };
+      },
+      composer: (current == null ? void 0 : current.type) === "compose" && current.text ? { value: typedValue, typing: true } : null,
+      index,
+      done: index >= beats2.length,
+      reducedMotion,
+      runKey
+    };
+  }, [beats2, index, typed, thinkStage, exitingIndex, reducedMotion, runKey]);
+}
 function useFontsReady() {
   const [ready, setReady] = useState(false);
   useEffect(() => {
+    var _a;
     let cancelled = false;
-    (document.fonts?.ready ?? Promise.resolve()).then(() => {
+    (((_a = document.fonts) == null ? void 0 : _a.ready) ?? Promise.resolve()).then(() => {
       if (!cancelled) setReady(true);
     });
     return () => {
@@ -3144,7 +2833,7 @@ function useFontsReady() {
   }, []);
   return ready;
 }
-function useFollowLatest(scrollerRef, {
+function useFollowLatest$1(scrollerRef, {
   thread,
   pin,
   focus,
@@ -3155,7 +2844,7 @@ function useFollowLatest(scrollerRef, {
 }) {
   useEffect(() => {
     const scroller = scrollerRef.current;
-    const threadEl = scroller?.querySelector(thread);
+    const threadEl = scroller == null ? void 0 : scroller.querySelector(thread);
     if (!scroller || !threadEl) return;
     let cancelScroll;
     const follow = () => {
@@ -3164,7 +2853,7 @@ function useFollowLatest(scrollerRef, {
       const toContent = (y) => (y - box.top) / scale + scroller.scrollTop;
       let target = Math.max(0, toContent(threadEl.getBoundingClientRect().bottom) - scroller.clientHeight + clearance);
       const pins = pin ? threadEl.querySelectorAll(pin) : null;
-      const pinned = pins?.[pins.length - 1];
+      const pinned = pins == null ? void 0 : pins[pins.length - 1];
       const pinTop = pinned ? Math.max(0, toContent(pinned.getBoundingClientRect().top) - pinOffset) : 0;
       target = Math.max(target, pinTop);
       const turns2 = [...threadEl.children].map((child) => {
@@ -3173,12 +2862,13 @@ function useFollowLatest(scrollerRef, {
       });
       const nearTop = turns2.find((turn) => target > turn.top && target - turn.top <= clearance);
       if (nearTop) target = nearTop.top;
+      if (target <= parseFloat(getComputedStyle(scroller).paddingTop) + 1) target = 0;
       const focused = focus ? threadEl.querySelector(focus) : null;
       if (focused) target = Math.max(0, toContent(focused.getBoundingClientRect().top) - 8);
       const cut = turns2.some((turn) => turn.top < target - 1 && turn.bottom > target + 1);
       if (scroller.parentElement) scroller.parentElement.dataset.scrolled = String(cut);
       if (Math.abs(target - scroller.scrollTop) < 1) return;
-      cancelScroll?.();
+      cancelScroll == null ? void 0 : cancelScroll();
       if (reducedMotion) scroller.scrollTop = target;
       else cancelScroll = animateScrollTo(scroller, target);
     };
@@ -3187,7 +2877,7 @@ function useFollowLatest(scrollerRef, {
     observer.observe(threadEl);
     return () => {
       observer.disconnect();
-      cancelScroll?.();
+      cancelScroll == null ? void 0 : cancelScroll();
     };
   }, [scrollerRef, thread, pin, focus, clearance, pinOffset, index, reducedMotion]);
 }
@@ -4273,7 +3963,7 @@ function Picks({ loading = false, staggerResolve = false }) {
   )) }) });
 }
 const answerText$1 = (q, key) => q.options.find((o) => o.key === key).text;
-function Thread$2({ step }) {
+function Thread$1({ step }) {
   const { widget: widget2 } = useContext(AdJourneyContext);
   if (step === 3 || step === 4) {
     return /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -4329,7 +4019,7 @@ function Widget({ step }) {
       /* @__PURE__ */ jsx(AiPills, { options: widget2.prompts, selectedId: "" })
     ] }) });
   }
-  return /* @__PURE__ */ jsx(Shell, { brand: brand2, className: step === 6 ? "adj-widget adj-widget--expanded adj-widget--end" : "adj-widget adj-widget--expanded", composer: /* @__PURE__ */ jsx(ChatComposer, { value: widget2.composer }), children: /* @__PURE__ */ jsx("div", { className: "adj-thread", children: /* @__PURE__ */ jsx(Thread$2, { step }) }) });
+  return /* @__PURE__ */ jsx(Shell, { brand: brand2, className: step === 6 ? "adj-widget adj-widget--expanded adj-widget--end" : "adj-widget adj-widget--expanded", composer: /* @__PURE__ */ jsx(ChatComposer, { value: widget2.composer }), children: /* @__PURE__ */ jsx("div", { className: "adj-thread", children: /* @__PURE__ */ jsx(Thread$1, { step }) }) });
 }
 function InstagramAd({ copy: override } = {}) {
   const { brand: brand2, ad: ad2, campaignCreative: campaignCreative2 } = useContext(AdJourneyContext);
@@ -4409,7 +4099,7 @@ function Storefront({ step = 2, widget: widgetSlot, hero: override }) {
   ] });
 }
 const invite = "Want $5 off your next order? Clear 4 hurdles to unlock it.";
-const beats$5 = [
+const beats$7 = [
   { id: "ad", type: "pause", ms: 1400 },
   { id: "tap-ad", type: "appear", ms: 280 },
   { id: "store", type: "appear", ms: 750 },
@@ -4441,7 +4131,7 @@ const beats$5 = [
   { id: "reward", type: "appear", ms: 700 },
   { id: "hold", type: "pause", ms: 1600 }
 ];
-beats$5.map(
+beats$7.map(
   (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 3600 } : b.id === "pick-play" ? { ...b, ms: 450 } : b
 );
 function AiStatusIcon() {
@@ -4495,16 +4185,17 @@ function AiStatus({
     ] })
   ] });
 }
-const specificInfo = {
-  chips: [
-    { id: "fragrance", text: "Is it fragrance-free?" },
-    { id: "routine", text: "How do I use it?" },
-    { id: "size", text: "What size is the bottle?" }
-  ]
-};
+const askAiChips = [
+  { id: "fragrance", text: "Fragrance-free?" },
+  { id: "routine", text: "How to use it?" },
+  { id: "size", text: "Bottle size?" }
+];
+const detailAnswer = "Yes, Sorelle Labs Daily Hydrating Serum is fragrance-free and formulated to support sensitive skin. It helps hydrate and support your skin barrier.";
 const directAsk = {
-  chipId: "fragrance"
+  answer: detailAnswer
 };
+const chipId = "fragrance";
+askAiChips.find((c) => c.id === chipId);
 function toPieces(text) {
   const pieces = [];
   let wordIndex = -1;
@@ -4543,6 +4234,7 @@ function Thinking({ t, id }) {
 function AssistantText({ text }) {
   return /* @__PURE__ */ jsx(ChatMessage, { role: "assistant", children: /* @__PURE__ */ jsx(RichStagger, { text }) });
 }
+askAiChips.find((c) => c.id === "fragrance");
 const courtProfile = "/images/landing/home-v2/assets/court-01-profile-DERNvCRo.webp";
 const courtOverhead = "/images/landing/home-v2/assets/court-01-overhead-Cq5u_wrK.webp";
 const product = {
@@ -4563,7 +4255,22 @@ const recs = [
 ];
 recs.map((r) => r.id);
 [product, ...recs].reduce((sum, p) => sum + Number(p.price.slice(1)), 0);
-specificInfo.chips.find((c) => c.id === directAsk.chipId);
+const beats$6 = [
+  { id: "pdp", type: "pause", ms: 1200 },
+  { id: "scroll", type: "appear", ms: 800 },
+  { id: "activate", type: "appear", ms: 650 },
+  { id: "open", type: "appear", ms: 450 },
+  { id: "ask", type: "appear", ms: 350 },
+  { id: "think", type: "think", labels: ["Thinking"] },
+  { id: "answer", type: "text", text: directAsk.answer },
+  { id: "follow-ups", type: "appear", ms: 450 }
+];
+[
+  ...beats$6.slice(0, beats$6.findIndex((b) => b.id === "answer")).map((b) => b.id === "think" ? { ...b, labels: ["Checking the formula…"] } : b),
+  { id: "skeleton", type: "load", ms: 1200 },
+  { id: "answer", type: "text", text: directAsk.answer },
+  { id: "follow-ups", type: "appear", ms: 450 }
+];
 const crosswordMark = "/images/landing/home-v2/assets/crossword-logo-C5ShBt7d.svg";
 const brand$2 = "Sorelle Labs";
 const states = [
@@ -4615,7 +4322,7 @@ const offer = {
   detail: "Free gift on orders over $50",
   terms: "Until Nov 30 · 1 per customer"
 };
-const defaultScenario = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const defaultScenario$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   agent,
   brand: brand$2,
@@ -4624,7 +4331,7 @@ const defaultScenario = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.def
   picks: picks$1,
   states
 }, Symbol.toStringTag, { value: "Module" }));
-const PersonalAgentContext = createContext(defaultScenario);
+const PersonalAgentContext = createContext(defaultScenario$1);
 PersonalAgentContext.Provider;
 const usePersonalAgentScenario = () => useContext(PersonalAgentContext);
 function AgentNode({ done = false }) {
@@ -4681,7 +4388,7 @@ function OfferCard() {
     /* @__PURE__ */ jsx("span", { className: "pa-offer__terms", children: offer2.terms })
   ] });
 }
-const shopper = {
+const shopper$1 = {
   ask: "Find me a daily moisturiser for dry skin, under $50."
 };
 const panel = {
@@ -4766,7 +4473,7 @@ const paths = {
     /* @__PURE__ */ jsx("path", { d: "M5.5 12.5V19a1 1 0 001 1h11a1 1 0 001-1v-6.5M12 8.5V20M12 8.5C10.8 5.5 7.5 4.6 7.5 6.6c0 1.6 2.8 1.9 4.5 1.9zm0 0c1.2-3 4.5-3.9 4.5-1.9 0 1.6-2.8 1.9-4.5 1.9z" })
   ] })
 };
-function Glyph({ name, size = 18 }) {
+function Glyph$1({ name, size = 18 }) {
   return /* @__PURE__ */ jsx("svg", { className: "aia-glyph", width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "1.75", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true, children: paths[name] });
 }
 function ProductTile({ product: product2, wide = false, media }) {
@@ -4782,7 +4489,7 @@ function ProductTile({ product: product2, wide = false, media }) {
       product2.note
     ] }),
     wide && /* @__PURE__ */ jsxs("p", { className: "aia-tile__promo", children: [
-      /* @__PURE__ */ jsx(Glyph, { name: "gift", size: 14 }),
+      /* @__PURE__ */ jsx(Glyph$1, { name: "gift", size: 14 }),
       /* @__PURE__ */ jsxs("span", { children: [
         /* @__PURE__ */ jsx("strong", { children: promo.name }),
         " • ",
@@ -4813,7 +4520,7 @@ function OrderSummary() {
       /* @__PURE__ */ jsx("span", { className: "aia-order__price", children: bundle.price })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "aia-order__row", children: [
-      /* @__PURE__ */ jsx("span", { className: "aia-order__thumb aia-order__thumb--gift", children: /* @__PURE__ */ jsx(Glyph, { name: "gift", size: 18 }) }),
+      /* @__PURE__ */ jsx("span", { className: "aia-order__thumb aia-order__thumb--gift", children: /* @__PURE__ */ jsx(Glyph$1, { name: "gift", size: 18 }) }),
       /* @__PURE__ */ jsxs("span", { className: "aia-order__text", children: [
         /* @__PURE__ */ jsx("b", { children: promo.name }),
         /* @__PURE__ */ jsx("small", { children: promo.resolved })
@@ -4822,7 +4529,7 @@ function OrderSummary() {
   ] });
 }
 function Actions() {
-  return /* @__PURE__ */ jsx("div", { className: "aia-actions", "data-name": "Message actions", children: ["copy", "up", "down", "share", "retry"].map((n) => /* @__PURE__ */ jsx("span", { children: /* @__PURE__ */ jsx(Glyph, { name: n, size: 16 }) }, n)) });
+  return /* @__PURE__ */ jsx("div", { className: "aia-actions", "data-name": "Message actions", children: ["copy", "up", "down", "share", "retry"].map((n) => /* @__PURE__ */ jsx("span", { children: /* @__PURE__ */ jsx(Glyph$1, { name: n, size: 16 }) }, n)) });
 }
 function BrowserBar() {
   return /* @__PURE__ */ jsxs("div", { className: "hm-ill-browser-chrome", children: [
@@ -4841,26 +4548,26 @@ function GptHeader() {
   return /* @__PURE__ */ jsxs("header", { className: "aia-header", "data-name": "Header", children: [
     /* @__PURE__ */ jsxs("span", { className: "aia-model", children: [
       "ChatGPT",
-      /* @__PURE__ */ jsx(Glyph, { name: "chevron", size: 16 })
+      /* @__PURE__ */ jsx(Glyph$1, { name: "chevron", size: 16 })
     ] }),
     /* @__PURE__ */ jsxs("span", { className: "aia-header__end", children: [
       /* @__PURE__ */ jsxs("span", { className: "aia-share", children: [
-        /* @__PURE__ */ jsx(Glyph, { name: "share", size: 16 }),
+        /* @__PURE__ */ jsx(Glyph$1, { name: "share", size: 16 }),
         "Share"
       ] }),
-      /* @__PURE__ */ jsx("span", { className: "aia-icon-btn", children: /* @__PURE__ */ jsx(Glyph, { name: "dots", size: 18 }) })
+      /* @__PURE__ */ jsx("span", { className: "aia-icon-btn", children: /* @__PURE__ */ jsx(Glyph$1, { name: "dots", size: 18 }) })
     ] })
   ] });
 }
-function Composer({ send: send2, value }) {
+function Composer$1({ send: send2, value }) {
   return /* @__PURE__ */ jsx("div", { className: "aia-composer", "data-name": "Composer", children: /* @__PURE__ */ jsxs("div", { className: "aia-composer__field", children: [
-    /* @__PURE__ */ jsx("span", { className: "aia-icon-btn", children: /* @__PURE__ */ jsx(Glyph, { name: "plus", size: 20 }) }),
+    /* @__PURE__ */ jsx("span", { className: "aia-icon-btn", children: /* @__PURE__ */ jsx(Glyph$1, { name: "plus", size: 20 }) }),
     value ? /* @__PURE__ */ jsx("span", { className: "aia-composer__placeholder aia-composer__value", children: value }) : /* @__PURE__ */ jsx("span", { className: "aia-composer__placeholder", children: placeholder }),
-    /* @__PURE__ */ jsx("span", { className: "aia-icon-btn", children: /* @__PURE__ */ jsx(Glyph, { name: "mic", size: 18 }) }),
-    /* @__PURE__ */ jsx("span", { className: "aia-send", children: /* @__PURE__ */ jsx(Glyph, { name: send2, size: 18 }, send2) })
+    /* @__PURE__ */ jsx("span", { className: "aia-icon-btn", children: /* @__PURE__ */ jsx(Glyph$1, { name: "mic", size: 18 }) }),
+    /* @__PURE__ */ jsx("span", { className: "aia-send", children: /* @__PURE__ */ jsx(Glyph$1, { name: send2, size: 18 }, send2) })
   ] }) });
 }
-const beats$4 = [
+const beats$5 = [
   { id: "ad", type: "pause", ms: 1400 },
   { id: "tap-ad", type: "appear", ms: 280 },
   { id: "store", type: "appear", ms: 750 },
@@ -4882,7 +4589,7 @@ const beats$4 = [
   { id: "result", type: "text", text: widget.result },
   { id: "resolved", type: "pause", ms: 600 }
 ];
-const knockBeats = beats$4.map(
+const knockBeats = beats$5.map(
   (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 3600 } : b
 );
 function Quiz({ t, id, pickId, question, answer: answer2 }) {
@@ -4913,7 +4620,7 @@ function Widgets({ t }) {
     place("from", compact);
     place("to", expanded);
   }, [showCompact]);
-  useFollowLatest(viewportRef, {
+  useFollowLatest$1(viewportRef, {
     thread: ".adj-thread",
     pin: ".hm-ill-user-turn",
     clearance: 8,
@@ -4997,15 +4704,15 @@ function AdJourneyMotion() {
   const landed = useLandedOnScreen(rootRef);
   const fontsReady = useFontsReady();
   const composerDefault = useContext(StorybookComposerDefault);
-  const t = useChatTimeline(composerDefault ? knockBeats : beats$4, landed && fontsReady);
+  const t = useChatTimeline(composerDefault ? knockBeats : beats$5, landed && fontsReady);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene$3, { t }, t.runKey) });
 }
-const beats$3 = [
+const beats$4 = [
   { id: "home", type: "pause", ms: 1200 },
   { id: "open-search", type: "appear", ms: 1300 },
   { id: "pick", type: "appear", ms: 850 },
   { id: "takeover", type: "appear", ms: 420 },
-  { id: "think", type: "think", labels: ["Thinking", "Finding sleep support"] },
+  { id: "think", type: "think", labels: ["Thinking", "Finding warm lighting"] },
   { id: "answer", type: "text", text: results.answer },
   { id: "picks", type: "load", ms: 900 },
   { id: "read", type: "pause", ms: 1300 },
@@ -5019,7 +4726,7 @@ function Crossword({ t, closing }) {
   const viewportRef = useRef(null);
   const picking = t.reached("select");
   const storybook = useContext(StorybookCardSkin);
-  useFollowLatest(viewportRef, {
+  useFollowLatest$1(viewportRef, {
     thread: ".ais-thread",
     focus: t.reached("focus-picks") ? ".ais-picks" : void 0,
     index: t.index,
@@ -5088,7 +4795,7 @@ function Scene$2({ t }) {
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "hm-ill-browser-chrome__address", children: [
         /* @__PURE__ */ jsx("img", { src: addressIcon, width: "10", height: "11", alt: "" }),
-        /* @__PURE__ */ jsx("span", { className: onPdp ? "aism-address" : void 0, children: onPdp ? `${domain$2}/daily-sleep-gummies` : domain$2 }, onPdp ? "pdp" : "home")
+        /* @__PURE__ */ jsx("span", { className: onPdp ? "aism-address" : void 0, children: onPdp ? `${domain$2}/${productPath}` : domain$2 }, onPdp ? "pdp" : "home")
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "ais-viewport", ref: viewportRef, children: [
@@ -5112,7 +4819,7 @@ function AiSearchMotion() {
   const rootRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
   const fontsReady = useFontsReady();
-  const t = useChatTimeline(beats$3, landed && fontsReady);
+  const t = useChatTimeline(beats$4, landed && fontsReady);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene$2, { t }, t.runKey) });
 }
 function LoadingFrame({
@@ -5174,9 +4881,9 @@ function MotionRail({ t }) {
   ] });
 }
 const answerText = markup(answer);
-const beats$2 = [
+const beats$3 = [
   { id: "idle", type: "pause", ms: 500 },
-  { id: "type-ask", type: "compose", text: shopper.ask, leadMs: 300 },
+  { id: "type-ask", type: "compose", text: shopper$1.ask, leadMs: 300 },
   { id: "sent", type: "appear", ms: 650 },
   { id: "panel", type: "appear", ms: 420 },
   ...railBeats,
@@ -5208,7 +4915,7 @@ function ActivityPanel({ t }) {
   const scrollRef = useRef(null);
   const collapsing = t.reached("collapse");
   const lookups = t.reached("call-2") ? 2 : 1;
-  useFollowLatest(scrollRef, { thread: ".pa-rail", index: t.index, reducedMotion: t.reducedMotion });
+  useFollowLatest$1(scrollRef, { thread: ".pa-rail", index: t.index, reducedMotion: t.reducedMotion });
   useLayoutEffect(() => {
     const body = bodyRef.current;
     if (!collapsing || !body || t.reducedMotion) return;
@@ -5233,7 +4940,8 @@ function ActivityPanel({ t }) {
   ] });
 }
 function Scene$1({ t }) {
-  const typed = t.composer?.value;
+  var _a;
+  const typed = (_a = t.composer) == null ? void 0 : _a.value;
   const working = t.reached("sent") && !t.reached("answer");
   return /* @__PURE__ */ jsx("figure", { className: cx("pa pa2 pam pa2m", t.reached("close") && "pam--done"), "data-name": "Personal agents V2 / Motion", children: /* @__PURE__ */ jsxs("article", { className: "pa-window", children: [
     /* @__PURE__ */ jsxs("header", { className: "pa-header", children: [
@@ -5250,7 +4958,7 @@ function Scene$1({ t }) {
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "pa2-chat", children: [
-      t.passed("type-ask") && /* @__PURE__ */ jsx("p", { className: "pa2-bubble pa2m-rise", children: shopper.ask }),
+      t.passed("type-ask") && /* @__PURE__ */ jsx("p", { className: "pa2-bubble pa2m-rise", children: shopper$1.ask }),
       t.reached("panel") && /* @__PURE__ */ jsx(ActivityPanel, { t }),
       t.reached("answer") && /* @__PURE__ */ jsxs("div", { className: "pa2-answer", "data-name": "Turn / Agent answer", children: [
         /* @__PURE__ */ jsx("p", { className: "pa-call__reply", children: /* @__PURE__ */ jsx(RichStagger, { text: answerText }) }),
@@ -5273,7 +4981,7 @@ function PersonalAgentsV2Motion() {
   const rootRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
   const fontsReady = useFontsReady();
-  const t = useChatTimeline(beats$2, landed && fontsReady);
+  const t = useChatTimeline(beats$3, landed && fontsReady);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene$1, { t }, t.runKey) });
 }
 const STREAM_MS_PER_WORD = 34;
@@ -5289,7 +4997,7 @@ const reply = (i) => {
   const turn = transcript[i];
   return turn.role === "assistant" ? turn.text : [];
 };
-const beats$1 = [
+const beats$2 = [
   { id: "idle", type: "pause", ms: 500 },
   { id: "ask", type: "compose", text: user(0), leadMs: 300 },
   { id: "wait-1", type: "appear", ms: 900 },
@@ -5339,7 +5047,7 @@ function ReplySlot({ t, runs, replyId, statusId }) {
     !streaming && (statusId && t.reached(statusId) ? /* @__PURE__ */ jsx("p", { className: "aia-status aiam-status", children: status }) : /* @__PURE__ */ jsx("span", { className: "aiam-dot" }))
   ] });
 }
-function Thread$1({ t }) {
+function Thread({ t }) {
   return /* @__PURE__ */ jsxs("div", { className: "aia-thread", children: [
     t.passed("ask") && /* @__PURE__ */ jsx("div", { className: "aia-turn aia-turn--user aiam-send", children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(0) }) }),
     t.reached("wait-1") && /* @__PURE__ */ jsxs("div", { className: "aia-turn aia-turn--assistant", children: [
@@ -5360,18 +5068,19 @@ function Thread$1({ t }) {
   ] });
 }
 function Scene({ t }) {
+  var _a;
   const scrollRef = useRef(null);
-  useFollowLatest(scrollRef, { thread: ".aia-thread", index: t.index, reducedMotion: t.reducedMotion });
+  useFollowLatest$1(scrollRef, { thread: ".aia-thread", index: t.index, reducedMotion: t.reducedMotion });
   const generating = t.passed("ask") && !t.reached("read-1") || t.passed("choose") && !t.reached("read-2") || t.passed("take") && !t.reached("done");
-  const typed = t.composer?.value;
+  const typed = (_a = t.composer) == null ? void 0 : _a.value;
   const send2 = generating ? "stop" : typed ? "send" : "voice";
   return /* @__PURE__ */ jsx("div", { className: "aia-canvas", children: /* @__PURE__ */ jsxs("div", { className: "aia aiam", "data-name": "AI Assistants / Motion", children: [
     /* @__PURE__ */ jsx(BrowserBar, {}),
     /* @__PURE__ */ jsxs("div", { className: "aia-gpt", "data-name": "ChatGPT", children: [
       /* @__PURE__ */ jsx(GptHeader, {}),
-      /* @__PURE__ */ jsx("div", { className: "aia-scroll", "data-name": "Conversation", ref: scrollRef, children: /* @__PURE__ */ jsx(Thread$1, { t }) }),
+      /* @__PURE__ */ jsx("div", { className: "aia-scroll", "data-name": "Conversation", ref: scrollRef, children: /* @__PURE__ */ jsx(Thread, { t }) }),
       /* @__PURE__ */ jsx(
-        Composer,
+        Composer$1,
         {
           send: send2,
           value: typed ? /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -5387,386 +5096,20 @@ function AiAssistantsMotion() {
   const rootRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
   const fontsReady = useFontsReady();
-  const t = useChatTimeline(beats$1, landed && fontsReady);
+  const t = useChatTimeline(beats$2, landed && fontsReady);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene, { t }, t.runKey) });
 }
-({
-  eyebrow: catalog.goodwellSleep60.title
-});
-const insightsBackground = "/images/landing/home-v2/assets/insights-background-green.webp";
+const insightsBackground = "/images/landing/home-v2/assets/insights-background-XsNT8ufi.webp";
 function InsightFrame({ children }) {
   return /* @__PURE__ */ jsx("div", { className: "hm-ill-insight-frame-scale", children: /* @__PURE__ */ jsxs("div", { className: "hm-ill-insight-frame", children: [
     /* @__PURE__ */ jsx("img", { className: "hm-ill-insight-frame__background", src: insightsBackground, alt: "", "aria-hidden": "true" }),
     /* @__PURE__ */ jsx("div", { className: "hm-ill-insight-frame__content", children })
   ] }) });
 }
-function Thread({ children }) {
-  return /* @__PURE__ */ jsx("div", { className: "hm-ill-thread", children });
-}
-function AttributeRow({ label, value }) {
-  return /* @__PURE__ */ jsxs("div", { className: "hm-ill-attribute-row", children: [
-    /* @__PURE__ */ jsx("span", { className: "hm-ill-attribute-row__label", children: label }),
-    /* @__PURE__ */ jsx("span", { className: "hm-ill-attribute-row__value", children: value })
-  ] });
-}
-const LANDING_HOLD_MS = 700;
-const CHAR_INTERVAL_MS$4 = 26;
-const TYPED_HOLD_MS = 260;
-const SEND_PRESS_MS = 160;
-const EXPAND_MS = 620;
-const THINKING_STAGE_1_MS$4 = 300;
-const THINKING_STAGE_2_MS$4 = 500;
-const THINKING_EXIT_MS$4 = 150;
-const REPLY_STAGGER_MS$4 = 45;
-const REPLY_WORD_ANIM_MS$4 = 220;
-const REPLY_SETTLE_MS$4 = 150;
-const CARD_SKELETON_HOLD_MS$1 = 550;
-function prefersReducedMotion$4() {
-  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-function replyRevealMs$4(text) {
-  const wordCount2 = text.split(/\s+/).filter(Boolean).length;
-  return wordCount2 * REPLY_STAGGER_MS$4 + REPLY_WORD_ANIM_MS$4 + REPLY_SETTLE_MS$4;
-}
-function useAskInsightPlayback(query, result, active, landingHoldMs = LANDING_HOLD_MS) {
-  const reducedMotion = useRef(prefersReducedMotion$4()).current;
-  const [phase, setPhase] = useState(reducedMotion ? "done" : "landing");
-  const [runKey, setRunKey] = useState(0);
-  const [composerValue, setComposerValue] = useState("");
-  const [statusLabel, setStatusLabel] = useState("Thinking");
-  useEffect(() => {
-    if (reducedMotion) return;
-    setPhase("landing");
-    setComposerValue("");
-    setStatusLabel("Thinking");
-    if (active) setRunKey((k) => k + 1);
-  }, [active, reducedMotion]);
-  useEffect(() => {
-    if (reducedMotion || !active) return;
-    const timeouts = [];
-    const after = (ms, fn) => {
-      timeouts.push(window.setTimeout(fn, ms));
-    };
-    const clear = () => timeouts.forEach(window.clearTimeout);
-    if (phase === "landing") {
-      let cancelTyping = () => {
-      };
-      after(landingHoldMs, () => {
-        cancelTyping = revealText(query, {
-          msPerStep: CHAR_INTERVAL_MS$4,
-          onTick: setComposerValue,
-          onDone: () => after(TYPED_HOLD_MS, () => setPhase("sending"))
-        });
-      });
-      return () => {
-        cancelTyping();
-        clear();
-      };
-    }
-    if (phase === "sending") {
-      after(SEND_PRESS_MS, () => setPhase("expanding"));
-      return clear;
-    }
-    if (phase === "expanding") {
-      after(EXPAND_MS, () => setPhase("thinking"));
-      return clear;
-    }
-    if (phase === "thinking") {
-      after(THINKING_STAGE_1_MS$4, () => setStatusLabel("Finding the right cohort"));
-      after(THINKING_STAGE_1_MS$4 + THINKING_STAGE_2_MS$4, () => setPhase("thinkingExit"));
-      return clear;
-    }
-    if (phase === "thinkingExit") {
-      after(THINKING_EXIT_MS$4, () => setPhase("replying"));
-      return clear;
-    }
-    if (phase === "replying") {
-      after(replyRevealMs$4(result), () => setPhase("cardLoading"));
-      return clear;
-    }
-    if (phase === "cardLoading") {
-      after(CARD_SKELETON_HOLD_MS$1, () => setPhase("done"));
-      return clear;
-    }
-    return void 0;
-  }, [phase, active, runKey, reducedMotion, query, result, landingHoldMs]);
-  return { phase, runKey, composerValue, statusLabel, reducedMotion };
-}
 const script$1 = {
-  brand: "Aurelia",
   query: "Find people who reached checkout but didn't purchase in the last 7 days.",
   result: "3,284 people reached checkout. 2,140 are still deciding. Most dropped after seeing shipping costs."
 };
-const landing = {
-  headline: "What insight do you want run?",
-  suggestions: [
-    { icon: "usersThree", text: "Find the best user to send campaign to" },
-    { icon: "shoppingCart", text: "Find repeat cart abandoners" },
-    { icon: "funnel", text: "Segment apparel checkout abandoners" },
-    { icon: "bell", text: "Announce a new launch" }
-  ]
-};
-const cohort = {
-  title: "412 high-intent shoppers",
-  rows: [
-    { label: "Returned", value: "3+ times" },
-    { label: "Avg. cart", value: "$186" },
-    { label: "Status", value: "Items still in cart" }
-  ],
-  cta: "View this group"
-};
-function AskInsight({ landingHoldMs, growComposer = false } = {}) {
-  const stageRef = useRef(null);
-  const shellRef = useRef(null);
-  const composerRef = useRef(null);
-  const inputRef = useRef(null);
-  const [inputHeight, setInputHeight] = useState(0);
-  const active = useLandedOnScreen(stageRef);
-  const { phase, runKey, composerValue, statusLabel, reducedMotion } = useAskInsightPlayback(
-    script$1.query,
-    script$1.result,
-    active,
-    landingHoldMs
-  );
-  const [rects, setRects] = useState(null);
-  const onLanding = phase === "landing" || phase === "sending";
-  const expanded = !onLanding;
-  const isSent = reducedMotion || expanded && phase !== "expanding";
-  const showThinking = !reducedMotion && (phase === "thinking" || phase === "thinkingExit");
-  const showReply = reducedMotion || phase === "replying" || phase === "cardLoading" || phase === "done";
-  const showCard = reducedMotion || phase === "cardLoading" || phase === "done";
-  const cardLoading = !reducedMotion && phase === "cardLoading";
-  useLayoutEffect(() => {
-    const stage = stageRef.current;
-    const shell = shellRef.current;
-    const pill = shell?.querySelector(".hm-ill-chat-composer");
-    if (!stage || !shell || !pill) return;
-    const composer = composerRef.current;
-    let cancelled = false;
-    const measure = () => {
-      if (cancelled) return;
-      const scale = stage.getBoundingClientRect().width / stage.offsetWidth || 1;
-      const toLocal = (el, origin) => {
-        const r = el.getBoundingClientRect();
-        const o = origin.getBoundingClientRect();
-        return {
-          top: (r.top - o.top) / scale,
-          left: (r.left - o.left) / scale,
-          width: r.width / scale,
-          height: r.height / scale
-        };
-      };
-      const shellRect = toLocal(shell, stage);
-      setRects({
-        composer: composer?.parentElement ? toLocal(composer, composer.parentElement) : shellRect,
-        shell: shellRect,
-        pill: toLocal(pill, stage)
-      });
-    };
-    measure();
-    document.fonts?.ready?.then(() => {
-      measure();
-      requestAnimationFrame(measure);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [runKey]);
-  const settled = expanded || reducedMotion;
-  useLayoutEffect(() => {
-    const input = inputRef.current;
-    if (!growComposer || !input) return;
-    const observer = new ResizeObserver(() => setInputHeight(input.offsetHeight));
-    observer.observe(input);
-    return () => observer.disconnect();
-  }, [growComposer, runKey]);
-  const growing = growComposer && !settled && rects !== null;
-  const surfaceRect = rects ? settled ? rects.shell : { ...rects.composer, height: growing ? Math.max(rects.composer.height, inputHeight) : rects.composer.height } : null;
-  const inputRect = rects ? settled ? rects.pill : rects.composer : null;
-  const stageClass = [
-    "ask-stage",
-    expanded && "ask-stage--expanded",
-    reducedMotion && "ask-stage--static",
-    !rects && "ask-stage--unmeasured"
-  ].filter(Boolean).join(" ");
-  return /* @__PURE__ */ jsx(InsightFrame, { children: /* @__PURE__ */ jsx("div", { className: stageClass, ref: stageRef, children: /* @__PURE__ */ jsxs("div", { className: "ask-stage__run", children: [
-    !reducedMotion && /* @__PURE__ */ jsxs("div", { className: "ask-landing", "aria-hidden": expanded, children: [
-      /* @__PURE__ */ jsx("p", { className: "ask-landing__headline", children: landing.headline }),
-      /* @__PURE__ */ jsx("div", { className: "ask-landing__composer", ref: composerRef }),
-      /* @__PURE__ */ jsx("div", { className: "ask-landing__chips", children: landing.suggestions.map((s) => /* @__PURE__ */ jsxs("span", { className: "ask-landing__chip", children: [
-        /* @__PURE__ */ jsx(Icon, { name: s.icon, size: 16 }),
-        s.text
-      ] }, s.text)) })
-    ] }),
-    /* @__PURE__ */ jsx(
-      "div",
-      {
-        className: "ask-surface",
-        style: surfaceRect ? { top: surfaceRect.top, left: surfaceRect.left, width: surfaceRect.width, height: surfaceRect.height } : void 0
-      }
-    ),
-    /* @__PURE__ */ jsx(Shell, { brand: script$1.brand, width: 450, height: 515, rootRef: shellRef, className: "ask-shell", children: /* @__PURE__ */ jsxs(Thread, { children: [
-      isSent && /* @__PURE__ */ jsx(UserTurn, { animateIn: !reducedMotion, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: script$1.query }) }),
-      isSent && /* @__PURE__ */ jsxs(AssistantTurn, { className: "hm-ill-ai-reply-turn", animateIn: !reducedMotion, children: [
-        showThinking && /* @__PURE__ */ jsx(AiStatus, { label: statusLabel, visible: phase === "thinking" }),
-        showReply && /* @__PURE__ */ jsx(ChatMessage, { role: "assistant", children: reducedMotion ? script$1.result : /* @__PURE__ */ jsx(StaggerText, { text: script$1.result }) }),
-        showCard && /* @__PURE__ */ jsxs("div", { className: "hm-ill-ai-card", children: [
-          /* @__PURE__ */ jsxs("div", { className: "hm-ill-ai-card__header", children: [
-            /* @__PURE__ */ jsxs("div", { className: "hm-ill-ai-card__heading", children: [
-              /* @__PURE__ */ jsx(Icon, { name: "insight", size: 14 }),
-              /* @__PURE__ */ jsx("p", { className: "hm-ill-ai-card__title", children: cohort.title })
-            ] }),
-            /* @__PURE__ */ jsx(Icon, { name: "caretDown", size: 12 })
-          ] }),
-          /* @__PURE__ */ jsx("div", { className: "hm-ill-ai-card__rows", children: cohort.rows.map((row) => /* @__PURE__ */ jsx(AttributeRow, { label: row.label, value: row.value }, row.label)) }),
-          /* @__PURE__ */ jsx(Button, { appearance: "primary", label: cohort.cta }),
-          !reducedMotion && /* @__PURE__ */ jsxs(
-            "div",
-            {
-              className: `hm-ill-ai-card__skeleton-overlay${cardLoading ? "" : " hm-ill-ai-card__skeleton-overlay--hidden"}`,
-              children: [
-                /* @__PURE__ */ jsxs("div", { className: "hm-ill-ai-card__skeleton-row", children: [
-                  /* @__PURE__ */ jsx(SkeletonBlock, { width: 140, height: 15, radius: 4 }),
-                  /* @__PURE__ */ jsx(SkeletonBlock, { width: 12, height: 12, radius: 3 })
-                ] }),
-                cohort.rows.map((row) => /* @__PURE__ */ jsxs("div", { className: "hm-ill-ai-card__skeleton-row", children: [
-                  /* @__PURE__ */ jsx(SkeletonBlock, { width: 70, height: 11, radius: 4 }),
-                  /* @__PURE__ */ jsx(SkeletonBlock, { width: 60, height: 11, radius: 4 })
-                ] }, row.label)),
-                /* @__PURE__ */ jsx(SkeletonBlock, { width: "100%", height: 29, radius: 4.868 })
-              ]
-            }
-          )
-        ] })
-      ] })
-    ] }) }),
-    /* @__PURE__ */ jsxs(
-      "div",
-      {
-        ref: inputRef,
-        className: ["ask-input", composerValue && "ask-input--ready", growing && "ask-input--grow"].filter(Boolean).join(" "),
-        style: inputRect ? {
-          top: inputRect.top,
-          left: inputRect.left,
-          width: inputRect.width,
-          height: growing ? void 0 : inputRect.height,
-          minHeight: growing ? inputRect.height : void 0,
-          borderRadius: settled ? inputRect.height / 2 : void 0
-        } : void 0,
-        children: [
-          /* @__PURE__ */ jsxs("span", { className: "ask-input__text", children: [
-            !reducedMotion && /* @__PURE__ */ jsxs("span", { className: "ask-input__query", children: [
-              composerValue,
-              phase === "landing" && /* @__PURE__ */ jsx("span", { className: "hm-ill-chat-composer__caret" })
-            ] }),
-            /* @__PURE__ */ jsx("span", { className: "ask-input__placeholder", children: "Ask anything..." })
-          ] }),
-          /* @__PURE__ */ jsx(
-            IconButton,
-            {
-              icon: "send",
-              label: "Send",
-              variant: "accent",
-              className: phase === "sending" ? "hm-ill-icon-button--pressed" : void 0
-            }
-          )
-        ]
-      }
-    )
-  ] }, runKey) }) });
-}
-const ACTIONS_REVEAL_MS = 150;
-const PAUSE_BEFORE_QUESTION_MS = 700;
-const THINKING_STAGE_1_MS$3 = 300;
-const THINKING_STAGE_2_MS$3 = 500;
-const THINKING_EXIT_MS$3 = 150;
-const CHAR_INTERVAL_MS$3 = 26;
-const REPLY_STAGGER_MS$3 = 45;
-const REPLY_WORD_ANIM_MS$3 = 220;
-const REPLY_SETTLE_MS$3 = 150;
-const FOOTNOTE_SKELETON_HOLD_MS = 550;
-function prefersReducedMotion$3() {
-  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-function wordCount(text) {
-  return text.split(/\s+/).filter(Boolean).length;
-}
-function replyRevealMs$3(...parts) {
-  const count = parts.reduce((sum, part) => sum + wordCount(part), 0);
-  return count * REPLY_STAGGER_MS$3 + REPLY_WORD_ANIM_MS$3 + REPLY_SETTLE_MS$3;
-}
-function useConversationToRevenuePlayback(offerMessage, question, journeyNote, statement) {
-  const reducedMotion = useRef(prefersReducedMotion$3()).current;
-  const [phase, setPhase] = useState(reducedMotion ? "done" : "offerReplying");
-  const [composerValue, setComposerValue] = useState("");
-  const [composerTyping, setComposerTyping] = useState(false);
-  const [statusLabel, setStatusLabel] = useState("Thinking");
-  useEffect(() => {
-    if (reducedMotion) return;
-    const timeouts = [];
-    const after = (ms, fn) => {
-      timeouts.push(window.setTimeout(fn, ms));
-    };
-    if (phase === "offerReplying") {
-      after(replyRevealMs$3(offerMessage), () => setPhase("actionsReveal"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "actionsReveal") {
-      after(ACTIONS_REVEAL_MS, () => setPhase("pauseBeforeQuestion"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "pauseBeforeQuestion") {
-      after(PAUSE_BEFORE_QUESTION_MS, () => setPhase("composing"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "composing") {
-      setComposerTyping(true);
-      setComposerValue("");
-      const cancel = revealText(question, {
-        msPerStep: CHAR_INTERVAL_MS$3,
-        onTick: setComposerValue,
-        onDone: () => {
-          after(220, () => {
-            setComposerTyping(false);
-            setComposerValue("");
-            setStatusLabel("Thinking");
-            setPhase("thinking");
-          });
-        }
-      });
-      return () => {
-        cancel();
-        timeouts.forEach(window.clearTimeout);
-      };
-    }
-    if (phase === "thinking") {
-      after(THINKING_STAGE_1_MS$3, () => setStatusLabel("Tracing the order"));
-      after(THINKING_STAGE_1_MS$3 + THINKING_STAGE_2_MS$3, () => setPhase("thinkingExit"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "thinkingExit") {
-      after(THINKING_EXIT_MS$3, () => setPhase("replying"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "replying") {
-      after(replyRevealMs$3(journeyNote, statement), () => setPhase("footnoteLoading"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "footnoteLoading") {
-      after(FOOTNOTE_SKELETON_HOLD_MS, () => setPhase("done"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    return void 0;
-  }, [phase, reducedMotion, offerMessage, question, journeyNote, statement]);
-  return {
-    phase,
-    composerValue,
-    composerTyping,
-    statusLabel,
-    reducedMotion,
-    done: phase === "done"
-  };
-}
 const brand$1 = "Aurelia";
 const context = { ...catalog.aurellePendant };
 const offerTurn = {
@@ -5782,156 +5125,7 @@ const attribution = {
   statement: "This conversation influenced $186 in revenue.",
   footnote: { label: "Crossword-assisted \nrevenue this week", value: "$24,680" }
 };
-function ConversationToRevenue() {
-  const { phase, composerValue, composerTyping, statusLabel, reducedMotion, done } = useConversationToRevenuePlayback(
-    offerTurn.assistantMessage,
-    questionTurn.userMessage,
-    attribution.journeyNote,
-    attribution.statement
-  );
-  const showActions = reducedMotion || phase !== "offerReplying";
-  const actionsJustEntered = !reducedMotion && phase === "actionsReveal";
-  const isQuestionSent = reducedMotion || !["offerReplying", "actionsReveal", "pauseBeforeQuestion", "composing"].includes(phase);
-  const showThinking = !reducedMotion && (phase === "thinking" || phase === "thinkingExit");
-  const showOutcome = reducedMotion || isQuestionSent && phase !== "thinking" && phase !== "thinkingExit";
-  const footnoteLoading = !reducedMotion && phase === "footnoteLoading";
-  const showFootnote = reducedMotion || phase === "footnoteLoading" || phase === "done";
-  return /* @__PURE__ */ jsx(InsightFrame, { children: /* @__PURE__ */ jsx(
-    Shell,
-    {
-      brand: brand$1,
-      width: 450,
-      height: 515,
-      composerValue: !reducedMotion && phase === "composing" && composerValue ? composerValue : void 0,
-      composerTyping: !reducedMotion && phase === "composing" && composerTyping,
-      children: /* @__PURE__ */ jsxs(Thread, { children: [
-        /* @__PURE__ */ jsxs(AssistantTurn, { className: "hm-ill-ctr-offer-turn", children: [
-          /* @__PURE__ */ jsx(
-            ProductReference,
-            {
-              image: context.image,
-              alt: context.title,
-              brand: context.brand,
-              title: context.title,
-              price: context.price
-            }
-          ),
-          /* @__PURE__ */ jsxs("div", { className: "hm-ill-ctr-offer", children: [
-            /* @__PURE__ */ jsx(ChatMessage, { role: "assistant", children: reducedMotion ? offerTurn.assistantMessage : /* @__PURE__ */ jsx(StaggerText, { text: offerTurn.assistantMessage }) }),
-            showActions && /* @__PURE__ */ jsxs("div", { className: `hm-ill-ctr-actions${actionsJustEntered ? " hm-ill-ctr-actions--enter" : ""}`, children: [
-              /* @__PURE__ */ jsx(Button, { appearance: "primary", label: offerTurn.primaryAction }),
-              /* @__PURE__ */ jsx(Button, { appearance: "secondary", label: offerTurn.secondaryAction })
-            ] })
-          ] })
-        ] }),
-        isQuestionSent && /* @__PURE__ */ jsx(UserTurn, { className: "hm-ill-ctr-question-turn", animateIn: !reducedMotion, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: questionTurn.userMessage }) }),
-        isQuestionSent && /* @__PURE__ */ jsxs(AssistantTurn, { className: "hm-ill-ctr-outcome-turn", animateIn: !reducedMotion, children: [
-          showThinking && /* @__PURE__ */ jsx(AiStatus, { label: statusLabel, visible: phase === "thinking" }),
-          showOutcome && /* @__PURE__ */ jsx(ChatMessage, { role: "assistant", children: reducedMotion ? /* @__PURE__ */ jsxs(Fragment, { children: [
-            attribution.journeyNote,
-            " ",
-            /* @__PURE__ */ jsx("strong", { children: attribution.statement })
-          ] }) : /* @__PURE__ */ jsx(StaggerText, { text: attribution.journeyNote, boldText: attribution.statement }) }),
-          showFootnote && /* @__PURE__ */ jsxs("div", { className: "hm-ill-ctr-footnote", children: [
-            /* @__PURE__ */ jsx(AttributeRow, { label: attribution.footnote.label, value: attribution.footnote.value }),
-            !reducedMotion && (footnoteLoading || done) && /* @__PURE__ */ jsxs(
-              "div",
-              {
-                className: `hm-ill-ctr-footnote__skeleton-overlay${footnoteLoading ? "" : " hm-ill-ctr-footnote__skeleton-overlay--hidden"}`,
-                children: [
-                  /* @__PURE__ */ jsx(SkeletonBlock, { width: 120, height: 18, radius: 4 }),
-                  /* @__PURE__ */ jsx(SkeletonBlock, { width: 90, height: 28, radius: 6 })
-                ]
-              }
-            )
-          ] })
-        ] })
-      ] })
-    }
-  ) });
-}
-const THINKING_STAGE_1_MS$2 = 300;
-const THINKING_STAGE_2_MS$2 = 500;
-const THINKING_EXIT_MS$2 = 150;
-const CHAR_INTERVAL_MS$2 = 26;
-const REPLY_STAGGER_MS$2 = 45;
-const REPLY_WORD_ANIM_MS$2 = 220;
-const REPLY_SETTLE_MS$2 = 150;
-const CARD_SKELETON_HOLD_MS = 550;
-const ASK_REVEAL_MS = 150;
-function prefersReducedMotion$2() {
-  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-function replyRevealMs$2(text) {
-  const wordCount2 = text.split(/\s+/).filter(Boolean).length;
-  return wordCount2 * REPLY_STAGGER_MS$2 + REPLY_WORD_ANIM_MS$2 + REPLY_SETTLE_MS$2;
-}
-function useAnonymousTrafficPlayback(question, insight2) {
-  const reducedMotion = useRef(prefersReducedMotion$2()).current;
-  const [phase, setPhase] = useState(reducedMotion ? "done" : "composing");
-  const [composerValue, setComposerValue] = useState("");
-  const [composerTyping, setComposerTyping] = useState(false);
-  const [statusLabel, setStatusLabel] = useState("Thinking");
-  useEffect(() => {
-    if (reducedMotion) return;
-    const timeouts = [];
-    const after = (ms, fn) => {
-      timeouts.push(window.setTimeout(fn, ms));
-    };
-    if (phase === "composing") {
-      setComposerTyping(true);
-      setComposerValue("");
-      const cancel = revealText(question, {
-        msPerStep: CHAR_INTERVAL_MS$2,
-        onTick: setComposerValue,
-        onDone: () => {
-          after(220, () => {
-            setComposerTyping(false);
-            setComposerValue("");
-            setStatusLabel("Thinking");
-            setPhase("thinking");
-          });
-        }
-      });
-      return () => {
-        cancel();
-        timeouts.forEach(window.clearTimeout);
-      };
-    }
-    if (phase === "thinking") {
-      after(THINKING_STAGE_1_MS$2, () => setStatusLabel("Scanning anonymous sessions"));
-      after(THINKING_STAGE_1_MS$2 + THINKING_STAGE_2_MS$2, () => setPhase("thinkingExit"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "thinkingExit") {
-      after(THINKING_EXIT_MS$2, () => setPhase("replying"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "replying") {
-      after(replyRevealMs$2(insight2), () => setPhase("cardLoading"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "cardLoading") {
-      after(CARD_SKELETON_HOLD_MS, () => setPhase("askReveal"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    if (phase === "askReveal") {
-      after(ASK_REVEAL_MS, () => setPhase("done"));
-      return () => timeouts.forEach(window.clearTimeout);
-    }
-    return void 0;
-  }, [phase, reducedMotion, question, insight2]);
-  return {
-    phase,
-    composerValue,
-    composerTyping,
-    statusLabel,
-    reducedMotion,
-    done: phase === "done"
-  };
-}
 const script = {
-  brand: "Aurelia",
   question: "We're seeing a spike in visitors we can't identify. Anything useful there?",
   insight: "340 anonymous sessions this week. 62% came from a Reddit thread comparing skincare brands."
 };
@@ -5943,67 +5137,6 @@ const action = {
   statement: "Want me to offer returning visitors 10% off next time?",
   cta: "Create offer"
 };
-function AnonymousTraffic() {
-  const { phase, composerValue, composerTyping, statusLabel, reducedMotion } = useAnonymousTrafficPlayback(
-    script.question,
-    script.insight
-  );
-  const isSent = reducedMotion || phase !== "composing";
-  const showThinking = !reducedMotion && (phase === "thinking" || phase === "thinkingExit");
-  const showReply = reducedMotion || phase !== "composing" && phase !== "thinking" && phase !== "thinkingExit";
-  const showCard = reducedMotion || phase === "cardLoading" || phase === "askReveal" || phase === "done";
-  const cardLoading = !reducedMotion && phase === "cardLoading";
-  const cardResolved = reducedMotion || phase === "askReveal" || phase === "done";
-  const showAsk = reducedMotion || phase === "askReveal" || phase === "done";
-  const askJustEntered = !reducedMotion && phase === "askReveal";
-  return /* @__PURE__ */ jsx(InsightFrame, { children: /* @__PURE__ */ jsx(
-    Shell,
-    {
-      brand: script.brand,
-      width: 450,
-      height: 515,
-      composerValue: !reducedMotion && phase === "composing" && composerValue ? composerValue : void 0,
-      composerTyping: !reducedMotion && phase === "composing" && composerTyping,
-      children: /* @__PURE__ */ jsxs(Thread, { children: [
-        isSent && /* @__PURE__ */ jsx(UserTurn, { animateIn: !reducedMotion, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: script.question }) }),
-        isSent && /* @__PURE__ */ jsxs(AssistantTurn, { animateIn: !reducedMotion, children: [
-          showThinking && /* @__PURE__ */ jsx(AiStatus, { label: statusLabel, visible: phase === "thinking" }),
-          showReply && /* @__PURE__ */ jsx(ChatMessage, { role: "assistant", children: reducedMotion ? script.insight : /* @__PURE__ */ jsx(StaggerText, { text: script.insight }) }),
-          showCard && /* @__PURE__ */ jsxs("div", { className: "hm-ill-at-card", children: [
-            /* @__PURE__ */ jsxs("div", { className: "hm-ill-at-card__header", children: [
-              /* @__PURE__ */ jsxs("div", { className: "hm-ill-at-card__heading", children: [
-                /* @__PURE__ */ jsx(Icon, { name: "insight", size: 14 }),
-                /* @__PURE__ */ jsx("p", { className: "hm-ill-at-card__title", children: journeyCard.title })
-              ] }),
-              /* @__PURE__ */ jsx(Icon, { name: "caretDown", size: 12 })
-            ] }),
-            /* @__PURE__ */ jsx(AttributeRow, { label: journeyCard.row.label, value: journeyCard.row.value }),
-            !reducedMotion && (cardLoading || cardResolved) && /* @__PURE__ */ jsxs(
-              "div",
-              {
-                className: `hm-ill-at-card__skeleton-overlay${cardLoading ? "" : " hm-ill-at-card__skeleton-overlay--hidden"}`,
-                children: [
-                  /* @__PURE__ */ jsxs("div", { className: "hm-ill-at-card__skeleton-row", children: [
-                    /* @__PURE__ */ jsx(SkeletonBlock, { width: 180, height: 15, radius: 4 }),
-                    /* @__PURE__ */ jsx(SkeletonBlock, { width: 12, height: 12, radius: 3 })
-                  ] }),
-                  /* @__PURE__ */ jsxs("div", { className: "hm-ill-at-card__skeleton-row", children: [
-                    /* @__PURE__ */ jsx(SkeletonBlock, { width: 110, height: 11, radius: 4 }),
-                    /* @__PURE__ */ jsx(SkeletonBlock, { width: 30, height: 11, radius: 4 })
-                  ] })
-                ]
-              }
-            )
-          ] }),
-          showAsk && /* @__PURE__ */ jsxs("div", { className: `hm-ill-at-ask${askJustEntered ? " hm-ill-at-ask--enter" : ""}`, children: [
-            /* @__PURE__ */ jsx(ChatMessage, { role: "assistant", text: action.statement }),
-            /* @__PURE__ */ jsx(Button, { appearance: "primary", label: action.cta })
-          ] })
-        ] })
-      ] })
-    }
-  ) });
-}
 function Layer({ children }) {
   return /* @__PURE__ */ jsx(StorybookCardSkin.Provider, { value: true, children: /* @__PURE__ */ jsx(StorybookComposerDefault.Provider, { value: true, children: /* @__PURE__ */ jsx("div", { className: "sbl", children }) }) });
 }
@@ -6011,9 +5144,6 @@ const AdJourneyV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PUR
 const AiSearchV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AiSearchMotion, {}) });
 const PersonalAgentsV2SbMotion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(PersonalAgentsV2Motion, {}) });
 const AiAssistantsV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AiAssistantsMotion, {}) });
-const AskInsightV2 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AskInsight, { landingHoldMs: 1100, growComposer: true }) });
-const ConversationToRevenueV2 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(ConversationToRevenue, {}) });
-const AnonymousTrafficV2 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AnonymousTraffic, {}) });
 const CHAR_INTERVAL_MS$1 = 26;
 const COMPOSER_SEND_GAP_MS = 220;
 const THINKING_STAGE_1_MS$1 = 300;
@@ -6063,10 +5193,11 @@ function useConversationPlayback$1(steps2) {
         onTick: setComposerValue,
         onDone: () => {
           after(COMPOSER_SEND_GAP_MS, () => {
+            var _a;
             setComposerTyping(false);
             setComposerValue("");
             setStepIndex((n) => n + 1);
-            setPhase(steps2[stepIndex + 1]?.kind === "handoff" ? "handoff" : "thinking");
+            setPhase(((_a = steps2[stepIndex + 1]) == null ? void 0 : _a.kind) === "handoff" ? "handoff" : "thinking");
             setBeatIndex(0);
           });
         }
@@ -6123,7 +5254,7 @@ function useConversationPlayback$1(steps2) {
       after(pauseMs$1(lastMessage, step.pauseBonusMs), () => {
         setStepIndex((n) => n + 1);
         const next = steps2[stepIndex + 1];
-        setPhase(next?.kind === "handoff" ? "handoff" : "composing");
+        setPhase((next == null ? void 0 : next.kind) === "handoff" ? "handoff" : "composing");
         setBeatIndex(0);
       });
       return () => timeouts.forEach(window.clearTimeout);
@@ -6180,19 +5311,20 @@ const CONNECTING_MS = 650;
 function ServiceResolutionV2Motion() {
   const rootRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
-  const [landing2, setLanding] = useState(0);
+  const [landing, setLanding] = useState(0);
   useEffect(() => {
     if (landed) setLanding((n) => n + 1);
   }, [landed]);
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: landing2 > 0 ? /* @__PURE__ */ jsx(Conversation$1, {}, landing2) : /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx("div", { className: "gj2-win" }) }) });
+  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: landing > 0 ? /* @__PURE__ */ jsx(Conversation$2, {}, landing) : /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx("div", { className: "gj2-win" }) }) });
 }
-function Conversation$1() {
+function Conversation$2() {
+  var _a;
   const { stepIndex, phase, beatIndex, composerValue, composerTyping, reducedMotion } = useConversationPlayback$1(steps);
   const transcriptRef = useRef(null);
   const animate = !reducedMotion;
   useEffect(() => {
     const viewport = transcriptRef.current;
-    const target = viewport?.lastElementChild;
+    const target = viewport == null ? void 0 : viewport.lastElementChild;
     if (!viewport || !target) return;
     const viewportRect = viewport.getBoundingClientRect();
     const targetRect = target.getBoundingClientRect();
@@ -6206,7 +5338,7 @@ function Conversation$1() {
     const next = steps[i + 1];
     return next && (next.kind === "user" || next.kind === "userUpload") ? next.message : void 0;
   };
-  const tapping = composing && Boolean(tappedChip(stepFollowups[steps[stepIndex - 1]?.id], nextMessage(stepIndex - 1)));
+  const tapping = composing && Boolean(tappedChip(stepFollowups[(_a = steps[stepIndex - 1]) == null ? void 0 : _a.id], nextMessage(stepIndex - 1)));
   return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsxs("div", { className: "gj2-win", children: [
     /* @__PURE__ */ jsx(ChatHead, {}),
     /* @__PURE__ */ jsx("div", { className: "gj2-transcript gj2-transcript--scroll", ref: transcriptRef, children: steps.flatMap((step, i) => {
@@ -6303,9 +5435,10 @@ function replyRevealMs(text) {
   return wordCount2 * REPLY_STAGGER_MS + REPLY_WORD_ANIM_MS + REPLY_SETTLE_MS;
 }
 function pauseMs(beat) {
+  var _a;
   if (beat.kind !== "assistant") return 350;
   const base = 350 + Math.min(beat.message.length * 3, 500);
-  return beat.products?.length ? base + 500 : base;
+  return ((_a = beat.products) == null ? void 0 : _a.length) ? base + 500 : base;
 }
 function entryPhase(beat) {
   if (beat.kind === "user-text") return "composing";
@@ -6374,7 +5507,8 @@ function useConversationPlayback(beats2) {
     }
     if (phase === "replying" && beat.kind === "assistant") {
       after(replyRevealMs(beat.message), () => {
-        if (beat.products?.length) {
+        var _a;
+        if ((_a = beat.products) == null ? void 0 : _a.length) {
           setProductsLoading(true);
           setPhase("productsLoading");
         } else {
@@ -6445,7 +5579,7 @@ const followups = {
   turn2: ["Bracelets only", "Under $90", "Show more looks"],
   turn4: ["Add Look 1", "Compare the looks", "Gift wrap it"]
 };
-const beats = [
+const beats$1 = [
   { kind: "assistant", message: turn1.assistantMessage, thinkingLabel: WAIT_FIRST },
   { kind: "user-text", message: turn1.userMessage },
   { kind: "assistant", message: turn2.assistantMessage, thinkingLabel: WAIT_CARDS, products: looks },
@@ -6458,19 +5592,20 @@ const beatFollowups = { 0: followups.turn1, 2: followups.turn2, 6: followups.tur
 function RetentionGrowthV2Motion() {
   const rootRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
-  const [landing2, setLanding] = useState(0);
+  const [landing, setLanding] = useState(0);
   useEffect(() => {
     if (landed) setLanding((n) => n + 1);
   }, [landed]);
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: landing2 > 0 ? /* @__PURE__ */ jsx(Conversation, {}, landing2) : /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx("div", { className: "gj2-win" }) }) });
+  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: landing > 0 ? /* @__PURE__ */ jsx(Conversation$1, {}, landing) : /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx("div", { className: "gj2-win" }) }) });
 }
-function Conversation() {
-  const { beatIndex, phase, composerValue, composerTyping, productsLoading, reducedMotion } = useConversationPlayback(beats);
+function Conversation$1() {
+  var _a;
+  const { beatIndex, phase, composerValue, composerTyping, productsLoading, reducedMotion } = useConversationPlayback(beats$1);
   const transcriptRef = useRef(null);
   const animate = !reducedMotion;
   useEffect(() => {
     const viewport = transcriptRef.current;
-    const target = viewport?.lastElementChild;
+    const target = viewport == null ? void 0 : viewport.lastElementChild;
     if (!viewport || !target) return;
     const viewportRect = viewport.getBoundingClientRect();
     const targetRect = target.getBoundingClientRect();
@@ -6479,15 +5614,15 @@ function Conversation() {
     if (reducedMotion) viewport.scrollTop = top;
     else animateScrollTo(viewport, top);
   }, [beatIndex, phase, productsLoading, reducedMotion]);
-  const composing = beats[beatIndex]?.kind === "user-text" && phase === "composing" && composerTyping;
+  const composing = ((_a = beats$1[beatIndex]) == null ? void 0 : _a.kind) === "user-text" && phase === "composing" && composerTyping;
   const nextMessage = (i) => {
-    const next = beats[i + 1];
-    return next?.kind === "user-text" ? next.message : void 0;
+    const next = beats$1[i + 1];
+    return (next == null ? void 0 : next.kind) === "user-text" ? next.message : void 0;
   };
   const tapping = composing && Boolean(tappedChip(beatFollowups[beatIndex - 1], nextMessage(beatIndex - 1)));
   return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsxs("div", { className: "gj2-win", children: [
     /* @__PURE__ */ jsx(ChatHead, {}),
-    /* @__PURE__ */ jsx("div", { className: "gj2-transcript gj2-transcript--scroll", ref: transcriptRef, children: beats.flatMap((beat, i) => {
+    /* @__PURE__ */ jsx("div", { className: "gj2-transcript gj2-transcript--scroll", ref: transcriptRef, children: beats$1.flatMap((beat, i) => {
       const isPast = i < beatIndex;
       const isCurrent = i === beatIndex;
       if (beat.kind === "user-text") {
@@ -6531,16 +5666,1043 @@ function Conversation() {
     /* @__PURE__ */ jsx(ChatFoot, { value: composing && !tapping && composerValue ? composerValue : void 0 })
   ] }) });
 }
+const razor = "/images/landing/home-v2/assets/razor-CXHMOIgQ.webp";
+const searchState = {
+  query: "Gillette",
+  brand: "Harry’s",
+  sponsored: "Sponsored",
+  title: "Harry’s vs. Gillette"
+};
+const pdpState = {
+  url: "harrys.com",
+  storeName: "Harry’s",
+  productName: "Harry’s (5-blade)",
+  addToCart: "Add to cart",
+  price: "$63.32",
+  originalPrice: "$74.49",
+  discount: "15% off",
+  rating: 4,
+  image: razor,
+  imageAlt: "Harry’s 5-blade razor with handle, blade cover and cartridge"
+};
+const comparison = {
+  poweredBy: "Powered by",
+  poweredByBrand: "Crossword",
+  title: "Why Harry’s is better than Gillette",
+  columnA: "Harry’s (5-blade)",
+  columnB: "Gillette Fusion5",
+  rows: [
+    { label: "Number of Blades", valueA: "5", valueB: "5" },
+    { label: "Flexible Head", valueA: "Yes", valueB: "Yes" },
+    { label: "Precision Trimmer", valueA: "Yes", valueB: "No" },
+    { label: "Cost per Refill", valueA: "~$2/blade", valueB: "~$4–5/blade" },
+    { label: "Cost per Refill", valueA: "~$2/blade", valueB: "~$4–5/blade" }
+  ]
+};
+const defaultScenario = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  comparison,
+  pdpState,
+  searchState
+}, Symbol.toStringTag, { value: "Module" }));
+function ComparisonRow({
+  label,
+  valueA,
+  valueB
+}) {
+  return /* @__PURE__ */ jsxs("div", { className: "hm-ill-comparison-row", children: [
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-comparison-row__cell hm-ill-comparison-row__label", children: label }),
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-comparison-row__cell hm-ill-comparison-row__value-a", children: valueA }),
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-comparison-row__cell hm-ill-comparison-row__value-b", children: valueB })
+  ] });
+}
+function SkeletonCover({
+  loading,
+  radius = 0,
+  className,
+  shapes,
+  inset = 0
+}) {
+  const wasLoadingRef = useRef(loading);
+  const showOverlay = loading || wasLoadingRef.current;
+  useEffect(() => {
+    wasLoadingRef.current = loading;
+  }, [loading]);
+  return /* @__PURE__ */ jsx("div", { className: `hm-ill-sponsored__cover ${className}`, children: showOverlay && /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: `hm-sell-loading-frame__overlay${loading ? "" : " hm-sell-loading-frame__overlay--hidden"}`,
+      style: { borderRadius: radius },
+      children: /* @__PURE__ */ jsx("div", { style: { position: "absolute", left: inset, right: inset, top: 0, bottom: 0 }, children: shapes.map((s, i) => /* @__PURE__ */ jsx(
+        "div",
+        {
+          style: {
+            position: "absolute",
+            left: s.x,
+            right: s.right,
+            top: s.y,
+            // a "100%" shape needs a sized wrapper to be 100% of
+            width: typeof s.w === "string" ? s.w : void 0,
+            height: typeof s.h === "string" ? s.h : void 0
+          },
+          children: /* @__PURE__ */ jsx(SkeletonBlock, { width: s.w, height: s.h, radius: s.r ?? 4 })
+        },
+        i
+      )) })
+    }
+  ) });
+}
+const bag = "/images/landing/home-v2/assets/bag-B7O3GVmE.svg";
+const heart = "/images/landing/home-v2/assets/heart-ozq9Thds.svg";
+const insightMark = "/images/landing/home-v2/assets/insight-mark-Dd8J1nJH.svg";
+const starFull = "/images/landing/home-v2/assets/star-full-Du_I1bJs.svg";
+const starFullAlt = "/images/landing/home-v2/assets/star-full-b-Bl8WkEtW.svg";
+const starPartial = "/images/landing/home-v2/assets/star-partial-CXJDJrC6.svg";
+const frameTexture = "/images/landing/home-v2/assets/subtract-BWuQXYCQ.webp";
+const frameOutline = "/images/landing/home-v2/assets/outline-DIDwLK1o.svg";
+const frameDot = "/images/landing/home-v2/assets/ellipse-DuY5ZmjU.svg";
+const SponsoredScenarioContext = createContext(defaultScenario);
+SponsoredScenarioContext.Provider;
+const useSponsoredScenario = () => useContext(SponsoredScenarioContext);
+function PurpleFrame({ children, centered = true }) {
+  return /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-frame-scale", children: /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored-frame", children: [
+    /* @__PURE__ */ jsx("img", { className: "hm-ill-sponsored-frame__texture", src: frameTexture, alt: "", "aria-hidden": "true" }),
+    /* @__PURE__ */ jsx("img", { className: "hm-ill-sponsored-frame__outline", src: frameOutline, alt: "", "aria-hidden": "true" }),
+    [
+      { left: 18.52, top: 572.82 },
+      { left: 1249.8, top: 572.82 },
+      { left: 1249.8, top: 21.3 },
+      { left: 20.79, top: 16.26 }
+    ].map((dot) => /* @__PURE__ */ jsx("img", { className: "hm-ill-sponsored-frame__dot", style: dot, src: frameDot, alt: "", "aria-hidden": "true" }, `${dot.left}-${dot.top}`)),
+    centered ? /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-frame__content", children }) : children
+  ] }) });
+}
+const stars = [starFull, starFullAlt, starFull, starFullAlt, starPartial];
+function SearchState({ className }) {
+  const { searchState: searchState2, brandId } = useSponsoredScenario();
+  return /* @__PURE__ */ jsxs("div", { className: ["hm-ill-sponsored hm-ill-sponsored--search", className].filter(Boolean).join(" "), children: [
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__search-chrome", children: /* @__PURE__ */ jsx(BrowserChrome, { url: searchState2.query, field: "search" }) }),
+    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__results", children: [
+      /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__ad", children: [
+        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__ad-head", children: [
+          /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__ad-brand", children: [
+            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__ad-logo", children: brandId ? /* @__PURE__ */ jsx(BrandMark, { brand: brandId }) : "H" }),
+            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__ad-label", children: searchState2.brand })
+          ] }),
+          /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__ad-label", children: searchState2.sponsored })
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "hm-ill-sponsored__ad-title", children: searchState2.title }),
+        /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__bar hm-ill-sponsored__bar--ad-1" }),
+        /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__bar hm-ill-sponsored__bar--ad-2" })
+      ] }),
+      /* @__PURE__ */ jsx(SkeletonResult, { nameWidth: 74, titleWidth: 188, lineWidth: 268 }),
+      /* @__PURE__ */ jsx(SkeletonResult, { nameWidth: 58, titleWidth: 158, lineWidth: 243 })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__fade", "aria-hidden": "true" })
+  ] });
+}
+function SkeletonResult({ nameWidth, titleWidth, lineWidth }) {
+  return /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__result", children: [
+    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__result-source", children: [
+      /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__result-icon" }),
+      /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__result-bar", style: { width: nameWidth } })
+    ] }),
+    /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__result-title", style: { width: titleWidth } }),
+    /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__result-bar", style: { width: lineWidth } })
+  ] });
+}
+const galleryShapes = [{ x: 0, y: 0, w: "100%", h: "100%", r: 11.4 }];
+const infoTitleShapes = [
+  { x: 0, y: 6, w: 163.3, h: 16, r: 5 },
+  { right: 126.9, y: 0.5, w: 28, h: 26.9, r: 14 },
+  { right: 0, y: 0.5, w: 118.3, h: 28, r: 14 }
+];
+const infoPriceShapes = [
+  { x: 0, y: 7.5, w: 50.9, h: 13, r: 4 },
+  { x: 58.9, y: 7.5, w: 49.7, h: 13, r: 4 },
+  { x: 116.5, y: 5, w: 48, h: 18, r: 9 },
+  { right: 0, y: 6, w: 88, h: 16, r: 5 }
+];
+const comparisonShapes = [
+  { x: 13.5, y: 33.5, w: 18.3, h: 17.2, r: 8 },
+  { x: 36.1, y: 37, w: 213.7, h: 11, r: 4 },
+  { x: 142.4, y: 81.3, w: 86.1, h: 8, r: 4 },
+  { x: 281.4, y: 81.3, w: 80.8, h: 8, r: 4 },
+  { x: 24.5, y: 123.4, w: 88.6, h: 8, r: 4 },
+  { x: 155.4, y: 123.4, w: 24, h: 9, r: 4 },
+  { x: 286.4, y: 123.4, w: 24, h: 9, r: 4 },
+  { x: 24.5, y: 157.4, w: 66, h: 8, r: 4 },
+  { x: 155.4, y: 157.4, w: 24, h: 9, r: 4 },
+  { x: 286.4, y: 157.4, w: 24, h: 9, r: 4 },
+  { x: 24.5, y: 191.4, w: 87.7, h: 8, r: 4 },
+  { x: 155.4, y: 191.4, w: 24, h: 9, r: 4 },
+  { x: 286.4, y: 191.4, w: 24, h: 9, r: 4 },
+  { x: 24.5, y: 225.4, w: 68.9, h: 8, r: 4 },
+  { x: 155.4, y: 225.4, w: 62, h: 9, r: 4 },
+  { x: 286.4, y: 225.4, w: 77.6, h: 9, r: 4 },
+  { x: 24.5, y: 259.4, w: 68.9, h: 8, r: 4 },
+  { x: 155.4, y: 259.4, w: 62, h: 9, r: 4 },
+  { x: 286.4, y: 259.4, w: 77.6, h: 9, r: 4 }
+];
+function PdpState({
+  loading,
+  className,
+  comparisonSlot
+}) {
+  const { pdpState: pdpState2, comparison: comparison2, brandId, storeNameOnly } = useSponsoredScenario();
+  return /* @__PURE__ */ jsxs("div", { className: ["hm-ill-sponsored hm-ill-sponsored--pdp", className].filter(Boolean).join(" "), children: [
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__pdp-chrome", children: /* @__PURE__ */ jsx(BrowserChrome, { url: pdpState2.url }) }),
+    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__store-nav", children: [
+      /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__store-name", children: brandId ? storeNameOnly ? /* @__PURE__ */ jsx(BrandName, { brand: brandId }) : /* @__PURE__ */ jsx(BrandWordmark, { brand: brandId }) : pdpState2.storeName }),
+      /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__store-links", children: [
+        /* @__PURE__ */ jsx("span", { style: { width: 44.09 } }),
+        /* @__PURE__ */ jsx("span", { style: { width: 53.77 } }),
+        /* @__PURE__ */ jsx("span", { style: { width: 37.64 } }),
+        /* @__PURE__ */ jsx("span", { style: { width: 49.47 } })
+      ] }),
+      /* @__PURE__ */ jsx("img", { src: bag, alt: "", width: 20.432, height: 20.432 })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__gallery", children: [
+      /* @__PURE__ */ jsx(ProductImage, { src: pdpState2.image, alt: pdpState2.imageAlt }),
+      loading && /* @__PURE__ */ jsx(SkeletonCover, { loading: loading.gallery, radius: 11.4, className: "hm-ill-sponsored__cover--gallery", shapes: galleryShapes })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__info", children: [
+      /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__info-main", children: [
+        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__info-top", children: [
+          /* @__PURE__ */ jsx("h2", { className: "hm-ill-sponsored__product-name", children: pdpState2.productName }),
+          /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__actions", children: [
+            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__wishlist", children: /* @__PURE__ */ jsx("img", { src: heart, alt: "", width: 12.904, height: 12.904 }) }),
+            /* @__PURE__ */ jsx("button", { type: "button", className: "hm-ill-sponsored__cart", children: pdpState2.addToCart })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__info-meta", children: [
+          /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__price-row", children: [
+            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__price", children: pdpState2.price }),
+            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__price hm-ill-sponsored__price--was", children: pdpState2.originalPrice }),
+            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__discount", children: pdpState2.discount })
+          ] }),
+          pdpState2.rating > 0 && /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__stars", role: "img", "aria-label": `Rated ${pdpState2.rating} out of 5`, children: stars.map((src, i) => /* @__PURE__ */ jsx("img", { src, alt: "", width: 16.01, height: 16.01 }, i)) })
+        ] })
+      ] }),
+      comparisonSlot ?? /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__comparison", children: [
+        /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored__column-highlight", "aria-hidden": "true" }),
+        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__comparison-title", children: [
+          /* @__PURE__ */ jsx("img", { src: insightMark, alt: "", width: 18.281, height: 17.206 }),
+          /* @__PURE__ */ jsx("p", { children: comparison2.title })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__table", children: [
+          /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__table-head", children: [
+            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__table-head-gap" }),
+            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__table-head-a", children: comparison2.columnA }),
+            /* @__PURE__ */ jsx("span", { className: "hm-ill-sponsored__table-head-b", children: comparison2.columnB })
+          ] }),
+          comparison2.rows.map((row, i) => /* @__PURE__ */ jsx(ComparisonRow, { label: row.label, valueA: row.valueA, valueB: row.valueB }, i))
+        ] }),
+        /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: [
+              "hm-ill-sponsored__powered",
+              loading && "hm-ill-sponsored__powered--cross",
+              (loading == null ? void 0 : loading.comparison) && "hm-ill-sponsored__powered--pending"
+            ].filter(Boolean).join(" "),
+            children: [
+              /* @__PURE__ */ jsx(Icon, { name: "spark", size: 9.678 }),
+              /* @__PURE__ */ jsx("span", { children: comparison2.poweredBy }),
+              /* @__PURE__ */ jsx("strong", { children: comparison2.poweredByBrand })
+            ]
+          }
+        ),
+        loading && /* @__PURE__ */ jsx(SkeletonCover, { loading: loading.comparison, radius: 8.073, className: "hm-ill-sponsored__cover--comparison", shapes: comparisonShapes })
+      ] }),
+      loading && /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx(SkeletonCover, { loading: loading.title, radius: 4, className: "hm-ill-sponsored__cover--title", shapes: infoTitleShapes, inset: 25.825 }),
+        /* @__PURE__ */ jsx(SkeletonCover, { loading: loading.price, radius: 4, className: "hm-ill-sponsored__cover--price", shapes: infoPriceShapes, inset: 25.825 })
+      ] })
+    ] })
+  ] });
+}
+const baseBeats = [
+  { id: "idle", type: "pause", ms: 300 },
+  // The window's run (left edge 650ms, right edge trailing by 160ms, 730ms
+  // in all). This beat ends while the right edge is still arriving: the
+  // photo's slot resolves and the photo scales in then, so the photo is
+  // already landing as the window finishes, not after it.
+  { id: "open", type: "appear", ms: 480 },
+  // The right side resolves in turn as the window settles, the comparison
+  // module last.
+  { id: "title", type: "load", ms: 250 },
+  { id: "price", type: "load", ms: 200 },
+  { id: "comparison", type: "load", ms: 300 }
+];
+function useAssetsReady() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    var _a;
+    let cancelled = false;
+    const photo = new Image();
+    photo.src = pdpState.image;
+    Promise.all([(_a = document.fonts) == null ? void 0 : _a.ready, photo.decode().catch(() => void 0)]).then(() => {
+      if (!cancelled) setReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  return ready;
+}
+function SponsoredComparisonMotion({
+  comparison: comparison2,
+  comparisonMs = 300
+} = {}) {
+  const beats2 = baseBeats.map((b) => b.id === "comparison" ? { ...b, ms: comparisonMs } : b);
+  const rootRef = useRef(null);
+  const landed = useLandedOnScreen(rootRef);
+  const assetsReady = useAssetsReady();
+  const t = useChatTimeline(beats2, landed && assetsReady);
+  const open = t.reached("open");
+  const imageIn = t.passed("open");
+  const sceneClass = [
+    "hm-ill-sponsored-motion__scene",
+    open && "hm-ill-sponsored-motion__scene--open",
+    imageIn && "hm-ill-sponsored-motion__scene--image"
+  ].filter(Boolean).join(" ");
+  return /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion", ref: rootRef, children: /* @__PURE__ */ jsx(PurpleFrame, { centered: false, children: /* @__PURE__ */ jsxs("div", { className: sceneClass, children: [
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__shell" }),
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__content", children: /* @__PURE__ */ jsx(
+      PdpState,
+      {
+        className: "hm-ill-sponsored-motion__pdp",
+        loading: {
+          gallery: !t.passed("open"),
+          title: !t.passed("title"),
+          price: !t.passed("price"),
+          comparison: !t.passed("comparison")
+        },
+        comparisonSlot: comparison2 == null ? void 0 : comparison2(t)
+      }
+    ) }),
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__search", children: /* @__PURE__ */ jsx(SearchState, { className: "hm-ill-sponsored-motion__search-card" }) }),
+    /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored-motion__chrome", children: [
+      /* @__PURE__ */ jsx(BrowserChrome, { url: searchState.query, field: "search" }),
+      /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__chrome-address", children: /* @__PURE__ */ jsx(BrowserChrome, { url: pdpState.url }) })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__glow" })
+  ] }) }) });
+}
+function ComparisonEmbed({ phase }) {
+  const { comparison: source } = useSponsoredScenario();
+  const comparison2 = { ...source, rows: source.rows.filter((row, i, all) => all.findIndex((r) => r.label === row.label) === i) };
+  const thinking = phase === "thinking";
+  const pending = phase === "loading" || thinking;
+  return /* @__PURE__ */ jsxs("section", { className: ["sc2-embed", phase && `sc2-embed--${phase}`].filter(Boolean).join(" "), children: [
+    /* @__PURE__ */ jsxs("header", { className: "sc2-embed__head", children: [
+      /* @__PURE__ */ jsx(SparkleGlyph, {}),
+      /* @__PURE__ */ jsx("h3", { className: "sc2-embed__title", children: comparison2.title }),
+      phase && phase !== "loading" && /* @__PURE__ */ jsx("span", { className: thinking ? "sc2-wait" : "sc2-wait sc2-wait--out", "aria-hidden": !thinking, children: "Thinking…" })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "sc2-table-wrap", children: [
+      phase && /* @__PURE__ */ jsx("div", { className: pending ? "sc2-skel" : "sc2-skel sc2-skel--hidden", "aria-hidden": "true", children: Array.from({ length: 7 }, (_, i) => /* @__PURE__ */ jsx("span", { className: "sc2-skel__row", style: { animationDelay: `${i * 0.05}s` } }, i)) }),
+      /* @__PURE__ */ jsxs("div", { className: "sc2-table", role: "table", children: [
+        /* @__PURE__ */ jsxs("div", { className: "sc2-table__row sc2-table__row--head", role: "row", children: [
+          /* @__PURE__ */ jsx("span", { role: "columnheader", children: "What matters" }),
+          /* @__PURE__ */ jsx("span", { role: "columnheader", children: comparison2.columnA }),
+          /* @__PURE__ */ jsx("span", { role: "columnheader", children: comparison2.columnB })
+        ] }),
+        comparison2.rows.map((row, i) => /* @__PURE__ */ jsxs("div", { className: "sc2-table__row", role: "row", style: { "--sc2-i": i + 1 }, children: [
+          /* @__PURE__ */ jsx("span", { role: "rowheader", children: row.label }),
+          /* @__PURE__ */ jsx("span", { role: "cell", children: row.valueA }),
+          /* @__PURE__ */ jsx("span", { role: "cell", children: row.valueB })
+        ] }, i)),
+        /* @__PURE__ */ jsxs("div", { className: "sc2-table__row sc2-table__row--foot", role: "row", style: { "--sc2-i": comparison2.rows.length + 1 }, children: [
+          /* @__PURE__ */ jsx("span", { role: "rowheader", children: "Details" }),
+          /* @__PURE__ */ jsxs("span", { role: "cell", className: "sc2-view", children: [
+            /* @__PURE__ */ jsx("span", { className: "sc2-view__word", children: "View" }),
+            " ",
+            /* @__PURE__ */ jsx(ViewOutGlyph, {})
+          ] }),
+          /* @__PURE__ */ jsxs("span", { role: "cell", className: "sc2-view", children: [
+            /* @__PURE__ */ jsx("span", { className: "sc2-view__word", children: "View" }),
+            " ",
+            /* @__PURE__ */ jsx(ViewOutGlyph, {})
+          ] })
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("p", { className: "sc2-embed__note", children: [
+      comparison2.poweredBy,
+      " ",
+      /* @__PURE__ */ jsx("u", { children: comparison2.poweredByBrand })
+    ] })
+  ] });
+}
+function SparkleGlyph() {
+  return /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 256 256", width: 16, height: 16, fill: "none", stroke: "currentColor", strokeWidth: 16, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true", children: [
+    /* @__PURE__ */ jsx("path", { d: "M84.27,171.73l-55.09-20.3a7.92,7.92,0,0,1,0-14.86l55.09-20.3,20.3-55.09a7.92,7.92,0,0,1,14.86,0l20.3,55.09,55.09,20.3a7.92,7.92,0,0,1,0,14.86l-55.09,20.3-20.3,55.09a7.92,7.92,0,0,1-14.86,0Z" }),
+    /* @__PURE__ */ jsx("line", { x1: "176", y1: "16", x2: "176", y2: "64" }),
+    /* @__PURE__ */ jsx("line", { x1: "200", y1: "40", x2: "152", y2: "40" })
+  ] });
+}
+function ViewOutGlyph() {
+  return /* @__PURE__ */ jsx("svg", { viewBox: "0 0 12 12", width: 10, height: 10, fill: "none", stroke: "currentColor", strokeWidth: 1.2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true", children: /* @__PURE__ */ jsx("path", { d: "M3.5 8.5l5-5M4.5 3.5h4v4" }) });
+}
+const COMPARISON_THINK_MS = 1600;
+function SponsoredComparisonV2Motion() {
+  return /* @__PURE__ */ jsx("div", { className: "sc2-motion", children: /* @__PURE__ */ jsx(
+    SponsoredComparisonMotion,
+    {
+      comparisonMs: COMPARISON_THINK_MS,
+      comparison: (t) => /* @__PURE__ */ jsx(ComparisonEmbed, { phase: t.passed("comparison") ? "in" : "thinking" })
+    }
+  ) });
+}
+const audiencesBg = "/images/landing/home-v2/assets/audiences_bg_3x-CeMPiv1g.webp";
+const backdrops = { green: audiencesBg, purple: returnReductionBg };
+function LandscapeCanvas({
+  scene,
+  widget: widget2,
+  backdrop,
+  bleed = false
+}) {
+  return /* @__PURE__ */ jsxs("div", { className: `hm-ill-landscape-canvas${bleed ? " hm-ill-landscape-canvas--bleed" : ""}`, style: { backgroundImage: `url(${backdrops[backdrop]})` }, children: [
+    /* @__PURE__ */ jsxs("div", { className: "hm-ill-landscape-canvas__page", children: [
+      /* @__PURE__ */ jsx("div", { className: "hm-ill-landscape-canvas__scene", children: scene }),
+      /* @__PURE__ */ jsx("div", { className: "hm-ill-landscape-canvas__fade", children: /* @__PURE__ */ jsx(ContentFade, {}) })
+    ] }),
+    widget2 && /* @__PURE__ */ jsx("div", { className: "hm-ill-landscape-canvas__widget", children: widget2 })
+  ] });
+}
+const priyaNair = "/images/landing/home-v2/assets/priya-nair-BCkMHgBr.svg";
+const omarHaddad = "/images/landing/home-v2/assets/omar-haddad-DhZ90vGZ.svg";
+const sofiaMarino = "/images/landing/home-v2/assets/sofia-marino-DQ9d7XfE.svg";
+const shopper = "/images/landing/home-v2/assets/emma-lindqvist-BfFwzYUz.svg";
+const kenjiWatanabe = "/images/landing/home-v2/assets/kenji-watanabe-DWnXW3nN.svg";
+const orgMark = "/images/landing/home-v2/assets/org-mark-Alk5D-x9.svg";
+const priyaRaman = "/images/landing/home-v2/assets/priya-raman-CMwZrsBD.svg";
+const ICONS = {
+  house: "M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z",
+  cube: "M223.68,66.15,135.68,18h0a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32h0l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z",
+  headset: "M201.89,54.66A103.43,103.43,0,0,0,128.79,24H128A104,104,0,0,0,24,128v56a24,24,0,0,0,24,24H64a24,24,0,0,0,24-24V144a24,24,0,0,0-24-24H40.36A88.12,88.12,0,0,1,190.54,65.93,87.39,87.39,0,0,1,215.65,120H192a24,24,0,0,0-24,24v40a24,24,0,0,0,24,24h24a24,24,0,0,1-24,24H136a8,8,0,0,0,0,16h56a40,40,0,0,0,40-40V128A103.41,103.41,0,0,0,201.89,54.66ZM64,136a8,8,0,0,1,8,8v40a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V136Zm128,56a8,8,0,0,1-8-8V144a8,8,0,0,1,8-8h24v56Z",
+  chartBar: "M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16h8V136a8,8,0,0,1,8-8H72a8,8,0,0,1,8,8v64H96V88a8,8,0,0,1,8-8h32a8,8,0,0,1,8,8V200h16V40a8,8,0,0,1,8-8h40a8,8,0,0,1,8,8V200h8A8,8,0,0,1,232,208Z",
+  search: "M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z",
+  bell: "M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z",
+  gear: "M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm109.94-52.79a8,8,0,0,0-3.89-5.4l-29.83-17-.12-33.62a8,8,0,0,0-2.83-6.08,111.91,111.91,0,0,0-36.72-20.67,8,8,0,0,0-6.46.59L128,41.85,97.88,25a8,8,0,0,0-6.47-.6A112.1,112.1,0,0,0,54.73,45.15a8,8,0,0,0-2.83,6.07l-.15,33.65-29.83,17a8,8,0,0,0-3.89,5.4,106.47,106.47,0,0,0,0,41.56,8,8,0,0,0,3.89,5.4l29.83,17,.12,33.62a8,8,0,0,0,2.83,6.08,111.91,111.91,0,0,0,36.72,20.67,8,8,0,0,0,6.46-.59L128,214.15,158.12,231a7.91,7.91,0,0,0,3.9,1,8.09,8.09,0,0,0,2.57-.42,112.1,112.1,0,0,0,36.68-20.73,8,8,0,0,0,2.83-6.07l.15-33.65,29.83-17a8,8,0,0,0,3.89-5.4A106.47,106.47,0,0,0,237.94,107.21Zm-15,34.91-28.57,16.25a8,8,0,0,0-3,3c-.58,1-1.19,2.06-1.81,3.06a7.94,7.94,0,0,0-1.22,4.21l-.15,32.25a95.89,95.89,0,0,1-25.37,14.3L134,199.13a8,8,0,0,0-3.91-1h-.19c-1.21,0-2.43,0-3.64,0a8.08,8.08,0,0,0-4.1,1l-28.84,16.1A96,96,0,0,1,67.88,201l-.11-32.2a8,8,0,0,0-1.22-4.22c-.62-1-1.23-2-1.8-3.06a8.09,8.09,0,0,0-3-3.06l-28.6-16.29a90.49,90.49,0,0,1,0-28.26L61.67,97.63a8,8,0,0,0,3-3c.58-1,1.19-2.06,1.81-3.06a7.94,7.94,0,0,0,1.22-4.21l.15-32.25a95.89,95.89,0,0,1,25.37-14.3L122,56.87a8,8,0,0,0,4.1,1c1.21,0,2.43,0,3.64,0a8.08,8.08,0,0,0,4.1-1l28.84-16.1A96,96,0,0,1,188.12,55l.11,32.2a8,8,0,0,0,1.22,4.22c.62,1,1.23,2,1.8,3.06a8.09,8.09,0,0,0,3,3.06l28.6,16.29A90.49,90.49,0,0,1,222.9,142.12Z",
+  sidebar: "M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,56H80V200H40ZM216,200H96V56H216V200Z",
+  layout: "M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V96H40V56ZM40,112H96v88H40Zm176,88H112V112H216v88Z",
+  chartLine: "M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM200,176a8,8,0,0,1,0,16H56a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v62.92l34.88-29.07a8,8,0,0,1,9.56-.51l43,28.69,43.41-36.18a8,8,0,0,1,10.24,12.3l-48,40a8,8,0,0,1-9.56.51l-43-28.69L64,155.75V176Z",
+  users: "M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z",
+  pencil: "M229.66,58.34l-32-32a8,8,0,0,0-11.32,0l-96,96A8,8,0,0,0,88,128v32a8,8,0,0,0,8,8h32a8,8,0,0,0,5.66-2.34l96-96A8,8,0,0,0,229.66,58.34ZM124.69,152H104V131.31l64-64L188.69,88ZM200,76.69,179.31,56,192,43.31,212.69,64ZM224,128v80a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h80a8,8,0,0,1,0,16H48V208H208V128a8,8,0,0,1,16,0Z",
+  bookmarkFill: "M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z",
+  dots: "M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm56-12a12,12,0,1,0,12,12A12,12,0,0,0,196,116ZM60,116a12,12,0,1,0,12,12A12,12,0,0,0,60,116Z",
+  chat: "M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-6.54-.67L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Z",
+  caretRight: "M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z",
+  rocket: "M223.85,47.12a16,16,0,0,0-15-15c-12.58-.75-44.73.4-71.41,27.07L132.69,64H74.36A15.91,15.91,0,0,0,63,68.68L28.7,103a16,16,0,0,0,9.07,27.16l38.47,5.37,44.21,44.21,5.37,38.49a15.94,15.940,0,0,0,10.78,12.92,16.11,16.11,0,0,0,5.1.83A15.91,15.91,0,0,0,153,227.3L187.32,193A15.91,15.91,0,0,0,192,181.64V123.31l4.77-4.77C223.45,91.86,224.6,59.71,223.85,47.12ZM74.36,80h42.33L77.16,119.52,40,114.34Zm74.41-9.45a76.65,76.65,0,0,1,59.11-22.47,76.46,76.46,0,0,1-22.42,59.16L128,164.68,91.32,128ZM176,181.64,141.67,216l-5.19-37.17L176,139.31Zm-74.16,9.5C97.34,201,82.29,224,40,224a8,8,0,0,1-8-8c0-42.29,23-57.34,32.86-61.85a8,8,0,0,1,6.64,14.56c-6.43,2.93-20.62,12.36-23.12,38.91,26.55-2.5,36-16.69,38.91-23.12a8,8,0,1,1,14.56,6.64Z",
+  chatQuote: "M216,48H40A16,16,0,0,0,24,64V224a15.85,15.85,0,0,0,9.24,14.5A16.13,16.13,0,0,0,40,240a15.89,15.89,0,0,0,10.25-3.78l.09-.07L83,208H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48Zm0,144H80a8,8,0,0,0-5.23,1.95L40,224V64H216Z",
+  plus: "M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z",
+  send: "M231.87,114l-168-95.89A16,16,0,0,0,40.92,37.34L71.55,128,40.92,218.67A16,16,0,0,0,56,240a16.15,16.15,0,0,0,7.93-2.1l167.92-96.05a16,16,0,0,0,.05-27.89ZM56,224a.56.56,0,0,0,0-.12L85.74,136H144a8,8,0,0,0,0-16H85.74L56.06,32.16A.46.46,0,0,0,56,32l168,95.83Z"
+};
+function Ph({ name, className }) {
+  return /* @__PURE__ */ jsx("svg", { className: ["la-icon", className].filter(Boolean).join(" "), viewBox: "0 0 256 256", fill: "currentColor", "aria-hidden": true, children: /* @__PURE__ */ jsx("path", { d: ICONS[name] }) });
+}
+function InsightsFrame({
+  saved,
+  recent,
+  active,
+  activeEnter = false,
+  stageRef,
+  runKey,
+  className,
+  bare = false,
+  compact = false,
+  railActive = "chartBar",
+  children
+}) {
+  const dash = /* @__PURE__ */ jsxs("div", { className: compact ? "la-dash la-dash--compact" : "la-dash", children: [
+    /* @__PURE__ */ jsxs("nav", { className: "la-rail", children: [
+      /* @__PURE__ */ jsx("img", { className: "la-rail__logo la-rail__logo--mark", src: orgMark, alt: "" }),
+      /* @__PURE__ */ jsx("div", { className: "la-rail__group", children: ["house", "cube", "headset", "chartBar"].map((n) => /* @__PURE__ */ jsx("span", { className: n === railActive ? "la-rail__item la-rail__item--active" : "la-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)) }),
+      /* @__PURE__ */ jsxs("div", { className: "la-rail__group la-rail__group--end", children: [
+        ["search", "bell", "gear"].map((n) => /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
+        /* @__PURE__ */ jsx("span", { className: "la-rail__rule" }),
+        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx("img", { className: "la-rail__me", src: priyaRaman, alt: "" }) })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("main", { className: "la-main", children: [
+      !compact && /* @__PURE__ */ jsxs("section", { className: "la-list", children: [
+        /* @__PURE__ */ jsxs("div", { className: "la-list__head", children: [
+          /* @__PURE__ */ jsx("h2", { className: "la-serif la-serif--24", children: "Insights" }),
+          /* @__PURE__ */ jsx(Ph, { name: "sidebar", className: "la-muted" })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "la-search", children: [
+          /* @__PURE__ */ jsx(Ph, { name: "search" }),
+          /* @__PURE__ */ jsx("span", { children: "Search chats..." })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "la-row la-row--new", children: [
+          /* @__PURE__ */ jsx(Ph, { name: "pencil" }),
+          "New chat"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "la-section--nav", children: "Saved" }),
+        saved.map((text) => /* @__PURE__ */ jsxs("div", { className: "la-row", children: [
+          /* @__PURE__ */ jsx(Ph, { name: "bookmarkFill", className: "la-primary" }),
+          /* @__PURE__ */ jsx("span", { className: "la-row__text", children: text }),
+          /* @__PURE__ */ jsx(Ph, { name: "dots" })
+        ] }, text)),
+        /* @__PURE__ */ jsx("div", { className: "la-section--nav", children: "Recent" }),
+        active && /* @__PURE__ */ jsxs("div", { className: `la-row la-row--active${activeEnter ? " la-row--enter" : ""}`, children: [
+          /* @__PURE__ */ jsx(Ph, { name: "chat", className: "la-muted" }),
+          /* @__PURE__ */ jsx("span", { className: "la-row__text", children: active }),
+          /* @__PURE__ */ jsx("span", { className: "la-row__age", children: "now" })
+        ] }),
+        recent.map((r) => /* @__PURE__ */ jsxs("div", { className: "la-row", children: [
+          /* @__PURE__ */ jsx(Ph, { name: "chat", className: "la-muted" }),
+          /* @__PURE__ */ jsx("span", { className: "la-row__text", children: r.text }),
+          /* @__PURE__ */ jsx("span", { className: "la-row__age", children: r.age })
+        ] }, r.text))
+      ] }),
+      children
+    ] })
+  ] }, runKey);
+  return /* @__PURE__ */ jsx("div", { className: ["la-stage", className].filter(Boolean).join(" "), ref: stageRef, children: bare ? dash : /* @__PURE__ */ jsx(LandscapeCanvas, { backdrop: "green", bleed: true, scene: dash }) });
+}
+const askDashboard = {
+  greeting: "Good evening, Priya",
+  headline: "What do you want to know about your visitors?",
+  query: script$1.query,
+  reply: script$1.result,
+  thought: "Thought for 4s",
+  suggestions: [
+    { icon: "users", text: "Who's most likely to buy this week" },
+    { icon: "cart", text: "Who keeps reaching cart but doesn't buy" },
+    { icon: "rocket", text: "Who should hear first about a launch" }
+  ],
+  steps: [
+    { live: "Thinking…", done: "Thinking done", chips: [] },
+    {
+      live: "Scanning checkout sessions…",
+      done: "Searching done",
+      chips: [script$1.query, "Last 7 days", "No purchase"]
+    },
+    {
+      live: "Reading where they dropped off…",
+      done: "People found",
+      chips: ["3,284 people", "2,140 still deciding", "1,144 gone quiet"]
+    }
+  ],
+  card: {
+    title: "Checkout abandoners · last 7 days",
+    count: "3,284",
+    unit: "people",
+    tags: ["Reached checkout", "No purchase", "2,140 still deciding"],
+    label: "Where they dropped off",
+    buckets: [
+      { label: "Shipping costs", deciding: 1210, gone: 486 },
+      { label: "Payment step", deciding: 420, gone: 262 },
+      { label: "Account sign-in", deciding: 260, gone: 178 },
+      { label: "Discount code", deciding: 150, gone: 128 },
+      { label: "Other", deciding: 100, gone: 90 }
+    ],
+    legend: { deciding: "Still deciding", gone: "Gone quiet" },
+    stats: [
+      { icon: "cart", label: "Avg. cart", value: "$186" },
+      { icon: "clock", label: "Median time at checkout", value: "2.6 min" },
+      { icon: "repeat", label: "Returned 3+ times", value: "412" }
+    ]
+  },
+  saved: [
+    "Find visitors who keep reaching cart or checkout but don't buy.",
+    "Create a segment of visitors who reach checkout on Subscribe & Save but never buy."
+  ],
+  recent: [
+    { text: "Who's most likely to buy this week?", age: "1d" },
+    { text: "Who should hear first about our new arrivals?", age: "3d" }
+  ]
+};
+function beatsFor(sc) {
+  return [
+    { id: "ask", type: "compose", text: sc.query, leadMs: 1100 },
+    { id: "step0", type: "appear", ms: 800 },
+    { id: "step1", type: "appear", ms: 1300 },
+    { id: "step2", type: "appear", ms: 1300 },
+    { id: "fold", type: "pause", ms: 500 },
+    { id: "reply", type: "text", text: sc.reply },
+    { id: "card", type: "load", ms: 900 },
+    { id: "bars", type: "appear", ms: 900 },
+    ...sc.action ? [{ id: "action", type: "text", text: sc.action.text }, { id: "cta", type: "appear", ms: 400 }] : []
+  ];
+}
+const EXTRA = {
+  money: "M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152ZM240,56H16a8,8,0,0,0-8,8V192a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V64A8,8,0,0,0,240,56ZM193.65,184H62.35A56.78,56.78,0,0,0,24,145.65v-35.3A56.78,56.78,0,0,0,62.35,72h131.3A56.78,56.78,0,0,0,232,110.35v35.3A56.78,56.78,0,0,0,193.65,184ZM232,93.37A40.81,40.81,0,0,1,210.63,72H232ZM45.37,72A40.81,40.81,0,0,1,24,93.37V72ZM24,162.63A40.81,40.81,0,0,1,45.37,184H24ZM210.63,184A40.81,40.81,0,0,1,232,162.63V184Z",
+  footprints: "M216.06,192v12A36,36,0,0,1,144,204V192a8,8,0,0,1,8-8h56A8,8,0,0,1,216.06,192ZM104,160h-56a8,8,0,0,0-8,8v12a36,36,0,0,0,72,0V168A8,8,0,0,0,104,160ZM76,16C64.36,16,53.07,26.31,44.2,45c-13.93,29.38-18.56,73,.29,96a8,8,0,0,0,6.2,2.93h50.55a8,8,0,0,0,6.2-2.93c18.85-23,14.22-66.65.29-96C98.85,26.31,87.57,16,76,16Zm135.8,53C202.93,50.31,191.64,40,180,40s-22.89,10.31-31.77,29c-13.93,29.38-18.56,73,.29,96a8,8,0,0,0,6.2,2.93h50.55a8,8,0,0,0,6.2-2.93C230.36,142,225.73,98.38,211.8,69Z",
+  check: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z",
+  cart: "M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z",
+  clock: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z",
+  repeat: "M24,128A72.08,72.08,0,0,1,96,56H204.69L194.34,45.66a8,8,0,0,1,11.32-11.32l24,24a8,8,0,0,1,0,11.32l-24,24a8,8,0,0,1-11.32-11.32L204.69,72H96a56.06,56.06,0,0,0-56,56,8,8,0,0,1-16,0Zm200-8a8,8,0,0,0-8,8,56.06,56.06,0,0,1-56,56H51.31l10.35-10.34a8,8,0,0,0-11.32-11.32l-24,24a8,8,0,0,0,0,11.32l24,24a8,8,0,0,0,11.32-11.32L51.31,200H160a72.08,72.08,0,0,0,72-72A8,8,0,0,0,224,120Z",
+  funnel: "M200,136a8,8,0,0,1-8,8H64a8,8,0,0,1,0-16H192A8,8,0,0,1,200,136Zm32-56H24a8,8,0,0,0,0,16H232a8,8,0,0,0,0-16Zm-80,96H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16Z",
+  envelope: "M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z",
+  bookmark: "M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Zm0,177.57-51.77-32.35a8,8,0,0,0-8.48,0L72,209.57V48H184Z"
+};
+function Glyph({ name, className }) {
+  if (name in EXTRA) {
+    return /* @__PURE__ */ jsx("svg", { className: ["la-icon", className].filter(Boolean).join(" "), viewBox: "0 0 256 256", fill: "currentColor", "aria-hidden": true, children: /* @__PURE__ */ jsx("path", { d: EXTRA[name] }) });
+  }
+  return /* @__PURE__ */ jsx(Ph, { name, className });
+}
+function Composer({ v, className }) {
+  return /* @__PURE__ */ jsxs("div", { className: ["aid-composer", className].filter(Boolean).join(" "), children: [
+    /* @__PURE__ */ jsx("div", { className: "aid-composer__text", children: v.composer ? /* @__PURE__ */ jsxs(Fragment, { children: [
+      v.composer,
+      v.typing && /* @__PURE__ */ jsx("span", { className: "la-caret" })
+    ] }) : /* @__PURE__ */ jsx("span", { className: "la-composer__placeholder", children: "Ask about your visitors..." }) }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-composer__foot", children: [
+      /* @__PURE__ */ jsx(Ph, { name: "plus", className: "la-muted" }),
+      /* @__PURE__ */ jsxs("span", { className: "aid-modes", children: [
+        /* @__PURE__ */ jsxs("span", { className: "aid-mode aid-mode--on", children: [
+          /* @__PURE__ */ jsx(Ph, { name: "chat" }),
+          "Ask"
+        ] }),
+        /* @__PURE__ */ jsxs("span", { className: "aid-mode", children: [
+          /* @__PURE__ */ jsx(Glyph, { name: "funnel" }),
+          "Find a segment"
+        ] }),
+        /* @__PURE__ */ jsxs("span", { className: "aid-mode", children: [
+          /* @__PURE__ */ jsx(Glyph, { name: "envelope" }),
+          "Draft an email"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx("span", { className: `la-send aid-send${v.composer ? " la-send--ready" : ""}`, children: /* @__PURE__ */ jsx(Ph, { name: "send" }) })
+    ] })
+  ] });
+}
+function Steps({ v, steps: steps2 }) {
+  return /* @__PURE__ */ jsx("div", { className: "aid-steps", children: steps2.map((step, i) => {
+    const state = v.steps[i];
+    if (state === "off") return null;
+    return /* @__PURE__ */ jsxs("div", { className: `aid-step${v.animate ? " la-enter" : ""}`, children: [
+      /* @__PURE__ */ jsxs("div", { className: "aid-step__line", children: [
+        state === "done" ? /* @__PURE__ */ jsx(Glyph, { name: "check", className: "la-primary" }) : /* @__PURE__ */ jsx("span", { className: "aid-spinner" }),
+        state === "done" ? /* @__PURE__ */ jsx("span", { className: "la-fade", children: step.done }) : /* @__PURE__ */ jsx("span", { className: "la-thinking la-thinking--live", children: step.live })
+      ] }),
+      state === "done" && step.chips.length > 0 && /* @__PURE__ */ jsx("div", { className: "aid-chips", children: step.chips.map((c, ci) => /* @__PURE__ */ jsxs("span", { className: "aid-chip", style: { "--i": ci }, children: [
+        /* @__PURE__ */ jsx(Glyph, { name: "search" }),
+        c
+      ] }, c)) })
+    ] }, step.done);
+  }) });
+}
+const MAX = Math.max(...askDashboard.card.buckets.map((b) => b.deciding + b.gone));
+function CartCard({ v }) {
+  const c = askDashboard.card;
+  return /* @__PURE__ */ jsxs("div", { className: ["la-card", "aid-card", v.animate && "la-enter", !v.bars && "aid-card--pending"].filter(Boolean).join(" "), children: [
+    /* @__PURE__ */ jsxs("header", { className: "la-card__head", children: [
+      /* @__PURE__ */ jsx(Glyph, { name: "cart", className: "la-muted" }),
+      /* @__PURE__ */ jsx("span", { className: "la-card__title", children: c.title }),
+      /* @__PURE__ */ jsxs("span", { className: "aid-save", children: [
+        /* @__PURE__ */ jsx(Glyph, { name: "bookmark" }),
+        "Save insight"
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-hero", children: [
+      /* @__PURE__ */ jsx("span", { className: "la-faces", children: [priyaNair, omarHaddad, sofiaMarino].map((src) => /* @__PURE__ */ jsx("img", { src, alt: "" }, src)) }),
+      /* @__PURE__ */ jsx("span", { className: "aid-count", children: c.count }),
+      /* @__PURE__ */ jsx("span", { className: "aid-unit", children: c.unit }),
+      /* @__PURE__ */ jsx("span", { className: "aid-tags", children: c.tags.map((t) => /* @__PURE__ */ jsx("span", { className: "la-tag", children: t }, t)) })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-chart", children: [
+      /* @__PURE__ */ jsx("p", { className: "la-card__label", children: c.label }),
+      c.buckets.map((b, i) => /* @__PURE__ */ jsxs("div", { className: "aid-bar", style: { "--i": i }, children: [
+        /* @__PURE__ */ jsx("span", { className: "aid-bar__label", children: b.label }),
+        /* @__PURE__ */ jsxs("span", { className: "aid-bar__track", children: [
+          /* @__PURE__ */ jsx("span", { className: "aid-bar__fill aid-bar__fill--deciding", style: { width: `${b.deciding / MAX * 100}%` } }),
+          /* @__PURE__ */ jsx("span", { className: "aid-bar__fill aid-bar__fill--gone", style: { width: `${b.gone / MAX * 100}%` } })
+        ] }),
+        /* @__PURE__ */ jsx("span", { className: "aid-bar__value", children: (b.deciding + b.gone).toLocaleString("en-US") })
+      ] }, b.label)),
+      /* @__PURE__ */ jsxs("div", { className: "aid-legend", children: [
+        /* @__PURE__ */ jsxs("span", { children: [
+          /* @__PURE__ */ jsx("i", { className: "aid-key aid-key--deciding" }),
+          c.legend.deciding
+        ] }),
+        /* @__PURE__ */ jsxs("span", { children: [
+          /* @__PURE__ */ jsx("i", { className: "aid-key aid-key--gone" }),
+          c.legend.gone
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "aid-stats", children: c.stats.map((st) => /* @__PURE__ */ jsxs("div", { className: "aid-stat", children: [
+      /* @__PURE__ */ jsxs("span", { className: "aid-stat__label", children: [
+        /* @__PURE__ */ jsx(Glyph, { name: st.icon }),
+        st.label
+      ] }),
+      /* @__PURE__ */ jsx("span", { className: "aid-stat__value", children: st.value })
+    ] }, st.label)) }),
+    v.animate && /* @__PURE__ */ jsxs("div", { className: `la-skeleton${v.cardLoading ? "" : " la-skeleton--hidden"}`, "aria-hidden": true, children: [
+      /* @__PURE__ */ jsx("span", { style: { width: 220, height: 14 } }),
+      /* @__PURE__ */ jsx("span", { style: { width: 380, height: 32 } }),
+      [0, 1, 2, 3].map((i) => /* @__PURE__ */ jsx("span", { style: { width: `${86 - i * 14}%`, height: 14 } }, i)),
+      /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 44 } })
+    ] })
+  ] });
+}
+function useFollowLatest(animate, mounted, settled, runKey) {
+  const threadRef = useRef(null);
+  const contentRef = useRef(null);
+  useLayoutEffect(() => {
+    const thread = threadRef.current;
+    const content2 = contentRef.current;
+    if (!thread || !content2) return;
+    const follow = () => thread.scrollTo({ top: thread.scrollHeight, behavior: animate ? "smooth" : "instant" });
+    follow();
+    const observer = new ResizeObserver(follow);
+    observer.observe(content2);
+    return () => observer.disconnect();
+  }, [animate, mounted, runKey]);
+  useEffect(() => {
+    var _a, _b;
+    const thread = threadRef.current;
+    if (!settled || !thread) return;
+    const toEnd = () => thread.scrollTo({ top: thread.scrollHeight, behavior: animate ? "smooth" : "instant" });
+    const pin = () => {
+      thread.scrollTop = thread.scrollHeight;
+    };
+    const id = window.setTimeout(toEnd, animate ? 1200 : 0);
+    const pinId = window.setTimeout(pin, animate ? 2e3 : 0);
+    (_b = (_a = document.fonts) == null ? void 0 : _a.ready) == null ? void 0 : _b.then(animate ? toEnd : pin);
+    return () => {
+      window.clearTimeout(id);
+      window.clearTimeout(pinId);
+    };
+  }, [settled, animate, runKey]);
+  return { threadRef, contentRef };
+}
+function Dashboard({ sc, v, stageRef, runKey }) {
+  const { threadRef, contentRef } = useFollowLatest(v.animate, v.sent, v.done, runKey);
+  const Frame = sc.frame === "scene" ? SceneFrame : InsightFrame;
+  return /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx("div", { className: ["aid-viewport", sc.frame === "scene" && "aid-viewport--scene", sc.inset && "aid-viewport--inset"].filter(Boolean).join(" "), children: /* @__PURE__ */ jsx(
+    InsightsFrame,
+    {
+      bare: true,
+      compact: true,
+      saved: askDashboard.saved,
+      recent: askDashboard.recent,
+      active: v.sent ? sc.query : void 0,
+      activeEnter: v.animate,
+      stageRef,
+      runKey,
+      children: /* @__PURE__ */ jsxs("section", { className: "la-chat aid-chat", children: [
+        /* @__PURE__ */ jsxs("header", { className: "aid-chat__head", children: [
+          /* @__PURE__ */ jsx("span", { className: "la-serif aid-chat__title", children: "Insights" }),
+          v.sent && /* @__PURE__ */ jsx("span", { className: `aid-chat__crumb${v.animate ? " la-fade" : ""}`, children: sc.query })
+        ] }),
+        !v.sent ? /* @__PURE__ */ jsxs("div", { className: "aid-home", children: [
+          /* @__PURE__ */ jsx("p", { className: "aid-home__greeting", children: askDashboard.greeting }),
+          /* @__PURE__ */ jsx("h1", { className: "aid-home__headline la-serif", children: askDashboard.headline }),
+          /* @__PURE__ */ jsx(Composer, { v, className: "aid-composer--home" }),
+          /* @__PURE__ */ jsx("p", { className: "la-section--nav aid-home__suggested", children: "Suggested" }),
+          /* @__PURE__ */ jsx("div", { className: "aid-suggestions", children: askDashboard.suggestions.map((g) => /* @__PURE__ */ jsxs("span", { className: "aid-suggestion", children: [
+            /* @__PURE__ */ jsx(Glyph, { name: g.icon }),
+            g.text
+          ] }, g.text)) })
+        ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+          /* @__PURE__ */ jsx("div", { className: "la-thread", ref: threadRef, children: /* @__PURE__ */ jsxs("div", { className: "la-thread__content", ref: contentRef, children: [
+            /* @__PURE__ */ jsx("div", { className: `la-user${v.animate ? " la-enter" : ""}`, children: /* @__PURE__ */ jsx("p", { children: sc.query }) }),
+            v.folded ? /* @__PURE__ */ jsx("div", { className: "la-thought", children: /* @__PURE__ */ jsxs("span", { className: `la-thought__done${v.animate ? " la-fade" : ""}`, children: [
+              askDashboard.thought,
+              /* @__PURE__ */ jsx(Ph, { name: "caretRight" })
+            ] }) }) : /* @__PURE__ */ jsx(Steps, { v, steps: sc.steps }),
+            v.reply && /* @__PURE__ */ jsx("p", { className: "la-reply", children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: sc.reply }) : sc.reply }),
+            v.card && sc.card(v),
+            sc.action && v.action && /* @__PURE__ */ jsxs("div", { className: "aid-action", children: [
+              /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: sc.action.text }) : sc.action.text }),
+              v.cta && /* @__PURE__ */ jsx("span", { className: `aid-cta${v.animate ? " la-enter" : ""}`, children: sc.action.cta })
+            ] })
+          ] }) }),
+          /* @__PURE__ */ jsx(Composer, { v: { ...v, composer: "", typing: false }, className: ["aid-composer--slim", v.animate && "la-fade"].filter(Boolean).join(" ") })
+        ] })
+      ] })
+    }
+  ) }) });
+}
+function motionOf(sc) {
+  const beats2 = beatsFor(sc);
+  const last = beats2[beats2.length - 1].id;
+  const has = new Set(beats2.map((b) => b.id));
+  return function InsightsDashboardMotion() {
+    var _a;
+    const stageRef = useRef(null);
+    const t = useChatTimeline(beats2, useLandedOnScreen(stageRef));
+    const step = (id) => t.passed(id) ? "done" : t.reached(id) ? "live" : "off";
+    const v = {
+      sent: t.passed("ask"),
+      composer: ((_a = t.composer) == null ? void 0 : _a.value) ?? "",
+      typing: !!t.composer,
+      steps: [step("step0"), step("step1"), step("step2")],
+      folded: t.passed("fold"),
+      reply: t.reached("reply"),
+      card: t.reached("card"),
+      cardLoading: t.loading("card"),
+      bars: t.reached("bars"),
+      action: has.has("action") && t.reached("action"),
+      cta: has.has("cta") && t.reached("cta"),
+      done: t.passed(last),
+      animate: !t.reducedMotion
+    };
+    return /* @__PURE__ */ jsx(Dashboard, { sc, v, stageRef, runKey: t.runKey });
+  };
+}
+const askScenario = {
+  inset: true,
+  query: askDashboard.query,
+  steps: askDashboard.steps,
+  reply: askDashboard.reply,
+  card: (v) => /* @__PURE__ */ jsx(CartCard, { v })
+};
+const AskInsightDashboardMotion = motionOf(askScenario);
+const pendantCutout = "/images/landing/home-v2/assets/aurelle-teardrop-pendant-NvunMQDM.webp";
+const SHOPPER = "Emma Lindqvist";
+const OUTCOME = [
+  { icon: "check", label: "Clicked the offer", value: "20% off" },
+  { icon: "cart", label: "Checked out", value: "Order placed" },
+  { icon: "money", label: "Spent", value: "$186" }
+];
+const beats = [
+  { id: "offer", type: "text", text: offerTurn.assistantMessage },
+  { id: "product", type: "appear", ms: 700 },
+  { id: "use", type: "appear", ms: 900 },
+  { id: "question", type: "appear", ms: 1100 },
+  { id: "o0", type: "appear", ms: 700 },
+  { id: "o1", type: "appear", ms: 700 },
+  { id: "o2", type: "appear", ms: 900 },
+  { id: "total", type: "appear", ms: 900 }
+];
+function Conversation({ v, stageRef, runKey }) {
+  const enter = v.animate ? " la-enter" : "";
+  const converted = v.outcome >= 3;
+  return /* @__PURE__ */ jsx(InsightFrame, { children: /* @__PURE__ */ jsx("div", { className: "aid-viewport aid-viewport--inset", children: /* @__PURE__ */ jsxs(InsightsFrame, { bare: true, compact: true, railActive: "cube", saved: [], recent: [], stageRef, runKey, children: [
+    /* @__PURE__ */ jsxs("section", { className: "cv-chat", children: [
+      /* @__PURE__ */ jsxs("header", { className: "cv-chat__head", children: [
+        /* @__PURE__ */ jsx("span", { className: "la-serif aid-chat__title", children: SHOPPER }),
+        /* @__PURE__ */ jsxs("span", { className: "cv-toggle", children: [
+          /* @__PURE__ */ jsxs("span", { className: "cv-toggle__on", children: [
+            /* @__PURE__ */ jsx(Ph, { name: "chat" }),
+            "Chat"
+          ] }),
+          /* @__PURE__ */ jsx("span", { children: "Log" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "cv-thread", children: [
+        /* @__PURE__ */ jsx("p", { className: "cv-date", children: "Today" }),
+        v.offer && /* @__PURE__ */ jsxs("div", { className: `cv-ai${enter}`, children: [
+          /* @__PURE__ */ jsxs("div", { className: "cv-ai__bubble", children: [
+            /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: offerTurn.assistantMessage }) : offerTurn.assistantMessage }),
+            v.product && /* @__PURE__ */ jsxs("div", { className: `cv-offer${v.animate ? " la-fade" : ""}`, children: [
+              /* @__PURE__ */ jsx("span", { className: "cv-offer__media", children: /* @__PURE__ */ jsx("img", { src: pendantCutout, alt: "" }) }),
+              /* @__PURE__ */ jsxs("span", { className: "cv-offer__text", children: [
+                /* @__PURE__ */ jsx("span", { className: "cv-offer__title", children: context.title }),
+                /* @__PURE__ */ jsx("span", { className: "la-muted", children: context.price })
+              ] })
+            ] }),
+            v.product && /* @__PURE__ */ jsxs("span", { className: `cv-actions${v.animate ? " la-fade" : ""}`, children: [
+              /* @__PURE__ */ jsxs("span", { className: `cv-btn cv-btn--primary${v.used ? " cv-btn--taken" : ""}`, children: [
+                v.used && /* @__PURE__ */ jsx(Glyph, { name: "check" }),
+                offerTurn.primaryAction
+              ] }),
+              /* @__PURE__ */ jsx("span", { className: "cv-btn", children: offerTurn.secondaryAction })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "cv-ai__meta", children: [
+            "Shopping Assistant · 21:03 · ",
+            v.used ? "Seen" : "Delivered"
+          ] })
+        ] }),
+        v.question && /* @__PURE__ */ jsxs("div", { className: `cv-user${enter}`, children: [
+          /* @__PURE__ */ jsx("img", { className: "cv-avatar", src: shopper, alt: "" }),
+          /* @__PURE__ */ jsxs("div", { className: "cv-user__bubble", children: [
+            /* @__PURE__ */ jsx("p", { children: questionTurn.userMessage }),
+            /* @__PURE__ */ jsxs("p", { className: "cv-user__meta", children: [
+              /* @__PURE__ */ jsx(Ph, { name: "search" }),
+              " Web · 21:05"
+            ] })
+          ] })
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("aside", { className: "cv-details", children: [
+      /* @__PURE__ */ jsxs("div", { className: "cv-tabs", children: [
+        /* @__PURE__ */ jsx("span", { className: "cv-tabs__on", children: "Details" }),
+        /* @__PURE__ */ jsx("span", { children: "Inspect" })
+      ] }),
+      /* @__PURE__ */ jsxs("dl", { className: "cv-rows", children: [
+        /* @__PURE__ */ jsx("dt", { children: "Status" }),
+        /* @__PURE__ */ jsx("dd", { children: /* @__PURE__ */ jsx("span", { className: `cv-status${converted ? " cv-status--won" : ""}`, children: converted ? "Converted" : "Open" }, String(converted)) }),
+        /* @__PURE__ */ jsx("dt", { children: "Contact" }),
+        /* @__PURE__ */ jsxs("dd", { className: "cv-contact", children: [
+          /* @__PURE__ */ jsx("img", { src: shopper, alt: "" }),
+          SHOPPER
+        ] }),
+        /* @__PURE__ */ jsx("dt", { children: "Channel" }),
+        /* @__PURE__ */ jsxs("dd", { children: [
+          "Web · ",
+          brand$1
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "cv-section", children: [
+        /* @__PURE__ */ jsxs("p", { className: "cv-section__head", children: [
+          /* @__PURE__ */ jsx(Glyph, { name: "money" }),
+          "Outcome"
+        ] }),
+        OUTCOME.map(
+          (o, i) => i < v.outcome ? /* @__PURE__ */ jsxs("div", { className: `cv-outcome${enter}`, children: [
+            /* @__PURE__ */ jsx(Glyph, { name: o.icon, className: "la-primary" }),
+            /* @__PURE__ */ jsx("span", { className: "cv-outcome__label", children: o.label }),
+            /* @__PURE__ */ jsx("span", { className: "cv-outcome__value", children: o.value })
+          ] }, o.label) : /* @__PURE__ */ jsxs("div", { className: "cv-outcome cv-outcome--pending", "aria-hidden": true, children: [
+            /* @__PURE__ */ jsx("span", { className: "cv-outcome__dot" }),
+            /* @__PURE__ */ jsx("span", { className: "cv-outcome__label", children: o.label })
+          ] }, o.label)
+        ),
+        converted && /* @__PURE__ */ jsx("p", { className: `cv-statement${v.animate ? " la-fade" : ""}`, children: attribution.statement })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: `cv-total${v.total ? "" : " cv-total--pending"}`, children: [
+        /* @__PURE__ */ jsx("span", { className: "aid-stat__label", children: attribution.footnote.label.replace(/\s*\n/, " ") }),
+        /* @__PURE__ */ jsx("span", { className: "cv-total__value", children: attribution.footnote.value })
+      ] })
+    ] })
+  ] }) }) });
+}
+function ConversationRevenueDashboardMotion() {
+  const stageRef = useRef(null);
+  const t = useChatTimeline(beats, useLandedOnScreen(stageRef));
+  const v = {
+    offer: t.reached("offer"),
+    product: t.reached("product"),
+    used: t.reached("use"),
+    question: t.reached("question"),
+    outcome: ["o0", "o1", "o2"].filter((id) => t.reached(id)).length,
+    total: t.reached("total"),
+    animate: !t.reducedMotion
+  };
+  return /* @__PURE__ */ jsx(Conversation, { v, stageRef, runKey: t.runKey });
+}
+function Skeleton({ v }) {
+  if (!v.animate) return null;
+  return /* @__PURE__ */ jsxs("div", { className: `la-skeleton${v.cardLoading ? "" : " la-skeleton--hidden"}`, "aria-hidden": true, children: [
+    /* @__PURE__ */ jsx("span", { style: { width: 220, height: 14 } }),
+    /* @__PURE__ */ jsx("span", { style: { width: 340, height: 32 } }),
+    /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 64 } }),
+    /* @__PURE__ */ jsx("span", { style: { width: "70%", height: 14 } }),
+    /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 44 } })
+  ] });
+}
+function cardClass(v) {
+  return ["la-card", "aid-card", v.animate && "la-enter", !v.bars && "aid-card--pending"].filter(Boolean).join(" ");
+}
+function RevenueCard({ v }) {
+  return /* @__PURE__ */ jsxs("div", { className: cardClass(v), children: [
+    /* @__PURE__ */ jsxs("header", { className: "la-card__head", children: [
+      /* @__PURE__ */ jsx(Glyph, { name: "chat", className: "la-muted" }),
+      /* @__PURE__ */ jsxs("span", { className: "la-card__title", children: [
+        "Conversation · ",
+        context.title
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-hero", children: [
+      /* @__PURE__ */ jsx("span", { className: "aid-count", children: "$186" }),
+      /* @__PURE__ */ jsx("span", { className: "aid-unit", children: "influenced revenue" }),
+      /* @__PURE__ */ jsx("span", { className: "aid-tags", children: ["Offer used", "Checked out"].map((t) => /* @__PURE__ */ jsx("span", { className: "la-tag", children: t }, t)) })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-transcript", children: [
+      /* @__PURE__ */ jsxs("div", { className: "aid-transcript__row aid-reveal", style: { "--i": 0 }, children: [
+        /* @__PURE__ */ jsx("img", { className: "aid-transcript__thumb", src: context.image, alt: "" }),
+        /* @__PURE__ */ jsxs("div", { className: "aid-transcript__ai", children: [
+          /* @__PURE__ */ jsx("p", { children: offerTurn.assistantMessage }),
+          /* @__PURE__ */ jsxs("span", { className: "aid-transcript__actions", children: [
+            /* @__PURE__ */ jsx("span", { className: "aid-transcript__btn aid-transcript__btn--on", children: offerTurn.primaryAction }),
+            /* @__PURE__ */ jsx("span", { className: "aid-transcript__btn", children: offerTurn.secondaryAction })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx("p", { className: "aid-transcript__user aid-reveal", style: { "--i": 1 }, children: questionTurn.userMessage }),
+      /* @__PURE__ */ jsxs("p", { className: "aid-transcript__note aid-reveal", style: { "--i": 2 }, children: [
+        /* @__PURE__ */ jsx(Glyph, { name: "footprints" }),
+        attribution.journeyNote
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "aid-stats aid-stats--one", children: /* @__PURE__ */ jsxs("div", { className: "aid-stat", children: [
+      /* @__PURE__ */ jsxs("span", { className: "aid-stat__label", children: [
+        /* @__PURE__ */ jsx(Glyph, { name: "money" }),
+        attribution.footnote.label.replace(/\s*\n/, " ")
+      ] }),
+      /* @__PURE__ */ jsx("span", { className: "aid-stat__value aid-stat__value--big", children: attribution.footnote.value })
+    ] }) }),
+    /* @__PURE__ */ jsx(Skeleton, { v })
+  ] });
+}
+const revenue = {
+  // Placeholder: 10 has no merchant question (it opens on the offer) —
+  // replace with approved copy.
+  query: "Did any conversations turn into revenue this week?",
+  steps: [
+    { live: "Thinking…", done: "Thinking done", chips: [] },
+    { live: "Matching conversations to orders…", done: "Searching done", chips: ["This week", "Assisted orders"] },
+    { live: "Tracing what happened next…", done: "Revenue found", chips: [attribution.footnote.value + " assisted", "$186 from one chat"] }
+  ],
+  reply: attribution.statement,
+  card: (v) => /* @__PURE__ */ jsx(RevenueCard, { v })
+};
+motionOf(revenue);
+const PATH = journeyCard.title.split(", ");
+function TrafficCard({ v }) {
+  return /* @__PURE__ */ jsxs("div", { className: cardClass(v), children: [
+    /* @__PURE__ */ jsxs("header", { className: "la-card__head", children: [
+      /* @__PURE__ */ jsx(Glyph, { name: "users", className: "la-muted" }),
+      /* @__PURE__ */ jsx("span", { className: "la-card__title", children: "Anonymous visitors · this week" })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-hero", children: [
+      /* @__PURE__ */ jsx("span", { className: "la-faces", children: [priyaNair, omarHaddad, kenjiWatanabe].map((src) => /* @__PURE__ */ jsx("img", { src, alt: "" }, src)) }),
+      /* @__PURE__ */ jsx("span", { className: "aid-count", children: "340" }),
+      /* @__PURE__ */ jsx("span", { className: "aid-unit", children: "sessions" }),
+      /* @__PURE__ */ jsx("span", { className: "aid-tags", children: ["62% from Reddit", "Not signed in"].map((t) => /* @__PURE__ */ jsx("span", { className: "la-tag", children: t }, t)) })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-chart", children: [
+      /* @__PURE__ */ jsx("p", { className: "la-card__label", children: "The path most of them took" }),
+      /* @__PURE__ */ jsx("ol", { className: "aid-path", children: PATH.map((stop, i) => /* @__PURE__ */ jsxs("li", { className: "aid-path__stop aid-reveal", style: { "--i": i }, children: [
+        /* @__PURE__ */ jsx("span", { className: "aid-path__n", children: i + 1 }),
+        stop
+      ] }, stop)) })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "aid-stats aid-stats--one", children: /* @__PURE__ */ jsxs("div", { className: "aid-stat", children: [
+      /* @__PURE__ */ jsxs("span", { className: "aid-stat__label", children: [
+        /* @__PURE__ */ jsx(Glyph, { name: "repeat" }),
+        journeyCard.row.label
+      ] }),
+      /* @__PURE__ */ jsx("span", { className: "aid-stat__value aid-stat__value--big", children: journeyCard.row.value })
+    ] }) }),
+    /* @__PURE__ */ jsx(Skeleton, { v })
+  ] });
+}
+const traffic = {
+  inset: true,
+  query: script.question,
+  steps: [
+    { live: "Thinking…", done: "Thinking done", chips: [] },
+    { live: "Reading anonymous sessions…", done: "Searching done", chips: ["This week", "Not signed in"] },
+    { live: "Tracing where they came from…", done: "Pattern found", chips: ["340 sessions", "62% from Reddit"] }
+  ],
+  reply: script.insight,
+  card: (v) => /* @__PURE__ */ jsx(TrafficCard, { v }),
+  action: { text: action.statement, cta: action.cta }
+};
+const AnonymousTrafficDashboardMotion = motionOf(traffic);
 export {
   AdJourneyV2Motion as AdJourneyMotion,
   AiAssistantsV2Motion as AiAssistantsMotion,
   AiSearchV2Motion as AiSearchMotion,
-  AnonymousTrafficV2 as AnonymousTrafficMotion,
-  AskInsightV2 as AskInsightMotion,
+  AnonymousTrafficDashboardMotion as AnonymousTrafficMotion,
+  AskInsightDashboardMotion as AskInsightMotion,
   GiftJourneyV2Motion as GiftJourneyMotion,
   PersonalAgentsV2SbMotion as PersonalAgentsMotion,
   RetentionGrowthV2Motion as RetentionGrowthMotion,
-  ConversationToRevenueV2 as RevenueAttributionMotion,
+  ConversationRevenueDashboardMotion as RevenueAttributionMotion,
   ServiceResolutionV2Motion as ServiceResolutionMotion,
   SponsoredComparisonV2Motion as SponsoredComparisonMotion
 };

@@ -28,7 +28,7 @@ type Visual = {
 
 type InsightVisualEntry = Visual & {
   /**
-   * How long the script takes to play out, in ms (summed from its timeline in the source build). Tabs stay open
+   * How long the script takes to play out, in ms (the source's own beatsDurationMs over each dashboard's beats). Tabs stay open
    * this long plus a hold.
    */
   duration: number;
@@ -48,7 +48,7 @@ export const lifecycleVisuals: Record<LifecycleVisual, Visual> = {
   "ai-search": {
     Component: AiSearchMotion,
     label:
-      "A shopper asks a gummy store's search bar for something to help them sleep; Crossword answers with sleep gummies and opens the one they pick",
+      "A shopper asks the Amber & Oak search bar for warm lighting for their living room; Crossword answers with lamps and opens the tripod lamp they pick",
   },
   "service-resolution": {
     Component: ServiceResolutionMotion,
@@ -76,20 +76,20 @@ export const insightVisuals: Record<InsightVisual, InsightVisualEntry> = {
   "ask-insight": {
     Component: AskInsightMotion,
     label:
-      "Crossword Insights finding the people who reached checkout without buying in the last 7 days, with a cohort of 412 high-intent shoppers",
-    duration: 6700,
+      "Crossword Insights finding the 3,284 people who reached checkout without buying in the last 7 days, most of them dropping off at shipping costs",
+    duration: 9900,
   },
   "revenue-attribution": {
     Component: RevenueAttributionMotion,
     label:
-      "A shopper conversation with a 20% off offer, traced by Crossword Insights to $186 of influenced revenue",
-    duration: 5500,
+      "A shopper conversation with a 20% off offer, followed through to checkout and traced by Crossword Insights to $186 of influenced revenue",
+    duration: 6800,
   },
   "anonymous-traffic": {
     Component: AnonymousTrafficMotion,
     label:
-      "Crossword Insights tracing a spike of anonymous visitors to a Reddit thread and offering returning visitors 10% off",
-    duration: 4900,
+      "Crossword Insights tracing 340 anonymous sessions to a Reddit thread comparing skincare brands, then offering returning visitors 10% off",
+    duration: 11200,
   },
 };
 
