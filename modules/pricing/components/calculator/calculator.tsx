@@ -34,7 +34,7 @@ export function Calculator() {
       <div className="flex content-width flex-col gap-12 min-[1200px]:flex-row min-[1200px]:items-start min-[1200px]:gap-24">
         <div className="flex min-w-0 flex-1 flex-col items-start gap-7">
           <Eyebrow>ROI calculator</Eyebrow>
-          <SectionTitle id="calculator-title" initial="C" firstLine="alculate your ROI" secondLine="with Crossword" width={415} weight="light" />
+          <SectionTitle id="calculator-title" initial="C" firstLine="alculate your ROI" secondLine="with Crossword" width={415} variant="dynamic" weight="light" />
           <p className="font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
             Add your site traffic, chat engagement rate and replies per conversation to see what Crossword will cost. Then add
             your conversion rate and AOV to see what it will generate.

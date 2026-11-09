@@ -23,7 +23,7 @@ export function Faq() {
       <div className="grid content-width gap-12 lg:grid-cols-[420px_minmax(0,1fr)] lg:gap-[120px]">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>FAQs</Eyebrow>
-          <SectionTitle id="faq-title" initial="H" firstLine="ave a question?" secondLine="Ask Crossword" width={408} weight="light" />
+          <SectionTitle id="faq-title" initial="H" firstLine="ave a question?" secondLine="Ask Crossword" width={408} variant="dynamic" weight="light" />
           <TextLink href={ctaLinks.bookDemo}>Talk to sales</TextLink>
         </div>
 

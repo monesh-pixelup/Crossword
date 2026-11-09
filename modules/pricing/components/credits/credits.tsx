@@ -29,7 +29,7 @@ const none = (
  * gold label over sand cells, the figures in Geist 16 ink-soft), what each is billed per and a note
  * beside it in Geist 16 ink-muted (notes wrap at 200px), every cell left-aligned at 20px / 32px with
  * 1px engraved/50 rules under every row. "Always free" and "Free for a limited time" open their groups
- * in 48px rows of wine Open Sans SemiBold 12 caps. Then the pilot button beside a link to the
+ * in 66px rows (Figma 3564:23038) of wine Open Sans SemiBold 12 caps, 16px from the top. Then the pilot button beside a link to the
  * calculator. Below 880px the table scrolls sideways; from 768px its first column stays pinned, on phones the whole table scrolls (as AI Assistants' Differentiation).
  */
 export function Credits() {
@@ -45,7 +45,7 @@ export function Credits() {
       <div className="flex content-width flex-col items-center gap-12 lg:gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
           <Eyebrow>Credits</Eyebrow>
-          <SectionTitle id="credits-title" initial="W" firstLine="hat does a" secondLine="credit cover?" width={323} variant="creditCover" weight="light" />
+          <SectionTitle id="credits-title" initial="W" firstLine="hat does a" secondLine="credit cover?" width={323} variant="dynamicCentered" weight="light" />
           <p className="max-w-[560px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
             Credits power every interaction, from a conversational reply to a dynamic landing page. A typical conversation
             runs about 5 credits.
@@ -84,7 +84,7 @@ export function Credits() {
                       scope="colgroup"
                       className={cn(
                         rule,
-                        "h-12 bg-cream md:sticky md:left-0 md:z-1 pr-6 pl-5 text-left font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-wine uppercase",
+                        "h-[65px] bg-cream md:sticky md:left-0 md:z-1 pt-4 pr-6 pl-5 align-top text-left font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-wine uppercase",
                       )}
                     >
                       {row.group}

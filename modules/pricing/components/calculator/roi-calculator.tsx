@@ -41,7 +41,7 @@ function Field({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="h-12 w-full min-w-0 bg-cream px-4 font-sans text-base leading-6 tracking-[-0.02em] text-ink shadow-[inset_0_0_0_1px_var(--color-engraved)] outline-none placeholder:text-ink-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        className="h-12 w-full min-w-0 bg-cream px-[17px] font-sans text-base leading-6 tracking-[-0.02em] text-ink shadow-[inset_0_0_0_1px_var(--color-engraved)] outline-none placeholder:text-ink-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
       />
     </label>
   );
@@ -85,7 +85,7 @@ export function RoiCalculator() {
   const revenue = conversations * (num(conversion) / 100) * num(aov);
 
   return (
-    <div className="relative flex w-full flex-col gap-6 bg-sand p-7 shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:p-12">
+    <div className="relative flex w-full flex-col gap-6 bg-sand p-7 shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:p-[49px]">
       <Studs inset={7} />
 
       <div className="relative grid gap-4 sm:grid-cols-2">

@@ -42,8 +42,9 @@ function PlanBody({ plan }: { plan: Plan }) {
  * over the three plans, 24px apart and as tall as the tallest: cream and sand cards on a 1px
  * engraved line with studs 7px in; between them Pay-as-you-go on the maroon twill in a 1px gold line,
  * its hairline frame 9px in (no corner studs). Every card has its title over the button at the foot (at
- * least 28px under the copy), so the three buttons sit level. 40px below, the three things included in every plan, under the eyebrow on its top
- * edge. 40px below that, the early-stage program on sand: a wine label, a Crimson 22 line and a 720px
+ * least 28px under the copy), so the three buttons sit level; the inclusions and program boxes' content sits 41px in
+ * (Figma's 40px inside its 1px line). 40px below, the three things included in every plan, under the eyebrow 16px over
+ * its top edge. 40px below that, the early-stage program on sand: a wine label, a Crimson 22 line and a 606.5px
  * line of copy, with the waitlist button across from them. Gold accents on both rails beside the
  * header. Below 1024px the plans and the inclusions stack, and the program's button goes under its copy.
  */
@@ -56,7 +57,7 @@ export function Plans() {
       <div className="flex content-width flex-col items-center gap-12 lg:gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
           <Eyebrow>Pricing options</Eyebrow>
-          <SectionTitle id="plans-title" initial="S" firstLine="tart free. Scale" secondLine="when you’re ready" width={384} variant="credits" weight="light" />
+          <SectionTitle id="plans-title" initial="S" firstLine="tart free. Scale" secondLine="when you’re ready" width={384} variant="dynamicCentered" weight="light" />
           <p className="max-w-[640px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
             Every plan runs on the same Crossword. You only pay for the credits you use.
           </p>
@@ -90,10 +91,10 @@ export function Plans() {
 
           <div className="relative bg-cream shadow-[inset_0_0_0_1px_var(--color-engraved)]">
             <Studs inset={7} />
-            <div className="absolute -top-[17px] left-[calc(50%+0.5px)] z-1 flex -translate-x-1/2">
+            <div className="absolute -top-4 left-[calc(50%+0.5px)] z-1 flex -translate-x-1/2">
               <Eyebrow>Included in every plan</Eyebrow>
             </div>
-            <ul className="grid lg:grid-cols-3">
+            <ul className="grid p-px lg:grid-cols-3">
               {inclusions.map((item, i) => (
                 <li
                   key={item.title}
@@ -114,8 +115,8 @@ export function Plans() {
             </ul>
           </div>
 
-          <div className="flex flex-col items-start gap-6 bg-sand px-7 py-8 shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
-            <div className="flex max-w-[720px] flex-col items-start gap-2">
+          <div className="flex flex-col items-start gap-6 bg-sand px-7 py-[33px] shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:px-[41px] lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+            <div className="flex max-w-[606.5px] flex-col items-start gap-2">
               <p className="font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] text-label-olive uppercase">Early-stage program</p>
               <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.04em] text-ink">Starting a business is hard work.</h3>
               <p className="font-sans text-base leading-6 tracking-[-0.02em] text-black/60">

@@ -23,7 +23,7 @@ export function Engineer() {
             firstLine="very launch comes"
             secondLine="with an engineer"
             width={445}
-            variant="credits"
+            variant="dynamicCentered"
             weight="light"
             tone="cream"
             gutter={96}

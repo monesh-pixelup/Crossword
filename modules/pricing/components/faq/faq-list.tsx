@@ -38,7 +38,8 @@ export function FaqList({
                 onClick={() => setOpen(expanded ? -1 : i)}
                 className={cn(
                   "flex w-full cursor-pointer items-center justify-between gap-6 pt-7 text-left font-serif text-[19px] leading-[1.1] tracking-[-0.04em] transition-[color,padding] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon motion-reduce:transition-none lg:text-[22px]",
-                  expanded ? "pb-4 text-ink" : "pb-7 text-ink-soft hover:text-ink",
+                  // Closed, 81px rows as Figma (3564:23178): 28px over the question, 29px under it (its 1px rule included).
+                  expanded ? "pb-4 text-ink" : "pb-[29px] text-ink-soft hover:text-ink",
                 )}
               >
                 {item.q}
