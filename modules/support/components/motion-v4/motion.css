@@ -4859,3 +4859,8 @@
 .sup-motion .ill-insight-highlight__cta {
   display: flex;
 }
+
+/* Site addition: Customer support's tabs play each case inside the section's own framed damask panel, so there the
+   scene frame drops its notched frame, damask texture and fill, leaving the chat on the panel's damask. */
+.sup-bare .sup-motion :is(.ill-scene-frame__background, .ill-scene-frame__texture) { display: none; }
+.sup-bare .sup-motion .ill-scene-frame--sized { background: none; }

@@ -101,14 +101,14 @@ export function UpsellTabs() {
       ref={root}
       className="flex w-full flex-col bg-[#f3e7d3] p-[0.5px] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] min-[1280px]:flex-row min-[1280px]:items-start"
     >
-      {/* Stacked (below 1280px), 49px above the first row and below the last, as between each row and its rule. */}
-      <div className="flex min-w-0 flex-1 flex-col justify-center self-stretch px-6 py-[49px] md:px-10 min-[1280px]:items-start min-[1280px]:pt-10 min-[1280px]:pr-[42px] min-[1280px]:pb-0 min-[1280px]:pl-[42px]">
+      {/* Stacked (below 1280px), 32px above the first row and below the last, as between each row and its rule. */}
+      <div className="flex min-w-0 flex-1 flex-col justify-center self-stretch px-6 py-8 md:px-10 min-[1280px]:items-start min-[1280px]:pt-10 min-[1280px]:pr-[42px] min-[1280px]:pb-0 min-[1280px]:pl-[42px]">
         <div
           role="tablist"
           aria-orientation="vertical"
           aria-label="Upsell and cross-sell features"
           onKeyDown={onKeyDown}
-          className="flex w-full flex-col gap-[49px]"
+          className="flex w-full flex-col gap-8"
         >
           {upsellFeatures.map((feature, i) => {
             const on = i === active;
@@ -165,18 +165,20 @@ export function UpsellTabs() {
                   </span>
                 </button>
                 {/*
-                  Each rule is a zero-height line with its 0.5px stroke centred on it, as Figma draws them: the open
-                  feature's sits in a 1px box 24px under its copy, the others' 49px under their row. The last is not
-                  drawn. Stacked over the panel (below 1280px), the rules run past the list's padding to the panel's
-                  edges, so they span the same width as the panel under them.
+                  Each rule is a zero-height line with its 0.5px stroke centred on it, as Figma (3257:36264) draws them:
+                  the open feature's sits in a 1px box 24px under its copy, the others' 32px under their row, and the
+                  next feature starts 32px below. Side by side the last is drawn too; stacked over the panel (below
+                  1280px) it isn't, and the rules run past the list's padding to the panel's edges, so they span the
+                  same width as the panel under them.
                 */}
                 <span
                   aria-hidden
                   className={cn(
                     "h-0 transition-[margin] duration-300 ease-out max-[1279px]:-mx-6 md:max-[1279px]:-mx-10",
-                    on ? "mt-[24.5px] mb-[0.5px]" : "mt-[49px] mb-0",
-                    // The last is not drawn; stacked (below 1280px) its gap goes too, so the list ends on the panel's padding.
-                    i !== last ? "shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]" : "max-[1279px]:hidden",
+                    on ? "mt-[24.5px] mb-[0.5px]" : "mt-8 mb-0",
+                    // Stacked (below 1280px) the last isn't drawn and its gap goes too, so the list ends on the panel's padding.
+                    "shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]",
+                    i === last && "max-[1279px]:hidden",
                   )}
                 />
               </div>

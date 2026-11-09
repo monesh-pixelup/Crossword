@@ -49,21 +49,23 @@ export function SupportHero() {
       </div>
 
       {/*
-        As tall as the home hero: the screen below 760px, then the 1440 x 863 frame at full width, capped at the screen and at 1200px.
-        From 760px the copy's last line sits 10.25% of the frame above the frame's foot, or 88.5px (scaled) above the
-        screen's when the frame runs past it. Its sides keep the page's own padding, level with the header's logo and the
+        The screen below 760px, then Figma's 1440 x 788 hero (3257:34040) at full width, capped at the screen and at 1200px.
+        From 760px the copy's last line sits 115px (scaled) above the frame's foot, as in Figma, or above the screen's when
+        the frame runs past it. Its sides keep the page's own padding, level with the header's logo and the
         sections below. The top padding keeps the copy 48px clear of the fixed 72.5px header: where the stacked copy is
         taller than the frame leaves room for (760–1199px), the hero grows rather than running it under the header.
       */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(100vw*863/1440),100svh,1200px)] min-[760px]:pb-[max(min(88.5px,100vw*88.5/1440),calc(min(100vw*863/1440,100svh,1200px)_-_100vw*863*0.8975/1440))]">
+      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(100vw*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(115px,100vw*115/1440),calc(min(100vw*788/1440,100svh,1200px)_-_100vw*673/1440))]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
-          <div className="flex flex-col items-start gap-6">
+          {/* Figma 3257:34143: the headline's box 12px under the eyebrow. */}
+          <div className="flex flex-col items-start gap-3">
             {/* Brand guidelines 11.3: the Eyebrow on every section, heroes included (green surface on dark). */}
             <Eyebrow surface="green">Support</Eyebrow>
             <Headline />
           </div>
 
-          <div className="flex w-[481.52px] max-w-full flex-col items-start gap-4">
+          {/* Figma 3257:34147: the column runs 19.8px past the content edge (its row is 1299.8px wide). */}
+          <div className="flex w-[481.52px] max-w-full flex-col items-start gap-4 min-[1200px]:-mr-[19.8px]">
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>

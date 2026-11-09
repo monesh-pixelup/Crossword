@@ -27,12 +27,13 @@ export function RetentionChannels() {
                 </>
               }
               secondLine="every channel"
-              width={751}
-              variant="workflowsTight"
+              width={757}
+              variant="dynamic"
+              weight="light"
             />
           </div>
 
-          {/* The row spans the content column, split 50-50: the two channels share it equally either side of the rule. */}
+          {/* The row spans the content column, its two channels sharing it 537:513 either side of the rule (at 1280px, Figma's 537px first column, the rule 652px in). */}
           <div className="flex flex-col gap-12 md:flex-row md:gap-[115px]">
             {retentionChannels.map((c, i) => (
               <div key={c.title} className="contents">
@@ -42,7 +43,7 @@ export function RetentionChannels() {
                     <span className="absolute inset-y-0 -left-[0.527px] w-[1.054px] bg-black/10" />
                   </span>
                 )}
-                <div className="flex min-w-0 flex-col items-start gap-6 md:flex-1 md:basis-0">
+                <div className={`flex min-w-0 flex-col items-start gap-6 ${i === 0 ? "md:flex-[537_1_0%]" : "md:flex-[513_1_0%]"}`}>
                   {/* Figma 3257:38871 "Icon badge": the 21.72px glyph on maroon, 5.14px in, inside a 0.8px #efe9db line. */}
                   <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.8px] border-[#efe9db] bg-maroon p-[5.141px]">
                     {/* eslint-disable-next-line @next/next/no-img-element -- static SVG glyph, nothing to optimize */}

@@ -12,11 +12,19 @@ const variants = {
   },
   /**
    * Left-aligned, 60px lines at 0.9 under line 1's 75px, after an 82px swash at 1.18 and +4.1px, as Figma sets the
-   * Dynamic landing pages headlines (two lines 129px tall, three 183px).
+   * Dynamic landing pages and Retain headlines (two lines 129px tall, three 183px).
    */
   dynamic: {
     firstLineHeight: 75,
     tracking: "tracking-[-3.5538px]",
+    swash: "font-script text-[82px] leading-[1.18] tracking-[4.1px]",
+    line: "leading-[0.9] tracking-[-3px]",
+    second: "",
+  },
+  /** As dynamic, centred (Retain: Loyalty, Figma 3257:38819). */
+  dynamicCentered: {
+    firstLineHeight: 75,
+    tracking: "tracking-[-4.1px] text-center",
     swash: "font-script text-[82px] leading-[1.18] tracking-[4.1px]",
     line: "leading-[0.9] tracking-[-3px]",
     second: "",

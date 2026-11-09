@@ -44,7 +44,8 @@ export function CampaignTabs() {
                   aria-current={on ? "true" : undefined}
                   onClick={() => open(i)}
                   className={cn(
-                    "relative flex w-full cursor-pointer items-center py-3 pr-5 pl-6 text-left font-sans text-base leading-[1.1] tracking-[-0.32px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                    // Figma 3257:38421: 39.44px rows, a 24px line 7.72px from top and bottom.
+                    "relative flex w-full cursor-pointer items-center py-[7.72px] pr-5 pl-6 text-left font-sans text-base leading-6 tracking-[-0.32px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
                     on ? "bg-cream text-ink" : "text-ink/40 hover:text-ink",
                   )}
                 >
@@ -68,7 +69,7 @@ export function CampaignTabs() {
       <div className="grid w-full min-w-0 lg:flex-[0_1_820px]">
         {campaigns.map((campaign, i) => (
           <div key={campaign.title} inert={i !== active} className="tab-panel flex w-full flex-col items-start">
-            <div className="flex w-full flex-col items-start gap-5 bg-cream px-4 pb-6 md:flex-row md:items-end md:justify-between md:gap-8">
+            <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-end md:justify-between md:gap-8">
               <div className="flex flex-col items-start gap-3">
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{campaign.title}</h3>
                 <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{campaign.description}</p>

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "@/modules/landing/assets/hero/decor/rail-accent.svg";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
@@ -12,19 +11,18 @@ import { AssistList } from "./assist-list";
  */
 export function ConversionAssist() {
   return (
-    <section aria-labelledby="assist-title" className="relative section-pad-band">
-      {/* Figma "Divider band": the patterned band opens the section. */}
-      <DividerBand glyph="book" />
-      {/* The left rail's 232px gold accent, 103.49px down (plus the band's 24px). */}
+    <section aria-labelledby="assist-title" className="relative section-pad">
+      {/* The left rail's gold accent, 103.49px down. The page sets Figma's 75px divider band above the section. */}
       <Image
         src={railAccent}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute top-[127.49px] left-[calc(var(--frame-inset)-0.5px)]"
+        className="pointer-events-none absolute top-[103.49px] left-[calc(var(--frame-inset)-0.5px)]"
       />
 
       <div className="flex content-width flex-col items-start gap-section">
-        <div className="flex flex-col items-start gap-6">
+        {/* Figma 3257:36421: the headline 18px under the eyebrow. */}
+        <div className="flex flex-col items-start gap-[18px]">
           <Eyebrow>Conversion assistance</Eyebrow>
           <SectionTitle
             id="assist-title"
@@ -32,6 +30,7 @@ export function ConversionAssist() {
             firstLine="very hesitation, answered"
             secondLine="before it becomes a lost sale"
             width={724.621}
+            variant="dynamic"
             weight="light"
           />
         </div>

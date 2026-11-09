@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "@/modules/landing/assets/hero/decor/rail-accent.svg";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { storefrontCards } from "../../config/storefront";
 import { ScenePanel } from "../motion/scene-panel";
@@ -16,13 +15,12 @@ import { storefrontScenes } from "../motion-v2/scenes";
 export function StorefrontPresence() {
   return (
     <>
-      <section aria-labelledby="storefront-title" className="relative section-pad-band">
-        <DividerBand glyph="book" />
+      <section aria-labelledby="storefront-title" className="relative section-pad">
         <Image
           src={railAccent}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute top-[131.26px] left-[calc(var(--frame-inset)-0.5px)]"
+          className="pointer-events-none absolute top-[107.26px] left-[calc(var(--frame-inset)-0.5px)]"
         />
 
         <div className="flex content-width flex-col items-start gap-section">
@@ -34,6 +32,7 @@ export function StorefrontPresence() {
               firstLine="its right into"
               secondLine="your storefront"
               width={575.414}
+              variant="dynamic"
               weight="light"
             />
             <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60">

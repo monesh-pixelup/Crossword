@@ -31,6 +31,7 @@ export function HumanMode() {
               firstLine=" concierge that"
               secondLine="knows when to step in"
               width={614.744}
+              variant="dynamic"
               weight="light"
             />
           </div>

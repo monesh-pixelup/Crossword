@@ -10,9 +10,8 @@ import { PageRails } from "../shared/page-rails";
 /**
  * Figma "Library · Aubergine steps" (Loyalty & relationship), as Human-in-the-loop on Support:
  * aubergine with Figma's fine noise grain (its own render, tiled) between the page rails inside the
- * gilt notched frame, a Dark eyebrow over a centred two-line headline (82px swash, 50px lines, the
- * second 75.2px under the first), then the three numbered steps across 1062px, their numerals
- * 274.6px down as in Figma.
+ * gilt notched frame, a Dark eyebrow 16px over a centred two-line headline (82px swash, 60px lines at 0.9, 129px
+ * tall), then the three numbered steps across 1062px, their numerals 274.6px down as in Figma (3257:38481).
  */
 export function Loyalty() {
   return (
@@ -26,7 +25,7 @@ export function Loyalty() {
           <Image src={frame} alt="" fill className="max-w-none" />
         </div>
 
-        <div className="relative mx-auto flex w-full max-w-[1062px] flex-col items-center gap-14 lg:gap-[26.6px]">
+        <div className="relative mx-auto flex w-full max-w-[1062px] flex-col items-center gap-14 lg:gap-[27.6px]">
           <div className="flex flex-col items-center gap-4">
             <Eyebrow surface="green">Loyalty &amp; relationship</Eyebrow>
             <SectionTitle
@@ -35,7 +34,7 @@ export function Loyalty() {
               firstLine="emembered,"
               secondLine="not just recorded"
               width={458.609}
-              variant="loyalty"
+              variant="dynamicCentered"
               tone="light"
               weight="light"
             />

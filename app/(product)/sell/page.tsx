@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Testimonials } from "@/modules/landing";
+import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import {
   ConversionAssist,
   HumanMode,
@@ -22,11 +23,30 @@ export default function SellPage() {
     <main>
       <SellHero />
       <ProductDiscovery />
+      {/* Figma "Divider band" between each section: the 75px band (56px below 768px), its stamp naming the next section. */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="quill" />
+      </div>
       <HumanTouch />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="chat" />
+      </div>
       <HumanMode />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="chart" />
+      </div>
       <Upsell />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="book" />
+      </div>
       <ConversionAssist />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="chat" />
+      </div>
       <ProactiveMessages />
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="book" />
+      </div>
       <StorefrontPresence />
       {/* <Testimonials variant="sell" /> */}
     </main>

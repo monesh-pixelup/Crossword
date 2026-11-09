@@ -22,6 +22,8 @@ export function CustomerSupport() {
             firstLine={<span className="font-light">ustomer support,</span>}
             secondLine="handled by Crossword"
             width={707.715}
+            variant="dynamic"
+            weight="light"
           />
           <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59">
             The questions that shouldn&rsquo;t need a ticket.

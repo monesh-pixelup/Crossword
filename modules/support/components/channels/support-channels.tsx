@@ -22,7 +22,7 @@ export function SupportChannels() {
         <div className="flex content-width flex-col items-center gap-12 min-[1033px]:gap-20">
           <div className="flex w-[520px] max-w-full flex-col items-center gap-6 text-center">
             <Eyebrow>Channels</Eyebrow>
-            <SectionTitle id="channels-title" initial="S" firstLine="upport channels" width={520} variant="credits" weight="light" />
+            <SectionTitle id="channels-title" initial="S" firstLine="upport channels" width={520} variant="dynamicCentered" weight="light" />
             <p className="font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
               Wherever your customers reach out, someone answers.
             </p>

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
@@ -33,14 +32,13 @@ const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px]
  * Figma "Library · Numbered panel (Helpdesk)" (3257:34848): the eyebrow and headline, then the two options
  * 120px apart. Row 1 is the copy (a tag, a 32px title, a line of copy and a text link) beside the Crossword
  * inbox scene in its maroon frame; row 2 is the helpdesk integration as a centred sand panel over four help
- * desk tiles. Opens with the patterned divider band (24px more top padding), so the gold
- * section tick (1px × 180px, as SectionTick) starts 24px lower too.
+ * desk tiles. The page sets Figma's 75px divider band above it. A 208.94px gold tick sits on the left rail, 16.51px
+ * above the eyebrow (Figma 3257:34931).
  */
 export function HelpdeskOptions() {
   return (
-    <section aria-labelledby="helpdesk-title" className="relative section-pad-band">
-      <DividerBand glyph="chat" />
-      <RailAccent className="absolute top-(--section-pad) left-[calc(var(--frame-inset)-0.5px)] z-2 h-[180px] w-px max-lg:hidden" />
+    <section aria-labelledby="helpdesk-title" className="relative section-pad">
+      <RailAccent className="absolute top-[calc(var(--section-pad)-16.51px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">
         <div className="flex flex-col items-start gap-6">
@@ -51,16 +49,19 @@ export function HelpdeskOptions() {
             firstLine="rossword helpdesk"
             secondLine="and helpdesk integration"
             width={760}
+            variant="dynamic"
+            weight="light"
           />
         </div>
 
         <div className="flex w-full flex-col gap-16 lg:gap-[120px]">
           {/*
-            Row 1: the copy is centred in the top 595px of the 680px row, as in Figma. From 992px a
-            grid keeps the copy at least 320px wide; the panel takes the rest, up to its 738px.
+            Row 1: the copy is centred in the top 595px of the 680px row, as in Figma, which centres it with a 24px
+            placeholder 32px under the link (so the copy starts 155.5px down; the bottom padding stands in for it). From
+            992px a grid keeps the copy at least 320px wide; the panel takes the rest, up to its 738px.
           */}
           <div className="flex w-full flex-col gap-10 lg:grid lg:grid-cols-[minmax(320px,1fr)_minmax(0,738px)] lg:items-start lg:gap-8">
-            <div className="flex flex-col items-start justify-center gap-16 lg:h-[595px]">
+            <div className="flex flex-col items-start justify-center gap-16 lg:h-[595px] lg:pb-14">
               <div className="flex flex-col items-start gap-4">
                 <p className={tag}>Crossword helpdesk</p>
                 <h3 className={title}>A free help desk, with unlimited seats.</h3>

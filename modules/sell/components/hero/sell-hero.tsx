@@ -50,13 +50,14 @@ export function SellHero() {
       </div>
 
       {/*
-        As tall as the home hero: the screen below 760px, then the 1440 x 863 frame at full width, capped at the screen and at 1200px.
-        From 760px the copy sits as the home hero's does: its sides 80px in (scaled with the width below 1440px), and its
-        last line 10.25% of the frame above the frame's foot, or 88.5px (scaled) above the screen's when the frame runs past it.
+        The screen below 760px, then Figma's 1440 x 788 hero (3257:35806) at full width, capped at the screen and at 1200px.
+        From 760px the copy's sides sit 80px in (scaled with the width below 1440px), and its last line 47px (scaled) above
+        the frame's foot, as in Figma, or above the screen's when the frame runs past it.
       */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pb-16 min-[760px]:min-h-[min(calc(100vw*863/1440),100svh,1200px)] min-[760px]:pb-[max(min(88.5px,100vw*88.5/1440),calc(min(100vw*863/1440,100svh,1200px)_-_100vw*863*0.8975/1440))] min-[760px]:[--page-pad:min(80px,100vw*80/1440)]">
+      <div className="relative flex min-h-svh content-width flex-col justify-end pb-16 min-[760px]:min-h-[min(calc(100vw*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(47px,100vw*47/1440),calc(min(100vw*788/1440,100svh,1200px)_-_100vw*741/1440))] min-[760px]:[--page-pad:min(80px,100vw*80/1440)]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
-          <div className="flex flex-col items-start gap-6">
+          {/* Figma 3257:35909: the headline's box 12px under the eyebrow. */}
+          <div className="flex flex-col items-start gap-3">
             {/* The heroes' Eyebrow (green surface on dark, 32px tall), as on Support, Retain and Managed launch. */}
             <Eyebrow surface="green" className="h-8">
               Conversational interface
@@ -64,7 +65,8 @@ export function SellHero() {
             <Headline />
           </div>
 
-          <div className="flex w-[453.402px] max-w-full flex-col items-start gap-4">
+          {/* Figma 3257:35913: the column ends 8.35px short of the content edge (its row is 1271.65px wide). */}
+          <div className="flex w-[453.402px] max-w-full flex-col items-start gap-4 min-[1200px]:mr-[8.35px]">
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>

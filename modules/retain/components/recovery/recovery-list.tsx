@@ -20,7 +20,9 @@ export function RecoveryList() {
       items={recoveryItems}
       turns={turns}
       label="Proactive recovery moments"
-      panelClassName="bg-aubergine"
+      // Figma 3257:38266: the panel ends 7px short of the content edge (586px across, 687px wide, in the 1280px row).
+      panelClassName="bg-aubergine lg:mr-[7px]"
+      spacedRules
       renderPanel={(active) => <RecoveryMotion index={active} />}
     />
   );

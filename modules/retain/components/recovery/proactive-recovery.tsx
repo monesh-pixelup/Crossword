@@ -15,14 +15,16 @@ export function ProactiveRecovery() {
       <RailAccent className="absolute top-[calc(var(--section-pad)-16.51px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col items-start gap-section">
-        <div className="flex flex-col items-start gap-6">
+        {/* Figma 3257:38218: the headline 18px under the eyebrow. */}
+        <div className="flex flex-col items-start gap-[18px]">
           <Eyebrow>Proactive recovery</Eyebrow>
           <SectionTitle
             id="recovery-title"
             initial="C"
             firstLine="atch them before they"
             secondLine="forget why they wanted it"
-            width={553.133}
+            width={725}
+            variant="dynamic"
             weight="light"
           />
         </div>

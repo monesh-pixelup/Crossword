@@ -18,6 +18,11 @@ type AccordionMediaProps = {
   panelClassName?: string;
   /** Art drawn behind the media that stays put as the items change (not keyed, so it never fades). */
   panelBackground?: ReactNode;
+  /**
+   * Figma's newer spacing (Sell: Conversion assistance 3257:36424, Retain: Proactive recovery 3257:38221): the open
+   * item's rule 32px under its copy (not 24px), and a rule under the last item too.
+   */
+  spacedRules?: boolean;
 };
 
 /**
@@ -30,7 +35,7 @@ type AccordionMediaProps = {
  * The items take turns on their own (see `useAutoplayTabs`): each stays open for its turn, then the next opens.
  * Choosing one opens it and starts its turn afresh. Side by side from 1024px; narrower, the list sits over the panel.
  */
-export function AccordionMedia({ items, turns, label, renderPanel, panelClassName, panelBackground }: AccordionMediaProps) {
+export function AccordionMedia({ items, turns, label, renderPanel, panelClassName, panelBackground, spacedRules = false }: AccordionMediaProps) {
   const { active, plays, root, open } = useAutoplayTabs(turns);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
@@ -105,11 +110,15 @@ export function AccordionMedia({ items, turns, label, renderPanel, panelClassNam
                   </span>
                 )}
               </button>
-              {/* The open item's rule is 1px black/30; the others' a 0.5px black/20 line. None under the last. */}
-              {i !== last && (
+              {/* The open item's rule is 1px black/30; the others' a 0.5px black/20 line. None under the last, unless `spacedRules`. */}
+              {(i !== last || spacedRules) && (
                 <span
                   aria-hidden
-                  className={cn("w-full shrink-0", on ? "h-px bg-black/30" : "h-0 shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]")}
+                  className={cn(
+                    "w-full shrink-0 transition-[margin] duration-300 ease-out",
+                    on ? "h-px bg-black/30" : "h-0 shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]",
+                    on && spacedRules && "mt-2",
+                  )}
                 />
               )}
             </div>
