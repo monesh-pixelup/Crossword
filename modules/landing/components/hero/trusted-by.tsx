@@ -2,33 +2,44 @@ import Image, { type StaticImageData } from "next/image";
 import { Fragment } from "react";
 import { cn } from "@/lib/cn";
 import divider from "../../assets/hero/decor/logo-divider.svg";
-import accordion from "../../assets/hero/logos/accordion.svg";
-import bloomEnergy from "../../assets/hero/logos/bloomenergy.svg";
-import branch from "../../assets/hero/logos/branch.png";
-import favor from "../../assets/hero/logos/favor.png";
-import helix from "../../assets/hero/logos/helix.svg";
-import uniphore from "../../assets/hero/logos/uniphore.png";
+import absoluteScience from "../../assets/hero/logos/absolute-science.png";
+import alexAni from "../../assets/hero/logos/alex-ani.png";
+import analog from "../../assets/hero/logos/analog.png";
+import greedy from "../../assets/hero/logos/greedy.png";
+import habitAware from "../../assets/hero/logos/habitaware.png";
+import minori from "../../assets/hero/logos/minori.png";
+import onlyWhatsNeeded from "../../assets/hero/logos/only-whats-needed.png";
+import sav from "../../assets/hero/logos/sav.png";
+import superMush from "../../assets/hero/logos/supermush.png";
+import vegNonVeg from "../../assets/hero/logos/vegnonveg.png";
 
-type Logo = { name: string; src: StaticImageData; width: number; height: number; cover?: boolean };
+type Logo = { name: string; src: StaticImageData; width: number; height: number };
 
-const logos: Logo[] = [
-  { name: "Uniphore", src: uniphore, width: 99.225, height: 19.361, cover: true },
-  { name: "Accordion", src: accordion, width: 107.9, height: 13 },
-  { name: "Bloom Energy", src: bloomEnergy, width: 109.718, height: 22.275 },
-  { name: "Helix", src: helix, width: 83.035, height: 20.25 },
-  { name: "Favor", src: favor, width: 89.1, height: 24.475, cover: true },
-  { name: "Branch", src: branch, width: 67.838, height: 24.557, cover: true },
+/** Figma 3800:29441: two rows of five, each logo in its own box (the art fitted inside it). */
+const rows: Logo[][] = [
+  [
+    { name: "Alex + Ani", src: alexAni, width: 118, height: 17 },
+    { name: "SuperMush", src: superMush, width: 63, height: 33 },
+    { name: "VegNonVeg", src: vegNonVeg, width: 23, height: 40 },
+    { name: "Only What’s Needed", src: onlyWhatsNeeded, width: 42, height: 40 },
+    { name: "Greedy", src: greedy, width: 99, height: 21 },
+  ],
+  [
+    { name: "Minori", src: minori, width: 100, height: 21 },
+    { name: "Sav", src: sav, width: 73, height: 29 },
+    { name: "HabitAware", src: habitAware, width: 88, height: 24 },
+    { name: "Analog", src: analog, width: 88, height: 24 },
+    { name: "Absolute Science", src: absoluteScience, width: 77, height: 27 },
+  ],
 ];
 
-function LogoRow({ duplicate = false }: { duplicate?: boolean }) {
+function LogoRow({ logos }: { logos: Logo[] }) {
   return (
     <ul
-      aria-hidden={duplicate || undefined}
       className={cn(
-        // A 2- then 3-column grid up to 830px (repeat row hidden; one row would reach the page rails there);
-        // a row from 831px, divided from 992px.
-        "grid-cols-2 justify-items-center gap-x-6 gap-y-8 xs:grid-cols-3 min-[831px]:flex min-[831px]:items-center min-[831px]:justify-center min-[831px]:gap-10 lg:gap-[35px]",
-        duplicate ? "hidden" : "grid w-full min-[831px]:w-auto",
+        // Figma: one centred row from 992px, 35px either side of a 52px divider (625px and 706px wide);
+        // below that the logos wrap, centred, without the dividers.
+        "flex w-full flex-wrap items-center justify-center gap-x-8 gap-y-6 lg:w-auto lg:flex-nowrap lg:gap-[35px]",
       )}
     >
       {logos.map((logo, i) => (
@@ -38,13 +49,12 @@ function LogoRow({ duplicate = false }: { duplicate?: boolean }) {
               <Image src={divider} alt="" className="absolute inset-y-0 -left-[0.527px] h-full w-[1.054px] max-w-none" />
             </li>
           )}
-          <li className="shrink-0 mix-blend-luminosity">
+          <li className="shrink-0">
             <Image
               src={logo.src}
-              alt={duplicate ? "" : logo.name}
-              width={logo.width}
-              height={logo.height}
-              className={cn("block max-w-none", logo.cover && "object-cover")}
+              alt={logo.name}
+              sizes={`${logo.width}px`}
+              className="block max-w-none object-contain"
               style={{ width: logo.width, height: logo.height }}
             />
           </li>
@@ -54,14 +64,16 @@ function LogoRow({ duplicate = false }: { duplicate?: boolean }) {
   );
 }
 
+/** Figma 3800:29441: the line of copy 40px over the first row of logos, and the second 40px under it. */
 export function TrustedBy({ className }: { className?: string }) {
   return (
     <div className={cn("flex content-width flex-col items-center gap-10", className)}>
       <p className="text-center text-base leading-6 font-light tracking-[-0.32px] text-black/60">
         Trusted by 300+ d2c brands in 120+ countries
       </p>
-      <LogoRow />
-      <LogoRow duplicate />
+      {rows.map((logos, i) => (
+        <LogoRow key={i} logos={logos} />
+      ))}
     </div>
   );
 }
