@@ -6,7 +6,7 @@ import { DlpScenePanel } from "../motion/dlp-scene-panel";
 /**
  * Figma "Library · Wide panel": the eyebrow and a three-line headline on the left, two paragraphs
  * of Geist Light on the right, top-aligned with the headline (below the eyebrow's 32px and its 24px gap), then 80px below
- * the ROAS gap motion visual (1280 × 600, Sell: Dynamic v2 01: the ad, the lost context, the generic store and the
+ * the ROAS gap motion visual (1289 × 600, Sell: Dynamic v2 01: the ad, the lost context, the generic store and the
  * drop-off, in its own framed panel). A 232px gold tick sits on the left rail beside the eyebrow.
  */
 export function RoasGap() {
@@ -34,12 +34,13 @@ export function RoasGap() {
                 </>
               }
               width={614.744}
+              variant="dynamic"
               weight="light"
             />
           </div>
 
-          {/* Side by side, it starts level with the headline rather than the eyebrow: the eyebrow's 32px plus its 24px gap down. */}
-          <div className="flex max-w-[477.244px] flex-col gap-6 font-sans text-base leading-6 tracking-[-0.32px] text-black/60 min-[1300px]:mt-14">
+          {/* Side by side, it starts 47px down, as Figma (3257:37463) sets it. */}
+          <div className="flex max-w-[477.244px] flex-col gap-6 font-sans text-base leading-6 tracking-[-0.32px] text-black/60 min-[1300px]:mt-[47px]">
             <p>
               A specific product, a specific offer, a specific audience, all carefully built into the ad. Then the click
               lands on the same generic page everyone sees. The result? You spend to win the click, but lose the
@@ -53,9 +54,9 @@ export function RoasGap() {
           </div>
         </div>
 
-        <div className="relative aspect-[1280/600] w-full">
+        <div className="relative aspect-[1289/600] w-full">
           {/*
-            Fills the content width (past its drawn 1280px on wide screens). Scaled with a transform: zoomed down to a
+            Fills the content width (past its drawn 1289px on wide screens). Scaled with a transform: zoomed down to a
             phone's width its text would hit the browser's minimum font size and overflow.
           */}
           <DlpScenePanel slug="roas-gap-motion" fill transform />

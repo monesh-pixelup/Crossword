@@ -78,7 +78,8 @@ export function CampaignTabs() {
 
             {/*
               As Shopper asks: the framed panel art (821 × 611, a damask in 16px of studded lattice inside a 1px #d2cdc0
-              border) fills the column, and the campaign's motion visual covers the damask, 16px in.
+              border) fills the column, and the campaign's motion visual covers the damask, 16px in, without its own damask
+              backdrop and gold notched frame (`.rtn-bare`), so only the panel's frame and pattern show around it.
             */}
             <div className="relative w-full">
               <Image
@@ -89,7 +90,7 @@ export function CampaignTabs() {
               />
               <p className="sr-only">{campaign.message.text}</p>
               {(i === active || i === previous) && (
-                <div className="absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)] overflow-clip">
+                <div className="rtn-bare absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)] overflow-clip">
                   <CampaignMotion key={plays[i]} index={i} />
                 </div>
               )}

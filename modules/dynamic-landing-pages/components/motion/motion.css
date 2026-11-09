@@ -8515,3 +8515,8 @@
   .dlp-motion .adpm *,
 .dlp-motion .adpm *::before { animation: none !important; transition-duration: 0ms !important; }
 }
+
+/* Dedicated landing pages tabs: the visual plays inside the section's own framed damask panel, so it drops its
+   crimson backdrop and gold notched frame (crimson_bg.webp) there. Each scene's ad layer fades out as its store page
+   comes in, so nothing shows through the store layers once they're bare. */
+.dlp-bare .dlp-motion :is(.ais, .adj, .gr-canvas) { background: transparent; }

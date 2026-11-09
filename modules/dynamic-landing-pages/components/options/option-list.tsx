@@ -40,7 +40,7 @@ export function OptionsProvider({ children }: { children: ReactNode }) {
 
 /**
  * The two options (Figma 3361:305), 520px wide: each a Crimson 22 title over 462.9px of Geist 16 copy,
- * 12px apart, with a rule 32px under it and the next option 64px below that. The option in focus is at
+ * 12px apart, with a rule 32px under it and the next option 32px below that (Figma 3361:306 / 3361:315). The option in focus is at
  * full strength over a 1px black/50 rule; the other rests at 50% over a 0.5px black/20 one. While the
  * list is on screen a 2px maroon bar fills along the focused option's rule, over its motion visual's
  * run plus a short hold; when it fills, the next option takes over (looping back to the first).
@@ -90,7 +90,7 @@ export function OptionList() {
 
   return (
     <div ref={rootRef} className="w-full lg:w-[520px] lg:shrink-0">
-      <ul className="flex flex-col gap-16">
+      <ul className="flex flex-col gap-8">
         {dynamicOptions.map((option, i) => {
           const on = i === active;
           return (

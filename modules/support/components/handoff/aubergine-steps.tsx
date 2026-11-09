@@ -47,8 +47,11 @@ const variants = {
   handoff: {
     item: "md:pb-[54.1px]",
     ruleTop: "-top-[0.62px]",
-    lineTop: "top-0",
-    lineBottom: "-bottom-[0.45px]",
+    // The scene card fills the cell edge to edge (no faint white border), with the dashed rules sitting
+    // just outside it, 1px above its top and 1px below its bottom, so the two read the same.
+    lineTop: "-top-px",
+    lineBottom: "-bottom-px",
+    cellBorder: "",
     card: "top-[4.51px] right-[3.51px] bottom-[3.4px] left-[3.51px]",
     cell: "mt-[16.35px]",
     copy: "mt-[18.65px]",
@@ -127,7 +130,7 @@ export function AubergineSteps({
 
             {/* Figma's pattern fill: a 49.67px tile of faint white motifs (11% at most) over the cell's black/15, from its outer corner. */}
             <div
-              className={`relative ${media ? "aspect-[355/402]" : "cellHeight" in v ? v.cellHeight : "h-[232px]"} border border-white/3 bg-black/15 bg-size-[49.667px_49.667px] bg-origin-border bg-repeat ${v.cell}`}
+              className={`relative ${media ? "aspect-[355/402]" : "cellHeight" in v ? v.cellHeight : "h-[232px]"} ${"cellBorder" in v ? v.cellBorder : "border border-white/3"} bg-black/15 bg-size-[49.667px_49.667px] bg-origin-border bg-repeat ${v.cell}`}
               style={{ backgroundImage: `url(${cellPattern.src})` }}
             >
               <span aria-hidden className={`pointer-events-none absolute hidden md:block ${v.lineTop} ${dashedH} ${first ? "left-[calc(-1*var(--steps-overshoot,57px))]" : "left-0"} ${last ? "right-[calc(-1*var(--steps-overshoot,57px))]" : "right-0"}`} />

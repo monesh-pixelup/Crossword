@@ -5,7 +5,7 @@ import { OptionList, OptionPanel, OptionsProvider } from "./option-list";
 
 /**
  * Figma "Section · Options (Two ways to go dynamic)" (3361:299): on the left the eyebrow, 18px above a
- * two-line headline (82px swash, Crimson Light 60 at 1.1), and 67px under it the two options; on the
+ * two-line headline (82px swash, Crimson Light 60 at 0.9, 129px tall), and 84px under it the two options, 6px in; on the
  * right, 10px down, the 687 × 586 panel playing the focused option's motion visual (Sell: Dynamic v2 02 or
  * 09, each in its own framed panel). Below 1260px the panel goes under the options at its 687:586 shape.
  * A 209px gold tick sits on the left rail beside the eyebrow.
@@ -17,12 +17,14 @@ export function TwoWays() {
 
       <OptionsProvider>
         <div className="flex content-width flex-col gap-12 min-[1260px]:flex-row min-[1260px]:items-start min-[1260px]:justify-between min-[1260px]:gap-8">
-          <div className="flex min-w-0 flex-col items-start gap-12 lg:gap-[67px]">
+          <div className="flex min-w-0 flex-col items-start gap-12 lg:gap-[84px]">
             <div className="flex flex-col items-start gap-[18px]">
               <Eyebrow>Options</Eyebrow>
-              <SectionTitle id="two-ways-title" initial="T" firstLine="wo ways" secondLine="to go dynamic" width={553.133} weight="light" />
+              <SectionTitle id="two-ways-title" initial="T" firstLine="wo ways" secondLine="to go dynamic" width={553.133} variant="dynamic" weight="light" />
             </div>
-            <OptionList />
+            <div className="w-full lg:pl-1.5">
+              <OptionList />
+            </div>
           </div>
 
           <div className="relative aspect-[687/586] w-full min-[1260px]:mt-2.5 min-[1260px]:w-[687px] min-[1260px]:shrink">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Testimonials } from "@/modules/landing";
+import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import {
   CustomerSupport,
   Guardrails,
@@ -27,6 +28,10 @@ export default function SupportPage() {
       <HelpdeskOptions />
       <Workflows />
       <Guardrails />
+      {/* Figma "Divider band" between sections: the 75px band (56px below 768px), its glyph naming the next section (Channels). */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="chat" />
+      </div>
       <SupportChannels />
       {/* <Testimonials variant="support" /> */}
     </main>

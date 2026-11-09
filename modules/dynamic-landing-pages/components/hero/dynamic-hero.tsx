@@ -20,7 +20,7 @@ function Headline() {
         very page, built
       </span>
       <span className="block">
-        for the <span className="text-gold">person on it</span>
+        <span className="text-gold">for the person on it</span>
       </span>
     </h1>
   );
@@ -48,21 +48,23 @@ export function DynamicHero() {
       </div>
 
       {/*
-        As tall as the home hero: the screen below 760px, then the 1440 x 863 frame at full width, capped at the screen and at 1200px.
-        From 760px the copy's last line sits 10.25% of the frame above the frame's foot, or 88.5px (scaled) above the
-        screen's when the frame runs past it. Its sides keep the page's own padding, level with the header's logo and the
+        The screen below 760px, then Figma's 1440 x 788 banner (3257:37339) at full width, capped at the screen and at 1200px.
+        From 760px the copy's last line sits 47px (scaled) above the frame's foot, as in Figma, or above the screen's when
+        the frame runs past it. Its sides keep the page's own padding, level with the header's logo and the
         sections below. The top padding keeps the copy 48px clear of the fixed 72.5px header: where the stacked copy is
         taller than the frame leaves room for (760–1199px), the hero grows rather than running it under the header.
       */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(100vw*863/1440),100svh,1200px)] min-[760px]:pb-[max(min(88.5px,100vw*88.5/1440),calc(min(100vw*863/1440,100svh,1200px)_-_100vw*863*0.8975/1440))]">
+      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(100vw*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(47px,100vw*47/1440),calc(min(100vw*788/1440,100svh,1200px)_-_100vw*741/1440))]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
-          <div className="flex flex-col items-start gap-6">
+          {/* Figma 3257:37442: the headline's box 12px under the eyebrow. */}
+          <div className="flex flex-col items-start gap-3">
             {/* Brand guidelines 11.3: the Eyebrow on every section, heroes included (green surface on dark). */}
             <Eyebrow surface="green">Dynamic landing pages</Eyebrow>
             <Headline />
           </div>
 
-          <div className="flex w-[453.402px] max-w-full flex-col items-start gap-4">
+          {/* Figma 3257:37446: the column ends 8.35px short of the content edge (its row is 1271.65px wide). */}
+          <div className="flex w-[453.402px] max-w-full flex-col items-start gap-4 min-[1200px]:mr-[8.35px]">
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>

@@ -6108,3 +6108,9 @@
 .rtn-motion.rtn-tone-forest .ill-campaign-frame {
   background-image: url("../../assets/motion/ill-frame/retain/campaigns_outbound_bg_3x-forest.webp");
 }
+
+/* Campaigns & outbound tabs: the visual plays inside the section's own framed damask panel, so it drops its own
+   damask and gold notched frame there (in every livery; after the .rtn-tone-* rules so it wins over them). */
+.rtn-bare .rtn-motion .ill-campaign-frame {
+  background: none;
+}

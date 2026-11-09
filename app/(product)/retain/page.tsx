@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Testimonials } from "@/modules/landing";
+import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import {
   AudienceBuilder,
   Campaigns,
@@ -22,6 +23,10 @@ export default function RetainPage() {
       <RetainHero />
       <ProactiveRecovery />
       <Campaigns />
+      {/* Figma "Divider band" between sections: the 75px band (56px below 768px), with the book stamp. */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="book" />
+      </div>
       <AudienceBuilder />
       <Loyalty />
       <ReturnReduction />

@@ -48,7 +48,9 @@ export const dlpScenes = {
     Component: RoasGapV2Motion,
     label:
       "A Goodwell ad leads to a generic store page: the ad's context is lost along the way, and the shopper drops off.",
-    width: 1280,
+    // The canvas is 1289px wide (motion.css), not 1280: drawn as 1280 its last 9px, the right side of the framed
+    // panel's inner border, were cropped, leaving that border closer to the right edge than the left.
+    width: 1289,
     height: 600,
     duration: 4000,
   },
