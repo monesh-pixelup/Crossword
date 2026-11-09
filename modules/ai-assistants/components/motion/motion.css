@@ -3667,6 +3667,8 @@
 /* visuals/AiAssistantsV3/ReachesThemFirst.css */
 /* "Reaches them first" (05, 06): desktop ChatGPT at 1280x599. Layered on
    06's .aia shell and AiAssistantsV3.css; ChatGPT tokens only. */
+/* campaigns_bg.webp is Figma's frame (3562:57) re-rendered with its four notched corners made equal (16px notches,
+   the studs 2.4px in): Figma's own were uneven (12.8–18.4px). */
 .aia-motion .aiv3-section--stack { flex-direction: column; }
 .aia-motion .aiv3w-canvas { position: relative; width: 620px; height: 420px; flex: none; overflow: hidden; display: grid; place-items: center;
     background: var(--ill-color-background-page) url("../../assets/motion/ill-frame/campaigns_bg.webp") center / cover no-repeat; }

@@ -26,7 +26,7 @@ export function Journey() {
               firstLine="ost projects reach completion."
               secondLine="Crossword grows with every step"
               width={732.406}
-              variant="journey"
+              variant="dynamic"
               weight="light"
             />
           </div>

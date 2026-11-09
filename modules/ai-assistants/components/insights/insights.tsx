@@ -20,6 +20,7 @@ export function Insights({
     </>
   ),
   scene,
+  layout = "inlineBottom",
 }: {
   id?: string;
   initial?: string;
@@ -27,6 +28,8 @@ export function Insights({
   copy?: ReactNode;
   /** The motion visual the panel plays (1280 × 599); the bare panel without one. */
   scene?: MotionSlug;
+  /** How the copy sits beside the headline: bottom-aligned with it, as Figma (3392:200), or centred on it. */
+  layout?: "inline" | "inlineBottom";
 }) {
   return (
     <WidePanelSection
@@ -35,7 +38,7 @@ export function Insights({
       initial={initial}
       firstLine={firstLine}
       variant="oneLine"
-      layout="inline"
+      layout={layout}
       copyWidth={477.244}
       copy={<p>{copy}</p>}
     >

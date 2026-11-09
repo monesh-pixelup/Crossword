@@ -42,7 +42,7 @@ export function AssistantsCta({
             firstLine={firstLine}
             secondLine={secondLine}
             width={width}
-            variant="credits"
+            variant="dynamicCentered"
             weight="light"
             tone="cream"
             gutter={96}

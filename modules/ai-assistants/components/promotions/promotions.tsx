@@ -65,7 +65,7 @@ export function Promotions({
               firstLine={firstLine}
               secondLine={secondLine}
               width={width}
-              variant="loyalty"
+              variant="dynamicCentered"
               weight="light"
               tone="light"
             />

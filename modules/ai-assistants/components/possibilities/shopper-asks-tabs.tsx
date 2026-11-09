@@ -38,8 +38,8 @@ export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] })
                   aria-current={on ? "true" : undefined}
                   onClick={() => open(i)}
                   className={cn(
-                    // Figma 3305:383: 12px tall padding, 24px in and 20px after; inactive labels at ink/40, as Figma sets them.
-                    "relative flex w-full cursor-pointer items-center py-3 pr-5 pl-6 text-left font-sans text-base leading-[1.1] tracking-[-0.32px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                    // Figma 3305:383: 48px rows, a 24px line in 12px tall padding, 24px in and 20px after; inactive labels at ink/40, as Figma sets them.
+                    "relative flex w-full cursor-pointer items-center py-3 pr-5 pl-6 text-left font-sans text-base leading-6 tracking-[-0.32px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
                     on ? "bg-cream text-ink" : "text-ink/40 hover:text-ink",
                   )}
                 >
@@ -73,7 +73,7 @@ export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] })
             className="tab-panel grid w-full grid-rows-subgrid items-start"
             style={{ gridArea: "1 / 1 / 3 / 2" }}
           >
-            <div className="flex w-full flex-col items-start gap-5 bg-cream px-4 pb-6 md:flex-row md:items-end md:justify-between md:gap-8">
+            <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-end md:justify-between md:gap-8">
               <div className="flex flex-col items-start gap-3">
                 <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{question.label}</h3>
                 {question.description && (

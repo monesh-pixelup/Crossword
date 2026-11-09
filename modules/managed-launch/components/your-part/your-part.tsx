@@ -1,5 +1,4 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 
 /** The meeting rhythm, as Figma's partnership timeline: each step's tag and rhythm. */
@@ -17,8 +16,7 @@ const rhythm = [
  */
 export function YourPart() {
   return (
-    <section aria-labelledby="your-part-title" className="relative section-pad-band">
-      <DividerBand glyph="gear" />
+    <section aria-labelledby="your-part-title" className="relative section-pad">
       <div className="flex content-width flex-col items-center gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
           <SectionTitle
@@ -27,7 +25,7 @@ export function YourPart() {
             firstLine="our part is"
             secondLine="surprisingly small"
             width={373}
-            variant="credits"
+            variant="dynamicCentered"
             weight="light"
           />
           <p className="max-w-[560px] font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">

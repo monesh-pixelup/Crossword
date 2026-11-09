@@ -47,7 +47,7 @@ export function LoggedInExperience({
   const heading = (
     <div className="flex flex-col items-start gap-[18px]">
       <Eyebrow>{eyebrow}</Eyebrow>
-      <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={553.133} weight="light" />
+      <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={553.133} variant="dynamic" weight="light" />
       {/* Figma 3305:909: the accordion layout's copy runs the heading's full 725px column. */}
       <p
         className={cn("font-sans text-base leading-6 tracking-[-0.32px] text-black/60", layout === "accordion" ? "max-w-[725px]" : "max-w-[520px]")}

@@ -101,7 +101,8 @@ export function JourneyLibrary() {
 
   return (
     <section aria-labelledby="journey-library-title" className="relative px-(--frame-inset)">
-      <div className="bg-sand py-16 shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] md:py-20">
+      {/* Figma 3295:55: 80.5px top and bottom inside the panel. */}
+      <div className="bg-sand py-16 shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] md:py-[80.5px]">
         {/* Full content width, no cap, so the heading lines up with the other sections' at every viewport. */}
         <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col gap-16 lg:gap-20">
           <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
@@ -122,6 +123,7 @@ export function JourneyLibrary() {
                   }
                   width={1000}
                   mobileWidth={700}
+                  variant="dynamic"
                   weight="light"
                 />
                 <p className="max-w-[820px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">

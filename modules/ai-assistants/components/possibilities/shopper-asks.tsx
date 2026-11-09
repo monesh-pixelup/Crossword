@@ -42,7 +42,7 @@ export function ShopperAsks({
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>Possibilities</Eyebrow>
-          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} weight="light" />
+          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} variant="dynamic" weight="light" />
           {copy && (
             <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59" style={{ maxWidth: width }}>
               {copy}

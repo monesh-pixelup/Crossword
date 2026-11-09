@@ -45,7 +45,7 @@ export function Differentiation({
       <div className="flex content-width flex-col items-center gap-12 lg:gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
           <Eyebrow>Differentiation</Eyebrow>
-          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} variant="credits" weight="light" />
+          <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} variant="dynamicCentered" weight="light" />
           <StampButton href={ctaLinks.bookDemo}>GET A DEMO</StampButton>
         </div>
 

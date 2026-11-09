@@ -72,13 +72,13 @@ export function AiAssistantsHero({
       </div>
 
       {/*
-        Sized as the Managed launch hero: the screen below 760px, then the 1440 x 863 frame at full width, capped at the
-        screen. From 760px the copy's last line sits 10.25% of the frame above the frame's foot, or 88.5px (scaled) above
-        the screen's when the frame runs past it. The top padding keeps the copy clear of the fixed 72.5px header (48px,
+        The screen below 760px, then Figma's 1440 x 788 hero (3305:54) at full width, capped at the screen and at 1200px.
+        From 760px the copy's last line sits 115px (scaled) above the frame's foot, as in Figma, or above the screen's when
+        the frame runs past it. The top padding keeps the copy clear of the fixed 72.5px header (48px,
         rounded up to a whole 121px so the eyebrow's frame stays on whole pixels): where the stacked copy is taller than
         the frame leaves room for (760–1199px), the hero grows rather than running it under the header.
       */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[121px] pb-16 min-[760px]:min-h-[min(calc(100vw*863/1440),100svh,1200px)] min-[760px]:pb-[max(min(88.5px,100vw*88.5/1440),calc(min(100vw*863/1440,100svh,1200px)_-_100vw*863*0.8975/1440))]">
+      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[121px] pb-16 min-[760px]:min-h-[min(calc(100vw*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(115px,100vw*115/1440),calc(min(100vw*788/1440,100svh,1200px)_-_100vw*673/1440))]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
           {/* Figma sets the eyebrow 12px above the headline here (24px on the other heroes). */}
           <div className="flex flex-col items-start gap-3">
@@ -88,7 +88,8 @@ export function AiAssistantsHero({
             <Headline id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} />
           </div>
 
-          <div className="flex max-w-full min-w-0 flex-col items-start gap-4" style={{ width: asideWidth }}>
+          {/* Figma 3305:161: the column runs 19.8px past the content edge (its row is 1299.8px wide). */}
+          <div className="flex max-w-full min-w-0 flex-col items-start gap-4 min-[1200px]:-mr-[19.8px]" style={{ width: asideWidth }}>
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>

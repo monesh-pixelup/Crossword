@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DividerBand } from "@/modules/landing/components/shared/divider-band";
+import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import {
   Commitment,
   HowItWorks,
@@ -30,6 +31,10 @@ export default function ManagedLaunchPage() {
       <Journey />
       <JourneyLibrary />
       <HowItWorks />
+      {/* Figma "Divider band" (3262:510): the 75px band (56px below 768px) above Your part. */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="gear" />
+      </div>
       <YourPart />
       <PilotCta />
     </main>

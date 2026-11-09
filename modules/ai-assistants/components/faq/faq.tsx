@@ -26,6 +26,7 @@ export function AssistantsFaq({
             firstLine="ave a question?"
             secondLine="Ask Crossword"
             width={408}
+            variant="dynamic"
             weight="light"
           />
         </div>

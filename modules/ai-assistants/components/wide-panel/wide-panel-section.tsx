@@ -23,6 +23,12 @@ const layouts = {
     heading: "",
     copy: "",
   },
+  /** As inline, bottom-aligned with the headline instead of centred on it (AI Assistants: Insights, Figma 3392:200). */
+  inlineBottom: {
+    row: "min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:gap-12 min-[1440px]:gap-[120px]",
+    heading: "",
+    copy: "",
+  },
 } as const;
 
 type WidePanelSectionProps = {
@@ -32,7 +38,7 @@ type WidePanelSectionProps = {
   initial: string;
   firstLine: ReactNode;
   secondLine?: ReactNode;
-  /** Two lines (default) or one (oneLine), Crimson Light 60 at 1.1. */
+  /** Two lines (default: 60px lines at 0.9, as Figma) or one (oneLine). */
   variant: "default" | "oneLine";
   /** Geist copy beside the headline, at most `copyWidth` wide. */
   copy: ReactNode;
@@ -69,7 +75,7 @@ export function WidePanelSection({
         <div className={cn("flex w-full flex-col items-start gap-8", l.row)}>
           <div className={cn("flex shrink-0 flex-col items-start gap-6", l.heading)}>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={614.744} variant={variant} weight="light" />
+            <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={614.744} variant={variant === "default" ? "dynamic" : variant} weight="light" />
           </div>
 
           <div

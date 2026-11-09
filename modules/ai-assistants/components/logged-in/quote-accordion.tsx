@@ -20,7 +20,10 @@ export function QuoteAccordion({ quotes }: { quotes: LoggedInQuote[] }) {
       items={quotes.map((quote) => ({ title: quote.quote, description: quote.description }))}
       turns={turns}
       label="What signed-in customers ask"
-      panelClassName="bg-[#462160]"
+      // Figma 3305:957: the panel ends 7px short of the content edge; the open quote's rule 32px under it (3305:920), none under the last.
+      panelClassName="bg-[#462160] lg:mr-[7px]"
+      spacedRules
+      lastRule={false}
       panelBackground={<Image src={panelArt} alt="" fill sizes="(min-width: 1024px) 687px, 100vw" className="object-cover" />}
       renderPanel={(active) => {
         const slug = quotes[active].scene;
