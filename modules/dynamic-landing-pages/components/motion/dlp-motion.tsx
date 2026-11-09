@@ -2,22 +2,45 @@
 
 import { type ReactNode, useSyncExternalStore } from "react";
 import type { SceneEntry } from "@/modules/sell/components/motion/scene-panel";
+import "./motion.css";
 import {
-  AdaptiveProductPagesV2Motion,
+  AdaptiveProductPagesV2bMotion,
   AdJourneyV2Motion,
-  AskAiRightOnPageV2Motion,
+  AskAiInlineV2Motion,
   BuildBundleV2Motion,
   ComparisonToolsV2Motion,
-  CrossSellV2Motion,
+  CrossSellV2bMotion,
   DedicatedLandingPagesV2Motion,
-  DirectAskV2Motion,
+  DirectAskV2bMotion,
   GamesRewardsV2Motion,
-  GistUpFrontV2Motion,
+  GistUpFrontV2bMotion,
   OffersComposerV2Motion,
   PersonalizedContentV2Motion,
   RoasGapV2Motion,
-} from "./visuals/SellDynamicV2/SellDynamicV2";
-import "./motion.css";
+} from "./dlp-v2";
+
+/*
+ * The Dynamic landing pages motion visuals, built from the "Crossword — Sell: Dynamic v2 (motion)" source
+ * (Crossword-Sell-Dynamic-V2-Motion/source): dlp-v2.js is its Vite build of the 13 live visuals, unminified with
+ * React external, so markup, classes, copy and timings are the source's own. Mechanical changes only:
+ *
+ * - Anything that measures with getBoundingClientRect divides by the zoom (or scale) the site draws the visual at, so
+ *   it stays in CSS px: the follow-scrolls in GiftJourneyV2Motion and ProductDiscoveryV2Motion, the jar flights in
+ *   AdToPageMotion and AdaptivePagesMotion, the composer-to-panel morphs in AdJourneyMotion and GamesRewardsMotion,
+ *   and the scrolls in GistUpFrontMotion and DirectAskMotion. (sellDynamicMotion.ts, TapRing, ProactiveV2Motion and
+ *   useFrameCamera already did.) At the drawn size the factor is 1, so nothing changes.
+ * - The two image paths the source builds from `public/assets` at runtime point at their WebP copies; brand fonts
+ *   point at the next/font variables, and assets are served from public/images/dynamic-landing-pages/v2/assets
+ *   (photos as WebP). motion.css is scoped under `.dlp-motion` (see its header).
+ *
+ * | Visuals | Size | Used in |
+ * | --- | --- | --- |
+ * | 01 `roas-gap-motion` | 1289 × 600 | gap/roas-gap.tsx (via dlp-scene-panel.tsx) |
+ * | 02 `dedicated-landing-pages-motion`, 03 `adaptive-product-pages-v2-motion` | 687 × 586 | options/option-list.tsx |
+ * | 04–09 `comparison-tools-motion` … `offers-composer-motion` | 738 × 680 | options/dedicated-tab-list.tsx |
+ * | 10–13 `ask-ai-inline-motion` … `upsell-cross-sell-v2-motion` | 738 × 760 | adaptive/adaptive-tabs.tsx |
+ */
+
 
 const subscribe = () => () => {};
 
@@ -40,8 +63,9 @@ export function DlpMotionRoot({ children }: { children: ReactNode }) {
  * plays itself, as in the source: it waits for webfonts, starts once it is on screen with the tab
  * focused, restarts when the viewer comes back, and shows its final state with
  * `prefers-reduced-motion`. The `play` prop ScenePanel passes is ignored. `duration` is about how
- * long (ms) a visual takes to settle, timed from the source build, for the tabs that time their
- * turns by it.
+ * long (ms) a visual takes to settle, for the tabs that time their turns by it: the unchanged visuals keep their
+ * timings from the source build; 03 and 10–13 are the source's beat timings plus the ~1.3s their camera and
+ * transitions take to settle.
  */
 export const dlpScenes = {
   "roas-gap-motion": {
@@ -106,36 +130,38 @@ export const dlpScenes = {
     height: 680,
     duration: 11400,
   },
-  "adaptive-product-pages-motion": {
-    Component: AdaptiveProductPagesV2Motion,
-    label: "On a product page, the shopper taps Ask AI and a chat drawer opens from the left to answer them.",
+  "adaptive-product-pages-v2-motion": {
+    Component: AdaptiveProductPagesV2bMotion,
+    label:
+      "An Aura Wireless Earbuds product page builds itself around the shopper: its header, then its sections fading up into place in reading order.",
     width: 687,
     height: 586,
-    duration: 6900,
+    duration: 5400,
   },
-  "ask-ai-on-page-motion": {
-    Component: AskAiRightOnPageV2Motion,
-    label: "On a Sorelle Labs product page, the shopper asks the embedded AI panel a question and gets an answer without leaving the page.",
+  "ask-ai-inline-motion": {
+    Component: AskAiInlineV2Motion,
+    label:
+      "On a Sorelle Labs product page, the view closes in on the Ask AI section: the shopper picks a question, Crossword checks the formula and answers right in the page.",
     width: 738,
     height: 760,
-    duration: 12400,
+    duration: 12700,
   },
-  "gist-up-front-motion": {
-    Component: GistUpFrontV2Motion,
+  "gist-up-front-v2-motion": {
+    Component: GistUpFrontV2bMotion,
     label: "A product page's AI summary gives the gist in a few plain sentences, with Show more opening the full detail.",
     width: 738,
     height: 760,
-    duration: 6300,
+    duration: 6400,
   },
-  "direct-ask-motion": {
-    Component: DirectAskV2Motion,
+  "direct-ask-v2-motion": {
+    Component: DirectAskV2bMotion,
     label: "A shopper taps a suggested question in the product page's search bar and gets an answer from its details, reviews and Q&A.",
     width: 738,
     height: 760,
-    duration: 6900,
+    duration: 8500,
   },
-  "upsell-cross-sell-motion": {
-    Component: CrossSellV2Motion,
+  "upsell-cross-sell-v2-motion": {
+    Component: CrossSellV2bMotion,
     label: "On a product page, Crossword suggests a natural add-on to what the shopper is already considering.",
     width: 738,
     height: 760,

@@ -68,7 +68,7 @@ export const dynamicOptions: DynamicOption[] = [
   },
   {
     title: "Adaptive product pages",
-    scene: "adaptive-product-pages-motion",
+    scene: "adaptive-product-pages-v2-motion",
     description:
       "Keep your current pages and add dynamic elements where they matter most, like common questions addressed or a personalized summary.",
   },
