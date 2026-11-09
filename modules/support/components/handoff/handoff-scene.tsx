@@ -1,40 +1,25 @@
 "use client";
 
-import { type SceneEntry, ScenePanel } from "@/modules/sell/components/motion/scene-panel";
-import { SupportMotionRoot, supportScenes } from "../motion-v4/support-motion";
+import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { SupportMotionRoot, supportScenes } from "../motion-v3/support-motion";
 
-/** The human-in-the-loop scenes, one per handoff mode, in order. */
-const slugs = ["human-takeover", "merchant-approval", "whisper-to-agent"] as const;
-
-/** The visible card inside each 738 × 680 scene frame (the rest of the frame draws nothing). */
-const CARD = { left: 191.5, top: 139, width: 355, height: 402 };
-
-/** Each scene cropped to its card, so the step's cell can hold just the card. */
-const cards: SceneEntry[] = slugs.map((slug) => {
-  const scene = supportScenes[slug];
-  const Scene: SceneEntry["Component"] = scene.Component;
-  function Card({ play }: { play?: boolean }) {
-    return (
-      <div className="relative overflow-hidden" style={{ width: CARD.width, height: CARD.height }}>
-        <div className="absolute" style={{ left: -CARD.left, top: -CARD.top, width: scene.width, height: scene.height }}>
-          <Scene play={play} />
-        </div>
-      </div>
-    );
-  }
-  return { ...scene, Component: Card, width: CARD.width, height: CARD.height };
-});
+/** The human-in-the-loop dashboards, one per handoff mode, in order (Support V3 10–12, each 1280 × 599). */
+const slugs = ["human-takeover-dashboard", "merchant-approval-dashboard", "whisper-to-agent-dashboard"] as const;
 
 /**
- * The `i`th handoff mode's motion scene (its 355 × 402 card), scaled to fill the step's cell, which
- * has the card's shape: up past its drawn size too, so it never floats small in a wide stacked cell.
- * Scaled with a transform (see ScenePanel), so the card's text keeps its size relative to its boxes, and
- * to cover the cell, so sub-pixel rounding of the cell's height never leaves a sliver of the cell showing.
+ * The `i`th handoff mode's helpdesk dashboard, fitted whole to the panel it fills (the stage, which has the
+ * dashboard's 1280:599 shape). Scaled with a transform (see ScenePanel), so on a phone its small text shrinks with
+ * the drawing instead of hitting the browser's minimum font size.
  */
 export function HandoffScene({ index, active }: { index: number; active?: boolean }) {
-  const scene = cards[index];
-  return scene ? <ScenePanel scene={scene} active={active} root={SupportMotionRoot} maxScale={Infinity} transform cover /> : null;
+  const slug = slugs[index];
+  return slug ? (
+    <ScenePanel scene={supportScenes[slug]} active={active} root={SupportMotionRoot} maxScale={Infinity} transform />
+  ) : null;
 }
 
 /** The `i`th handoff mode's scene run, in ms (for timing its tab's turn). */
-export const handoffDuration = (index: number) => cards[index]?.duration ?? 0;
+export const handoffDuration = (index: number) => {
+  const slug = slugs[index];
+  return slug ? supportScenes[slug].duration : 0;
+};

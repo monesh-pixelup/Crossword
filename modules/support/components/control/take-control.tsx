@@ -1,4 +1,6 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
+import frameBackground from "../../assets/control/scene-frame-background-forest.svg";
+import frameTexture from "../../assets/control/background-texture-forest.webp";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { SupportScenePanel } from "../motion/support-scene-panel";
@@ -6,9 +8,10 @@ import { SupportScenePanel } from "../motion/support-scene-panel";
 /**
  * Figma "Library · Accordion + media" (You keep complete control): on the left the eyebrow, a
  * two-line headline (77px swash, 50px lines at 1.1, the page's other headings' leading) and a 553px line of copy, 18px apart; on
- * the right, 10px down, the 687 × 586 merchant-insight motion scene (a helpdesk chat in a green
- * notched frame). A 209px gold
- * tick sits on the left rail beside the eyebrow.
+ * the right, 10px down, the merchant-insight motion scene (a helpdesk chat) in the home page Lifecycle cards' frame,
+ * in forest green: 738 × 680 with a gold ring in each corner and the damask texture inside its notched gold rule (the
+ * home art recoloured as Retain's forest campaign damask, its gold untouched), the chat centred on it (its own green
+ * card hidden). A 209px gold tick sits on the left rail beside the eyebrow.
  */
 export function TakeControl() {
   return (
@@ -26,9 +29,24 @@ export function TakeControl() {
           </p>
         </div>
 
-        {/* The merchant-insight motion scene: a helpdesk chat in its green notched frame (687 × 586). */}
-        <div className="relative aspect-[687/586] w-full min-[1301px]:mt-2.5 min-[1301px]:w-[687px] min-[1301px]:shrink">
-          <SupportScenePanel slug="merchant-insight" />
+        {/*
+          The home page Lifecycle frame in forest green (738 × 680, drawn at the column's width): the ground (#003c1f)
+          with its four gold rings, and the damask texture with its notched gold rule 13.16px / 15.98px in. Over it the merchant-insight
+          chat (687 × 586, never past its drawn size), centred, without its own green card (`.sup-plain`).
+        */}
+        <div className="relative aspect-[738/680] w-full overflow-clip min-[1301px]:mt-2.5 min-[1301px]:w-[687px] min-[1301px]:shrink">
+          {/* eslint-disable-next-line @next/next/no-img-element -- fixed frame art, scaled with the panel */}
+          <img src={frameBackground.src} alt="" aria-hidden className="absolute inset-0 size-full" />
+          {/* eslint-disable-next-line @next/next/no-img-element -- fixed frame art, scaled with the panel */}
+          <img
+            src={frameTexture.src}
+            alt=""
+            aria-hidden
+            className="absolute top-[calc(100%*15.98/680)] left-[calc(100%*13.16/738)] h-[calc(100%*648.036/680)] w-[calc(100%*711.68/738)]"
+          />
+          <div className="sup-plain absolute inset-0">
+            <SupportScenePanel slug="merchant-insight" />
+          </div>
         </div>
       </div>
     </section>

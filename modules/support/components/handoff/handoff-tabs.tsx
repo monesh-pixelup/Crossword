@@ -11,19 +11,19 @@ const DURATION_MS = 6000;
 /** How long a mode's scene holds once it has played out, before the next takes over. */
 const HOLD_MS = 2500;
 
-/** The phone accordion's open / close: the row eases its height while the card fades. */
+/** The phone accordion's open / close: the row eases its height while the dashboard fades. */
 const ACCORDION_MS = 500;
 
 /**
  * Figma "Stage + triggers" (3836:17091), as Proactive messages on Sell: a 1280 × 599 sand stage (#f3e7d3, a 1px
- * black/25 line on its top and sides) playing the open mode's motion card, centred and 48px clear of its top and
- * bottom, over the three modes as tabs. Each tab is 40px in on a 1px black/25 line, its Crimson 22 title 16px over
+ * black/25 line on its top and sides) playing the open mode's helpdesk dashboard (Support V3 10–12, the stage's own
+ * 1280 × 599), over the three modes as tabs. Each tab is 40px in on a 1px black/25 line, its Crimson 22 title 16px over
  * a line of Geist 16 at black/59; the open one is cream with 32px under its copy, the others at 50%. A 2px gold bar
  * fills across the open tab's top edge (Figma shows it part-way, at 156.95px) while its scene plays and holds, then
  * the next takes over. Choosing a tab restarts its turn; the turn only runs while the section is on screen, and not
  * at all with reduced motion (the bar then sits full).
  *
- * Below 768px the tabs stack as an accordion, as Insights on the home page: the open mode's card opens out right under
+ * Below 768px the tabs stack as an accordion, as Insights on the home page: the open mode's dashboard opens out right under
  * its copy on a sand stage, easing open as the last one's closes, and they change only when tapped (the bar sits full).
  */
 export function HandoffTabs() {
@@ -35,7 +35,7 @@ export function HandoffTabs() {
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
   const last = handoffModes.length - 1;
-  // Which layout is showing (null until known): only its card is drawn, and only from 768px do the tabs turn on a timer.
+  // Which layout is showing (null until known): only its dashboard is drawn, and only from 768px do the tabs turn on a timer.
   const [wide, setWide] = useState<boolean | null>(null);
   // The accordion item closing as another opens, kept drawn until it has eased shut.
   const [closing, setClosing] = useState<number | null>(null);
@@ -92,12 +92,9 @@ export function HandoffTabs() {
         aria-labelledby={`${id}-tab-${active}`}
         className="relative flex aspect-[1280/599] w-full items-center justify-center overflow-hidden border-x border-t border-black/25 bg-[#f3e7d3] max-md:hidden"
       >
-        {/* The mode's 355 × 402 card, as tall as the stage less 48px top and bottom, fading in as it takes over. */}
+        {/* The mode's helpdesk dashboard (Support V3, 1280 × 599), filling the stage, fading in as it takes over. */}
         {wide !== false && (
-          <div
-            key={`${active}-${run}`}
-            className="relative aspect-[355/402] h-[calc(100%-96px)] transition-opacity duration-300 ease-out starting:opacity-0"
-          >
+          <div key={`${active}-${run}`} className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0">
             <HandoffScene index={active} active={visible} />
           </div>
         )}
@@ -146,7 +143,7 @@ export function HandoffTabs() {
                 )}
               </button>
               {/*
-                Below 768px: the open mode's card on its sand stage (4:5, the card 24px clear top and bottom) under its copy,
+                Below 768px: the open mode's dashboard on its sand stage (the dashboard's 1280:599 shape) under its copy,
                 easing open while it's open and shut as another opens; it carries the tab's side lines on down.
               */}
               <div
@@ -159,11 +156,9 @@ export function HandoffTabs() {
               >
                 <div className="min-h-0 overflow-hidden">
                   <div className="px-6 pb-8">
-                    <div className="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden bg-[#f3e7d3]">
+                    <div className="relative aspect-[1280/599] w-full overflow-hidden bg-[#f3e7d3]">
                       {wide !== true && (selected || i === closing) && (
-                        <div className="relative aspect-[355/402] h-[calc(100%-48px)]">
-                          <HandoffScene key={`${i}-${run}`} index={i} active={visible && selected} />
-                        </div>
+                        <HandoffScene key={`${i}-${run}`} index={i} active={visible && selected} />
                       )}
                     </div>
                   </div>

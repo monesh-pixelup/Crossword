@@ -9,7 +9,7 @@ import { ctaLinks } from "@/modules/marketing/config/navigation";
 import panel from "@/modules/sell/assets/discovery/panel-conversational.webp";
 import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
 import { resolveCases } from "../../config/resolve";
-import { SupportMotionRoot, supportScenes } from "../motion-v4/support-motion";
+import { SupportMotionRoot, supportScenes } from "../motion-v3/support-motion";
 
 /** Each case's turn: its scene's run plus the hold. */
 const turns = resolveCases.map((c) => tabTurn(supportScenes[c.scene].duration));

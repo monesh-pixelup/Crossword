@@ -1,12 +1,12 @@
 "use client";
 
 import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
-import { SupportMotionRoot, type SupportSceneSlug, supportScenes } from "../motion-v4/support-motion";
+import { SupportMotionRoot, type SupportSceneSlug, supportScenes } from "../motion-v3/support-motion";
 
 export type { SupportSceneSlug };
 
 /**
- * A Support v4 motion visual by slug, fitted to the panel it fills. Server components use this
+ * A Support motion visual by slug, fitted to the panel it fills. Server components use this
  * rather than ScenePanel directly, since the scene and its root are functions, which can't be
  * passed from the server to a client component. `fill` lets the scene grow past its drawn size, so
  * it always spans the panel's full width (the panel then matching the scene's shape). `transform`

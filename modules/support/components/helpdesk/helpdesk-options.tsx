@@ -75,7 +75,7 @@ export function HelpdeskOptions() {
               as Customer support's cards, so stacked (below 992px) the two sections' cards match.
             */}
             <div className="relative aspect-[738/680] w-full">
-              <SupportScenePanel slug="merchant-helpdesk" maxScale={1.2} />
+              <SupportScenePanel slug="merchant-helpdesk-inbox" maxScale={1.2} />
             </div>
           </div>
 
