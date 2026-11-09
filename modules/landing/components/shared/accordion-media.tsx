@@ -1,6 +1,6 @@
 "use client";
 
-import { type KeyboardEvent, type ReactNode, useId, useRef } from "react";
+import { type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 
@@ -25,7 +25,15 @@ type AccordionMediaProps = {
   spacedRules?: boolean;
   /** A rule under the last item too (with `spacedRules`, unless set false: AI Assistants' quotes have none). */
   lastRule?: boolean;
+  /**
+   * Below 992px, open each item's media right under its copy, accordion-style (as Insights on the home page), instead
+   * of in one panel under the list; there the items change only when tapped, never on their own.
+   */
+  stackedAccordion?: boolean;
 };
+
+/** The stacked accordion's open / close: the row eases its height while the media fades. */
+const ACCORDION_MS = 500;
 
 /**
  * Figma "Library · Accordion + media", new layout (Sell's Conversion assistance, node 3709:21534): the items as an
@@ -35,10 +43,44 @@ type AccordionMediaProps = {
  * the open item's media.
  *
  * The items take turns on their own (see `useAutoplayTabs`): each stays open for its turn, then the next opens.
- * Choosing one opens it and starts its turn afresh. Side by side from 1024px; narrower, the list sits over the panel.
+ * Choosing one opens it and starts its turn afresh. Side by side from 992px; narrower, the list sits over the panel,
+ * or with `stackedAccordion` each item's media opens under it.
  */
-export function AccordionMedia({ items, turns, label, renderPanel, panelClassName, panelBackground, spacedRules = false, lastRule = spacedRules }: AccordionMediaProps) {
-  const { active, plays, root, open } = useAutoplayTabs(turns);
+export function AccordionMedia({
+  items,
+  turns,
+  label,
+  renderPanel,
+  panelClassName,
+  panelBackground,
+  spacedRules = false,
+  lastRule = spacedRules,
+  stackedAccordion = false,
+}: AccordionMediaProps) {
+  // Which layout is showing (null until known), when the stacked layout is an accordion: only its media is drawn.
+  const [wide, setWide] = useState<boolean | null>(null);
+  useEffect(() => {
+    if (!stackedAccordion) return;
+    const query = window.matchMedia("(min-width: 62rem)");
+    const update = () => setWide(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, [stackedAccordion]);
+  const accordion = stackedAccordion && wide !== true;
+
+  const { active, plays, root, open } = useAutoplayTabs(turns, { manual: accordion });
+
+  // The accordion item closing as another opens, kept drawn until it has eased shut.
+  const [closing, setClosing] = useState<number | null>(null);
+  const shown = useRef(active);
+  useEffect(() => {
+    if (shown.current === active) return;
+    setClosing(shown.current);
+    shown.current = active;
+    const timer = window.setTimeout(() => setClosing(null), ACCORDION_MS);
+    return () => window.clearTimeout(timer);
+  }, [active]);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
   const last = items.length - 1;
@@ -112,6 +154,30 @@ export function AccordionMedia({ items, turns, label, renderPanel, panelClassNam
                   </span>
                 )}
               </button>
+              {stackedAccordion && (
+                /* Below 992px: the open item's media, 24px under its copy, easing open as the last one's closes. */
+                <div
+                  aria-hidden={!on}
+                  className={cn(
+                    "-mt-6 grid transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none lg:hidden",
+                    on ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                  )}
+                  style={{ transitionDuration: `${ACCORDION_MS}ms` }}
+                >
+                  <div className="min-h-0 overflow-hidden">
+                    <div className={cn("relative mt-6 aspect-[687/586] w-full overflow-hidden", panelClassName, "lg:mr-0")}>
+                      {wide !== true && (on || i === closing) && (
+                        <>
+                          {panelBackground}
+                          <div key={`${i}-${plays[i]}`} className="absolute inset-0">
+                            {renderPanel(i, plays[i])}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
               {/* The open item's rule is 1px black/30; the others' a 0.5px black/20 line. None under the last, unless `spacedRules`. */}
               {(i !== last || lastRule) && (
                 <span
@@ -133,15 +199,23 @@ export function AccordionMedia({ items, turns, label, renderPanel, panelClassNam
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className={cn("relative aspect-[687/586] w-full shrink-0 overflow-hidden lg:flex-[0_1_687px]", panelClassName)}
+        className={cn(
+          "relative aspect-[687/586] w-full shrink-0 overflow-hidden lg:flex-[0_1_687px]",
+          stackedAccordion && "max-lg:hidden",
+          panelClassName,
+        )}
       >
-        {panelBackground}
-        <div
-          key={`${active}-${plays[active]}`}
-          className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0"
-        >
-          {renderPanel(active, plays[active])}
-        </div>
+        {!(stackedAccordion && wide === false) && (
+          <>
+            {panelBackground}
+            <div
+              key={`${active}-${plays[active]}`}
+              className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0"
+            >
+              {renderPanel(active, plays[active])}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

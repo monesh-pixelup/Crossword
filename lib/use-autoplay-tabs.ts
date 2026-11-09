@@ -16,6 +16,8 @@ type Options = {
   onActivate?: (i: number) => void;
   /** The way the fill grows: across (a rule under the label, the default) or down (a bar beside it). */
   axis?: "x" | "y";
+  /** While true the tabs don't move on by themselves (only `open` changes them), and the active fill sits full. */
+  manual?: boolean;
 };
 
 /**
@@ -33,7 +35,7 @@ type Options = {
  *
  * `turns` takes one entry per tab.
  */
-export function useAutoplayTabs(turns: number[], { onActivate, axis = "x" }: Options = {}) {
+export function useAutoplayTabs(turns: number[], { onActivate, axis = "x", manual = false }: Options = {}) {
   const [active, setActive] = useState(0);
   const [previous, setPrevious] = useState(0);
   const [plays, setPlays] = useState(() => turns.map(() => 0));
@@ -44,9 +46,11 @@ export function useAutoplayTabs(turns: number[], { onActivate, axis = "x" }: Opt
   const elapsed = useRef(0);
   const activate = useRef(onActivate);
   const turnsRef = useRef(turns);
+  const manualRef = useRef(manual);
   useEffect(() => {
     activate.current = onActivate;
     turnsRef.current = turns;
+    manualRef.current = manual;
   });
 
   /** Makes tab `i` the active one, starting its turn afresh. */
@@ -80,7 +84,7 @@ export function useAutoplayTabs(turns: number[], { onActivate, axis = "x" }: Opt
 
       const current = activeRef.current;
       const fill = fills.current[current];
-      if (reduce.matches) {
+      if (reduce.matches || manualRef.current) {
         if (fill) fill.style.scale = scale(1);
         return;
       }

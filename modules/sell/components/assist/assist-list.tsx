@@ -20,6 +20,8 @@ export function AssistList() {
       // Figma 3257:36469: the panel ends 7px short of the content edge (586px across, 687px wide, in the 1280px row).
       panelClassName="bg-[#462160] lg:mr-[7px]"
       spacedRules
+      // Below 992px each feature's visual opens under it, accordion-style, and they change only when tapped.
+      stackedAccordion
       renderPanel={(active) => (
         <ScenePanel scene={assistScenes[assistFeatures[active].scene]} root={SellMotionRoot} maxScale={Infinity} />
       )}

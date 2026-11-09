@@ -13,6 +13,9 @@ const DURATION_MS = 6000;
 /** How long a feature's scene holds once it has played out, before the next takes over. */
 const HOLD_MS = 2500;
 
+/** The stacked accordion's open / close: the row eases its height while the visual fades. */
+const ACCORDION_MS = 500;
+
 /**
  * Figma 3257:36264's icons, each a 24px square. The open feature's is a maroon badge (Figma 3786:21472): the glyph at
  * 14.8px in #ffb657, 4.6px in (its 0.46px #efe9db line counted inside), with a 0.46px #ffb657 ring. The others are a
@@ -49,7 +52,9 @@ function IconTile({ path, on }: { path: string; on: boolean }) {
  * visual) is 32px from row to rule: the open feature shows its tile, Crimson Light 24 title and line of Geist 16 (8px under it), its rule
  * 24px below; the others are their tile and title at 40%. Every rule is black/20. The features take turns on a
  * timer (long enough for each scene to play out and hold) while the section is on screen; choosing one restarts its
- * timer. Side by side from 1280px; narrower, the list sits over the panel, which spans the width.
+ * timer. Side by side from 1280px. Narrower, the tabs are an accordion, as Insights on the home page: the open
+ * feature's visual opens out right under its copy (easing open as the last one's closes), and they change only when
+ * tapped, never on a timer.
  */
 export function UpsellTabs() {
   const [active, setActive] = useState(0);
@@ -61,6 +66,24 @@ export function UpsellTabs() {
   const id = useId();
   const last = upsellFeatures.length - 1;
   const scene = upsellCameraScenes[upsellFeatures[active].scene];
+  // Which layout is showing (null until known): only its visuals are drawn, and only side by side do the tabs turn on a timer.
+  const [wide, setWide] = useState<boolean | null>(null);
+  // The accordion item closing as another opens, kept drawn until it has eased shut.
+  const [closing, setClosing] = useState<number | null>(null);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 1280px)");
+    const update = () => setWide(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (closing === null) return;
+    const timer = window.setTimeout(() => setClosing(null), ACCORDION_MS);
+    return () => window.clearTimeout(timer);
+  }, [closing]);
 
   useEffect(() => {
     const el = root.current;
@@ -70,17 +93,19 @@ export function UpsellTabs() {
     return () => observer.disconnect();
   }, []);
 
-  // Hands over to the next feature once this one's scene has played out and held; never with reduced motion.
+  // Hands over to the next feature once this one's scene has played out and held; never with reduced motion, and only
+  // side by side (stacked, the visitor taps to change them).
   useEffect(() => {
-    if (!visible || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!wide || !visible || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = window.setTimeout(
       () => setActive((a) => (a === last ? 0 : a + 1)),
       Math.max(DURATION_MS, scene.duration + HOLD_MS),
     );
     return () => window.clearTimeout(timer);
-  }, [active, run, visible, scene.duration, last]);
+  }, [active, run, visible, scene.duration, last, wide]);
 
   const select = (i: number) => {
+    if (i !== active) setClosing(active);
     setActive(i);
     setRun((r) => r + 1);
   };
@@ -165,6 +190,33 @@ export function UpsellTabs() {
                   </span>
                 </button>
                 {/*
+                  Below 1280px: the accordion row under the copy, easing open to the feature's visual (at its 738:680
+                  shape, 24px under the copy) while it's open, and shut as another opens.
+                */}
+                <div
+                  aria-hidden={!on}
+                  className={cn(
+                    "grid transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none min-[1280px]:hidden",
+                    on ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                  )}
+                  style={{ transitionDuration: `${ACCORDION_MS}ms` }}
+                >
+                  <div className="min-h-0 overflow-hidden">
+                    <div className="relative mt-6 aspect-[738/680] w-full overflow-hidden">
+                      {wide !== true && (on || i === closing) && (
+                        <ScenePanel
+                          key={`${i}-${run}`}
+                          scene={upsellCameraScenes[feature.scene]}
+                          active={visible && on}
+                          root={SellCameraMotionRoot}
+                          maxScale={Infinity}
+                          transform
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                {/*
                   Each rule is a zero-height line with its 0.5px stroke centred on it, as Figma (3257:36264) draws them:
                   the open feature's sits in a 1px box 24px under its copy, the others' 32px under their row, and the
                   next feature starts 32px below. Side by side the last is drawn too; stacked over the panel (below
@@ -197,11 +249,13 @@ export function UpsellTabs() {
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="relative aspect-[738/680] w-full shrink-0 overflow-hidden min-[1280px]:-mr-1 min-[1280px]:w-[687px]"
+        className="relative aspect-[738/680] w-full shrink-0 overflow-hidden max-[1279px]:hidden min-[1280px]:-mr-1 min-[1280px]:w-[687px]"
       >
-        <div key={`${active}-${run}`} className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0">
-          <ScenePanel scene={scene} active={visible} root={SellCameraMotionRoot} maxScale={Infinity} transform />
-        </div>
+        {wide !== false && (
+          <div key={`${active}-${run}`} className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0">
+            <ScenePanel scene={scene} active={visible} root={SellCameraMotionRoot} maxScale={Infinity} transform />
+          </div>
+        )}
       </div>
     </div>
   );
