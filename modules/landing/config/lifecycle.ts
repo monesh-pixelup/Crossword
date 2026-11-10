@@ -34,7 +34,7 @@ export const lifecycleStages: LifecycleStage[] = [
         label: "Conversational interface",
         title: "Where interest becomes intent",
         body: "Crossword turns a need into a confident purchase. Crossword asks the right questions, narrows down the choices, makes recommendations and helps them take the next step.",
-        href: "/sell",
+        href: "/conversational-interface",
         visual: "gift-journey",
       },
       {
@@ -48,7 +48,7 @@ export const lifecycleStages: LifecycleStage[] = [
         label: "Search bar",
         title: "Where searches become discoveries",
         body: "Crossword turns the search bar into a conversation, helping customers describe what they want in their own words and get relevant products, answers and recommendations in return.",
-        href: "/sell",
+        href: "/conversational-interface",
         visual: "ai-search",
       },
     ],

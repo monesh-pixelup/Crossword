@@ -13,7 +13,7 @@ import {
 } from "@/modules/sell";
 
 export const metadata: Metadata = {
-  title: "Sell",
+  title: "Conversational Interface",
   description:
     "From the first question to the final click, Crossword guides every shopper toward the product that's perfect for them.",
 };

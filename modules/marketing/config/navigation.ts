@@ -24,7 +24,7 @@ export const platformMenu = {
   sell: {
     label: "Sell",
     links: [
-      { label: "Conversational shopping", href: "/sell", description: "Help shoppers find the right products." },
+      { label: "Conversational interface", href: "/conversational-interface", description: "Help shoppers find the right products." },
       { label: "Dynamic landing pages", href: "/dynamic-landing-pages", description: "Match each visit to a relevant experience." },
     ],
   },
@@ -62,7 +62,7 @@ export const platformMenu = {
 export const primaryNav: NavItem[] = [
   {
     label: "Platform",
-    href: "/sell",
+    href: "/conversational-interface",
     hasMenu: true,
     mega: true,
     children: [...platformMenu.sell.links, ...platformMenu.more, ...platformMenu.channels],
@@ -100,7 +100,7 @@ export const footerCompanyLinks: FooterLink[] = [
 export const footerPlatformGroups: FooterLink[][] = [
   [
     { label: "Sell", muted: true },
-    { label: "Conversational Interface", href: "/sell" },
+    { label: "Conversational Interface", href: "/conversational-interface" },
     { label: "Dynamic Landing Pages", href: "/dynamic-landing-pages" },
   ],
   [
