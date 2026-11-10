@@ -8,7 +8,8 @@ import { CardCarousel } from "./card-carousel";
 
 /*
  * Layout follows the Webflow build: a sand panel inset to the page rails holding a header row
- * (headline beside the channel diagram, stacked below 992px), the arrows, then a slider whose
+ * (headline beside the channel diagram from 1280px; stacked below that, where beside the 615px headline the diagram
+ * would shrink to a sliver), the arrows, then a slider whose
  * slides carry their own side padding (56 / 32 / 20px) so the dividers sit between them.
  */
 export function PlatformOverview() {
@@ -18,7 +19,7 @@ export function PlatformOverview() {
       <div className="relative overflow-clip bg-sand py-12 hairline-[0.5px] outline-black/25 md:py-16 lg:py-20">
         {/* The page's side padding at every width (no 1280px cap), like the other sections. */}
         <div className="@container mx-auto w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))]">
-          <div className="flex flex-col items-start gap-10 lg:h-[299px] lg:flex-row lg:justify-between lg:gap-8">
+          <div className="flex flex-col items-start gap-10 min-[1280px]:h-[299px] min-[1280px]:flex-row min-[1280px]:justify-between min-[1280px]:gap-8">
             <div className="flex flex-none flex-col items-start gap-6">
               <Eyebrow surface="sand">Platform overview</Eyebrow>
               <SectionTitle
@@ -32,8 +33,8 @@ export function PlatformOverview() {
               />
             </div>
 
-            {/* The diagram is drawn at 699px and zoomed to its box (full width when stacked). */}
-            <div className="@container w-full max-w-[699px] lg:mt-[16.5px] lg:mr-[20.5px] lg:min-w-0 lg:flex-[0_1_auto]">
+            {/* The diagram is drawn at 699px and zoomed to its box (full width, up to 699px, when stacked). */}
+            <div className="@container w-full max-w-[699px] min-[1280px]:mt-[16.5px] min-[1280px]:mr-[20.5px] min-[1280px]:min-w-0 min-[1280px]:flex-[0_1_auto]">
               <div className="h-[285.33px] w-[699px] scale-to-container [--fit-width:699px]">
                 <AgentDiagram />
               </div>

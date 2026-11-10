@@ -40,7 +40,7 @@ const ACCORDION_MS = 500;
  * while in view, keeps running on hover, pauses on keyboard focus; no
  * auto-rotation with reduced motion.
  *
- * Below 992px the tabs are an accordion (as henrylabs.ai's "Built for a new era of shopping" on phones): the open
+ * Below 1200px the tabs are an accordion (as henrylabs.ai's "Built for a new era of shopping" on phones): the open
  * tab's visual opens out right under it, easing its height open as the last one's closes. There they don't advance on
  * their own; the visitor taps to change them.
  */
@@ -60,7 +60,7 @@ export function InsightTabs() {
   const [closing, setClosing] = useState<number | null>(null);
 
   useEffect(() => {
-    const query = window.matchMedia("(min-width: 62rem)");
+    const query = window.matchMedia("(min-width: 75rem)");
     const update = () => setWide(query.matches);
     update();
     query.addEventListener("change", update);
@@ -108,7 +108,7 @@ export function InsightTabs() {
   return (
     <div
       ref={rootRef}
-      className="flex w-full flex-col lg:flex-row lg:items-stretch"
+      className="flex w-full flex-col min-[1200px]:flex-row min-[1200px]:items-stretch"
       onFocus={(e) => {
         if (e.target.matches(":focus-visible")) setFocusPaused(true);
       }}
@@ -117,8 +117,8 @@ export function InsightTabs() {
       }}
     >
       {/* Side by side, the row never grows past Figma's 640px, so wide screens don't pad the tabs out; the visual zooms to cover. */}
-      {/* Side by side (from 992px) the open tab's visual has its own column; below that it opens under its tab. */}
-      <div role="tabpanel" id={panelId} aria-labelledby={`${id}-tab-${current}`} className="relative aspect-[738/640] w-full overflow-hidden [container-type:size] max-lg:hidden lg:max-h-[640px] lg:w-[57.6563%] lg:flex-none">
+      {/* Side by side (from 1200px) the open tab's visual has its own column; below that it opens under its tab. */}
+      <div role="tabpanel" id={panelId} aria-labelledby={`${id}-tab-${current}`} className="relative aspect-[738/640] w-full overflow-hidden [container-type:size] max-[1199px]:hidden min-[1200px]:max-h-[640px] min-[1200px]:w-[57.6563%] min-[1200px]:flex-none">
         {wide !== false && <InsightPanel visual={insightFeatures[current].visual} run={run} />}
       </div>
 
@@ -127,7 +127,7 @@ export function InsightTabs() {
         aria-orientation="vertical"
         aria-label="Crossword Insights"
         onKeyDown={onKeyDown}
-        className="flex w-full min-w-0 flex-col shadow-[inset_0_-1px_0_#ddd] lg:grid lg:flex-1 lg:grid-rows-3"
+        className="flex w-full min-w-0 flex-col shadow-[inset_0_-1px_0_#ddd] min-[1200px]:grid min-[1200px]:flex-1 min-[1200px]:grid-rows-3"
       >
         {insightFeatures.map((feature, i) => {
           const on = i === current;
@@ -148,10 +148,10 @@ export function InsightTabs() {
                 className={cn(
                   // Edges are inset shadows: Figma strokes sit inside the box and take no space.
                   // Tabs share edges; the list closes the bottom.
-                  "relative flex w-full flex-1 cursor-pointer items-start gap-3 p-5 text-left shadow-[inset_1px_0_0_#ddd,inset_-1px_0_0_#ddd,inset_0_1px_0_#ddd] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon min-[480px]:gap-4 min-[480px]:p-6 md:p-8 min-[992px]:p-10",
+                  "relative flex w-full flex-1 cursor-pointer items-start gap-3 p-5 text-left shadow-[inset_1px_0_0_#ddd,inset_-1px_0_0_#ddd,inset_0_1px_0_#ddd] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon min-[480px]:gap-4 min-[480px]:p-6 md:p-8 min-[1200px]:p-10",
                 )}
               >
-                {/* Below 992px the tabs only change when tapped, so the open tab has no progress bar (nor while the layout is unknown). */}
+                {/* Below 1200px the tabs only change when tapped, so the open tab has no progress bar (nor while the layout is unknown). */}
                 {on && wide === true && (
                   <span
                     aria-hidden
@@ -194,12 +194,12 @@ export function InsightTabs() {
                   <span className="max-w-[403.95px] font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">
                     {feature.title}
                   </span>
-                  {/* Below 992px (the accordion) a closed tab shows only its title; the open one keeps its line of copy. */}
+                  {/* Below 1200px (the accordion) a closed tab shows only its title; the open one keeps its line of copy. */}
                   <span
                     className={cn(
                       "font-open-sans text-[14px] leading-5 tracking-[-0.42px] text-black/60",
                       feature.narrow ? "max-w-[359.64px]" : "max-w-[391.67px]",
-                      !on && "max-[991px]:hidden",
+                      !on && "max-[1199px]:hidden",
                     )}
                   >
                     {feature.body}
@@ -207,13 +207,13 @@ export function InsightTabs() {
                 </span>
               </button>
               {/*
-                Below 992px: the accordion row under the tab, easing open to the visual (at its 738:640 shape, inset like the
+                Below 1200px: the accordion row under the tab, easing open to the visual (at its 738:640 shape, inset like the
                 tab's copy) while the tab is open, and shut as another opens. The tab's side edges run on down beside it.
               */}
               <div
                 aria-hidden={!on}
                 className={cn(
-                  "grid shadow-[inset_1px_0_0_#ddd,inset_-1px_0_0_#ddd] transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none lg:hidden",
+                  "grid shadow-[inset_1px_0_0_#ddd,inset_-1px_0_0_#ddd] transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none min-[1200px]:hidden",
                   on ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
                 )}
                 style={{ transitionDuration: `${ACCORDION_MS}ms` }}
