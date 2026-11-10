@@ -57,7 +57,7 @@ export function Plans() {
       <div className="flex content-width flex-col items-center gap-12 lg:gap-16">
         <div className="flex flex-col items-center gap-6 text-center">
           <Eyebrow>Pricing options</Eyebrow>
-          <SectionTitle id="plans-title" initial="S" firstLine="tart free. Scale" secondLine="when you’re ready" width={384} variant="dynamicCentered" weight="light" />
+          <SectionTitle as="h1" id="plans-title" initial="S" firstLine="tart free. Scale" secondLine="when you’re ready" width={384} variant="dynamicCentered" weight="light" />
           <p className="max-w-[640px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
             Every plan runs on the same Crossword. You only pay for the credits you use.
           </p>

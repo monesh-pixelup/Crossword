@@ -131,15 +131,17 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
           const placement = copyPlacement(scene);
           if (placement === "above") return null;
           // Phones: the copy is pinned 24px above the first screen's bottom so it shows on load, over the stack (see
-          // .hero-scene--compact), with a fade to black behind it so it reads over the conversation.
+          // .hero-scene--compact), with a fade to black behind it so it reads over the conversation. On a short screen
+          // (an iPhone SE) that would pull it up over the concierge, so it never sits higher than 54px above the
+          // scene's foot, where it lands on a tall phone (an iPhone 16 Pro): under the desk, as there.
           if (placement === "stacked")
             return (
               <>
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-[calc(100%_-_100svh)] z-10 h-[45svh] bg-linear-to-b from-black/0 via-black/70 via-40% to-black/90"
+                  className="pointer-events-none absolute inset-x-0 bottom-[min(calc(100%_-_100svh),30px)] z-10 h-[45svh] bg-linear-to-b from-black/0 via-black/70 via-40% to-black/90"
                 />
-                <div className="pointer-events-none absolute inset-x-0 bottom-[calc(100%_-_100svh_+_24px)] z-10">{copy}</div>
+                <div className="pointer-events-none absolute inset-x-0 bottom-[min(calc(100%_-_100svh_+_24px),54px)] z-10">{copy}</div>
               </>
             );
           return (

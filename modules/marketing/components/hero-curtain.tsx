@@ -11,6 +11,8 @@ export const HERO_COVER_EVENT = "herocover";
  * opts out with `data-no-curtain` on its `main` (the home page): its hero scrolls away with the page as usual.
  */
 const HERO = 'main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child';
+/** The hero of a page that opts out of the curtain. */
+const PLAIN_HERO = 'main[data-no-curtain] > section[aria-labelledby$="hero-title"]:first-child';
 
 /**
  * Keeps the scroll "curtain" (globals.css, "Hero curtain") measured: the hero stays put while the sections after it
@@ -33,7 +35,22 @@ export function HeroCurtain() {
     if (!main || !hero) {
       root.style.removeProperty("--hero-stick");
       root.style.removeProperty("--rails-top");
-      return;
+      // A page without the curtain (the home page) still keeps its rails off its hero: they're drawn over the page,
+      // so they start at the hero's foot there too.
+      const plain = document.querySelector<HTMLElement>(PLAIN_HERO);
+      const next = plain?.nextElementSibling;
+      const box = main?.parentElement;
+      if (!plain || !next || !box) return;
+      const place = () =>
+        root.style.setProperty("--rails-top", `${Math.round(next.getBoundingClientRect().top - box.getBoundingClientRect().top)}px`);
+      place();
+      const observer = new ResizeObserver(place);
+      observer.observe(plain);
+      observer.observe(main!);
+      return () => {
+        observer.disconnect();
+        root.style.removeProperty("--rails-top");
+      };
     }
     // Variables on <html> restyle the whole page when they change, so each is written only when its value does.
     const set = (name: string, value: string) => {

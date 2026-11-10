@@ -748,6 +748,14 @@
   max-width: 361px;
 }
 
+/*
+ * On phones only the cards above the concierge show: the conversation below it is hidden. It keeps its place in
+ * the layout (visibility, not display), so the concierge and the copy stay exactly where they were.
+ */
+.hero-scene--compact .conversation-slot {
+  visibility: hidden;
+}
+
 .hero-scene--compact .conversation {
   position: relative;
   left: auto;

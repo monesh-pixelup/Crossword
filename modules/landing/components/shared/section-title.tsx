@@ -215,6 +215,8 @@ type SectionTitleProps = {
    * `max-md:hidden` pieces in its lines), so it keeps the other headlines' size on phones.
    */
   mobileWidth?: number;
+  /** The heading level: h2 (a section's headline), or h1 for a page whose first section's headline is its title. */
+  as?: "h1" | "h2";
 };
 
 /**
@@ -236,6 +238,7 @@ export function SectionTitle({
   lineGap,
   weight = "extralight",
   mobileWidth,
+  as: Heading = "h2",
 }: SectionTitleProps) {
   const v = variants[variant];
   // Line size in px at desktop (60 unless the variant says otherwise).
@@ -259,7 +262,7 @@ export function SectionTitle({
         } as CSSProperties
       }
     >
-      <h2
+      <Heading
         id={id}
         className={`font-serif text-[0px] leading-[0] whitespace-nowrap ${weights[weight]} ${tones[tone]} ${v.tracking}`}
         style={{ width: mobileWidth !== undefined ? "var(--title-w)" : width, zoom: "var(--h2-scale)" }}
@@ -278,7 +281,7 @@ export function SectionTitle({
             </span>
           </>
         )}
-      </h2>
+      </Heading>
     </div>
   );
 }
