@@ -132,6 +132,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /*
+     * No widows: wrapped text (copy, card titles, chat bubbles) rebalances its last lines so a paragraph never ends on
+     * one word alone. Inherited by everything; text held on one line (whitespace-nowrap) is unaffected. Browsers
+     * without it just wrap as before.
+     */
+    text-wrap: pretty;
   }
 }
 
