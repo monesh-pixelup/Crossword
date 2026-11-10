@@ -24,7 +24,7 @@ export function Faq() {
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>FAQs</Eyebrow>
           <SectionTitle id="faq-title" initial="H" firstLine="ave a question?" secondLine="Ask Crossword" width={408} variant="dynamic" weight="light" />
-          <TextLink href={ctaLinks.bookDemo}>Talk to sales</TextLink>
+          <TextLink href={ctaLinks.bookDemo}>TALK TO SALES</TextLink>
         </div>
 
         <FaqList variant="plain" />

@@ -24,7 +24,7 @@ function TabCopy({ tab }: { tab: Tab }) {
         <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{tab.label}</h3>
         <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{tab.description}</p>
       </div>
-      <TextLink href={ctaLinks.learnMore}>Get started</TextLink>
+      <TextLink href={ctaLinks.learnMore}>GET STARTED</TextLink>
     </div>
   );
 }

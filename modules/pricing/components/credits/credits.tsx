@@ -59,7 +59,7 @@ export function Credits() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             <StampButton href={ctaLinks.bookDemo}>START YOUR FREE PILOT</StampButton>
-            <TextLink href="#calculator">Estimate your usage</TextLink>
+            <TextLink href="#calculator">ESTIMATE YOUR USAGE</TextLink>
           </div>
         </div>
 

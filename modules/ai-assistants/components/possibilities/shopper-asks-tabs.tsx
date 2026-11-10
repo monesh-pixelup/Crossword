@@ -20,7 +20,7 @@ function QuestionCopy({ question }: { question: ShopperQuestion }) {
           <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] whitespace-pre-line text-black/59">{question.description}</p>
         )}
       </div>
-      <TextLink href={ctaLinks.bookDemo}>Get a demo</TextLink>
+      <TextLink href={ctaLinks.bookDemo}>GET A DEMO</TextLink>
     </div>
   );
 }

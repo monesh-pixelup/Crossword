@@ -67,7 +67,7 @@ export function HelpdeskOptions() {
                 <h3 className={title}>A free help desk, with unlimited seats.</h3>
                 <p className={body}>Give your team one place to see, assign and resolve customer conversations.</p>
               </div>
-              <TextLink href={ctaLinks.learnMore}>Get started</TextLink>
+              <TextLink href={ctaLinks.learnMore}>GET STARTED</TextLink>
             </div>
 
             {/*
@@ -92,7 +92,7 @@ export function HelpdeskOptions() {
                 Connect Crossword to Zendesk, Gorgias, Freshdesk or your own help desk, with conversations and ticket status
                 synced both ways.
               </p>
-              <TextLink href={ctaLinks.bookDemo}>Ask us about it</TextLink>
+              <TextLink href={ctaLinks.bookDemo}>ASK US ABOUT IT</TextLink>
             </div>
 
             <ul className="grid w-full max-w-[400px] grid-cols-2 gap-4 sm:max-w-none sm:w-auto sm:grid-cols-4">

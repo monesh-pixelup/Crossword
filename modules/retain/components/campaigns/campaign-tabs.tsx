@@ -46,7 +46,7 @@ function CampaignCopy({ campaign }: { campaign: Campaign }) {
         <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{campaign.title}</h3>
         <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{campaign.description}</p>
       </div>
-      <TextLink href={ctaLinks.learnMore}>Get started</TextLink>
+      <TextLink href={ctaLinks.learnMore}>GET STARTED</TextLink>
     </div>
   );
 }
