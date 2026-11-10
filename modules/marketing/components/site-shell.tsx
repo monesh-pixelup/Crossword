@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { EagerImages } from "./eager-images";
 import { HeroCurtain } from "./hero-curtain";
 import { Rails } from "./rails";
 import { SiteFooter } from "./site-footer";
@@ -31,6 +32,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
         </div>
         <HeroCurtain />
+        <EagerImages />
       </div>
       <SiteFooter />
     </div>

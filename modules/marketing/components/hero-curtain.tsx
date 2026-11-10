@@ -3,8 +3,14 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-/** The page's hero: the first section in `main`, labelled by its `…hero-title` heading (every page's hero is). */
-const HERO = 'main > section[aria-labelledby$="hero-title"]:first-child';
+/** Fired on the hero section as the sections finish covering it (`detail` true) and as it's uncovered (false). */
+export const HERO_COVER_EVENT = "herocover";
+
+/**
+ * The page's hero: the first section in `main`, labelled by its `…hero-title` heading (every page's hero is). A page
+ * opts out with `data-no-curtain` on its `main` (the home page): its hero scrolls away with the page as usual.
+ */
+const HERO = 'main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child';
 
 /**
  * Keeps the scroll "curtain" (globals.css, "Hero curtain") measured: the hero stays put while the sections after it
@@ -29,21 +35,52 @@ export function HeroCurtain() {
       root.style.removeProperty("--rails-top");
       return;
     }
+    // Variables on <html> restyle the whole page when they change, so each is written only when its value does.
+    const set = (name: string, value: string) => {
+      if (root.style.getPropertyValue(name) !== value) root.style.setProperty(name, value);
+    };
     const measure = () => {
-      root.style.setProperty("--hero-stick", `${Math.min(0, window.innerHeight - hero.offsetHeight)}px`);
+      set("--hero-stick", `${Math.min(0, window.innerHeight - hero.offsetHeight)}px`);
       // The hero's foot, as where the next section starts in the rails' box (their positioned parent).
       const next = hero.nextElementSibling as HTMLElement | null;
       const box = main.parentElement;
-      if (next && box) root.style.setProperty("--rails-top", `${next.getBoundingClientRect().top - box.getBoundingClientRect().top}px`);
+      if (next && box) set("--rails-top", `${Math.round(next.getBoundingClientRect().top - box.getBoundingClientRect().top)}px`);
     };
-    measure();
-    const observer = new ResizeObserver(measure);
+    // Once the sections have slid all the way over it, the hero is hidden: otherwise, stuck in view behind them, its
+    // motion visuals, blurs and animations keep painting under every section the whole way down the page, which makes
+    // scrolling stutter and flicker. It shows again as soon as its foot comes back on screen.
+    let frame = 0;
+    let covered = false;
+    const cover = () => {
+      frame = 0;
+      const next = hero.nextElementSibling as HTMLElement | null;
+      const now = !!next && next.getBoundingClientRect().top <= 0;
+      if (now === covered) return;
+      covered = now;
+      hero.style.visibility = now ? "hidden" : "";
+      // So its motion (which only pauses off screen, and a sticky hero never is) can pause too.
+      hero.dispatchEvent(new CustomEvent(HERO_COVER_EVENT, { detail: now }));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(cover);
+    };
+    const update = () => {
+      measure();
+      cover();
+    };
+    update();
+    const observer = new ResizeObserver(update);
     observer.observe(hero);
     observer.observe(main);
-    window.addEventListener("resize", measure);
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
+      cancelAnimationFrame(frame);
       observer.disconnect();
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", onScroll);
+      hero.style.visibility = "";
+      if (covered) hero.dispatchEvent(new CustomEvent(HERO_COVER_EVENT, { detail: false }));
       root.style.removeProperty("--hero-stick");
       root.style.removeProperty("--rails-top");
     };

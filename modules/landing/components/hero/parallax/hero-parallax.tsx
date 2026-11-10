@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode, type RefObject, useEffect, useMemo, useRef, useState } from "react";
+import { HERO_COVER_EVENT } from "@/modules/marketing/components/hero-curtain";
 import scene from "../../../assets/hero/parallax/scene.webp";
 import concierge from "../../../assets/hero/parallax/scene-concierge.webp";
 import { Conversation } from "./conversation";
@@ -31,22 +32,29 @@ const GLITCH = {
   cursor: { radius: 212, strength: 0.82, rest: 0.87, motion: 1, warp: 0.8 },
 };
 
-/** True while the scene is at least 30% on screen and the tab is visible. */
+/** True while the scene is at least 30% on screen, not covered by the page and the tab is visible. */
 function usePlaying(ref: RefObject<HTMLElement | null>) {
   const [inView, setInView] = useState(true);
   const [visible, setVisible] = useState(true);
+  const [covered, setCovered] = useState(false);
   useEffect(() => {
     const onVisibility = () => setVisible(document.visibilityState === "visible");
     onVisibility();
     document.addEventListener("visibilitychange", onVisibility);
     const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.3 });
     if (ref.current) observer.observe(ref.current);
+    // The hero is sticky (HeroCurtain), so it never scrolls out of view: it's covered by the sections sliding over it
+    // instead, which HeroCurtain announces on the hero section.
+    const hero = ref.current?.closest("section");
+    const onCover = (event: Event) => setCovered((event as CustomEvent<boolean>).detail);
+    hero?.addEventListener(HERO_COVER_EVENT, onCover);
     return () => {
       document.removeEventListener("visibilitychange", onVisibility);
       observer.disconnect();
+      hero?.removeEventListener(HERO_COVER_EVENT, onCover);
     };
   }, [ref]);
-  return inView && visible;
+  return inView && visible && !covered;
 }
 
 /**
