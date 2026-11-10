@@ -123,8 +123,8 @@ export function CampaignTabs() {
 
   return (
     <>
-      {/* Below 992px: every campaign stacked, no tabs. */}
-      <ul className="flex w-full flex-col gap-12 lg:hidden">
+      {/* Below 992px: every campaign stacked, no tabs, a thin rule halfway between each (48px either side). */}
+      <ul className="flex w-full flex-col gap-12 lg:hidden [&>li+li]:border-t [&>li+li]:border-black/10 [&>li+li]:pt-12">
         {campaigns.map((campaign, i) => (
           <li key={campaign.title} className="flex w-full flex-col items-start">
             <CampaignCopy campaign={campaign} />
