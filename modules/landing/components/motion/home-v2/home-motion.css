@@ -100,3 +100,6 @@
   opacity: 1;
 }
 
+
+/* Home v2 motion, 01/04/05: the visual's chat window at 40px (11 November 2026 changes, homev2-motion.css). */
+.hv2-r40{display:contents}.hv2-r40 .gj2-win{border-radius:40px}

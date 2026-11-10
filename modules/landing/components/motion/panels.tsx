@@ -20,6 +20,23 @@ import {
 import frameTexture from "./home-v2/assets/background-texture.webp";
 import frameBackground from "./home-v2/assets/icons/scene-frame-background.svg";
 
+/**
+ * Home v2's 40px chat window (the 11 November 2026 changes to 01, 04 and 05): the visual inside a `display: contents`
+ * `.hv2-r40` wrapper, so layout is unchanged and only these visuals' `.gj2-win` corners go from the shared 28px to 40px
+ * (home-motion.css).
+ */
+const r40 = (C: ComponentType) =>
+  function R40() {
+    return (
+      <div className="hv2-r40">
+        <C />
+      </div>
+    );
+  };
+const GiftJourneyR40 = r40(GiftJourneyMotion);
+const ServiceResolutionR40 = r40(ServiceResolutionMotion);
+const RetentionGrowthR40 = r40(RetentionGrowthMotion);
+
 type Visual = {
   Component: ComponentType;
   /** What the mock-up shows, for assistive tech (the mock-up itself is decorative). */
@@ -36,7 +53,7 @@ type InsightVisualEntry = Visual & {
 
 export const lifecycleVisuals: Record<LifecycleVisual, Visual> = {
   "gift-journey": {
-    Component: GiftJourneyMotion,
+    Component: GiftJourneyR40,
     label:
       "The Aurelia assistant helping a shopper find a birthday gift under budget, then adding a rose gold pendant and matching chain to the cart",
   },
@@ -51,12 +68,12 @@ export const lifecycleVisuals: Record<LifecycleVisual, Visual> = {
       "A shopper asks the Amber & Oak search bar for warm lighting for their living room; Crossword answers with lamps and opens the tripod lamp they pick",
   },
   "service-resolution": {
-    Component: ServiceResolutionMotion,
+    Component: ServiceResolutionR40,
     label:
       "The assistant answering where an order is, then handing the conversation to a support agent who adds a matching bracelet before dispatch",
   },
   "retention-growth": {
-    Component: RetentionGrowthMotion,
+    Component: RetentionGrowthR40,
     label:
       "The assistant greeting a returning customer, suggesting anniversary jewelry looks and showing them on a photo of the shopper’s wife",
   },
