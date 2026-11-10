@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { HeroCurtain } from "./hero-curtain";
 import { Rails } from "./rails";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
@@ -13,6 +14,10 @@ import { SiteHeader } from "./site-header";
  * keeps to the sections' content box).
  * The horizontal clip sits on a full-width wrapper outside that cap, so a section can still run a
  * full-bleed layer out to the viewport edges (the Retain hero photo) without widening the page.
+ *
+ * Scrolling, the hero stays put and the sections after it slide up over it (HeroCurtain; globals.css "Hero curtain").
+ * So the rails are drawn after the page, over the sections' cream, and start at the hero's foot (`--rails-top`), so
+ * they ride up with the sections without drawing over the hero; with no hero they start 72.5px up, as before.
  */
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
@@ -20,11 +25,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <div className="relative mx-auto max-w-[1440px]">
         <SiteHeader />
         <div className="@container relative">
-          <div aria-hidden className="pointer-events-none absolute inset-0 -top-[72.5px]">
+          {children}
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 top-(--rails-top,-72.5px)">
             <Rails />
           </div>
-          {children}
         </div>
+        <HeroCurtain />
       </div>
       <SiteFooter />
     </div>

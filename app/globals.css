@@ -309,3 +309,52 @@
   background-color: #7d0034;
   color: #fff9ea;
 }
+
+/*
+ * Hero curtain: scrolling, each page's hero (the first section in <main>, labelled by its `…hero-title` heading)
+ * stays put and the sections after it slide up over it. The hero sticks at `--hero-stick` (HeroCurtain: 0 when it
+ * fits the screen, or minus its overflow so its foot shows first) and sits behind the page (z-index -1, under every
+ * section but over the page's own background). The sections after it take the page's cream, so they cover it as they
+ * pass; that rule is in the base layer, so a section's own background (any utility class) still wins.
+ */
+main > section[aria-labelledby$="hero-title"]:first-child {
+  position: sticky;
+  top: var(--hero-stick, 0px);
+  z-index: -1;
+}
+
+@layer base {
+  main > section[aria-labelledby$="hero-title"]:first-child ~ * {
+    background-color: var(--color-cream);
+  }
+
+  /*
+   * Past the site's 1440px cap the hero runs the full screen width but the sections stop at 1440px, so the hero would
+   * show beside them as they slide up. Each section carries a cream strip out to the screen edge on either side
+   * (outside its own box, so its own background and content are untouched), as the page looked before.
+   */
+  @media (min-width: 1441px) {
+    main > section[aria-labelledby$="hero-title"]:first-child ~ * {
+      position: relative;
+    }
+
+    main > section[aria-labelledby$="hero-title"]:first-child ~ *::before,
+    main > section[aria-labelledby$="hero-title"]:first-child ~ *::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: calc(50vw - 50%);
+      background-color: var(--color-cream);
+      pointer-events: none;
+    }
+
+    main > section[aria-labelledby$="hero-title"]:first-child ~ *::before {
+      right: 100%;
+    }
+
+    main > section[aria-labelledby$="hero-title"]:first-child ~ *::after {
+      left: 100%;
+    }
+  }
+}

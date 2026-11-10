@@ -26,7 +26,7 @@ export const shopperQuestions: ShopperQuestion[] = [
     label: "“Which one should I get?”",
     scene: "which-one-motion",
     description:
-      "Crossword showcases your products, with photos, prices and options, lined up next to each other.\n\nThe shopper asks why one costs more and the answer comes directly from your catalog.",
+      "Crossword showcases your products, with photos, prices and options, lined up next to each other.\nThe shopper asks why one costs more and the answer comes directly from your catalog.",
     panel: panelMaroon,
   },
   {

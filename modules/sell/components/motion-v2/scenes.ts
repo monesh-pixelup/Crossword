@@ -225,7 +225,8 @@ export const storefrontScenes = {
     label:
       "One Crossword widget on three storefronts in turn, Sorelle Labs, Trailwell and Brewhaus, restyling its launcher and suggestion chips to match each brand.",
     width: 413,
-    height: 428,
+    // Its 402px panel alone: the caption under it is hidden on the site (.sf-nocap, sell-motion.css).
+    height: 402,
     duration: 0,
   },
   "place-it-wherever": {
@@ -233,7 +234,8 @@ export const storefrontScenes = {
     label:
       "A storefront page where the Crossword launcher moves to different spots on the page, from a message bar to a corner launcher.",
     width: 413,
-    height: 428,
+    // Its 402px panel alone: the caption under it is hidden on the site (.sf-nocap, sell-motion.css).
+    height: 402,
     duration: 0,
   },
   "complete-channel-deployment": {

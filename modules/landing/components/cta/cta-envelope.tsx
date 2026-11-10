@@ -166,7 +166,13 @@ export function CtaEnvelope() {
   }, []);
 
   return (
-    <section ref={root} aria-labelledby="cta-title" className="relative isolate overflow-hidden max-md:pt-10">
+    <section ref={root} aria-labelledby="cta-title" className="relative isolate">
+      {/*
+        The clip sits on this wrapper (the section's own box, padding included) rather than the section, so the
+        cream the page carries out to the screen edges beside each section on wide screens (globals.css "Hero
+        curtain") isn't clipped away and the pinned hero doesn't show beside the envelope.
+      */}
+      <div className="relative overflow-hidden max-md:pt-10">
       {/* The envelope runs from frame line to frame line (Figma: x 25 → 1415 at 1440). Phones: 40px clear of the divider band above. */}
       <div className="@container relative mx-[25px] max-md:mx-[13px] max-[480px]:mx-[9px]">
         <div data-cta="envelope" className="relative aspect-[1390/920] w-full" aria-hidden>
@@ -306,6 +312,7 @@ export function CtaEnvelope() {
           </feMerge>
         </filter>
       </svg>
+      </div>
     </section>
   );
 }

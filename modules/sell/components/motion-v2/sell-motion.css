@@ -90,3 +90,8 @@
    scene frame drops its maroon fill, notched gold frame and damask texture, leaving the chat on the panel's damask. */
 .sell-bare .cw-sell-v2 :is(.sv-ill-scene-frame__background, .sv-ill-scene-frame__texture) { display: none; }
 .sell-bare .cw-sell-v2 .sv-ill-scene-frame--sized { background: none; }
+
+/* Site addition: Storefront presence's cards carry their own title and copy, so there the branded widget and Place it
+   wherever drop the caption under their panel (the brand name / placement line), as the third card has none; each is
+   then just its 413 × 402 panel. */
+.sf-nocap .cw-sell-v2 :is(.bwc-caption, .piw2c-captions) { display: none; }

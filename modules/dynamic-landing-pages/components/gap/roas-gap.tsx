@@ -40,7 +40,8 @@ export function RoasGap() {
           </div>
 
           {/* Side by side, it starts 47px down, as Figma (3257:37463) sets it. */}
-          <div className="flex max-w-[477.244px] flex-col gap-6 font-sans text-base leading-6 tracking-[-0.32px] text-black/60 min-[1300px]:mt-[47px]">
+          {/* Two paragraphs, the second starting on the line straight after the first (no blank line between them). */}
+          <div className="flex max-w-[477.244px] flex-col font-sans text-base leading-6 tracking-[-0.32px] text-black/60 min-[1300px]:mt-[47px]">
             <p>
               A specific product, a specific offer, a specific audience, all carefully built into the ad. Then the click
               lands on the same generic page everyone sees. The result? You spend to win the click, but lose the

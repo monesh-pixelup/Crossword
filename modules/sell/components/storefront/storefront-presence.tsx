@@ -9,8 +9,8 @@ import { storefrontScenes } from "../motion-v2/scenes";
 
 /**
  * Three equal cards (413.33px at 1280px, 20px apart, stretched to the tallest): the card's motion visual
- * (the source's 413 × 402 aubergine panel, with its caption under it where it has one) filling the card's
- * width, then the title and description on #fdf4de.
+ * (the source's 413 × 402 aubergine panel, its own caption left out, since the card's title says it) filling the
+ * card's width, then the title and description on #fdf4de.
  */
 export function StorefrontPresence() {
   return (
@@ -47,7 +47,7 @@ export function StorefrontPresence() {
                 className="flex flex-col items-start gap-6 overflow-clip border border-black/10 bg-[#fdf4de]"
               >
                 <div
-                  className="relative w-full"
+                  className="sf-nocap relative w-full"
                   style={{ aspectRatio: `${storefrontScenes[card.scene].width} / ${storefrontScenes[card.scene].height}` }}
                 >
                   <ScenePanel scene={storefrontScenes[card.scene]} root={SellMotionRoot} maxScale={Infinity} transform />

@@ -21,12 +21,13 @@ const useCases: { label: string; title: string; body: string; scene: AiaSceneSlu
 ];
 
 /**
- * Section · Campaigns (Figma 3305:453): the eyebrow over a one-line swash headline (Crimson Light 60 at
- * 1.1), with its 477px line of copy 120px across from it, bottom-aligned; then 80px below, two 620px use
- * cases 40px apart. Each is its motion visual (620 × 420: ChatGPT on the forest damask in its gold
- * corner-notched frame, the alert landing in the conversation), and 40px under it an Open Sans SemiBold 12 label in wine, a Crimson ExtraLight 40 line and
- * Geist 16 copy, 16px apart. Below 1280px the copy goes under the headline (beside the 615px headline it would be squeezed to a sliver), and the gap is 80px until 1440px; below 768px the use cases
- * stack. A 232px gold tick sits on the left rail beside the eyebrow (98px down in Figma).
+ * Section · Campaigns (Figma 3305:453): the eyebrow 24px over a row holding the one-line swash headline (615px box)
+ * and, across from it at the row's right edge, its 529px line of copy, the two centred on each other; then 80px
+ * below, two 620px use cases 40px apart. Each is its motion visual (620 × 420: ChatGPT on the forest damask in its
+ * gold corner-notched frame, the alert landing in the conversation), and 40px under it an Open Sans SemiBold 12
+ * label in wine, a Crimson 22 line (#040404) and Geist 16 copy, 16px apart. Below 1280px the copy goes under the
+ * headline (beside the 615px headline it would be squeezed to a sliver); below 768px the use cases stack. A 232px
+ * gold tick sits on the left rail beside the eyebrow (98px down in Figma).
  */
 export function UseCaseCampaigns() {
   return (
@@ -34,15 +35,18 @@ export function UseCaseCampaigns() {
       <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">
-        <div className="flex flex-col items-start gap-8 min-[1280px]:flex-row min-[1280px]:items-end min-[1280px]:gap-20 min-[1440px]:gap-[120px]">
-          <div className="flex max-w-full shrink-0 flex-col items-start gap-6">
-            <Eyebrow>Campaigns</Eyebrow>
-            <SectionTitle id="ai-campaigns-title" initial="R" firstLine="eaches them first" width={614.744} variant="oneLine" weight="light" />
+        <div className="flex flex-col items-start gap-6">
+          <Eyebrow>Campaigns</Eyebrow>
+          {/* Figma 3932:16696: the headline and its copy on one row, centred on each other, the copy at the right edge. */}
+          <div className="flex w-full flex-col items-start gap-8 min-[1280px]:flex-row min-[1280px]:items-center min-[1280px]:justify-between min-[1280px]:gap-10">
+            <div className="max-w-full shrink-0">
+              <SectionTitle id="ai-campaigns-title" initial="R" firstLine="eaches them first" width={614.744} variant="oneLine" weight="light" />
+            </div>
+            <p className="max-w-[528.945px] min-w-0 font-sans text-base leading-6 tracking-[-0.32px] text-black/60 min-[1280px]:w-[528.945px] min-[1280px]:shrink-0">
+              Send a price-drop alert or a back-in-stock note straight into the conversation. It lands where the shopper
+              is already spending their time.
+            </p>
           </div>
-          <p className="max-w-[477px] min-w-0 flex-1 font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
-            Send a price-drop alert or a back-in-stock note straight into the conversation. It lands where the shopper is
-            already spending their time.
-          </p>
         </div>
 
         <ul className="grid w-full grid-cols-1 gap-16 md:grid-cols-2 md:gap-10">
@@ -54,7 +58,7 @@ export function UseCaseCampaigns() {
               </div>
               <h3 className="mt-10 flex flex-col items-start gap-4">
                 <span className="font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] text-[#6c2332] uppercase">{useCase.label}</span>
-                <span className="max-w-[580px] font-serif text-(length:--h4-size) leading-[1.1] font-extralight tracking-[-0.05em] text-[#141414]">
+                <span className="max-w-[580px] font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px] text-[#040404]">
                   {useCase.title}
                 </span>
               </h3>
