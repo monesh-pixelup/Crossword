@@ -25,6 +25,8 @@ export function RecoveryList() {
       spacedRules
       // Below 992px each moment's visual opens under it, accordion-style, and they change only when tapped.
       stackedAccordion
+      // There, the FAQ's plus / minus opens and closes each moment.
+      toggleIcon
       renderPanel={(active) => <RecoveryMotion index={active} />}
     />
   );

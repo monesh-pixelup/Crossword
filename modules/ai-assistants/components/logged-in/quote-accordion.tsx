@@ -26,6 +26,8 @@ export function QuoteAccordion({ quotes }: { quotes: LoggedInQuote[] }) {
       lastRule={false}
       // Below 992px each quote's visual opens under it, accordion-style, and they change only when tapped.
       stackedAccordion
+      // There, the FAQ's plus / minus opens and closes each quote.
+      toggleIcon
       panelBackground={<Image src={panelArt} alt="" fill sizes="(min-width: 1024px) 687px, 100vw" className="object-cover" />}
       renderPanel={(active) => {
         const slug = quotes[active].scene;

@@ -124,9 +124,28 @@ export function HandoffTabs() {
                   selected ? "bg-cream md:pb-8" : "hover:bg-cream/60",
                 )}
               >
-                <span className={cn("flex flex-col items-start gap-4 transition-opacity duration-300", !selected && "opacity-50")}>
+                <span className={cn("flex min-w-0 flex-1 flex-col items-start gap-4 transition-opacity duration-300", !selected && "opacity-50")}>
                   <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{mode.title}</span>
                   <span className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{mode.description}</span>
+                </span>
+                {/*
+                  Below 768px (the accordion): the FAQ's plus / minus (FaqList's plain one, 14px in ink-soft), centred on the
+                  title's first line. The plus turns half a turn as its upright folds away, leaving the minus.
+                */}
+                <span
+                  aria-hidden
+                  className={cn(
+                    "relative mt-1 ml-4 size-3.5 shrink-0 transition-[rotate] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:hidden",
+                    selected && "rotate-180",
+                  )}
+                >
+                  <span className="absolute inset-x-0 top-[6.3px] h-[1.4px] bg-ink-soft" />
+                  <span
+                    className={cn(
+                      "absolute inset-y-0 left-[6.3px] w-[1.4px] bg-ink-soft transition-[scale,opacity] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                      selected ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100",
+                    )}
+                  />
                 </span>
                 {/* Below 768px the tabs change only when tapped, so the open tab has no progress bar (nor while the layout is unknown). */}
                 {selected && wide === true && (

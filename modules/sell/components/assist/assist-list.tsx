@@ -22,6 +22,8 @@ export function AssistList() {
       spacedRules
       // Below 992px each feature's visual opens under it, accordion-style, and they change only when tapped.
       stackedAccordion
+      // There, the FAQ's plus / minus opens and closes each feature.
+      toggleIcon
       renderPanel={(active) => (
         <ScenePanel scene={assistScenes[assistFeatures[active].scene]} root={SellMotionRoot} maxScale={Infinity} />
       )}

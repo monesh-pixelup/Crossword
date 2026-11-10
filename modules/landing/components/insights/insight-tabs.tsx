@@ -205,6 +205,25 @@ export function InsightTabs() {
                     {feature.body}
                   </span>
                 </span>
+                {/*
+                  Below 1200px (the accordion): the FAQ's plus / minus (FaqList's plain one, 14px in ink-soft), level with
+                  the title's first line. The plus turns half a turn as its upright folds away, leaving the minus.
+                */}
+                <span
+                  aria-hidden
+                  className={cn(
+                    "relative mt-[5px] size-3.5 shrink-0 transition-[rotate] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none min-[1200px]:hidden",
+                    on && "rotate-180",
+                  )}
+                >
+                  <span className="absolute inset-x-0 top-[6.3px] h-[1.4px] bg-ink-soft" />
+                  <span
+                    className={cn(
+                      "absolute inset-y-0 left-[6.3px] w-[1.4px] bg-ink-soft transition-[scale,opacity] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                      on ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100",
+                    )}
+                  />
+                </span>
               </button>
               {/*
                 Below 1200px: the accordion row under the tab, easing open to the visual (at its 738:640 shape, inset like the

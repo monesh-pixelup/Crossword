@@ -30,6 +30,11 @@ type AccordionMediaProps = {
    * of in one panel under the list; there the items change only when tapped, never on their own.
    */
   stackedAccordion?: boolean;
+  /**
+   * With `stackedAccordion`, below 992px: the FAQ's plus / minus at the end of each title (Sell: Conversion assistance),
+   * a plus on the closed items and a minus on the open one.
+   */
+  toggleIcon?: boolean;
 };
 
 /** The stacked accordion's open / close: the row eases its height while the media fades. */
@@ -56,6 +61,7 @@ export function AccordionMedia({
   spacedRules = false,
   lastRule = spacedRules,
   stackedAccordion = false,
+  toggleIcon = false,
 }: AccordionMediaProps) {
   // Which layout is showing (null until known), when the stacked layout is an accordion: only its media is drawn.
   const [wide, setWide] = useState<boolean | null>(null);
@@ -127,13 +133,36 @@ export function AccordionMedia({
                   on ? "cursor-default" : "cursor-pointer",
                 )}
               >
-                <span
-                  className={cn(
-                    "font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] transition-colors duration-300 ease-out",
-                    on ? "text-[#040404]" : "text-[#040404]/40 hover:text-[#040404]/70",
+                <span className="flex w-full items-start justify-between gap-4">
+                  <span
+                    className={cn(
+                      "font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] transition-colors duration-300 ease-out",
+                      on ? "text-[#040404]" : "text-[#040404]/40 hover:text-[#040404]/70",
+                    )}
+                  >
+                    {item.title}
+                  </span>
+                  {stackedAccordion && toggleIcon && (
+                    /*
+                      Below 992px (the accordion): the FAQ's plus / minus (FaqList's plain one, 14px in ink-soft), centred on
+                      the title's first line. The plus turns half a turn as its upright folds away, leaving the minus.
+                    */
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "relative mt-1 size-3.5 shrink-0 transition-[rotate] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:mt-[5px] lg:hidden",
+                        on && "rotate-180",
+                      )}
+                    >
+                      <span className="absolute inset-x-0 top-[6.3px] h-[1.4px] bg-ink-soft" />
+                      <span
+                        className={cn(
+                          "absolute inset-y-0 left-[6.3px] w-[1.4px] bg-ink-soft transition-[scale,opacity] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                          on ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100",
+                        )}
+                      />
+                    </span>
                   )}
-                >
-                  {item.title}
                 </span>
                 {item.description && (
                   /* The description (12px under the title) opens and closes by easing its row's height, fading in once there's room. */

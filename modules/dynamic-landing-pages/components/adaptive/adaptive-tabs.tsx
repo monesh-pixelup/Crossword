@@ -234,6 +234,25 @@ export function AdaptiveTabs() {
                   <span className="flex w-full items-center gap-2.5">
                     <Mark id={feature.id} on={selected} />
                     <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.title}</span>
+                    {/*
+                      Below 1260px (the accordion): the FAQ's plus / minus (FaqList's plain one, 14px in ink-soft) at the row's
+                      end, centred on it. The plus turns half a turn as its upright folds away, leaving the minus.
+                    */}
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "relative ml-auto size-3.5 shrink-0 transition-[rotate] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none min-[1260px]:hidden",
+                        selected && "rotate-180",
+                      )}
+                    >
+                      <span className="absolute inset-x-0 top-[6.3px] h-[1.4px] bg-ink-soft" />
+                      <span
+                        className={cn(
+                          "absolute inset-y-0 left-[6.3px] w-[1.4px] bg-ink-soft transition-[scale,opacity] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                          selected ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100",
+                        )}
+                      />
+                    </span>
                   </span>
                   <span className="pl-8 font-sans text-[14px] leading-5 tracking-[-0.42px] text-black/59">{feature.description}</span>
                 </span>

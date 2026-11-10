@@ -188,6 +188,25 @@ export function UpsellTabs() {
                       </span>
                     </span>
                   </span>
+                  {/*
+                    Below 1280px (the accordion): the FAQ's plus / minus (FaqList's plain one, 14px in ink-soft) at the row's
+                    end, centred on the 24px tile's row. The plus turns half a turn as its upright folds away, leaving the minus.
+                  */}
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "relative mt-[5px] ml-auto size-3.5 shrink-0 self-start transition-[rotate] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none min-[1280px]:hidden",
+                      on && "rotate-180",
+                    )}
+                  >
+                    <span className="absolute inset-x-0 top-[6.3px] h-[1.4px] bg-ink-soft" />
+                    <span
+                      className={cn(
+                        "absolute inset-y-0 left-[6.3px] w-[1.4px] bg-ink-soft transition-[scale,opacity] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                        on ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100",
+                      )}
+                    />
+                  </span>
                 </button>
                 {/*
                   Below 1280px: the accordion row under the copy, easing open to the feature's visual (at its 738:680
