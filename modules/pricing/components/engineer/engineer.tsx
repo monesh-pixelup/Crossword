@@ -1,32 +1,25 @@
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
+import { CtaBannerPanel, CtaBannerTitle } from "@/modules/ai-assistants/components/cta/cta";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ctaLinks } from "@/modules/marketing";
-import { TwillPanel } from "../shared/twill-panel";
 
 /**
- * Library · CTA banner (Figma 3564:23201), closing the page: the maroon twill panel with its gold
- * hairline frame 14px in and studs 8px in, 96px of padding top and bottom and 28px between: a
- * centred Dark eyebrow, cream swash headline and on-dark copy, then the Wine stamp beside a cream
- * text link. 96px below it.
+ * Library · CTA banner (Figma 3564:23201), closing the page in the site's CTA banner layout (AI Assistants, Figma
+ * 3305:1697): the maroon twill panel with its gold hairline frame 14px in and the postage stamp in its top right
+ * corner, 96px of padding top and bottom and 28px between: the cream swash headline and on-dark copy, then the Wine
+ * stamp beside a cream text link. 96px below it.
  */
 export function Engineer() {
   return (
     <section aria-labelledby="engineer-title" className="relative pb-16 md:pb-24">
       <div className="content-width">
-        <TwillPanel frameInset={14} studInset={8} className="flex flex-col items-center gap-7 px-6 py-16 text-center md:px-20 md:py-24">
-          <Eyebrow surface="green">Engineer and setup</Eyebrow>
-          <SectionTitle
+        <CtaBannerPanel>
+          <CtaBannerTitle
             id="engineer-title"
             initial="E"
             firstLine="very launch comes"
             secondLine="with an engineer"
             width={445}
-            variant="dynamicCentered"
-            weight="light"
-            tone="cream"
-            gutter={96}
           />
           <p className="max-w-[520px] font-sans text-base leading-6 tracking-[-0.02em] text-on-dark">
             Every Crossword account launches with a human, forward-deployed engineer who works with your team to get the agent
@@ -44,7 +37,7 @@ export function Engineer() {
               See Managed Launch
             </TextLink>
           </div>
-        </TwillPanel>
+        </CtaBannerPanel>
       </div>
     </section>
   );
