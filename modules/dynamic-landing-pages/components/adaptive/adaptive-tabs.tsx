@@ -105,7 +105,7 @@ function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
  * advances.
  *
  * Below 1260px (stacked) the tabs are an accordion, as Insights on the home page: the open feature's visual opens out
- * right under it, easing open as the last one's closes, and they change only when tapped (the bar then sits full).
+ * right under it, easing open as the last one's closes, and they change only when tapped (with no progress bar).
  */
 export function AdaptiveTabs() {
   const [active, setActive] = useState(0);
@@ -237,11 +237,8 @@ export function AdaptiveTabs() {
                   </span>
                   <span className="pl-8 font-sans text-[14px] leading-5 tracking-[-0.42px] text-black/59">{feature.description}</span>
                 </span>
-                {/* Stacked, the tabs change only when tapped: the open tab's bar sits full instead of running its turn. */}
-                {selected && wide === false && (
-                  <span aria-hidden className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-3 h-0.5 w-[calc(100%+2.02px)] bg-maroon" />
-                )}
-                {selected && wide !== false && (
+                {/* Stacked, the tabs change only when tapped, so the open tab has no progress bar (nor while the layout is unknown). */}
+                {selected && wide === true && (
                   <span
                     key={run}
                     aria-hidden

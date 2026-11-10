@@ -86,8 +86,8 @@ export function DedicatedTabList() {
 
   return (
     <>
-      {/* Below 992px: every component stacked, no tabs. */}
-      <ul className="flex w-full flex-col gap-12 lg:hidden">
+      {/* Below 992px: every component stacked, no tabs, a thin rule halfway between each (48px either side). */}
+      <ul className="flex w-full flex-col gap-12 lg:hidden [&>li+li]:border-t [&>li+li]:border-black/10 [&>li+li]:pt-12">
         {dedicatedTabs.map((tab) => (
           <li key={tab.label} className="flex w-full flex-col">
             <TabCopy tab={tab} />

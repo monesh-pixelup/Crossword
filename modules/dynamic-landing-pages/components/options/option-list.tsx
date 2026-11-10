@@ -66,7 +66,7 @@ export function OptionsProvider({ children }: { children: ReactNode }) {
  * Hovering or focusing an option brings it into focus. Render inside OptionsProvider.
  *
  * Below 1260px (stacked) the options are an accordion, as Insights on the home page: the focused option's visual opens
- * out under its copy, easing open as the other's closes, and they change only when tapped (the bar then sits full).
+ * out under its copy, easing open as the other's closes, and they change only when tapped (with no progress bar).
  */
 export function OptionList() {
   const { active, plays, focus, wide } = useContext(OptionsContext);
@@ -173,7 +173,12 @@ export function OptionList() {
                   ref={(el) => {
                     bars.current[i] = el;
                   }}
-                  className={cn("absolute top-1/2 left-0 h-0.5 w-full origin-left -translate-y-1/2 bg-maroon [scale:0_1]", !on && "opacity-0")}
+                  className={cn(
+                    "absolute top-1/2 left-0 h-0.5 w-full origin-left -translate-y-1/2 bg-maroon [scale:0_1]",
+                    !on && "opacity-0",
+                    // Stacked (the accordion, below 1260px) the options change only when tapped: no progress bar.
+                    wide !== true && "hidden",
+                  )}
                 />
               </span>
             </li>
