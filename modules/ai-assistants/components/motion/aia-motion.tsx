@@ -2,19 +2,47 @@
 
 import { type ReactNode, useSyncExternalStore } from "react";
 import type { SceneEntry } from "@/modules/sell/components/motion/scene-panel";
-import { V3AppDetailMotion } from "./visuals/AiAssistantsV3/AppDetailMotion";
+import "./motion.css";
 import {
+  V3AppDetailMotion,
   V3BackInStockMotion,
+  V3CheckoutMotion,
   V3ConfigureMotion,
+  V3ExchangeMotion,
+  V3InsightsMotion,
+  V3LoyaltyMotion,
+  V3OrderStatusMotion,
   V3PriceDropMotion,
+  V3PromoLaunches,
+  V3PromoOffer,
+  V3PromoUpgrade,
   V3ShortlistMotion,
   V3ValueMotion,
   V3WhichMotion,
-} from "./visuals/AiAssistantsV3/AiAssistantsV3Motion";
-import { V3InsightsMotion } from "./visuals/AiAssistantsV3/Insights";
-import { V3CheckoutMotion, V3ExchangeMotion, V3LoyaltyMotion, V3OrderStatusMotion } from "./visuals/AiAssistantsV3/MobileCommerceMotion";
-import { V3PromoLaunches, V3PromoOffer, V3PromoUpgrade } from "./visuals/AiAssistantsV3/Promotions";
-import "./motion.css";
+} from "./aia-v3";
+
+/*
+ * The AI Assistants page's motion visuals, built from the "Crossword — AI Assistants V3 motion" source
+ * (Crossword-AI-Assistants-V3-Motion/source): aia-v3.js is its Vite build of the 15 visuals, unminified with React
+ * external, so markup, classes, copy and timings are the source's own. Mechanical changes only:
+ *
+ * - The follow-scrolls in GiftJourneyV2Motion and ProductDiscoveryV2Motion divide their getBoundingClientRect values by
+ *   the zoom (or scale) the site draws the visual at, so they stay in CSS px (sellDynamicMotion.ts, useSmoothFollow and
+ *   useChatCamera already did). At the drawn size the factor is 1, so nothing changes.
+ * - Brand fonts point at the next/font variables, and assets are served from public/images/ai-assistants/v3/assets
+ *   (photos as WebP; 05–06's campaigns_bg and the compact_bg frame are the site's own re-exports). motion.css is scoped
+ *   under `.aia-motion` (see its header and its "Site" rules).
+ *
+ * | Visuals | Size | Used in |
+ * | --- | --- | --- |
+ * | 01–04 `which-one-motion` … `best-value-motion` | 789 × 579 | possibilities/shopper-asks-tabs.tsx |
+ * | 05–06 `back-in-stock-motion`, `price-drop-motion` | 620 × 420 | campaigns/use-case-campaigns.tsx |
+ * | 07–10 `order-status-motion` … `checkout-motion` | 687 × 586 | logged-in/quote-accordion.tsx |
+ * | 11 `app-detail-motion` | 1280 × 599 | brand/brand-aesthetics.tsx |
+ * | 12–14 `promo-upgrade`, `promo-offer`, `promo-launches` | 355 × 402 | promotions/promotions.tsx |
+ * | 15 `insights-motion` | 1280 × 599 | insights/insights.tsx |
+ */
+
 
 const subscribe = () => () => {};
 
@@ -37,8 +65,9 @@ export function AiaMotionRoot({ children }: { children: ReactNode }) {
  * without the gallery's tile label, see motion.css). Each plays itself, as in the source: it
  * starts once it is 30% on screen with the tab focused, the chats restart when the viewer comes
  * back, 12–14 land once and stay, and `prefers-reduced-motion` shows the final state. The `play`
- * prop ScenePanel passes is ignored. `duration` is about how long (ms) a visual takes to settle,
- * timed from the source build, for the tabs that time their turns by it.
+ * prop ScenePanel passes is ignored. `duration` is about how long (ms) a visual takes to settle, for the tabs that
+ * time their turns by it: 01–06 and 11–15 as timed from the source build; 07–10 from the source's own beats as its
+ * phone camera paces them (useCameraBeats: slower typing, a dwell after each send and a closing read).
  */
 export const aiaScenes = {
   "which-one-motion": {
@@ -88,28 +117,28 @@ export const aiaScenes = {
     label: "In ChatGPT on a phone, a signed-in customer asks where their order is and sees its delivery status.",
     width: 687,
     height: 586,
-    duration: 16200,
+    duration: 18400,
   },
   "exchange-motion": {
     Component: V3ExchangeMotion,
     label: "In ChatGPT on a phone, a customer asks for an exchange or refund; eligibility is checked and the options explained.",
     width: 687,
     height: 586,
-    duration: 22100,
+    duration: 24600,
   },
   "loyalty-motion": {
     Component: V3LoyaltyMotion,
     label: "In ChatGPT on a phone, a customer asks whether their loyalty benefit applies, checked against their purchase history.",
     width: 687,
     height: 586,
-    duration: 14200,
+    duration: 16300,
   },
   "checkout-motion": {
     Component: V3CheckoutMotion,
     label: "In ChatGPT on a phone, a customer asks to buy the products they picked; a cart is prepared with eligible offers and continues to checkout.",
     width: 687,
     height: 586,
-    duration: 27600,
+    duration: 30800,
   },
   "app-detail-motion": {
     Component: V3AppDetailMotion,
