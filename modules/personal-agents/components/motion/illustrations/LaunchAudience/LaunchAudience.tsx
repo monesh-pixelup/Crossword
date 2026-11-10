@@ -10,6 +10,7 @@ import sofiaMarinoImage from "@/modules/personal-agents/assets/motion/illustrati
 import emmaLindqvistImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/emma-lindqvist.svg";
 import kenjiWatanabeImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/kenji-watanabe.svg";
 import priyaRamanImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/priya-raman.svg";
+import orgMarkImage from "@/modules/personal-agents/assets/motion/brand/org-mark.svg";
 
 const priyaNair = priyaNairImage.src;
 const omarHaddad = omarHaddadImage.src;
@@ -17,6 +18,7 @@ const sofiaMarino = sofiaMarinoImage.src;
 const emmaLindqvist = emmaLindqvistImage.src;
 const kenjiWatanabe = kenjiWatanabeImage.src;
 const priyaRaman = priyaRamanImage.src;
+const orgMark = orgMarkImage.src;
 
 // Retain 11 — "Turn customer patterns into your audience", in the Storybook
 // "Dashboard/Final/Insights" dashboard. The result follows the Launch
@@ -259,6 +261,9 @@ export function InsightsFrame({
   stageRef,
   runKey,
   className,
+  bare = false,
+  compact = false,
+  railActive = "chartBar",
   children,
 }: {
   saved: string[];
@@ -268,26 +273,25 @@ export function InsightsFrame({
   stageRef?: React.Ref<HTMLDivElement>;
   runKey?: number;
   className?: string;
+  // Just the dashboard, without #12's frame — for callers that place it
+  // in their own viewport (Home 09b's camera).
+  bare?: boolean;
+  // The chats list collapsed (Home 09b's narrow viewport): rail + chat.
+  compact?: boolean;
+  // The rail's current section (Analytics by default; Build is "cube").
+  railActive?: "house" | "cube" | "headset" | "chartBar";
   children: React.ReactNode;
 }) {
-  return (
-    <div className={["la-stage", className].filter(Boolean).join(" ")} ref={stageRef}>
-      <LandscapeCanvas
-        backdrop="green"
-        bleed
-        scene={
-          <div className="la-dash" key={runKey}>
+  const dash = (
+          <div className={compact ? "la-dash la-dash--compact" : "la-dash"} key={runKey}>
             <nav className="la-rail">
-              <span className="la-rail__logo">C</span>
+              <img className="la-rail__logo la-rail__logo--mark" src={orgMark} alt="" />
               <div className="la-rail__group">
-                {(["house", "cube", "headset"] as const).map((n) => (
-                  <span className="la-rail__item" key={n}>
+                {(["house", "cube", "headset", "chartBar"] as const).map((n) => (
+                  <span className={n === railActive ? "la-rail__item la-rail__item--active" : "la-rail__item"} key={n}>
                     <Ph name={n} />
                   </span>
                 ))}
-                <span className="la-rail__item la-rail__item--active">
-                  <Ph name="chartBar" />
-                </span>
               </div>
               <div className="la-rail__group la-rail__group--end">
                 {(["search", "bell", "gear"] as const).map((n) => (
@@ -297,16 +301,13 @@ export function InsightsFrame({
                 ))}
                 <span className="la-rail__rule" />
                 <span className="la-rail__item">
-                  <span className="la-rail__org">C</span>
-                </span>
-                <span className="la-rail__item">
                   <img className="la-rail__me" src={priyaRaman} alt="" />
                 </span>
               </div>
             </nav>
 
             <main className="la-main">
-              <section className="la-list">
+              {!compact && (<section className="la-list">
                 <div className="la-list__head">
                   <h2 className="la-serif la-serif--24">Insights</h2>
                   <Ph name="sidebar" className="la-muted" />
@@ -342,13 +343,15 @@ export function InsightsFrame({
                     <span className="la-row__age">{r.age}</span>
                   </div>
                 ))}
-              </section>
+              </section>)}
 
               {children}
             </main>
           </div>
-        }
-      />
+  );
+  return (
+    <div className={["la-stage", className].filter(Boolean).join(" ")} ref={stageRef}>
+      {bare ? dash : <LandscapeCanvas backdrop="green" bleed scene={dash} />}
     </div>
   );
 }

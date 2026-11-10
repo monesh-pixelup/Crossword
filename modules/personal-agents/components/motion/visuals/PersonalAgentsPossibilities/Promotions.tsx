@@ -18,14 +18,14 @@ function useLandedOnce(ref: React.RefObject<HTMLElement | null>) {
   return played;
 }
 
-function Compact({ agent, name, light, children }: { agent: Agent; name: string; light?: boolean; children: React.ReactNode }) {
+function Compact({ agent, name, light, standard, children }: { agent: Agent; name: string; light?: boolean; standard?: boolean; children: React.ReactNode }) {
   const ref = useRef<HTMLElement>(null);
   const played = useLandedOnce(ref);
   return (
     <figure className="pap-figure" data-name={name} ref={ref}>
       <figcaption className="app-stage__tile-label">{name}</figcaption>
       <div className="pap-canvas pap-canvas--compact">
-        <div className={`pap pap--${agent} pap--compact ppr-land${played ? " ppr-land--in" : ""}${light ? " pap--light" : ""}`}>
+        <div className={`pap pap--${agent} pap--compact ppr-land${played ? " ppr-land--in" : ""}${light ? " pap--light" : ""}${standard ? " pap--r40" : ""}`}>
           <AgentHeader agent={agent} />
           <div className="pap-thread" data-name="Conversation">{children}</div>
         </div>
@@ -41,7 +41,7 @@ const Check = () => (
 export function PaUpgrade() {
   const u = upgrade;
   return (
-    <Compact agent="muse" name="08 Your upgrade suggestion · Muse">
+    <Compact agent="muse" standard name="08 Your upgrade suggestion · Muse">
       <User>{u.ask}</User>
       <Merchant reply={u.reply}>
         <div className="ppr-compare" data-name="Upgrade">
@@ -64,7 +64,7 @@ export function PaUpgrade() {
 export function PaPromotion() {
   const p = promo;
   return (
-    <Compact agent="grok" light name="09 Your promotions · Grok Bot">
+    <Compact agent="grok" light standard name="09 Your promotions · Grok Bot">
       <User>{p.ask}</User>
       <Merchant reply={p.reply}>
         <article className="ppr-deal" data-name={`Promotion / ${p.bag.name}`}>
@@ -84,7 +84,7 @@ export function PaPriorities() {
   const m = priorities;
   const b = m.launch.bag;
   return (
-    <Compact agent="muse" name="10 Your merchandising priorities · Muse">
+    <Compact agent="muse" standard name="10 Your merchandising priorities · Muse">
       <User>{m.ask}</User>
       <Merchant reply={m.reply}>
         <div className="ppr-pair" data-name="Launch and bundle">

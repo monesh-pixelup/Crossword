@@ -191,6 +191,15 @@
 @keyframes pam-pap-g-glint { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
 @keyframes pam-pap-g-settle { from { transform: rotate(-40deg); } to { transform: rotate(0); } }
 
+/* Chat-shell standard: 40px window corners on 01–06 (.pap-motion); 28px on
+   the smaller 08–10 (.pap--r40). 00 and 07 keep their own radius.
+   Logo tiles are concentric with the window corner (radius − inset), which
+   is larger than half the tile at these insets, so they resolve to circles. */
+.pa-motion .pap.pap-motion { border-radius: 40px; }
+.pa-motion .pap.pap--compact.pap--r40 { border-radius: 28px; }
+.pa-motion .pap.pap-motion .pap-logo,
+.pa-motion .pap.pap--compact.pap--r40 .pap-logo { border-radius: 50%; overflow: hidden; }
+
 /* components/ill/StaggerText.css */
 .pa-motion .ill-stagger-text__word {
   display: inline-block;
@@ -1275,6 +1284,12 @@
 .pa-motion .la-product__badge,
 .pa-motion .la-skeleton > span {
   border-radius: 4px;
+}
+
+/* The merchant's mark in place of the "C" logo placeholder. */
+.pa-motion .la-rail__logo--mark {
+  display: block;
+  object-fit: cover;
 }
 
 /* illustrations/ChatGptInsights/ChatGptInsights.css */
