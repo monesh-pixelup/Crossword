@@ -69,7 +69,7 @@ export function CustomerIntelligence() {
             width={560}
             variant="intelligence"
           />
-          <p className="max-w-[465.37px] text-base leading-6 tracking-[-0.32px] text-black/60">
+          <p className="max-w-[465.37px] text-base leading-6 tracking-[-0.32px] text-black/60 max-md:mt-2.5">
             Crossword <span className="font-medium">turns signals, decisions, and outcomes into memory</span>, so you get to
             know your customer a little better, every single time.
           </p>

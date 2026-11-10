@@ -15,7 +15,7 @@ import { LaunchWheel } from "./launch-wheel";
 function Quote() {
   return (
     <blockquote className="relative flex w-full max-w-[827px] items-center justify-center border border-black/10 bg-[rgba(243,233,212,0.5)] px-5 py-11 xs:px-[72px] xs:py-4">
-      <p className="text-center font-serif text-[22px] leading-[1.1] tracking-[-0.04em] text-[#040404] lg:whitespace-nowrap">
+      <p className="text-center font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.04em] text-[#040404] lg:whitespace-nowrap">
         We want this, but we don&apos;t have the people, time or expertise to build it ourselves.
       </p>
       <Image src={quoteMark} alt="" className="absolute top-2 left-3 xs:top-[12.39px] xs:left-[26.16px]" />

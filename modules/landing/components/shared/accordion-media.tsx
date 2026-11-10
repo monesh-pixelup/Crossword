@@ -129,7 +129,7 @@ export function AccordionMedia({
               >
                 <span
                   className={cn(
-                    "font-serif text-[22px] leading-[1.1] tracking-[-0.88px] transition-colors duration-300 ease-out",
+                    "font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] transition-colors duration-300 ease-out",
                     on ? "text-[#040404]" : "text-[#040404]/40 hover:text-[#040404]/70",
                   )}
                 >

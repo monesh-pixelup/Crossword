@@ -9,7 +9,7 @@ import { RoiCalculator } from "./roi-calculator";
 function Note({ title, body }: { title: string; body: string }) {
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-2">
-      <h3 className="font-serif text-[22px] leading-[1.15] tracking-[-0.04em] text-ink">{title}</h3>
+      <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.15] tracking-[-0.04em] text-ink">{title}</h3>
       <p className="font-sans text-[14px] leading-[1.43] tracking-[-0.02em] text-pretty text-ink-muted">{body}</p>
     </div>
   );

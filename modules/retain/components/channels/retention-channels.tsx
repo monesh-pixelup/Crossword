@@ -49,7 +49,7 @@ export function RetentionChannels() {
                     {/* eslint-disable-next-line @next/next/no-img-element -- static SVG glyph, nothing to optimize */}
                     <img src={c.icon.src} alt="" className="block size-[21.719px] max-w-none" />
                   </span>
-                  <h3 className="font-serif text-[24px] leading-[1.1] tracking-[-1.2px] text-ink">{c.title}</h3>
+                  <h3 className="font-serif text-[24px] max-md:text-[20px] leading-[1.1] tracking-[-1.2px] text-ink">{c.title}</h3>
                   <p className={`font-sans text-base leading-6 tracking-[-0.32px] text-black/50 ${i > 0 ? "max-w-[453.973px]" : ""}`}>
                     {c.body}
                   </p>

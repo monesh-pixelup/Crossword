@@ -107,7 +107,7 @@ export function Plans() {
                     <Image src={item.icon} alt="" className="size-5" />
                   </span>
                   <div className="flex min-w-0 flex-1 flex-col gap-2">
-                    <h3 className="font-serif text-[22px] leading-[1.15] tracking-[-0.04em] text-ink">{item.title}</h3>
+                    <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.15] tracking-[-0.04em] text-ink">{item.title}</h3>
                     <p className="font-sans text-[14px] leading-[1.43] tracking-[-0.02em] text-pretty text-ink-muted">{item.body}</p>
                   </div>
                 </li>
@@ -118,7 +118,7 @@ export function Plans() {
           <div className="flex flex-col items-start gap-6 bg-sand px-7 py-[33px] shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:px-[41px] lg:flex-row lg:items-center lg:justify-between lg:gap-10">
             <div className="flex max-w-[606.5px] flex-col items-start gap-2">
               <p className="font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] text-label-olive uppercase">Early-stage program</p>
-              <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.04em] text-ink">Starting a business is hard work.</h3>
+              <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.04em] text-ink">Starting a business is hard work.</h3>
               <p className="font-sans text-base leading-6 tracking-[-0.02em] text-black/60">
                 If you&rsquo;re an early-stage ecommerce brand doing under $1M in annual online revenue, apply and join the
                 waitlist for free access to Crossword.

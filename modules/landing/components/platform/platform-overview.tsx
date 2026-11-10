@@ -54,7 +54,7 @@ export function PlatformOverview() {
                   // All three cards share one width now that the third card's copy is trimmed to match the others.
                   className="relative flex w-[85%] shrink-0 snap-start flex-col items-start gap-6 px-5 md:w-[512px] md:px-8 lg:w-[649px] lg:px-14"
                 >
-                  <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.04em] text-ink">{card.title}</h3>
+                  <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.04em] text-ink">{card.title}</h3>
                   <div
                     className="text-base leading-6 tracking-[-0.32px] text-black/50"
                     style={card.narrow ? { maxWidth: card.narrow } : undefined}

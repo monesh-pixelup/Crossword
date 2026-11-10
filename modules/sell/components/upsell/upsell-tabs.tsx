@@ -162,7 +162,7 @@ export function UpsellTabs() {
                   <span className="flex min-w-0 flex-col">
                     <span
                       className={cn(
-                        "font-serif text-[22px] leading-[1.1] tracking-[-0.88px] transition-colors duration-300 ease-out",
+                        "font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] transition-colors duration-300 ease-out",
                         on ? "text-[#040404]" : "text-[#040404]/40",
                       )}
                     >

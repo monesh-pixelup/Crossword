@@ -19,7 +19,7 @@ export function RoasGap() {
           Side by side only from 1300px, where the row holds the 614.7px headline and the 477px copy with room between;
           narrower, the copy would be squeezed into a tall, narrow column, so it stacks under the headline instead.
         */}
-        <div className="flex w-full flex-col items-start gap-8 min-[1300px]:flex-row min-[1300px]:items-start min-[1300px]:justify-between min-[1300px]:gap-12">
+        <div className="flex w-full flex-col items-start gap-[26px] min-[1300px]:flex-row min-[1300px]:items-start min-[1300px]:justify-between min-[1300px]:gap-12">
           <div className="flex flex-col items-start gap-6">
             <Eyebrow>The ROAS gap</Eyebrow>
             <SectionTitle

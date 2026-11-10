@@ -13,7 +13,7 @@ import { LatticeFrame } from "../shared/lattice-frame";
 const rule = "border-b border-engraved/50";
 const cell = `${rule} px-5 py-8 text-left align-top`;
 const head = `${rule} px-5 py-[18px] text-left align-top font-serif text-[18px] leading-[22px] font-medium tracking-[-0.54px] whitespace-nowrap uppercase`;
-const body = "font-sans text-[18px] leading-6 font-normal tracking-[-0.36px]";
+const body = "font-sans text-[18px] max-md:text-base leading-6 font-normal tracking-[-0.36px]";
 /** The body rows' fill (Figma #faf3e2); the credits column stays sand. */
 const rowFill = "bg-[#faf3e2]";
 
@@ -53,7 +53,7 @@ export function Credits() {
         <div className="flex flex-col items-center gap-6 text-center">
           <Eyebrow>Credits</Eyebrow>
           <SectionTitle id="credits-title" initial="W" firstLine="hat does a" secondLine="credit cover?" width={323} variant="dynamicCentered" weight="light" />
-          <p className="max-w-[560px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
+          <p className="max-w-[560px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted max-md:mt-[3px]">
             Credits power every interaction, from a conversational reply to a dynamic landing page. A typical conversation
             runs about 5 credits.
           </p>
@@ -109,7 +109,7 @@ export function Credits() {
                   <tr key={row.label}>
                     <th
                       scope="row"
-                      className={cn(cell, rowFill, "text-left md:sticky md:left-0 md:z-1 font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] text-pretty text-ink")}
+                      className={cn(cell, rowFill, "text-left md:sticky md:left-0 md:z-1 font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.04em] text-pretty text-ink")}
                     >
                       {row.label}
                     </th>

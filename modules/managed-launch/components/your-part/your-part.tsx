@@ -28,7 +28,7 @@ export function YourPart() {
             variant="dynamicCentered"
             weight="light"
           />
-          <p className="max-w-[560px] font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
+          <p className="max-w-[560px] font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted max-md:mt-[3px]">
             Your job is to bring us the business context and tell us what&rsquo;s changing. Our job is to turn that into
             better customer experiences.
           </p>
@@ -48,7 +48,7 @@ export function YourPart() {
               </span>
               <div className="flex flex-col items-start gap-4 md:gap-12">
                 <Eyebrow size="tag">{step.tag}</Eyebrow>
-                <h3 className="font-serif text-[32px] leading-[1.1] font-light tracking-[-1.6px] text-ink">{step.title}</h3>
+                <h3 className="font-serif text-[32px] max-md:text-[26px] leading-[1.1] font-light tracking-[-1.6px] text-ink">{step.title}</h3>
               </div>
             </li>
           ))}

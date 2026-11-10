@@ -108,7 +108,7 @@ export function TriggerTabs() {
             >
               <span
                 className={cn(
-                  "font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404] transition-opacity duration-300",
+                  "font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404] transition-opacity duration-300",
                   !selected && "opacity-50",
                 )}
               >

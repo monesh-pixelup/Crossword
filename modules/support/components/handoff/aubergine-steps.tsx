@@ -37,7 +37,7 @@ const variants = {
     card: "top-[4.51px] right-[3.51px] bottom-[3.4px] left-[3.51px]",
     cell: "mt-[15.35px]",
     copy: "mt-[19.65px]",
-    stepTitle: "font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px]",
+    stepTitle: "font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px]",
     stepBody: "text-base leading-6 tracking-[-0.32px]",
   },
   /**
@@ -56,7 +56,7 @@ const variants = {
     cell: "mt-[16.35px]",
     copy: "mt-[18.65px]",
     // Figma 3257:34333: Crimson 22 titles at -0.88px over Geist 16/24 copy at -0.32px.
-    stepTitle: "font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px]",
+    stepTitle: "font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px]",
     stepBody: "text-base leading-6 tracking-[-0.32px]",
   },
   /**
@@ -73,7 +73,7 @@ const variants = {
     cell: "mt-[18.2px]",
     cellHeight: "h-[192.3px]",
     copy: "mt-[20.5px]",
-    stepTitle: "font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px]",
+    stepTitle: "font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px]",
     stepBody: "text-base leading-6 tracking-[-0.32px]",
   },
 } as const;

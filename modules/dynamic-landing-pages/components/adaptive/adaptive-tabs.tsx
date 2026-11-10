@@ -233,7 +233,7 @@ export function AdaptiveTabs() {
                 >
                   <span className="flex w-full items-center gap-2.5">
                     <Mark id={feature.id} on={selected} />
-                    <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.title}</span>
+                    <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.title}</span>
                   </span>
                   <span className="pl-8 font-sans text-[14px] leading-5 tracking-[-0.42px] text-black/59">{feature.description}</span>
                 </span>

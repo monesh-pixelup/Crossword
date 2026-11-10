@@ -157,7 +157,7 @@ export function JourneyLibrary() {
                   <IconTile icon={icons[i]} small={icons[i] === orderTracking} />
                   {/* Figma 3512:25002: the title and its copy 8px apart, 24px under the badge. */}
                   <div className="flex flex-col items-start gap-2">
-                    <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{journey.title}</h3>
+                    <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-ink">{journey.title}</h3>
                     <p className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">
                       <span className="font-medium text-[#33322f]">{journey.lead}</span>
                       {journey.inline ? " " : <br />}

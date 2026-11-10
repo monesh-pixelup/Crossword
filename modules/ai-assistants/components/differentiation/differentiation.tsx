@@ -8,9 +8,9 @@ import { LatticeFrame } from "@/modules/pricing/components/shared/lattice-frame"
 import { type DifferentiationRow, differentiationRows } from "../../config/differentiation";
 
 const rule = "border-b border-engraved/50";
-const head = cn(rule, "px-5 py-[18px] text-left align-top font-serif text-[18px] leading-[22px] font-medium tracking-[-0.54px] uppercase");
+const head = cn(rule, "px-5 py-[18px] text-left align-top font-serif text-[18px] max-md:text-base leading-[22px] font-medium tracking-[-0.54px] uppercase");
 const cell = cn(rule, "px-5 py-8 align-top");
-const body = "font-sans text-[18px] leading-6 tracking-[-0.36px] text-pretty";
+const body = "font-sans text-[18px] max-md:text-base leading-6 tracking-[-0.36px] text-pretty";
 /** The body rows' fill (Figma #faf3e2); the Crossword column stays sand. */
 const rowFill = "bg-[#faf3e2]";
 /** The first column stays in view while the table scrolls, from 768px up (below that it would fill the screen). */
@@ -78,7 +78,7 @@ export function Differentiation({
                 <tr key={row.experience}>
                   <th
                     scope="row"
-                    className={cn(cell, pinned, rowFill, "text-left font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.04em] text-ink")}
+                    className={cn(cell, pinned, rowFill, "text-left font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.04em] text-ink")}
                   >
                     {row.experience}
                   </th>

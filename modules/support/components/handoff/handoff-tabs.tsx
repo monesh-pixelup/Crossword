@@ -125,7 +125,7 @@ export function HandoffTabs() {
                 )}
               >
                 <span className={cn("flex flex-col items-start gap-4 transition-opacity duration-300", !selected && "opacity-50")}>
-                  <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{mode.title}</span>
+                  <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{mode.title}</span>
                   <span className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{mode.description}</span>
                 </span>
                 {/* Below 768px the tabs change only when tapped, so the open tab has no progress bar (nor while the layout is unknown). */}

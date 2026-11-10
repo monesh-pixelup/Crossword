@@ -100,7 +100,7 @@ export function HelpdeskOptions() {
                 <li key={name} className="relative flex h-32 border border-engraved/10 bg-sand px-[1.5px] py-[2.951px] text-center sm:w-[188px]">
                   <div className="flex w-full flex-col items-center justify-center gap-2 bg-[#fff7e4]">
                     <Image src={icon} alt="" className="h-[29px] w-[31px]" />
-                    <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
+                    <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
                   </div>
                   {studs.map((place) => (
                     <span key={place} aria-hidden className={`pointer-events-none absolute size-[3px] rounded-full bg-gold ${place}`} />

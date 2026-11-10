@@ -191,7 +191,7 @@ export function InsightTabs() {
                     !on && "opacity-50",
                   )}
                 >
-                  <span className="max-w-[403.95px] font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">
+                  <span className="max-w-[403.95px] font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">
                     {feature.title}
                   </span>
                   {/* Below 992px (the accordion) a closed tab shows only its title; the open one keeps its line of copy. */}

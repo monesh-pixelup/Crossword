@@ -15,7 +15,7 @@ export function ShopperExperience() {
       />
 
       <div className="flex content-width flex-col items-start gap-section">
-        <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-0">
+        <div className="flex w-full flex-col items-start gap-[22px] lg:flex-row lg:items-end lg:justify-between lg:gap-0">
           <div className="flex flex-col items-start gap-6">
             <Eyebrow>Shopper experience</Eyebrow>
             <SectionTitle

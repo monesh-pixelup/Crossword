@@ -23,7 +23,7 @@ export function TakeControl() {
         <div className="flex flex-col items-start gap-[18px] min-[1301px]:shrink-0">
           <Eyebrow>You keep complete control</Eyebrow>
           <SectionTitle id="control-title" initial="T" firstLine="ake control," secondLine="whenever you like" width={553.133} variant="dynamic" weight="light" />
-          <p className="max-w-[553px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+          <p className="max-w-[553px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60 max-md:mt-2">
             Crossword gives the human-in-the-loop full context. Every conversation, workflow, order, page viewed, note and
             stuck moment. Crossword can surface the important bits, while the human stays in control.
           </p>

@@ -14,7 +14,7 @@ export function AdaptivePages() {
         <div className="flex max-w-[688.32px] flex-col items-start gap-6">
           <Eyebrow>Adaptive product pages</Eyebrow>
           <SectionTitle id="adaptive-title" initial="A" firstLine="daptive" secondLine="product pages" width={300} variant="dynamic" weight="light" />
-          <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+          <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60 max-md:mt-[3px]">
             Keep your current pages and add dynamic elements where they matter most, like common questions addressed or
             a personalized summary.
           </p>

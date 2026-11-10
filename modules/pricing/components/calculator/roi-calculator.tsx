@@ -51,7 +51,7 @@ function Result({ title, value }: { title: string; value: string }) {
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-2 overflow-clip">
       <p className={label}>{title}</p>
-      <p className="font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-ink">{value}</p>
+      <p className="font-serif text-[40px] max-md:text-[32px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-ink">{value}</p>
     </div>
   );
 }
@@ -122,7 +122,7 @@ export function RoiCalculator() {
           <p className="font-open-sans leading-[1.3] font-semibold tracking-[1.44px] text-[#ffb657] uppercase">Return on investment</p>
           <p className="font-sans leading-normal text-cream/70">Estimated revenue &divide; estimated monthly cost, e.g. 3x</p>
         </div>
-        <p className="shrink-0 font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-gold">&mdash;</p>
+        <p className="shrink-0 font-serif text-[40px] max-md:text-[32px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-gold">&mdash;</p>
       </div>
 
       <p className="relative font-sans text-[12px] leading-[1.3] tracking-[-0.03em] text-ink-muted">

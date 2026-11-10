@@ -38,7 +38,7 @@ export function UseCaseCampaigns() {
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>Campaigns</Eyebrow>
           {/* Figma 3932:16696: the headline and its copy on one row, centred on each other, the copy at the right edge. */}
-          <div className="flex w-full flex-col items-start gap-8 min-[1280px]:flex-row min-[1280px]:items-center min-[1280px]:justify-between min-[1280px]:gap-10">
+          <div className="flex w-full flex-col items-start gap-[27px] min-[1280px]:flex-row min-[1280px]:items-center min-[1280px]:justify-between min-[1280px]:gap-10">
             <div className="max-w-full shrink-0">
               <SectionTitle id="ai-campaigns-title" initial="R" firstLine="eaches them first" width={614.744} variant="oneLine" weight="light" />
             </div>
@@ -59,7 +59,7 @@ export function UseCaseCampaigns() {
               </div>
               <h3 className="mt-10 flex flex-col items-start gap-4">
                 <span className="font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] text-[#6c2332] uppercase">{useCase.label}</span>
-                <span className="max-w-[580px] font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px] text-[#040404]">
+                <span className="max-w-[580px] font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px] text-[#040404]">
                   {useCase.title}
                 </span>
               </h3>

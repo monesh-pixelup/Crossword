@@ -72,7 +72,7 @@ export function Promotions({
               weight="light"
               tone="light"
             />
-            <p className="max-w-[600px] text-center font-sans text-base leading-6 tracking-[-0.32px] text-white/60">{copy}</p>
+            <p className={`max-w-[600px] text-center font-sans text-base leading-6 tracking-[-0.32px] text-white/60 ${titleVariant === "loyalty" ? "max-md:mt-1.5" : "max-md:mt-[11px]"}`}>{copy}</p>
           </div>
 
           {/*

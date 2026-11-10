@@ -71,7 +71,7 @@ export function Trust() {
         <Guides />
 
         <div className="relative flex w-full max-w-[1030px] flex-col items-start gap-12 md:gap-16 lg:gap-[120px] min-[1440px]:gap-[8.333cqw]">
-          <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:gap-[190px]">
+          <div className="flex w-full flex-col items-start gap-[22px] lg:flex-row lg:gap-[190px]">
             {/*
               Figma sets both lines at exactly 60px (Crimson Light 60px, a 70px swash, all at -4%).
               Browsers grow line 1 to fit the swash, so each line is its own fixed-height block.

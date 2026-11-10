@@ -72,7 +72,7 @@ export function WidePanelSection({
       <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">
-        <div className={cn("flex w-full flex-col items-start gap-8", l.row)}>
+        <div className={cn("flex w-full flex-col items-start gap-[26px]", l.row)}>
           <div className={cn("flex shrink-0 flex-col items-start gap-6", l.heading)}>
             <Eyebrow>{eyebrow}</Eyebrow>
             <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={614.744} variant={variant === "default" ? "dynamic" : variant} weight="light" />

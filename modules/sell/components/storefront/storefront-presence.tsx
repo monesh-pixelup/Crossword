@@ -35,7 +35,7 @@ export function StorefrontPresence() {
               variant="dynamic"
               weight="light"
             />
-            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60 max-md:mt-[3px]">
               Crossword blends into your website so naturally, it feels like another part of the experience.
             </p>
           </div>
@@ -53,7 +53,7 @@ export function StorefrontPresence() {
                   <ScenePanel scene={storefrontScenes[card.scene]} root={SellMotionRoot} maxScale={Infinity} transform transformBelow={768} />
                 </div>
                 <div className="flex flex-col items-start gap-2 px-5 pb-5">
-                  <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{card.title}</h3>
+                  <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-ink">{card.title}</h3>
                   <p
                     className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60"
                     style={card.descriptionWidth ? { maxWidth: card.descriptionWidth } : undefined}

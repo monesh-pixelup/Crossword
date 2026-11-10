@@ -23,7 +23,7 @@ export function HumanMode() {
           Side by side only once the row has Figma's 1280px (from 1440px): the 723px copy column fits beside the headline
           there. Narrower, it would be squeezed into a tall, narrow block, so the copy stacks under the headline instead.
         */}
-        <div className="flex w-full flex-col items-start gap-8 min-[1440px]:flex-row min-[1440px]:items-end min-[1440px]:justify-between min-[1440px]:gap-0">
+        <div className="flex w-full flex-col items-start gap-[26px] min-[1440px]:flex-row min-[1440px]:items-end min-[1440px]:justify-between min-[1440px]:gap-0">
           <div className="flex shrink-0 flex-col items-start gap-6 min-[1440px]:-mr-[57.848px]">
             <Eyebrow>Human mode</Eyebrow>
             <SectionTitle

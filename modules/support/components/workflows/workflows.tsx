@@ -47,7 +47,7 @@ export function Workflows() {
                   </span>
                   {/* Figma 3700:14741: the Crimson 24 title 16px over its copy. */}
                   <div className="flex flex-col items-start gap-4">
-                    <h3 className="font-serif text-[24px] leading-[1.1] tracking-[-1.2px] text-ink">{w.title}</h3>
+                    <h3 className="font-serif text-[24px] max-md:text-[20px] leading-[1.1] tracking-[-1.2px] text-ink">{w.title}</h3>
                     <p className={`font-sans text-base leading-6 tracking-[-0.32px] text-black/50 ${i > 0 ? "max-w-[453.973px]" : ""}`}>{w.body}</p>
                   </div>
                 </div>

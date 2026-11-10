@@ -60,7 +60,7 @@ function Note() {
                 </dt>
                 <dd className="flex items-baseline gap-2 pt-3 whitespace-nowrap">
                   <span className="font-serif text-[70px] leading-[1.1] font-light tracking-[-3.5px] text-[#141414]">{c.value}</span>
-                  <span className="font-sans text-[18px] leading-6 font-medium tracking-[-0.54px] text-black/60">{c.unit}</span>
+                  <span className="font-sans text-[18px] max-md:text-base leading-6 font-medium tracking-[-0.54px] text-black/60">{c.unit}</span>
                 </dd>
               </div>
             ))}

@@ -47,7 +47,7 @@ export function HowItWorks() {
                 #{i + 1}
               </p>
               <div className="relative flex flex-col gap-2">
-                <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">
+                <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-ink">
                   <span className="sr-only">Step {i + 1}: </span>
                   {step.title}
                 </h3>

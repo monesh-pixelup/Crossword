@@ -45,8 +45,11 @@ export function Personalization() {
       <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-16">
-        {/* Side by side only where the 488px headline, 80px gap and 560px copy fit (the copy gives up a few px at 1280px). */}
-        <div className="flex w-full flex-col items-start gap-8 min-[1280px]:flex-row min-[1280px]:items-end min-[1280px]:gap-20">
+        {/*
+          Side by side only where the 488px headline, 80px gap and 560px copy fit (the copy gives up a few px at 1280px).
+          Stacked, the copy sits 27px under the headline's box, which reads as the other sections' 24px from the words.
+        */}
+        <div className="flex w-full flex-col items-start gap-[27px] min-[1280px]:flex-row min-[1280px]:items-end min-[1280px]:gap-20">
           <div className="flex w-full min-w-0 flex-col items-start gap-6 min-[1280px]:w-auto min-[1280px]:min-w-[488px] min-[1280px]:flex-1">
             <Eyebrow>User-level personalization</Eyebrow>
             <SectionTitle id="stranger-title" initial="T" firstLine="he stranger problem" width={488} variant="oneLine" weight="light" />
