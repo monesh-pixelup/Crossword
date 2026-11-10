@@ -151,11 +151,8 @@ export function InsightTabs() {
                   "relative flex w-full flex-1 cursor-pointer items-start gap-3 p-5 text-left shadow-[inset_1px_0_0_#ddd,inset_-1px_0_0_#ddd,inset_0_1px_0_#ddd] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon min-[480px]:gap-4 min-[480px]:p-6 md:p-8 min-[992px]:p-10",
                 )}
               >
-                {/* Below 992px the tabs only change when tapped: the open tab's bar sits full instead of running its turn. */}
-                {on && wide === false && (
-                  <span aria-hidden className="pointer-events-none absolute top-0 left-0 z-1 h-[2px] w-full bg-maroon" />
-                )}
-                {on && wide !== false && (
+                {/* Below 992px the tabs only change when tapped, so the open tab has no progress bar (nor while the layout is unknown). */}
+                {on && wide === true && (
                   <span
                     aria-hidden
                     className="pointer-events-none absolute top-0 left-0 z-1 h-[2px] w-0 animate-[insights-progress_linear_forwards] bg-maroon motion-reduce:w-full motion-reduce:animate-none"
@@ -197,10 +194,12 @@ export function InsightTabs() {
                   <span className="max-w-[403.95px] font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">
                     {feature.title}
                   </span>
+                  {/* Below 992px (the accordion) a closed tab shows only its title; the open one keeps its line of copy. */}
                   <span
                     className={cn(
                       "font-open-sans text-[14px] leading-5 tracking-[-0.42px] text-black/60",
                       feature.narrow ? "max-w-[359.64px]" : "max-w-[391.67px]",
+                      !on && "max-[991px]:hidden",
                     )}
                   >
                     {feature.body}
