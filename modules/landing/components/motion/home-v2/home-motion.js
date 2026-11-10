@@ -5099,7 +5099,9 @@ function AiAssistantsMotion() {
   const t = useChatTimeline(beats$2, landed && fontsReady);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene, { t }, t.runKey) });
 }
-const insightsBackground = "/images/landing/home-v2/assets/insights-background-XsNT8ufi.webp";
+// Site: Figma 3073:21692's own backdrop (the green hallway with its gold arches, cover-fitted to 738 × 640), where the
+// source drew a brown arched hallway.
+const insightsBackground = "/images/landing/home-v2/assets/insights-background-green.webp";
 function InsightFrame({ children }) {
   return /* @__PURE__ */ jsx("div", { className: "hm-ill-insight-frame-scale", children: /* @__PURE__ */ jsxs("div", { className: "hm-ill-insight-frame", children: [
     /* @__PURE__ */ jsx("img", { className: "hm-ill-insight-frame__background", src: insightsBackground, alt: "", "aria-hidden": "true" }),
@@ -5758,7 +5760,9 @@ const insightMark = "/images/landing/home-v2/assets/insight-mark-Dd8J1nJH.svg";
 const starFull = "/images/landing/home-v2/assets/star-full-Du_I1bJs.svg";
 const starFullAlt = "/images/landing/home-v2/assets/star-full-b-Bl8WkEtW.svg";
 const starPartial = "/images/landing/home-v2/assets/star-partial-CXJDJrC6.svg";
-const frameTexture = "/images/landing/home-v2/assets/subtract-BWuQXYCQ.webp";
+// Site: Figma 3073:21217's own render of the frame (the damask at full strength, with its gold notched rule), drawn
+// as is (see home-motion.css), where the source drew a lighter texture through a filter, blend and 45% opacity.
+const frameTexture = "/images/landing/home-v2/assets/sponsored-frame-texture.webp";
 const frameOutline = "/images/landing/home-v2/assets/outline-DIDwLK1o.svg";
 const frameDot = "/images/landing/home-v2/assets/ellipse-DuY5ZmjU.svg";
 const SponsoredScenarioContext = createContext(defaultScenario);

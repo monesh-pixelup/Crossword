@@ -294,3 +294,18 @@
     width: 100%;
   }
 }
+
+/*
+ * Selected text: the brand maroon instead of the browser's blue, with cream text on it. Outside any @layer, so no
+ * layered rule can outrank it, and on every element (`*::selection`), which highlight inheritance needs.
+ */
+::selection,
+*::selection {
+  background-color: #7d0034;
+  color: #fff9ea;
+}
+
+::-moz-selection {
+  background-color: #7d0034;
+  color: #fff9ea;
+}

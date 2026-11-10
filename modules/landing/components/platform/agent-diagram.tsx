@@ -2,11 +2,11 @@ import Image, { type StaticImageData } from "next/image";
 import { cn } from "@/lib/cn";
 import accentH from "../../assets/platform/accent-h.svg";
 import accentV from "../../assets/platform/accent-v.svg";
-import nodeA from "../../assets/platform/node-a.webp";
-import nodeB from "../../assets/platform/node-b.webp";
-import nodeC from "../../assets/platform/node-c.webp";
-import nodeD from "../../assets/platform/node-d.webp";
-import nodeHub from "../../assets/platform/node-hub.webp";
+import nodeA from "../../assets/platform/node-a.svg";
+import nodeB from "../../assets/platform/node-b.svg";
+import nodeC from "../../assets/platform/node-c.svg";
+import nodeD from "../../assets/platform/node-d.svg";
+import nodeHub from "../../assets/platform/node-hub.svg";
 import wire238 from "../../assets/platform/wire-238.svg";
 import wire239 from "../../assets/platform/wire-239.svg";
 import wire240 from "../../assets/platform/wire-240.svg";
@@ -48,10 +48,11 @@ function PlacedImages({ items }: { items: Placed[] }) {
 }
 
 /*
- * Nodes are 3x PNG exports (as WebP): their gold rim is a spread drop-shadow
- * that browsers render thinner than Figma when the SVG is used as an image.
- * Exports come in on-canvas orientation, so they're flipped back once to
- * cancel the diagram's mirror.
+ * Nodes are Figma's SVG exports (3073:21589, 21596, 21603, 21611, 21618), so they stay sharp at any zoom. Their rim
+ * was a spread drop-shadow (a dilate filter) that browsers render thinner than Figma in an SVG used as an image, so
+ * it's drawn as the stroked ring it makes instead: 1.09px of black at 10% round the channel tiles, 2.46px of #e0be60
+ * gold round the hub, just outside each tile's edge. Exports come in on-canvas orientation, so they're flipped back
+ * once to cancel the diagram's mirror.
  */
 function Node({ src, size, bleed = 0.0495 }: { src: StaticImageData; size: number; bleed?: number }) {
   // The artwork (with its shadow) bleeds past the node box on every side.
