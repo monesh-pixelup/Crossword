@@ -9,8 +9,8 @@ const READ_LINE = 140;
 /**
  * The policy's sidebar (Figma 1684:11428): the date and a line of Geist Light over the contents box (#fbf1db, a #ccc
  * line), one row per section: its number (Crimson Light 10) and title (Crimson Light 16) at half strength, between
- * black/5 hairlines. The section being read is full strength with a maroon rule under it. From 992px it stays in view
- * as the policy scrolls past.
+ * black/5 hairlines. The section being read is full strength with a maroon rule under it, the row's full width (in
+ * place of its hairline). From 992px it stays in view as the policy scrolls past.
  */
 export function PolicyContents({ updated, summary, sections }: { updated: string; summary: string; sections: string[] }) {
   const [active, setActive] = useState(0);
@@ -56,13 +56,13 @@ export function PolicyContents({ updated, summary, sections }: { updated: string
               href={`#section-${n}`}
               aria-current={on ? "location" : undefined}
               className={cn(
-                "flex flex-col items-start border-b pr-2.5 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon",
-                on ? "border-black/9" : "border-black/5",
+                "flex flex-col items-start border-b transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon",
+                on ? "border-transparent" : "border-black/5",
               )}
             >
               <span
                 className={cn(
-                  "flex w-[237px] max-w-full items-end gap-2 border-b py-2 font-serif leading-none font-light transition-colors duration-200 [word-break:break-word]",
+                  "flex w-full items-end gap-2 border-b py-2 pr-2.5 font-serif leading-none font-light transition-colors duration-200 [word-break:break-word]",
                   on ? "border-maroon text-[#010101]" : "border-transparent text-[rgba(1,1,1,0.5)] hover:text-[rgba(1,1,1,0.75)]",
                 )}
               >

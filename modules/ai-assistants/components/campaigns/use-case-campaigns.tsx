@@ -49,7 +49,8 @@ export function UseCaseCampaigns() {
           </div>
         </div>
 
-        <ul className="grid w-full grid-cols-1 gap-16 md:grid-cols-2 md:gap-10">
+        {/* Stacked below 768px, a thin rule halfway between the two (64px either side). */}
+        <ul className="grid w-full grid-cols-1 gap-16 md:grid-cols-2 md:gap-10 max-md:[&>li+li]:border-t max-md:[&>li+li]:border-black/10 max-md:[&>li+li]:pt-16">
           {useCases.map((useCase) => (
             <li key={useCase.label} className="flex min-w-0 flex-col items-start">
               {/* The use case's motion visual, filling the column (past its drawn 620px where the column is wider). */}

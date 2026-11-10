@@ -27,13 +27,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-01">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               01
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">P</span>
-              <span className="leading-[1.1] text-[32px]">ersonal Information We Collect</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">P</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">ersonal Information We Collect</span>
             </h2>
           </div>
         </div>
@@ -127,13 +127,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-02">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               02
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">H</span>
-              <span className="leading-[1.1] text-[32px]">ow We Collect Your Personal Information</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">H</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">ow We Collect Your Personal Information</span>
             </h2>
           </div>
         </div>
@@ -197,13 +197,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-03">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               03
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">H</span>
-              <span className="leading-[1.1] text-[32px]">ow We Use Personal Information</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">H</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">ow We Use Personal Information</span>
             </h2>
           </div>
         </div>
@@ -269,13 +269,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-04">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               04
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">S</span>
-              <span className="leading-[1.1] text-[32px]">haring of Personal Information</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">S</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">haring of Personal Information</span>
             </h2>
           </div>
         </div>
@@ -352,13 +352,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-05">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               05
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">C</span>
-              <span className="leading-[1.1] text-[32px]">ookies and Other Technologies</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">C</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">ookies and Other Technologies</span>
             </h2>
           </div>
         </div>
@@ -469,13 +469,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-06">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               06
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">H</span>
-              <span className="leading-[1.1] text-[32px]">ow Long Do We Keep Your Personal Information</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">H</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">ow Long Do We Keep Your Personal Information</span>
             </h2>
           </div>
         </div>
@@ -517,13 +517,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-07">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               07
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">H</span>
-              <span className="leading-[1.1] text-[32px]">ow We Protect Your Personal Information</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">H</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">ow We Protect Your Personal Information</span>
             </h2>
           </div>
         </div>
@@ -557,13 +557,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-08">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               08
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">Y</span>
-              <span className="leading-[1.1] text-[32px]">our Choices and Controls</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">Y</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">our Choices and Controls</span>
             </h2>
           </div>
         </div>
@@ -634,13 +634,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-09">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               09
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">I</span>
-              <span className="leading-[1.1] text-[32px]">nternational use of the Site</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">I</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">nternational use of the Site</span>
             </h2>
           </div>
         </div>
@@ -653,13 +653,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-10">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               10
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">C</span>
-              <span className="leading-[1.1] text-[32px]">hildren’s privacy</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">C</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">hildren’s privacy</span>
             </h2>
           </div>
         </div>
@@ -682,13 +682,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-11">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               11
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">L</span>
-              <span className="leading-[1.1] text-[32px]">inks to third-party websites</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">L</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">inks to third-party websites</span>
             </h2>
           </div>
         </div>
@@ -700,14 +700,15 @@ export function PrivacyContent() {
       </div>
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col gap-[32px] items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-12">
-        <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+        {/* On phones its title keeps the others' 24px to the copy (the section's 32px gap is taken back). */}
+        <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full max-md:-mb-8">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               12
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">C</span>
-              <span className="leading-[1.1] text-[32px]">alifornia residents</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">C</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">alifornia residents</span>
             </h2>
           </div>
         </div>
@@ -1038,13 +1039,13 @@ export function PrivacyContent() {
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-13">
         <div className="h-[24px] relative shrink-0 w-full" />
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               13
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">I</span>
-              <span className="leading-[1.1] text-[32px]">nformation for Individuals in the EU and UK</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">I</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">nformation for Individuals in the EU and UK</span>
             </h2>
           </div>
         </div>
@@ -1180,13 +1181,13 @@ export function PrivacyContent() {
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-14">
         <div className="h-[24px] relative shrink-0 w-full" />
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               14
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">E</span>
-              <span className="leading-[1.1] text-[32px]">xercising Your Individual Privacy Rights</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">E</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">xercising Your Individual Privacy Rights</span>
             </h2>
           </div>
         </div>
@@ -1240,13 +1241,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-15">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               15
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">I</span>
-              <span className="leading-[1.1] text-[32px]">nformation for Individuals in Canada</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">I</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">nformation for Individuals in Canada</span>
             </h2>
           </div>
         </div>
@@ -1286,13 +1287,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-16">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               16
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">A</span>
-              <span className="leading-[1.1] text-[32px]">utomated decision-making and AI</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">A</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">utomated decision-making and AI</span>
             </h2>
           </div>
         </div>
@@ -1312,13 +1313,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-17">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               17
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">C</span>
-              <span className="leading-[1.1] text-[32px]">hanges to this Privacy Policy</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">C</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">hanges to this Privacy Policy</span>
             </h2>
           </div>
         </div>
@@ -1331,13 +1332,13 @@ export function PrivacyContent() {
       <hr className="h-0 w-full shrink-0 border-0 border-t border-black/20" />
       <div className="flex flex-col items-start relative shrink-0 w-full scroll-mt-[112px]" id="section-18">
         <div className="flex flex-col items-start pb-[24px] relative shrink-0 w-full">
-          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap">
-            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] tracking-[-2.4px]">
+          <div className="[word-break:break-word] flex gap-[16px] items-center relative shrink-0 w-full md:whitespace-nowrap max-md:items-baseline">
+            <p className="[text-box-edge:cap_alphabetic] [text-box-trim:trim-both] font-calligraphy leading-[1.1] not-italic relative shrink-0 text-[#353535] text-[48px] max-md:text-[40px] tracking-[-2.4px]">
               18
             </p>
-            <h2 className="font-serif font-light leading-[0] relative shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
-              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px]">C</span>
-              <span className="leading-[1.1] text-[32px]">ontact us</span>
+            <h2 className="font-serif font-light leading-[0] relative min-w-0 md:shrink-0 text-[#040404] text-[0px] tracking-[-1.28px]">
+              <span className="font-script leading-[1.18] not-italic text-[#141414] text-[53px] max-md:text-[42px]">C</span>
+              <span className="leading-[1.1] text-[32px] max-md:text-[26px]">ontact us</span>
             </h2>
           </div>
         </div>

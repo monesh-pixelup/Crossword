@@ -52,7 +52,11 @@ function HeroCopy() {
 export function Hero() {
   return (
     <>
-      <section aria-labelledby="hero-title" className="relative bg-black">
+      {/*
+        Raised over the page's rails (drawn after the page, see SiteShell), so they never show on the hero: not even
+        for the moment before HeroCurtain has measured where they should start.
+      */}
+      <section aria-labelledby="hero-title" className="relative z-1 bg-black">
         {/* The black runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
         <div aria-hidden className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-black" />
         {/*

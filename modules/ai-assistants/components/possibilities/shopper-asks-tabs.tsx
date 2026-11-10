@@ -77,8 +77,8 @@ export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] })
 
   return (
     <>
-      {/* Below 992px: every question stacked, no tabs. */}
-      <ul className="flex w-full flex-col gap-12 lg:hidden">
+      {/* Below 992px: every question stacked, no tabs, a thin rule halfway between each (48px either side). */}
+      <ul className="flex w-full flex-col gap-12 lg:hidden [&>li+li]:border-t [&>li+li]:border-black/10 [&>li+li]:pt-12">
         {questions.map((question) => (
           <li key={question.label} className="flex w-full flex-col">
             <QuestionCopy question={question} />

@@ -33,7 +33,7 @@ export function PrivacyHero() {
       <div className="relative content-width pt-[71.5px] max-md:pt-12">
         <h1
           id="privacy-hero-title"
-          className="font-serif text-[clamp(44px,5.556vw,80px)] leading-none font-extralight whitespace-nowrap text-ink"
+          className="font-serif text-[clamp(44px,5.556vw,80px)] leading-none font-extralight whitespace-nowrap text-ink max-md:text-[min(44px,11vw)]"
         >
           <span className="font-script text-[1.25em] leading-[1.18] font-normal tracking-[0.05em]">P</span>
           <span className="leading-[1.1] tracking-[-0.05em]">rivacy </span>
