@@ -52,7 +52,7 @@ const glyphs: Record<AdaptiveId, { paths: string[]; center: [number, number] }> 
 function Glyph({ id, at, color }: { id: AdaptiveId; at: number; color: string }) {
   const { paths, center } = glyphs[id];
   return (
-    <g transform={`translate(${at - center[0]} ${at - center[1]})`} stroke={color} strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
+    <g transform={`translate(${at - center[0]} ${at - center[1]})`} stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
       {paths.map((d) => (
         <path key={d} d={d} />
       ))}

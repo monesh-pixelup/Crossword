@@ -18,7 +18,7 @@ const ACCORDION_MS = 500;
 
 /**
  * Figma 3257:36264's icons, each a 24px square. The open feature's is a maroon badge (Figma 3786:21472): the glyph at
- * 14.8px in #ffb657, 4.6px in (its 0.46px #efe9db line counted inside), with a 0.46px #ffb657 ring. The others are a
+ * 14.8px in #ffb657, 4.6px in (its 0.46px #efe9db line counted inside), with no gold ring outside. The others are a
  * 0.75px black/19 line around the 22.5px glyph box, the glyph (16.36px, 3.6px in) in black/40. `path` is the glyph in
  * that 22.5px box.
  */
@@ -27,11 +27,11 @@ function IconTile({ path, on }: { path: string; on: boolean }) {
     return (
       <span
         aria-hidden
-        className="flex size-6 shrink-0 items-center overflow-clip border-[0.46px] border-[#efe9db] bg-maroon p-[4.143px] shadow-[0_0_0_0.46px_#ffb657]"
+        className="flex size-6 shrink-0 items-center overflow-clip border-[0.46px] border-[#efe9db] bg-maroon p-[4.143px]"
       >
-        {/* The glyph's own 16.36px box inside the 22.5px one, drawn at 14.8px: its 1.2px stroke scales to Figma's 1.085px. */}
+        {/* The glyph's own 16.36px box inside the 22.5px one, drawn at 14.8px; its stroke stays 1.2px on screen (non-scaling). */}
         <svg width="14.795" height="14.795" viewBox="3.615 3.705 16.362 16.362" fill="none" className="block">
-          <path d={path} stroke="#FFB657" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={path} stroke="#FFB657" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
         </svg>
       </span>
     );

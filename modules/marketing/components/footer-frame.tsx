@@ -42,7 +42,10 @@ export function FooterFrame() {
     if (!el) return;
     const observer = new ResizeObserver(([entry]) => {
       const { width, height } = entry.contentRect;
-      setSize({ w: width, h: height });
+      // Hidden (below 960px) or not yet laid out, the box measures 0 and the inner rectangle would come out negative:
+      // nothing is drawn until it's big enough to hold it.
+      const fits = width > INSET.left + INSET.right && height > INSET.top + INSET.bottom;
+      setSize(fits ? { w: width, h: height } : null);
     });
     observer.observe(el);
     return () => observer.disconnect();

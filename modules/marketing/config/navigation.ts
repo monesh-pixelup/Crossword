@@ -102,11 +102,9 @@ export const footerPlatformGroups: FooterLink[][] = [
     { label: "Sell", muted: true },
     { label: "Conversational Interface", href: "/sell" },
     { label: "Dynamic Landing Pages", href: "/dynamic-landing-pages" },
-    { label: "Search Bar", href: "#search-bar" },
   ],
   [
     { label: "Retain", href: "/retain" },
     { label: "Support", href: "/support" },
-    { label: "Insights", href: "#insights" },
   ],
 ];
