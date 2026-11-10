@@ -89,8 +89,8 @@ export function ResolveTabs() {
 
   return (
     <>
-      {/* Below 992px: every case stacked, no tabs. */}
-      <ul className="flex w-full flex-col gap-12 lg:hidden">
+      {/* Below 992px: every case stacked, no tabs, a thin rule halfway between each (48px either side). */}
+      <ul className="flex w-full flex-col gap-12 lg:hidden [&>li+li]:border-t [&>li+li]:border-black/10 [&>li+li]:pt-12">
         {resolveCases.map((c) => (
           <li key={c.label} className="flex w-full flex-col">
             <CaseCopy item={c} />

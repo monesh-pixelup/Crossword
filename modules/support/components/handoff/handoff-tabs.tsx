@@ -24,7 +24,7 @@ const ACCORDION_MS = 500;
  * at all with reduced motion (the bar then sits full).
  *
  * Below 768px the tabs stack as an accordion, as Insights on the home page: the open mode's dashboard opens out right under
- * its copy on a sand stage, easing open as the last one's closes, and they change only when tapped (the bar sits full).
+ * its copy on a sand stage, easing open as the last one's closes, and they change only when tapped (with no progress bar).
  */
 export function HandoffTabs() {
   const [active, setActive] = useState(0);
@@ -128,11 +128,8 @@ export function HandoffTabs() {
                   <span className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{mode.title}</span>
                   <span className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{mode.description}</span>
                 </span>
-                {/* Below 768px the tabs change only when tapped: the open tab's bar sits full instead of running its turn. */}
-                {selected && wide === false && (
-                  <span aria-hidden className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-[calc(100%+2.02px)] bg-gold" />
-                )}
-                {selected && wide !== false && (
+                {/* Below 768px the tabs change only when tapped, so the open tab has no progress bar (nor while the layout is unknown). */}
+                {selected && wide === true && (
                   <span
                     key={run}
                     aria-hidden
