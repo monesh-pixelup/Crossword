@@ -33,12 +33,33 @@ type ScenePanelProps = {
    */
   transform?: boolean;
   /**
+   * With `transform`, scale with it only below this viewport width (px), and with `zoom` from there up. A transform
+   * scales the scene after it's laid out, so its 0.5–1px hairlines (frames, card borders) land part-way through
+   * screen pixels and fade or vanish on standard-density screens; `zoom` lays them out at the new size, keeping each
+   * a whole pixel. The minimum-font-size clamp only bites far down, on phones, which are high-density anyway.
+   */
+  transformBelow?: number;
+  /**
    * Fill the panel instead (cover, not contain): the scene is scaled to cover it and centred, its
    * overflow cropped. For a panel whose shape follows the layout rather than the scene's.
    */
   cover?: boolean;
   className?: string;
 };
+
+/** Whether the viewport is narrower than `width` (always true without one, and before it's measured). */
+function useNarrow(width: number | undefined) {
+  const [narrow, setNarrow] = useState(true);
+  useEffect(() => {
+    if (width === undefined) return;
+    const query = window.matchMedia(`(width < ${width}px)`);
+    const update = () => setNarrow(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, [width]);
+  return narrow;
+}
 
 /**
  * A motion scene drawn at its fixed size and zoomed to fit (contain) the panel it fills,
@@ -52,10 +73,13 @@ export function ScenePanel({
   maxScale = 1,
   sceneProps,
   root: Root = MotionRoot,
-  transform = false,
+  transform: transformProp = false,
+  transformBelow,
   cover = false,
   className,
 }: ScenePanelProps) {
+  const narrow = useNarrow(transformProp ? transformBelow : undefined);
+  const transform = transformProp && (transformBelow === undefined || narrow);
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
   const [inView, setInView] = useState(false);

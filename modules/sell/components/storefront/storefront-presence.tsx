@@ -50,7 +50,7 @@ export function StorefrontPresence() {
                   className="sf-nocap relative w-full"
                   style={{ aspectRatio: `${storefrontScenes[card.scene].width} / ${storefrontScenes[card.scene].height}` }}
                 >
-                  <ScenePanel scene={storefrontScenes[card.scene]} root={SellMotionRoot} maxScale={Infinity} transform />
+                  <ScenePanel scene={storefrontScenes[card.scene]} root={SellMotionRoot} maxScale={Infinity} transform transformBelow={768} />
                 </div>
                 <div className="flex flex-col items-start gap-2 px-5 pb-5">
                   <h3 className="font-serif text-[22px] leading-[1.1] tracking-[-0.88px] text-ink">{card.title}</h3>

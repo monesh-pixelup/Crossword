@@ -90,7 +90,7 @@ export function Trust() {
             </h2>
             <div className="flex w-full max-w-[537.055px] min-w-0 flex-col items-start gap-4 lg:flex-[0_1_537px]">
               {/* Figma 3073:22066: one paragraph. */}
-              <p className="font-sans text-[14px] leading-[22px] tracking-[-0.56px] text-white/50">
+              <p className="font-sans text-[14px] leading-[22px] font-normal tracking-[-0.56px] text-white/50">
                 With a built-in watchtower every response is checked and Crossword improved continuously, so your agent
                 gets better every day. It&rsquo;s designed to stay within your guardrails, resist prompt injection, know
                 its limitations, and catch gaps before they become problems. Crossword is built by the team behind
