@@ -69,7 +69,7 @@ export function TrustedBy({ className }: { className?: string }) {
   return (
     <div className={cn("flex content-width flex-col items-center gap-10", className)}>
       <p className="text-center text-base leading-6 font-light tracking-[-0.32px] text-black/60">
-        Trusted by 300+ d2c brands in 120+ countries
+        Trusted by
       </p>
       {rows.map((logos, i) => (
         <LogoRow key={i} logos={logos} />

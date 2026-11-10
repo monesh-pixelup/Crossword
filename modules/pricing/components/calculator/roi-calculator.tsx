@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 import { Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
 import { calculatorDefaults } from "../../config/pricing";
 
-const credits = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
+const multiple = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
 const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: 1 });
 
 /** Figma's field and result labels: Open Sans SemiBold 12 caps, 1.3 leading, +1.44px. */
@@ -64,13 +64,14 @@ const num = (v: string, fallback = 0) => {
 
 /**
  * The ROI form (Figma 3156:13836): a sand card on a 1px engraved line with studs 7px in, 48px
- * padding and 24px between rows: site traffic and chat engagement rate, average replies per
+ * padding and 24px between rows: monthly site traffic and chat engagement rate, average replies per
  * conversation, AOV and conversion rate, then Calculate now and, over a 0.5px rule, the two
  * results (dashes until calculated), the wine ROI panel and a caption (Figma 3564:23117). The engagement rate and replies show the doc's
- * defaults (2% and 5) as placeholders and use them while empty. The cost is traffic × engagement ×
- * replies in credits, at the doc's 1 credit for most replies; the revenue is what the chatting
- * shoppers spend at the conversion rate and AOV. TODO: the doc doesn't give the price per credit or
- * the uplift Crossword should project; switch both results over once the Crossword team supplies them.
+ * defaults (2% and 5) as placeholders and use them while empty. As the Crossword team gives them:
+ *
+ * - cost = monthly site traffic × engagement rate × replies per conversation (5) × $0.10
+ * - revenue generated = monthly site traffic × AOV × conversion rate × the 3% lift
+ * - return on investment = revenue generated ÷ cost
  */
 export function RoiCalculator() {
   const [traffic, setTraffic] = useState("");
@@ -80,16 +81,22 @@ export function RoiCalculator() {
   const [conversion, setConversion] = useState("");
   const [shown, setShown] = useState(false);
 
-  const conversations = num(traffic) * (num(rate, calculatorDefaults.engagementRate) / 100);
-  const monthlyCredits = conversations * num(replies, calculatorDefaults.repliesPerConversation);
-  const revenue = conversations * (num(conversion) / 100) * num(aov);
+  const monthlyTraffic = num(traffic);
+  const cost =
+    monthlyTraffic *
+    (num(rate, calculatorDefaults.engagementRate) / 100) *
+    num(replies, calculatorDefaults.repliesPerConversation) *
+    calculatorDefaults.replyPrice;
+  const revenue = monthlyTraffic * num(aov) * (num(conversion) / 100) * calculatorDefaults.revenueLift;
+  // Revenue over cost, once both are there to divide.
+  const roi = cost > 0 && revenue > 0 ? `${multiple.format(revenue / cost)}x` : "—";
 
   return (
     <div className="relative flex w-full flex-col gap-6 bg-sand p-7 shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:p-[49px]">
       <Studs inset={7} />
 
       <div className="relative grid gap-4 sm:grid-cols-2">
-        <Field name="Site traffic" value={traffic} onChange={setTraffic} placeholder="Add your site traffic" />
+        <Field name="Monthly site traffic" value={traffic} onChange={setTraffic} placeholder="Add your monthly site traffic" />
         <Field name="Chat engagement rate" value={rate} onChange={setRate} placeholder={`${calculatorDefaults.engagementRate}%`} />
       </div>
       <Field
@@ -112,17 +119,18 @@ export function RoiCalculator() {
       </StampAction>
 
       <div aria-live="polite" className="relative flex flex-col gap-4 pt-6 shadow-[inset_0_0.5px_0_var(--color-engraved)] sm:flex-row">
-        <Result title="Estimated monthly cost" value={shown ? `${credits.format(monthlyCredits)} credits` : "—"} />
+        <Result title="Estimated monthly cost" value={shown ? money.format(cost) : "—"} />
         <Result title="Estimated revenue generated" value={shown ? money.format(revenue) : "—"} />
       </div>
 
-      {/* TODO: the ROI needs the cost in dollars; show it once the Crossword team supplies the price per credit. */}
       <div className="relative flex items-center justify-between gap-4 bg-wine px-5 py-4">
         <div className="flex min-w-0 flex-col gap-1.5 text-[12px]">
           <p className="font-open-sans leading-[1.3] font-semibold tracking-[1.44px] text-[#ffb657] uppercase">Return on investment</p>
           <p className="font-sans leading-normal text-cream/70">Estimated revenue &divide; estimated monthly cost, e.g. 3x</p>
         </div>
-        <p className="shrink-0 font-serif text-[40px] max-md:text-[32px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-gold">&mdash;</p>
+        <p className="shrink-0 font-serif text-[40px] max-md:text-[32px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-gold">
+          {shown ? roi : "—"}
+        </p>
       </div>
 
       <p className="relative font-sans text-[12px] leading-[1.3] tracking-[-0.03em] text-ink-muted">

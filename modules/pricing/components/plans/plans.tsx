@@ -9,13 +9,6 @@ import { ctaLinks } from "@/modules/marketing";
 import { type Plan, inclusions, plans } from "../../config/pricing";
 import { TwillPanel } from "../shared/twill-panel";
 
-/** The stamp's 22 × 11 arrow, in the label colour. */
-const arrow = (
-  <svg aria-hidden viewBox="0 0 22 12" fill="none" stroke="currentColor" strokeWidth="1.2" className="h-[11px] w-[22px]">
-    <path d="M0 6h21M15.5.5 21 6l-5.5 5.5" />
-  </svg>
-);
-
 function PlanBody({ plan }: { plan: Plan }) {
   const featured = plan.tone === "featured";
   return (
@@ -29,9 +22,9 @@ function PlanBody({ plan }: { plan: Plan }) {
         </p>
       </div>
 
-      <StampButton href={ctaLinks.bookDemo} variant={plan.cta.variant} className={cn(featured && "gap-3 focus-visible:outline-gold")}>
+      {/* Every plan's button is the same primary stamp, with no arrow; on the maroon twill its focus ring is gold. */}
+      <StampButton href={ctaLinks.bookDemo} variant={plan.cta.variant} className={cn(featured && "focus-visible:outline-gold")}>
         {plan.cta.label}
-        {featured && arrow}
       </StampButton>
     </>
   );

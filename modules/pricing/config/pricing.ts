@@ -21,7 +21,7 @@ export const plans: Plan[] = [
   {
     name: "Pay-as-you-go",
     description: "Set a monthly spending cap so your bill is never a surprise. Your agent keeps working even if you hit the cap.",
-    cta: { label: "BOOK A DEMO", variant: "wine-gold" },
+    cta: { label: "BOOK A DEMO", variant: "primary" },
     tone: "featured",
   },
   {
@@ -72,8 +72,11 @@ export const outcomes = [
   { title: "Fewer returns", body: "How product matching gets shoppers to the right purchase the first time." },
 ];
 
-/** Calculator defaults (content doc: prepopulate 2% and 5, but allow override). */
-export const calculatorDefaults = { engagementRate: 2, repliesPerConversation: 5 };
+/**
+ * Calculator defaults (content doc: prepopulate 2% and 5, but allow override), and the figures the estimates run on:
+ * each reply costs $0.10 (`replyPrice`), and Crossword lifts revenue by 3% (`revenueLift`).
+ */
+export const calculatorDefaults = { engagementRate: 2, repliesPerConversation: 5, replyPrice: 0.1, revenueLift: 0.03 };
 
 /**
  * FAQs (Figma 3156:13890). The doc gives no answers; these restate what the page already says.
