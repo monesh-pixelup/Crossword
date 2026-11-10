@@ -45,35 +45,39 @@ export const howSteps: { title: string; lines: string[] }[] = [
   },
 ];
 
+export type NoteTone = "green" | "maroon" | "aubergine";
+
 /**
- * Journey library (Figma "Section · Journey library (4x4)", row 1): a few of the journeys the team builds. Each body
- * opens with a lead in Geist Medium, on its own line unless `inline` (Gift finder's runs on into the text).
+ * Figma 3295:53 "Section · Journey library (4x4)": the four journeys, each on a punched note in a livery (`tone`), over
+ * a second note in another (`back`). `lead` opens the copy in Geist Medium at white/90, the rest at white/50.
  */
-export const libraryJourneys: { title: string; lead: string; body: string; inline?: boolean }[] = [
+export const libraryJourneys: { title: string; lead: string; body: string; tone: NoteTone; back: NoteTone }[] = [
   {
-    title: "Gift finder",
-    lead: "Help for finding something meaningful and tailored:",
-    body: "Starts when someone lands on a gift page or asks what to get for a person. It asks about the person they’re shopping for, then narrows to a few options they can feel good about",
-    inline: true,
+    title: "Gift finder:",
+    lead: "Help for finding something meaningful and tailored.",
+    body: "Starts when someone lands on a gift page or asks what to get for a person. It asks about the person they’re shopping for, then narrows to a few options they can feel good about.",
+    tone: "green",
+    back: "maroon",
   },
   {
-    title: "Style match",
-    lead: "A shortlist after a few questions:",
+    title: "Style match:",
+    lead: "A shortlist after a few questions.",
     body: "Picks up when a shopper has been moving between product pages without settling on one. It learns taste, budget, and occasion, then builds a shortlist that looks chosen, not generated.",
+    tone: "maroon",
+    back: "green",
   },
   {
-    title: "Size and fit guide",
-    lead: "The right size before they hesitate:",
+    title: "Size and fit:",
+    lead: "The right size before they hesitate.",
     body: "Steps in when a shopper opens the size chart or keeps going back to the size selector. It recommends a size from their measurements and past orders, and explains the fit.",
+    tone: "aubergine",
+    back: "maroon",
   },
   {
-    title: "Support and exchanges",
-    lead: "Answers in chat without a ticket:",
+    title: "Support and exchanges:",
+    lead: "Answers in chat without a ticket.",
     body: "Starts from an order lookup or a return request. It finds the answer or processes the change in the conversation. If it needs a person, it hands it over with the full context.",
-  },
-  {
-    title: "Order tracking",
-    lead: "Live status without contacting support:",
-    body: "Starts when a customer enters an order ID or asks where their order is. It pulls live courier data and shows each milestone with a tracking link.",
+    tone: "green",
+    back: "aubergine",
   },
 ];

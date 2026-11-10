@@ -1,173 +1,173 @@
-"use client";
-
 import Image, { type StaticImageData } from "next/image";
-import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import giftFinder from "../../assets/library/gift-finder.svg";
-import orderTracking from "../../assets/library/order-tracking.svg";
-import sizeFit from "../../assets/library/size-fit.svg";
-import styleMatch from "../../assets/library/style-match.svg";
-import support from "../../assets/library/support.svg";
-import { libraryJourneys } from "../../config/launch";
+import noteAubergine from "../../assets/library/note-aubergine.webp";
+import noteGreen from "../../assets/library/note-green.webp";
+import noteMaroon from "../../assets/library/note-maroon.webp";
+import ribbonGiftFinder from "../../assets/library/ribbon-gift-finder.svg";
+import ribbonSizeFit from "../../assets/library/ribbon-size-fit.svg";
+import ribbonStyleMatch from "../../assets/library/ribbon-style-match.svg";
+import ribbonSupport from "../../assets/library/ribbon-support.svg";
+import { type NoteTone, libraryJourneys } from "../../config/launch";
 
-/** Each journey's gold glyph, in the order of libraryJourneys (Order tracking's is Figma's 14.9px shopping bag). */
-const icons: StaticImageData[] = [giftFinder, styleMatch, sizeFit, support, orderTracking];
-
-/** One step of the row: a 278px journey plus the 28px either side of the rule after it. */
-const STEP = 278 + 56;
+/** Figma's punched note (its "Subtract"), 299.117 × 303.674, exported at 2x, one per livery. */
+const notes: Record<NoteTone, StaticImageData> = { green: noteGreen, maroon: noteMaroon, aubergine: noteAubergine };
+const NOTE_W = 299.117;
+const NOTE_H = 303.674;
 
 /**
- * Figma 3295:169 "Icon badge": maroon inside a 0.8px #efe9db line, the 22px glyph in a 21.719px clip, 5.141px in.
- * Order tracking's (3512:25099) is its 14.932px shopping bag, 8.534px in, the same size overall.
+ * Each journey's title ribbon (Figma "Rectangle 2095589201"), 0.12px in and 31.85px down its note, in the order of
+ * libraryJourneys; Support's is longer for its longer title.
  */
-function IconTile({ icon, small = false }: { icon: StaticImageData; small?: boolean }) {
+const ribbons: { src: StaticImageData; w: number; h: number }[] = [
+  { src: ribbonGiftFinder, w: 147.543, h: 41.7316 },
+  { src: ribbonStyleMatch, w: 147.543, h: 41.7316 },
+  { src: ribbonSizeFit, w: 147.543, h: 41.7316 },
+  { src: ribbonSupport, w: 234.715, h: 44.9133 },
+];
+
+/**
+ * Where Figma lays each pair of notes on the 1392px panel, measured from the cards' strip (356px down the panel): the
+ * front note's top-left corner and turn, and the note behind it, likewise (each turned about its centre).
+ */
+const layout: { front: [number, number, number]; back: [number, number, number] }[] = [
+  { front: [24.74, 20.61, -3.2], back: [31.6, 27.53, -11.88] },
+  { front: [374.05, 17.92, 3.32], back: [364.11, 35.79, -4.95] },
+  { front: [707.11, 21.03, -2.16], back: [721.55, 21.42, 3.69] },
+  { front: [1049.12, 27.88, 5.82], back: [1051.45, 29.76, -4.76] },
+];
+
+/** The cards' strip: the panel's 1392px width, from 356px down to the panel's foot at 754px (the notes run past it, clipped). */
+const STRIP_W = 1392;
+const STRIP_H = 754 - 356;
+
+/** A punched note, turned `angle` degrees about its centre. */
+function Note({ tone, angle, style, className = "" }: { tone: NoteTone; angle: number; style?: CSSProperties; className?: string }) {
   return (
-    <span
+    <Image
+      src={notes[tone]}
+      alt=""
       aria-hidden
-      className={`flex shrink-0 items-center justify-center border-[0.8px] border-[#efe9db] bg-maroon ${small ? "p-[8.534px]" : "p-[5.141px]"}`}
-    >
-      {small ? (
-        <Image src={icon} alt="" className="block size-[14.932px] max-w-none" />
-      ) : (
-        <span className="relative block size-[21.719px] overflow-clip">
-          <Image src={icon} alt="" className="absolute top-0 left-0 size-[22px] max-w-none" />
-        </span>
-      )}
-    </span>
+      sizes="300px"
+      className={`pointer-events-none absolute max-w-none select-none ${className}`}
+      style={{ width: NOTE_W, height: NOTE_H, rotate: `${angle}deg`, ...style }}
+    />
   );
 }
 
 /**
- * Figma's 40 × 32 arrow button: an #a19169 arrow in a 0.5px #a19169 frame on sand. At the end of the row it fades to
- * 40% on a deeper sand (#f0e5cb), as Figma's resting "previous" button.
+ * A journey's note (Figma 3976:16646 and its siblings): the ribbon with its Crimson 22 title in #faedd4, and 93.08px
+ * down, 18px in, the 270px line of Geist 16 (its lead at white/90 in Medium, the rest at white/50), turned `angle`.
  */
-function ArrowButton({ direction, disabled, onClick }: { direction: "prev" | "next"; disabled: boolean; onClick: () => void }) {
+function JourneyNote({ index: i, angle, style, className = "" }: { index: number; angle: number; style?: CSSProperties; className?: string }) {
+  const journey = libraryJourneys[i];
+  const ribbon = ribbons[i];
   return (
-    <button
-      type="button"
-      aria-label={direction === "prev" ? "Previous journeys" : "Next journeys"}
-      disabled={disabled}
-      onClick={onClick}
-      className={`h-8 w-10 shrink-0 shadow-[inset_0_0_0_0.5px_#a19169] transition-[opacity,background-color] duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon ${
-        disabled ? "cursor-default bg-[#f0e5cb] opacity-40" : "cursor-pointer bg-sand hover:bg-[#f0e5cb]"
-      }`}
+    <div
+      role="listitem"
+      className={`absolute ${className}`}
+      style={{ width: NOTE_W, height: NOTE_H, rotate: `${angle}deg`, ...style }}
     >
-      <svg aria-hidden viewBox="0 0 40 32" fill="none" className={`size-full ${direction === "prev" ? "-scale-x-100" : ""}`}>
-        <path
-          fill="#A19169"
-          d="M20.8213 8.97086C21.2149 8.84292 21.6383 9.05777 21.7666 9.45132C22.7486 12.4665 24.1351 13.8647 25.4541 14.5441C26.8058 15.24 28.2034 15.2502 29.3916 15.2502C29.4234 15.2502 29.4546 15.2522 29.4854 15.256C29.8731 15.285 30.1787 15.6089 30.1787 16.0041C30.1785 16.4181 29.8428 16.7541 29.4287 16.7541H28.8506C27.7903 16.7692 26.6057 16.8633 25.4541 17.4562C24.1351 18.1356 22.7486 19.5338 21.7666 22.549C21.6383 22.9425 21.2149 23.1574 20.8213 23.0294C20.4276 22.9011 20.2126 22.4779 20.3408 22.0841C21.2062 19.4272 22.4152 17.7693 23.7646 16.7541H10.5713C10.1572 16.7541 9.82147 16.4181 9.82129 16.0041C9.82129 15.5898 10.1571 15.2541 10.5713 15.2541H23.7744C22.4209 14.2395 21.2083 12.5797 20.3408 9.91617C20.2126 9.52239 20.4276 9.09921 20.8213 8.97086Z"
-        />
-      </svg>
-    </button>
+      <Image src={notes[journey.tone]} alt="" aria-hidden sizes="300px" className="pointer-events-none absolute inset-0 size-full max-w-none select-none" />
+      <Image
+        src={ribbon.src}
+        alt=""
+        aria-hidden
+        className="absolute top-[31.85px] left-[0.12px] max-w-none"
+        style={{ width: ribbon.w, height: ribbon.h }}
+      />
+      <h3 className="absolute top-[38.94px] left-[19.93px] font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px] whitespace-nowrap text-[#faedd4]">
+        {journey.title}
+      </h3>
+      <p className="absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] text-white/50">
+        <span className="font-medium text-white/90">{journey.lead}</span> {journey.body}
+      </p>
+    </div>
   );
 }
 
 /**
- * Figma "Section · Journey library (4x4)" (node 3295:53): a sand panel between the page rails (0.5px black/25
- * hairline, 80px top and bottom inside it, as Workflows on Support), the cream eyebrow over a two-line swash headline
- * (1000px box) and 24px below it an 820px line of Geist, with the previous / next arrows (9px apart) level with
- * its foot on the right. 80px below, the journeys run in a row, 278px each and 28px either side of 10% black rules: the
- * icon tile, then 24px below it a Crimson 22 title and, 8px under, Geist 16 copy in ink muted (opening with its lead in Geist Medium #33322f).
- * Four fill the 1280px row; the rest are a scroll (or an arrow) away, a journey at a time.
+ * Figma "Section · Journey library (4x4)" (node 3295:53): a 754px sand panel between the page rails (a 0.5px black/25
+ * hairline), the centred cream eyebrow 70px down, 24px over the two-line swash headline (1000px box) and 24px under it
+ * an 820px line of Geist at black/60. 29px below that, the four journeys on punched notes in the liveries (green,
+ * maroon, aubergine, green), each turned a little over a second note, running off the panel's foot.
+ *
+ * From 1200px the notes are Figma's 1392px strip, scaled with the panel. Below that they'd shrink past reading, so
+ * the pairs sit in a grid at full size instead (two across from 768px, one on phones), each still turned as in Figma.
  */
 export function JourneyLibrary() {
-  const rowRef = useRef<HTMLDivElement>(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
-
-  // Which arrows have somewhere to go, kept in step with the row's scroll and size.
-  useEffect(() => {
-    const row = rowRef.current;
-    if (!row) return;
-    const update = () => {
-      setAtStart(row.scrollLeft <= 1);
-      setAtEnd(row.scrollLeft + row.clientWidth >= row.scrollWidth - 1);
-    };
-    update();
-    row.addEventListener("scroll", update, { passive: true });
-    const observer = new ResizeObserver(update);
-    observer.observe(row);
-    return () => {
-      row.removeEventListener("scroll", update);
-      observer.disconnect();
-    };
-  }, []);
-
-  const scrollBy = (direction: 1 | -1) => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    rowRef.current?.scrollBy({ left: direction * STEP, behavior: reduce ? "auto" : "smooth" });
-  };
-
   return (
     <section aria-labelledby="journey-library-title" className="relative px-(--frame-inset)">
-      {/* Figma 3295:55: 80.5px top and bottom inside the panel. */}
-      <div className="bg-sand py-16 shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] md:py-[80.5px]">
-        {/* Full content width, no cap, so the heading lines up with the other sections' at every viewport. */}
-        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col gap-16 lg:gap-20">
-          <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <div className="flex min-w-0 flex-col items-start gap-6">
-              <Eyebrow>A few of the many</Eyebrow>
-              {/* Figma 3295:56: the eyebrow, headline and copy 24px apart. */}
-              <div className="flex flex-col items-start gap-6">
-                <SectionTitle
-                  id="journey-library-title"
-                  initial="E"
-                  firstLine="very Journey is built by us:"
-                  secondLine={
-                    <>
-                      {/* Below 768px the long second line breaks in two, so the headline keeps the other sections' size. */}
-                      people who study this
-                      <br className="md:hidden" />
-                      <span className="max-md:hidden"> </span>for a living
-                    </>
-                  }
-                  width={1000}
-                  mobileWidth={700}
-                  variant="dynamic"
-                  weight="light"
-                />
-                <p className="max-w-[820px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
-                  Each one maps the whole path: what the shopper asks, where they stall, what nudges them forward, and when
-                  a person should step in. Then it&rsquo;s tested against how real customers behave before it reaches yours.
-                </p>
-              </div>
-            </div>
-            <div className="flex shrink-0 items-center gap-[9px]">
-              <ArrowButton direction="prev" disabled={atStart} onClick={() => scrollBy(-1)} />
-              <ArrowButton direction="next" disabled={atEnd} onClick={() => scrollBy(1)} />
-            </div>
-          </div>
+      <div className="overflow-clip bg-sand shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)]">
+        {/* Figma 3295:56: the eyebrow, headline and copy centred, 24px apart, 70px down the panel. */}
+        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col items-center gap-6 pt-16 text-center md:pt-[70px]">
+          <Eyebrow>A few of the many</Eyebrow>
+          <SectionTitle
+            id="journey-library-title"
+            initial="E"
+            firstLine="very Journey is built by us:"
+            secondLine={
+              <>
+                {/* Below 768px the long second line breaks in two, so the headline keeps the other sections' size. */}
+                people who study this
+                <br className="md:hidden" />
+                <span className="max-md:hidden"> </span>for a living
+              </>
+            }
+            width={1000}
+            mobileWidth={700}
+            variant="dynamicCentered"
+            weight="light"
+          />
+          <p className="max-w-[820px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+            Each one maps the whole path: what the shopper asks, where they stall, what nudges them forward, and when a
+            person should step in. Then it&rsquo;s tested against how real customers behave before it reaches yours.
+          </p>
+        </div>
 
+        {/* From 1200px: Figma's strip, 29px under the copy, scaled to the panel's width (and clipped at its foot). */}
+        <div className="@container mt-[29px] max-[1199px]:hidden">
           <div
-            ref={rowRef}
             role="list"
             aria-label="Journeys"
-            className="flex w-full snap-x snap-mandatory items-start gap-7 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="relative scale-to-container"
+            style={{ "--fit-width": `${STRIP_W}px`, width: STRIP_W, height: STRIP_H } as CSSProperties}
           >
-            {libraryJourneys.map((journey, i) => (
-              <div key={journey.title} className="contents">
-                {/* The 0-wide rule's 1.054px stroke (black/20 at 50%) is centred on its line. */}
-                {i > 0 && (
-                  <span aria-hidden className="relative w-0 shrink-0 self-stretch">
-                    <span className="absolute inset-y-0 -left-[0.527px] w-[1.054px] bg-black/10" />
-                  </span>
-                )}
-                <div role="listitem" className="flex w-[278px] shrink-0 snap-start flex-col items-start gap-6">
-                  <IconTile icon={icons[i]} small={icons[i] === orderTracking} />
-                  {/* Figma 3512:25002: the title and its copy 8px apart, 24px under the badge. */}
-                  <div className="flex flex-col items-start gap-2">
-                    <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-ink">{journey.title}</h3>
-                    <p className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">
-                      <span className="font-medium text-[#33322f]">{journey.lead}</span>
-                      {journey.inline ? " " : <br />}
-                      {journey.body}
-                    </p>
-                  </div>
-                </div>
-              </div>
+            {/* Painted in Figma's order: the notes behind the first three, then the first three journeys, then Support's pair. */}
+            {[0, 1, 2].map((i) => (
+              <Note
+                key={`back-${i}`}
+                tone={libraryJourneys[i].back}
+                angle={layout[i].back[2]}
+                style={{ left: layout[i].back[0], top: layout[i].back[1] }}
+              />
             ))}
+            {[0, 1, 2].map((i) => (
+              <JourneyNote key={i} index={i} angle={layout[i].front[2]} style={{ left: layout[i].front[0], top: layout[i].front[1] }} />
+            ))}
+            <Note tone={libraryJourneys[3].back} angle={layout[3].back[2]} style={{ left: layout[3].back[0], top: layout[3].back[1] }} />
+            <JourneyNote index={3} angle={layout[3].front[2]} style={{ left: layout[3].front[0], top: layout[3].front[1] }} />
           </div>
+        </div>
+
+        {/* Below 1200px: each pair in its own cell at full size, the back note offset from the front as in Figma. */}
+        <div
+          role="list"
+          aria-label="Journeys"
+          className="mx-auto grid w-fit grid-cols-1 justify-items-center gap-x-6 gap-y-10 px-4 pt-12 pb-16 md:grid-cols-2 min-[1200px]:hidden"
+        >
+          {layout.map(({ front, back }, i) => (
+            <div key={i} className="relative h-[340px] w-[330px] max-w-[calc(100vw-2*var(--frame-inset)-32px)]">
+              <Note
+                tone={libraryJourneys[i].back}
+                angle={back[2]}
+                className="top-1/2 left-1/2"
+                style={{ translate: `calc(-50% + ${back[0] - front[0]}px) calc(-50% + ${back[1] - front[1]}px)` }}
+              />
+              <JourneyNote index={i} angle={front[2]} className="top-1/2 left-1/2" style={{ translate: "-50% -50%" }} />
+            </div>
+          ))}
         </div>
       </div>
     </section>
