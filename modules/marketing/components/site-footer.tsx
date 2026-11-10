@@ -88,9 +88,13 @@ function Tagline() {
 export function SiteFooter() {
   return (
     <footer className="@container relative overflow-clip pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
-      {/* #00331A with Figma's grain tile laid over it: 172.82px tiles, soft-light at 40%. */}
+      {/*
+        Figma's grain tile laid over the green: 172.82px tiles, soft-light at 40%. Figma sets #00331A under it, but the
+        browser's soft-light lightens it more than Figma's does (to about rgb(0, 52, 27) against Figma's rendered
+        rgb(4, 48, 25)), so the base is #042F18, which the same grain brings out at Figma's colour.
+      */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[#00331A]" />
+        <div className="absolute inset-0 bg-[#042F18]" />
         <div
           className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left opacity-40 mix-blend-soft-light"
           style={{ backgroundImage: `url(${grainTile.src})` }}

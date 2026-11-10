@@ -24,16 +24,24 @@ const homeSteps = ["We connect the systems.", "Configure the experience.", "Test
 
 /**
  * Figma "Stamps" (3492:23027): each step's own stamp, in step order. Figma renders their guilloché
- * (a shader fill) and icons; exported at 3x and cut out on transparency, each 97.35 × 93.93 with its tilt.
+ * (a shader fill) and icons; exported at 3x PNG (292 × 282, each 97.35 × 93.93 with its tilt), cut out of the export's
+ * grey surround onto transparency (edge pixels un-mixed from the grey) and saved as WebP at quality 95 / alpha 100.
  */
 const homeStamps = [stampConnect, stampConfigure, stampTest, stampLaunch, stampWatch, stampImprove];
 
-/** Server markup is Figma's still frame: the middle step active, its neighbours muted, the ends fading out. */
+/**
+ * The slot the active step sits in, as Figma 3073:21934 sets it: the third of six (two steps above it, three below),
+ * the middle one for an odd count.
+ */
+const activeSlot = (n: number) => Math.ceil(n / 2) - 1;
+
+/** Server markup is Figma's still frame: the step in the active slot active, the top and bottom steps fading out. */
 function stillState(i: number, n: number) {
-  const rel = i - Math.floor(n / 2);
+  const top = activeSlot(n);
+  const rel = i - top;
   if (rel === 0) return "active";
-  if (rel === -2) return "fade-top";
-  if (rel === 2) return "fade-bottom";
+  if (rel === -top) return "fade-top";
+  if (rel === n - 1 - top) return "fade-bottom";
   return "muted";
 }
 
@@ -65,7 +73,7 @@ function startWheel(row: HTMLElement, list: HTMLOListElement, pile: HTMLElement,
   const items = Array.from(list.querySelectorAll<Item>("[data-step]"));
   const buttons = items.map((item) => item.querySelector("button")!);
   const n = items.length;
-  const half = Math.floor(n / 2);
+  const half = activeSlot(n);
   const maxRel = n - 1 - half;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const motion = () => !reduce.matches;
@@ -394,7 +402,7 @@ export function LaunchWheel({
   const templateRefs = useRef<(HTMLImageElement | null)[]>([]);
   const stamps = stamp ? [stamp] : homeStamps;
   // The still frame shows the middle step's stamp, as its steps show that step active.
-  const still = Math.floor(steps.length / 2) % stamps.length;
+  const still = activeSlot(steps.length) % stamps.length;
 
   useEffect(() => {
     const row = listRef.current?.parentElement;
