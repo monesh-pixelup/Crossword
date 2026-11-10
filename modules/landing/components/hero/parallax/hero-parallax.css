@@ -73,15 +73,16 @@
   left: 0;
 }
 
-/* Wide screens, where the frame runs taller than the 1200px hero and is cropped: the photo is raised 4% of its height. */
+/*
+ * Past 1440px the scene holds its 1440px composition, centred on the full-width black (Hero): the photo's left and
+ * right edges fade into the black over 16% of its width each side (past the blurred foreground figures at its
+ * sides, which would otherwise stand like borders on the black), so it has no edge. Only the photo fades; the
+ * copy, cards and conversation over it stay whole.
+ */
 @media (min-width: 1441px) {
   .hero-scene:not(.hero-scene--compact) .hero-scene__photo {
-    translate: 0 -4%;
-  }
-
-  /* The cards (left) and the conversation (right) are raised with it. */
-  .hero-scene:not(.hero-scene--compact) :is(.entry-stack, .conversation) {
-    translate: 0 -60px;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent);
   }
 }
 

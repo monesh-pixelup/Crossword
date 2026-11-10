@@ -46,8 +46,8 @@ function HeroCopy() {
 }
 
 /**
- * The concierge scene full-bleed on black (the header floats over it), with the copy over it; the
- * trusted-by logos follow on the page ground.
+ * The concierge scene on full-bleed black (the header floats over it), at most 1440px wide and centred, with the
+ * copy over it; the trusted-by logos follow on the page ground.
  */
 export function Hero() {
   return (
@@ -56,12 +56,13 @@ export function Hero() {
         {/* The black runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
         <div aria-hidden className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-black" />
         {/*
-          The scene runs the full viewport width, past the 1440px cap (SiteShell clips the overrun). It ends at the
-          first screen's bottom, and never runs past 1200px tall: a frame taller than that pins the copy 88.5px above
-          its cut, and the rest is cropped.
+          As Stripe's hero: the scene (photo, cards, conversation and copy) is laid out at most 1440px wide, centred, so
+          past 1440px it holds its 1440 × 863 composition instead of growing with the screen; the black runs on either
+          side, and there the photo's left and right edges fade into it (hero-parallax.css) so it has no hard edge.
+          It ends at the first screen's bottom when that comes first (the copy pinned 88.5px above the cut).
           Below 760px it is the phone stack instead (see HeroScene), at least a screen tall and growing to fit.
         */}
-        <div className="relative left-1/2 max-h-[min(100svh,1200px)] w-screen -translate-x-1/2 overflow-hidden max-[760px]:max-h-none">
+        <div className="relative mx-auto max-h-[min(100svh,1200px)] w-full max-w-[1440px] overflow-hidden max-[760px]:max-h-none">
           <HeroParallax copy={<HeroCopy />} />
         </div>
       </section>

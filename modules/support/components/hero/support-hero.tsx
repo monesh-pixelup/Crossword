@@ -41,31 +41,39 @@ function Headline() {
 export function SupportHero() {
   return (
     <section aria-labelledby="support-hero-title" className="relative bg-night">
-      {/* The photo runs the full viewport width, out past the site's 1440px cap on wide screens (SiteShell clips the overrun). */}
+      {/* The dark ground runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
       <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-night">
-        <Image
-          src={background}
-          alt=""
-          fill
-          sizes="100vw"
-          preload
-          className="object-cover object-[70%_center] lg:object-center"
-        />
+        {/*
+          As the home hero (and Stripe's): the photo holds its 1440px composition, centred, instead of growing past it;
+          the dark ground runs on either side, and there the photo's sides fade into it (16% each).
+        */}
+        <div className="absolute inset-y-0 left-1/2 w-full max-w-[1440px] -translate-x-1/2 min-[1441px]:[mask-image:linear-gradient(to_right,transparent,#000_16%,#000_84%,transparent)]">
+          <Image
+            src={background}
+            alt=""
+            fill
+            sizes="(min-width: 1440px) 1440px, 100vw"
+            preload
+            className="object-cover object-[70%_center] lg:object-center"
+          />
+        </div>
       </div>
 
       {/*
         The screen below 760px, then Figma's 1440 x 788 hero (3257:34040) at full width, capped at the screen and at 1200px.
-        From 760px the copy's last line sits 115px (scaled) above the frame's foot, as in Figma, or above the screen's when
-        the frame runs past it. Its sides keep the page's own padding, level with the header's logo and the
-        sections below. The top padding keeps the copy 48px clear of the fixed 72.5px header: where the stacked copy is
+        From 760px the copy sits as on the other product heroes (Sell, Retain, Dynamic landing pages): its last line 47px
+        (scaled) above the frame's foot, or above the screen's when the frame runs past it, and its sides 80px in (scaled
+        with the width below 1440px). The top padding keeps the copy 48px clear of the fixed 72.5px header: where the stacked copy is
         taller than the frame leaves room for (760–1199px), the hero grows rather than running it under the header.
       */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(100vw*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(115px,100vw*115/1440),calc(min(100vw*788/1440,100svh,1200px)_-_100vw*673/1440))]">
+      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(min(100vw,1440px)*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(47px,min(100vw,1440px)*47/1440),calc(min(min(100vw,1440px)*788/1440,100svh,1200px)_-_min(100vw,1440px)*741/1440))] min-[760px]:[--page-pad:min(80px,min(100vw,1440px)*80/1440)]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
           {/* Figma 3257:34143: the headline's box 12px under the eyebrow. */}
           <div className="flex flex-col items-start gap-3">
             {/* Brand guidelines 11.3: the Eyebrow on every section, heroes included (green surface on dark). */}
-            <Eyebrow surface="green">Support</Eyebrow>
+            <Eyebrow surface="green" className="h-8">
+              Support
+            </Eyebrow>
             <Headline />
           </div>
 
