@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "@/modules/landing/assets/hero/decor/rail-accent.svg";
+import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { storefrontCards } from "../../config/storefront";
 import { ScenePanel } from "../motion/scene-panel";
@@ -67,11 +68,10 @@ export function StorefrontPresence() {
         </div>
       </section>
 
-      {/* The closing band (under the bottom padding, before the testimonials) is off while the testimonials are hidden:
+      {/* The closing band, under the bottom padding, before the testimonials. */}
       <div className="relative h-6">
         <DividerBand glyph="quill" />
       </div>
-      */}
     </>
   );
 }

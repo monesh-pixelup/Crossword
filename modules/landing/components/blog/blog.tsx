@@ -11,6 +11,7 @@ import stamp from "../../assets/blog/stamp.webp";
 import arrowRight from "../../assets/insights/arrow-right.svg";
 import railAccent from "../../assets/shared/rail-accent.svg";
 import { featuredPost, recentPosts } from "../../config/blog";
+import { DividerBand } from "../shared/divider-band";
 import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
 
@@ -135,11 +136,12 @@ function RecentPosts() {
 
 export function Blog() {
   return (
-    <section aria-labelledby="blog-title" className="relative section-pad">
-      {/* No divider band on top: it sat right under the trust section (removed on request). */}
+    <section aria-labelledby="blog-title" className="relative section-pad-band">
+      {/* The feather (quill) divider band across the top, under the testimonials. */}
+      <DividerBand glyph="quill" />
       <RailAccent
         src={railAccent}
-        className="pointer-events-none absolute top-[98px] left-[calc(var(--frame-inset)-0.5px)]"
+        className="pointer-events-none absolute top-[122px] left-[calc(var(--frame-inset)-0.5px)]"
       />
 
       <div className="flex content-width flex-col items-start gap-section">

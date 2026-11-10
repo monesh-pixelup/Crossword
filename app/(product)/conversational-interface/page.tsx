@@ -48,7 +48,7 @@ export default function SellPage() {
         <BandDivider glyph="book" />
       </div>
       <StorefrontPresence />
-      {/* <Testimonials variant="sell" /> */}
+      <Testimonials variant="sell" />
     </main>
   );
 }

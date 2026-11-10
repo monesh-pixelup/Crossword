@@ -37,7 +37,7 @@ export default function SupportPage() {
         <BandDivider glyph="chat" />
       </div>
       <SupportChannels />
-      {/* <Testimonials variant="support" /> */}
+      <Testimonials variant="support" />
     </main>
   );
 }

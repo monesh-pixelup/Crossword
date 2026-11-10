@@ -24,7 +24,7 @@ export default function HomePage() {
       <Insights />
       <ManagedLaunch />
       <Trust />
-      {/* <Testimonials /> */}
+      <Testimonials />
       <Blog />
       {/* The patterned divider band across the top of the envelope section, between the page rails. */}
       <div className="relative h-6 max-md:h-[18px]">

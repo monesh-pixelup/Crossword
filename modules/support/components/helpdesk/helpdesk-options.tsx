@@ -61,7 +61,8 @@ export function HelpdeskOptions() {
             992px a grid keeps the copy at least 320px wide; the panel takes the rest, up to its 738px.
           */}
           <div className="flex w-full flex-col gap-10 lg:grid lg:grid-cols-[minmax(320px,1fr)_minmax(0,738px)] lg:items-start lg:gap-8">
-            <div className="flex flex-col items-start justify-center gap-16 lg:h-[595px] lg:pb-14">
+            {/* Below 768px the link sits 24px under the copy (64px from 768px up, as Figma). */}
+            <div className="flex flex-col items-start justify-center gap-16 max-md:gap-6 lg:h-[595px] lg:pb-14">
               <div className="flex flex-col items-start gap-4">
                 <p className={tag}>Crossword helpdesk</p>
                 <h3 className={title}>A free help desk, with unlimited seats.</h3>

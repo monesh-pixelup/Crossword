@@ -47,11 +47,10 @@ export function SupportChannels() {
         </div>
       </section>
 
-      {/* The closing band (a 24px strip before the testimonials) is off while the testimonials are hidden:
+      {/* The closing band: a 24px strip before the testimonials. */}
       <div className="relative h-6">
         <DividerBand glyph="chat" />
       </div>
-      */}
     </>
   );
 }
