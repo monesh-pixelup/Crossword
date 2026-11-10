@@ -9,7 +9,8 @@ import { humanModeScene } from "../motion-v2/scenes";
  * Figma "Library · Wide panel (Human mode)", as Audiences on Retain: the eyebrow and a two-line
  * headline (1.18) on the left, a 723px column of Geist Light (two paragraphs, no gap) bottom-aligned
  * on the right, overlapping the headline's 614.7px box by 57.8px as in Figma, then 80px below a
- * 1280 × 599 panel playing the Human mode motion (three chat shells on the aubergine damask art),
+ * 1280 × 599 panel playing the Human mode motion (one phone on the aubergine damask art, its three chapters listed
+ * beside it and clickable, the camera following the chat),
  * zoomed to the content width, up as well as down. A 232px gold tick sits on the left rail beside the eyebrow.
  */
 export function HumanMode() {
@@ -54,7 +55,7 @@ export function HumanMode() {
           with a transform: zoomed down to a phone's width its text would hit the browser's minimum font size and overflow.
         */}
         <div className="relative aspect-[1280/599] w-full overflow-hidden">
-          <ScenePanel scene={humanModeScene} root={SellMotionRoot} maxScale={Infinity} transform />
+          <ScenePanel scene={humanModeScene} root={SellMotionRoot} maxScale={Infinity} transform interactive />
         </div>
       </div>
     </section>

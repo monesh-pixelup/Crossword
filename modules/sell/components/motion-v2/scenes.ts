@@ -100,7 +100,10 @@ export const discoveryScenes = {
   },
 } satisfies Record<string, SceneEntry>;
 
-/** Upsell 17–20: a phone chat on the 738 × 680 maroon frame. */
+/**
+ * Upsell 17b–20b: a phone chat on the 738 × 680 maroon frame, the camera zooming into each moment. Durations run to the
+ * camera's last move, so each tab waits for its visual to finish.
+ */
 export const upsellScenes = {
   "upsell-upgrade": {
     Component: UpsellUpgradeMotion,
@@ -108,7 +111,7 @@ export const upsellScenes = {
       "A shopper says they're looking at a compact air fryer. Knowing they've bought for a family of four, the assistant recommends the larger family model and compares the two: 6L for $99 against 4L for $89.",
     width: 738,
     height: 680,
-    duration: 5700,
+    duration: 13000,
   },
   "cross-sell": {
     Component: CrossSellMotion,
@@ -116,7 +119,7 @@ export const upsellScenes = {
       "A shopper says they'll take a gold teardrop pendant. The assistant suggests a matching chain-link bracelet and beaded anklet.",
     width: 738,
     height: 680,
-    duration: 4600,
+    duration: 11700,
   },
   "bundle-building": {
     Component: BundleBuildingMotion,
@@ -124,7 +127,7 @@ export const upsellScenes = {
       "A shopper says they're getting a new coffee machine. The assistant suggests bundling it with a milk frother, reusable filter and coffee starter pack, shown as a three-item bundle.",
     width: 738,
     height: 680,
-    duration: 5700,
+    duration: 13100,
   },
   "browse-upsell": {
     Component: BrowseUpsellMotion,
@@ -132,7 +135,7 @@ export const upsellScenes = {
       "The assistant points out that the shopper has looked at three headphone models in the $450 to $600 range and suggests a model worth considering at that price point.",
     width: 738,
     height: 680,
-    duration: 10000,
+    duration: 12200,
   },
 } satisfies Record<string, SceneEntry>;
 
@@ -164,7 +167,10 @@ export const proactiveScenes = {
   },
 } satisfies Record<string, SceneEntry>;
 
-/** Conversion assist 28–33: a phone chat on the 687 × 586 aubergine frame. */
+/**
+ * Conversion assist 28b–33b: a phone chat on the 687 × 586 aubergine frame, the camera zooming into each moment.
+ * Durations are the chat's run plus the camera's moves (about 7.3s, as on Upsell).
+ */
 export const assistScenes = {
   "price-objection": {
     Component: PriceObjectionMotion,
@@ -172,7 +178,7 @@ export const assistScenes = {
       "A shopper says they're not sure a $68 vitamin C serum is worth the price. The assistant offers similar options for less or to explain what makes it worth it, with Compare benefits and Find alternatives buttons.",
     width: 687,
     height: 586,
-    duration: 4900,
+    duration: 12200,
   },
   "product-comparison": {
     Component: ProductComparisonMotion,
@@ -180,7 +186,7 @@ export const assistScenes = {
       "A shopper asks how a vacuum compares to the Cyclone Max. The assistant says to choose the Cyclone Max if suction matters most, while the Cyclone Pro has a larger 1.5L dustbin and costs $500 less.",
     width: 687,
     height: 586,
-    duration: 4900,
+    duration: 12200,
   },
   "cart-upsell-offer": {
     Component: CartUpsellOfferMotion,
@@ -188,7 +194,7 @@ export const assistScenes = {
       "The assistant points out the shopper's cart is $14 away from a $15 offer and suggests adding the $29 Sorelle Labs Cloud Gel Moisturizer to qualify.",
     width: 687,
     height: 586,
-    duration: 8200,
+    duration: 15500,
   },
   "stock-availability": {
     Component: StockAvailabilityMotion,
@@ -196,7 +202,7 @@ export const assistScenes = {
       "A shopper asks if black leather sneakers are in stock. The assistant confirms their preferred size is available with delivery by Friday, and that the other colour they viewed is out of stock.",
     width: 687,
     height: 586,
-    duration: 4500,
+    duration: 11800,
   },
   "purchase-confirmation": {
     Component: PurchaseConfirmationMotion,
@@ -204,7 +210,7 @@ export const assistScenes = {
       "A shopper says they'll take a relaxed cotton shirt. The assistant has selected their saved size and the olive colour they preferred, ready to add to the cart.",
     width: 687,
     height: 586,
-    duration: 4200,
+    duration: 11500,
   },
   "decision-support": {
     Component: DecisionSupportMotion,
@@ -212,7 +218,7 @@ export const assistScenes = {
       "The assistant offers to compare the three headphones the shopper viewed side by side, from balanced studio sound to the longest battery life.",
     width: 687,
     height: 586,
-    duration: 7700,
+    duration: 15000,
   },
 } satisfies Record<string, SceneEntry>;
 
@@ -249,10 +255,14 @@ export const storefrontScenes = {
 } satisfies Record<string, SceneEntry>;
 
 /** Human mode 34: three phone chats on the 1280 × 599 aubergine frame. */
+/**
+ * Human mode 34b: one phone on the 1280 × 599 aubergine frame with the three chapters listed beside it, the camera
+ * following the chat. The chapters play in turn; clicking one replays it.
+ */
 export const humanModeScene: SceneEntry = {
   Component: HumanModeMotion,
   label:
-    "Three moments in one Sorelle Labs skincare chat: the assistant asks if a serum works for sensitive skin and offers to check the ingredients, then recommends the fragrance-free Calming Serum as a better match that costs $16 less.",
+    "Three moments in one Sorelle Labs skincare chat, played in turn: the assistant asks if a serum works for sensitive skin and offers to check the ingredients, then recommends the fragrance-free Calming Serum as a better match that costs $16 less.",
   width: 1280,
   height: 599,
   duration: 24000,

@@ -1,0 +1,15 @@
+{
+  "generator": "built-in image_gen",
+  "assets": [
+    {
+      "name": "trailwell-banner-colorful-v2.png",
+      "prompt": "Use case: ads-marketing. Asset type: wide transparent hero banner artwork for Trailwell backpacks. Create one art-directed product composition of THREE premium nylon travel backpacks in distinct fresh colors: rich cobalt blue, warm burnt orange, and golden mustard. The burnt orange backpack leads in the center, cobalt tilts outward on the left and mustard tilts outward on the right. Clean functional travel-pack silhouettes, clamshell zippers, compression straps, soft padded handles and realistic woven fabric. A sculptural overlapping fan with playful angles and visible depth, lightly stylized 3D studio campaign photography. Very wide 3:1 banner framing, full bag silhouettes visible, composition fills most of canvas with small safe margins. Soft directional lighting and delicate short semitransparent contact shadows. Genuinely transparent alpha background, no backdrop, no floor, no scenery, no pedestal, no decorative shapes, no props, no people, no headline, no text except tiny TRAILWELL brand patches. Attractive and colorful, refined outdoor brand aesthetic. No black, green, or beige bags.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-b47a9ea0-1b62-4239-880e-274997dd6b1d.png"
+    },
+    {
+      "name": "trailwell-ad-creative-v2.png",
+      "prompt": "Use case: ads-marketing. Asset type: square transparent Instagram campaign product artwork for Trailwell travel backpacks. Make a striking art-directed editorial product composition using THREE bags: one hero burnt orange backpack large in the foreground, one rich cobalt blue pack diagonally behind to the left, and one golden mustard pack at an opposing angle behind to the right. A playful controlled gravity-defying tumble, asymmetric diagonal composition with overlapping silhouettes and different scale, almost like a mid-air product sculpture. Front bag is tilted about 15 degrees and viewed three-quarter; rich realistic woven nylon, polished zipper hardware, carry handles and compression straps. Premium lightly stylized 3D studio photography, directional warm studio highlights, dimensional subtle soft transparent shadows. Square canvas, keep the TOP 26 PERCENT completely transparent and empty for an HTML headline; bag composition fills the lower 72 percent, nearly spanning canvas width, full silhouettes inside canvas. Vivid tasteful outdoor editorial, highly legible at 264px wide. Genuinely transparent alpha background, no colored background, no floor, no drawn checkerboard, no scenery, no people, no props, no frames, no text except tiny TRAILWELL patches, no slogan or watermark. No green, beige or black bags.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-2b9d92dc-3d86-484f-8985-ef5d3c096a5e.png"
+    }
+  ]
+}

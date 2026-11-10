@@ -1,10 +1,11 @@
 "use client";
 
-// Built from the "Crossword — Sell: Conversational interface v2 (motion)" source with Vite, unminified, React
-// external. See ./index.tsx for the mechanical changes.
+// Built from the "Crossword — Sell: Conversational interface v2 (motion)" source (the package with the camera
+// versions of Upsell 17b–20b, Conversion assist 28b–33b and Human mode 34b) with Vite, unminified, React external.
+// See ./index.tsx for the mechanical changes.
 
+import { createContext, useContext, useState, useEffect, useRef, useMemo, useLayoutEffect, Fragment as Fragment$1, useCallback, createElement } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import { createContext, useContext, useState, useEffect, useRef, useMemo, useLayoutEffect, Fragment as Fragment$1 } from "react";
 const Context = createContext("crimson");
 const useColorContext = () => useContext(Context);
 function ColorContext({
@@ -188,6 +189,25 @@ function wordCount(text) {
 function replyRevealMs(text) {
   return wordCount(text) * REPLY_STAGGER_MS$1 + REPLY_WORD_ANIM_MS + REPLY_SETTLE_MS;
 }
+function beatsDurationMs(beats) {
+  return beats.reduce((ms, b, i) => {
+    switch (b.type) {
+      case "compose":
+        if (!b.text) return ms + (b.holdMs ?? 700);
+        return ms + (b.leadMs ?? (i === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS)) + b.text.length * (b.msPerChar ?? CHAR_INTERVAL_MS) + SENT_SETTLE_MS;
+      case "think":
+        return ms + (b.labels.length === 2 ? THINKING_STAGE_1_MS + THINKING_STAGE_2_MS : THINKING_SINGLE_MS) + THINKING_EXIT_MS;
+      case "text":
+        return ms + replyRevealMs(b.text);
+      case "appear":
+        return ms + (b.ms ?? APPEAR_MS);
+      case "load":
+        return ms + (b.ms ?? LOAD_MS);
+      case "pause":
+        return ms + b.ms;
+    }
+  }, 0);
+}
 function useChatTimeline(beats, active) {
   const reducedMotion = useRef(prefersReducedMotion$2()).current;
   const [index, setIndex] = useState(reducedMotion ? beats.length : 0);
@@ -216,7 +236,7 @@ function useChatTimeline(beats, active) {
     };
     const next = () => setIndex((i) => i + 1);
     const cleanup = () => {
-      cancelReveal?.();
+      cancelReveal == null ? void 0 : cancelReveal();
       timeouts.forEach(window.clearTimeout);
     };
     switch (beat.type) {
@@ -278,7 +298,7 @@ function useChatTimeline(beats, active) {
         const stage = thinkStage.index === index ? thinkStage.stage : 0;
         return { label: beat.labels[stage] ?? beat.labels[0], visible: exitingIndex !== index };
       },
-      composer: current2?.type === "compose" && current2.text ? { value: typedValue, typing: true } : null,
+      composer: (current2 == null ? void 0 : current2.type) === "compose" && current2.text ? { value: typedValue, typing: true } : null,
       index,
       done: index >= beats.length,
       reducedMotion,
@@ -287,6 +307,8 @@ function useChatTimeline(beats, active) {
   }, [beats, index, typed, thinkStage, exitingIndex, reducedMotion, runKey]);
 }
 const amberChairImage = "/images/sell/motion-v2/assets/amber-oak-lounge-chair-Dc-4UdBJ.webp";
+const amberOpalLampImage = "/images/sell/motion-v2/assets/amber-oak-opal-glass-lamp-CSWTBSbc.webp";
+const amberPleatedLampImage = "/images/sell/motion-v2/assets/amber-oak-pleated-linen-lamp-DU9AZH7n.webp";
 const trailwellWeekenderImage = "/images/sell/motion-v2/assets/trailwell-weekender-FcXfEIMe.webp";
 const trailwellRoamImage = "/images/sell/motion-v2/assets/trailwell-roam-E1xpy3ga.webp";
 const trailwellOvernightImage = "/images/sell/motion-v2/assets/trailwell-overnight-Bh3WrqOg.webp";
@@ -1063,6 +1085,22 @@ const catalog = {
     image: cutouts.bedsideLamp,
     price: "$98"
   },
+  amberOpalGlass: {
+    id: "amber-oak-opal-glass-lamp",
+    brandId: "amber-and-oak",
+    brand: registry["amber-and-oak"].name,
+    title: "Opal Glass Table Lamp",
+    image: amberOpalLampImage,
+    price: "$138"
+  },
+  amberPleatedLinen: {
+    id: "amber-oak-pleated-linen-lamp",
+    brandId: "amber-and-oak",
+    brand: registry["amber-and-oak"].name,
+    title: "Pleated Linen Table Lamp",
+    image: amberPleatedLampImage,
+    price: "$118"
+  },
   dusklightArc: {
     id: "dusklight-arc",
     brandId: "dusklight",
@@ -1492,11 +1530,12 @@ function ChatFoot({ value }) {
   const valueRef = useRef(null);
   const [height, setHeight] = useState(void 0);
   useLayoutEffect(() => {
+    var _a;
     if (!value) {
       setHeight(void 0);
       return;
     }
-    const content = valueRef.current?.offsetHeight ?? 0;
+    const content = ((_a = valueRef.current) == null ? void 0 : _a.offsetHeight) ?? 0;
     setHeight(Math.max(48, content + 12));
   }, [value]);
   return /* @__PURE__ */ jsxs("footer", { className: "gj2-foot", children: [
@@ -1853,15 +1892,16 @@ const asCards = (items, brand2) => items.map(({ id, name, image }) => ({ id, tit
 const contain = (items) => items.map((p) => ({ ...p, brand: p.brand && storeName(p.brand), imageFit: "contain" }));
 const FOLLOWUPS$1 = { id: "followups", type: "appear", ms: 500 };
 function MotionWindow({ brand: brand2, beats, children }) {
+  var _a;
   const rootRef = useRef(null);
   const transcriptRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const t = useChatTimeline(beats, active);
   useFollowLatest(transcriptRef, t);
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsxs("div", { className: "gj2-win", children: [
+  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsxs("div", { className: "gj2-win gj2-win--standard", children: [
     /* @__PURE__ */ jsx(ChatHead, { brand: storeName(brand2) }),
     /* @__PURE__ */ jsx("div", { className: "gj2-transcript", ref: transcriptRef, children: children(t, !t.reducedMotion) }, t.runKey),
-    /* @__PURE__ */ jsx(ChatFoot, { value: t.composer?.value || void 0 })
+    /* @__PURE__ */ jsx(ChatFoot, { value: ((_a = t.composer) == null ? void 0 : _a.value) || void 0 })
   ] }) }) });
 }
 function useFollowLatest(transcriptRef, t) {
@@ -1876,7 +1916,7 @@ function useFollowLatest(transcriptRef, t) {
       const edge = viewport.getBoundingClientRect().bottom - FADE_CLEARANCE;
       if (bottom <= edge) return;
       const top = viewport.scrollTop + bottom - edge;
-      cancel?.();
+      cancel == null ? void 0 : cancel();
       if (t.reducedMotion) viewport.scrollTop = top;
       else cancel = animateScrollTo(viewport, top);
     };
@@ -1885,7 +1925,7 @@ function useFollowLatest(transcriptRef, t) {
     [...viewport.children].forEach((child) => observer.observe(child));
     return () => {
       observer.disconnect();
-      cancel?.();
+      cancel == null ? void 0 : cancel();
     };
   }, [t.index, t.runKey, t.reducedMotion]);
 }
@@ -2354,8 +2394,8 @@ function DotsHoldGlyph() {
 }
 const PHONE_W = 375;
 const PHONE_H = 812;
-const SLOT_H$1 = 520;
-const SLOT_W$1 = PHONE_W * SLOT_H$1 / PHONE_H;
+const SLOT_H = 520;
+const SLOT_W = PHONE_W * SLOT_H / PHONE_H;
 function IosStatusBar() {
   return /* @__PURE__ */ jsxs("div", { className: "gjm-status", "aria-hidden": "true", children: [
     /* @__PURE__ */ jsx("span", { className: "gjm-status__time", children: "9:41" }),
@@ -2521,11 +2561,187 @@ function SorellePurchasePage() {
     ] })
   ] });
 }
-const SLOT_H = 440;
-const SLOT_W = PHONE_W * SLOT_H / PHONE_H;
-const GAP = 40;
-const STEP = SLOT_W + GAP;
-const ENTER_MS = 820;
+const ZOOM_MEDIUM = 1.45;
+const ZOOM_CLOSE = 1.85;
+const MAX_ZOOM = ZOOM_CLOSE;
+const MIN_FOCUS_ZOOM = ZOOM_MEDIUM;
+const PAD = 0.02;
+const HEADROOM = 0.14;
+const FRAME_MARGIN = 34;
+const CAMERA_MS = 900;
+const EASE_MOVE = "cubic-bezier(0.76, 0, 0.24, 1)";
+const RIDE_MS = 600;
+const EASE_RIDE = "cubic-bezier(0.22, 1, 0.36, 1)";
+const CAMERA_LEAD_MS = CAMERA_MS + 150;
+const READ_MS = 2600;
+const PULLBACK_MS = 760;
+const REST_MS = 700;
+const DWELL_MS = 700;
+const PRE_LOAD_MS = 400;
+const LOAD_SETTLE_MS = 450;
+const HOLD_MS$1 = 1600;
+const TYPE_MS_PER_CHAR = 42;
+const FULL = { s: 1, ty: 0 };
+function transformFor({ s, ty }) {
+  return `translate(${(0.5 - 0.5 * s) * 100}%, ${ty * 100}%) scale(${s})`;
+}
+function useCameraBeats(beats, enabled, nudge, release) {
+  return useMemo(() => {
+    if (!enabled) return beats;
+    const firstCompose = beats.findIndex((b) => b.type === "compose");
+    const out = beats.flatMap((b, i) => {
+      let beat = b;
+      if (b.type === "compose" && b.text) {
+        beat = { ...b, msPerChar: b.msPerChar ?? TYPE_MS_PER_CHAR, leadMs: i === firstCompose && !nudge ? Math.max(b.leadMs ?? 0, CAMERA_LEAD_MS) : b.leadMs };
+      }
+      const before = b.id === release ? [{ id: "camera-release", type: "pause", ms: PULLBACK_MS + 150 }] : [];
+      const after = b.type === "compose" && b.text ? [{ id: `camera-dwell-${b.id}`, type: "pause", ms: DWELL_MS }] : [];
+      if (b.type === "load" && b.id !== release) {
+        beat = { ...b, ms: Math.max(b.ms ?? 0, CAMERA_MS + LOAD_SETTLE_MS) };
+        return [...before, { id: `camera-pre-${b.id}`, type: "pause", ms: PRE_LOAD_MS }, beat, ...after];
+      }
+      return [...before, beat, ...after];
+    });
+    const rest = nudge ? [] : [{ id: "camera-rest", type: "pause", ms: REST_MS }];
+    return [...rest, ...out, { id: "camera-read", type: "pause", ms: READ_MS }];
+  }, [beats, enabled, nudge, release]);
+}
+function useChatCamera(t, enabled, stage, nudge, approach, release) {
+  var _a;
+  let mode = "full";
+  if (enabled && !t.reducedMotion && !t.done && !(release && t.reached("camera-release"))) {
+    if (nudge) {
+      if (stage === "open") mode = "focus";
+      else if (approach || stage === "nudge" || stage === "pressed") mode = "nudge";
+    } else if (t.passed("camera-rest")) {
+      mode = "focus";
+    }
+  }
+  const ref = useRef(null);
+  const [band, setBand] = useState(null);
+  useEffect(() => {
+    const cam = ref.current;
+    if (!cam || !enabled) return;
+    let clip = cam.parentElement;
+    while (clip && getComputedStyle(clip).overflow === "visible") clip = clip.parentElement;
+    if (!clip) return;
+    const measure = () => {
+      if (cam.style.transform && !cam.style.transform.includes("scale(1)")) return;
+      const box = cam.getBoundingClientRect();
+      const frame = clip.getBoundingClientRect();
+      if (!box.height) return;
+      setBand({ lo: (frame.top - box.top + FRAME_MARGIN) / box.height, hi: (frame.bottom - box.top - FRAME_MARGIN) / box.height });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(clip);
+    return () => ro.disconnect();
+  }, [enabled]);
+  const fit = (a, b) => {
+    if (!band) return FULL;
+    const { lo, hi } = band;
+    const h = hi - lo;
+    const sTop = Math.min(MAX_ZOOM, h / (b + PAD));
+    const sBottom = Math.min(MAX_ZOOM, h / (1 - a + PAD));
+    const cur = viewRef.current;
+    const onTop = cur !== FULL && Math.abs(cur.ty - lo) < 1e-3;
+    const onBottom = cur !== FULL && !onTop;
+    const top = sTop >= sBottom * (onBottom ? 1.15 : 1) || onTop && sTop >= sBottom / 1.15;
+    const allowed = top ? sTop : sBottom;
+    const s = allowed >= ZOOM_CLOSE ? ZOOM_CLOSE : allowed >= ZOOM_MEDIUM ? ZOOM_MEDIUM : 1;
+    if (s === 1 || s <= h) return FULL;
+    return top ? { s, ty: lo } : { s, ty: hi - s };
+  };
+  const [view, setView] = useState(FULL);
+  const viewRef = useRef(view);
+  const movedAt = useRef(-Infinity);
+  viewRef.current = view;
+  useEffect(() => {
+    if (mode === "full") return setView(FULL);
+    if (mode === "nudge") return setView(fit(0.74, 0.9));
+    const cam = ref.current;
+    if (!cam || !band) return;
+    const transcript = cam.querySelector(".gj2-transcript");
+    const foot = cam.querySelector(".gj2-foot");
+    if (!transcript) return;
+    let raf = 0;
+    const settle = () => {
+      var _a2, _b;
+      raf = 0;
+      const camRect = cam.getBoundingClientRect();
+      const f = (y) => (y - camRect.top) / camRect.height;
+      const vp = transcript.getBoundingClientRect();
+      const typing = !!foot && (!!((_a2 = t.composer) == null ? void 0 : _a2.value) || !nudge && !transcript.lastElementChild);
+      const last = transcript.lastElementChild;
+      let a, b;
+      if (typing) {
+        const r = foot.getBoundingClientRect();
+        a = f(r.top);
+        b = f(r.bottom);
+      } else if (last) {
+        const users = transcript.querySelectorAll(":scope > .gj2-msg--user");
+        let start = users.length ? users[users.length - 1] : transcript.firstElementChild;
+        while ((_b = start == null ? void 0 : start.previousElementSibling) == null ? void 0 : _b.classList.contains("sbp-row")) start = start.previousElementSibling;
+        b = Math.min(f(vp.bottom), f(last.getBoundingClientRect().bottom) + HEADROOM);
+        a = f(Math.max(vp.top, start.getBoundingClientRect().top));
+        if (fit(a, b).s < MIN_FOCUS_ZOOM) {
+          let block = last;
+          while ((block == null ? void 0 : block.classList.contains("gj2-followups")) && block.previousElementSibling) block = block.previousElementSibling;
+          a = f(Math.max(vp.top, block.getBoundingClientRect().top));
+        }
+      } else {
+        a = 0;
+        b = 0.4;
+      }
+      const cur = viewRef.current;
+      const shown = (y) => cur.ty + y * cur.s;
+      const cropped = shown(a - PAD / 2) < band.lo || shown(b - HEADROOM / 2) > band.hi;
+      const since = performance.now() - movedAt.current;
+      if (since < CAMERA_MS) {
+        later = window.setTimeout(schedule, CAMERA_MS - since + 20);
+        return;
+      }
+      const next = fit(a, b);
+      const same = Math.abs(next.s - cur.s) < 1e-3 && Math.abs(next.ty - cur.ty) < 1e-3;
+      if (same) return;
+      if (cropped || Math.abs(next.s - cur.s) > 0.15 && since > HOLD_MS$1) {
+        movedAt.current = performance.now();
+        setView(next);
+      }
+    };
+    let later = 0;
+    const schedule = () => {
+      if (!raf) raf = window.setTimeout(settle, 16);
+    };
+    schedule();
+    const ro = new ResizeObserver(schedule);
+    [...transcript.children].forEach((c) => ro.observe(c));
+    if (foot) ro.observe(foot);
+    return () => {
+      ro.disconnect();
+      window.clearTimeout(raf);
+      window.clearTimeout(later);
+    };
+  }, [mode, band, t.index, t.runKey, !!((_a = t.composer) == null ? void 0 : _a.value)]);
+  const [moving, setMoving] = useState(false);
+  const prev = useRef(view);
+  useEffect(() => {
+    if (prev.current.s !== view.s || prev.current.ty !== view.ty) setMoving(true);
+    prev.current = view;
+  }, [view]);
+  const sheetRide = nudge && stage === "open" && t.index === 0 && view !== FULL;
+  return {
+    className: `chat-cam${moving ? " chat-cam--moving" : ""}`,
+    ref,
+    style: {
+      transform: transformFor(view),
+      transition: sheetRide ? `transform ${RIDE_MS}ms ${EASE_RIDE}` : `transform ${view === FULL ? PULLBACK_MS : CAMERA_MS}ms ${EASE_MOVE}`
+    },
+    onTransitionEnd: (e) => {
+      if (e.target === e.currentTarget) setMoving(false);
+    }
+  };
+}
 const IDLE_MS$1 = 900;
 const NUDGE_MS = 2200;
 const PRESS_MS$1 = 180;
@@ -2537,29 +2753,204 @@ const followups$2 = {
   guide: ["Show reviews", "Is there a smaller size?", "How long does a bottle last?"],
   ready: ["Checkout", "Add a moisturiser", "When will it arrive?"]
 };
-function HumanModeV2Motion() {
+const CHAPTERS = [
+  { title: "Knows when to help", body: "A shopper lingers on a serum. Crossword offers the answer before they ask." },
+  { title: "Knows how to guide", body: "Comparing two serums? It lays out what matters and helps them choose." },
+  { title: "Knows when you’re ready", body: "Once they’ve decided, it adds the right one to the cart." }
+];
+const CH_SLOT_H = 531;
+const SWAP_MS$1 = 450;
+function HumanModeV2ChaptersMotion() {
   const rootRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
   const [started, setStarted] = useState(false);
   useEffect(() => {
     if (landed) setStarted(true);
   }, [landed]);
-  const [shown, setShown] = useState(1);
-  const [playing, setPlaying] = useState(0);
   const reduced = prefersReducedMotion$1();
-  const next = (i) => () => {
-    if (i === 2) return;
-    setShown(i + 2);
-    window.setTimeout(() => setPlaying(i + 1), reduced ? 0 : ENTER_MS);
+  const [chapter, setChapter] = useState(0);
+  const [playing, setPlaying] = useState(0);
+  const swap = useRef(0);
+  const goTo = (i) => {
+    window.clearTimeout(swap.current);
+    setChapter(i);
+    swap.current = window.setTimeout(() => setPlaying(i), reduced ? 0 : SWAP_MS$1);
   };
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx("div", { className: "sv-ill-human-mode-frame hm2-row", children: /* @__PURE__ */ jsxs("div", { className: "hm2-track", style: { transform: `translateX(${(3 - shown) * STEP / 2}px)` }, children: [
-    /* @__PURE__ */ jsx(Slot, { shown: true, children: /* @__PURE__ */ jsx(KnowsWhenToHelp, { play: started, onDone: next(0) }) }),
-    /* @__PURE__ */ jsx(Slot, { shown: shown > 1, children: /* @__PURE__ */ jsx(KnowsHowToGuide, { play: started && playing >= 1, onDone: next(1) }) }),
-    /* @__PURE__ */ jsx(Slot, { shown: shown > 2, children: /* @__PURE__ */ jsx(KnowsWhenYoureReady, { play: started && playing >= 2, onDone: next(2) }) })
-  ] }) }) });
+  const next = (i) => () => {
+    if (i < 2) goTo(i + 1);
+  };
+  useEffect(() => () => window.clearTimeout(swap.current), []);
+  const [runs, setRuns] = useState([0, 0, 0]);
+  const pick = (i) => {
+    setRuns((p) => p.map((v, j) => j === i ? v + 1 : v));
+    setTimers((p) => p.map((v, j) => j === i ? 0 : v));
+    setFocus(null);
+    setStarted(true);
+    goTo(i);
+  };
+  const [focus, setFocus] = useState(null);
+  const [timers, setTimers] = useState([0, 0, 0]);
+  const report = useCallback((f) => {
+    setFocus((prev) => f.mode === "full" ? (prev == null ? void 0 : prev.phone) === f.phone ? null : prev : f);
+    if (f.timerMs) setTimers((p) => p[f.phone] ? p : p.map((v, i) => i === f.phone ? f.timerMs : v));
+  }, []);
+  const cam = useStageCamera(focus);
+  const rig = { report };
+  const fill = (i) => i === chapter && (timers[i] || reduced) ? { transform: "scaleX(1)", transition: reduced ? "none" : `transform ${timers[i]}ms linear` } : { transform: "scaleX(0)", transition: "none" };
+  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsxs("div", { className: "sv-ill-human-mode-frame hm2-chapters", children: [
+    /* @__PURE__ */ jsx("ol", { className: "hm2-steps", children: CHAPTERS.map((c, i) => /* @__PURE__ */ jsxs(
+      "li",
+      {
+        className: i === chapter ? "hm2-step hm2-step--active" : "hm2-step",
+        role: "button",
+        tabIndex: 0,
+        "aria-current": i === chapter ? "step" : void 0,
+        onClick: () => pick(i),
+        onKeyDown: (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            pick(i);
+          }
+        },
+        children: [
+          /* @__PURE__ */ jsxs("div", { className: "hm2-step__head", children: [
+            /* @__PURE__ */ jsx("span", { className: "hm2-step__num", children: String(i + 1).padStart(2, "0") }),
+            /* @__PURE__ */ jsxs("div", { className: "hm2-step__text", children: [
+              /* @__PURE__ */ jsx("span", { className: "hm2-step__title", children: c.title }),
+              /* @__PURE__ */ jsx("div", { className: "hm2-step__reveal", "aria-hidden": i !== chapter, children: /* @__PURE__ */ jsx("div", { className: "hm2-step__clip", children: /* @__PURE__ */ jsx("p", { className: "hm2-step__body", children: c.body }) }) })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx("span", { className: "hm2-step__bar", "aria-hidden": "true", children: /* @__PURE__ */ jsx("span", { className: "hm2-step__fill", style: fill(i) }) })
+        ]
+      },
+      c.title
+    )) }),
+    /* @__PURE__ */ jsx("div", { className: "hm2-stagecol", children: /* @__PURE__ */ jsx("div", { className: cam.className, ref: cam.ref, style: cam.style, onTransitionEnd: cam.onTransitionEnd, children: /* @__PURE__ */ jsxs("div", { className: "hm2-stack", children: [
+      /* @__PURE__ */ jsx(ChapterSlot, { shown: chapter === 0, children: /* @__PURE__ */ jsx(KnowsWhenToHelp, { play: started && playing === 0, onDone: next(0), rig }, runs[0]) }),
+      /* @__PURE__ */ jsx(ChapterSlot, { shown: chapter === 1, children: /* @__PURE__ */ jsx(KnowsHowToGuide, { play: started && playing === 1, onDone: next(1), rig }, runs[1]) }),
+      /* @__PURE__ */ jsx(ChapterSlot, { shown: chapter === 2, children: /* @__PURE__ */ jsx(KnowsWhenYoureReady, { play: started && playing === 2, onDone: next(2), rig }, runs[2]) })
+    ] }) }) })
+  ] }) });
 }
-function Slot({ shown, children }) {
-  return /* @__PURE__ */ jsx("div", { className: shown ? "hm2-slot hm2-slot--in" : "hm2-slot", "aria-hidden": !shown, children: /* @__PURE__ */ jsx(ScaleToFit, { contentWidth: PHONE_W, contentHeight: PHONE_H, maxWidth: SLOT_W, maxHeight: SLOT_H, children }) });
+function ChapterSlot({ shown, children }) {
+  return /* @__PURE__ */ jsx("div", { className: shown ? "hm2-slot hm2-slot--in" : "hm2-slot", "aria-hidden": !shown, children: /* @__PURE__ */ jsx(ScaleToFit, { contentWidth: PHONE_W, contentHeight: PHONE_H, maxWidth: PHONE_W * CH_SLOT_H / PHONE_H, maxHeight: CH_SLOT_H, children }) });
+}
+const WIDE = { s: 1, tx: 0, ty: 0 };
+function useStageCamera(focus) {
+  const ref = useRef(null);
+  const [view, setView] = useState(WIDE);
+  const viewRef = useRef(view);
+  viewRef.current = view;
+  const movedAt = useRef(-Infinity);
+  useEffect(() => {
+    var _a;
+    const lens = ref.current;
+    if (!lens || !focus || focus.mode === "full") {
+      if (viewRef.current !== WIDE) movedAt.current = performance.now();
+      setView(WIDE);
+      return;
+    }
+    const screen = (_a = lens.querySelectorAll(".hm2-slot")[focus.phone]) == null ? void 0 : _a.querySelector(".gjm-screen");
+    if (!screen) return;
+    const transcript = screen.querySelector(".gj2-transcript");
+    const foot = screen.querySelector(".gj2-foot");
+    const lo = FRAME_MARGIN / lens.offsetHeight;
+    const hi = 1 - lo;
+    const band = hi - lo;
+    let timer = 0;
+    let later = 0;
+    const settle = () => {
+      timer = 0;
+      const L = lens.getBoundingClientRect();
+      const P = screen.getBoundingClientRect();
+      const ph = { x: (P.left - L.left) / L.width, y: (P.top - L.top) / L.height, w: P.width / L.width, h: P.height / L.height };
+      const f = (y) => (y - P.top) / P.height;
+      const fit = (a2, b2) => {
+        const cur2 = viewRef.current;
+        const sTop = Math.min(ZOOM_CLOSE, band / ((b2 + PAD) * ph.h));
+        const sBottom = Math.min(ZOOM_CLOSE, band / ((1 - a2 + PAD) * ph.h));
+        const onTop = cur2 !== WIDE && Math.abs(cur2.ty - (lo - cur2.s * ph.y)) < 1e-3;
+        const onBottom = cur2 !== WIDE && !onTop;
+        const top = sTop >= sBottom * (onBottom ? 1.15 : 1) || onTop && sTop >= sBottom / 1.15;
+        const allowed = top ? sTop : sBottom;
+        const tx = (z) => Math.min(0, Math.max(1 - z, 0.5 - z * (ph.x + ph.w / 2)));
+        const s = allowed >= ZOOM_CLOSE ? ZOOM_CLOSE : allowed >= ZOOM_MEDIUM ? ZOOM_MEDIUM : 1;
+        if (s === 1 || s * ph.h <= band) return WIDE;
+        return { s, tx: tx(s), ty: top ? lo - s * ph.y : hi - s * (ph.y + ph.h) };
+      };
+      let a, b;
+      const last = transcript == null ? void 0 : transcript.lastElementChild;
+      if (focus.mode === "nudge") {
+        a = 0.74;
+        b = 0.9;
+      } else if (focus.ride) {
+        a = 0;
+        b = 0.4;
+      } else if (foot && (focus.typing || focus.phone > 0 && !last)) {
+        const r = foot.getBoundingClientRect();
+        a = f(r.top);
+        b = f(r.bottom);
+      } else if (transcript && last) {
+        const vp = transcript.getBoundingClientRect();
+        const users = transcript.querySelectorAll(":scope > .gj2-msg--user");
+        const start = users.length ? users[users.length - 1] : transcript.firstElementChild;
+        b = Math.min(f(vp.bottom), f(last.getBoundingClientRect().bottom) + HEADROOM);
+        a = f(Math.max(vp.top, start.getBoundingClientRect().top));
+        if (fit(a, b).s < ZOOM_MEDIUM) {
+          let block = last;
+          while (block.classList.contains("gj2-followups") && block.previousElementSibling) block = block.previousElementSibling;
+          a = f(Math.max(vp.top, block.getBoundingClientRect().top));
+        }
+      } else {
+        a = 0;
+        b = 0.4;
+      }
+      const cur = viewRef.current;
+      const since = performance.now() - movedAt.current;
+      if (since < CAMERA_MS) {
+        later = window.setTimeout(schedule, CAMERA_MS - since + 20);
+        return;
+      }
+      const next = fit(a, b);
+      if (Math.abs(next.s - cur.s) < 1e-3 && Math.abs(next.ty - cur.ty) < 1e-3 && Math.abs(next.tx - cur.tx) < 1e-3) return;
+      const shown = (y) => cur.ty + (ph.y + y * ph.h) * cur.s;
+      const cropped = cur === WIDE || shown(a - PAD / 2) < lo || shown(b - HEADROOM / 2) > hi;
+      if (cropped || Math.abs(next.s - cur.s) > 0.15 && since > HOLD_MS$1) {
+        movedAt.current = performance.now();
+        setView(next);
+      }
+    };
+    const schedule = () => {
+      if (!timer) timer = window.setTimeout(settle, 16);
+    };
+    schedule();
+    const ro = new ResizeObserver(schedule);
+    if (transcript) [...transcript.children].forEach((c) => ro.observe(c));
+    if (foot) ro.observe(foot);
+    return () => {
+      ro.disconnect();
+      window.clearTimeout(timer);
+      window.clearTimeout(later);
+    };
+  }, [focus == null ? void 0 : focus.phone, focus == null ? void 0 : focus.mode, focus == null ? void 0 : focus.tick, focus == null ? void 0 : focus.typing]);
+  const [moving, setMoving] = useState(false);
+  const prev = useRef(view);
+  useEffect(() => {
+    if (prev.current !== view) setMoving(true);
+    prev.current = view;
+  }, [view]);
+  const ride = !!(focus == null ? void 0 : focus.ride) && view !== WIDE;
+  return {
+    ref,
+    className: moving ? "hm2-lens hm2-lens--moving" : "hm2-lens",
+    style: {
+      transform: `translate(${view.tx * 100}%, ${view.ty * 100}%) scale(${view.s})`,
+      transition: ride ? `transform ${RIDE_MS}ms ${EASE_RIDE}` : `transform ${view === WIDE ? PULLBACK_MS : CAMERA_MS}ms ${EASE_MOVE}`
+    },
+    onTransitionEnd: (e) => {
+      if (e.target === e.currentTarget) setMoving(false);
+    }
+  };
 }
 function prefersReducedMotion$1() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -2571,21 +2962,24 @@ const helpBeats = [
   { id: "card", type: "load", ms: 600 },
   FOLLOWUPS
 ];
-function KnowsWhenToHelp({ play, onDone }) {
+function KnowsWhenToHelp({ play, onDone, rig }) {
   const reduced = prefersReducedMotion$1();
   const [stage, setStage] = useState(reduced ? "open" : "idle");
   const [risen, setRisen] = useState(reduced);
+  const [approach, setApproach] = useState(false);
   useEffect(() => {
     if (!play || reduced) return;
-    const at = [IDLE_MS$1, IDLE_MS$1 + NUDGE_MS, IDLE_MS$1 + NUDGE_MS + PRESS_MS$1, IDLE_MS$1 + NUDGE_MS + PRESS_MS$1 + RISE_MS$1];
+    const lead = rig ? CAMERA_LEAD_MS : 0;
+    const at = [IDLE_MS$1 + lead, IDLE_MS$1 + lead + NUDGE_MS, IDLE_MS$1 + lead + NUDGE_MS + PRESS_MS$1, IDLE_MS$1 + lead + NUDGE_MS + PRESS_MS$1 + RISE_MS$1];
     const timers = [
+      ...rig ? [window.setTimeout(() => setApproach(true), IDLE_MS$1)] : [],
       window.setTimeout(() => setStage("nudge"), at[0]),
       window.setTimeout(() => setStage("pressed"), at[1]),
       window.setTimeout(() => setStage("open"), at[2]),
       window.setTimeout(() => setRisen(true), at[3])
     ];
     return () => timers.forEach(window.clearTimeout);
-  }, [play, reduced]);
+  }, [play, reduced, !!rig]);
   const { proactiveMessage, userMessage, assistantMessage, product: product2, ctaLabel } = knowsWhenToHelp;
   return /* @__PURE__ */ jsxs("div", { className: `gjm-screen gjmm gjmm--${stage} hm2--${stage}`, children: [
     /* @__PURE__ */ jsx(SorelleProductStory, {}),
@@ -2601,7 +2995,7 @@ function KnowsWhenToHelp({ play, onDone }) {
       /* @__PURE__ */ jsx("span", { className: "piw2-orb gjmm-orb", "aria-label": "Open chat", children: /* @__PURE__ */ jsx(BrandMark, { brand: brand$1, className: "gjm-orb-mark" }) })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "gjm-scrim gjmm-scrim" }),
-    /* @__PURE__ */ jsx("div", { className: "gjmm-sheet-slot", children: /* @__PURE__ */ jsx(Sheet, { beats: helpBeats, active: risen, onDone, children: (t, animate) => /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx("div", { className: "gjmm-sheet-slot", children: /* @__PURE__ */ jsx(Sheet, { beats: helpBeats, active: risen, onDone, cam: rig && { rig, phone: 0, nudge: true, open: stage === "open", pre: approach, armed: play, preMs: IDLE_MS$1 + CAMERA_LEAD_MS + NUDGE_MS + PRESS_MS$1 + RISE_MS$1 }, children: (t, animate) => /* @__PURE__ */ jsxs(Fragment, { children: [
       /* @__PURE__ */ jsx("p", { className: "gj2-msg gj2-msg--ai", children: proactiveMessage }),
       t.passed("ask") && /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx(User, { text: userMessage, animate }),
@@ -2634,9 +3028,9 @@ const guideBeats = [
   { id: "actions", type: "appear" },
   FOLLOWUPS
 ];
-function KnowsHowToGuide({ play, onDone }) {
+function KnowsHowToGuide({ play, onDone, rig }) {
   const { userMessage, assistantMessage, recommended: recommended2, current: current2 } = knowsHowToGuide;
-  return /* @__PURE__ */ jsx(RisingScreen, { play, storefront: /* @__PURE__ */ jsx(SorelleSerumCollection, {}), children: (risen) => /* @__PURE__ */ jsx(Sheet, { beats: guideBeats, active: risen, onDone, children: (t, animate) => t.passed("ask") && /* @__PURE__ */ jsxs(Fragment, { children: [
+  return /* @__PURE__ */ jsx(RisingScreen, { play, storefront: /* @__PURE__ */ jsx(SorelleSerumCollection, {}), children: (risen) => /* @__PURE__ */ jsx(Sheet, { beats: guideBeats, active: risen, onDone, cam: rig && { rig, phone: 1, nudge: false, open: risen, pre: false, armed: play, preMs: RISE_MS$1 }, children: (t, animate) => t.passed("ask") && /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsx(User, { text: userMessage, animate }),
     /* @__PURE__ */ jsx(Think, { t, id: "think" }),
     t.reached("reply") && /* @__PURE__ */ jsx(StreamedReply, { text: assistantMessage, animate }),
@@ -2677,9 +3071,9 @@ const readyBeats = [
   { id: "added", type: "pause", ms: 1800 },
   FOLLOWUPS
 ];
-function KnowsWhenYoureReady({ play, onDone }) {
+function KnowsWhenYoureReady({ play, onDone, rig }) {
   const { userMessage, assistantMessage, product: product2 } = knowsWhenYoureReady;
-  return /* @__PURE__ */ jsx(RisingScreen, { play, storefront: /* @__PURE__ */ jsx(SorellePurchasePage, {}), children: (risen) => /* @__PURE__ */ jsx(Sheet, { beats: readyBeats, active: risen, onDone, children: (t, animate) => t.passed("ask") && /* @__PURE__ */ jsxs(Fragment, { children: [
+  return /* @__PURE__ */ jsx(RisingScreen, { play, storefront: /* @__PURE__ */ jsx(SorellePurchasePage, {}), children: (risen) => /* @__PURE__ */ jsx(Sheet, { beats: readyBeats, active: risen, onDone, cam: rig && { rig, phone: 2, nudge: false, open: risen, pre: false, armed: play, preMs: RISE_MS$1 }, children: (t, animate) => t.passed("ask") && /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsx(User, { text: userMessage, animate }),
     /* @__PURE__ */ jsx(Think, { t, id: "think", cards: true }),
     t.reached("reply") && /* @__PURE__ */ jsx(StreamedReply, { text: assistantMessage, animate }),
@@ -2712,17 +3106,31 @@ function RisingScreen({ play, storefront, children }) {
     /* @__PURE__ */ jsx("div", { className: "gjmm-sheet-slot", children: children(risen) })
   ] });
 }
-function Sheet({ beats, active, onDone, children }) {
+function Sheet({ beats, active, onDone, cam, children }) {
+  var _a, _b;
   const transcriptRef = useRef(null);
-  const t = useChatTimeline(beats, active);
+  const played = useCameraBeats(beats, !!cam, !!(cam == null ? void 0 : cam.nudge));
+  const t = useChatTimeline(played, active);
   const animate = !t.reducedMotion;
+  const report = cam == null ? void 0 : cam.rig.report;
+  let mode = "full";
+  if (cam && !t.reducedMotion && !t.done) {
+    if (cam.nudge) mode = cam.open ? "focus" : cam.pre ? "nudge" : "full";
+    else if (active && t.passed("camera-rest")) mode = "focus";
+  }
+  const typing = !!((_a = t.composer) == null ? void 0 : _a.value);
+  const timerMs = useMemo(() => ((cam == null ? void 0 : cam.preMs) ?? 0) + beatsDurationMs(played) + PULLBACK_MS + 150, [played, cam == null ? void 0 : cam.preMs]);
+  const ride = !!(cam == null ? void 0 : cam.nudge) && t.index === 0;
+  useEffect(() => {
+    if (cam) report == null ? void 0 : report({ phone: cam.phone, mode, typing, tick: t.index * 1e3 + t.runKey, ride, timerMs: cam.armed ? timerMs : 0 });
+  }, [report, cam == null ? void 0 : cam.phone, mode, typing, t.index, t.runKey, ride, cam == null ? void 0 : cam.armed, timerMs]);
   const doneRef = useRef(onDone);
   doneRef.current = onDone;
   useEffect(() => {
     if (!active || !t.done) return;
-    const id = window.setTimeout(() => doneRef.current(), t.reducedMotion ? 0 : HANDOFF_MS);
+    const id = window.setTimeout(() => doneRef.current(), t.reducedMotion ? 0 : cam ? PULLBACK_MS + 150 : HANDOFF_MS);
     return () => window.clearTimeout(id);
-  }, [active, t.done, t.reducedMotion]);
+  }, [active, t.done, t.reducedMotion, !!cam]);
   useEffect(() => {
     const viewport = transcriptRef.current;
     if (!viewport) return;
@@ -2735,7 +3143,7 @@ function Sheet({ beats, active, onDone, children }) {
       const edge = viewport.getBoundingClientRect().bottom - FADE_CLEARANCE * scale;
       if (bottom <= edge) return;
       const top = viewport.scrollTop + (bottom - edge) / scale;
-      cancel?.();
+      cancel == null ? void 0 : cancel();
       if (t.reducedMotion) viewport.scrollTop = top;
       else cancel = animateScrollTo(viewport, top);
     };
@@ -2744,14 +3152,14 @@ function Sheet({ beats, active, onDone, children }) {
     [...viewport.children].forEach((child) => observer.observe(child));
     return () => {
       observer.disconnect();
-      cancel?.();
+      cancel == null ? void 0 : cancel();
     };
   }, [t.index, t.runKey, t.reducedMotion]);
   return /* @__PURE__ */ jsxs("div", { className: "gj2-win gjm-sheet", children: [
     /* @__PURE__ */ jsx("span", { className: "gjm-grab", "aria-hidden": "true" }),
     /* @__PURE__ */ jsx(ChatHead, { brand: brand$1 }),
     /* @__PURE__ */ jsx("div", { className: "gj2-transcript", ref: transcriptRef, children: children(t, animate) }, t.runKey),
-    /* @__PURE__ */ jsx(ChatFoot, { value: t.composer?.value || void 0 })
+    /* @__PURE__ */ jsx(ChatFoot, { value: ((_b = t.composer) == null ? void 0 : _b.value) || void 0 })
   ] });
 }
 function User({ text, animate }) {
@@ -2774,6 +3182,60 @@ function Loading({ t, id, animate, bare = false, children }) {
 function Trail({ t, items, animate }) {
   if (!t.reached("followups")) return null;
   return /* @__PURE__ */ jsx(Followups, { items, className: animate ? "gj2-followups--in" : void 0 });
+}
+const OMEGA = 11;
+const CLEARANCE = 32;
+function useSmoothFollow(ref, t) {
+  useEffect(() => {
+    const vp = ref.current;
+    if (!vp) return;
+    let raf = 0;
+    let last = 0;
+    let pos = vp.scrollTop;
+    let vel = 0;
+    const target = () => {
+      const lastChild = vp.lastElementChild;
+      if (!lastChild) return pos;
+      const edge = vp.getBoundingClientRect().bottom - CLEARANCE;
+      const over = lastChild.getBoundingClientRect().bottom - edge;
+      const max = vp.scrollHeight - vp.clientHeight;
+      const scale = vp.getBoundingClientRect().height / vp.clientHeight || 1;
+      return Math.min(max, Math.max(pos, vp.scrollTop + over / scale));
+    };
+    const tick = (now) => {
+      const dt = Math.min(0.05, (last ? now - last : 16) / 1e3);
+      last = now;
+      const goal = target();
+      const gap = goal - pos;
+      if (Math.abs(gap) < 0.5 && Math.abs(vel) < 5) {
+        pos = goal;
+        vel = 0;
+        vp.scrollTop = pos;
+        raf = 0;
+        last = 0;
+        return;
+      }
+      vel += (OMEGA * OMEGA * gap - 2 * OMEGA * vel) * dt;
+      pos = Math.min(pos + vel * dt, vp.scrollHeight - vp.clientHeight);
+      vp.scrollTop = pos;
+      raf = requestAnimationFrame(tick);
+    };
+    const wake = () => {
+      if (t.reducedMotion) {
+        pos = target();
+        vp.scrollTop = pos;
+        return;
+      }
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+    wake();
+    const ro = new ResizeObserver(wake);
+    [...vp.children].forEach((c) => ro.observe(c));
+    return () => {
+      ro.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [t.index, t.runKey, t.reducedMotion]);
 }
 const script$a = {
   brand: catalog.audenBlack.brand,
@@ -3005,15 +3467,18 @@ function prefersReducedMotion() {
 const IDLE_MS = 700;
 const NUDGE_HOLD_MS = 2800;
 const PRESS_MS = 180;
-function SheetWindow$1({ brand: brand2, storefront, beats, children, Frame = SceneFrame, nudge }) {
+function SheetWindow$1({ brand: brand2, storefront, beats, children, Frame = SceneFrame, nudge, camera: camera2 = false, cameraRelease }) {
+  var _a;
   const rootRef = useRef(null);
   const transcriptRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
   const [stage, setStage] = useState(nudge ? "idle" : "open");
   const [risen, setRisen] = useState(false);
+  const [approach, setApproach] = useState(false);
   useEffect(() => {
     if (!landed) {
       setRisen(false);
+      setApproach(false);
       if (nudge) setStage("idle");
       return;
     }
@@ -3022,19 +3487,25 @@ function SheetWindow$1({ brand: brand2, storefront, beats, children, Frame = Sce
       setRisen(true);
       return;
     }
-    const at = [IDLE_MS, IDLE_MS + NUDGE_HOLD_MS, IDLE_MS + NUDGE_HOLD_MS + PRESS_MS];
+    const lead = camera2 ? CAMERA_LEAD_MS : 0;
+    const at = [IDLE_MS + lead, IDLE_MS + lead + NUDGE_HOLD_MS, IDLE_MS + lead + NUDGE_HOLD_MS + PRESS_MS];
     const timers = [
+      ...camera2 ? [window.setTimeout(() => setApproach(true), IDLE_MS)] : [],
       window.setTimeout(() => setStage("nudge"), at[0]),
       window.setTimeout(() => setStage("pressed"), at[1]),
       window.setTimeout(() => setStage("open"), at[2]),
       window.setTimeout(() => setRisen(true), at[2] + RISE_MS)
     ];
     return () => timers.forEach(window.clearTimeout);
-  }, [landed, nudge]);
-  const t = useChatTimeline(beats, risen);
-  useFollowLatest(transcriptRef, t);
+  }, [landed, nudge, camera2]);
+  const played = useCameraBeats(beats, camera2, !!nudge, cameraRelease);
+  const t = useChatTimeline(played, risen);
+  const inertRef = useRef(null);
+  useFollowLatest(camera2 ? inertRef : transcriptRef, t);
+  useSmoothFollow(camera2 ? transcriptRef : inertRef, t);
+  const cam = useChatCamera(t, camera2, stage, !!nudge, approach, cameraRelease);
   const name = storeName(brand2);
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx(ScaleToFit, { contentWidth: PHONE_W, contentHeight: PHONE_H, maxWidth: SLOT_W$1, maxHeight: SLOT_H$1, children: /* @__PURE__ */ jsxs("div", { className: `gjm-screen gjmm gjmm--${stage} hm2--${stage}`, children: [
+  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx("div", { ref: cam.ref, className: cam.className, style: cam.style, onTransitionEnd: cam.onTransitionEnd, children: /* @__PURE__ */ jsx(ScaleToFit, { contentWidth: PHONE_W, contentHeight: PHONE_H, maxWidth: SLOT_W, maxHeight: SLOT_H, children: /* @__PURE__ */ jsxs("div", { className: `gjm-screen gjmm gjmm--${stage} hm2--${stage}`, children: [
     storefront,
     nudge && /* @__PURE__ */ jsxs("div", { className: "gjm-launcher gjmm-launcher", children: [
       /* @__PURE__ */ jsxs("div", { className: "hm2-nudge", role: "status", children: [
@@ -3052,9 +3523,9 @@ function SheetWindow$1({ brand: brand2, storefront, beats, children, Frame = Sce
       /* @__PURE__ */ jsx("span", { className: "gjm-grab", "aria-hidden": "true" }),
       /* @__PURE__ */ jsx(ChatHead, { brand: name }),
       /* @__PURE__ */ jsx("div", { className: "gj2-transcript", ref: transcriptRef, children: children(t, !t.reducedMotion) }, t.runKey),
-      /* @__PURE__ */ jsx(ChatFoot, { value: t.composer?.value || void 0 })
+      /* @__PURE__ */ jsx(ChatFoot, { value: ((_a = t.composer) == null ? void 0 : _a.value) || void 0 })
     ] }) })
-  ] }) }) }) });
+  ] }) }) }) }) });
 }
 function LoneCard({ t, id, product: product2, animate }) {
   if (!t.reached(id)) return null;
@@ -3104,9 +3575,12 @@ const upsellBeats = [
   { id: "compare", type: "load", ms: 800 },
   FOLLOWUPS$1
 ];
-function UpsellUpgradeV2Motion() {
+function UpsellUpgradeV2CameraMotion() {
+  return /* @__PURE__ */ jsx(UpsellUpgradeV2Motion, { camera: true });
+}
+function UpsellUpgradeV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2, current: current2 } = upsell;
-  return /* @__PURE__ */ jsx(SheetWindow$1, { brand: script2.brand, beats: upsellBeats, storefront: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SheetWindow$1, { brand: script2.brand, beats: upsellBeats, camera: camera2, storefront: /* @__PURE__ */ jsx(
     CatalogStorefront,
     {
       brand: storeName(script2.brand),
@@ -3131,9 +3605,12 @@ const crossSellBeats = [
   { id: "cards", type: "load", ms: 700 },
   FOLLOWUPS$1
 ];
-function CrossSellV2Motion() {
+function CrossSellV2CameraMotion() {
+  return /* @__PURE__ */ jsx(CrossSellV2Motion, { camera: true });
+}
+function CrossSellV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2, anchor: anchor2, addOns: addOns2 } = crossSell;
-  return /* @__PURE__ */ jsx(SheetWindow$1, { brand: script2.brand, beats: crossSellBeats, storefront: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SheetWindow$1, { brand: script2.brand, beats: crossSellBeats, camera: camera2, storefront: /* @__PURE__ */ jsx(
     CatalogStorefront,
     {
       brand: storeName(script2.brand),
@@ -3167,9 +3644,12 @@ const bundleCard = {
   tag: "Bundle · 3 items",
   imageFit: "contain"
 };
-function BundleBuildingV2Motion() {
+function BundleBuildingV2CameraMotion() {
+  return /* @__PURE__ */ jsx(BundleBuildingV2Motion, { camera: true });
+}
+function BundleBuildingV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2, anchor: anchor2 } = bundle$1;
-  return /* @__PURE__ */ jsx(SheetWindow$1, { brand: script2.brand, beats: bundleBeats, storefront: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SheetWindow$1, { brand: script2.brand, beats: bundleBeats, camera: camera2, storefront: /* @__PURE__ */ jsx(
     CatalogStorefront,
     {
       brand: storeName(script2.brand),
@@ -3195,9 +3675,12 @@ const browseBeats = [
   { id: "card", type: "load", ms: 750 },
   FOLLOWUPS$1
 ];
-function BrowseUpsellV2Motion() {
+function BrowseUpsellV2CameraMotion() {
+  return /* @__PURE__ */ jsx(BrowseUpsellV2Motion, { camera: true });
+}
+function BrowseUpsellV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2, previouslyViewed: previouslyViewed2, recommendedProduct: recommendedProduct2 } = browse;
-  return /* @__PURE__ */ jsx(SheetWindow$1, { brand: script2.brand, beats: browseBeats, storefront: /* @__PURE__ */ jsx(AudenBrowseStorefront, {}), nudge: "Still comparing headphones? There's one worth a look.", children: (t, animate) => t.passed("lead") && /* @__PURE__ */ jsxs(Fragment, { children: [
+  return /* @__PURE__ */ jsx(SheetWindow$1, { brand: script2.brand, beats: browseBeats, camera: camera2, cameraRelease: "card", storefront: /* @__PURE__ */ jsx(AudenBrowseStorefront, {}), nudge: "Still comparing headphones? There's one worth a look.", children: (t, animate) => t.passed("lead") && /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsxs("div", { className: ["sbp-row um2-viewed", rise(animate)].filter(Boolean).join(" "), children: [
       /* @__PURE__ */ jsx("span", { className: "um2-viewed__stack", children: previouslyViewed2.items.map((item, i) => /* @__PURE__ */ jsx("span", { className: "sbp-row__thumb um2-viewed__thumb", children: /* @__PURE__ */ jsx("img", { src: item.image, alt: item.alt }) }, i)) }),
       /* @__PURE__ */ jsxs("span", { className: "sbp-row__col", children: [
@@ -3352,9 +3835,12 @@ const priceBeats = [
   { id: "reply", type: "text", text: script$4.assistantMessage },
   { id: "actions", type: "appear", ms: 500 }
 ];
-function PriceObjectionV2Motion() {
+function PriceObjectionV2CameraMotion() {
+  return /* @__PURE__ */ jsx(PriceObjectionV2Motion, { camera: true });
+}
+function PriceObjectionV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2, product: product2 } = price;
-  return /* @__PURE__ */ jsx(SheetWindow, { brand: script2.brand, beats: priceBeats, storefront: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SheetWindow, { camera: camera2, brand: script2.brand, beats: priceBeats, storefront: /* @__PURE__ */ jsx(
     CatalogStorefront,
     {
       brand: storeName(script2.brand),
@@ -3386,9 +3872,12 @@ const comparisonBeats = [
   { id: "compare", type: "load", ms: 800 },
   FOLLOWUPS$1
 ];
-function ProductComparisonV2Motion() {
+function ProductComparisonV2CameraMotion() {
+  return /* @__PURE__ */ jsx(ProductComparisonV2Motion, { camera: true });
+}
+function ProductComparisonV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2, recommended: recommended2 } = comparison;
-  return /* @__PURE__ */ jsx(SheetWindow, { brand: script2.brand, beats: comparisonBeats, storefront: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SheetWindow, { camera: camera2, brand: script2.brand, beats: comparisonBeats, storefront: /* @__PURE__ */ jsx(
     CatalogStorefront,
     {
       brand: storeName(script2.brand),
@@ -3413,10 +3902,13 @@ const cartBeats = [
   { id: "offer", type: "load", ms: 650 },
   FOLLOWUPS$1
 ];
-function CartUpsellOfferV2Motion() {
+function CartUpsellOfferV2CameraMotion() {
+  return /* @__PURE__ */ jsx(CartUpsellOfferV2Motion, { camera: true });
+}
+function CartUpsellOfferV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2, cart: cart2, offer: offer2, accessory: accessory2 } = cartOffer;
   const progress = Math.min(cart2.value / cart2.threshold, 1) * 100;
-  return /* @__PURE__ */ jsx(SheetWindow, { brand: script2.brand, beats: cartBeats, storefront: /* @__PURE__ */ jsx(SorelleOfferStorefront, {}), nudge: "You're $14 away from $15 off your order.", children: (t, animate) => t.passed("lead") && /* @__PURE__ */ jsxs(Fragment, { children: [
+  return /* @__PURE__ */ jsx(SheetWindow, { camera: camera2, brand: script2.brand, beats: cartBeats, storefront: /* @__PURE__ */ jsx(SorelleOfferStorefront, {}), nudge: "You're $14 away from $15 off your order.", children: (t, animate) => t.passed("lead") && /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsx(Think$1, { t, id: "think", cards: true }),
     t.reached("reply") && /* @__PURE__ */ jsx(StreamedReply, { text: script2.assistantMessage, animate }),
     /* @__PURE__ */ jsxs(Module, { t, id: "offer", animate, children: [
@@ -3463,9 +3955,12 @@ const stockBeats = [
   FOLLOWUPS$1
 ];
 const stockColors = { Black: "#1d1d1f", Tan: "#c49a6c" };
-function StockAvailabilityV2Motion() {
+function StockAvailabilityV2CameraMotion() {
+  return /* @__PURE__ */ jsx(StockAvailabilityV2Motion, { camera: true });
+}
+function StockAvailabilityV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2, product: product2 } = stock;
-  return /* @__PURE__ */ jsx(SheetWindow, { brand: script2.brand, beats: stockBeats, storefront: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SheetWindow, { camera: camera2, brand: script2.brand, beats: stockBeats, storefront: /* @__PURE__ */ jsx(
     CatalogStorefront,
     {
       brand: storeName(script2.brand),
@@ -3500,9 +3995,12 @@ const purchaseBeats = [
   { id: "card", type: "load", ms: 700 },
   FOLLOWUPS$1
 ];
-function PurchaseConfirmationV2Motion() {
+function PurchaseConfirmationV2CameraMotion() {
+  return /* @__PURE__ */ jsx(PurchaseConfirmationV2Motion, { camera: true });
+}
+function PurchaseConfirmationV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2, product: product2 } = purchase;
-  return /* @__PURE__ */ jsx(SheetWindow, { brand: script2.brand, beats: purchaseBeats, storefront: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SheetWindow, { camera: camera2, brand: script2.brand, beats: purchaseBeats, storefront: /* @__PURE__ */ jsx(
     CatalogStorefront,
     {
       brand: storeName(script2.brand),
@@ -3539,9 +4037,12 @@ const decisionCards = products.map(({ id, image, name, differentiator, price: co
   price: cost,
   imageFit: "contain"
 }));
-function DecisionSupportV2Motion() {
+function DecisionSupportV2CameraMotion() {
+  return /* @__PURE__ */ jsx(DecisionSupportV2Motion, { camera: true });
+}
+function DecisionSupportV2Motion({ camera: camera2 = false } = {}) {
   const { script: script2 } = decision;
-  return /* @__PURE__ */ jsx(SheetWindow, { brand: script2.brand, beats: decisionBeats, storefront: /* @__PURE__ */ jsx(AudenCompareStorefront, {}), nudge: "Still deciding? Compare the three you viewed.", children: (t, animate) => t.passed("lead") && /* @__PURE__ */ jsxs(Fragment, { children: [
+  return /* @__PURE__ */ jsx(SheetWindow, { camera: camera2, brand: script2.brand, beats: decisionBeats, storefront: /* @__PURE__ */ jsx(AudenCompareStorefront, {}), nudge: "Still deciding? Compare the three you viewed.", children: (t, animate) => t.passed("lead") && /* @__PURE__ */ jsxs(Fragment, { children: [
     /* @__PURE__ */ jsx(Think$1, { t, id: "think", cards: true }),
     t.reached("reply") && /* @__PURE__ */ jsx(StreamedReply, { text: script2.assistantMessage, animate }),
     /* @__PURE__ */ jsx(Cards, { t, id: "cards", products: decisionCards, animate, className: "cv2-decision-cards" }),
@@ -4788,8 +5289,9 @@ function MarketplaceBackground() {
 function useComposerClip(winRef, runKey) {
   const [clip, setClip] = useState(null);
   useLayoutEffect(() => {
+    var _a, _b;
     const win = winRef.current;
-    const composer = win?.querySelector(".gj2-composer");
+    const composer = win == null ? void 0 : win.querySelector(".gj2-composer");
     if (!win || !composer) return;
     const measure = () => {
       const w = win.getBoundingClientRect();
@@ -4804,7 +5306,7 @@ function useComposerClip(winRef, runKey) {
       });
     };
     measure();
-    document.fonts?.ready?.then(measure);
+    (_b = (_a = document.fonts) == null ? void 0 : _a.ready) == null ? void 0 : _b.then(measure);
     const observer = new ResizeObserver(measure);
     observer.observe(win);
     return () => observer.disconnect();
@@ -4843,7 +5345,7 @@ function WidgetCanvas({
   } : void 0;
   const products2 = /* @__PURE__ */ jsxs(Fragment, { children: [
     lead,
-    rows?.map((r) => /* @__PURE__ */ jsxs("div", { className: "sbp-row pv2-row", children: [
+    rows == null ? void 0 : rows.map((r) => /* @__PURE__ */ jsxs("div", { className: "sbp-row pv2-row", children: [
       /* @__PURE__ */ jsx("span", { className: "sbp-row__thumb", children: /* @__PURE__ */ jsx("img", { src: r.image, alt: "" }) }),
       /* @__PURE__ */ jsxs("span", { className: "sbp-row__col", children: [
         /* @__PURE__ */ jsx("span", { className: "sbp-row__title", children: r.title }),
@@ -4857,7 +5359,7 @@ function WidgetCanvas({
     /* @__PURE__ */ jsx("div", { className: ["pv2-rows", live && animate && "pv2-rows--in"].filter(Boolean).join(" "), children: products2 }),
     (!live || t.reached("trail")) && /* @__PURE__ */ jsx(Followups, { items: doors, className: live && animate ? "gj2-followups--in" : void 0 })
   ] });
-  return /* @__PURE__ */ jsxs("div", { ref: rootRef, className: "sv-ill-visual-canvas sv-ill-visual-canvas--framed", children: [
+  return /* @__PURE__ */ jsxs("div", { ref: rootRef, className: "sv-ill-visual-canvas sv-ill-visual-canvas--framed pv2-canvas", children: [
     /* @__PURE__ */ jsx("div", { className: "sv-ill-visual-canvas__background", children: /* @__PURE__ */ jsx(Page, {}) }),
     /* @__PURE__ */ jsx("div", { className: "sv-ill-visual-canvas__fade", children: /* @__PURE__ */ jsx(ContentFade, {}) }),
     /* @__PURE__ */ jsx("div", { className: "sv-ill-visual-canvas__widget sv-sell-widget-align-composer", children: /* @__PURE__ */ jsxs("div", { className: ["pv2-seat", landed && animate && "sv-sell-widget-enter"].filter(Boolean).join(" "), style, children: [
@@ -5343,7 +5845,9 @@ const storefronts = {
         catalog.amberBedside,
         "Lighting",
         "Copper-rim detail · bedside scale"
-      )
+      ),
+      product(catalog.amberOpalGlass, "Lighting", "Opal glass · brushed brass"),
+      product(catalog.amberPleatedLinen, "Lighting", "Pleated linen · walnut")
     ]
   },
   dusklight: {
@@ -5701,8 +6205,9 @@ function Store({ id, chips, wall, className = "", widget: widget2 = true }) {
 function useFontsReady() {
   const [ready, setReady] = useState(false);
   useEffect(() => {
+    var _a;
     let cancelled = false;
-    (document.fonts?.ready ?? Promise.resolve()).then(() => {
+    (((_a = document.fonts) == null ? void 0 : _a.ready) ?? Promise.resolve()).then(() => {
       if (!cancelled) setReady(true);
     });
     return () => {
@@ -5834,33 +6339,33 @@ function PlaceItWhereverCompactMotion() {
   return /* @__PURE__ */ jsx(PlaceItWhereverV2Motion, { slot: 255, drawers: false });
 }
 function SellColorContext({ children }) {
-  return /* @__PURE__ */ jsx(ColorContext, { variant: "crimson", children });
+  return createElement(ColorContext, { variant: "crimson", children });
 }
 export {
   BrandedWidgetCycle as BrandedWidgetMotion,
-  BrowseUpsellV2Motion as BrowseUpsellMotion,
-  BundleBuildingV2Motion as BundleBuildingMotion,
-  CartUpsellOfferV2Motion as CartUpsellOfferMotion,
+  BrowseUpsellV2CameraMotion as BrowseUpsellMotion,
+  BundleBuildingV2CameraMotion as BundleBuildingMotion,
+  CartUpsellOfferV2CameraMotion as CartUpsellOfferMotion,
   ComparisonGuidanceV2Motion as ComparisonGuidanceMotion,
   CompleteChannelDeploymentMotion,
   ConversationalDiscoveryV2Motion as ConversationalDiscoveryMotion,
-  CrossSellV2Motion as CrossSellMotion,
-  DecisionSupportV2Motion as DecisionSupportMotion,
+  CrossSellV2CameraMotion as CrossSellMotion,
+  DecisionSupportV2CameraMotion as DecisionSupportMotion,
   GiftFinderV2Motion as GiftFinderMotion,
   GuidedFinderV2Motion as GuidedFinderMotion,
-  HumanModeV2Motion as HumanModeMotion,
+  HumanModeV2ChaptersMotion as HumanModeMotion,
   OutfitBuildingV2Motion as OutfitBuildingMotion,
   PlaceItWhereverCompactMotion as PlaceItWhereverMotion,
-  PriceObjectionV2Motion as PriceObjectionMotion,
+  PriceObjectionV2CameraMotion as PriceObjectionMotion,
   ProactiveInterventionV2Motion as ProactiveInterventionMotion,
-  ProductComparisonV2Motion as ProductComparisonMotion,
+  ProductComparisonV2CameraMotion as ProductComparisonMotion,
   ProductQAV2Motion as ProductQaMotion,
-  PurchaseConfirmationV2Motion as PurchaseConfirmationMotion,
+  PurchaseConfirmationV2CameraMotion as PurchaseConfirmationMotion,
   ReturnVisitComparisonV2Motion as ReturnVisitComparisonMotion,
   SellColorContext,
   SizeFitV2Motion as SizeFitMotion,
-  StockAvailabilityV2Motion as StockAvailabilityMotion,
+  StockAvailabilityV2CameraMotion as StockAvailabilityMotion,
   TryItOnV2Motion as TryItOnMotion,
-  UpsellUpgradeV2Motion as UpsellUpgradeMotion,
+  UpsellUpgradeV2CameraMotion as UpsellUpgradeMotion,
   VisualDiscoveryV2Motion as VisualDiscoveryMotion
 };

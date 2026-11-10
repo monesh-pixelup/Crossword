@@ -1,0 +1,10 @@
+{
+  "generator": "built-in image_gen",
+  "prompt": "Use case: ads-marketing. Asset type: wide transparent ecommerce hero banner artwork for Trailwell backpacks, shown very small at 320 by 104 CSS pixels. Reference images 1\u20133 are product design references, not an image to preserve unchanged. Create one polished, lightly stylized editorial 3D product composition featuring these three backpacks in forest green, charcoal and warm sand. Arrange the bags as a playful sculptural fan in a broad low horizontal arc: the green bag is central and larger, leaning slightly right; the charcoal bag reclines diagonally to the left and the sand bag angles outward to the right. Subtle overlap and depth, believable nylon fabric and hardware, softer forms and tactile studio rendering with an understated outdoor brand aesthetic. Keep the whole composition approximately 3:1 wide, all silhouettes fully visible, minimal empty margins, balanced and visually substantial at tiny banner size. Soft directional lighting, warm restrained highlights, soft short semitransparent shadows just beneath the bags. Truly transparent alpha background. No solid background, no scenery, no floor, no pedestal, no rectangle, no graphics, no people, no accessories, no headline, no text except existing tiny brand patches, no watermark. Premium art-directed campaign imagery, calm and considered.",
+  "reference_images": [
+    "trailwell-weekender.png",
+    "trailwell-roam.png",
+    "trailwell-overnight.png"
+  ],
+  "output": "trailwell-banner-stylized.png"
+}

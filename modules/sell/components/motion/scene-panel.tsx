@@ -44,6 +44,8 @@ type ScenePanelProps = {
    * overflow cropped. For a panel whose shape follows the layout rather than the scene's.
    */
   cover?: boolean;
+  /** Leave the scene clickable (Human mode's chapter list); by default it's decorative and inert. */
+  interactive?: boolean;
   className?: string;
 };
 
@@ -76,6 +78,7 @@ export function ScenePanel({
   transform: transformProp = false,
   transformBelow,
   cover = false,
+  interactive = false,
   className,
 }: ScenePanelProps) {
   const narrow = useNarrow(transformProp ? transformBelow : undefined);
@@ -104,7 +107,9 @@ export function ScenePanel({
   }, [scene.width, scene.height, padding, maxScale, cover]);
 
   const { Component } = scene;
-  const content = (
+  // The scene mounts only once the panel has its scale: a scene that measures itself on mount (the camera demos fit
+  // their zoom to their frame's measured size, once) would otherwise measure itself at scale 0 and never zoom.
+  const content = scale > 0 && (
     <Root>
       <Component play={active && inView} {...sceneProps} />
     </Root>
@@ -120,7 +125,7 @@ export function ScenePanel({
             style={{ width: scene.width * scale, height: scene.height * scale, visibility: scale ? undefined : "hidden" }}
           >
             <div
-              inert
+              inert={!interactive}
               className="absolute top-0 left-0 origin-top-left"
               style={{ width: scene.width, height: scene.height, transform: `scale(${scale})` }}
             >
@@ -129,7 +134,7 @@ export function ScenePanel({
           </div>
         ) : (
           <div
-            inert
+            inert={!interactive}
             className="shrink-0"
             style={{ width: scene.width, height: scene.height, zoom: scale || undefined, visibility: scale ? undefined : "hidden" }}
           >

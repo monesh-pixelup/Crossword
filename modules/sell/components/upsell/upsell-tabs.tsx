@@ -4,8 +4,8 @@ import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { upsellFeatures } from "../../config/upsell";
 import { ScenePanel } from "../motion/scene-panel";
-import { SellCameraMotionRoot } from "../motion-camera";
-import { upsellCameraScenes } from "../motion-camera/scenes";
+import { SellMotionRoot } from "../motion-v2";
+import { upsellScenes } from "../motion-v2/scenes";
 
 /** How long each feature stays open before the next one takes over, at least. */
 const DURATION_MS = 6000;
@@ -65,7 +65,7 @@ export function UpsellTabs() {
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
   const last = upsellFeatures.length - 1;
-  const scene = upsellCameraScenes[upsellFeatures[active].scene];
+  const scene = upsellScenes[upsellFeatures[active].scene];
   // Which layout is showing (null until known): only its visuals are drawn, and only side by side do the tabs turn on a timer.
   const [wide, setWide] = useState<boolean | null>(null);
   // The accordion item closing as another opens, kept drawn until it has eased shut.
@@ -206,9 +206,9 @@ export function UpsellTabs() {
                       {wide !== true && (on || i === closing) && (
                         <ScenePanel
                           key={`${i}-${run}`}
-                          scene={upsellCameraScenes[feature.scene]}
+                          scene={upsellScenes[feature.scene]}
                           active={visible && on}
-                          root={SellCameraMotionRoot}
+                          root={SellMotionRoot}
                           maxScale={Infinity}
                           transform
                         />
@@ -253,7 +253,7 @@ export function UpsellTabs() {
       >
         {wide !== false && (
           <div key={`${active}-${run}`} className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0">
-            <ScenePanel scene={scene} active={visible} root={SellCameraMotionRoot} maxScale={Infinity} transform />
+            <ScenePanel scene={scene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />
           </div>
         )}
       </div>

@@ -1,0 +1,90 @@
+{
+  "generator": "built-in image_gen",
+  "assets": [
+    {
+      "name": "trailwell-weekender.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. A Trailwell Weekender 30L travel backpack in muted forest green recycled nylon. Upright three-quarter front view, clamshell zipper, padded straps subtly visible, small refined TRAILWELL label. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-d95f1d7d-9a77-4e72-b8f8-59f4b882e8f0.png"
+    },
+    {
+      "name": "trailwell-roam.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. A Trailwell Roam 40L travel backpack in charcoal black textured recycled nylon. Upright three-quarter front view, large structured silhouette, lockable double zips, compression straps, small refined TRAILWELL label. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-a62d87d5-aba2-42b8-bd54-203ccb2ff3ae.png"
+    },
+    {
+      "name": "trailwell-overnight.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. A Trailwell Overnight 24L backpack in warm sand beige nylon. Upright three-quarter front view, compact rounded silhouette, lower shoe compartment zipper, small refined TRAILWELL label. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-3bba7190-0aef-4a6e-9342-db6e90173d43.png"
+    },
+    {
+      "name": "goodwell-sleep-60.png",
+      "prompt": "Use case: product-mockup. Ecommerce product cutout, photorealistic premium studio photography. One upright cylindrical supplement matte lavender jar, dark plum cap, fine minimal label printed precisely: 'goodwell', 'DAILY SLEEP', 'GUMMIES', '60 COUNT', subtle botanical line detail. Slight three-quarter front view. Single product centered on a square canvas, full silhouette visible, generous 12% clear margins. Soft upper-left studio lighting, realistic matte material. Subtle soft contact shadow beneath the product. Genuinely transparent alpha background including semitransparent shadow, no backdrop, no floor, no checkerboard, no white rectangle, no props or watermark.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-a014bd7e-08e7-4f87-bd83-d40c7a1abc3b.png"
+    },
+    {
+      "name": "goodwell-sleep-28.png",
+      "prompt": "Use case: product-mockup. Ecommerce product cutout, photorealistic premium studio photography. One upright cylindrical supplement small compact matte lavender jar, dark plum cap, fine minimal label printed precisely: 'goodwell', 'DAILY SLEEP', 'GUMMIES', '28 COUNT', subtle botanical line detail. Slight three-quarter front view. Single product centered on a square canvas, full silhouette visible, generous 12% clear margins. Soft upper-left studio lighting, realistic matte material. Subtle soft contact shadow beneath the product. Genuinely transparent alpha background including semitransparent shadow, no backdrop, no floor, no checkerboard, no white rectangle, no props or watermark.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-0e46d58a-d545-4485-94bf-cf3f5a31fc35.png"
+    },
+    {
+      "name": "goodwell-energy.png",
+      "prompt": "Use case: product-mockup. Ecommerce product cutout, photorealistic premium studio photography. One upright cylindrical supplement matte apricot jar, burnt orange cap, fine minimal label printed precisely: 'goodwell', 'CLEAN ENERGY', 'GUMMIES', '60 COUNT', subtle botanical line detail. Slight three-quarter front view. Single product centered on a square canvas, full silhouette visible, generous 12% clear margins. Soft upper-left studio lighting, realistic matte material. Subtle soft contact shadow beneath the product. Genuinely transparent alpha background including semitransparent shadow, no backdrop, no floor, no checkerboard, no white rectangle, no props or watermark.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-6d4c8742-bd93-4b7d-9055-97388ed250a0.png"
+    },
+    {
+      "name": "goodwell-focus.png",
+      "prompt": "Use case: product-mockup. Ecommerce product cutout, photorealistic premium studio photography. One upright cylindrical supplement matte sage green jar, deep forest green cap, fine minimal label printed precisely: 'goodwell', 'DAILY FOCUS', 'GUMMIES', '60 COUNT', subtle botanical line detail. Slight three-quarter front view. Single product centered on a square canvas, full silhouette visible, generous 12% clear margins. Soft upper-left studio lighting, realistic matte material. Subtle soft contact shadow beneath the product. Genuinely transparent alpha background including semitransparent shadow, no backdrop, no floor, no checkerboard, no white rectangle, no props or watermark.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-b38d0445-c069-456f-aa89-8c7930b2f1b0.png"
+    },
+    {
+      "name": "goodwell-calm.png",
+      "prompt": "Use case: product-mockup. Ecommerce product cutout, photorealistic premium studio photography. One upright cylindrical supplement matte dusty rose jar, muted burgundy cap, fine minimal label printed precisely: 'goodwell', 'CALM MOOD', 'GUMMIES', '60 COUNT', subtle botanical line detail. Slight three-quarter front view. Single product centered on a square canvas, full silhouette visible, generous 12% clear margins. Soft upper-left studio lighting, realistic matte material. Subtle soft contact shadow beneath the product. Genuinely transparent alpha background including semitransparent shadow, no backdrop, no floor, no checkerboard, no white rectangle, no props or watermark.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-77481a9d-f626-4e8d-a292-8cab6582d2ea.png"
+    },
+    {
+      "name": "goodwell-immunity.png",
+      "prompt": "Use case: product-mockup. Ecommerce product cutout, photorealistic premium studio photography. One upright cylindrical supplement matte butter yellow jar, ochre cap, fine minimal label printed precisely: 'goodwell', 'IMMUNITY', 'GUMMIES', '60 COUNT', subtle botanical line detail. Slight three-quarter front view. Single product centered on a square canvas, full silhouette visible, generous 12% clear margins. Soft upper-left studio lighting, realistic matte material. Subtle soft contact shadow beneath the product. Genuinely transparent alpha background including semitransparent shadow, no backdrop, no floor, no checkerboard, no white rectangle, no props or watermark.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-13207966-ac1e-4065-a867-d54e284e2cce.png"
+    },
+    {
+      "name": "sorelle-hydration-cream.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. One Sorelle Labs Deep Hydration Cream cosmetic jar. Low wide frosted ivory glass jar with brushed champagne metal lid, refined dark taupe label 'SORELLE LABS' and 'DEEP HYDRATION CREAM'. Three-quarter view. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-26a36311-0d5c-4976-b0a0-2b3eafadc93d.png"
+    },
+    {
+      "name": "sorelle-barrier-lotion.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. One Sorelle Labs Barrier Repair Lotion cosmetic bottle. Tall frosted pale sage pump bottle with matching cap and refined dark taupe label 'SORELLE LABS' and 'BARRIER REPAIR LOTION'. Three-quarter view. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-2556bc2e-5b1c-4330-8d42-4a2f7777e389.png"
+    },
+    {
+      "name": "sorelle-cloud-gel.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. One Sorelle Labs Cloud Gel Moisturizer cosmetic jar. Low wide frosted pale blue glass jar with matte ivory lid, refined dark taupe label 'SORELLE LABS' and 'CLOUD GEL MOISTURIZER'. Three-quarter view. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-d54ce8cb-8d5d-49b7-8210-992cfef7cdfe.png"
+    },
+    {
+      "name": "sorelle-hydration-set.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. One cohesive Sorelle Labs Deep Hydration Set consisting of three products arranged together: frosted ivory low wide glass Deep Hydration Cream jar with champagne lid, smaller mauve Night Mask jar, and travel-size ivory Cleanser tube. Labels 'SORELLE LABS' with corresponding product names. Three-quarter view, neatly grouped, full products visible. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-31caf40a-9ea1-4ac8-bd0b-5ee3f6ff3214.png"
+    },
+    {
+      "name": "northwick-merino-crewneck.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. One Northwick Alpine Merino Crewneck sweater, fine-gauge oatmeal cream wool, neatly folded with round collar and one sleeve tucked diagonally across the front. Natural fine merino knit texture, premium apparel catalog photo, gentle elevated top-down three-quarter view. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-a4828d2e-bf64-4c53-b977-cef32bbbbfde.png"
+    },
+    {
+      "name": "northwick-merino-heavyweight.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. One Northwick Alpine Merino Heavyweight sweater, thick forest green wool, neatly folded with substantial ribbed crew collar, chunky textured knit and one sleeve tucked diagonally across the front. Premium apparel catalog photo, gentle elevated top-down three-quarter view. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-3237c706-fdbe-4d1b-8460-52af585a84c2.png"
+    },
+    {
+      "name": "stride-aero-pace-trail.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. One Stride Aero Pace Trail technical trail running sneaker in olive green and stone, rugged lugged outsole, reinforced toe, orange lace accents. Side profile facing right, slight elevated three-quarter angle. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-74eea74c-8ce1-43e1-9e27-8e09de2f335c.png"
+    },
+    {
+      "name": "stride-tempo-glide.png",
+      "prompt": "Use case: product-mockup. Asset type: ecommerce product card cutout. Photorealistic premium studio product photography. One Stride Tempo Glide lightweight race-day running sneaker in ivory white with coral accents, breathable knit upper, sculpted high-cushion midsole and dark rubber outsole. Side profile facing right, slight elevated three-quarter angle. Composition: single isolated product centered on a square canvas, entire silhouette visible with generous 12% clear margins. Soft upper-left studio lighting, realistic materials, subtle soft contact shadow directly beneath the product. Background: genuinely transparent alpha including around the semitransparent shadow, no backdrop, no floor, no checkerboard drawn into the image, no white rectangle. No props, no extra objects, no watermark. The shadow must be soft and restrained.",
+      "path": "/Users/headout/.codex/generated_images/01a169d6-d1e3-78e3-867c-b12be39a7750/exec-9e349476-f6fd-4495-8817-f5f4fdc065e6.png"
+    }
+  ]
+}

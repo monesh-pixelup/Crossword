@@ -5,8 +5,9 @@ import { SellColorContext } from "./sell-motion";
 import "./sell-motion.css";
 
 /*
- * The Sell page's motion visuals, built from the "Crossword — Sell: Conversational interface v2 (motion)" source:
- * sell-motion.js is its Vite build of the 25 visuals, unminified with React external, so markup, classes, copy and
+ * The Sell page's motion visuals, built from the "Crossword — Sell: Conversational interface v2 (motion)" source (the
+ * package with the camera versions of Upsell 17b–20b, Conversion assist 28b–33b and Human mode 34b): sell-motion.js is
+ * its Vite build of the 25 visuals, unminified with React external, so markup, classes, copy and
  * timings are the source's own. Only the `ill-`/`sell-` classes are renamed `sv-ill-`/`sv-sell-` and keyframes
  * prefixed `sv-` (see sell-motion.css), brand fonts point at the next/font variables, and assets are served from
  * public/images/sell/motion-v2/assets (photos as WebP).
