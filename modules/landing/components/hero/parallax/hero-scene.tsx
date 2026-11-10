@@ -19,6 +19,15 @@ const FRAME_W = 1440;
 const FRAME_H = 863;
 const COMPACT_BELOW = 760;
 
+/**
+ * Held (see `holdHeight`): how wide the cards and the conversation run across the 1440px UI layer, with a margin
+ * either side (the cards from about 128px in, the conversation out to about 1312px). On a narrower page they're
+ * zoomed down, about UI_ORIGIN, to fit it.
+ */
+const UI_SPAN = 1240;
+/** The point the held UI is zoomed about: the frame's centre across, and above its middle so it rises off the copy. */
+const UI_ORIGIN: [number, number] = [FRAME_W / 2, 300];
+
 const pct = (v: number, of: number) => `${(v / of) * 100}%`;
 
 /**
@@ -31,6 +40,14 @@ function uiTransform(width: number, max = Infinity) {
   const x = (width - uiW) / 2;
   const y = ((width - uiW) * FRAME_H) / FRAME_W / 2;
   return x > 0 ? `translate(${x}px, ${y}px) scale(${s})` : `scale(${s})`;
+}
+
+/** Held on a page `pageW` wide: the UI layer zoomed down about UI_ORIGIN so its cards and conversation fit the page. */
+function heldUiTransform(pageW: number) {
+  const u = Math.min(1, pageW / UI_SPAN);
+  if (u === 1) return undefined;
+  const [ox, oy] = UI_ORIGIN;
+  return `translate(${ox * (1 - u)}px, ${oy * (1 - u)}px) scale(${u})`;
 }
 
 /** The frame width (null until measured on the client) and whether the compact layout is on. */
@@ -46,6 +63,12 @@ type HeroSceneProps = {
   glitch?: Partial<GlitchSettings>;
   /** Below this root width (down to the compact layout), the scene keeps this width's layout and is scaled down to fit (exposed as --scene-scale). */
   scaleBelow?: number;
+  /**
+   * From `scaleBelow` down to the compact layout, keep the frame at its full 1440 × 863 size (so the hero stays as
+   * tall as on a wide screen, as sierra.ai's does) instead of scaling it down: it's centred on the page, its sides
+   * cropped, and only the UI layer is zoomed down (see UI_SPAN) so the cards and the conversation stay on the page.
+   */
+  holdHeight?: boolean;
   /** Unscaled content above the frame. */
   aboveFrame?: (state: SceneState) => ReactNode;
   /** Unscaled content over the photo, under the UI. */
@@ -72,6 +95,7 @@ export function HeroScene({
   layerSize,
   glitch,
   scaleBelow,
+  holdHeight = false,
   aboveFrame,
   overlayContent,
   uiMaxWidth,
@@ -85,11 +109,21 @@ export function HeroScene({
   const [pageWidth, setPageWidth] = useState<number | null>(null);
   // With `scaleBelow`, a root narrower than that keeps the scene laid out at that width and scales it down to fit.
   const [scale, setScale] = useState(1);
+  // With `holdHeight`, the page width (narrower than the frame) the full-size frame is held and cropped to.
+  const [held, setHeld] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     const el = root.current!;
     const measure = () => {
       const rootW = el.clientWidth;
+      if (holdHeight && scaleBelow && rootW >= COMPACT_BELOW && rootW < scaleBelow) {
+        setScale(1);
+        setHeld(rootW);
+        setWidth(FRAME_W);
+        setPageWidth(rootW);
+        return;
+      }
+      setHeld(null);
       // Phones get the compact layout at their own width rather than the scaled-down frame.
       const s = scaleBelow && rootW >= COMPACT_BELOW && rootW < scaleBelow ? rootW / scaleBelow : 1;
       const layoutW = s < 1 ? scaleBelow! : rootW;
@@ -105,7 +139,7 @@ export function HeroScene({
       observer.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [fitHeight, scaleBelow]);
+  }, [fitHeight, scaleBelow, holdHeight]);
 
   const compact = width !== null && width < COMPACT_BELOW;
   const state = { width, compact };
@@ -125,10 +159,14 @@ export function HeroScene({
         aspectRatio: `${FRAME_W} / ${FRAME_H}`,
         // Scaled: drawn at full size from the root's top-left corner, shrunk to the root's width.
         ...(scaled && { flexShrink: 0, alignSelf: "flex-start", transform: `scale(${scale})`, transformOrigin: "0 0" }),
+        // Held: drawn at full size, centred on the narrower root (which crops its sides).
+        ...(held !== null && { flexShrink: 0 }),
       };
   // A transform doesn't shrink the layout box, so the root takes the scaled frame's height itself.
   const rootStyle: CSSProperties | undefined =
-    scaled && width !== null
+    held !== null
+      ? { overflow: "hidden", justifyContent: "center" }
+      : scaled && width !== null
       ? // Top-aligned: centred (the root's justify-content), the full-size frame would overflow it evenly, top and bottom.
         { height: (width * FRAME_H * scale) / FRAME_W, overflow: "hidden", justifyContent: "flex-start" }
       : undefined;
@@ -190,7 +228,9 @@ export function HeroScene({
           style={
             compact
               ? undefined
-              : { transform: uiTransform(width ?? FRAME_W, uiMaxWidth), visibility: width === null ? "hidden" : undefined }
+              : held !== null
+                ? { transform: heldUiTransform(held) }
+                : { transform: uiTransform(width ?? FRAME_W, uiMaxWidth), visibility: width === null ? "hidden" : undefined }
           }
         >
           {children(state)}

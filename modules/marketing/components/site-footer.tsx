@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import complianceBadges from "../assets/footer/compliance-badges.webp";
 import grainTile from "../assets/footer/grain-tile.webp";
+import complianceBadges from "../assets/footer/compliance-badges.webp";
 import monogramFrame from "../assets/footer/monogram-frame.svg";
 import stamp from "../assets/footer/stamp.webp";
 import { type FooterLink, footerCompanyLinks, footerPlatformGroups } from "../config/navigation";
@@ -89,7 +89,8 @@ export function SiteFooter() {
   return (
     <footer className="@container relative overflow-clip pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
       {/*
-        Figma's grain tile laid over the green: 172.82px tiles, soft-light at 40%, on Figma's #00331A (forest).
+        Figma 3073:22835: #00331A (forest) with the grain tile (exported from Figma at 740px) laid over it in 172.82px
+        tiles, soft-light at 40%.
       */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[#00331A]" />

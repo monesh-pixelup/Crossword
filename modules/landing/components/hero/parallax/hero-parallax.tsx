@@ -119,6 +119,8 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
         layerSize={LAYER_SIZE}
         glitch={GLITCH}
         scaleBelow={1440}
+        // Down to the phone layout the hero stays as tall as on a wide screen: the photo crops at the sides, the UI zooms down.
+        holdHeight
         uiMaxWidth={1440}
         aboveFrame={(scene) =>
           copyPlacement(scene) === "above" && (

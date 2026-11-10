@@ -61,7 +61,7 @@ export function RetainHero() {
         From 760px the copy's sides sit 80px in (scaled with the width below 1440px), and its last line 47px (scaled) above
         the frame's foot, as in Figma, or above the screen's when the frame runs past it.
       */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pb-16 min-[760px]:min-h-[min(calc(min(100vw,1440px)*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(47px,min(100vw,1440px)*47/1440),calc(min(min(100vw,1440px)*788/1440,100svh,1200px)_-_min(100vw,1440px)*741/1440))] min-[760px]:[--page-pad:min(80px,min(100vw,1440px)*80/1440)]">
+      <div className="relative flex min-h-svh content-width flex-col justify-end pb-16 min-[760px]:min-h-[min(calc(1440px*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(47px,1440px*47/1440),calc(min(1440px*788/1440,100svh,1200px)_-_1440px*741/1440))] min-[760px]:[--page-pad:min(80px,min(100vw,1440px)*80/1440)]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
           {/* Figma 3257:38202: the headline's box 12px under the eyebrow. */}
           <div className="flex flex-col items-start gap-3">

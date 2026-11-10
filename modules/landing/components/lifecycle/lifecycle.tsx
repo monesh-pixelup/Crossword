@@ -10,7 +10,7 @@ export function Lifecycle() {
     <section aria-labelledby="lifecycle-title" className="relative pb-(--section-pad)">
       {/* Widened 0.25px each side so the band's edges sit centred on the 0.5px page rails. */}
       <div className="relative -mx-[0.25px] h-6">
-        <DividerBand glyph="chat" />
+        <DividerBand glyph="chat" badge={false} />
       </div>
 
       {/* The left rail's gold accent: 103.49px down the section, below the band, and 208.94px long. */}

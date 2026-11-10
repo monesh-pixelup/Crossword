@@ -102,7 +102,7 @@ function Reveal({ open, children }: { open: boolean; children: ReactNode }) {
 /**
  * Lifecycle stages as tabs (Figma 3073:20862): a row of stage tabs over a box holding the stage's features
  * on the left and the open feature's motion mock-up on the right. The open tab carries its badge and, along
- * its foot, a maroon bar filling through the stage. Within a stage the open feature shows its chip, copy and
+ * its top edge, a maroon bar filling through the stage. Within a stage the open feature shows its chip, copy and
  * GET STARTED; the others are titles at 50%, between hairlines. Features play on their own: each stays open
  * for its turn while the section is on screen, then the next opens (the last of a stage moves on to the next
  * stage, and the last stage back to the first). Keyboard focus pauses the turn (hovering doesn't); with reduced
@@ -265,11 +265,11 @@ export function LifecycleTabs() {
                 {s.name}
               </span>
               {/*
-                Along the open tab's foot, flush with its bottom edge so no sliver of the edge or track shows under it: a 2px
-                track (ink 10%) with the maroon fill running through the stage.
+                Along the open tab's top edge (Figma 3800:29305): a 1px track (#b6af9f) with the maroon fill running through
+                the stage.
               */}
               {on && (
-                <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-[2px] bg-black/10">
+                <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-1 h-px bg-[#b6af9f]">
                   <span ref={fillRef} className="absolute inset-0 origin-left bg-maroon [scale:0_1]" />
                 </span>
               )}

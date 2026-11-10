@@ -66,7 +66,7 @@ export function SupportHero() {
         with the width below 1440px). The top padding keeps the copy 48px clear of the fixed 72.5px header: where the stacked copy is
         taller than the frame leaves room for (760–1199px), the hero grows rather than running it under the header.
       */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(min(100vw,1440px)*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(47px,min(100vw,1440px)*47/1440),calc(min(min(100vw,1440px)*788/1440,100svh,1200px)_-_min(100vw,1440px)*741/1440))] min-[760px]:[--page-pad:min(80px,min(100vw,1440px)*80/1440)]">
+      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(1440px*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(47px,1440px*47/1440),calc(min(1440px*788/1440,100svh,1200px)_-_1440px*741/1440))] min-[760px]:[--page-pad:min(80px,min(100vw,1440px)*80/1440)]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
           {/* Figma 3257:34143: the headline's box 12px under the eyebrow. */}
           <div className="flex flex-col items-start gap-3">

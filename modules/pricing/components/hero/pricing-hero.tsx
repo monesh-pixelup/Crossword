@@ -58,7 +58,7 @@ export function PricingHero() {
         88.5px (scaled) above the screen's when the frame runs past it. Its sides keep the page's own padding, level with
         the header's logo and the sections below. The top padding keeps the copy 48px clear of the fixed 72.5px header.
       */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(min(100vw,1440px)*863/1440),100svh,1200px)] min-[760px]:pb-[max(min(88.5px,min(100vw,1440px)*88.5/1440),calc(min(min(100vw,1440px)*863/1440,100svh,1200px)_-_min(100vw,1440px)*863*0.8975/1440))]">
+      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[calc(72.5px+48px)] pb-16 min-[760px]:min-h-[min(calc(1440px*863/1440),100svh,1200px)] min-[760px]:pb-[max(min(88.5px,1440px*88.5/1440),calc(min(1440px*863/1440,100svh,1200px)_-_1440px*863*0.8975/1440))]">
         <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
           <div className="flex flex-col items-start gap-6">
             {/* Brand guidelines 11.3: the Eyebrow on every section, heroes included (green surface on dark). */}
