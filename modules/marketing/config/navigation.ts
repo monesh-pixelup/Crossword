@@ -69,7 +69,7 @@ export const primaryNav: NavItem[] = [
   },
   { label: "Managed Launch", href: "/managed-launch" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "#blog" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export const ctaLinks = {
@@ -90,9 +90,9 @@ export type FooterLink = {
 export const footerCompanyLinks: FooterLink[] = [
   { label: "Managed Launch", href: "/managed-launch" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Blog", href: "#blog" },
+  { label: "Blog", href: "/blog" },
   { label: "Book a Demo", href: ctaLinks.bookDemo },
-  { label: "Privacy", href: "#privacy" },
+  { label: "Privacy", href: "/privacy" },
   { label: "Terms of Service", href: "#terms" },
 ];
 

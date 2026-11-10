@@ -18,7 +18,8 @@ const statTops = ["top-[88px]", "top-[291px]"];
 
 /**
  * The note, its wax seal and its postage stamp, placed in Figma's composition coordinates (frame 3810:34271).
- * The seal and stamp are WebGPU shader art in Figma, so they ship as exports at their rotated bounds.
+ * The seal and stamp are WebGPU shader art in Figma, so they ship as 4x exports at their rotated bounds, cut out of
+ * the cream, served at twice their drawn size so they stay sharp on high-density screens and as the composition scales.
  */
 function Note() {
   return (
@@ -68,9 +69,9 @@ function Note() {
       </div>
 
       {/* Wax seal (120.387px, turned -14.23°) over the note's left edge. */}
-      <Image src={seal} alt="" sizes="121px" className="absolute top-[347px] left-[366px] size-[120.387px] max-w-none" />
+      <Image src={seal} alt="" sizes="241px" className="absolute top-[347px] left-[366px] size-[120.387px] max-w-none" />
       {/* Postage stamp (turned 20.85°) over the note's right edge. */}
-      <Image src={stamp} alt="" sizes="98px" className="absolute top-[175.9px] left-[873.66px] h-[95.068px] w-[97.367px] max-w-none" />
+      <Image src={stamp} alt="" sizes="195px" className="absolute top-[175.9px] left-[873.66px] h-[95.068px] w-[97.367px] max-w-none" />
     </>
   );
 }

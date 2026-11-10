@@ -6,12 +6,29 @@ import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
 import { TestimonialCarousel } from "./testimonial-carousel";
 
-type Variant = "home" | "sell" | "support" | "retain";
+type Variant = "home" | "blog" | "sell" | "support" | "retain";
 
 /** Each page's eyebrow, headline (and the header width it needs) and slides. */
 const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth: string; slides?: Testimonial[]; largeName?: boolean }> = {
   home: {
     eyebrow: "Customer Testimonials",
+    title: (
+      <SectionTitle
+        id="testimonials-title"
+        initial={"T "}
+        firstLine="rusted by brands who used"
+        secondLine="to do this the hard way"
+        width={612.677}
+        variant="calligraphic"
+        weight="light"
+      />
+    ),
+    headerWidth: "max-w-[650px]",
+    largeName: true,
+  },
+  /** The blog (Figma 1660:312): the home page's section under its own eyebrow. */
+  blog: {
+    eyebrow: "What our customers say",
     title: (
       <SectionTitle
         id="testimonials-title"
@@ -83,7 +100,8 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
 };
 
 /**
- * The testimonial carousel under a centred eyebrow and headline. `sell`, `support` and `retain`
+ * The testimonial carousel under a centred eyebrow and headline (`blog` is the home page's, under its own eyebrow).
+ * `sell`, `support` and `retain`
  * are Figma's Client testimonial on those pages: their own headline (two Light 60px lines at 0.9 after a
  * Tangerine swash) and quote.
  */
