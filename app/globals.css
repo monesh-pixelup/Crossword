@@ -324,6 +324,15 @@
  * pass; that rule is in the base layer, so a section's own background (any utility class) still wins. A page opts out
  * with `data-no-curtain` on its <main> (the home page), its hero scrolling away as usual.
  */
+/*
+ * Rails on a hero page: the frame rails (SiteShell) are drawn over the page from 72.5px up until HeroCurtain measures
+ * the hero's foot (`--rails-top`), which happens only after the page loads. So on a page with a hero they stay hidden
+ * until then (`--rails-shown`), rather than flash down the hero's sides for a moment on every reload or first visit.
+ */
+.site-rails-host:has(main > section[aria-labelledby$="hero-title"]:first-child) > .site-rails {
+  visibility: var(--rails-shown, hidden);
+}
+
 main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child {
   position: sticky;
   top: var(--hero-stick, 0px);

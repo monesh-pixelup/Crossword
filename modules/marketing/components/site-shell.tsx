@@ -25,9 +25,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <div className="overflow-x-clip">
       <div className="relative mx-auto max-w-[1440px]">
         <SiteHeader />
-        <div className="@container relative">
+        <div className="site-rails-host @container relative">
           {children}
-          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 top-(--rails-top,-72.5px)">
+          <div aria-hidden className="site-rails pointer-events-none absolute inset-x-0 bottom-0 top-(--rails-top,-72.5px)">
             <Rails />
           </div>
         </div>
