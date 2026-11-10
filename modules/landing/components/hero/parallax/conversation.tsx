@@ -18,15 +18,22 @@ function statusOf(index: number, revealed: number, turns: Turn[]): Status {
   return "gone";
 }
 
+/** The conversation box's height (.conversation in hero-parallax.css). */
+const BOX_H = 346;
+
 /**
  * One journey's conversation: the turns revealed so far in a column that slides up so the visible
  * ones (from the first not-gone turn down) sit centred in the box. `leaving` fades it out as the
- * next journey takes over.
+ * next journey takes over. When the visible turns run taller than the box (ChatGPT's running shoes: the line and its
+ * products card), the box grows to fit them, evenly up and down so they stay centred where the box was, rather than
+ * cutting their foot off.
  */
 export function Conversation({ turns, revealed, leaving }: { turns: Turn[]; revealed: number; leaving: boolean }) {
   const box = useRef<HTMLDivElement>(null);
   const items = useRef<(HTMLDivElement | null)[]>([]);
   const [offset, setOffset] = useState(0);
+  // How much taller than BOX_H the visible turns run (0 when they fit).
+  const [extra, setExtra] = useState(0);
   const [animate, setAnimate] = useState(false);
 
   useLayoutEffect(() => {
@@ -35,8 +42,8 @@ export function Conversation({ turns, revealed, leaving }: { turns: Turn[]; reve
     const top = items.current[first]?.offsetTop ?? 0;
     const last = items.current[revealed - 1];
     const height = last ? last.offsetTop + last.offsetHeight - top : 0;
-    const boxHeight = box.current?.clientHeight ?? 0;
-    setOffset(top - Math.max(0, (boxHeight - height) / 2));
+    setExtra(Math.max(0, Math.ceil(height - BOX_H)));
+    setOffset(top - Math.max(0, (BOX_H - height) / 2));
   }, [revealed, turns]);
 
   // The first position is set without a transition; moves after that animate.
@@ -46,7 +53,12 @@ export function Conversation({ turns, revealed, leaving }: { turns: Turn[]; reve
   }, []);
 
   return (
-    <div ref={box} className="conversation" data-leaving={leaving}>
+    <div
+      ref={box}
+      className="conversation"
+      data-leaving={leaving}
+      style={extra > 0 ? { height: BOX_H + extra, marginTop: -extra / 2 } : undefined}
+    >
       <div
         className="conversation__column"
         style={{ transform: `translateY(${-offset}px)`, transition: animate ? undefined : "none" }}

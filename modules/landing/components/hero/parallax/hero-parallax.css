@@ -415,7 +415,8 @@
   scale: var(--ui-zoom);
   overflow: hidden;
   pointer-events: auto;
-  transition: transform .85s cubic-bezier(.33,0,.2,1);
+  /* The height and margin ease as the box grows to fit a tall reply (see Conversation), in step with the column. */
+  transition: transform .85s cubic-bezier(.33,0,.2,1),height .48s var(--ease-move),margin-top .48s var(--ease-move);
 }
 
 .hero-scene .conversation[data-leaving=true] {
