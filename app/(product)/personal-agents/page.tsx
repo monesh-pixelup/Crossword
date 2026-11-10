@@ -125,6 +125,7 @@ export default function PersonalAgentsPage() {
         firstLine=" he agents are already shopping."
         secondLine="Be there when they arrive"
         width={724}
+        withEyebrow
       />
     </main>
   );

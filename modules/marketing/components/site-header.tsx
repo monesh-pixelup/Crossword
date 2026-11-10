@@ -65,7 +65,11 @@ function useScrolled(active: boolean, trackHero: boolean) {
       frame = 0;
       setScrolled(window.scrollY > THRESHOLD);
       const hero = trackHero ? document.querySelector("main > :first-child") : null;
-      setPastHero(!!hero && hero.getBoundingClientRect().bottom <= HEADER_HEIGHT);
+      // The hero is sticky (the hero curtain), so its own box never leaves the screen; the section after it slides up
+      // over it, and the hero counts as passed once that section's top reaches the header.
+      const next = hero?.nextElementSibling;
+      const heroFoot = (next ?? hero)?.getBoundingClientRect()[next ? "top" : "bottom"];
+      setPastHero(heroFoot !== undefined && heroFoot <= HEADER_HEIGHT);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(read);
