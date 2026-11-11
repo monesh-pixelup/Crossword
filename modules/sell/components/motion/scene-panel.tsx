@@ -37,6 +37,7 @@ type ScenePanelProps = {
    * scales the scene after it's laid out, so its 0.5–1px hairlines (frames, card borders) land part-way through
    * screen pixels and fade or vanish on standard-density screens; `zoom` lays them out at the new size, keeping each
    * a whole pixel. The minimum-font-size clamp only bites far down, on phones, which are high-density anyway.
+   * Defaults to 768px (TRANSFORM_BELOW); pass Infinity to scale with the transform at every width.
    */
   transformBelow?: number;
   /**
@@ -50,6 +51,15 @@ type ScenePanelProps = {
 };
 
 /** Whether the viewport is narrower than `width` (always true without one, and before it's measured). */
+/**
+ * By default a `transform` panel scales with the transform only on phones (below 768px) and with `zoom` from there
+ * up. Scaled with a transform, a scene is laid out at its drawn size and then shrunk, and once its animated parts are
+ * composited the browser shrinks their painted text as a bitmap: at desktop sizes the small UI text came out harsh,
+ * letters running into each other, and only looked clear zoomed in. `zoom` lays the scene out at its new size, so its
+ * text is drawn at the size it shows.
+ */
+const TRANSFORM_BELOW = 768;
+
 function useNarrow(width: number | undefined) {
   const [narrow, setNarrow] = useState(true);
   useEffect(() => {
@@ -76,13 +86,13 @@ export function ScenePanel({
   sceneProps,
   root: Root = MotionRoot,
   transform: transformProp = false,
-  transformBelow,
+  transformBelow = TRANSFORM_BELOW,
   cover = false,
   interactive = false,
   className,
 }: ScenePanelProps) {
   const narrow = useNarrow(transformProp ? transformBelow : undefined);
-  const transform = transformProp && (transformBelow === undefined || narrow);
+  const transform = transformProp && narrow;
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
   const [inView, setInView] = useState(false);
