@@ -123,7 +123,7 @@ export function RoiCalculator() {
         <Result title="Estimated revenue generated" value={shown ? money.format(revenue) : "—"} />
       </div>
 
-      <div className="relative flex items-center justify-between gap-4 bg-wine px-5 py-4">
+      <div className="relative flex items-center justify-between gap-4 bg-[#7d0034] px-5 py-4">
         <div className="flex min-w-0 flex-col gap-1.5 text-[12px]">
           <p className="font-open-sans leading-[1.1667] font-semibold tracking-[1.44px] text-amber uppercase">Return on investment</p>
           <p className="font-sans leading-normal text-cream">Estimated revenue &divide; estimated monthly cost, e.g. 3x</p>

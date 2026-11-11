@@ -12,7 +12,8 @@ export const metadata: Metadata = {
 /** Page · Blog (Figma 1660:312): the hero, the journal's filters and posts, the testimonials, then the envelope CTA. */
 export default function BlogPage() {
   return (
-    <main>
+    // No hero curtain here: the journal scrolls in below the hero instead of sliding up over its headline.
+    <main data-no-curtain>
       <BlogHero />
       <JournalIndex />
       <Testimonials variant="blog" />

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import twillTile from "@/modules/landing/assets/blog/damask-tile.webp";
@@ -16,6 +16,8 @@ type TwillPanelProps = {
    * maroon). Smaller on tablets and phones; the panel's own top padding should clear it there.
    */
   stamp?: boolean;
+  /** Another twill tile in place of the default (Managed Launch's CTA uses Figma's own export). */
+  tile?: StaticImageData;
   className?: string;
   children: ReactNode;
 };
@@ -25,14 +27,14 @@ type TwillPanelProps = {
  * tile at 172.82px with darken, a 0.75px gold hairline frame inside it, and either four corner studs or (the CTA
  * banners) a postage stamp in the top right corner.
  */
-export function TwillPanel({ frameInset, studInset, stamp, className, children }: TwillPanelProps) {
+export function TwillPanel({ frameInset, studInset, stamp, tile = twillTile, className, children }: TwillPanelProps) {
   return (
     <div className={cn("relative isolate", className)}>
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-1">
         <div className="absolute inset-0 bg-maroon" />
         <div
           className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left mix-blend-darken"
-          style={{ backgroundImage: `url(${twillTile.src})` }}
+          style={{ backgroundImage: `url(${tile.src})` }}
         />
       </div>
       <div

@@ -76,7 +76,7 @@ export function Credits() {
                 <th scope="col" className={cn(rule, "bg-cream md:sticky md:left-0 md:z-1")}>
                   <span className="sr-only">Interaction</span>
                 </th>
-                <th scope="col" className={cn(head, "bg-wine text-gold-bright")}>
+                <th scope="col" className={cn(head, "bg-[#7d0034] text-gold-bright")}>
                   Credits
                 </th>
                 <th scope="col" className={cn(head, "text-ink-soft")}>

@@ -68,7 +68,7 @@ export function Differentiation({
                 <th scope="col" className={cn(head, "text-ink-soft")}>
                   {columns[1]}
                 </th>
-                <th scope="col" className={cn(head, "bg-wine text-gold-bright")}>
+                <th scope="col" className={cn(head, "bg-[#7d0034] text-gold-bright")}>
                   {columns[2]}
                 </th>
               </tr>

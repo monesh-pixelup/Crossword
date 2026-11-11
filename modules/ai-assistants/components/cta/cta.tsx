@@ -1,3 +1,4 @@
+import type { StaticImageData } from "next/image";
 import type { ReactNode } from "react";
 import { StampButton } from "@/components/ui/stamp-button";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
@@ -72,11 +73,12 @@ export function AssistantsCta({
  * 14px in and the postage stamp, its contents centred in a column 28px apart, with 96px of padding (64px and 24px
  * on phones, where the top keeps 96px so the stamp clears the headline).
  */
-export function CtaBannerPanel({ children }: { children: ReactNode }) {
+export function CtaBannerPanel({ tile, children }: { tile?: StaticImageData; children: ReactNode }) {
   return (
     <TwillPanel
       frameInset={14}
       stamp
+      tile={tile}
       className="flex flex-col items-center gap-7 px-6 pt-24 pb-16 text-center md:px-20 md:py-24"
     >
       {children}

@@ -80,8 +80,8 @@ function JourneyNote({ index: i, angle, style, className = "" }: { index: number
       <h3 className="absolute top-[38.94px] left-[19.93px] font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px] whitespace-nowrap text-parchment">
         {journey.title}
       </h3>
-      <p className="absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] text-white/50">
-        <span className="font-medium text-white/90">{journey.lead}</span> {journey.body}
+      <p className="absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] text-white">
+        <span className="font-medium text-white">{journey.lead}</span> {journey.body}
       </p>
     </div>
   );
