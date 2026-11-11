@@ -1,3 +1,4 @@
+import { type ComponentType, createElement } from "react";
 import type { SceneEntry } from "../motion/scene-panel";
 import {
   BrandedWidgetMotion,
@@ -30,6 +31,15 @@ import {
   UpsellUpgradeMotion,
   VisualDiscoveryMotion,
 } from ".";
+
+/**
+ * A visual at its default layout. Since the 11 November 2026 update a few take an optional flag for their phone layout
+ * (21–23 `narrow`, 34b `mweb`; the phone versions are their own exports), which doesn't fit the scenes' `{ play }`
+ * props, so those are registered through this no-props wrapper. It renders them exactly as before.
+ */
+const atDefault = (C: ComponentType): ComponentType => function Visual() {
+  return createElement(C);
+};
 
 /*
  * The Sell page's scenes, by slug. `width` × `height` is each visual's drawn size in the source build;
@@ -146,7 +156,7 @@ export const upsellScenes = {
 /** Proactive messages 21–23: a storefront in a browser, 1280 × 509, with the assistant opening on its own. */
 export const proactiveScenes = {
   "proactive-intervention": {
-    Component: ProactiveInterventionMotion,
+    Component: atDefault(ProactiveInterventionMotion),
     label:
       "A Crestline mountain-bike helmet page. The shopping assistant opens on its own, offers to help check the sizing and whether the smaller size is in stock, with Not now and Check smaller size buttons.",
     width: 1280,
@@ -154,7 +164,7 @@ export const proactiveScenes = {
     duration: 7000,
   },
   "comparison-guidance": {
-    Component: ComparisonGuidanceMotion,
+    Component: atDefault(ComparisonGuidanceMotion),
     label:
       "A foundation product page. The shopping assistant opens on its own and offers to narrow the foundations the shopper has viewed down by finish, coverage, undertone and budget.",
     width: 1280,
@@ -162,7 +172,7 @@ export const proactiveScenes = {
     duration: 7000,
   },
   "return-visit-comparison": {
-    Component: ReturnVisitComparisonMotion,
+    Component: atDefault(ReturnVisitComparisonMotion),
     label:
       "A mesh office chair page the shopper keeps coming back to. The shopping assistant opens on its own and offers to show how it compares with the other options they've viewed.",
     width: 1280,
@@ -292,7 +302,7 @@ export const storefrontScenes = {
  * following the chat. The chapters play in turn; clicking one replays it.
  */
 export const humanModeScene: SceneEntry = {
-  Component: HumanModeMotion,
+  Component: atDefault(HumanModeMotion),
   label:
     "Three moments in one Sorelle Labs skincare chat, played in turn: the assistant asks if a serum works for sensitive skin and offers to check the ingredients, then recommends the fragrance-free Calming Serum as a better match that costs $16 less.",
   width: 1280,
