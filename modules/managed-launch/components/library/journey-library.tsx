@@ -63,7 +63,7 @@ const compactCards = cards.slice(0, 5);
  * out by its `--dx` / `--dy` over 1.4s on a soft ease-out, each a little after the last.
  */
 const SCATTER =
-  "transition-[translate] duration-[1400ms] ease-[cubic-bezier(0.5,0,0.75,0)] motion-reduce:transition-none group-data-[scattered]/strip:[translate:var(--dx)_var(--dy)]";
+  "transition-[translate] duration-[1400ms] ease-[cubic-bezier(0.65,0,0.35,1)] motion-reduce:transition-none group-data-[scattered]/strip:[translate:var(--dx)_var(--dy)]";
 
 /** The cards' strip: the panel's 1392px width, from 356px down to the panel's foot at 1171px. */
 const STRIP_W = 1392;
