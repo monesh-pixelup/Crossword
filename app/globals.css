@@ -364,17 +364,35 @@ main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child
       position: absolute;
       top: 0;
       bottom: 0;
-      width: calc(50vw - 50%);
+      /* 1px wider than the gutter: it overlaps the section by 1px (below) and still reaches the screen's edge. */
+      width: calc(50vw - 50% + 1px);
       background-color: var(--color-cream);
       pointer-events: none;
     }
 
+    /*
+     * Each strip overlaps its section by 1px and its neighbours' strips by 1px above and below. Butted edge to edge, at
+     * a fractional position (a section scaled to fit, a non-overlay scrollbar, browser zoom) the hero behind showed
+     * through the seam as a hairline: down the 1440px column's edge and across the screen between sections.
+     */
+    main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child ~ *::before,
+    main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child ~ *::after {
+      top: -1px;
+      bottom: -1px;
+    }
+
+    /* The first section after the hero meets the hero itself: no overlap upwards there. */
+    main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child + *::before,
+    main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child + *::after {
+      top: 0;
+    }
+
     main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child ~ *::before {
-      right: 100%;
+      right: calc(100% - 1px);
     }
 
     main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child ~ *::after {
-      left: 100%;
+      left: calc(100% - 1px);
     }
   }
 }
