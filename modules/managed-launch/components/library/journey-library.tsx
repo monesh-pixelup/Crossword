@@ -45,13 +45,13 @@ type Card = {
  * parchment, aubergine, maroon), ribbon colour and turn.
  */
 const cards: Card[] = [
-  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon1, w: 136.626, h: 41.731, top: 31.85, scatter: [-83.66, 19.37] }, title: "text-black", at: [104.74, 20.61], angle: -3.2, scatter: [-83.66, 19.37] },
-  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon2, w: 144.93, h: 41.731, top: 31.85, scatter: [-7.07, 2.8] }, title: "text-[#faedd4]", at: [413.06, 6.76], angle: 3.15, scatter: [-7.07, 2.8] },
-  { journey: 2, note: noteAubergine, ink: light, ribbon: { src: ribbon3, w: 137.023, h: 42.65, top: 30.93, scatter: [29.06, -50] }, title: "text-black", at: [707.11, 21.03], angle: -2.16, scatter: [29.06, -50] },
-  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon4, w: 136.223, h: 42.727, top: 31.85, scatter: [70.67, 0] }, title: "text-[#faedd4]", at: [1011.87, 39.98], angle: 9.21, scatter: [70.67, 0] },
-  { journey: 2, note: noteMaroon, ink: light, ribbon: { src: ribbon5, w: 132.397, h: 41.731, top: 31.85, scatter: [-96.16, 96.94] }, title: "text-black", at: [234.99, 316.19], angle: 7.04, scatter: [-96.16, 96.94] },
-  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon6, w: 138.212, h: 42.158, top: 31.42, scatter: [-3.56, 160.23] }, title: "text-[#faedd4]", at: [569.06, 328.26], angle: -7.07, scatter: [-3.56, 160.23] },
-  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon7, w: 133.29, h: 41.731, top: 31.85, scatter: [81, 98.21] }, title: "text-[#faedd4]", at: [905.74, 335.61], angle: -3.2, scatter: [81, 98.21] },
+  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon1, w: 136.626, h: 41.731, top: 31.85 }, title: "text-black", at: [104.74, 20.61], angle: -3.2, scatter: [-83.66, 19.37] },
+  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon2, w: 144.93, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [413.06, 6.76], angle: 3.15, scatter: [-7.07, 2.8] },
+  { journey: 2, note: noteAubergine, ink: light, ribbon: { src: ribbon3, w: 137.023, h: 42.65, top: 30.93 }, title: "text-black", at: [707.11, 21.03], angle: -2.16, scatter: [29.06, -50] },
+  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon4, w: 136.223, h: 42.727, top: 31.85 }, title: "text-[#faedd4]", at: [1011.87, 39.98], angle: 9.21, scatter: [70.67, 0] },
+  { journey: 2, note: noteMaroon, ink: light, ribbon: { src: ribbon5, w: 132.397, h: 41.731, top: 31.85 }, title: "text-black", at: [234.99, 316.19], angle: 7.04, scatter: [-96.16, 96.94] },
+  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon6, w: 138.212, h: 42.158, top: 31.42 }, title: "text-[#faedd4]", at: [569.06, 328.26], angle: -7.07, scatter: [-3.56, 160.23] },
+  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon7, w: 133.29, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [905.74, 335.61], angle: -3.2, scatter: [81, 98.21] },
 ];
 
 /** Below 1200px, the three journeys once each (Gift finder, Style match, Size and fit), as the first row's notes. */
