@@ -47,8 +47,11 @@ export function SupportChannels() {
         </div>
       </section>
 
-      {/* The closing band: a 24px strip before the testimonials. */}
-      <div className="relative h-6">
+      {/*
+        The closing band: a 24px strip before the testimonials. Raised over the sections (z-2; the hero curtain puts
+        each on layer 1 with a cream ground), so its stamp, which overhangs the band, isn't cut off by the testimonials.
+      */}
+      <div className="relative z-2 h-6">
         <DividerBand glyph="chat" />
       </div>
     </>

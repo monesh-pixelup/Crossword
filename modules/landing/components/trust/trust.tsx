@@ -5,16 +5,20 @@ import arrowRight from "../../assets/trust/arrow-right.svg";
 import grainTile from "../../assets/trust/grain-tile.webp";
 import { certifications } from "../../config/trust";
 
-/** Gold dashed guides framing the panel, overshooting its corners. Each is a 2px box dashed on both long edges, as in the Webflow build. */
+/**
+ * Gold dashed guides framing the panel, overshooting its corners. Each is a 2px box dashed on both long edges, as in the
+ * Webflow build. On phones (dense screens) those two edges no longer merge and showed as two parallel dashed lines, so
+ * there each guide is a single dashed edge.
+ */
 function Guides() {
   const line = "pointer-events-none absolute border-dashed border-[#e0be6042]";
   return (
     <div aria-hidden>
-      <span className={cn(line, "-top-5 -left-px h-[calc(100%+43px)] w-0.5 border-x")} />
-      <span className={cn(line, "-top-5 -right-px h-[calc(100%+43px)] w-0.5 border-x")} />
+      <span className={cn(line, "-top-5 -left-px h-[calc(100%+43px)] w-0.5 border-x max-md:w-0 max-md:border-r-0")} />
+      <span className={cn(line, "-top-5 -right-px h-[calc(100%+43px)] w-0.5 border-x max-md:w-0 max-md:border-l-0")} />
       {/* Horizontal guides sit on whole-pixel offsets so their two dashed edges render as one line, matching the side guides. */}
-      <span className={cn(line, "-top-px -inset-x-[20.73px] h-0.5 border-y")} />
-      <span className={cn(line, "-bottom-px -inset-x-[20.73px] h-0.5 border-y")} />
+      <span className={cn(line, "-top-px -inset-x-[20.73px] h-0.5 border-y max-md:h-0 max-md:border-b-0")} />
+      <span className={cn(line, "-bottom-px -inset-x-[20.73px] h-0.5 border-y max-md:h-0 max-md:border-t-0")} />
     </div>
   );
 }
