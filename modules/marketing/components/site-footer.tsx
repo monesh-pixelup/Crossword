@@ -3,6 +3,7 @@ import Link from "next/link";
 import complianceBadges from "../assets/footer/compliance-badges.webp";
 import monogramFrame from "../assets/footer/monogram-frame.svg";
 import stamp from "../assets/footer/stamp.webp";
+import textureTile from "../assets/footer/texture-tile.webp";
 import { type FooterLink, footerCompanyLinks, footerPlatformGroups } from "../config/navigation";
 import { FooterFrame } from "./footer-frame";
 
@@ -77,26 +78,25 @@ function Tagline() {
 }
 
 /**
- * Figma's footer effect (4060:24577): monotone noise, size 0.5, density 100%, #000000 at 25%. Every pixel gets a speck
- * of black at a random strength up to 25%: a 200px tile of fractal noise (black, its alpha the noise) drawn at 100px,
- * so each speck is 0.5px, at 25% opacity over the green.
+ * Figma's footer surface (3991:200585), as Figma itself renders it. In Figma it is three things stacked: #00331A, an
+ * image tile (172.82px, desaturated, soft light at 40%) and a noise effect over both (black 25%, size 0.5). A browser
+ * can't reproduce that stack to the pixel (the tile's image filters and the noise are Figma's own), and without the
+ * noise the green came out lighter than Figma's. So the tile here is cut from Figma's own 2x render of the finished
+ * surface: two periods of the weave (691px of the export, lossless), drawn at 345.65px with no blending, so both the
+ * colour and the texture are exactly Figma's.
  */
-const NOISE_TILE = `url("data:image/svg+xml,${encodeURIComponent(
-  "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='1' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0'/></filter><rect width='200' height='200' filter='url(#n)'/></svg>",
-)}")`;
-
-function FooterNoise() {
+function FooterTexture() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 opacity-25"
-      style={{ backgroundImage: NOISE_TILE, backgroundSize: "100px 100px" }}
+      className="pointer-events-none absolute inset-0 bg-size-[345.64909994602204px_345.64909994602204px] bg-top-left"
+      style={{ backgroundImage: `url(${textureTile.src})` }}
     />
   );
 }
 
 /**
- * Site footer: #00331A green under a fine black grain (FooterNoise), and a gilt notched frame. Layout follows the
+ * Site footer: Figma's forest surface (#00331A under its weave and noise, FooterTexture), and a gilt notched frame. Layout follows the
  * Webflow build: logo and link columns across the top; along the bottom the tagline, and opposite
  * it the compliance badges over the copyright line. The top row stacks below 768px, the bottom one
  * below 992px. Stacked, the
@@ -109,8 +109,8 @@ export function SiteFooter() {
     // section's foot: at a fractional page height the seam between them antialiased into a dark hairline (and on the
     // home page the black hero, pinned behind the page, showed through it).
     <footer className="@container relative z-2 -mt-[2px] overflow-clip bg-[#00331a] pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
-      {/* #00331A (forest), set on the footer itself, under Figma's grain (FooterNoise). */}
-      <FooterNoise />
+      {/* #00331A (forest), set on the footer itself, as the fallback under Figma's rendered surface tile (FooterTexture). */}
+      <FooterTexture />
       <FooterFrame />
 
       {/* The sections' content box: the 1440px-capped page less --page-pad a side, centred in the full-width footer. */}
