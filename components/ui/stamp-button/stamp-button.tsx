@@ -18,25 +18,25 @@ const hoverStuds = [studMaroon, studMaroonSm] as const;
 const variants = {
   /** Maroon fill, dashed gold border, bright-gold label (hero CTA). */
   primary: {
-    frame: cn("border-dashed border-gold bg-maroon text-gold-bright", invert),
+    frame: cn("border-dashed border-gold bg-[#7d0034] text-gold-bright", invert),
     studs: [studGold, studGoldSm],
     hoverStuds,
   },
   /** Primary with the softer gold label used in the site header. */
   "primary-soft": {
-    frame: cn("border-dashed border-gold bg-maroon text-gold", invert),
+    frame: cn("border-dashed border-gold bg-[#7d0034] text-gold", invert),
     studs: [studGold, studGoldSm],
     hoverStuds,
   },
-  /** Wine fill, faint gold border and studs (on dark green, e.g. the footer). */
+  /** Maroon (#7D0034) fill, faint gold border and studs (on dark green, e.g. the footer). */
   wine: {
-    frame: cn("border-dashed border-[rgba(224,190,96,0.3)] bg-wine text-gold", invert),
+    frame: cn("border-dashed border-[rgba(224,190,96,0.3)] bg-[#7d0034] text-gold", invert),
     studs: [studGoldFaint, studGoldFaintSm],
     hoverStuds,
   },
-  /** Wine fill with the full gold border but faint studs (dark overlay header). */
+  /** Maroon (#7D0034) fill with the full gold border but faint studs (dark overlay header). */
   "wine-gold": {
-    frame: cn("border-dashed border-gold bg-wine text-gold", invert),
+    frame: cn("border-dashed border-gold bg-[#7d0034] text-gold", invert),
     studs: [studGoldFaint, studGoldFaintSm],
     hoverStuds,
   },
