@@ -13,8 +13,11 @@ import seal from "../../assets/commitment/seal.webp";
 import stamp from "../../assets/commitment/stamp.webp";
 import { commitments } from "../../config/launch";
 
-/** The two stats' tops on the note (Figma 3810:34381 and 3810:34390). */
-const statTops = ["top-[88px]", "top-[291px]"];
+/**
+ * The two stats' tops on the note (Figma 3810:34381 and 3810:34390). On phones the values drop to 48px, so the second
+ * stat moves up 40px to keep the gap between the two close to the desktop note's.
+ */
+const statTops = ["top-[88px]", "top-[291px] max-md:top-[251px]"];
 
 /**
  * The note, its wax seal and its postage stamp, placed in Figma's composition coordinates (frame 3810:34271).
