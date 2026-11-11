@@ -15,7 +15,7 @@ import { LaunchWheel } from "./launch-wheel";
 function Quote() {
   return (
     <blockquote className="relative flex w-full max-w-[827px] items-center justify-center border border-black/10 bg-[rgba(243,233,212,0.5)] px-5 py-11 xs:px-[72px] xs:py-4">
-      <p className="text-center font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.04em] text-[#040404] lg:whitespace-nowrap">
+      <p className="text-center font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.04em] text-ink lg:whitespace-nowrap">
         We want this, but we don&apos;t have the people, time or expertise to build it ourselves.
       </p>
       <Image src={quoteMark} alt="" className="absolute top-2 left-3 xs:top-[12.39px] xs:left-[26.16px]" />
@@ -58,15 +58,15 @@ export function ManagedLaunch() {
           */}
           <div className="order-3 flex items-stretch gap-5 lg:order-none lg:mt-[27.244%] lg:mr-[calc(30.185%_-_60px)] lg:w-[199.44px] lg:justify-self-end">
             <span aria-hidden className="relative hidden w-px shrink-0 bg-black/20 lg:block">
-              <span className="absolute inset-x-0 top-px h-1/2 bg-[#e0be60]" />
+              <span className="absolute inset-x-0 top-px h-1/2 bg-gold" />
             </span>
             <div className="flex flex-col items-center gap-4 lg:w-[179.44px] lg:items-start">
-              <p className="max-w-[149.6px] text-center font-serif text-[18px] leading-[1.1] tracking-[-0.04em] text-[#040404] lg:text-left">
+              <p className="max-w-[149.6px] text-center font-serif text-[18px] leading-[1.1111] tracking-[-0.04em] max-md:text-[16px] max-md:leading-[18px] max-md:tracking-[-0.64px] text-ink lg:text-left">
                 Simply tell us how your business works.
               </p>
               <Link
                 href="#explore-platform"
-                className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-[#fff9e9] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-opacity duration-150 hover:opacity-50"
+                className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-cream p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-ink-soft transition-opacity duration-150 hover:opacity-50"
               >
                 EXPLORE PLATFORM
                 <Image src={arrowRight} alt="" className="size-3" />

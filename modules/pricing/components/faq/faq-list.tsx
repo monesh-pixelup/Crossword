@@ -37,9 +37,9 @@ export function FaqList({
                 aria-controls={`${id}-a-${i}`}
                 onClick={() => setOpen(expanded ? -1 : i)}
                 className={cn(
-                  "flex w-full cursor-pointer items-center justify-between gap-6 pt-7 text-left font-serif text-[19px] max-md:text-[20px] leading-[1.1] tracking-[-0.04em] transition-[color,padding] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon motion-reduce:transition-none lg:text-[22px]",
+                  "flex w-full cursor-pointer items-center justify-between gap-6 pt-7 text-left font-serif text-[19px] max-md:text-[20px] leading-[1.0909] tracking-[-0.04em] transition-[color,padding] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon motion-reduce:transition-none lg:text-[22px]",
                   // Closed, 81px rows as Figma (3564:23178): 28px over the question, 29px under it (its 1px rule included).
-                  expanded ? "pb-4 text-ink" : "pb-[29px] text-ink-soft hover:text-ink",
+                  expanded ? "pb-4 text-ink" : "pb-[29px] text-ink hover:text-ink",
                 )}
               >
                 {item.q}
@@ -74,7 +74,7 @@ export function FaqList({
               )}
             >
               <div className="min-h-0 overflow-hidden">
-                <p className="max-w-[620px] pb-7 font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">{item.a}</p>
+                <p className="max-w-[620px] pb-7 font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{item.a}</p>
               </div>
             </div>
           </div>

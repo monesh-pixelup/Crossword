@@ -90,7 +90,7 @@ export function HandoffTabs() {
         role="tabpanel"
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
-        className="relative flex aspect-[1280/599] w-full items-center justify-center overflow-hidden border-x border-t border-black/25 bg-[#f3e7d3] max-md:hidden"
+        className="relative flex aspect-[1280/599] w-full items-center justify-center overflow-hidden border-x border-t border-black/25 bg-sand max-md:hidden"
       >
         {/* The mode's helpdesk dashboard (Support V3, 1280 × 599), filling the stage, fading in as it takes over. */}
         {wide !== false && (
@@ -125,8 +125,8 @@ export function HandoffTabs() {
                 )}
               >
                 <span className={cn("flex min-w-0 flex-1 flex-col items-start gap-4 transition-opacity duration-300", !selected && "opacity-50")}>
-                  <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{mode.title}</span>
-                  <span className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{mode.description}</span>
+                  <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{mode.title}</span>
+                  <span className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{mode.description}</span>
                 </span>
                 {/*
                   Below 768px (the accordion): the FAQ's plus / minus (FaqList's plain one, 14px in ink-soft), centred on the
@@ -172,7 +172,7 @@ export function HandoffTabs() {
               >
                 <div className="min-h-0 overflow-hidden">
                   <div className="px-6 pb-8">
-                    <div className="relative aspect-[353/440] w-full overflow-hidden bg-[#f3e7d3]">
+                    <div className="relative aspect-[353/440] w-full overflow-hidden bg-sand">
                       {wide !== true && (selected || i === closing) && (
                         <HandoffScene key={`${i}-${run}`} index={i} active={visible && selected} mobile />
                       )}

@@ -17,7 +17,7 @@ function PlanBody({ plan }: { plan: Plan }) {
         <h3 className={cn("font-serif text-(length:--h4-size) leading-[1.1] font-extralight tracking-[-0.05em]", featured ? "text-cream" : "text-ink")}>
           {plan.name}
         </h3>
-        <p className={cn("font-sans text-base leading-6 tracking-[-0.32px] text-pretty", featured ? "text-on-dark" : "text-ink-muted")}>
+        <p className={cn("font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-pretty", featured ? "text-on-dark" : "text-ink-muted")}>
           {plan.description}
         </p>
       </div>
@@ -51,7 +51,7 @@ export function Plans() {
         <div className="flex flex-col items-center gap-6 text-center">
           <Eyebrow>Pricing options</Eyebrow>
           <SectionTitle as="h1" id="plans-title" initial="S" firstLine="tart free. Scale" secondLine="when you’re ready" width={384} variant="dynamicCentered" weight="light" />
-          <p className="max-w-[640px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
+          <p className="max-w-[640px] font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
             Every plan runs on the same Crossword. You only pay for the credits you use.
           </p>
         </div>
@@ -100,7 +100,7 @@ export function Plans() {
                     <Image src={item.icon} alt="" className="size-5" />
                   </span>
                   <div className="flex min-w-0 flex-1 flex-col gap-2">
-                    <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.15] tracking-[-0.04em] text-ink">{item.title}</h3>
+                    <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.04em] text-ink">{item.title}</h3>
                     <p className="font-sans text-[14px] leading-[1.43] tracking-[-0.02em] text-pretty text-ink-muted">{item.body}</p>
                   </div>
                 </li>
@@ -110,9 +110,9 @@ export function Plans() {
 
           <div className="flex flex-col items-start gap-6 bg-sand px-7 py-[33px] shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:px-[41px] lg:flex-row lg:items-center lg:justify-between lg:gap-10">
             <div className="flex max-w-[606.5px] flex-col items-start gap-2">
-              <p className="font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] text-label-olive uppercase">Early-stage program</p>
-              <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.04em] text-ink">Starting a business is hard work.</h3>
-              <p className="font-sans text-base leading-6 tracking-[-0.02em] text-black/60">
+              <p className="font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] text-label-olive uppercase">Early-stage program</p>
+              <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.04em] text-ink">Starting a business is hard work.</h3>
+              <p className="font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
                 If you&rsquo;re an early-stage ecommerce brand doing under $1M in annual online revenue, apply and join the
                 waitlist for free access to Crossword.
               </p>

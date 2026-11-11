@@ -42,6 +42,10 @@
   --color-on-dark: #dfe3d2;
   --color-rail: #d2cbba;
   --color-engraved: #b7ae9a;
+  /* Figma "Line/Default", "Text/On forest muted" and "Text/On dark label" (Colors 4008:5753). */
+  --color-line: #c8c3b8;
+  --color-on-dark-muted: #869d88;
+  --color-on-dark-label: #d6d1c6;
 
   /*
    * Breakpoints follow the Webflow build: tablet ≤991px, mobile landscape

@@ -72,7 +72,7 @@ export function PricingHero() {
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               TALK TO SALES
             </StampButton>
-            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-cream">
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-cream">
               You pay when your agent does something for a shopper and nothing when it doesn&rsquo;t.
             </p>
           </div>

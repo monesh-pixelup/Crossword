@@ -84,11 +84,11 @@ function FeaturedPost() {
         <FeaturedCover />
       </div>
       <div className="flex w-full items-end justify-between gap-4 px-5 xs:gap-6 xs:px-8">
-        <div className="flex max-w-[503.059px] flex-col items-start gap-3 font-light">
-          <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px] text-[#040404]">
+        <div className="flex max-w-[503.059px] flex-col items-start gap-3">
+          <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px] text-ink">
             {featuredPost.title}
           </h3>
-          <p className="font-sans text-[14px] leading-5 tracking-[-0.28px] text-black/80">
+          <p className="font-sans text-[14px] leading-5 tracking-[-0.28px] text-ink-soft">
             {featuredPost.excerpt}
           </p>
         </div>
@@ -117,10 +117,10 @@ function RecentPosts() {
               className="group flex flex-auto flex-col items-start gap-3 px-5 py-6 xs:pt-8 xs:pr-8 xs:pb-8 xs:pl-8 lg:pr-0 lg:pb-2"
             >
               {/* Hover / keyboard focus nudges the title and excerpt right together (ease-out-quart). */}
-              <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px] text-[#040404] motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
+              <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px] text-ink motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
                 {post.title}
               </h3>
-              <p className="font-sans text-[14px] leading-5 font-light tracking-[-0.28px] text-black/80 motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
+              <p className="font-sans text-[14px] leading-5 font-normal tracking-[-0.28px] text-ink-soft motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
                 {post.excerptLines[0]}
                 {/* Figma breaks the excerpt after "your" on desktop; it wraps naturally below. */}
                 <br className="max-lg:hidden" />

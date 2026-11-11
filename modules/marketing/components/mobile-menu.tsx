@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
 import caretDown from "../assets/caret-down.svg";
 import { ctaLinks, primaryNav } from "../config/navigation";
 
-const navText = "font-serif text-base leading-[22.356px] tracking-[-0.48px] whitespace-nowrap";
+const navText = "font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap";
 
 /** One easing for the whole menu: quick to start, soft to settle. */
 const ease = "ease-[cubic-bezier(0.32,0.72,0,1)]";
@@ -120,7 +120,7 @@ export function MobileMenu({ tone = "dark", onOpenChange }: { tone?: "dark" | "l
                   {item.hasMenu && <Image src={caretDown} alt="" className={cn("size-3.5", light && "opacity-80 invert")} />}
                 </Link>
                 {item.children && (
-                  <ul className={cn("mt-3 flex flex-col gap-3 border-l-[0.5px] pl-4", light ? "border-white/15" : "border-[#b7ae9a]")}>
+                  <ul className={cn("mt-3 flex flex-col gap-3 border-l-[0.5px] pl-4", light ? "border-white/15" : "border-engraved")}>
                     {item.children.map((child) => (
                       <li key={child.label}>
                         <Link

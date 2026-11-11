@@ -77,7 +77,7 @@ function JourneyNote({ index: i, angle, style, className = "" }: { index: number
         className="absolute top-[31.85px] left-[0.12px] max-w-none"
         style={{ width: ribbon.w, height: ribbon.h }}
       />
-      <h3 className="absolute top-[38.94px] left-[19.93px] font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px] whitespace-nowrap text-[#faedd4]">
+      <h3 className="absolute top-[38.94px] left-[19.93px] font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px] whitespace-nowrap text-parchment">
         {journey.title}
       </h3>
       <p className="absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] text-white/50">
@@ -120,7 +120,7 @@ export function JourneyLibrary() {
             variant="dynamicCentered"
             weight="light"
           />
-          <p className="max-w-[820px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+          <p className="max-w-[820px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
             Each one maps the whole path: what the shopper asks, where they stall, what nudges them forward, and when a
             person should step in. Then it&rsquo;s tested against how real customers behave before it reaches yours.
           </p>

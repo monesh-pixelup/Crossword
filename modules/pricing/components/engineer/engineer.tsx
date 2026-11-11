@@ -21,7 +21,7 @@ export function Engineer() {
             secondLine="with an engineer"
             width={445}
           />
-          <p className="max-w-[520px] font-sans text-base leading-6 tracking-[-0.02em] text-on-dark">
+          <p className="max-w-[520px] font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-on-dark">
             Every Crossword account launches with a human, forward-deployed engineer who works with your team to get the agent
             live, connected, trained, and working the way it should. The goal isn&rsquo;t to get you set up. It&rsquo;s to get
             you working.

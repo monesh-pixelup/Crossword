@@ -21,12 +21,12 @@ export function AudienceBuilder() {
             <Eyebrow>Audiences</Eyebrow>
             <SectionTitle id="audience-title" initial="T" firstLine="urn customer patterns" secondLine="into your audience" width={614.744} variant="dynamic" weight="light" />
           </div>
-          <p className="max-w-[477.244px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+          <p className="max-w-[477.244px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
             Find demand buried in past conversations, even when shoppers never joined a waiting list.
           </p>
         </div>
 
-        <div className="relative aspect-[1280/599] w-full overflow-clip bg-[#00331b] max-md:hidden">
+        <div className="relative aspect-[1280/599] w-full overflow-clip bg-forest max-md:hidden">
           <AudienceMotion />
         </div>
         {/* Below 768px: 11m, the dashboard laid out for a phone (353 × 440), in place of the wide visual. */}

@@ -179,7 +179,7 @@ export function InsightTabs() {
                   className={cn(
                     "size-6 flex-none transition-[background-color,color,box-shadow] duration-300",
                     on
-                      ? "bg-maroon text-[#ffb657] shadow-[inset_0_0_0_0.6px_#efe9db]"
+                      ? "bg-maroon text-amber shadow-[inset_0_0_0_0.6px_var(--color-linen)]"
                       : "text-black/40 shadow-[inset_0_0_0_0.75px_rgba(0,0,0,0.19)]",
                   )}
                 >
@@ -191,13 +191,13 @@ export function InsightTabs() {
                     !on && "opacity-50",
                   )}
                 >
-                  <span className="max-w-[403.95px] font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">
+                  <span className="max-w-[403.95px] font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">
                     {feature.title}
                   </span>
                   {/* Below 1200px (the accordion) a closed tab shows only its title; the open one keeps its line of copy. */}
                   <span
                     className={cn(
-                      "font-open-sans text-[14px] leading-5 tracking-[-0.42px] text-black/60",
+                      "font-sans text-[14px] leading-5 tracking-[-0.28px] text-ink-muted",
                       feature.narrow ? "max-w-[359.64px]" : "max-w-[391.67px]",
                       !on && "max-[1199px]:hidden",
                     )}

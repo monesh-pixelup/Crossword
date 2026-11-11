@@ -10,7 +10,7 @@ const multiple = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
 const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: 1 });
 
 /** Figma's field and result labels: Open Sans SemiBold 12 caps, 1.3 leading, +1.44px. */
-const label = "font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-label-olive uppercase";
+const label = "font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] whitespace-nowrap text-label-olive uppercase";
 
 /**
  * A field: an Open Sans caps label over a 48px cream input on a 1px engraved line, with a maroon
@@ -41,7 +41,7 @@ function Field({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="h-12 w-full min-w-0 bg-cream px-[17px] font-sans text-base leading-6 tracking-[-0.02em] text-ink shadow-[inset_0_0_0_1px_var(--color-engraved)] outline-none placeholder:text-ink-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        className="h-12 w-full min-w-0 bg-cream px-[17px] font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink shadow-[inset_0_0_0_1px_var(--color-engraved)] outline-none placeholder:text-ink-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
       />
     </label>
   );
@@ -51,7 +51,7 @@ function Result({ title, value }: { title: string; value: string }) {
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-2 overflow-clip">
       <p className={label}>{title}</p>
-      <p className="font-serif text-[40px] max-md:text-[32px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-ink">{value}</p>
+      <p className="font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] max-md:text-[28px] max-md:leading-[31px] max-md:tracking-[-1.4px] whitespace-nowrap text-ink">{value}</p>
     </div>
   );
 }
@@ -125,10 +125,10 @@ export function RoiCalculator() {
 
       <div className="relative flex items-center justify-between gap-4 bg-wine px-5 py-4">
         <div className="flex min-w-0 flex-col gap-1.5 text-[12px]">
-          <p className="font-open-sans leading-[1.3] font-semibold tracking-[1.44px] text-[#ffb657] uppercase">Return on investment</p>
-          <p className="font-sans leading-normal text-cream/70">Estimated revenue &divide; estimated monthly cost, e.g. 3x</p>
+          <p className="font-open-sans leading-[1.1667] font-semibold tracking-[1.44px] text-amber uppercase">Return on investment</p>
+          <p className="font-sans leading-normal text-cream">Estimated revenue &divide; estimated monthly cost, e.g. 3x</p>
         </div>
-        <p className="shrink-0 font-serif text-[40px] max-md:text-[32px] leading-[1.1] font-extralight tracking-[-0.05em] whitespace-nowrap text-gold">
+        <p className="shrink-0 font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] max-md:text-[28px] max-md:leading-[31px] max-md:tracking-[-1.4px] whitespace-nowrap text-gold">
           {shown ? roi : "—"}
         </p>
       </div>

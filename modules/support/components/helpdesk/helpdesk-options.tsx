@@ -23,10 +23,10 @@ const studs = ["top-[5px] left-[5px]", "top-[5px] right-[5px]", "bottom-[5px] le
 
 /** Figma's tag pill: Open Sans SemiBold 12 caps at +1.44px on #ffeec2 in a 0.5px ink/40 hairline, cap-trimmed inside 6px. */
 const tag =
-  "border-[0.5px] border-black/40 bg-[#ffeec2] p-1.5 font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] text-ink-muted uppercase [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]";
+  "border-[0.5px] border-black/40 bg-[#ffeec2] p-1.5 font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] text-ink-muted uppercase [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]";
 /** Crimson Light 32 at -1.6px (-5%). */
-const title = "font-serif text-(length:--h5-size) leading-[1.1] font-light tracking-[-0.05em] text-[#040404]";
-const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60";
+const title = "font-serif text-(length:--h5-size) leading-[1.09375] font-light tracking-[-0.05em] text-ink";
+const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted";
 
 /**
  * Figma "Library · Numbered panel (Helpdesk)" (3257:34848): the eyebrow and headline, then the two options
@@ -85,11 +85,11 @@ export function HelpdeskOptions() {
             tag, title, copy and link centred and 16px apart, then 48px below the four help desks as tiles, 188 × 128 and
             16px apart, styled as Support channels' tiles. Below 992px the copy wraps and the tiles go two to a row.
           */}
-          <div className="flex w-full flex-col items-center gap-12 border border-black/12 bg-[#f3e9d4] px-5 py-14 md:px-10 lg:p-20">
+          <div className="flex w-full flex-col items-center gap-12 border border-black/12 bg-sand px-5 py-14 md:px-10 lg:p-20">
             <div className="flex flex-col items-center gap-4 text-center">
               <p className={tag}>Helpdesk integration</p>
               <h3 className={title}>Keep the helpdesk you already have.</h3>
-              <p className="max-w-[720px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60 lg:max-w-none lg:whitespace-nowrap">
+              <p className="max-w-[720px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted lg:max-w-none lg:whitespace-nowrap">
                 Connect Crossword to Zendesk, Gorgias, Freshdesk or your own help desk, with conversations and ticket status
                 synced both ways.
               </p>
@@ -101,7 +101,7 @@ export function HelpdeskOptions() {
                 <li key={name} className="relative flex h-32 border border-engraved/10 bg-sand px-[1.5px] py-[2.951px] text-center sm:w-[188px]">
                   <div className="flex w-full flex-col items-center justify-center gap-2 bg-[#fff7e4]">
                     <Image src={icon} alt="" className="h-[29px] w-[31px]" />
-                    <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
+                    <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] whitespace-nowrap text-ink">{name}</span>
                   </div>
                   {studs.map((place) => (
                     <span key={place} aria-hidden className={`pointer-events-none absolute size-[3px] rounded-full bg-gold ${place}`} />

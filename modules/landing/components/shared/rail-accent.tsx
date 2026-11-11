@@ -40,7 +40,7 @@ export function RailAccent({ src, className }: { src?: StaticImageData; classNam
       {src ? (
         <Image src={src} alt="" className={grow} />
       ) : (
-        <span className={cn(grow, "size-full bg-[#e0be60]")} />
+        <span className={cn(grow, "size-full bg-gold")} />
       )}
     </span>
   );

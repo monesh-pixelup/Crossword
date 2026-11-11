@@ -21,7 +21,7 @@ export function Loyalty() {
     <section aria-labelledby="loyalty-title" className="relative px-(--frame-inset)">
       {/* Figma's own 1x render of the aubergine Noise grain, tiled at 240px, as Human-in-the-loop on Support. */}
       <div
-        className="relative overflow-clip bg-[#462160] bg-size-[240px_240px] bg-repeat px-5 pt-16 pb-16 md:px-10 lg:pt-[70px] lg:pb-[109.32px]"
+        className="relative overflow-clip bg-aubergine bg-size-[240px_240px] bg-repeat px-5 pt-16 pb-16 md:px-10 lg:pt-[70px] lg:pb-[109.32px]"
         style={{ backgroundImage: `url(${ground.src})` }}
       >
         <div aria-hidden className="pointer-events-none absolute top-[19px] right-2 bottom-3 left-2 max-md:hidden">

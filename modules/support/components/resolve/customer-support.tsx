@@ -25,7 +25,7 @@ export function CustomerSupport() {
             variant="dynamic"
             weight="light"
           />
-          <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59">
+          <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
             The questions that shouldn&rsquo;t need a ticket.
           </p>
         </div>

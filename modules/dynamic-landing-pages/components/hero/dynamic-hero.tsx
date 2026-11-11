@@ -66,7 +66,7 @@ export function DynamicHero() {
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>
-            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-cream">
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-cream">
               Crossword builds landing pages that carry your ad&rsquo;s message into your store, and product pages
               that adapt to each shopper. Higher ROAS on the click. Higher conversion on the page.
             </p>

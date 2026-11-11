@@ -50,7 +50,7 @@ export function LoggedInExperience({
       <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={553.133} variant="dynamic" weight="light" />
       {/* Figma 3305:909: the accordion layout's copy runs the heading's full 725px column. */}
       <p
-        className={cn("font-sans text-base leading-6 tracking-[-0.32px] text-black/60 max-md:mt-2", layout === "accordion" ? "max-w-[725px]" : "max-w-[520px]")}
+        className={cn("font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted max-md:mt-2", layout === "accordion" ? "max-w-[725px]" : "max-w-[520px]")}
         style={copyWidth ? { maxWidth: copyWidth } : undefined}
       >
         {copy}

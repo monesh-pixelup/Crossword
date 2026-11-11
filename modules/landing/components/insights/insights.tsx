@@ -38,7 +38,7 @@ export function Insights() {
           </div>
           <Link
             href="#insights"
-            className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-opacity duration-150 hover:opacity-50"
+            className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-ink-soft transition-opacity duration-150 hover:opacity-50"
           >
             GET STARTED
             <Image src={arrowRight} alt="" className="size-4" />

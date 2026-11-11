@@ -52,7 +52,7 @@ export function Promotions({
         The bottom padding closes the band at Figma's 800px under the second step's five lines of copy.
       */}
       <div
-        className="relative overflow-clip bg-[#462160] bg-size-[240px_240px] bg-repeat px-5 pt-16 pb-16 md:px-10 lg:pt-[66.59px] lg:pb-[78.61px]"
+        className="relative overflow-clip bg-aubergine bg-size-[240px_240px] bg-repeat px-5 pt-16 pb-16 md:px-10 lg:pt-[66.59px] lg:pb-[78.61px]"
         style={{ backgroundImage: `url(${ground.src})` }}
       >
         <div aria-hidden className="pointer-events-none absolute top-[19px] right-2 bottom-3 left-2 max-md:hidden">
@@ -72,7 +72,7 @@ export function Promotions({
               weight="light"
               tone="light"
             />
-            <p className={`max-w-[600px] text-center font-sans text-base leading-6 tracking-[-0.32px] text-white/60 ${titleVariant === "loyalty" ? "max-md:mt-1.5" : "max-md:mt-[11px]"}`}>{copy}</p>
+            <p className={`max-w-[600px] text-center font-sans text-base leading-6 tracking-[-0.32px] text-cream ${titleVariant === "loyalty" ? "max-md:mt-1.5" : "max-md:mt-[11px]"}`}>{copy}</p>
           </div>
 
           {/*

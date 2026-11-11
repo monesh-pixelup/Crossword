@@ -60,7 +60,7 @@ const studSlots = [
 ];
 
 const base =
-  "group relative inline-flex shrink-0 items-center border px-3 py-2 font-serif text-base leading-[22px] font-medium tracking-[-0.48px] whitespace-nowrap transition-[opacity,background-color,border-color,color] duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon";
+  "group relative inline-flex shrink-0 items-center border px-3 py-2 font-serif text-base leading-[22px] font-medium tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap transition-[opacity,background-color,border-color,color] duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon";
 
 /** The four corner studs, swapped for the hover set on the filled variants. */
 function StampStuds({ variant }: { variant: keyof typeof variants }) {

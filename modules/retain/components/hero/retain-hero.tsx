@@ -68,7 +68,7 @@ export function RetainHero() {
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>
-            <p className="font-sans text-base leading-6 tracking-[-0.02em] text-cream">
+            <p className="font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-cream">
               Crossword remembers every customer after the sale, reaching out at the right moment, on the right
               channel, with something worth opening.
             </p>

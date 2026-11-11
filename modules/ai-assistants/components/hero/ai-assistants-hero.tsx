@@ -93,7 +93,7 @@ export function AiAssistantsHero({
             <StampButton href={ctaLinks.bookDemo} variant="wine">
               BOOK A DEMO
             </StampButton>
-            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-cream">{aside}</p>
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-cream">{aside}</p>
           </div>
         </div>
       </div>

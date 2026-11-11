@@ -21,7 +21,7 @@ export function QuoteAccordion({ quotes }: { quotes: LoggedInQuote[] }) {
       turns={turns}
       label="What signed-in customers ask"
       // Figma 3305:957: the panel ends 7px short of the content edge; the open quote's rule 32px under it (3305:920), none under the last.
-      panelClassName="bg-[#462160] lg:mr-[7px]"
+      panelClassName="bg-aubergine lg:mr-[7px]"
       spacedRules
       lastRule={false}
       // Below 992px each quote's visual opens under it, accordion-style, and they change only when tapped.

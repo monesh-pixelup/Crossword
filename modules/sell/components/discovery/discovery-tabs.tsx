@@ -24,16 +24,16 @@ function FeatureCopy({ feature }: { feature: Feature }) {
   return (
     <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-end md:justify-between md:gap-8">
       <div className="flex flex-col items-start gap-3">
-        <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.label}</h3>
+        <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{feature.label}</h3>
         {feature.description && (
-          <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">
+          <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
             {feature.description}
           </p>
         )}
       </div>
       <Link
         href={feature.href}
-        className="flex shrink-0 items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-[#fff9e9] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-opacity duration-150 hover:opacity-50"
+        className="flex shrink-0 items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-cream p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-ink-soft transition-opacity duration-150 hover:opacity-50"
       >
         GET STARTED
         <Image src={arrowRight} alt="" className="size-3" />
@@ -123,7 +123,7 @@ export function DiscoveryTabs() {
                     onClick={() => open(i)}
                     className={cn(
                       // Figma 3257:36053: 44.4px rows, a 24px line 10.2px from top and bottom, 24px in and 20px after; inactive labels at ink/40.
-                      "relative flex w-full cursor-pointer items-center py-[10.2px] pr-5 pl-6 text-left font-sans text-base leading-6 tracking-[-0.32px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                      "relative flex w-full cursor-pointer items-center py-[10.2px] pr-5 pl-6 text-left font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
                       on ? "bg-cream text-ink" : "text-ink/40 hover:text-ink",
                     )}
                   >

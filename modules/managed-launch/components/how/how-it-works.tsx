@@ -22,7 +22,7 @@ export function HowItWorks() {
           <Eyebrow>Managed launch</Eyebrow>
           <div className="flex flex-col items-start gap-2">
             <SectionTitle id="how-title" initial="H" firstLine="ow it works" width={707.715} variant="oneLine" weight="light" />
-            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{cycle}</p>
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{cycle}</p>
           </div>
         </div>
 
@@ -42,16 +42,16 @@ export function HowItWorks() {
               {/* Figma 3262:415: every number in Tangerine 55 as set, its old-style 1 and 2 at x-height beside the taller 3–6. */}
               <p
                 aria-hidden
-                className="relative font-calligraphy text-[55px] leading-[1.1] tracking-[-2.75px] text-maroon [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]"
+                className="relative font-calligraphy text-[55px] leading-[1.1] tracking-[-2.75px] max-md:text-[44px] max-md:leading-[48px] max-md:tracking-[-2.2px] text-maroon [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]"
               >
                 #{i + 1}
               </p>
               <div className="relative flex flex-col gap-2">
-                <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-ink">
+                <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">
                   <span className="sr-only">Step {i + 1}: </span>
                   {step.title}
                 </h3>
-                <div className="font-sans text-base leading-[1.5] tracking-[-0.32px] text-ink-muted">
+                <div className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
                   {step.lines.map((line) => (
                     <p key={line}>{line}</p>
                   ))}

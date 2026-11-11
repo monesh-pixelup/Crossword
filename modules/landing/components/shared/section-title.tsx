@@ -63,18 +63,19 @@ const variants = {
   },
   /** 0.9 leading, -3px tracking, tight swash (Blog). */
   notes: {
-    firstLineHeight: 63,
+    // Figma's type standard (Headings/XL 60/54 under a Swash/XL 82/97 capital): two lines 129px tall, as `dynamic`.
+    firstLineHeight: 75,
     tracking: "tracking-[-3px]",
-    swash: "font-script text-[82px] leading-[0.9] tracking-[-4.1px]",
+    swash: "font-script text-[82px] leading-[1.18] tracking-[-3px]",
     line: "leading-[0.9]",
     second: "",
   },
-  /** Centred, 0.95 leading, -3px tracking (Customer intelligence). */
+  /** Centred, -3px tracking (Customer intelligence): Headings/XL 60/54 under the 97px swash line, two lines 129px tall. */
   intelligence: {
-    firstLineHeight: 76,
+    firstLineHeight: 75,
     tracking: "tracking-[-3px] text-center",
     swash: "font-script text-[82px] leading-[1.18] tracking-[4.1px]",
-    line: "leading-[0.95]",
+    line: "leading-[0.9]",
     second: "",
   },
   /** Centred, Tangerine swash capital at -4.1px (-5%) (Customer testimonials). */

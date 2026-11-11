@@ -136,8 +136,8 @@ export function AccordionMedia({
                 <span className="flex w-full items-start justify-between gap-4">
                   <span
                     className={cn(
-                      "font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] transition-colors duration-300 ease-out",
-                      on ? "text-[#040404]" : "text-[#040404]/40 hover:text-[#040404]/70",
+                      "font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] transition-colors duration-300 ease-out",
+                      on ? "text-ink" : "text-ink/40 hover:text-ink/70",
                     )}
                   >
                     {item.title}
@@ -176,7 +176,7 @@ export function AccordionMedia({
                     )}
                   >
                     <span className="min-h-0 overflow-hidden">
-                      <span className="block max-w-[462.865px] pt-3 font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+                      <span className="block max-w-[462.865px] pt-3 font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
                         {item.description}
                       </span>
                     </span>

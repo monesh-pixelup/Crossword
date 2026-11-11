@@ -68,7 +68,7 @@ function Glyph({ id, at, color }: { id: AdaptiveId; at: number; color: string })
 function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
   if (on) {
     return (
-      <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.55px] border-[#efe9db] bg-[#7d0034] p-[3.034px]">
+      <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.55px] border-linen bg-maroon p-[3.034px]">
         <svg viewBox="0 0 15.932 15.932" fill="none" className="block size-[15.932px]">
           <Glyph id={id} at={7.966} color="#ffb657" />
         </svg>
@@ -233,7 +233,7 @@ export function AdaptiveTabs() {
                 >
                   <span className="flex w-full items-center gap-2.5">
                     <Mark id={feature.id} on={selected} />
-                    <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{feature.title}</span>
+                    <span className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{feature.title}</span>
                     {/*
                       Below 1260px (the accordion): the FAQ's plus / minus (FaqList's plain one, 14px in ink-soft) at the row's
                       end, centred on it. The plus turns half a turn as its upright folds away, leaving the minus.
@@ -254,7 +254,7 @@ export function AdaptiveTabs() {
                       />
                     </span>
                   </span>
-                  <span className="pl-8 font-sans text-[14px] leading-5 tracking-[-0.42px] text-black/59">{feature.description}</span>
+                  <span className="pl-8 font-sans text-[14px] leading-5 tracking-[-0.28px] text-ink-muted">{feature.description}</span>
                 </span>
                 {/* Stacked, the tabs change only when tapped, so the open tab has no progress bar (nor while the layout is unknown). */}
                 {selected && wide === true && (

@@ -25,9 +25,10 @@ export function ShopperExperience() {
               firstLine="ive them a reason"
               secondLine="to choose you"
               width={614.744}
+              variant="dynamic"
             />
           </div>
-          <p className="w-full max-w-[477.244px] text-base leading-6 font-light tracking-[-0.32px] text-black/60">
+          <p className="w-full max-w-[477.244px] text-base leading-6 font-normal tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
             Improve ROAS. When someone arrives after considering a competitor, Crossword knows and makes the case for
             you on the spot, showing exactly why you&apos;re the better choice.
           </p>

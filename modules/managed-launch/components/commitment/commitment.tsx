@@ -59,8 +59,8 @@ function Note() {
                   <Eyebrow surface="paper">{c.label}</Eyebrow>
                 </dt>
                 <dd className="flex items-baseline gap-2 pt-3 whitespace-nowrap">
-                  <span className="font-serif text-[70px] leading-[1.1] font-light tracking-[-3.5px] text-[#141414]">{c.value}</span>
-                  <span className="font-sans text-[18px] max-md:text-base leading-6 font-medium tracking-[-0.54px] text-black/60">{c.unit}</span>
+                  <span className="font-serif text-[70px] leading-[1.1] font-light tracking-[-3.5px] max-md:text-[48px] max-md:leading-[53px] max-md:tracking-[-2.4px] text-ink">{c.value}</span>
+                  <span className="font-sans text-[18px] max-md:text-base leading-6 font-medium tracking-[-0.54px] text-ink-muted">{c.unit}</span>
                 </dd>
               </div>
             ))}

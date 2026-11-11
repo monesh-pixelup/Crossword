@@ -41,14 +41,14 @@ export function Workflows() {
                 )}
                 <div className={`flex min-w-0 flex-col items-start gap-6 ${i === 0 ? "md:flex-[537_1_0%]" : "md:flex-[513_1_0%]"}`}>
                   {/* Figma 3257:34949 "Icon badge": the 21.72px glyph on maroon, 5.14px in, inside a 0.8px #efe9db line. */}
-                  <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.8px] border-[#efe9db] bg-maroon p-[5.141px]">
+                  <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.8px] border-linen bg-maroon p-[5.141px]">
                     {/* eslint-disable-next-line @next/next/no-img-element -- static SVG glyph, nothing to optimize */}
                     <img src={w.icon.src} alt="" className="block size-[21.719px] max-w-none" />
                   </span>
                   {/* Figma 3700:14741: the Crimson 24 title 16px over its copy. */}
                   <div className="flex flex-col items-start gap-4">
-                    <h3 className="font-serif text-[24px] max-md:text-[20px] leading-[1.1] tracking-[-1.2px] text-ink">{w.title}</h3>
-                    <p className={`font-sans text-base leading-6 tracking-[-0.32px] text-black/50 ${i > 0 ? "max-w-[453.973px]" : ""}`}>{w.body}</p>
+                    <h3 className="font-serif text-[24px] max-md:text-[20px] leading-[1.0833] tracking-[-1.2px] max-md:tracking-[-1px] text-ink">{w.title}</h3>
+                    <p className={`font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted ${i > 0 ? "max-w-[453.973px]" : ""}`}>{w.body}</p>
                   </div>
                 </div>
               </div>

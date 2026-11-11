@@ -27,7 +27,7 @@ function IconTile({ path, on }: { path: string; on: boolean }) {
     return (
       <span
         aria-hidden
-        className="flex size-6 shrink-0 items-center overflow-clip border-[0.46px] border-[#efe9db] bg-maroon p-[4.143px]"
+        className="flex size-6 shrink-0 items-center overflow-clip border-[0.46px] border-linen bg-maroon p-[4.143px]"
       >
         {/* The glyph's own 16.36px box inside the 22.5px one, drawn at 14.8px; its stroke stays 1.2px on screen (non-scaling). */}
         <svg width="14.795" height="14.795" viewBox="3.615 3.705 16.362 16.362" fill="none" className="block">
@@ -126,7 +126,7 @@ export function UpsellTabs() {
   return (
     <div
       ref={root}
-      className="flex w-full flex-col bg-[#f3e7d3] p-[0.5px] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] min-[1280px]:flex-row min-[1280px]:items-start"
+      className="flex w-full flex-col bg-sand p-[0.5px] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] min-[1280px]:flex-row min-[1280px]:items-start"
     >
       {/* Stacked (below 1280px), 32px above the first row and below the last, as between each row and its rule. */}
       <div className="flex min-w-0 flex-1 flex-col justify-center self-stretch px-6 py-8 md:px-10 min-[1280px]:items-start min-[1280px]:justify-start min-[1280px]:pt-10 min-[1280px]:pr-[34px] min-[1280px]:pb-0 min-[1280px]:pl-[42px]">
@@ -162,8 +162,8 @@ export function UpsellTabs() {
                   <span className="flex min-w-0 flex-col">
                     <span
                       className={cn(
-                        "font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] transition-colors duration-300 ease-out",
-                        on ? "text-[#040404]" : "text-[#040404]/40",
+                        "font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] transition-colors duration-300 ease-out",
+                        on ? "text-ink" : "text-ink/40",
                       )}
                     >
                       {feature.title}
@@ -182,7 +182,7 @@ export function UpsellTabs() {
                       )}
                     >
                       <span className="min-h-0 overflow-hidden">
-                        <span className="block max-w-[462.865px] pt-2 font-sans text-base leading-6 tracking-[-0.32px] text-black/60">
+                        <span className="block max-w-[462.865px] pt-2 font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
                           {feature.description}
                         </span>
                       </span>

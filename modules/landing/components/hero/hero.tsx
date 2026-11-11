@@ -18,7 +18,7 @@ function HeroCopy() {
         style={{ zoom: "var(--h2-scale)" }}
       >
         {/* Below 760px, drawn at the section headings' size (82px swash, 60px lines, zoomed with --h2-scale), tracking scaled to match. */}
-        <span className="font-script text-[100px] leading-[1.18] font-normal tracking-[-1px] max-[760px]:text-[82px]">Y</span>
+        <span className="font-script text-[100px] leading-[1.18] font-normal tracking-normal max-[760px]:text-[82px]">Y</span>
         <span className="text-[70px] leading-[1.1] tracking-[-3.5px] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">our brand&rsquo;s </span>
         <span className="text-[70px] leading-[1.1] tracking-[-3.5px] text-[#eedba5] max-[760px]:text-[60px] max-[760px]:tracking-[-3px]">AI agent</span>
       </h1>
@@ -32,10 +32,10 @@ function HeroCopy() {
         <StampButton href={ctaLinks.bookDemo} variant="wine">
           BOOK A DEMO
         </StampButton>
-        {/* Figma 3073:20861: Geist 16/24 at -0.64px in cream #FFF9EA, "Crossword" at full strength and the rest at 60%. */}
-        <p className="font-sans text-base leading-6 font-normal tracking-[-0.64px] text-[#fff9ea]">
+        {/* Figma 3073:20861: Geist 16/24 (Body/M, -0.32px) in cream #FFF9EA, "Crossword" at full strength and the rest at 60%. */}
+        <p className="font-sans text-base leading-6 font-normal tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-cream">
           Crossword{" "}
-          <span className="text-[#fff9ea]/60">
+          <span className="text-cream/60">
             helps customers buy, get support, and keep coming back. On your website, in ChatGPT &amp; Claude and through
             their personal AI agents like Muse &amp; Instinct.
           </span>

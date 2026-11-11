@@ -420,7 +420,7 @@ export function LaunchWheel({
       <div className="@container order-1 w-[316px] max-w-full lg:order-none lg:mt-[7.695%] lg:w-full">
       <div
         aria-hidden
-        className="relative h-[310px] w-[316px] overflow-clip bg-[#462160] scale-to-container [--fit-width:316px]"
+        className="relative h-[310px] w-[316px] overflow-clip bg-aubergine scale-to-container [--fit-width:316px]"
       >
         <Image
           src={panelTexture}
@@ -463,7 +463,7 @@ export function LaunchWheel({
             key={step}
             data-step
             data-state={stillState(i, steps.length)}
-            className="group/step font-extralight tracking-[-0.05em] whitespace-nowrap text-ink group-data-[wheel]/wheel:transition-[color,opacity,letter-spacing] group-data-[wheel]/wheel:duration-[330ms] group-data-[wheel]/wheel:ease-[ease] motion-reduce:transition-none data-[state=active]:font-light data-[state=active]:tracking-[-0.04em] data-[state=active]:text-[#002916] data-[state=fade-bottom]:bg-[linear-gradient(0deg,rgba(20,20,20,0)_0.815%,rgba(20,20,20,0.2)_81.289%)] data-[state=fade-bottom]:bg-clip-text data-[state=fade-bottom]:text-transparent data-[state=fade-top]:bg-[linear-gradient(0deg,rgba(20,20,20,0.2)_0.432%,rgba(20,20,20,0)_93.695%)] data-[state=fade-top]:bg-clip-text data-[state=fade-top]:text-transparent data-[state=muted]:opacity-30 data-[state=muted]:group-data-[wheel]/wheel:hover:opacity-60"
+            className="group/step font-extralight tracking-[-0.05em] whitespace-nowrap text-ink group-data-[wheel]/wheel:transition-[color,opacity,letter-spacing] group-data-[wheel]/wheel:duration-[330ms] group-data-[wheel]/wheel:ease-[ease] motion-reduce:transition-none data-[state=active]:font-light data-[state=active]:tracking-[-0.04em] data-[state=active]:text-forest-deep data-[state=fade-bottom]:bg-[linear-gradient(0deg,rgba(20,20,20,0)_0.815%,rgba(20,20,20,0.2)_81.289%)] data-[state=fade-bottom]:bg-clip-text data-[state=fade-bottom]:text-transparent data-[state=fade-top]:bg-[linear-gradient(0deg,rgba(20,20,20,0.2)_0.432%,rgba(20,20,20,0)_93.695%)] data-[state=fade-top]:bg-clip-text data-[state=fade-top]:text-transparent data-[state=muted]:opacity-30 data-[state=muted]:group-data-[wheel]/wheel:hover:opacity-60"
           >
             <button
               type="button"

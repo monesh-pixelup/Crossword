@@ -39,7 +39,7 @@ function Certifications() {
             className="h-[70px] shrink-0"
             style={{ width: cert.badgeWidth }}
           />
-          <h3 className="font-sans text-[14px] leading-6 font-semibold tracking-[-0.56px] whitespace-nowrap text-white/50">
+          <h3 className="font-sans text-[14px] leading-5 font-semibold tracking-[-0.28px] whitespace-nowrap text-white/50">
             {cert.name}
           </h3>
         </li>
@@ -62,7 +62,7 @@ export function Trust() {
       <div className="relative content-width flex min-h-[626px] flex-col min-[1440px]:aspect-[1280/626] items-center justify-center px-5 pt-12 pb-4 shadow-[0_0_2px_rgba(0,0,0,0.25)] md:px-8 md:pt-14 md:pb-6 lg:px-4 lg:pb-4">
         {/* Panel surface: deep green with a soft-light grain tile at 40%. */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute inset-0 bg-[#002916]" />
+          <div className="absolute inset-0 bg-forest-deep" />
           <div
             className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left opacity-40 mix-blend-soft-light"
             style={{ backgroundImage: `url(${grainTile.src})` }}
@@ -90,7 +90,7 @@ export function Trust() {
             </h2>
             <div className="flex w-full max-w-[537.055px] min-w-0 flex-col items-start gap-4 lg:flex-[0_1_537px]">
               {/* Figma 3073:22066: one paragraph. */}
-              <p className="font-sans text-[14px] leading-[22px] font-normal tracking-[-0.56px] text-white/50">
+              <p className="font-sans text-[14px] leading-5 font-normal tracking-[-0.28px] text-white/50">
                 With a built-in watchtower every response is checked and Crossword improved continuously, so your agent
                 gets better every day. It&rsquo;s designed to stay within your guardrails, resist prompt injection, know
                 its limitations, and catch gaps before they become problems. Crossword is built by the team behind
@@ -99,7 +99,7 @@ export function Trust() {
               </p>
               <Link
                 href="#trust"
-                className="flex items-center gap-2 border-b border-white/30 p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#d9dddb] transition-opacity duration-150 hover:opacity-50"
+                className="flex items-center gap-2 border-b border-white/30 p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-[#d9dddb] transition-opacity duration-150 hover:opacity-50"
               >
                 GET STARTED
                 <Image src={arrowRight} alt="" className="size-4" />

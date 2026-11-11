@@ -68,7 +68,7 @@ function LogoRow({ logos }: { logos: Logo[] }) {
 export function TrustedBy({ className }: { className?: string }) {
   return (
     <div className={cn("flex content-width flex-col items-center gap-10", className)}>
-      <p className="text-center text-base leading-6 font-light tracking-[-0.32px] text-black/60">
+      <p className="text-center text-base leading-6 font-normal tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
         Trusted by
       </p>
       {rows.map((logos, i) => (

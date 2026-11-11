@@ -25,7 +25,7 @@ export function Guardrails() {
             <Eyebrow>Guardrails</Eyebrow>
             <SectionTitle id="guardrails-title" initial="G" firstLine="uardrails" width={614.744} variant="oneLine" weight="light" />
           </div>
-          <p className="max-w-[477px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60 min-[1280px]:min-w-0 min-[1440px]:max-w-none min-[1440px]:whitespace-nowrap">
+          <p className="max-w-[477px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted min-[1280px]:min-w-0 min-[1440px]:max-w-none min-[1440px]:whitespace-nowrap">
             Set the topics it won&rsquo;t touch, the tone it uses, and the lines it won&rsquo;t cross.
           </p>
         </div>

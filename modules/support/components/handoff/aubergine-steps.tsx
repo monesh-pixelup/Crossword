@@ -22,7 +22,7 @@ const variants = {
     card: "top-[4.51px] right-[3.51px] bottom-[3.4px] left-[3.51px]",
     cell: "mt-[15.35px]",
     copy: "mt-[19.65px]",
-    stepTitle: "font-sans text-sm leading-[1.2] font-medium tracking-[-0.28px]",
+    stepTitle: "font-sans text-sm leading-5 font-medium tracking-[-0.28px]",
     stepBody: "text-sm leading-5 tracking-[-0.28px]",
   },
   /**
@@ -37,8 +37,11 @@ const variants = {
     card: "top-[4.51px] right-[3.51px] bottom-[3.4px] left-[3.51px]",
     cell: "mt-[15.35px]",
     copy: "mt-[19.65px]",
-    stepTitle: "font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px]",
-    stepBody: "text-base leading-6 tracking-[-0.32px]",
+    stepTitle: "font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px]",
+    stepBody: "text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px]",
+    // Figma's type standard (11 November 2026): titles and copy both in cream (Text/On dark, #fff9ea).
+    titleColor: "text-cream",
+    bodyColor: "text-cream",
   },
   /**
    * Support: Human-in-the-loop (node 2634:20241), 24px numerals in a 27px box (Figma nudges each
@@ -56,8 +59,8 @@ const variants = {
     cell: "mt-[16.35px]",
     copy: "mt-[18.65px]",
     // Figma 3257:34333: Crimson 22 titles at -0.88px over Geist 16/24 copy at -0.32px.
-    stepTitle: "font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px]",
-    stepBody: "text-base leading-6 tracking-[-0.32px]",
+    stepTitle: "font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px]",
+    stepBody: "text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px]",
   },
   /**
    * AI Assistants: Promotions & upselling (node 3305:1221), the handoff numerals over a shorter
@@ -73,8 +76,11 @@ const variants = {
     cell: "mt-[18.2px]",
     cellHeight: "h-[192.3px]",
     copy: "mt-[20.5px]",
-    stepTitle: "font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px]",
-    stepBody: "text-base leading-6 tracking-[-0.32px]",
+    stepTitle: "font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px]",
+    stepBody: "text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px]",
+    // Figma's type standard (11 November 2026): titles and copy both in cream (Text/On dark).
+    titleColor: "text-cream",
+    bodyColor: "text-cream",
   },
 } as const;
 
@@ -119,14 +125,14 @@ export function AubergineSteps({
             {variant === "handoff" || variant === "promotions" ? (
               <div className="relative ml-[17px] h-[27px]">
                 <p
-                  className="absolute top-[3.5px] font-script text-[24px] leading-[1.1] tracking-[-1.2px] whitespace-nowrap text-[#b4a5bd] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]"
+                  className="absolute top-[3.5px] font-script text-[24px] leading-[1.0833] tracking-[-1.2px] max-md:text-[20px] max-md:leading-[22px] max-md:tracking-[-1px] whitespace-nowrap text-[#b4a5bd] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]"
                   style={{ left: numeralOffsets[i] ?? numeralOffsets[0] }}
                 >
                   0{i + 1}
                 </p>
               </div>
             ) : (
-              <p className="pl-[17px] font-script text-[24px] leading-[1.1] tracking-[-1.2px] text-[#b4a5bd] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]">
+              <p className="pl-[17px] font-script text-[24px] leading-[1.0833] tracking-[-1.2px] max-md:text-[20px] max-md:leading-[22px] max-md:tracking-[-1px] text-[#b4a5bd] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]">
                 0{i + 1}
               </p>
             )}
@@ -151,8 +157,8 @@ export function AubergineSteps({
 
             {/* Kept 17px off both rules while the columns are narrow (768–1279px); at 1062px the right inset is Figma's 11px (354 − 17 − 326). */}
             <div className={`${v.copy} flex flex-col items-start gap-3 pr-[17px] pl-[17px] xl:pr-[11px]`}>
-              <h3 className={`text-pretty break-words text-white/85 ${v.stepTitle}`}>{step.title}</h3>
-              <p className={`max-w-[326px] font-sans text-pretty break-words text-white/60 ${v.stepBody}`}>{step.description}</p>
+              <h3 className={`text-pretty break-words ${"titleColor" in v ? v.titleColor : "text-white/85"} ${v.stepTitle}`}>{step.title}</h3>
+              <p className={`max-w-[326px] font-sans text-pretty break-words ${"bodyColor" in v ? v.bodyColor : "text-white/60"} ${v.stepBody}`}>{step.description}</p>
             </div>
           </li>
         );

@@ -16,12 +16,12 @@ const labelSize = "h-4 text-[12px] tracking-[-0.36px]";
 function FooterLinkItem({ link }: { link: FooterLink }) {
   if (!link.href) {
     return (
-      <li className={`${linkText} ${link.muted ? `${labelSize} text-[rgba(223,227,210,0.36)]` : `${linkSize} text-[#dfe3d2]`}`}>{link.label}</li>
+      <li className={`${linkText} ${link.muted ? `${labelSize} text-[rgba(223,227,210,0.36)]` : `${linkSize} text-on-dark`}`}>{link.label}</li>
     );
   }
   return (
     <li className={`${linkText} ${linkSize}`}>
-      <Link href={link.href} className="text-[#dfe3d2] transition-colors hover:text-white">
+      <Link href={link.href} className="text-on-dark transition-colors hover:text-white">
         {link.label}
       </Link>
     </li>
@@ -63,7 +63,7 @@ function FooterNav() {
 /** "Crossword is shopper-facing AI for your brand." (Figma 3072:19635) with the framed C monogram. */
 function Tagline() {
   return (
-    <p className="relative h-[107.201px] w-[560px] font-serif text-[50px] leading-[0.9] font-extralight tracking-[-2.5px] whitespace-nowrap text-[#dfe3d2]">
+    <p className="relative h-[107.201px] w-[560px] font-serif text-[50px] leading-[0.9] font-extralight tracking-[-2.5px] whitespace-nowrap text-on-dark">
       <span aria-hidden className="absolute top-[-0.12px] left-[0.81px] h-[107.7px] w-[90.661px]">
         <span className="absolute top-[17.81px] left-[18px] h-[79.404px] w-[40.604px] font-script text-[74.023px] leading-[1.1] tracking-[-3.7012px]">
           C
@@ -93,7 +93,7 @@ export function SiteFooter() {
         tiles, soft-light at 40%.
       */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[#00331A]" />
+        <div className="absolute inset-0 bg-forest" />
         <div
           className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left opacity-40 mix-blend-soft-light"
           style={{ backgroundImage: `url(${grainTile.src})` }}

@@ -18,7 +18,7 @@ export function HumanTouch() {
         <div className="flex content-width flex-col items-start gap-8 lg:flex-row lg:justify-between">
           <Eyebrow>Human touch</Eyebrow>
           <div className="relative pl-[32.5px]">
-            <span aria-hidden className="absolute inset-y-0 left-0 w-[0.5px] bg-[#d2cbba]" />
+            <span aria-hidden className="absolute inset-y-0 left-0 w-[0.5px] bg-rail" />
             <RailAccent className="absolute top-0 left-0 h-[71.69px] w-px" />
             <ScrollHighlight
               text="Your website, with a human touch. Crossword proactively offers help, understands what your customer is looking for, and makes thoughtful product suggestions along the way."

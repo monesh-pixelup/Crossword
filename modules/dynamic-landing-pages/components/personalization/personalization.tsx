@@ -54,12 +54,12 @@ export function Personalization() {
             <Eyebrow>User-level personalization</Eyebrow>
             <SectionTitle id="stranger-title" initial="T" firstLine="he stranger problem" width={488} variant="oneLine" weight="light" />
           </div>
-          <div className="flex w-full max-w-[560px] min-w-0 flex-col gap-3.5 font-sans text-base leading-6 tracking-[-0.32px]">
-            <p className="text-[rgba(20,20,20,0.82)]">
+          <div className="flex w-full max-w-[560px] min-w-0 flex-col gap-3.5 font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px]">
+            <p className="text-ink-soft">
               A customer who&rsquo;s bought from you three times, has told you their size, and has told you their color
               preference sees exactly the same product page as someone who arrived ten seconds ago.
             </p>
-            <p className="font-medium text-[#141414]">
+            <p className="font-medium text-ink">
               That&rsquo;s because everything you know stays in a database instead of on the page.
             </p>
           </div>
@@ -99,7 +99,7 @@ export function Personalization() {
               </span>
               {/* Figma 3364:97: Crimson ExtraLight 40 at -2px (-5%). */}
               <h3 className="font-serif text-(length:--h4-size) leading-[1.1] font-extralight tracking-[-0.05em] text-cream">Now you have a solution</h3>
-              <p className="font-sans text-base leading-6 tracking-[-0.32px] text-[rgba(255,249,234,0.82)]">
+              <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-[rgba(255,249,234,0.82)]">
                 Crossword turns customer understanding into a more personal shopping experience. It brings together what a
                 shopper has told you, what they&rsquo;ve bought before, what they care about and what they&rsquo;re looking
                 for right now, and uses that context to change how your products are presented.
@@ -119,16 +119,16 @@ export function Personalization() {
             />
           </div>
 
-          <div className="flex min-w-0 flex-col bg-[#f3e7d4] px-6 py-6 sm:px-8 sm:py-8 md:px-14 md:py-12 min-[1200px]:flex-1">
+          <div className="flex min-w-0 flex-col bg-sand px-6 py-6 sm:px-8 sm:py-8 md:px-14 md:py-12 min-[1200px]:flex-1">
             <ol className="flex flex-col">
               {changes.map((change, i) => (
-                <li key={change} className="flex items-center gap-4 border-b border-[#d2cbba] py-4 last:border-b-0 sm:gap-5">
+                <li key={change} className="flex items-center gap-4 border-b border-rail py-4 last:border-b-0 sm:gap-5">
                   {/* Figma 3602:30824 "Icon badge": the 16px glyph on maroon, 4px in, inside a 0.6px #efe9db line. */}
-                  <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.6px] border-[#efe9db] bg-maroon p-1">
+                  <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.6px] border-linen bg-maroon p-1">
                     {/* eslint-disable-next-line @next/next/no-img-element -- static SVG glyph, nothing to optimize */}
                     <img src={changeIcons[i].src} alt="" className="block size-4 max-w-none" />
                   </span>
-                  <span className="min-w-0 flex-1 font-serif text-[19px] leading-[1.15] tracking-[-0.04em] text-[#141414] sm:text-[22px] sm:leading-[1.1]">{change}</span>
+                  <span className="min-w-0 flex-1 font-serif text-[20px] leading-[1.1] tracking-[-0.04em] text-ink sm:text-[22px] sm:leading-[1.0909]">{change}</span>
                 </li>
               ))}
             </ol>

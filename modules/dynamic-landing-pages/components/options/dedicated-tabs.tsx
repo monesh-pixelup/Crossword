@@ -26,7 +26,7 @@ export function DedicatedTabs() {
             variant="dynamic"
             weight="light"
           />
-          <p className="max-w-[560px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60 max-md:mt-[3px]">
+          <p className="max-w-[560px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted max-md:mt-[3px]">
             Full, ad-specific pages built for a single campaign or audience, with components like quizzes, games, and
             comparisons built in.
           </p>

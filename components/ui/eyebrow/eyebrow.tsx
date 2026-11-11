@@ -3,10 +3,10 @@ import { cn } from "@/lib/cn";
 
 /** Fill, label colour and shadow per background the label sits on. */
 const surfaces = {
-  cream: "bg-cream text-[#766640] drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)]",
-  sand: "bg-sand text-[#766640] drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)]",
+  cream: "bg-cream text-label-olive drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)]",
+  sand: "bg-sand text-label-olive drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)]",
   /** Transparent on paper (Managed launch's commitment note), olive label. */
-  paper: "text-[#766640] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.11)]",
+  paper: "text-label-olive drop-shadow-[0px_1px_2px_rgba(0,0,0,0.11)]",
   /** Transparent on the dark green panels, with a pale label. */
   green: "text-[#d6d1c6] drop-shadow-[0px_1px_2px_rgba(0,0,0,0.11)]",
 } as const;
@@ -61,7 +61,7 @@ export function Eyebrow({ children, surface = "cream", size = "label", className
         // shadow so it adds no size and stays a true half-pixel hairline: borders and outlines get
         // rounded up to a solid 1px on standard screens, which reads darker than Figma.
         surfaces[surface],
-        "relative inline-flex items-center justify-center px-[5.5px] shadow-[inset_0_0_0_0.5px_#b7ae9a]",
+        "relative inline-flex items-center justify-center px-[5.5px] shadow-[inset_0_0_0_0.5px_var(--color-engraved)]",
         tag ? "py-[2.5px]" : "py-[10.5px]",
         className,
       )}
@@ -71,8 +71,8 @@ export function Eyebrow({ children, surface = "cream", size = "label", className
         className={cn(
           "text-center whitespace-nowrap uppercase",
           tag
-            ? "font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px]"
-            : "font-open-sans text-[10px] leading-[0.9] font-semibold tracking-[1.2px] md:text-[12px] md:tracking-[1.44px]",
+            ? "font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px]"
+            : "font-open-sans text-[10px] leading-[1.1667] font-semibold tracking-[1.2px] md:text-[12px] md:tracking-[1.44px]",
         )}
       >
         {children}

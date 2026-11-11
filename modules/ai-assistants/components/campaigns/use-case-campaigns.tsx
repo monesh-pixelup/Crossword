@@ -42,7 +42,7 @@ export function UseCaseCampaigns() {
             <div className="max-w-full shrink-0">
               <SectionTitle id="ai-campaigns-title" initial="R" firstLine="eaches them first" width={614.744} variant="oneLine" weight="light" />
             </div>
-            <p className="max-w-[528.945px] min-w-0 font-sans text-base leading-6 tracking-[-0.32px] text-black/60 min-[1280px]:w-[528.945px] min-[1280px]:shrink-0">
+            <p className="max-w-[528.945px] min-w-0 font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted min-[1280px]:w-[528.945px] min-[1280px]:shrink-0">
               Send a price-drop alert or a back-in-stock note straight into the conversation. It lands where the shopper
               is already spending their time.
             </p>
@@ -58,12 +58,12 @@ export function UseCaseCampaigns() {
                 <AiaScenePanel slug={useCase.scene} fill />
               </div>
               <h3 className="mt-10 flex flex-col items-start gap-4">
-                <span className="font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] text-[#6c2332] uppercase">{useCase.label}</span>
-                <span className="max-w-[580px] font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.88px] text-[#040404]">
+                <span className="font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] text-wine uppercase">{useCase.label}</span>
+                <span className="max-w-[580px] font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px] text-ink">
                   {useCase.title}
                 </span>
               </h3>
-              <p className="mt-4 max-w-[540px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{useCase.body}</p>
+              <p className="mt-4 max-w-[540px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{useCase.body}</p>
             </li>
           ))}
         </ul>

@@ -52,7 +52,7 @@ export function AssistantCampaigns({
           <Eyebrow>{eyebrow}</Eyebrow>
           <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} mobileWidth={mobileWidth} variant="dynamic" weight="light" />
           {copy && (
-            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-black/59" style={{ maxWidth: width }}>
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted" style={{ maxWidth: width }}>
               {copy}
             </p>
           )}

@@ -80,7 +80,7 @@ export function TriggerTabs() {
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
         // The scene draws its own sand ground and hairline border; without one the stage draws them.
-        className={cn("relative aspect-[1280/509] w-full max-md:hidden", !scene && "border-x border-t border-black/25 bg-[#f3e7d3]")}
+        className={cn("relative aspect-[1280/509] w-full max-md:hidden", !scene && "border-x border-t border-black/25 bg-sand")}
       >
         {/*
           Fills the panel at every width, past its drawn 1280px on wide screens, so its ground and border meet the tabs
@@ -92,7 +92,7 @@ export function TriggerTabs() {
       {/* Below 768px: the trigger's phone layout (352 × 340) in place of the wide stage; only the shown one mounts. */}
       <div
         aria-hidden
-        className={cn("relative aspect-[352/340] w-full md:hidden", !mwebScene && "border-x border-t border-black/25 bg-[#f3e7d3]")}
+        className={cn("relative aspect-[352/340] w-full md:hidden", !mwebScene && "border-x border-t border-black/25 bg-sand")}
       >
         {mwebScene && <ScenePanel key={`m-${active}-${run}`} scene={mwebScene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />}
       </div>
@@ -123,7 +123,7 @@ export function TriggerTabs() {
             >
               <span
                 className={cn(
-                  "font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404] transition-opacity duration-300",
+                  "font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink transition-opacity duration-300",
                   !selected && "opacity-50",
                 )}
               >

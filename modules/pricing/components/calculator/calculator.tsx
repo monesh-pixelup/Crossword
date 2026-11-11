@@ -9,7 +9,7 @@ import { RoiCalculator } from "./roi-calculator";
 function Note({ title, body }: { title: string; body: string }) {
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-2">
-      <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.15] tracking-[-0.04em] text-ink">{title}</h3>
+      <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.04em] text-ink">{title}</h3>
       <p className="font-sans text-[14px] leading-[1.43] tracking-[-0.02em] text-pretty text-ink-muted">{body}</p>
     </div>
   );
@@ -35,13 +35,13 @@ export function Calculator() {
         <div className="flex min-w-0 flex-1 flex-col items-start gap-7">
           <Eyebrow>ROI calculator</Eyebrow>
           <SectionTitle id="calculator-title" initial="C" firstLine="alculate your ROI" secondLine="with Crossword" width={415} variant="dynamic" weight="light" />
-          <p className="font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted">
+          <p className="font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
             Add your site traffic, chat engagement rate and replies per conversation to see what Crossword will cost. Then add
             your conversion rate and AOV to see what it will generate.
           </p>
 
           <div className="flex w-full flex-col pt-3">
-            <p className="mb-4 font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] text-label-olive uppercase">
+            <p className="mb-4 font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] text-label-olive uppercase">
               What Crossword moves
             </p>
             {[0, 2].map((start) => (

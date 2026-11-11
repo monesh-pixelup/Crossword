@@ -22,7 +22,7 @@ export function TextLink({ tone = "ink", underline = true, className, children, 
   return (
     <Link
       className={cn(
-        "group inline-flex shrink-0 items-center gap-2 p-[2px] font-serif text-base leading-[22px] font-normal tracking-[-0.03em] whitespace-nowrap uppercase transition-opacity duration-150 hover:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2",
+        "group inline-flex shrink-0 items-center gap-2 p-[2px] font-serif text-base leading-[22px] font-normal tracking-[-0.03em] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap uppercase transition-opacity duration-150 hover:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2",
         underline && "border-b",
         tones[tone],
         className,

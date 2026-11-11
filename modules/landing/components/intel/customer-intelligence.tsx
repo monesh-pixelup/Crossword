@@ -23,11 +23,11 @@ function Stats() {
             className={cn(
               "relative flex flex-col items-start gap-8 min-[992px]:flex-1 min-[992px]:gap-[50px]",
               i > 0 &&
-                "border-t-[0.5px] border-[#d2cbba] pt-12 min-[992px]:border-t-0 min-[992px]:border-l-[0.5px] min-[992px]:pt-0 min-[992px]:pl-16",
+                "border-t-[0.5px] border-rail pt-12 min-[992px]:border-t-0 min-[992px]:border-l-[0.5px] min-[992px]:pt-0 min-[992px]:pl-16",
             )}
           >
             {i > 0 && <RailAccent className={cn(frameAccent, "top-[149px] left-0 hidden h-[83px] -translate-x-1/2 min-[992px]:block")} />}
-            <span className="font-open-sans text-[12px] leading-[0.9] font-semibold tracking-[1.44px] text-black/60">
+            <span className="font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] text-ink-muted">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span className="flex h-10 items-center">
@@ -36,9 +36,9 @@ function Stats() {
             <div className="flex flex-col gap-2">
               <p className="flex items-baseline gap-2.5 whitespace-nowrap">
                 <span className="font-serif text-(length:--display-size) leading-[1.1] font-light tracking-[-0.05em] text-ink">{stat.figure}</span>
-                <span className="text-[18px] leading-[1.3333] font-medium tracking-[-0.54px] text-black/60">{stat.label}</span>
+                <span className="text-[18px] leading-[1.3333] font-medium tracking-[-0.54px] max-md:text-base max-md:leading-6 max-md:tracking-[-0.48px] text-ink-muted">{stat.label}</span>
               </p>
-              <p className="max-w-[310px] text-base leading-6 tracking-[-0.32px] text-black/60">{stat.text}</p>
+              <p className="max-w-[310px] text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{stat.text}</p>
             </div>
           </li>
         ))}
@@ -69,7 +69,7 @@ export function CustomerIntelligence() {
             width={560}
             variant="intelligence"
           />
-          <p className="max-w-[465.37px] text-base leading-6 tracking-[-0.32px] text-black/60 max-md:mt-2.5">
+          <p className="max-w-[465.37px] text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted max-md:mt-2.5">
             Crossword <span className="font-medium">turns signals, decisions, and outcomes into memory</span>, so you get to
             know your customer a little better, every single time.
           </p>

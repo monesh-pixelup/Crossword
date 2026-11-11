@@ -138,13 +138,13 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
             aria-expanded={on}
             onClick={() => open(i)}
             className={cn(
-              "w-full text-left font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.04em] text-[#040404] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
+              "w-full text-left font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.04em] text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
               on ? "cursor-default" : "cursor-pointer",
             )}
           >
             {item.quote}
           </button>
-          <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{item.description}</p>
+          <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{item.description}</p>
         </div>
         <div className="h-px w-full bg-black/10" />
       </div>
@@ -188,7 +188,7 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
         ref={panelRef}
         className="sticky top-[calc(72.5px+24px)] z-10 order-2 w-full bg-cream before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-6 before:bg-cream min-[1313px]:before:hidden after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-16 after:bg-linear-to-b after:from-cream after:from-25% after:to-cream/0 min-[1313px]:top-[calc(72.5px+48px)] min-[1313px]:w-auto min-[1313px]:max-w-[687px] min-[1313px]:min-w-0 min-[1313px]:flex-1 min-[1313px]:bg-transparent min-[1313px]:after:hidden"
       >
-        <div className="relative mx-auto aspect-[687/586] w-full max-w-[calc((100svh-72.5px-48px)*687/586)] overflow-hidden bg-[#462160] min-[1313px]:max-w-none">
+        <div className="relative mx-auto aspect-[687/586] w-full max-w-[calc((100svh-72.5px-48px)*687/586)] overflow-hidden bg-aubergine min-[1313px]:max-w-none">
           <Image src={panelArt} alt="" fill sizes="(min-width: 1313px) 687px, 100vw" className="object-cover" />
           <div className="absolute inset-0 grid">
             {quotes.map((quote, i) =>

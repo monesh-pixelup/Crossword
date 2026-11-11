@@ -49,7 +49,7 @@ const THRESHOLD = 10;
 /** The fixed header's height. */
 const HEADER_HEIGHT = 72.5;
 
-const navText = "font-serif text-base leading-[22.356px] tracking-[-0.48px] whitespace-nowrap";
+const navText = "font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap";
 
 /**
  * Whether the page is scrolled past THRESHOLD and, when `trackHero`, whether the hero has scrolled
@@ -227,7 +227,7 @@ function PlatformItem({
   descriptionWidth?: number;
   onChoose: () => void;
 }) {
-  const hover = light ? "group-hover/link:text-[#ffb657] group-focus-visible/link:text-[#ffb657]" : "group-hover/link:text-maroon group-focus-visible/link:text-maroon";
+  const hover = light ? "group-hover/link:text-amber group-focus-visible/link:text-amber" : "group-hover/link:text-maroon group-focus-visible/link:text-maroon";
   return (
     <Link
       href={link.href}

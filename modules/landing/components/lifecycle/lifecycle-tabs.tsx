@@ -67,7 +67,7 @@ const glyphs: Record<string, ReactNode> = {
  */
 function StageBadge({ glyph }: { glyph: ReactNode }) {
   return (
-    <span aria-hidden className="block size-6 bg-maroon shadow-[inset_0_0_0_0.6px_#efe9db]">
+    <span aria-hidden className="block size-6 bg-maroon shadow-[inset_0_0_0_0.6px_var(--color-linen)]">
       {/* The glyphs' 16px box, centred in the 24px square. */}
       <svg
         viewBox="-4 -4 24 24"
@@ -76,7 +76,7 @@ function StageBadge({ glyph }: { glyph: ReactNode }) {
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="block size-6 text-[#ffb657]"
+        className="block size-6 text-amber"
       >
         {glyph}
       </svg>
@@ -241,7 +241,7 @@ export function LifecycleTabs() {
                 "group relative flex h-[52px] flex-[1_0_auto] items-center px-5 text-left shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:h-[58.5px] md:px-8 xl:flex-1 xl:basis-0 xl:pr-0",
                 // Below 768px the closed tabs are all one width (room for "Personal Agents"), their names centred.
                 on
-                  ? "cursor-default bg-[#f3e9d4]"
+                  ? "cursor-default bg-sand"
                   : "cursor-pointer bg-[rgba(243,233,212,0.37)] max-md:w-[168px] max-md:flex-none max-md:justify-center",
               )}
             >
@@ -258,7 +258,7 @@ export function LifecycleTabs() {
               </span>
               <span
                 className={cn(
-                  "font-serif text-[20px] leading-[1.1] tracking-[-0.05em] whitespace-nowrap text-ink transition-opacity duration-300 md:text-[24px]",
+                  "font-serif text-[20px] leading-[1.0833] tracking-[-0.05em] whitespace-nowrap text-ink transition-opacity duration-300 md:text-[24px]",
                   on ? "opacity-100" : "opacity-50 group-hover:opacity-75",
                 )}
               >
@@ -282,7 +282,7 @@ export function LifecycleTabs() {
         role="tabpanel"
         id={panelId}
         aria-labelledby={`${id}-tab-${position.stage}`}
-        className="flex w-full flex-col bg-[#f3e7d3] px-[0.5px] pt-[0.5px] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] xl:flex-row xl:items-start xl:justify-between"
+        className="flex w-full flex-col bg-sand px-[0.5px] pt-[0.5px] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)] xl:flex-row xl:items-start xl:justify-between"
       >
         <div className="flex min-w-0 flex-1 flex-col px-6 pt-8 pb-10 max-xl:order-2 md:px-8 md:pt-10 md:pb-12 xl:pt-20">
           {/* 40px either side of each 0.5px hairline; the list is Figma's 462.87px wide beside the mock-up. */}
@@ -298,7 +298,7 @@ export function LifecycleTabs() {
                         <span className="flex h-[23px] items-center bg-[#ffeec2] p-[6.5px] outline-[0.5px] -outline-offset-[0.5px] outline-black/40 outline-solid">
                           <span
                             className={cn(
-                              "font-sans text-[14px] leading-[1.2] font-medium tracking-[-0.28px] whitespace-nowrap text-[#66645e] uppercase",
+                              "font-sans text-[14px] leading-5 font-medium tracking-[-0.28px] whitespace-nowrap text-ink-muted uppercase",
                               trimToCaps,
                             )}
                           >
@@ -312,7 +312,7 @@ export function LifecycleTabs() {
                       aria-expanded={on}
                       onClick={() => open({ stage: position.stage, feature: f })}
                       className={cn(
-                        "text-left font-serif text-(length:--h6-size) leading-[1.1] tracking-[-0.04em] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
+                        "text-left font-serif text-(length:--h6-size) leading-[1.1071] tracking-[-0.04em] transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-maroon",
                         on ? "cursor-default text-ink" : "cursor-pointer text-ink/50 hover:text-ink/75",
                       )}
                     >
@@ -320,10 +320,10 @@ export function LifecycleTabs() {
                     </button>
                     <Reveal open={on}>
                       <div className="flex flex-col items-start gap-6 pt-4">
-                        <p className="w-full text-base leading-6 tracking-[-0.32px] text-black/60">{feature.body}</p>
+                        <p className="w-full text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{feature.body}</p>
                         <Link
                           href={feature.href}
-                          className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] whitespace-nowrap text-[#33322f] transition-opacity duration-150 hover:opacity-50"
+                          className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-ink-soft transition-opacity duration-150 hover:opacity-50"
                         >
                           GET STARTED
                           <Image src={arrowRight} alt="" className="size-3" />

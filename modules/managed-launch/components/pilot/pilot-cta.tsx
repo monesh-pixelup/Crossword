@@ -20,7 +20,7 @@ export function PilotCta() {
             secondLine="not just a product"
             width={507}
           />
-          <p className="max-w-[520px] font-sans text-base leading-6 tracking-[-0.02em] text-on-dark">Ready to try our free pilot?</p>
+          <p className="max-w-[520px] font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-on-dark">Ready to try our free pilot?</p>
           <StampButton href={ctaLinks.bookDemo} className="focus-visible:outline-gold">
             START YOUR FREE PILOT
           </StampButton>

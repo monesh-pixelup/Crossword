@@ -37,9 +37,9 @@ function Headline() {
  */
 export function SellHero() {
   return (
-    <section aria-labelledby="sell-hero-title" className="relative bg-[#0e0501]">
+    <section aria-labelledby="sell-hero-title" className="relative bg-night">
       {/* The dark ground runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
-      <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#0e0501]">
+      <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-night">
         {/*
           The hero banner, full-bleed (see HeroBanner): from 760px the 3000px banner, its whole width showing on wide
           screens and its sides cropped as the screen narrows; below that the phone banner.
@@ -69,7 +69,7 @@ export function SellHero() {
               BOOK A DEMO
             </StampButton>
             {/* Figma 3257:35921: the opening clause in cream, the rest at cream/60. */}
-            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-cream">
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-cream">
               From the first question to the final click,{" "}
               <span className="text-cream/60">
                 Crossword guides every shopper toward the product that&apos;s perfect for them.

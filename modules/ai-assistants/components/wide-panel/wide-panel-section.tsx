@@ -85,14 +85,14 @@ export function WidePanelSection({
           </div>
 
           <div
-            className={cn("relative max-w-(--copy-width) font-sans text-base leading-6 tracking-[-0.32px] text-black/60", l.copy)}
+            className={cn("relative max-w-(--copy-width) font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted", l.copy)}
             style={{ "--copy-width": `${copyWidth}px` } as CSSProperties}
           >
             {copy}
           </div>
         </div>
 
-        <div className={cn("relative aspect-[1280/599] w-full overflow-hidden bg-[#462160]", mobilePanel != null && mobilePanel !== false && "max-md:hidden")}>
+        <div className={cn("relative aspect-[1280/599] w-full overflow-hidden bg-aubergine", mobilePanel != null && mobilePanel !== false && "max-md:hidden")}>
           {children ?? <Image src={panelAubergine} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-fill" />}
         </div>
         {/* Phones: the mobile web visual at its 353:440 shape (the wide one hidden, so only one plays). */}

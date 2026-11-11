@@ -144,8 +144,8 @@ export function OptionList() {
               )}
             >
               <div className={cn("flex flex-col items-start gap-3 transition-opacity duration-300 ease-out motion-reduce:transition-none", !on && "opacity-50")}>
-                <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{option.title}</h3>
-                <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] text-black/60">{option.description}</p>
+                <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{option.title}</h3>
+                <p className="max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{option.description}</p>
               </div>
               {/* Stacked: the option's visual (at its 687:586 shape) 32px under its copy while in focus, easing shut as the other opens. */}
               <div

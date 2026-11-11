@@ -12,7 +12,7 @@ export function DividerBand({ glyph, badge = true }: { glyph: StampGlyph; badge?
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-(--frame-inset) top-0 h-6 bg-[#fef8ea] bg-size-[27.78px_25.44px] bg-top-left bg-repeat shadow-[inset_0_0_0_0.5px_#d2cbba] max-md:h-[18px] max-md:bg-size-[20.835px_19.08px]"
+      className="pointer-events-none absolute inset-x-(--frame-inset) top-0 h-6 bg-cream bg-size-[27.78px_25.44px] bg-top-left bg-repeat shadow-[inset_0_0_0_0.5px_var(--color-rail)] max-md:h-[18px] max-md:bg-size-[20.835px_19.08px]"
       style={{ backgroundImage: `url(${tile.src})` }}
     >
       {badge && (

@@ -23,8 +23,8 @@ function CaseCopy({ item }: { item: Case }) {
       {/* Figma 3257:34308: 16px in on the left, 21px on the right, 24px over the panel. */}
       <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:items-end md:justify-between md:gap-8 md:pr-[21px]">
         <div className="flex flex-col items-start gap-3">
-          <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.1] tracking-[-0.88px] text-[#040404]">{item.label}</h3>
-          <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] text-black/59">{item.description}</p>
+          <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{item.label}</h3>
+          <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{item.description}</p>
         </div>
         <TextLink href={ctaLinks.learnMore}>GET STARTED</TextLink>
       </div>
@@ -112,7 +112,7 @@ export function ResolveTabs() {
                     onClick={() => open(i)}
                     className={cn(
                       // Figma 3257:34288: 39.44px rows, a 24px line 7.72px from top and bottom, 24px in and 20px after; inactive labels at ink/40.
-                      "relative flex w-full cursor-pointer items-center py-[7.72px] pr-5 pl-6 text-left font-sans text-base leading-6 tracking-[-0.32px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
+                      "relative flex w-full cursor-pointer items-center py-[7.72px] pr-5 pl-6 text-left font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
                       on ? "bg-cream text-ink" : "text-ink/40 hover:text-ink",
                     )}
                   >

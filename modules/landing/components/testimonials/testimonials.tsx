@@ -52,7 +52,7 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
         firstLine="onversion on our PDP"
         secondLine="jumped 31% in six weeks."
         width={612.677}
-        variant="calligraphic"
+        variant="dynamicCentered"
         weight="light"
       />
     ),
@@ -69,12 +69,12 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
         initial="R"
         firstLine="esolution time dropped from hours to under"
         secondLine="two minutes, without losing the personal touch."
-        width={1000}
-        variant="calligraphic"
+        width={1041.406}
+        variant="dynamicCentered"
         weight="light"
       />
     ),
-    headerWidth: "max-w-[1000px]",
+    headerWidth: "max-w-[1041.406px]",
     slides: supportTestimonials,
     // Figma 3257:35143: the signature at Tangerine Bold 38, as on the home page.
     largeName: true,
@@ -88,7 +88,7 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
         firstLine="eturns dropped 18% in the first quarter"
         secondLine="without changing our return policy."
         width={1000}
-        variant="calligraphic"
+        variant="dynamicCentered"
         weight="light"
       />
     ),

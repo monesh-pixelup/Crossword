@@ -53,7 +53,7 @@ export function Credits() {
         <div className="flex flex-col items-center gap-6 text-center">
           <Eyebrow>Credits</Eyebrow>
           <SectionTitle id="credits-title" initial="W" firstLine="hat does a" secondLine="credit cover?" width={323} variant="dynamicCentered" weight="light" />
-          <p className="max-w-[560px] font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted max-md:mt-[3px]">
+          <p className="max-w-[560px] font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted max-md:mt-[3px]">
             Credits power every interaction, from a conversational reply to a dynamic landing page. A typical conversation
             runs about 5 credits.
           </p>
@@ -96,7 +96,7 @@ export function Credits() {
                       className={cn(
                         rule,
                         rowFill,
-                        "h-12 md:sticky md:left-0 md:z-1 pr-6 pl-5 align-middle text-left font-open-sans text-[12px] leading-[1.3] font-semibold tracking-[1.44px] whitespace-nowrap text-wine uppercase",
+                        "h-12 md:sticky md:left-0 md:z-1 pr-6 pl-5 align-middle text-left font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] whitespace-nowrap text-wine uppercase",
                       )}
                     >
                       {row.group}
@@ -109,7 +109,7 @@ export function Credits() {
                   <tr key={row.label}>
                     <th
                       scope="row"
-                      className={cn(cell, rowFill, "text-left md:sticky md:left-0 md:z-1 font-serif text-[22px] max-md:text-[20px] leading-[1.1] font-normal tracking-[-0.04em] text-pretty text-ink")}
+                      className={cn(cell, rowFill, "text-left md:sticky md:left-0 md:z-1 font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.04em] text-pretty text-ink")}
                     >
                       {row.label}
                     </th>
