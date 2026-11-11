@@ -67,7 +67,6 @@ export function SizeConfidenceMwebMotion() {
   const rootRef = useRef<HTMLDivElement>(null);
   return (
     <figure className="scm2-figure" ref={rootRef}>
-      <figcaption className="app-stage__tile-label">Size confidence · 353x440</figcaption>
       <div className="scm2-canvas">
         <div className="scm2-window">
           <MobilePdp />
