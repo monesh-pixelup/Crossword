@@ -86,6 +86,9 @@ export function HeroCurtain() {
       if (now === covered) return;
       covered = now;
       hero.style.visibility = now ? "hidden" : "";
+      // Opacity too: a child that sets its own `visibility: visible` (the home hero's WebGL canvas) ignores the
+      // hero's `hidden`, and the black hero then showed through as a hairline at the envelope section's foot.
+      hero.style.opacity = now ? "0" : "";
       // So its motion (which only pauses off screen, and a sticky hero never is) can pause too.
       hero.dispatchEvent(new CustomEvent(HERO_COVER_EVENT, { detail: now }));
     };
@@ -108,6 +111,7 @@ export function HeroCurtain() {
       window.removeEventListener("resize", update);
       window.removeEventListener("scroll", onScroll);
       hero.style.visibility = "";
+      hero.style.opacity = "";
       if (covered) hero.dispatchEvent(new CustomEvent(HERO_COVER_EVENT, { detail: false }));
       root.style.removeProperty("--hero-stick");
       root.style.removeProperty("--rails-top");

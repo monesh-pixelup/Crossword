@@ -77,7 +77,26 @@ function Tagline() {
 }
 
 /**
- * Site footer: flat #00331A green and a gilt notched frame. Layout follows the
+ * Figma's footer effect (4060:24577): monotone noise, size 0.5, density 100%, #000000 at 25%. Every pixel gets a speck
+ * of black at a random strength up to 25%: a 200px tile of fractal noise (black, its alpha the noise) drawn at 100px,
+ * so each speck is 0.5px, at 25% opacity over the green.
+ */
+const NOISE_TILE = `url("data:image/svg+xml,${encodeURIComponent(
+  "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='1' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0'/></filter><rect width='200' height='200' filter='url(#n)'/></svg>",
+)}")`;
+
+function FooterNoise() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 opacity-25"
+      style={{ backgroundImage: NOISE_TILE, backgroundSize: "100px 100px" }}
+    />
+  );
+}
+
+/**
+ * Site footer: #00331A green under a fine black grain (FooterNoise), and a gilt notched frame. Layout follows the
  * Webflow build: logo and link columns across the top; along the bottom the tagline, and opposite
  * it the compliance badges over the copyright line. The top row stacks below 768px, the bottom one
  * below 992px. Stacked, the
@@ -86,8 +105,12 @@ function Tagline() {
  */
 export function SiteFooter() {
   return (
-    <footer className="@container relative overflow-clip bg-[#00331a] pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
-      {/* A flat #00331A (forest), by request: set on the footer itself, with no grain or layer over it, so the colour is exactly #00331A. */}
+    // Raised over the page (z-2, over the sections' layer 1) and pulled up 2px, so its green overlaps the last
+    // section's foot: at a fractional page height the seam between them antialiased into a dark hairline (and on the
+    // home page the black hero, pinned behind the page, showed through it).
+    <footer className="@container relative z-2 -mt-[2px] overflow-clip bg-[#00331a] pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
+      {/* #00331A (forest), set on the footer itself, under Figma's grain (FooterNoise). */}
+      <FooterNoise />
       <FooterFrame />
 
       {/* The sections' content box: the 1440px-capped page less --page-pad a side, centred in the full-width footer. */}
