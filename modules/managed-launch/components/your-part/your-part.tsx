@@ -1,4 +1,3 @@
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 
 /** The meeting rhythm, as Figma's partnership timeline: each step's tag and rhythm. */
@@ -9,9 +8,9 @@ const rhythm = [
 ];
 
 /**
- * Figma "ALT · The partnership (timeline)" (node 3262:512): a centred two-line headline (82px swash at 1.18, 60px Light
+ * Figma "ALT · The partnership (timeline)" (node 3991:204024): a centred two-line headline (82px swash at 1.18, 60px Light
  * lines at 1.1) 24px over a 560px line of copy, then 64px below three equal steps, 24px apart, in the cycle
- * timeline's style: a rail (a 10px gold ring and a dashed gold rule), 20px down a small Open Sans SemiBold tag, and 48px
+ * timeline's style: a rail (a 10px gold ring and a dashed gold rule), 20px down a plain engraved tag, and 48px
  * under it the rhythm in Crimson Light 32 at -1.6px. Opens with the patterned divider band (24px more top padding).
  */
 export function YourPart() {
@@ -47,7 +46,13 @@ export function YourPart() {
                 <span className="flex-1 border-dashed border-gold max-md:-mb-[45.3px] max-md:border-l max-md:group-last:hidden md:border-t" />
               </span>
               <div className="flex flex-col items-start gap-4 md:gap-12">
-                <Eyebrow size="tag">{step.tag}</Eyebrow>
+                {/*
+                  Figma 3991:204034: the step's tag, a plain engraved box (0.5px #b7ae9a on cream, its corner ornaments
+                  left off), 5px × 2px around the Label/M caps in olive, with the eyebrow's soft drop shadow.
+                */}
+                <span className="border-[0.5px] border-engraved bg-cream px-[5px] py-0.5 font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] text-label-olive uppercase drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px]">
+                  {step.tag}
+                </span>
                 <h3 className="font-serif text-[32px] leading-[1.09375] font-light tracking-[-1.6px] max-md:text-[24px] max-md:leading-[27px] max-md:tracking-[-1.2px] text-ink">{step.title}</h3>
               </div>
             </li>
