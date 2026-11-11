@@ -1,6 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import ornament from "@/modules/support/assets/workflows/ornament.webp";
+import flowDiagramMobile from "../../assets/channels/flow-diagram-mobile.svg";
 import flowDiagram from "../../assets/channels/flow-diagram.svg";
 import { retentionChannels } from "../../config/channels";
 import { PageRails } from "../shared/page-rails";
@@ -36,18 +37,23 @@ export function RetentionChannels() {
           </div>
 
           {/*
-            Figma 4060:25755 (the card variation): the abandoned-visit follow-up (the shopper didn't buy, write a note, choose the channel order,
-            try each channel five minutes apart, then answer a reply or stop reaching out, and end), exported as one vector at
-            1280 × 440 and drawn across the content width. Below 768px it keeps a readable 860px and scrolls sideways.
+            Figma 4060:25755 (the card variation): the abandoned-visit follow-up (the shopper didn't buy, write a note,
+            choose the channel order, try each channel five minutes apart, then answer a reply or stop reaching out, and
+            end), exported as one vector at 1280 × 440 and drawn across the content width. Below 768px, Figma 4078:5972's
+            vertical version instead (353 × 641), the steps stacked and the two outcomes side by side, at the content width.
           */}
-          <div className="-mx-[calc(var(--page-pad)-var(--frame-inset))] overflow-x-auto px-[calc(var(--page-pad)-var(--frame-inset))] [scrollbar-width:none] md:mx-0 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
-            <img
-              src={flowDiagram.src}
-              alt="A follow-up flow: 30 minutes after a shopper leaves without buying, write a note, choose the channel order, then try iMessage, WhatsApp, email and SMS five minutes apart; answer a reply on the same channel, or stop reaching out if it's read with no reply."
-              className="block aspect-[1280/440] h-auto w-full max-w-none max-md:w-[860px]"
-            />
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
+          <img
+            src={flowDiagram.src}
+            alt="A follow-up flow: 30 minutes after a shopper leaves without buying, write a note, choose the channel order, then try iMessage, WhatsApp, email and SMS five minutes apart; answer a reply on the same channel, or stop reaching out if it's read with no reply."
+            className="block aspect-[1280/440] h-auto w-full max-w-none max-md:hidden"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
+          <img
+            src={flowDiagramMobile.src}
+            alt="A follow-up flow: 30 minutes after a shopper leaves without buying, write a note, choose the channel order, then try iMessage, WhatsApp, email and SMS five minutes apart; answer a reply on the same channel, or stop reaching out if it's read with no reply."
+            className="mx-auto block aspect-[353/641] h-auto w-full max-w-[353px] md:hidden"
+          />
 
           {/* The row spans the content column, its two channels sharing it 537:513 either side of the rule (at 1280px, Figma's 537px first column, the rule 652px in). */}
           <div className="flex flex-col gap-12 md:flex-row md:gap-[115px]">
