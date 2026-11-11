@@ -38,8 +38,8 @@ function LogoRow({ logos }: { logos: Logo[] }) {
     <ul
       className={cn(
         // Figma: one centred row from 992px, 35px either side of a 52px divider (625px and 706px wide);
-        // below that the logos wrap, centred, without the dividers.
-        "flex w-full flex-wrap items-center justify-center gap-x-8 gap-y-6 lg:w-auto lg:flex-nowrap lg:gap-[35px]",
+        // below that the logos wrap, centred, without the dividers. Phones use MobileLogoGrid instead.
+        "flex w-full max-md:hidden flex-wrap items-center justify-center gap-x-8 gap-y-6 lg:w-auto lg:flex-nowrap lg:gap-[35px]",
       )}
     >
       {logos.map((logo, i) => (
@@ -64,6 +64,28 @@ function LogoRow({ logos }: { logos: Logo[] }) {
   );
 }
 
+/**
+ * Phones (below 768px): all ten logos in one grid, three per row, the last one centred. Each logo keeps its Figma size
+ * but shrinks to its cell if the screen is too narrow.
+ */
+function MobileLogoGrid() {
+  return (
+    <ul className="flex w-full flex-wrap justify-center gap-y-8 md:hidden">
+      {rows.flat().map((logo) => (
+        <li key={logo.name} className="flex basis-1/3 items-center justify-center px-2">
+          <Image
+            src={logo.src}
+            alt={logo.name}
+            sizes={`${logo.width}px`}
+            className="block h-auto max-w-full object-contain"
+            style={{ width: logo.width, aspectRatio: `${logo.width} / ${logo.height}` }}
+          />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** Figma 3800:29441: the line of copy 40px over the first row of logos, and the second 40px under it. */
 export function TrustedBy({ className }: { className?: string }) {
   return (
@@ -74,6 +96,7 @@ export function TrustedBy({ className }: { className?: string }) {
       {rows.map((logos, i) => (
         <LogoRow key={i} logos={logos} />
       ))}
+      <MobileLogoGrid />
     </div>
   );
 }
