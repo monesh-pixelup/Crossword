@@ -16,6 +16,7 @@ import {
   GistUpFrontV2bMotion,
   OffersComposerV2Motion,
   PersonalizedContentV2Motion,
+  RoasGapMwebV2Motion,
   RoasGapV2Motion,
 } from "./dlp-v2";
 
@@ -39,6 +40,11 @@ import {
  * | 02 `dedicated-landing-pages-motion`, 03 `adaptive-product-pages-v2-motion` | 687 × 586 | options/option-list.tsx |
  * | 04–09 `comparison-tools-motion` … `offers-composer-motion` | 738 × 680 | options/dedicated-tab-list.tsx |
  * | 10–13 `ask-ai-inline-motion` … `upsell-cross-sell-v2-motion` | 738 × 760 | adaptive/adaptive-tabs.tsx |
+ * | 01m `roas-gap-mweb-motion` | 352 × 300 | gap/roas-gap.tsx, below 768px |
+ *
+ * The 11 November 2026 update (Crossword-Sell-Dynamic-V2-Motion-2026-11-11) adds 01m and the page's window standard
+ * (24px corners and a gold edge, its sell-dynamic-v2-motion.css). That file is scoped under the source page's `.hv2`;
+ * the root carries `hv2` too, so in motion.css it reads `.dlp-motion.hv2 …`.
  */
 
 
@@ -55,7 +61,7 @@ export function DlpMotionRoot({ children }: { children: ReactNode }) {
     () => true,
     () => false,
   );
-  return <div className="dlp-motion">{client && children}</div>;
+  return <div className="dlp-motion hv2">{client && children}</div>;
 }
 
 /*
@@ -76,6 +82,15 @@ export const dlpScenes = {
     // panel's inner border, were cropped, leaving that border closer to the right edge than the left.
     width: 1289,
     height: 600,
+    duration: 4000,
+  },
+  // 01m, for phones: 01 as a strip at half scale, a camera following each beat (ad, Context lost, store, Drop-off).
+  "roas-gap-mweb-motion": {
+    Component: RoasGapMwebV2Motion,
+    label:
+      "A Goodwell ad leads to a generic store page: the ad's context is lost along the way, and the shopper drops off.",
+    width: 352,
+    height: 300,
     duration: 4000,
   },
   "dedicated-landing-pages-motion": {

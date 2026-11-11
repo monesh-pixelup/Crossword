@@ -35,7 +35,7 @@ const aurelia = {
   ink: "oklch(0.372050 0.104087 11.375080)",
   paper: "oklch(0.949854 0.035765 83.776669)",
   plate: "oklch(0.949854 0.035765 83.776669)",
-  font: 'var(--font-geist), system-ui, sans-serif',
+  font: '"Geist", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Merchant workflow modules; no retail product imagery.",
@@ -50,7 +50,7 @@ const marais = {
   ink: "oklch(0.333797 0.017711 52.846973)",
   paper: "oklch(0.917788 0.014926 80.705576)",
   plate: "oklch(0.917788 0.014926 80.705576)",
-  font: 'var(--font-playfair-display), Georgia, serif',
+  font: '"Playfair Display", Georgia, serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
@@ -65,7 +65,7 @@ const goodwell = {
   ink: "#3D2A52",
   paper: "#ECE5F4",
   plate: "#ECE5F4",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Plum-labelled jars on soft lavender backgrounds.",
@@ -80,7 +80,7 @@ const moonrest = {
   ink: "oklch(0.322726 0.043440 265.959396)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Midnight blue sleep-wellness packaging.",
@@ -96,7 +96,7 @@ const dusklight = {
   ink: "oklch(0.407553 0.025289 297.472985)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-playfair-display), Georgia, serif',
+  font: '"Playfair Display", Georgia, serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Sculptural lighting in muted dusk neutrals.",
@@ -152,7 +152,7 @@ const aura = {
   ink: "oklch(0.383958 0.041934 259.291287)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Ivory earbud shells with small uppercase branding.",
@@ -167,7 +167,7 @@ const auden$1 = {
   ink: "oklch(0.287317 0.010592 139.435369)",
   paper: "oklch(0.953751 0.006637 106.524690)",
   plate: "oklch(0.953751 0.006637 106.524690)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants."
@@ -178,7 +178,7 @@ const lumen = {
   ink: "oklch(0.471130 0.054860 60.711055)",
   paper: "oklch(0.918283 0.023989 73.599537)",
   plate: "oklch(0.918283 0.023989 73.599537)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging."
@@ -219,7 +219,7 @@ const vela = {
   ink: "oklch(0.400862 0.039974 357.323084)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Muted rose and charcoal styling tools."
@@ -256,7 +256,7 @@ const hearthware = {
   ink: "oklch(0.443046 0.078484 38.521350)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting."
@@ -278,7 +278,7 @@ const aurelle = {
   ink: "oklch(0.372050 0.104087 11.375080)",
   paper: "oklch(0.949854 0.035765 83.776669)",
   plate: "oklch(0.949854 0.035765 83.776669)",
-  font: 'var(--font-playfair-display), Georgia, serif',
+  font: '"Playfair Display", Georgia, serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
@@ -296,7 +296,7 @@ const registry = {
     ink: "oklch(0.312021 0.017679 40.980349)",
     paper: "oklch(0.928960 0.013702 120.286628)",
     plate: "oklch(0.928960 0.013702 120.286628)",
-    font: 'var(--font-playfair-display), Georgia, serif',
+    font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
@@ -313,7 +313,7 @@ const registry = {
     ink: "oklch(0.452877 0.059042 53.979984)",
     paper: "oklch(0.968556 0.013078 82.401983)",
     plate: "oklch(0.968556 0.013078 82.401983)",
-    font: 'var(--font-playfair-display), Georgia, serif',
+    font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
@@ -333,7 +333,7 @@ const registry = {
     ink: "oklch(0.389321 0.051580 45.883998)",
     paper: "oklch(0.931264 0.021080 79.091606)",
     plate: "oklch(0.931264 0.021080 79.091606)",
-    font: 'var(--font-playfair-display), Georgia, serif',
+    font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces."
@@ -351,7 +351,7 @@ const registry = {
     ink: "oklch(0.377131 0.052841 265.419694)",
     paper: "oklch(0.968556 0.013078 82.401983)",
     plate: "oklch(0.968556 0.013078 82.401983)",
-    font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+    font: '"Inter", system-ui, sans-serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding."
@@ -1175,8 +1175,8 @@ const igMore = "/images/dynamic-landing-pages/v2/assets/ig-more-DwYmQdK1.svg";
 const igChevron = "/images/dynamic-landing-pages/v2/assets/ig-chevron-DsNho9PV.svg";
 const adLine = "/images/dynamic-landing-pages/v2/assets/line-ad-store-CAVooD0N.svg";
 const dropLine = "/images/dynamic-landing-pages/v2/assets/line-store-drop-Blt947kP.svg";
-const contextLost = "/images/dynamic-landing-pages/v2/assets/tile-context-lost-BNVrIhZt.svg";
-const dropOff = "/images/dynamic-landing-pages/v2/assets/tile-drop-off-AsYywzaY.svg";
+const contextLost = "/images/dynamic-landing-pages/v2/assets/tile-context-lost-BqZFEITe.svg";
+const dropOff = "/images/dynamic-landing-pages/v2/assets/tile-drop-off-CvSRB7K-.svg";
 const products$1 = [catalog.goodwellSleep60, catalog.goodwellEnergy, catalog.goodwellFocus, catalog.goodwellCalm];
 const delay = (ms) => ({ "--d": `${ms}ms` });
 function RoasGap({ motion = false }) {
@@ -1275,6 +1275,33 @@ function RoasGap({ motion = false }) {
 }
 function RoasGapMotion() {
   return /* @__PURE__ */ jsx(RoasGap, { motion: true });
+}
+function RoasGapMweb() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !("IntersectionObserver" in window)) return;
+    const roas = el.querySelector(".roas");
+    el.classList.add("is-armed");
+    roas == null ? void 0 : roas.classList.add("is-armed");
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        el.classList.add("is-playing");
+        roas == null ? void 0 : roas.classList.add("is-playing");
+        io.disconnect();
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return /* @__PURE__ */ jsx("div", { ref, className: "rgc", children: /* @__PURE__ */ jsx("div", { className: "rgc-scale", children: /* @__PURE__ */ jsxs("div", { className: "rgc-strip", children: [
+    /* @__PURE__ */ jsx(RoasGap, {}),
+    /* @__PURE__ */ jsx("i", { className: "rgc-run" }),
+    /* @__PURE__ */ jsx("img", { className: "rgc-drop-tile", src: dropOff, alt: "" }),
+    /* @__PURE__ */ jsx("span", { className: "rgc-drop-label", children: "Drop-off" })
+  ] }) }) });
 }
 const history = "/images/dynamic-landing-pages/v2/assets/history-BevL6311.svg";
 const add = "/images/dynamic-landing-pages/v2/assets/add-Cbob5SpL.svg";
@@ -1450,7 +1477,7 @@ function StaggerText({ text, boldText }) {
     ] }, `bold-${i}`))
   ] });
 }
-const asset = (name) => `${"/images/dynamic-landing-pages/v2/"}assets/${name}.webp`;
+const asset = (name) => `${"/images/dynamic-landing-pages/v2/"}assets/${name}.png`;
 const sellDynamicProducts = {
   weekender: catalog.trailwellWeekender.image,
   roam: catalog.trailwellRoam.image,
@@ -2602,6 +2629,7 @@ function useFollowLatest$1(scrollerRef, {
   focus,
   clearance = 0,
   pinOffset = 0,
+  shownOnly,
   index,
   reducedMotion
 }) {
@@ -2614,7 +2642,16 @@ function useFollowLatest$1(scrollerRef, {
       const box = scroller.getBoundingClientRect();
       const scale = scroller.offsetHeight ? box.height / scroller.offsetHeight : 1;
       const toContent = (y) => (y - box.top) / scale + scroller.scrollTop;
-      let target = Math.max(0, toContent(threadEl.getBoundingClientRect().bottom) - scroller.clientHeight + clearance);
+      let bottom = threadEl.getBoundingClientRect().bottom;
+      if (shownOnly) {
+        bottom = threadEl.getBoundingClientRect().top;
+        threadEl.querySelectorAll("*").forEach((el) => {
+          if (el.closest(shownOnly) || el.querySelector(shownOnly)) return;
+          bottom = Math.max(bottom, el.getBoundingClientRect().bottom);
+        });
+        bottom += parseFloat(getComputedStyle(threadEl).paddingBottom) || 0;
+      }
+      let target = Math.max(0, toContent(bottom) - scroller.clientHeight + clearance);
       const pins = pin ? threadEl.querySelectorAll(pin) : null;
       const pinned = pins == null ? void 0 : pins[pins.length - 1];
       const pinTop = pinned ? Math.max(0, toContent(pinned.getBoundingClientRect().top) - pinOffset) : 0;
@@ -2642,7 +2679,7 @@ function useFollowLatest$1(scrollerRef, {
       observer.disconnect();
       cancelScroll == null ? void 0 : cancelScroll();
     };
-  }, [scrollerRef, thread, pin, focus, clearance, pinOffset, index, reducedMotion]);
+  }, [scrollerRef, thread, pin, focus, clearance, pinOffset, shownOnly, index, reducedMotion]);
 }
 function cx$1(...names) {
   return names.filter(Boolean).join(" ");
@@ -4625,7 +4662,7 @@ const journey = {
     alt: "Clear 4 hurdles. Earn $5 off. Play a quick game. Find your next backpack. Trailwell Weekender in a mountain landscape."
   },
   campaignCreative: {
-    image: `${"/images/dynamic-landing-pages/v2/"}assets/trailwell-ad-creative-v2.webp`,
+    image: `${"/images/dynamic-landing-pages/v2/"}assets/trailwell-ad-creative-v2.png`,
     alt: "Trailwell backpacks in cobalt, burnt orange and mustard",
     headline: ad.headline,
     detail: "Clear 4 hurdles. Unlock $5 off."
@@ -6602,6 +6639,7 @@ const AdJourneyV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PUR
 const OffersComposerV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(OffersComposerMotion, {}) });
 const BuildBundleV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(BuildBundleMotion, {}) });
 const RoasGapV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(RoasGapMotion, {}) });
+const RoasGapMwebV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(RoasGapMweb, {}) });
 const PersonalizedContentV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(PersonalizedContentMotion, {}) });
 const ComparisonToolsV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(ComparisonToolsMotion, {}) });
 const GamesRewardsV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(GamesRewardsMotion, {}) });
@@ -6624,5 +6662,6 @@ export {
   GistUpFrontV2bMotion,
   OffersComposerV2Motion,
   PersonalizedContentV2Motion,
+  RoasGapMwebV2Motion,
   RoasGapV2Motion
 };
