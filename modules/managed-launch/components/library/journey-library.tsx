@@ -28,37 +28,27 @@ const ribbons: { src: StaticImageData; w: number; h: number }[] = [
 ];
 
 /**
- * Where Figma lays each pair of notes on the 1392px panel, measured from the cards' strip (356px down the panel): the
- * front note's top-left corner and turn, and the note behind it, likewise (each turned about its centre).
+ * Where Figma lays the notes (3991:203559) on the 1392px panel, measured from the cards' strip (356px down the panel):
+ * which journey (libraryJourneys index), its top-left corner and its turn (about its centre). Four across, then three
+ * more below (Size and fit, Style match, Gift finder again), each turned its own way.
  */
-const layout: { front: [number, number, number]; back: [number, number, number] }[] = [
-  { front: [24.74, 20.61, -3.2], back: [31.6, 27.53, -11.88] },
-  { front: [374.05, 17.92, 3.32], back: [364.11, 35.79, -4.95] },
-  { front: [707.11, 21.03, -2.16], back: [721.55, 21.42, 3.69] },
-  { front: [1049.12, 27.88, 5.82], back: [1051.45, 29.76, -4.76] },
+const layout: { journey: number; at: [number, number]; angle: number }[] = [
+  { journey: 0, at: [24.74, 20.61], angle: -3.2 },
+  { journey: 1, at: [374.05, 17.91], angle: 3.32 },
+  { journey: 2, at: [707.11, 21.03], angle: -2.16 },
+  { journey: 3, at: [1049.12, 27.88], angle: 5.82 },
+  { journey: 2, at: [128.06, 393.72], angle: 7.95 },
+  { journey: 1, at: [539.05, 386.92], angle: -7.07 },
+  { journey: 0, at: [975.74, 415.61], angle: -3.2 },
 ];
 
-/** The cards' strip: the panel's 1392px width, from 356px down to the panel's foot at 754px (the notes run past it, clipped). */
+/** The cards' strip: the panel's 1392px width, from 356px down to the panel's foot at 1171px. */
 const STRIP_W = 1392;
-const STRIP_H = 754 - 356;
-
-/** A punched note, turned `angle` degrees about its centre. */
-function Note({ tone, angle, style, className = "" }: { tone: NoteTone; angle: number; style?: CSSProperties; className?: string }) {
-  return (
-    <Image
-      src={notes[tone]}
-      alt=""
-      aria-hidden
-      sizes="300px"
-      className={`pointer-events-none absolute max-w-none select-none ${className}`}
-      style={{ width: NOTE_W, height: NOTE_H, rotate: `${angle}deg`, ...style }}
-    />
-  );
-}
+const STRIP_H = 1171 - 356;
 
 /**
  * A journey's note (Figma 3976:16646 and its siblings): the ribbon with its Crimson 22 title in #faedd4, and 93.08px
- * down, 18px in, the 270px line of Geist 16 (its lead at white/90 in Medium, the rest at white/50), turned `angle`.
+ * down, 18px in, the 270px line of Geist 16 in cream #fff9ea (its lead in Medium), turned `angle`.
  */
 function JourneyNote({ index: i, angle, style, className = "" }: { index: number; angle: number; style?: CSSProperties; className?: string }) {
   const journey = libraryJourneys[i];
@@ -80,21 +70,22 @@ function JourneyNote({ index: i, angle, style, className = "" }: { index: number
       <h3 className="absolute top-[38.94px] left-[19.93px] font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px] whitespace-nowrap text-parchment">
         {journey.title}
       </h3>
-      <p className="absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] text-white">
-        <span className="font-medium text-white">{journey.lead}</span> {journey.body}
+      <p className="absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] text-[#fff9ea]">
+        <span className="font-medium text-[#fff9ea]">{journey.lead}</span> {journey.body}
       </p>
     </div>
   );
 }
 
 /**
- * Figma "Section · Journey library (4x4)" (node 3295:53): a 754px sand panel between the page rails (a 0.5px black/25
- * hairline), the centred cream eyebrow 70px down, 24px over the two-line swash headline (1000px box) and 24px under it
- * an 820px line of Geist at black/60. 29px below that, the four journeys on punched notes in the liveries (green,
- * maroon, aubergine, green), each turned a little over a second note, running off the panel's foot.
+ * Figma "Section · Journey library (4x4)" (node 3991:203559): a 1171px sand panel between the page rails (a 0.5px
+ * black/25 hairline), the centred cream eyebrow 70px down, 24px over the two-line swash headline (1000px box) and 24px
+ * under it an 820px line of Geist in ink muted. 29px below that, the journeys on punched notes in the liveries (green,
+ * maroon, aubergine, green): four across, then Size and fit, Style match and Gift finder again below, each turned its
+ * own way, all inside the panel.
  *
  * From 1200px the notes are Figma's 1392px strip, scaled with the panel. Below that they'd shrink past reading, so
- * the pairs sit in a grid at full size instead (two across from 768px, one on phones), each still turned as in Figma.
+ * the four journeys sit in a grid at full size instead (two across from 768px, one on phones), each still turned.
  */
 export function JourneyLibrary() {
   return (
@@ -126,7 +117,7 @@ export function JourneyLibrary() {
           </p>
         </div>
 
-        {/* From 1200px: Figma's strip, 29px under the copy, scaled to the panel's width (and clipped at its foot). */}
+        {/* From 1200px: Figma's strip, 29px under the copy, scaled to the panel's width, down to the panel's foot. */}
         <div className="@container mt-[29px] max-[1199px]:hidden">
           <div
             role="list"
@@ -134,38 +125,21 @@ export function JourneyLibrary() {
             className="relative scale-to-container"
             style={{ "--fit-width": `${STRIP_W}px`, width: STRIP_W, height: STRIP_H } as CSSProperties}
           >
-            {/* Painted in Figma's order: the notes behind the first three, then the first three journeys, then Support's pair. */}
-            {[0, 1, 2].map((i) => (
-              <Note
-                key={`back-${i}`}
-                tone={libraryJourneys[i].back}
-                angle={layout[i].back[2]}
-                style={{ left: layout[i].back[0], top: layout[i].back[1] }}
-              />
+            {layout.map(({ journey, at, angle }, i) => (
+              <JourneyNote key={i} index={journey} angle={angle} style={{ left: at[0], top: at[1] }} />
             ))}
-            {[0, 1, 2].map((i) => (
-              <JourneyNote key={i} index={i} angle={layout[i].front[2]} style={{ left: layout[i].front[0], top: layout[i].front[1] }} />
-            ))}
-            <Note tone={libraryJourneys[3].back} angle={layout[3].back[2]} style={{ left: layout[3].back[0], top: layout[3].back[1] }} />
-            <JourneyNote index={3} angle={layout[3].front[2]} style={{ left: layout[3].front[0], top: layout[3].front[1] }} />
           </div>
         </div>
 
-        {/* Below 1200px: each pair in its own cell at full size, the back note offset from the front as in Figma. */}
+        {/* Below 1200px: the four journeys (the first row's notes) each in its own cell at full size, turned as in Figma. */}
         <div
           role="list"
           aria-label="Journeys"
           className="mx-auto grid w-fit grid-cols-1 justify-items-center gap-x-6 gap-y-10 px-4 pt-12 pb-16 md:grid-cols-2 min-[1200px]:hidden"
         >
-          {layout.map(({ front, back }, i) => (
-            <div key={i} className="relative h-[340px] w-[330px] max-w-[calc(100vw-2*var(--frame-inset)-32px)]">
-              <Note
-                tone={libraryJourneys[i].back}
-                angle={back[2]}
-                className="top-1/2 left-1/2"
-                style={{ translate: `calc(-50% + ${back[0] - front[0]}px) calc(-50% + ${back[1] - front[1]}px)` }}
-              />
-              <JourneyNote index={i} angle={front[2]} className="top-1/2 left-1/2" style={{ translate: "-50% -50%" }} />
+          {layout.slice(0, 4).map(({ journey, angle }) => (
+            <div key={journey} className="relative h-[340px] w-[330px] max-w-[calc(100vw-2*var(--frame-inset)-32px)]">
+              <JourneyNote index={journey} angle={angle} className="top-1/2 left-1/2" style={{ translate: "-50% -50%" }} />
             </div>
           ))}
         </div>
