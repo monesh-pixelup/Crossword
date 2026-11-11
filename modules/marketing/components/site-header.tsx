@@ -3,7 +3,7 @@
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { StampButton } from "@/components/ui/stamp-button";
 import { cn } from "@/lib/cn";
 import crosswordMarkLight from "../assets/crossword-mark-light.svg";
@@ -220,12 +220,15 @@ function PlatformItem({
   large = false,
   descriptionWidth,
   onChoose,
+  children,
 }: {
   link: PlatformLink;
   light: boolean;
   large?: boolean;
   descriptionWidth?: number;
   onChoose: () => void;
+  /** More of the item inside the link, under its line (the AI channels' chips), so the hover wash covers it too. */
+  children?: ReactNode;
 }) {
   const hover = light ? "group-hover/link:text-amber group-focus-visible/link:text-amber" : "group-hover/link:text-maroon group-focus-visible/link:text-maroon";
   return (
@@ -261,6 +264,7 @@ function PlatformItem({
       >
         {link.description}
       </span>
+      {children}
     </Link>
   );
 }
@@ -325,18 +329,16 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
           {platformMenu.channels.map((channel, i) => (
             <div key={channel.label} className="contents">
               {i > 0 && <span aria-hidden className={cn("h-[0.681px] w-full shrink-0", rule)} />}
-              <div className="flex w-full flex-col items-start gap-1">
-                <PlatformItem link={channel} light={light} large descriptionWidth={channel.descriptionWidth} onChoose={onChoose} />
-                <div className="flex flex-col items-start pt-2">
-                  <ul className="flex flex-wrap gap-2">
+              {/* The chips sit inside the channel's link, so its hover wash (and click target) runs down over them. */}
+              <PlatformItem link={channel} light={light} large descriptionWidth={channel.descriptionWidth} onChoose={onChoose}>
+                <span className="flex flex-col items-start pt-2">
+                  <span className="flex flex-wrap gap-2">
                     {assistantIcons[channel.examples].map((glyph) => (
-                      <li key={glyph.name}>
-                        <AiChip glyph={glyph} light={light} />
-                      </li>
+                      <AiChip key={glyph.name} glyph={glyph} light={light} />
                     ))}
-                  </ul>
-                </div>
-              </div>
+                  </span>
+                </span>
+              </PlatformItem>
             </div>
           ))}
         </div>
