@@ -156,9 +156,11 @@ export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run:
         "relative h-[680px] w-[738px] shrink-0 overflow-clip [--fit-gutter:0px] [--fit-width:738px] scale-to-container xl:ml-auto xl:fit-to-container",
         // Every backdrop a visual can draw (the chat scenes' frame and its sized variant, the sponsored and insight frames,
         // the others' crimson and stage photos) is stripped: only the one card below (the first tab's) ever shows, and
-        // switching tabs changes the visual alone.
-        "[&_:is(.adj,.ais,.pa,.aia-canvas,.ask,.hm-ill-scene-frame--sized,.hm-ill-sponsored-frame)]:[background:none]",
-        "[&_:is(.hm-ill-scene-frame\\_\\_background,.hm-ill-scene-frame\\_\\_texture,.hm-ill-sponsored-frame\\_\\_texture,.hm-ill-sponsored-frame\\_\\_outline,.hm-ill-sponsored-frame\\_\\_dot,.hm-ill-insight-frame\\_\\_background)]:hidden",
+        // switching tabs changes the visual alone. Both are `!important`: home-motion.css is outside any @layer, so it
+        // beats a plain utility, and the visuals' own backdrops (a crimson picture with its gold rule baked in about 1px
+        // off this frame's, on the visuals without a chat scene) drew over the card, its inner border jumping between tabs.
+        "[&_:is(.adj,.ais,.pa,.aia-canvas,.ask,.hm-ill-scene-frame--sized,.hm-ill-sponsored-frame)]:[background:none]!",
+        "[&_:is(.hm-ill-scene-frame\\_\\_background,.hm-ill-scene-frame\\_\\_texture,.hm-ill-sponsored-frame\\_\\_texture,.hm-ill-sponsored-frame\\_\\_outline,.hm-ill-sponsored-frame\\_\\_dot,.hm-ill-insight-frame\\_\\_background)]:hidden!",
       ].join(" ")}
     >
       {/*
