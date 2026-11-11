@@ -65,8 +65,8 @@ export function RetentionChannels() {
                     <span className="absolute inset-y-0 -left-[0.527px] w-[1.054px] bg-black/10" />
                   </span>
                 )}
-                {/* Figma 4035:24517: the badge beside its title and copy (14px apart on the first, 24px on the second). */}
-                <div className={`flex min-w-0 items-start ${i === 0 ? "gap-[14px] md:flex-[537_1_0%]" : "gap-6 md:flex-[513_1_0%]"}`}>
+                {/* Figma 4035:24517: the badge beside its title and copy, 14px apart (on both, as the first). */}
+                <div className={`flex min-w-0 items-start gap-[14px] ${i === 0 ? "md:flex-[537_1_0%]" : "md:flex-[513_1_0%]"}`}>
                   {/* Figma 4035:24518 "Icon badge": the 16.29px Phosphor glyph on maroon, 3.86px in, inside a 0.6px #efe9db line. */}
                   <span aria-hidden className="flex size-6 shrink-0 items-center justify-center border-[0.6px] border-linen bg-maroon p-[3.856px]">
                     {/* The Phosphor glyph (phosphoricons.com, regular weight) in #ffb657. */}

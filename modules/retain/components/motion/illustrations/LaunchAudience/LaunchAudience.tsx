@@ -483,7 +483,6 @@ export function LaunchAudienceFit() {
   };
   return (
     <figure className="la-fit-figure" ref={ref}>
-      <figcaption className="app-stage__tile-label">Insights · 353x440</figcaption>
       <div className="la-fit-canvas">
         <div className="la-fit">
           <Dashboard fit v={v} runKey={t.runKey} />
