@@ -44,13 +44,13 @@ function PostCard({ post }: { post: BlogPost }) {
       </div>
     </>
   );
-  const card = "relative flex flex-col items-start gap-4 overflow-clip border border-black/15 p-4";
-  return post.href ? (
-    <Link href={post.href} className={cn(card, "transition-opacity duration-150 hover:opacity-80")}>
+  return (
+    <Link
+      href={`/blog/${post.slug}`}
+      className="relative flex flex-col items-start gap-4 overflow-clip border border-black/15 p-4 transition-opacity duration-150 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
+    >
       {body}
     </Link>
-  ) : (
-    <article className={card}>{body}</article>
   );
 }
 
@@ -94,8 +94,8 @@ export function JournalIndex() {
 
         {posts.length ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post, i) => (
-              <PostCard key={i} post={post} />
+            {posts.map((post) => (
+              <PostCard key={post.slug} post={post} />
             ))}
           </div>
         ) : (
