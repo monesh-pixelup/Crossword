@@ -10,7 +10,7 @@ const copy = "font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted ma
  * A post's body, after the Limelight "Blog Slug" layout (Figma 1655:2499) in the site's design: the article and, 40px
  * beside it, the 367px Index, which stays in view under the header as the article scrolls. The article is the cover
  * (793 × 354 in Figma, the journal's cover art in a black/15 line), the intro, then each part 40px apart: its heading
- * (Crimson Light 32/35, Headings/S) 24px over its paragraphs. Below 1024px the Index sits above the article.
+ * (Crimson Light 32/35, Headings/S) 24px over its paragraphs. Below 1024px the Index sits above the article; on phones (below 768px) it is left out.
  */
 export function PostBody({ post }: { post: BlogPost }) {
   const items = [{ id: "introduction", title: "Introduction" }, ...post.sections.map(({ id, title }) => ({ id, title }))];
@@ -18,7 +18,7 @@ export function PostBody({ post }: { post: BlogPost }) {
   return (
     <section aria-label="Article" className="relative bg-cream pt-6 pb-20 max-md:pb-16">
       <div className="grid content-width grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_367px]">
-        <div className="lg:sticky lg:top-[calc(72.5px+24px)] lg:order-2 lg:self-start">
+        <div className="lg:sticky lg:top-[calc(72.5px+24px)] lg:order-2 lg:self-start max-md:hidden">
           <PostIndex items={items} />
         </div>
 
