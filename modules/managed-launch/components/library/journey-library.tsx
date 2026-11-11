@@ -25,7 +25,7 @@ const light = "text-[#fff9ea]";
 const dark = "text-[#070707]";
 
 type Card = {
-  /** libraryJourneys index (each note its own journey). */
+  /** libraryJourneys index: the five journeys, then Gift finder and Style match again to fill the strip. */
   journey: number;
   note: StaticImageData;
   /** The note's copy colour. */
@@ -50,9 +50,12 @@ const cards: Card[] = [
   { journey: 2, note: noteAubergine, ink: light, ribbon: { src: ribbon3, w: 137.023, h: 42.65, top: 30.93 }, title: "text-black", at: [707.11, 21.03], angle: -2.16, scatter: [29.06, -50] },
   { journey: 3, note: noteParchment, ink: dark, ribbon: { src: ribbon4, w: 136.223, h: 42.727, top: 31.85 }, title: "text-[#faedd4]", at: [1011.87, 39.98], angle: 9.21, scatter: [70.67, 0] },
   { journey: 4, note: noteMaroon, ink: light, ribbon: { src: ribbon5, w: 132.397, h: 41.731, top: 31.85 }, title: "text-black", at: [234.99, 316.19], angle: 7.04, scatter: [-96.16, 96.94] },
-  { journey: 5, note: noteParchment, ink: dark, ribbon: { src: ribbon6, w: 138.212, h: 42.158, top: 31.42 }, title: "text-[#faedd4]", at: [569.06, 328.26], angle: -7.07, scatter: [-3.56, 160.23] },
-  { journey: 6, note: noteGreen, ink: light, ribbon: { src: ribbon7, w: 133.29, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [905.74, 335.61], angle: -3.2, scatter: [81, 98.21] },
+  { journey: 0, note: noteParchment, ink: dark, ribbon: { src: ribbon6, w: 138.212, h: 42.158, top: 31.42 }, title: "text-[#faedd4]", at: [569.06, 328.26], angle: -7.07, scatter: [-3.56, 160.23] },
+  { journey: 1, note: noteGreen, ink: light, ribbon: { src: ribbon7, w: 133.29, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [905.74, 335.61], angle: -3.2, scatter: [81, 98.21] },
 ];
+
+/** Below 1200px, each journey once (the strip's first five notes). */
+const compactCards = cards.slice(0, 5);
 
 
 /**
@@ -60,7 +63,7 @@ const cards: Card[] = [
  * out by its `--dx` / `--dy` over 1.4s on a soft ease-out, each a little after the last.
  */
 const SCATTER =
-  "transition-[translate] duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none group-data-[scattered]/strip:[translate:var(--dx)_var(--dy)]";
+  "transition-[translate] duration-[1400ms] ease-[cubic-bezier(0.5,0,0.75,0)] motion-reduce:transition-none group-data-[scattered]/strip:[translate:var(--dx)_var(--dy)]";
 
 /** The cards' strip: the panel's 1392px width, from 356px down to the panel's foot at 1171px. */
 const STRIP_W = 1392;
@@ -109,8 +112,8 @@ function JourneyNote({
           {journey.title}
         </h3>
       </div>
-      <p className={`absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 font-medium tracking-[-0.32px] ${card.ink}`}>
-        {journey.lead}
+      <p className={`absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] ${card.ink}`}>
+        <span className="font-medium">{journey.lead}</span> {journey.body}
       </p>
     </div>
   );
@@ -120,12 +123,12 @@ function JourneyNote({
  * Figma "Section · Journey library (4x4)" (node 4060:25055): a 1171px sand panel between the page rails (a 0.5px
  * black/25 hairline), the centred cream eyebrow 70px down, 24px over the two-line swash headline (1000px box) and 24px
  * under it an 820px line of Geist in ink muted. 29px below that, seven punched notes in four liveries (green,
- * parchment, aubergine, maroon), each with its own coloured ribbon: Gift finder, Style match, Size and fit, Returns and
- * exchanges across, then Order tracking, Care guide and Product deep dive below, each turned its own way, all inside
- * the panel.
+ * parchment, aubergine, maroon), each with its own coloured ribbon: Gift finder, Style match, Size and fit, Support and
+ * exchanges across, then Order tracking, Gift finder and Style match below, each turned its own way, all inside the
+ * panel.
  *
  * From 1200px the notes are Figma's 1392px strip, scaled with the panel. Below that they'd shrink past reading, so
- * the seven journeys sit in a grid at full size instead (two across from 768px, one on phones), each still turned.
+ * the five journeys sit in a grid at full size instead (two across from 768px, one on phones), each still turned.
  */
 export function JourneyLibrary() {
   return (
@@ -170,13 +173,13 @@ export function JourneyLibrary() {
           </ScatterStrip>
         </div>
 
-        {/* Below 1200px: the seven journeys each in its own cell at full size, turned as in Figma. */}
+        {/* Below 1200px: the five journeys once each, in its own cell at full size, turned as in Figma. */}
         <div
           role="list"
           aria-label="Journeys"
           className="mx-auto grid w-fit grid-cols-1 justify-items-center gap-x-6 gap-y-10 px-4 pt-12 pb-16 md:grid-cols-2 min-[1200px]:hidden"
         >
-          {cards.map((card) => (
+          {compactCards.map((card) => (
             <div key={card.journey} className="relative h-[340px] w-[330px] max-w-[calc(100vw-2*var(--frame-inset)-32px)]">
               <JourneyNote card={card} className="top-1/2 left-1/2" style={{ translate: "-50% -50%" }} />
             </div>

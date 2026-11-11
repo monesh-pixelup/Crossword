@@ -46,15 +46,33 @@ export const howSteps: { title: string; lines: string[] }[] = [
 ];
 
 /**
- * Figma 3295:53 "Section · Journey library (4x4)": the seven journeys, one per punched note, in the strip's order (four
- * across, then three below). `lead` is the note's copy, in Geist Medium.
+ * Figma 3295:53 "Section · Journey library (4x4)": the five journeys on the punched notes. `lead` opens the copy in
+ * Geist Medium, `body` follows it.
  */
-export const libraryJourneys: { title: string; lead: string }[] = [
-  { title: "Gift finder:", lead: "Help for finding something meaningful and tailored." },
-  { title: "Style match:", lead: "A shortlist after a few questions." },
-  { title: "Size and fit:", lead: "The correct size before they hesitate." },
-  { title: "Returns and exchanges:", lead: "Answers in chat without a ticket." },
-  { title: "Order tracking:", lead: "Live status without contacting support." },
-  { title: "Care guide:", lead: "Upkeep tips after delivery." },
-  { title: "Product deep dive:", lead: "Details beyond the spec sheet to answer questions specific to the customer." },
+export const libraryJourneys: { title: string; lead: string; body: string }[] = [
+  {
+    title: "Gift finder:",
+    lead: "Help for finding something meaningful and tailored.",
+    body: "Starts when someone lands on a gift page or asks what to get for a person. It asks about the person they’re shopping for, then narrows to a few options they can feel good about.",
+  },
+  {
+    title: "Style match:",
+    lead: "A shortlist after a few questions.",
+    body: "Picks up when a shopper has been moving between product pages without settling on one. It learns taste, budget, and occasion, then builds a shortlist that looks chosen, not generated.",
+  },
+  {
+    title: "Size and fit:",
+    lead: "The right size before they hesitate.",
+    body: "Steps in when a shopper opens the size chart or keeps going back to the size selector. It recommends a size from their measurements and past orders, and explains the fit.",
+  },
+  {
+    title: "Support and exchanges:",
+    lead: "Answers in chat without a ticket.",
+    body: "Starts from an order lookup or a return request. It finds the answer or processes the change in the conversation. If it needs a person, it hands it over with the full context.",
+  },
+  {
+    title: "Order tracking:",
+    lead: "Live status without contacting support.",
+    body: "Starts when a customer enters an order ID or asks where their order is. It pulls live courier data and shows each milestone with a tracking link.",
+  },
 ];
