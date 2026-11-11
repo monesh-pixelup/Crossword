@@ -69,6 +69,9 @@ type HeroSceneProps = {
    * cropped, and only the UI layer is zoomed down (see UI_SPAN) so the cards and the conversation stay on the page.
    */
   holdHeight?: boolean;
+  /** Phones (the compact layout): their own layers on their own canvas, in place of `layers` (the phone banner). */
+  compactLayers?: SceneLayer[];
+  compactLayerSize?: [number, number];
   /** Unscaled content above the frame. */
   aboveFrame?: (state: SceneState) => ReactNode;
   /** Unscaled content over the photo, under the UI. */
@@ -96,6 +99,8 @@ export function HeroScene({
   glitch,
   scaleBelow,
   holdHeight = false,
+  compactLayers,
+  compactLayerSize,
   aboveFrame,
   overlayContent,
   uiMaxWidth,
@@ -142,6 +147,10 @@ export function HeroScene({
   }, [fitHeight, scaleBelow, holdHeight]);
 
   const compact = width !== null && width < COMPACT_BELOW;
+  // Phones draw their own layers (the phone banner) when given.
+  const mweb = compact && !!compactLayers && !!compactLayerSize;
+  const sceneLayers = mweb ? compactLayers! : layers;
+  const sceneSize = mweb ? compactLayerSize! : layerSize;
   const state = { width, compact };
 
   const scaled = scale < 1;
@@ -179,20 +188,20 @@ export function HeroScene({
     >
       {aboveFrame?.(state)}
       <div ref={frame} className="hero-scene__frame" style={frameStyle}>
-        <div className="hero-scene__photo">
+        <div className={mweb ? "hero-scene__photo hero-scene__photo--mweb" : "hero-scene__photo"}>
           <div
             className="hero-scene__stack"
-            style={{ aspectRatio: `${layerSize[0]} / ${layerSize[1]}` }}
+            style={{ aspectRatio: `${sceneSize[0]} / ${sceneSize[1]}` }}
             role="img"
             aria-label="Crossword concierge"
           >
-            {layers.map((layer, i) => {
+            {sceneLayers.map((layer, i) => {
               const [x, y, w, h] = layer.box;
               const style = {
-                left: pct(x, layerSize[0]),
-                top: pct(y, layerSize[1]),
-                width: pct(w, layerSize[0]),
-                height: pct(h, layerSize[1]),
+                left: pct(x, sceneSize[0]),
+                top: pct(y, sceneSize[1]),
+                width: pct(w, sceneSize[0]),
+                height: pct(h, sceneSize[1]),
               };
               return layer.glitch ? (
                 <GlitchFigure

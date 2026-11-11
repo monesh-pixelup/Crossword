@@ -1,10 +1,12 @@
-import Image, { type StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
+import { HeroBanner } from "@/modules/marketing/components/hero-banner";
 import { ctaLinks } from "@/modules/marketing";
 // Figma 3305:56 (image 10027): this page's own photo, the writing desk with its open book, pen and letters.
-import aiAssistantsBackground from "../../assets/hero/background.webp";
+import bannerDesktop from "../../assets/hero/banner-desktop.webp";
+import bannerMobile from "../../assets/hero/banner-mobile.webp";
 
 /**
  * Two-line display headline, set like Support's and Retain's (70 / 56 / 48 / 44px, Crimson ExtraLight at
@@ -42,7 +44,7 @@ export function AiAssistantsHero({
   secondLine = "asking ChatGPT about you.",
   aside = "Crossword helps you own the experience",
   asideWidth = 482,
-  background = aiAssistantsBackground,
+  banner = { desktop: bannerDesktop, mobile: bannerMobile },
 }: {
   id?: string;
   eyebrow?: ReactNode;
@@ -54,27 +56,18 @@ export function AiAssistantsHero({
   aside?: ReactNode;
   /** The CTA column's width in Figma (it narrows to fit). */
   asideWidth?: number;
-  /** The hero photo: AI Assistants' own by default; Personal Agents passes its own. */
-  background?: StaticImageData;
+  /** The hero banner (desktop and phone; see HeroBanner): AI Assistants' own by default; Personal Agents passes its own. */
+  banner?: { desktop: StaticImageData; mobile: StaticImageData };
 }) {
   return (
     <section aria-labelledby={id} className="relative bg-night">
       {/* The dark ground runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
       <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-night">
         {/*
-          As the home hero (and Stripe's): the photo holds its 1440px composition, centred, instead of growing past it;
-          the dark ground runs on either side, and there the photo's sides fade into it (16% each).
+          The hero banner, full-bleed (see HeroBanner): from 760px the 3000px banner, its whole width showing on wide
+          screens and its sides cropped as the screen narrows; below that the phone banner.
         */}
-        <div className="absolute inset-y-0 left-1/2 w-full max-w-[1440px] -translate-x-1/2 min-[1441px]:[mask-image:linear-gradient(to_right,transparent,#000_16%,#000_84%,transparent)]">
-          <Image
-            src={background}
-            alt=""
-            fill
-            sizes="(min-width: 1440px) 1440px, 100vw"
-            preload
-            className="object-cover object-[70%_center] lg:object-center"
-          />
-        </div>
+        <HeroBanner desktop={banner.desktop} mobile={banner.mobile} />
       </div>
 
       {/*

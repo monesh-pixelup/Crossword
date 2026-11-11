@@ -17,7 +17,8 @@ import { agentQuestions } from "@/modules/personal-agents/config/possibilities";
 import { agentPromotionSteps } from "@/modules/personal-agents/config/promotions";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 // Figma 3308:56 (image 10027): this page's own hero photo, the arched doorway onto the marble reception.
-import heroBackground from "@/modules/personal-agents/assets/hero/background.webp";
+import heroBannerDesktop from "@/modules/personal-agents/assets/hero/banner-desktop.webp";
+import heroBannerMobile from "@/modules/personal-agents/assets/hero/banner-mobile.webp";
 
 export const metadata: Metadata = {
   title: "Personal Agents",
@@ -36,7 +37,7 @@ export default function PersonalAgentsPage() {
         firstLine="our next shopper might"
         secondLine="never see your website."
         aside="But their AI agent will, make it count"
-        background={heroBackground}
+        banner={{ desktop: heroBannerDesktop, mobile: heroBannerMobile }}
       />
       <AssistantCampaigns
         id="the-case-title"

@@ -74,16 +74,20 @@
 }
 
 /*
- * Past 1440px the scene holds its 1440px composition, centred on the full-width black (Hero): the photo's left and
- * right edges fade into the black over 16% of its width each side (past the blurred foreground figures at its
- * sides, which would otherwise stand like borders on the black), so it has no edge. Only the photo fades; the
- * copy, cards and conversation over it stay whole.
+ * The hero banner runs past the 1440px frame either side (hero-parallax.tsx's LAYERS): the frame clips it top and
+ * bottom only, so on screens wider than 1440px the banner's extensions show on the full-width black, out to its own
+ * dark edges (and the whole banner at 3000px and wider). Narrower, the scene root crops its sides (HeroScene). The
+ * overlay's vertical gradient (a cream tint, black at the foot) runs the banner's width with it.
  */
-@media (min-width: 1441px) {
-  .hero-scene:not(.hero-scene--compact) .hero-scene__photo {
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent);
-    mask-image: linear-gradient(to right, transparent, #000 16%, #000 84%, transparent);
-  }
+.hero-scene:not(.hero-scene--compact) .hero-scene__frame {
+  overflow-x: visible;
+  overflow-y: clip;
+}
+
+.hero-scene:not(.hero-scene--compact) .hero-scene__overlay {
+  left: -54.6316%;
+  right: auto;
+  width: 208.1813%;
 }
 
 .hero-scene__layer {
@@ -178,6 +182,28 @@
   mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
+}
+
+/*
+ * Phones with the phone banner (390 × 844 at 1:1 on a phone, capped at 520px wide and centred): from under the header,
+ * just below where the entry cards sit, so the concierge stands clear of them, its top fading into the black behind
+ * the cards. Its own dark foot carries the copy, so the multiply overlay is left off.
+ */
+.hero-scene--compact .hero-scene__photo.hero-scene__photo--mweb {
+  grid-row: auto;
+  grid-column: auto;
+  top: calc(72.5px + 16px);
+  left: 50%;
+  width: min(100%, 520px);
+  height: auto;
+  aspect-ratio: 780 / 1688;
+  transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%);
+  mask-image: linear-gradient(to bottom, transparent, #000 14%);
+}
+
+.hero-scene--compact .hero-scene__photo--mweb .hero-scene__overlay {
+  display: none;
 }
 
 .hero-scene--compact .hero-scene__ui {

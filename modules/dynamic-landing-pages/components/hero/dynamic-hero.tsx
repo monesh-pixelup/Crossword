@@ -1,9 +1,10 @@
-import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
+import { HeroBanner } from "@/modules/marketing/components/hero-banner";
 import { ctaLinks } from "@/modules/marketing";
 // Figma 3257:37341 (image 10027): this page's own photo, the carafe and glasses on a marble table against the slatted wall.
-import background from "../../assets/hero/background.webp";
+import bannerDesktop from "../../assets/hero/banner-desktop.webp";
+import bannerMobile from "../../assets/hero/banner-mobile.webp";
 
 /**
  * Two-line display headline (Figma 3257:37445), as the Sell hero's: Crimson ExtraLight 70 / 56 / 48 / 44px at
@@ -38,19 +39,10 @@ export function DynamicHero() {
       {/* The dark ground runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
       <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-night">
         {/*
-          As the home hero (and Stripe's): the photo holds its 1440px composition, centred, instead of growing past it;
-          the dark ground runs on either side, and there the photo's sides fade into it (16% each).
+          The hero banner, full-bleed (see HeroBanner): from 760px the 3000px banner, its whole width showing on wide
+          screens and its sides cropped as the screen narrows; below that the phone banner.
         */}
-        <div className="absolute inset-y-0 left-1/2 w-full max-w-[1440px] -translate-x-1/2 min-[1441px]:[mask-image:linear-gradient(to_right,transparent,#000_16%,#000_84%,transparent)]">
-          <Image
-            src={background}
-            alt=""
-            fill
-            sizes="(min-width: 1440px) 1440px, 100vw"
-            preload
-            className="object-cover object-[70%_center] lg:object-center"
-          />
-        </div>
+        <HeroBanner desktop={bannerDesktop} mobile={bannerMobile} />
       </div>
 
       {/*

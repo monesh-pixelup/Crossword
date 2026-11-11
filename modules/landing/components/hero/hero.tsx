@@ -61,12 +61,16 @@ export function Hero() {
         <div aria-hidden className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-black" />
         {/*
           As Stripe's hero: the scene (photo, cards, conversation and copy) is laid out at most 1440px wide, centred, so
-          past 1440px it holds its 1440 × 863 composition instead of growing with the screen; the black runs on either
-          side, and there the photo's left and right edges fade into it (hero-parallax.css) so it has no hard edge.
+          past 1440px it holds its 1440 × 863 composition instead of growing with the screen, while the hero banner behind
+          it runs on either side (its extensions, out to its own dark edges; hero-parallax.css).
           It ends at the first screen's bottom when that comes first (the copy pinned 88.5px above the cut).
           Below 760px it is the phone stack instead (see HeroScene), at least a screen tall and growing to fit.
         */}
-        <div className="relative mx-auto max-h-[min(100svh,1200px)] w-full max-w-[1440px] overflow-hidden max-[760px]:max-h-none">
+        {/*
+          Clipped top and bottom only: the hero banner runs past the 1440px scene either side, out to the screen's
+          edges on wide screens (SiteShell clips the overrun at the screen).
+        */}
+        <div className="relative mx-auto max-h-[min(100svh,1200px)] w-full max-w-[1440px] overflow-x-visible overflow-y-clip max-[760px]:max-h-none">
           <HeroParallax copy={<HeroCopy />} />
         </div>
       </section>
