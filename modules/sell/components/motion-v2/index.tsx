@@ -1,7 +1,13 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { SellColorContext } from "./sell-motion";
+import {
+  ComparisonGuidanceMotion,
+  HumanModeMotion,
+  ProactiveInterventionMotion,
+  ReturnVisitComparisonMotion,
+  SellColorContext,
+} from "./sell-motion";
 import "./sell-motion.css";
 
 /*
@@ -58,4 +64,23 @@ export function SellMotionRoot({ children }: { children: ReactNode }) {
       <SellColorContext>{children}</SellColorContext>
     </div>
   );
+}
+
+/*
+ * 21–23 and 34b at their desktop layout. Since the 11 November 2026 update these take an optional flag for their phone
+ * layout (21–23 `narrow`, 34b `mweb`; the phone versions are their own exports), which doesn't fit the scenes'
+ * `{ play }` props, so scenes.ts registers these no-props versions instead. They render exactly as before. They live
+ * here, in the client module, so server components can pass the scenes that hold them to ScenePanel.
+ */
+export function ProactiveInterventionDesktopMotion() {
+  return <ProactiveInterventionMotion />;
+}
+export function ComparisonGuidanceDesktopMotion() {
+  return <ComparisonGuidanceMotion />;
+}
+export function ReturnVisitComparisonDesktopMotion() {
+  return <ReturnVisitComparisonMotion />;
+}
+export function HumanModeDesktopMotion() {
+  return <HumanModeMotion />;
 }
