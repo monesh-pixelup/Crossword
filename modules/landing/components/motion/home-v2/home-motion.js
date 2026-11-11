@@ -6131,7 +6131,7 @@ function InsightsFrame({
       /* @__PURE__ */ jsxs("div", { className: "la-rail__group la-rail__group--end", children: [
         ["search", "bell", "gear"].map((n) => /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
         /* @__PURE__ */ jsx("span", { className: "la-rail__rule" }),
-        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx("img", { className: "la-rail__me", src: priyaRaman, alt: "" }) })
+        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx("span", { className: "la-rail__me", "aria-hidden": true, children: "A" }) })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("main", { className: "la-main", children: [

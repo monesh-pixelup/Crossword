@@ -10,7 +10,6 @@ import sofiaMarinoImage from "@/modules/managed-launch/assets/motion/illustratio
 import emmaLindqvistImage from "@/modules/managed-launch/assets/motion/illustrations/LaunchAudience/avatars/emma-lindqvist.svg";
 import kenjiWatanabeImage from "@/modules/managed-launch/assets/motion/illustrations/LaunchAudience/avatars/kenji-watanabe.svg";
 import orgMarkImage from "@/modules/managed-launch/assets/motion/brand/org-mark.svg";
-import priyaRamanImage from "@/modules/managed-launch/assets/motion/illustrations/LaunchAudience/avatars/priya-raman.svg";
 
 const priyaNair = priyaNairImage.src;
 const omarHaddad = omarHaddadImage.src;
@@ -18,7 +17,6 @@ const sofiaMarino = sofiaMarinoImage.src;
 const emmaLindqvist = emmaLindqvistImage.src;
 const kenjiWatanabe = kenjiWatanabeImage.src;
 const orgMark = orgMarkImage.src;
-const priyaRaman = priyaRamanImage.src;
 
 // Retain 11 — "Turn customer patterns into your audience", in the Storybook
 // "Dashboard/Final/Insights" dashboard. The result follows the Launch
@@ -301,7 +299,7 @@ export function InsightsFrame({
                 ))}
                 <span className="la-rail__rule" />
                 <span className="la-rail__item">
-                  <img className="la-rail__me" src={priyaRaman} alt="" />
+                  <span className="la-rail__me" aria-hidden>A</span>
                 </span>
               </div>
             </nav>

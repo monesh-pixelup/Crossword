@@ -9,7 +9,6 @@ import omarHaddadImage from "@/modules/personal-agents/assets/motion/illustratio
 import sofiaMarinoImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/sofia-marino.svg";
 import emmaLindqvistImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/emma-lindqvist.svg";
 import kenjiWatanabeImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/kenji-watanabe.svg";
-import priyaRamanImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/priya-raman.svg";
 import orgMarkImage from "@/modules/personal-agents/assets/motion/brand/org-mark.svg";
 
 const priyaNair = priyaNairImage.src;
@@ -17,7 +16,6 @@ const omarHaddad = omarHaddadImage.src;
 const sofiaMarino = sofiaMarinoImage.src;
 const emmaLindqvist = emmaLindqvistImage.src;
 const kenjiWatanabe = kenjiWatanabeImage.src;
-const priyaRaman = priyaRamanImage.src;
 const orgMark = orgMarkImage.src;
 
 // Retain 11 — "Turn customer patterns into your audience", in the Storybook
@@ -301,7 +299,7 @@ export function InsightsFrame({
                 ))}
                 <span className="la-rail__rule" />
                 <span className="la-rail__item">
-                  <img className="la-rail__me" src={priyaRaman} alt="" />
+                  <span className="la-rail__me" aria-hidden>A</span>
                 </span>
               </div>
             </nav>

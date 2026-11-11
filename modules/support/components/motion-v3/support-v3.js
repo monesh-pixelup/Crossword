@@ -2533,7 +2533,7 @@ function InsightsFrame({
       /* @__PURE__ */ jsxs("div", { className: "la-rail__group la-rail__group--end", children: [
         ["search", "bell", "gear"].map((n) => /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
         /* @__PURE__ */ jsx("span", { className: "la-rail__rule" }),
-        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx("img", { className: "la-rail__me", src: me, alt: "" }) })
+        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx("span", { className: "la-rail__me", "aria-hidden": true, children: "A" }) })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("main", { className: "la-main", children: [
@@ -3189,7 +3189,7 @@ function Desk({ v }) {
       /* @__PURE__ */ jsx("img", { className: "dk-rail__logo", src: crosswordMark, alt: "" }),
       ["house", "cube", "headset", "chartBar"].map((n) => /* @__PURE__ */ jsx("span", { className: n === "headset" ? "dk-rail__item dk-rail__item--on" : "dk-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
       /* @__PURE__ */ jsx("span", { className: "dk-rail__item dk-rail__item--end", children: /* @__PURE__ */ jsx(Ph, { name: "gear" }) }),
-      /* @__PURE__ */ jsx("img", { className: "dk-rail__me", src: me, alt: "" })
+      /* @__PURE__ */ jsx("span", { className: "dk-rail__me", "aria-hidden": true, children: "A" })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "dk-main", children: [
       /* @__PURE__ */ jsxs("header", { className: "dk-head", children: [
@@ -3980,7 +3980,7 @@ function Inbox({
       /* @__PURE__ */ jsx("img", { className: "dk-rail__logo", src: crosswordMark, alt: "" }),
       ["house", "cube", "headset", "chartBar"].map((n) => /* @__PURE__ */ jsx("span", { className: n === "headset" ? "dk-rail__item dk-rail__item--on" : "dk-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
       /* @__PURE__ */ jsx("span", { className: "dk-rail__item dk-rail__item--end", children: /* @__PURE__ */ jsx(Ph, { name: "gear" }) }),
-      /* @__PURE__ */ jsx("img", { className: "dk-rail__me", src: ME.face, alt: "" })
+      /* @__PURE__ */ jsx("span", { className: "dk-rail__me", "aria-hidden": true, children: "A" })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "wd-list", children: [
       /* @__PURE__ */ jsxs("div", { className: "wd-list__head", children: [
