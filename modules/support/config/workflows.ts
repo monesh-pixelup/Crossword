@@ -1,16 +1,15 @@
-import type { StaticImageData } from "next/image";
-import handoffIcon from "../assets/workflows/handoff-glyph.svg";
-import workflowIcon from "../assets/workflows/workflow-glyph.svg";
+import type { Icon } from "@phosphor-icons/react";
+import { FlowArrowIcon, UserSwitchIcon } from "@phosphor-icons/react/ssr";
 
 /** The two workflows, as Figma's Node diagram: the usual path and the hand-over to a person. */
-export const workflows: { icon: StaticImageData; title: string; body: string }[] = [
+export const workflows: { /** Its Phosphor glyph (phosphoricons.com). */ icon: Icon; title: string; body: string }[] = [
   {
-    icon: workflowIcon,
+    icon: FlowArrowIcon,
     title: "Normal workflow",
     body: "Crossword follows the workflows you define, so returns, refunds, and support issues are handled consistently and in the right order.",
   },
   {
-    icon: handoffIcon,
+    icon: UserSwitchIcon,
     title: "Human override",
     body: "When a situation falls outside the rules, a human can step in, override the workflow, and take it from there.",
   },

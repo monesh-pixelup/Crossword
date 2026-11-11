@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState } from "react";
+import { ArrowsClockwiseIcon, HeadsetIcon, RobotIcon, ShoppingBagIcon, SparkleIcon } from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/cn";
 import arrowRight from "../../assets/lifecycle/arrow-right.svg";
 import { lifecycleStages } from "../../config/lifecycle";
@@ -16,70 +17,23 @@ const TURN = 9000;
 
 type Position = { stage: number; feature: number };
 
-/**
- * Each stage's glyph as a line icon in a 16px box, stroked 1.2px (the site's icon stroke): shopping bag, headset,
- * arrows, sparkles and robot, after Figma's tab badges (3495:23536).
- */
+/** Each stage's glyph, from Phosphor (phosphoricons.com), regular weight: shopping bag, headset, arrows, sparkle, robot. */
 const glyphs: Record<string, ReactNode> = {
-  Sell: (
-    <>
-      <path d="M3.2 5.2h9.6l.75 8.3a.7.7 0 0 1-.7.75H3.15a.7.7 0 0 1-.7-.75Z" />
-      <path d="M5.6 5.2v-.6a2.4 2.4 0 0 1 4.8 0v.6" />
-    </>
-  ),
-  Support: (
-    <>
-      <path d="M2.75 9.5V8a5.25 5.25 0 0 1 10.5 0v1.5" />
-      <path d="M2.75 9.5h1.6a.8.8 0 0 1 .8.8v2.2a.8.8 0 0 1-.8.8h-.8a.8.8 0 0 1-.8-.8Z" />
-      <path d="M13.25 9.5h-1.6a.8.8 0 0 0-.8.8v2.2a.8.8 0 0 0 .8.8h.8a.8.8 0 0 0 .8-.8Z" />
-      <path d="M13.25 12.5v.5a1.8 1.8 0 0 1-1.8 1.8H8.8" />
-    </>
-  ),
-  Retain: (
-    <>
-      <path d="M12.9 6.3a5.2 5.2 0 0 0-9.4-.9L2.4 6.5" />
-      <path d="M2.4 3.6v2.9h2.9" />
-      <path d="M3.1 9.7a5.2 5.2 0 0 0 9.4.9l1.1-1.1" />
-      <path d="M13.6 12.4V9.5h-2.9" />
-    </>
-  ),
-  "AI Assistants": (
-    <>
-      <path d="M6.5 3.5l1.2 3.8 3.8 1.2-3.8 1.2-1.2 3.8-1.2-3.8-3.8-1.2 3.8-1.2Z" />
-      <path d="M12 10.2l.5 1.1 1.1.5-1.1.5-.5 1.1-.5-1.1-1.1-.5 1.1-.5Z" />
-      <path d="M11.6 2.2v2.8M10.2 3.6H13" />
-    </>
-  ),
-  "Personal Agents": (
-    <>
-      <path d="M4.5 6h7a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" />
-      <path d="M8 6V3.6" />
-      <circle cx="8" cy="2.6" r="0.9" />
-      <circle cx="5.9" cy="10" r="0.9" />
-      <circle cx="10.1" cy="10" r="0.9" />
-    </>
-  ),
+  Sell: <ShoppingBagIcon size={16} />,
+  Support: <HeadsetIcon size={16} />,
+  Retain: <ArrowsClockwiseIcon size={16} />,
+  "AI Assistants": <SparkleIcon size={16} />,
+  "Personal Agents": <RobotIcon size={16} />,
 };
 
 /**
  * The open stage's badge (the plain badge the other pages' tabs use): a 24px maroon square with a 0.6px #efe9db line
- * inside it (no gold ring outside), its gold line glyph centred.
+ * inside it (no gold ring outside), its gold Phosphor glyph (16px) centred.
  */
 function StageBadge({ glyph }: { glyph: ReactNode }) {
   return (
-    <span aria-hidden className="block size-6 bg-maroon shadow-[inset_0_0_0_0.6px_var(--color-linen)]">
-      {/* The glyphs' 16px box, centred in the 24px square. */}
-      <svg
-        viewBox="-4 -4 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="block size-6 text-amber"
-      >
-        {glyph}
-      </svg>
+    <span aria-hidden className="flex size-6 items-center justify-center bg-maroon text-amber shadow-[inset_0_0_0_0.6px_var(--color-linen)]">
+      {glyph}
     </span>
   );
 }

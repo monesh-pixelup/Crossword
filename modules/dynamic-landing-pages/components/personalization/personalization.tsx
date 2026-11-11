@@ -1,3 +1,13 @@
+import type { Icon } from "@phosphor-icons/react";
+import {
+  ChatCenteredTextIcon,
+  ClockCounterClockwiseIcon,
+  HeartStraightIcon,
+  ListStarIcon,
+  RulerIcon,
+  ScalesIcon,
+  TextTIcon,
+} from "@phosphor-icons/react/ssr";
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import twillTile from "@/modules/landing/assets/blog/damask-tile.webp";
@@ -5,13 +15,6 @@ import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import damaskScroll from "../../assets/personalization/damask-scroll.webp";
 import stamp from "../../assets/personalization/stamp.webp";
-import changeIcon1 from "../../assets/personalization/change-glyph-1.svg";
-import changeIcon2 from "../../assets/personalization/change-glyph-2.svg";
-import changeIcon3 from "../../assets/personalization/change-glyph-3.svg";
-import changeIcon4 from "../../assets/personalization/change-glyph-4.svg";
-import changeIcon5 from "../../assets/personalization/change-glyph-5.svg";
-import changeIcon6 from "../../assets/personalization/change-glyph-6.svg";
-import changeIcon7 from "../../assets/personalization/change-glyph-7.svg";
 
 /** What changes on the page once Crossword knows the shopper (Figma's seven rows, the last the closing line). */
 const changes = [
@@ -24,8 +27,25 @@ const changes = [
   "A shopping experience that feels like it was made for them.",
 ];
 
-/** Each row's 16px glyph (Figma 3607:67 and on), drawn on the maroon icon badge. */
-const changeIcons = [changeIcon1, changeIcon2, changeIcon3, changeIcon4, changeIcon5, changeIcon6, changeIcon7];
+/**
+ * Each row's 16px glyph, from Phosphor (phosphoricons.com), regular weight, drawn on the maroon icon badge: the
+ * headline, benefits, reviews, comparisons, size and fit, what they own, and a shopping experience made for them.
+ */
+const changeIcons: Icon[] = [
+  TextTIcon,
+  ListStarIcon,
+  ChatCenteredTextIcon,
+  ScalesIcon,
+  RulerIcon,
+  ClockCounterClockwiseIcon,
+  HeartStraightIcon,
+];
+
+/** Row `index`'s glyph in #ffb657, at 16px. */
+function ChangeGlyph({ index }: { index: number }) {
+  const Glyph = changeIcons[index];
+  return <Glyph size={16} className="block text-[#ffb657]" />;
+}
 
 /**
  * Figma "Section · The stranger problem (v2)" (3364:53): the eyebrow over a one-line headline (82px
@@ -125,8 +145,7 @@ export function Personalization() {
                 <li key={change} className="flex items-center gap-4 border-b border-rail py-4 last:border-b-0 sm:gap-5">
                   {/* Figma 3602:30824 "Icon badge": the 16px glyph on maroon, 4px in, inside a 0.6px #efe9db line. */}
                   <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.6px] border-linen bg-maroon p-1">
-                    {/* eslint-disable-next-line @next/next/no-img-element -- static SVG glyph, nothing to optimize */}
-                    <img src={changeIcons[i].src} alt="" className="block size-4 max-w-none" />
+                    <ChangeGlyph index={i} />
                   </span>
                   <span className="min-w-0 flex-1 font-serif text-[20px] leading-[1.1] tracking-[-0.04em] text-ink sm:text-[22px] sm:leading-[1.0909]">{change}</span>
                 </li>

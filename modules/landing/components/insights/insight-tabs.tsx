@@ -1,6 +1,7 @@
 "use client";
 
 import { type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState } from "react";
+import { BinocularsIcon, LinkIcon, UserFocusIcon } from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/cn";
 import { insightFeatures } from "../../config/insights";
 import { InsightPanel, insightVisuals } from "../motion/panels";
@@ -8,26 +9,11 @@ import { InsightPanel, insightVisuals } from "../motion/panels";
 /** How long a tab stays open once its visual has played out, before the tabs advance. */
 const HOLD = 3000;
 
-/** Tab glyphs as line icons in a 16px box, stroked 1.2px (the site's icon stroke): binoculars, link, user-search. */
+/** Tab glyphs, from Phosphor (phosphoricons.com), regular weight: binoculars, link, user focus. */
 const icons: ReactNode[] = [
-  <g key="ask">
-    <circle cx="4.3" cy="11" r="2.5" />
-    <circle cx="11.7" cy="11" r="2.5" />
-    <path d="M1.8 11 4.2 5.2A1.5 1.5 0 0 1 6.8 5v6" />
-    <path d="M14.2 11 11.8 5.2A1.5 1.5 0 0 0 9.2 5v6" />
-    <path d="M6.8 7.6h2.4" />
-  </g>,
-  <g key="links">
-    <path d="M6.2 9.8l3.6-3.6" />
-    <path d="M9 4.4l1-1a2.83 2.83 0 0 1 4 4l-1 1" />
-    <path d="M7 11.6l-1 1a2.83 2.83 0 0 1-4-4l1-1" />
-  </g>,
-  <g key="user">
-    <circle cx="6.5" cy="5.3" r="2.8" />
-    <path d="M1.6 14a5 5 0 0 1 7.3-4.4" />
-    <circle cx="11.6" cy="11.4" r="1.9" />
-    <path d="M13 12.8l1.5 1.5" />
-  </g>,
+  <BinocularsIcon key="ask" size={16} />,
+  <LinkIcon key="links" size={16} />,
+  <UserFocusIcon key="user" size={16} />,
 ];
 
 /** The accordion's open / close: the row eases its height while the visual fades. */
@@ -168,23 +154,17 @@ export function InsightTabs() {
                   maroon with a 0.6px #efe9db line inside (no gold ring outside), the glyph gold; closed, a 0.75px
                   black/19 line with the glyph at black/40.
                 */}
-                <svg
+                <span
                   aria-hidden
-                  viewBox="-4 -4 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
                   className={cn(
-                    "size-6 flex-none transition-[background-color,color,box-shadow] duration-300",
+                    "flex size-6 flex-none items-center justify-center transition-[background-color,color,box-shadow] duration-300",
                     on
                       ? "bg-maroon text-amber shadow-[inset_0_0_0_0.6px_var(--color-linen)]"
                       : "text-black/40 shadow-[inset_0_0_0_0.75px_rgba(0,0,0,0.19)]",
                   )}
                 >
                   {icons[i]}
-                </svg>
+                </span>
                 <span
                   className={cn(
                     "flex min-w-0 flex-auto flex-col items-start gap-2.5 transition-opacity duration-300",

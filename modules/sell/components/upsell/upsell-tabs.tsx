@@ -1,6 +1,7 @@
 "use client";
 
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
+import type { Icon } from "@phosphor-icons/react";
 import { cn } from "@/lib/cn";
 import { upsellFeatures } from "../../config/upsell";
 import { ScenePanel } from "../motion/scene-panel";
@@ -17,30 +18,20 @@ const HOLD_MS = 2500;
 const ACCORDION_MS = 500;
 
 /**
- * Figma 3257:36264's icons, each a 24px square. The open feature's is a maroon badge (Figma 3786:21472): the glyph at
- * 14.8px in #ffb657, 4.6px in (its 0.46px #efe9db line counted inside), with no gold ring outside. The others are a
- * 0.75px black/19 line around the 22.5px glyph box, the glyph (16.36px, 3.6px in) in black/40. `path` is the glyph in
- * that 22.5px box.
+ * Each feature's icon, a 24px square with its Phosphor glyph (phosphoricons.com, regular weight) at 16px. The open
+ * feature's is a maroon badge (Figma 3786:21472) with a 0.46px #efe9db line inside and the glyph in #ffb657; the others
+ * are a 0.75px black/19 line with the glyph at black/40.
  */
-function IconTile({ path, on }: { path: string; on: boolean }) {
-  if (on) {
-    return (
-      <span
-        aria-hidden
-        className="flex size-6 shrink-0 items-center overflow-clip border-[0.46px] border-linen bg-maroon p-[4.143px]"
-      >
-        {/* The glyph's own 16.36px box inside the 22.5px one, drawn at 14.8px; its stroke stays 1.2px on screen (non-scaling). */}
-        <svg width="14.795" height="14.795" viewBox="3.615 3.705 16.362 16.362" fill="none" className="block">
-          <path d={path} stroke="#FFB657" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
-        </svg>
-      </span>
-    );
-  }
+function IconTile({ icon: Glyph, on }: { icon: Icon; on: boolean }) {
   return (
-    <span aria-hidden className="flex size-6 shrink-0 items-center border-[0.75px] border-black/19">
-      <svg width="22.5" height="22.5" viewBox="0 0 22.5 22.5" fill="none" className="block overflow-hidden">
-        <path d={path} stroke="black" strokeOpacity="0.4" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+    <span
+      aria-hidden
+      className={cn(
+        "flex size-6 shrink-0 items-center justify-center",
+        on ? "border-[0.46px] border-linen bg-maroon text-[#ffb657]" : "border-[0.75px] border-black/19 text-black/40",
+      )}
+    >
+      <Glyph size={16} />
     </span>
   );
 }
@@ -158,7 +149,7 @@ export function UpsellTabs() {
                   )}
                 >
                   {/* Figma: the 24px tile top-aligned with the open title, centred on a closed one's 24px row. */}
-                  <IconTile path={feature.icon} on={on} />
+                  <IconTile icon={feature.icon} on={on} />
                   <span className="flex min-w-0 flex-col">
                     <span
                       className={cn(

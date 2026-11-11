@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
+import type { Icon } from "@phosphor-icons/react";
+import { ArticleIcon, ChatCircleDotsIcon, QuestionIcon, TrendUpIcon } from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/cn";
 import { tabTurn } from "@/lib/use-autoplay-tabs";
 import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
@@ -15,50 +17,13 @@ const turns = adaptiveFeatures.map((feature) => tabTurn(dlpScenes[feature.scene]
 /** The stacked accordion's open / close: the row eases its height while the visual fades. */
 const ACCORDION_MS = 500;
 
-/**
- * Each feature's glyph, from Figma (1.1px round strokes), with the centre of its bounding box: the marks are drawn
- * centred on their tile, which Figma's exports miss by 0.3–1px.
- */
-const glyphs: Record<AdaptiveId, { paths: string[]; center: [number, number] }> = {
-  ask: {
-    paths: [
-      "M12.5978 7.21133C9.3119 7.21133 6.62344 9.35214 6.62344 11.9908C6.62344 13.4844 7.46981 14.7789 8.81404 15.675L8.11703 18.1643L10.7059 16.8201C11.3034 16.9695 11.9506 17.069 12.5978 17.069C15.8837 17.069 18.5722 14.9282 18.5722 12.2895C18.5722 9.65086 15.8837 7.21133 12.5978 7.21133Z",
-      "M12.5954 9.94961L13.1928 11.3436L14.5868 11.9411L13.1928 12.5385L12.5954 13.9325L11.9979 12.5385L10.6039 11.9411L11.9979 11.3436L12.5954 9.94961Z",
-    ],
-    center: [12.598, 12.688],
-  },
-  gist: {
-    paths: ["M6.125 7.14648H15.499M6.125 9.95869H15.499M6.125 12.7709H12.6868M6.125 15.5831H10.3433"],
-    center: [10.812, 11.365],
-  },
-  direct: {
-    paths: [
-      "M13.6242 9.95859C13.6242 12.0294 11.9455 13.7082 9.8746 13.7082C7.80375 13.7082 6.125 12.0294 6.125 9.95859C6.125 7.88774 7.80375 6.20898 9.8746 6.20898C11.9455 6.20898 13.6242 7.88774 13.6242 9.95859Z",
-      "M12.6875 12.7695L15.9684 16.0504",
-    ],
-    center: [11.047, 11.13],
-  },
-  upsell: {
-    paths: [
-      "M5.1875 6.20898H6.5936L7.9997 12.7708H14.5615L15.9676 8.08379H7.531",
-      "M9.64048 15.1132C9.64048 15.5015 9.32571 15.8163 8.93743 15.8163C8.54914 15.8163 8.23438 15.5015 8.23438 15.1132C8.23438 14.7249 8.54914 14.4102 8.93743 14.4102C9.32571 14.4102 9.64048 14.7249 9.64048 15.1132Z",
-      "M14.328 15.1132C14.328 15.5015 14.0132 15.8163 13.6249 15.8163C13.2366 15.8163 12.9219 15.5015 12.9219 15.1132C12.9219 14.7249 13.2366 14.4102 13.6249 14.4102C14.0132 14.4102 14.328 14.7249 14.328 15.1132Z",
-      "M11.2811 8.55273V9.95884M11.2811 9.95884V11.3649M11.2811 9.95884H9.875M11.2811 9.95884H12.6872",
-    ],
-    center: [10.578, 11.013],
-  },
+/** Each feature's glyph, from Phosphor (phosphoricons.com), regular weight: chat, article, question, trend up. */
+const glyphs: Record<AdaptiveId, Icon> = {
+  ask: ChatCircleDotsIcon,
+  gist: ArticleIcon,
+  direct: QuestionIcon,
+  upsell: TrendUpIcon,
 };
-
-function Glyph({ id, at, color }: { id: AdaptiveId; at: number; color: string }) {
-  const { paths, center } = glyphs[id];
-  return (
-    <g transform={`translate(${at - center[0]} ${at - center[1]})`} stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-      {paths.map((d) => (
-        <path key={d} d={d} />
-      ))}
-    </g>
-  );
-}
 
 /**
  * Each feature's mark, from Figma 3257:37819. The open one is a maroon icon badge (3257:37821): its glyph in #ffb657 in a
@@ -66,21 +31,18 @@ function Glyph({ id, at, color }: { id: AdaptiveId; at: number; color: string })
  * 20.62px badge, the glyph (15px box, 2.81px in) in #cfcabe. No diamond or corner dots.
  */
 function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
+  const Glyph = glyphs[id];
   if (on) {
     return (
       <span aria-hidden className="flex shrink-0 items-center justify-center border-[0.55px] border-linen bg-maroon p-[3.034px]">
-        <svg viewBox="0 0 15.932 15.932" fill="none" className="block size-[15.932px]">
-          <Glyph id={id} at={7.966} color="#ffb657" />
-        </svg>
+        <Glyph size={15.932} className="block text-[#ffb657]" />
       </span>
     );
   }
   return (
     <span aria-hidden className="flex shrink-0 items-center border-[0.688px] border-black/19 p-[0.688px]">
       <span className="flex items-center justify-center p-[2.813px]">
-        <svg viewBox="0 0 14.998 14.998" fill="none" className="block size-[14.998px]">
-          <Glyph id={id} at={7.499} color="#cfcabe" />
-        </svg>
+        <Glyph size={14.998} className="block text-[#cfcabe]" />
       </span>
     </span>
   );

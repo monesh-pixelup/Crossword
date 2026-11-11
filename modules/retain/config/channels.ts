@@ -1,13 +1,12 @@
-import type { StaticImageData } from "next/image";
-import outboundIcon from "../assets/channels/outbound-glyph.svg";
-import sequencingIcon from "../assets/channels/sequencing-glyph.svg";
+import type { Icon } from "@phosphor-icons/react";
+import { ListNumbersIcon, PaperPlaneTiltIcon } from "@phosphor-icons/react/ssr";
 
 /** Retention channels, as Figma's node diagram: the two ways Crossword reaches out, each with its maroon icon badge glyph. */
-export const retentionChannels: { icon: StaticImageData; title: string; body: string }[] = [
+export const retentionChannels: { /** Its Phosphor glyph (phosphoricons.com). */ icon: Icon; title: string; body: string }[] = [
   {
-    icon: sequencingIcon,
+    icon: ListNumbersIcon,
     title: "Channel sequencing",
     body: "Decides the right order to reach out, for instance iMessage first, then email, then SMS - instead of all at once.",
   },
-  { icon: outboundIcon, title: "WhatsApp / SMS / Email Outbound", body: "Delivered wherever they’re most likely to see it." },
+  { icon: PaperPlaneTiltIcon, title: "WhatsApp / SMS / Email Outbound", body: "Delivered wherever they’re most likely to see it." },
 ];
