@@ -5,87 +5,99 @@ import { SectionTitle } from "@/modules/landing/components/shared/section-title"
 import noteAubergine from "../../assets/library/note-aubergine.webp";
 import noteGreen from "../../assets/library/note-green.webp";
 import noteMaroon from "../../assets/library/note-maroon.webp";
-import ribbonGiftFinder from "../../assets/library/ribbon-gift-finder.svg";
-import ribbonSizeFit from "../../assets/library/ribbon-size-fit.svg";
-import ribbonStyleMatch from "../../assets/library/ribbon-style-match.svg";
-import ribbonSupport from "../../assets/library/ribbon-support.svg";
-import { type NoteTone, libraryJourneys } from "../../config/launch";
+import noteParchment from "../../assets/library/note-parchment.webp";
+import ribbon1 from "../../assets/library/ribbon-1.svg";
+import ribbon2 from "../../assets/library/ribbon-2.svg";
+import ribbon3 from "../../assets/library/ribbon-3.svg";
+import ribbon4 from "../../assets/library/ribbon-4.svg";
+import ribbon5 from "../../assets/library/ribbon-5.svg";
+import ribbon6 from "../../assets/library/ribbon-6.svg";
+import ribbon7 from "../../assets/library/ribbon-7.svg";
+import { libraryJourneys } from "../../config/launch";
 
 /** Figma's punched note (its "Subtract"), 299.117 × 303.674, exported at 2x, one per livery. */
-const notes: Record<NoteTone, StaticImageData> = { green: noteGreen, maroon: noteMaroon, aubergine: noteAubergine };
 const NOTE_W = 299.117;
 const NOTE_H = 303.674;
 
-/**
- * Each journey's title ribbon (Figma "Rectangle 2095589201"), 0.12px in and 31.85px down its note, in the order of
- * libraryJourneys; Support's is longer for its longer title.
- */
-const ribbons: { src: StaticImageData; w: number; h: number }[] = [
-  { src: ribbonGiftFinder, w: 147.543, h: 41.7316 },
-  { src: ribbonStyleMatch, w: 147.543, h: 41.7316 },
-  { src: ribbonSizeFit, w: 147.543, h: 41.7316 },
-  { src: ribbonSupport, w: 234.715, h: 44.9133 },
-];
+/** The ink on each livery: cream on the dark notes, near-black on the parchment one. */
+const light = "text-[#fff9ea]";
+const dark = "text-[#070707]";
+
+type Card = {
+  /** libraryJourneys index: 0 Gift finder, 1 Style match, 2 Size and fit. */
+  journey: number;
+  note: StaticImageData;
+  /** The note's copy colour. */
+  ink: string;
+  /** The title ribbon (Figma "Rectangle 2095589201" and on), 0.12px in, `top` down its note, and its title colour. */
+  ribbon: { src: StaticImageData; w: number; h: number; top: number };
+  title: string;
+  /** Top-left corner on the strip (356px down the panel) and turn about its centre. */
+  at: [number, number];
+  angle: number;
+};
 
 /**
- * Where Figma lays the notes (3991:203559) on the 1392px panel, measured from the cards' strip (356px down the panel):
- * which journey (libraryJourneys index), its top-left corner and its turn (about its centre). Four across, then three
- * more below (Size and fit, Style match, Gift finder again), each turned its own way.
+ * Figma 4060:25055: seven notes on the 1392px panel, four across then three below, each its own livery (green,
+ * parchment, aubergine, maroon), ribbon colour and turn.
  */
-const layout: { journey: number; at: [number, number]; angle: number }[] = [
-  { journey: 0, at: [24.74, 20.61], angle: -3.2 },
-  { journey: 1, at: [374.05, 17.91], angle: 3.32 },
-  { journey: 2, at: [707.11, 21.03], angle: -2.16 },
-  { journey: 3, at: [1049.12, 27.88], angle: 5.82 },
-  { journey: 2, at: [128.06, 393.72], angle: 7.95 },
-  { journey: 1, at: [539.05, 386.92], angle: -7.07 },
-  { journey: 0, at: [975.74, 415.61], angle: -3.2 },
+const cards: Card[] = [
+  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon1, w: 136.626, h: 41.731, top: 31.85 }, title: "text-black", at: [104.74, 20.61], angle: -3.2 },
+  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon2, w: 144.93, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [413.06, 6.76], angle: 3.15 },
+  { journey: 2, note: noteAubergine, ink: light, ribbon: { src: ribbon3, w: 137.023, h: 42.65, top: 30.93 }, title: "text-black", at: [707.11, 21.03], angle: -2.16 },
+  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon4, w: 136.223, h: 42.727, top: 31.85 }, title: "text-[#faedd4]", at: [1011.87, 39.98], angle: 9.21 },
+  { journey: 2, note: noteMaroon, ink: light, ribbon: { src: ribbon5, w: 132.397, h: 41.731, top: 31.85 }, title: "text-black", at: [234.99, 316.19], angle: 7.04 },
+  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon6, w: 138.212, h: 42.158, top: 31.42 }, title: "text-[#faedd4]", at: [569.06, 328.26], angle: -7.07 },
+  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon7, w: 133.29, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [905.74, 335.61], angle: -3.2 },
 ];
+
+/** Below 1200px, the three journeys once each (Gift finder, Style match, Size and fit), as the first row's notes. */
+const compactCards = [cards[0], cards[1], cards[2]];
 
 /** The cards' strip: the panel's 1392px width, from 356px down to the panel's foot at 1171px. */
 const STRIP_W = 1392;
 const STRIP_H = 1171 - 356;
 
 /**
- * A journey's note (Figma 3976:16646 and its siblings): the ribbon with its Crimson 22 title in #faedd4, and 93.08px
- * down, 18px in, the 270px line of Geist 16 in cream #fff9ea (its lead in Medium), turned `angle`.
+ * A journey's note: the ribbon with its Crimson 22 title, and 93.08px down, 18px in, the 270px line of Geist 16 (its
+ * lead in Medium) in the livery's ink, turned `angle`.
  */
-function JourneyNote({ index: i, angle, style, className = "" }: { index: number; angle: number; style?: CSSProperties; className?: string }) {
-  const journey = libraryJourneys[i];
-  const ribbon = ribbons[i];
+function JourneyNote({ card, style, className = "" }: { card: Card; style?: CSSProperties; className?: string }) {
+  const journey = libraryJourneys[card.journey];
+  const { ribbon } = card;
   return (
     <div
       role="listitem"
       className={`absolute ${className}`}
-      style={{ width: NOTE_W, height: NOTE_H, rotate: `${angle}deg`, ...style }}
+      style={{ width: NOTE_W, height: NOTE_H, rotate: `${card.angle}deg`, ...style }}
     >
-      <Image src={notes[journey.tone]} alt="" aria-hidden sizes="300px" className="pointer-events-none absolute inset-0 size-full max-w-none select-none" />
+      <Image src={card.note} alt="" aria-hidden sizes="300px" className="pointer-events-none absolute inset-0 size-full max-w-none select-none" />
       <Image
         src={ribbon.src}
         alt=""
         aria-hidden
-        className="absolute top-[31.85px] left-[0.12px] max-w-none"
-        style={{ width: ribbon.w, height: ribbon.h }}
+        className="absolute left-[0.12px] max-w-none"
+        style={{ top: ribbon.top, width: ribbon.w, height: ribbon.h }}
       />
-      <h3 className="absolute top-[38.94px] left-[19.93px] font-serif text-[22px] leading-[1.1] font-normal tracking-[-0.88px] whitespace-nowrap text-parchment">
+      <h3 className={`absolute top-[38.94px] left-[19.93px] font-serif text-[22px] leading-[1.0909] font-normal tracking-[-0.88px] whitespace-nowrap ${card.title}`}>
         {journey.title}
       </h3>
-      <p className="absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] text-[#fff9ea]">
-        <span className="font-medium text-[#fff9ea]">{journey.lead}</span> {journey.body}
+      <p className={`absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] ${card.ink}`}>
+        <span className="font-medium">{journey.lead}</span> {journey.body}
       </p>
     </div>
   );
 }
 
 /**
- * Figma "Section · Journey library (4x4)" (node 3991:203559): a 1171px sand panel between the page rails (a 0.5px
+ * Figma "Section · Journey library (4x4)" (node 4060:25055): a 1171px sand panel between the page rails (a 0.5px
  * black/25 hairline), the centred cream eyebrow 70px down, 24px over the two-line swash headline (1000px box) and 24px
- * under it an 820px line of Geist in ink muted. 29px below that, the journeys on punched notes in the liveries (green,
- * maroon, aubergine, green): four across, then Size and fit, Style match and Gift finder again below, each turned its
- * own way, all inside the panel.
+ * under it an 820px line of Geist in ink muted. 29px below that, seven punched notes in four liveries (green,
+ * parchment, aubergine, maroon), each with its own coloured ribbon: Gift finder, Style match, Size and fit, Style match
+ * across, then Size and fit, Style match and Gift finder below, each turned its own way, all inside the panel.
  *
  * From 1200px the notes are Figma's 1392px strip, scaled with the panel. Below that they'd shrink past reading, so
- * the four journeys sit in a grid at full size instead (two across from 768px, one on phones), each still turned.
+ * the three journeys sit in a grid at full size instead (two across from 768px, one on phones), each still turned.
  */
 export function JourneyLibrary() {
   return (
@@ -125,21 +137,21 @@ export function JourneyLibrary() {
             className="relative scale-to-container"
             style={{ "--fit-width": `${STRIP_W}px`, width: STRIP_W, height: STRIP_H } as CSSProperties}
           >
-            {layout.map(({ journey, at, angle }, i) => (
-              <JourneyNote key={i} index={journey} angle={angle} style={{ left: at[0], top: at[1] }} />
+            {cards.map((card, i) => (
+              <JourneyNote key={i} card={card} style={{ left: card.at[0], top: card.at[1] }} />
             ))}
           </div>
         </div>
 
-        {/* Below 1200px: the four journeys (the first row's notes) each in its own cell at full size, turned as in Figma. */}
+        {/* Below 1200px: the three journeys (the first row's notes) each in its own cell at full size, turned as in Figma. */}
         <div
           role="list"
           aria-label="Journeys"
           className="mx-auto grid w-fit grid-cols-1 justify-items-center gap-x-6 gap-y-10 px-4 pt-12 pb-16 md:grid-cols-2 min-[1200px]:hidden"
         >
-          {layout.slice(0, 4).map(({ journey, angle }) => (
-            <div key={journey} className="relative h-[340px] w-[330px] max-w-[calc(100vw-2*var(--frame-inset)-32px)]">
-              <JourneyNote index={journey} angle={angle} className="top-1/2 left-1/2" style={{ translate: "-50% -50%" }} />
+          {compactCards.map((card) => (
+            <div key={card.journey} className="relative h-[340px] w-[330px] max-w-[calc(100vw-2*var(--frame-inset)-32px)]">
+              <JourneyNote card={card} className="top-1/2 left-1/2" style={{ translate: "-50% -50%" }} />
             </div>
           ))}
         </div>
