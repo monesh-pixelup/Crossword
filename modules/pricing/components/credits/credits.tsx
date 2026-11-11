@@ -64,12 +64,16 @@ export function Credits() {
         </div>
 
         <LatticeFrame>
-          <table className="w-full min-w-[880px] table-fixed border-collapse">
+          {/*
+            Below 768px the first column narrows to 200px (its interactions and group labels wrap onto two lines) while the
+            other three keep the widths they had at 880px, so the table is 157px shorter to scroll across.
+          */}
+          <table className="w-full min-w-[880px] table-fixed border-collapse max-md:min-w-[723px]">
             <colgroup>
-              <col className="w-[40.625%]" />
-              <col className="w-[19.844%]" />
-              <col className="w-[19.766%]" />
-              <col className="w-[19.766%]" />
+              <col className="w-[40.625%] max-md:w-[200px]" />
+              <col className="w-[19.844%] max-md:w-[175px]" />
+              <col className="w-[19.766%] max-md:w-[174px]" />
+              <col className="w-[19.766%] max-md:w-[174px]" />
             </colgroup>
             <thead>
               <tr>
@@ -96,7 +100,7 @@ export function Credits() {
                       className={cn(
                         rule,
                         rowFill,
-                        "h-12 md:sticky md:left-0 md:z-1 pr-6 pl-5 align-middle text-left font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] whitespace-nowrap text-wine uppercase",
+                        "h-12 md:sticky md:left-0 md:z-1 pr-6 pl-5 align-middle text-left font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] whitespace-nowrap text-wine uppercase max-md:py-3 max-md:whitespace-normal",
                       )}
                     >
                       {row.group}

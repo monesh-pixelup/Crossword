@@ -60,11 +60,15 @@ export function Differentiation({
         </div>
 
         <LatticeFrame>
-          <table className="w-full min-w-[880px] table-fixed border-collapse">
+          {/*
+            Below 768px the first column narrows to 180px (its moments wrap onto two or three lines) while the other two
+            keep the widths they had at 880px, so the table is 67px shorter to scroll across.
+          */}
+          <table className="w-full min-w-[880px] table-fixed border-collapse max-md:min-w-[813px]">
             <colgroup>
-              <col className="w-[28.081%]" />
-              <col className="w-[34.321%]" />
-              <col className="w-[37.598%]" />
+              <col className="w-[28.081%] max-md:w-[180px]" />
+              <col className="w-[34.321%] max-md:w-[302px]" />
+              <col className="w-[37.598%] max-md:w-[331px]" />
             </colgroup>
             <thead>
               <tr>
