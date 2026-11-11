@@ -14,7 +14,8 @@ import { initialJourneyState, journeyOf, journeys, nextStep, selectJourney } fro
 const LAYER_SIZE: [number, number] = [1671, 941];
 
 /**
- * The hero banner (hero-banners handoff, 11 November 2026): the scene photo with page-specific extensions either side,
+ * The hero banner (hero-banners handoff, 11 November 2026; desktop swapped for the no-people version the same day): the
+ * scene photo with page-specific extensions either side,
  * 3000 × 864 at 3x (9000 × 2592), with the concierge over it to glitch: his 814 × 731 cutout of that same photo, so at
  * rest he sits on it seamlessly. Boxed on the canvas (1671 canvas units to the frame's 1440px). The banner is
  * registered to the concierge (matched on his opaque pixels: banner px 3862, 552 at 1.5011x his cutout), which puts it

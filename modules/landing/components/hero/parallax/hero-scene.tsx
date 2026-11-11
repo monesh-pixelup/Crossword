@@ -1,6 +1,6 @@
 "use client";
 
-import type { StaticImageData } from "next/image";
+import { getImageProps, type StaticImageData } from "next/image";
 import { type CSSProperties, type ReactNode, useLayoutEffect, useRef, useState } from "react";
 import overlay from "../../../assets/hero/parallax/overlay.webp";
 import { type GlitchSettings, GlitchFigure } from "./glitch-figure";
@@ -14,10 +14,49 @@ export type SceneLayer = {
   glitch?: boolean;
 };
 
+/**
+ * A scene photo layer through the image optimizer (as the other pages' HeroBanner), not its full-size source: the 9000px
+ * home banner is several MB, so loaded raw it arrived well after the rest of the hero (the concierge's own cutout first,
+ * the photo popping in behind him on every reload). The photo is the largest paint, so the first layer is fetched eagerly
+ * at high priority.
+ */
+function SceneImage({ src, style, sizes, first }: { src: StaticImageData; style: CSSProperties; sizes: string; first: boolean }) {
+  const { props } = getImageProps({
+    src,
+    alt: "",
+    sizes,
+    loading: first ? "eager" : "lazy",
+    fetchPriority: first ? "high" : "auto",
+  });
+  // The layer is placed by hand (`style`), so drop the intrinsic size and the optimizer's inline style.
+  const { width: _w, height: _h, style: _s, ...img } = props;
+  // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text -- scene layer placed by hand; alt="" from getImageProps
+  return <img {...img} className="hero-scene__crop" style={style} decoding="async" />;
+}
+
+/**
+ * How wide a layer draws, for its srcset: phones' layers span the page; from 760px the frame is the 1440px design
+ * (held at that size below 1440px, capped at it above), so a layer is its share of 1440px. The server renders the
+ * desktop layers before the client knows it's a phone, so below 760px those ask for a token width rather than the
+ * full banner, and the phone banner loads once the client switches to it.
+ */
+function layerSizes(share: number, mweb: boolean) {
+  if (mweb) return `${Math.ceil(share * 100)}vw`;
+  return `(max-width: ${COMPACT_BELOW - 1}px) 16px, ${Math.ceil(share * FRAME_W)}px`;
+}
+
 /** The frame the scene is designed in, and the width below which it switches to the compact layout. */
 const FRAME_W = 1440;
 const FRAME_H = 863;
 const COMPACT_BELOW = 760;
+
+/**
+ * A held scene's frame width before the client has measured it (the server render and first paint), in CSS alone:
+ * from 760px the full 1440px frame (held and cropped below 1440px, as the measured layout does), and below 760px the
+ * root's width as before (phones switch to the compact layout once measured). The huge multiplier turns the
+ * clamp into a switch at 760px.
+ */
+const HELD_BEFORE_MEASURE = `clamp(100%, (100vw - ${COMPACT_BELOW - 1}px) * 9999, ${FRAME_W}px)`;
 
 /**
  * Held (see `holdHeight`): how wide the cards and the conversation run across the 1440px UI layer, with a margin
@@ -164,7 +203,10 @@ export function HeroScene({
     ? pageVar
     : {
         ...pageVar,
-        width: width ?? (fitHeight ? `min(100%, ${(100 * FRAME_W) / FRAME_H}vh)` : "100%"),
+        width: width ?? (holdHeight ? HELD_BEFORE_MEASURE : fitHeight ? `min(100%, ${(100 * FRAME_W) / FRAME_H}vh)` : "100%"),
+        // Not yet measured, a held scene already keeps its full-size frame (centred, overrunning the root) rather than
+        // shrinking to the root: the first paint matches the held layout, so nothing jumps at the sides on load.
+        ...(width === null && holdHeight && { flexShrink: 0 }),
         aspectRatio: `${FRAME_W} / ${FRAME_H}`,
         // Scaled: drawn at full size from the root's top-left corner, shrunk to the root's width.
         ...(scaled && { flexShrink: 0, alignSelf: "flex-start", transform: `scale(${scale})`, transformOrigin: "0 0" }),
@@ -214,17 +256,7 @@ export function HeroScene({
                   settings={glitch}
                 />
               ) : (
-                // eslint-disable-next-line @next/next/no-img-element -- scene layers, positioned by hand
-                <img
-                  key={layer.src.src}
-                  className="hero-scene__crop"
-                  src={layer.src.src}
-                  alt=""
-                  style={style}
-                  decoding="async"
-                  // The scene photo is the largest paint: fetch it first.
-                  fetchPriority={i === 0 ? "high" : "auto"}
-                />
+                <SceneImage key={layer.src.src} src={layer.src} style={style} sizes={layerSizes(w / sceneSize[0], mweb)} first={i === 0} />
               );
             })}
           </div>

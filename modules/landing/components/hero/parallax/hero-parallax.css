@@ -90,6 +90,21 @@
   width: 208.1813%;
 }
 
+/*
+ * Black under the banner's whole width, behind its layers. The overlay multiplies over the photo inside the frame's
+ * isolated group; past the frame's own black it had nothing beneath it, so until the banner painted (a frame or two on
+ * every reload) its raw cream-to-black gradient showed either side of the frame.
+ */
+.hero-scene:not(.hero-scene--compact) .hero-scene__photo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -54.6316%;
+  width: 208.1813%;
+  background: #000;
+}
+
 .hero-scene__layer {
   position: absolute;
   top: 0;
