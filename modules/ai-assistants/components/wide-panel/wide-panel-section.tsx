@@ -92,11 +92,13 @@ export function WidePanelSection({
           </div>
         </div>
 
-        <div className={cn("relative aspect-[1280/599] w-full overflow-hidden bg-[#462160]", mobilePanel && "max-md:hidden")}>
+        <div className={cn("relative aspect-[1280/599] w-full overflow-hidden bg-[#462160]", mobilePanel != null && mobilePanel !== false && "max-md:hidden")}>
           {children ?? <Image src={panelAubergine} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-fill" />}
         </div>
         {/* Phones: the mobile web visual at its 353:440 shape (the wide one hidden, so only one plays). */}
-        {mobilePanel && <div className="relative aspect-[353/440] w-full overflow-hidden md:hidden">{mobilePanel}</div>}
+        {mobilePanel != null && mobilePanel !== false && (
+          <div className="relative aspect-[353/440] w-full overflow-hidden md:hidden">{mobilePanel}</div>
+        )}
       </div>
     </section>
   );

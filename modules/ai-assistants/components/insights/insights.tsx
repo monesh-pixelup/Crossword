@@ -44,7 +44,7 @@ export function Insights({
       layout={layout}
       copyWidth={477.244}
       copy={<p>{copy}</p>}
-      mobilePanel={mobileScene && <AiaScenePanel slug={mobileScene} fill transform />}
+      mobilePanel={mobileScene ? <AiaScenePanel slug={mobileScene} fill transform /> : undefined}
     >
       {/* Fills the content width (past its drawn 1280px on wide screens); a transform, so it shrinks cleanly on phones. */}
       {scene && <AiaScenePanel slug={scene} fill transform />}

@@ -17,6 +17,7 @@ import {
   ServiceResolutionMotion,
   SponsoredComparisonMotion,
 } from "./home-v2";
+import { HomeMobileMotion, SponsoredComparisonMobileMotion } from "./home-v2-mobile";
 import frameTexture from "./home-v2/assets/background-texture.webp";
 import frameBackground from "./home-v2/assets/icons/scene-frame-background.svg";
 
@@ -208,20 +209,37 @@ export function InsightPanel({ visual, run }: { visual: InsightVisual; run: numb
  * The Shopper experience mock-up: a shopper searches for Gillette, taps Harry's sponsored comparison and lands on
  * its product page, where Crossword makes the case. The visual draws its own 1280 × 599 aubergine frame; drawn at
  * that size and zoomed as a whole to the column width. Replays when it comes back into view.
+ *
+ * Below 768px it's 08m instead, the same story laid out for a phone (353 × 440 at 1:1, its own gold-edged browser
+ * window), zoomed to the column the same way. Each only plays once on screen, so the hidden one never runs.
  */
 export function ShopperPanel() {
   const [ref, replay] = useReplayOnReturn();
+  const label =
+    "A shopper searches for Gillette, clicks Harry's sponsored comparison, and lands on a Harry's product page where Crossword compares the razor with Gillette's to win the sale";
   return (
-    <div
-      ref={ref}
-      role="img"
-      aria-label="A shopper searches for Gillette, clicks Harry's sponsored comparison, and lands on a Harry's product page where Crossword compares the razor with Gillette's to win the sale"
-      className="relative h-[599px] w-[1280px] shrink-0 overflow-clip select-none scale-to-container [--fit-width:1280px]"
-    >
-      <div inert className="contents">
-        <HomeMotion>
-          <SponsoredComparisonMotion key={replay} />
-        </HomeMotion>
+    <div ref={ref} className="w-full">
+      <div
+        role="img"
+        aria-label={label}
+        className="relative h-[599px] w-[1280px] shrink-0 overflow-clip select-none scale-to-container [--fit-width:1280px] max-md:hidden"
+      >
+        <div inert className="contents">
+          <HomeMotion>
+            <SponsoredComparisonMotion key={replay} />
+          </HomeMotion>
+        </div>
+      </div>
+      <div
+        role="img"
+        aria-label={label}
+        className="relative h-[440px] w-[353px] shrink-0 overflow-clip select-none scale-to-container [--fit-width:353px] md:hidden"
+      >
+        <div inert className="contents">
+          <HomeMobileMotion>
+            <SponsoredComparisonMobileMotion key={replay} />
+          </HomeMobileMotion>
+        </div>
       </div>
     </div>
   );

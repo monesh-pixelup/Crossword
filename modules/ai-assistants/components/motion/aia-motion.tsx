@@ -54,6 +54,12 @@ import {
 const subscribe = () => () => {};
 
 /**
+ * 11 at its desktop layout. The source's component takes an optional `mweb` flag (11m is it with `mweb`, see
+ * V3AppDetailMwebMotion), which doesn't fit the scenes' `{ play }` props, so it's registered through this wrapper.
+ */
+const V3AppDetailDesktopMotion = () => <V3AppDetailMotion />;
+
+/**
  * The `.aia-motion` scope the AI Assistants V3 visuals render in (motion.css is prefixed with it).
  * The visuals are drawn on the client only: they read `prefers-reduced-motion` and the window's
  * focus on their first render, which the server can't know.
@@ -148,7 +154,7 @@ export const aiaScenes = {
     duration: 30800,
   },
   "app-detail-motion": {
-    Component: V3AppDetailMotion,
+    Component: V3AppDetailDesktopMotion,
     label: "ChatGPT's plugin page for Sorelle Labs: the brand's own app, listed inside ChatGPT.",
     width: 1280,
     height: 599,
