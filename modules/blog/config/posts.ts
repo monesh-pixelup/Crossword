@@ -31,78 +31,102 @@ export type BlogPost = {
   sections: BlogSection[];
 };
 
-/**
- * The sample article every placeholder post carries until the real posts are written: the intro, then its sections in
- * the order the Index lists them.
- */
-const sampleIntro = [
-  "Most teams judge their AI assistant by a dashboard: conversations handled, deflection rate, revenue attributed. Those numbers tell you that something happened. They don't tell you whether the assistant did the right thing, for the right shopper, at the right moment.",
-  "The answer is in the transcript. Every conversation Crossword has is kept in full, with the decision behind each reply alongside it, and the outcome that followed is logged against that same conversation. So when a number moves, you can read exactly why.",
+// The journal's posts, newest first.
+export const blogPosts: BlogPost[] = [
+  {
+    slug: "what-makes-an-e-commerce-brand-ai-discoverable",
+    title: "What Makes an E-Commerce Brand AI-Discoverable?",
+    category: "Commerce",
+    details: [],
+    date: "11 November 2026",
+    summary:
+      "AI recommends the products it can read and trust. Learn what makes an e-commerce brand AI-discoverable, from product data to presence beyond your site.",
+    intro: [
+      "Ask ChatGPT for “a fragrance-free moisturizer for dry, sensitive skin under $40.” You won’t get ten blue links. You’ll get a short list of products.",
+      "If your brand isn’t on that list, the shopper never finds out you exist.",
+      "That’s the new test for online stores. It’s no longer only about ranking on page one of Google. It’s whether an AI can find your products, understand them and trust what you say about them. That’s what it means to be AI-discoverable.",
+    ],
+    sections: [
+      {
+        id: "shoppers-are-already-asking",
+        title: "Shoppers are already asking",
+        paragraphs: [
+          "McKinsey’s survey found that 50% of consumers now intentionally use AI-powered search tools to guide purchase decisions. Among people who use AI search, 44% say it’s their primary and preferred source of insight, ahead of traditional search at 31%.",
+          "So the question is no longer whether shoppers use AI search. It’s whether your brand shows up when they do.",
+        ],
+      },
+      {
+        id: "make-your-product-data-easy-to-read",
+        title: "1. Make your product data easy to read",
+        paragraphs: [
+          "Maya is shopping for a moisturizer. She asks ChatGPT for one that’s fragrance-free, good for dry skin and under $40.",
+          "Brand A’s product page says, “Our glow-getter bestseller, loved by thousands.” Brand B’s page lists skin type, ingredients, fragrance-free status, size, price and whether it’s in stock.",
+          "An AI can only recommend what it can read. Brand B gets named. Brand A doesn’t.",
+          "This is why structured data, schema markup and complete product data matter. Titles, prices, availability, sizes and materials should be written as clear fields, not buried in a paragraph.",
+        ],
+      },
+      {
+        id: "describe-products-the-way-people-ask",
+        title: "2. Describe products the way people ask",
+        paragraphs: [
+          "Shoppers don’t type “hydrating cream 1.7 oz.” They ask, “What’s good for dry skin in winter?”",
+          "Your descriptions should answer that kind of question. Say who the product is for, what problem it solves and when to use it. Plain language beats clever copy. This is the heart of answer engine optimization (AEO): write answers an AI can lift straight into a response.",
+        ],
+      },
+      {
+        id: "keep-it-fresh-and-consistent",
+        title: "3. Keep it fresh and consistent",
+        paragraphs: [
+          "Out-of-date prices and wrong stock status are fast ways to lose an AI’s trust. OpenAI’s product feed specification, for example, asks merchants to refresh structured product data as often as every 15 minutes. The same source also advises keeping your feed data in line with the structured markup on your site.",
+          "If your site says $38, your feed says $42 and a retailer lists $35, the AI has no good way to know which is right.",
+        ],
+      },
+      {
+        id: "show-up-beyond-your-own-website",
+        title: "4. Show up beyond your own website",
+        paragraphs: [
+          "This one surprises most brands. McKinsey found that a brand’s own site often makes up only 5 to 10 percent of the sources AI search references. The rest comes from reviews, forums, publishers and affiliate pages.",
+          "That means being discoverable includes the reviews customers leave, the articles that mention you and the conversations happening on Reddit and YouTube. It’s also worth knowing where you stand. McKinsey reports that just 16% of brands systematically track their AI search performance.",
+        ],
+      },
+      {
+        id: "dont-lock-the-door",
+        title: "5. Don’t lock the door",
+        paragraphs: [
+          "Some stores block AI crawlers by accident, through their robots.txt file or security settings. If an AI search crawler such as OpenAI’s OAI-SearchBot can’t reach your pages, it can’t recommend what’s on them. It’s a five-minute check with a big payoff.",
+        ],
+      },
+      {
+        id: "found-is-only-half-the-job",
+        title: "Found is only half the job",
+        paragraphs: [
+          "Everything above gets your products found. The next test starts when the conversation does.",
+          "A shopper asks a follow-up: “Is it okay for sensitive skin?” Now the AI has to answer, and it can go about it two ways. Without a direct connection to your store, it has to scrape your website and search through pages, hoping it lands on the right line. A fact inside an image, a spec on another tab or a size that just went out of stock can slip through, and the shopper gets a vague or wrong answer.",
+          "The other way is to pull the answer straight from your store’s data. That’s the gap Crossword is built to close, and it works in two parts.",
+          "We enrich your catalog. Product data is rarely as complete as it should be. Attributes are missing, naming is inconsistent and key details are buried in paragraphs. Crossword fills in and organizes that information so every product is described fully and in the same way.",
+          "We connect the agent directly to your store. Instead of scraping and searching, the agent (or the LLM a shopper is using) pulls from your catalog. It gets the right information, completely, every time.",
+          "The same agent then works on your site, in ChatGPT and in personal AI agents, speaking in your brand’s voice. Wherever a shopper asks, the answer is accurate, complete and sounds like you.",
+        ],
+      },
+      {
+        id: "frequently-asked-questions",
+        title: "Frequently asked questions",
+        paragraphs: [
+          "What does AI-discoverable mean? It means AI assistants like ChatGPT can find your products, understand them and confidently recommend them when a shopper asks.",
+          "Is this the same as SEO? Not exactly. SEO helps pages rank in search results. Generative engine optimization (GEO) and answer engine optimization (AEO) focus on being cited and recommended inside AI answers. Good SEO helps, but it’s not enough on its own.",
+          "Where should a brand start? Ask ChatGPT for the kind of product you sell and see what comes back. Then check your product data, your descriptions and your robots.txt.",
+        ],
+      },
+      {
+        id: "the-question-to-ask",
+        title: "The question to ask",
+        paragraphs: [
+          "Shoppers are asking AI for recommendations every day. The brands that get found will be the ones that made it easy to be understood. Crossword is your brand AI agent that can represent your brand, the way you envision.",
+        ],
+      },
+    ],
+  },
 ];
-
-const sampleSections: BlogSection[] = [
-  {
-    id: "every-answer-leaves-a-record",
-    title: "Every answer leaves a record",
-    paragraphs: [
-      "A shopper asks whether a jacket runs small. The assistant checks the size chart, the reviews that mention fit and the shopper's past orders, then recommends a size. All of that is in the transcript: what was asked, what was looked up, and what was said back.",
-      "Nothing is summarised away. If a reply was cautious, you can see the policy it was following. If it suggested a second product, you can see which signal made it think that would help.",
-    ],
-  },
-  {
-    id: "reading-the-transcript",
-    title: "Reading the transcript, not the dashboard",
-    paragraphs: [
-      "Dashboards average things out. A 4% lift in conversion can hide an assistant that is excellent on one category and quietly unhelpful on another. Reading a handful of transcripts from each segment shows you the difference in minutes.",
-      "That is why the transcript is the first thing your team sees when they open a conversation, with the metrics around it rather than in place of it.",
-    ],
-  },
-  {
-    id: "where-judgement-shows-up",
-    title: "Where judgement shows up",
-    paragraphs: [
-      "The interesting moments are the ones where the assistant had a choice: offer a discount or hold the price, answer directly or hand over to a person, suggest an upgrade or leave the basket alone. Those decisions are marked in the transcript, with the reason given at the time.",
-      "When a decision looks wrong, you can correct the rule behind it, and the next conversation that meets the same situation follows the new rule.",
-    ],
-  },
-  {
-    id: "logging-the-outcome",
-    title: "Logging the outcome against it",
-    paragraphs: [
-      "A conversation doesn't end when the chat window closes. The order that followed, the return that didn't happen and the ticket that never needed opening are all tied back to the conversation that led to them.",
-      "So attribution isn't a model's guess. It's a line from a specific reply to a specific result, which you can open and read.",
-    ],
-  },
-  {
-    id: "what-changes-for-the-team",
-    title: "What changes for the team",
-    paragraphs: [
-      "Merchandisers stop asking whether the assistant is working and start asking where it could do better. Support leads review the handovers that mattered instead of sampling at random. And the people who set the rules can see their rules being applied, conversation by conversation.",
-    ],
-  },
-  {
-    id: "conclusion",
-    title: "Conclusion",
-    paragraphs: [
-      "An assistant you can't read is an assistant you can't improve. Keep the judgement in the transcript and the outcome logged against it, and every conversation becomes something you can learn from.",
-    ],
-  },
-];
-
-const placeholderTitle = "The judgement is in the transcript, and the outcome is logged against it.";
-
-// The journal's posts. Placeholders from Figma (1660:935) until the real posts are written: every card shares the
-// "Turning Interest into Action." cover, this title and the sample article, each at its own address.
-export const blogPosts: BlogPost[] = Array.from({ length: 6 }, (_, i) => ({
-  slug: i === 0 ? "judgement-in-the-transcript" : `judgement-in-the-transcript-${i + 1}`,
-  title: placeholderTitle,
-  category: "Logistics" as const,
-  details: ["Series C", "180 people", "Northeast"],
-  date: "26 April 2026",
-  summary: "Why the transcript, not the dashboard, is where you find out whether your AI assistant made the right call.",
-  intro: sampleIntro,
-  sections: sampleSections,
-}));
 
 /** The post at `slug`, if there is one. */
 export function getPost(slug: string): BlogPost | undefined {
