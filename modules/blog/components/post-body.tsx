@@ -1,6 +1,6 @@
 import Image from "next/image";
 import cover from "../assets/post-cover.webp";
-import type { BlogPost } from "../config/posts";
+import type { BlogPost, BlogSection } from "../config/posts";
 import { PostIndex } from "./post-index";
 
 /** The post's copy: Geist 16/24 in ink muted (15/22 on phones), paragraphs 16px apart. */
@@ -40,17 +40,57 @@ export function PostBody({ post }: { post: BlogPost }) {
               <h2 className="font-serif text-[32px] leading-[1.09375] font-light tracking-[-1.6px] text-ink max-md:text-[24px] max-md:leading-[27px] max-md:tracking-[-1.2px]">
                 {section.title}
               </h2>
-              <div className="flex flex-col gap-4">
-                {section.paragraphs.map((p, i) => (
-                  <p key={i} className={copy}>
-                    {p}
-                  </p>
-                ))}
-              </div>
+              {section.paragraphs.length > 0 && (
+                <div className="flex flex-col gap-4">
+                  {section.paragraphs.map((p, i) => (
+                    <p key={i} className={copy}>
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              )}
+              {section.table && <PostTable table={section.table} />}
             </div>
           ))}
         </article>
       </div>
     </section>
+  );
+}
+
+/**
+ * A table in a post: Geist 14/20 between engraved hairlines, the header row and the row labels in ink, the rest in ink
+ * muted. On phones it scrolls sideways inside its own box rather than squeezing the columns.
+ */
+function PostTable({ table }: { table: NonNullable<BlogSection["table"]> }) {
+  const cell = "border-b-[0.5px] border-engraved px-4 py-3 text-left align-top first:pl-0";
+  return (
+    <div className="-mx-4 overflow-x-auto px-4">
+      <table className="w-full min-w-[560px] border-collapse font-sans text-[14px] leading-5 tracking-[-0.28px]">
+        <thead>
+          <tr>
+            {table.head.map((h, i) => (
+              <th key={i} scope="col" className={`${cell} font-medium text-ink`}>
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {table.rows.map(([label, ...cells], r) => (
+            <tr key={r}>
+              <th scope="row" className={`${cell} font-medium text-ink`}>
+                {label}
+              </th>
+              {cells.map((c, i) => (
+                <td key={i} className={`${cell} text-ink-muted`}>
+                  {c}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
