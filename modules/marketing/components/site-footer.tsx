@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import grainTile from "../assets/footer/grain-tile.webp";
 import complianceBadges from "../assets/footer/compliance-badges.webp";
 import monogramFrame from "../assets/footer/monogram-frame.svg";
 import stamp from "../assets/footer/stamp.webp";
@@ -78,7 +77,7 @@ function Tagline() {
 }
 
 /**
- * Site footer: deep green with the grain tile and a gilt notched frame. Layout follows the
+ * Site footer: flat #00331A green and a gilt notched frame. Layout follows the
  * Webflow build: logo and link columns across the top; along the bottom the tagline, and opposite
  * it the compliance badges over the copyright line. The top row stacks below 768px, the bottom one
  * below 992px. Stacked, the
@@ -88,17 +87,8 @@ function Tagline() {
 export function SiteFooter() {
   return (
     <footer className="@container relative overflow-clip pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
-      {/*
-        Figma 3073:22835: #00331A (forest) with the grain tile (exported from Figma at 740px) laid over it in 172.82px
-        tiles, soft-light at 40%.
-      */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-forest" />
-        <div
-          className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left opacity-40 mix-blend-soft-light"
-          style={{ backgroundImage: `url(${grainTile.src})` }}
-        />
-      </div>
+      {/* A flat #00331A (forest), by request: no grain over it, so the colour is exactly #00331A. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[#00331a]" />
       <FooterFrame />
 
       {/* The sections' content box: the 1440px-capped page less --page-pad a side, centred in the full-width footer. */}
