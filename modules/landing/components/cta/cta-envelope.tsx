@@ -184,7 +184,8 @@ export function CtaEnvelope() {
             sizes="(min-width: 1440px) 1390px, 100vw"
             className={`${layer} ${flap} top-[4.9406%] z-2 h-[38.587%] origin-[50%_99.7237%]`}
           />
-          <div data-cta="letter-hover" className="absolute top-[28.412%] left-[3.8129%] z-3 h-[40.163%] w-[68.8129%]">
+          {/* Below 768px the card is taller (by 8.4% of the envelope), grown upwards so its foot stays tucked in the pocket. */}
+          <div data-cta="letter-hover" className="absolute top-[28.412%] left-[3.8129%] z-3 h-[40.163%] w-[68.8129%] max-md:top-[20%] max-md:h-[48.575%]">
             {/*
               The note is live text over the blank card, placed in card units (cqw of the card,
               1913px in the export) so it scales with the envelope: Caveat 31px at the 1440px frame
