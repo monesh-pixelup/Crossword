@@ -46,6 +46,11 @@ type WidePanelSectionProps = {
   layout: keyof typeof layouts;
   /** What the panel plays; the static aubergine art until the section's motion lands. */
   children?: ReactNode;
+  /**
+   * Below 768px, the visual's mobile web version (AI Assistants V3 11m, 15m: 353 × 440) in a panel of its own shape, in
+   * place of the wide panel.
+   */
+  mobilePanel?: ReactNode;
 };
 
 /**
@@ -65,6 +70,7 @@ export function WidePanelSection({
   copyWidth,
   layout,
   children,
+  mobilePanel,
 }: WidePanelSectionProps) {
   const l = layouts[layout];
   return (
@@ -86,9 +92,11 @@ export function WidePanelSection({
           </div>
         </div>
 
-        <div className="relative aspect-[1280/599] w-full overflow-hidden bg-[#462160]">
+        <div className={cn("relative aspect-[1280/599] w-full overflow-hidden bg-[#462160]", mobilePanel && "max-md:hidden")}>
           {children ?? <Image src={panelAubergine} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-fill" />}
         </div>
+        {/* Phones: the mobile web visual at its 353:440 shape (the wide one hidden, so only one plays). */}
+        {mobilePanel && <div className="relative aspect-[353/440] w-full overflow-hidden md:hidden">{mobilePanel}</div>}
       </div>
     </section>
   );

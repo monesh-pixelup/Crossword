@@ -20,6 +20,7 @@ export function Insights({
     </>
   ),
   scene,
+  mobileScene,
   layout = "inlineBottom",
 }: {
   id?: string;
@@ -28,6 +29,8 @@ export function Insights({
   copy?: ReactNode;
   /** The motion visual the panel plays (1280 × 599); the bare panel without one. */
   scene?: MotionSlug;
+  /** Below 768px, the visual's mobile web version (353 × 440) in its place (AI Assistants V3 15m). */
+  mobileScene?: MotionSlug;
   /** How the copy sits beside the headline: bottom-aligned with it, as Figma (3392:200), or centred on it. */
   layout?: "inline" | "inlineBottom";
 }) {
@@ -41,6 +44,7 @@ export function Insights({
       layout={layout}
       copyWidth={477.244}
       copy={<p>{copy}</p>}
+      mobilePanel={mobileScene && <AiaScenePanel slug={mobileScene} fill transform />}
     >
       {/* Fills the content width (past its drawn 1280px on wide screens); a transform, so it shrinks cleanly on phones. */}
       {scene && <AiaScenePanel slug={scene} fill transform />}

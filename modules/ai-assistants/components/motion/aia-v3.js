@@ -114,7 +114,7 @@ const aurelia = {
   ink: "oklch(0.372050 0.104087 11.375080)",
   paper: "oklch(0.949854 0.035765 83.776669)",
   plate: "oklch(0.949854 0.035765 83.776669)",
-  font: 'var(--font-geist), system-ui, sans-serif',
+  font: '"Geist", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Merchant workflow modules; no retail product imagery.",
@@ -129,7 +129,7 @@ const marais = {
   ink: "oklch(0.333797 0.017711 52.846973)",
   paper: "oklch(0.917788 0.014926 80.705576)",
   plate: "oklch(0.917788 0.014926 80.705576)",
-  font: 'var(--font-playfair-display), Georgia, serif',
+  font: '"Playfair Display", Georgia, serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
@@ -144,7 +144,7 @@ const goodwell = {
   ink: "#3D2A52",
   paper: "#ECE5F4",
   plate: "#ECE5F4",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Plum-labelled jars on soft lavender backgrounds.",
@@ -159,7 +159,7 @@ const moonrest = {
   ink: "oklch(0.322726 0.043440 265.959396)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Midnight blue sleep-wellness packaging.",
@@ -175,7 +175,7 @@ const dusklight = {
   ink: "oklch(0.407553 0.025289 297.472985)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-playfair-display), Georgia, serif',
+  font: '"Playfair Display", Georgia, serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Sculptural lighting in muted dusk neutrals.",
@@ -231,7 +231,7 @@ const aura = {
   ink: "oklch(0.383958 0.041934 259.291287)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Ivory earbud shells with small uppercase branding.",
@@ -246,7 +246,7 @@ const auden = {
   ink: "oklch(0.287317 0.010592 139.435369)",
   paper: "oklch(0.953751 0.006637 106.524690)",
   plate: "oklch(0.953751 0.006637 106.524690)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants."
@@ -257,7 +257,7 @@ const lumen = {
   ink: "oklch(0.471130 0.054860 60.711055)",
   paper: "oklch(0.918283 0.023989 73.599537)",
   plate: "oklch(0.918283 0.023989 73.599537)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging."
@@ -298,7 +298,7 @@ const vela = {
   ink: "oklch(0.400862 0.039974 357.323084)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Muted rose and charcoal styling tools."
@@ -335,7 +335,7 @@ const hearthware = {
   ink: "oklch(0.443046 0.078484 38.521350)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting."
@@ -357,7 +357,7 @@ const aurelle = {
   ink: "oklch(0.372050 0.104087 11.375080)",
   paper: "oklch(0.949854 0.035765 83.776669)",
   plate: "oklch(0.949854 0.035765 83.776669)",
-  font: 'var(--font-playfair-display), Georgia, serif',
+  font: '"Playfair Display", Georgia, serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
@@ -375,7 +375,7 @@ const registry = {
     ink: "oklch(0.312021 0.017679 40.980349)",
     paper: "oklch(0.928960 0.013702 120.286628)",
     plate: "oklch(0.928960 0.013702 120.286628)",
-    font: 'var(--font-playfair-display), Georgia, serif',
+    font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
@@ -392,7 +392,7 @@ const registry = {
     ink: "oklch(0.452877 0.059042 53.979984)",
     paper: "oklch(0.968556 0.013078 82.401983)",
     plate: "oklch(0.968556 0.013078 82.401983)",
-    font: 'var(--font-playfair-display), Georgia, serif',
+    font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
@@ -412,7 +412,7 @@ const registry = {
     ink: "oklch(0.389321 0.051580 45.883998)",
     paper: "oklch(0.931264 0.021080 79.091606)",
     plate: "oklch(0.931264 0.021080 79.091606)",
-    font: 'var(--font-playfair-display), Georgia, serif',
+    font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces."
@@ -430,7 +430,7 @@ const registry = {
     ink: "oklch(0.377131 0.052841 265.419694)",
     paper: "oklch(0.968556 0.013078 82.401983)",
     plate: "oklch(0.968556 0.013078 82.401983)",
-    font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+    font: '"Inter", system-ui, sans-serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding."
@@ -3238,11 +3238,11 @@ const installed = [
   { name: "Figma", logo: figmaLogo }
 ];
 const prompts = ["Help me choose a serum for my daily routine.", "Compare moisturisers under $55."];
-function V3AppDetail({ className } = {}) {
-  const name = "11 · Your brand, inside ChatGPT";
+function V3AppDetail({ className, mweb = false } = {}) {
+  const name = mweb ? "11m · Your brand, inside ChatGPT (mweb)" : "11 · Your brand, inside ChatGPT";
   return /* @__PURE__ */ jsx("section", { className: "aiv3-section", "data-name": name, children: /* @__PURE__ */ jsxs("figure", { className: "aiv3-figure", children: [
     /* @__PURE__ */ jsx("figcaption", { className: "app-stage__tile-label", children: name }),
-    /* @__PURE__ */ jsx("div", { className: "aiv3w-canvas apd-canvas", children: /* @__PURE__ */ jsxs("div", { className: className ? `aia aiv3 aiv3w apd ${className}` : "aia aiv3 aiv3w apd", "data-name": name, children: [
+    /* @__PURE__ */ jsx("div", { className: mweb ? "aiv3w-canvas apd-canvas apd-canvas--mweb" : "aiv3w-canvas apd-canvas", children: /* @__PURE__ */ jsxs("div", { className: className ? `aia aiv3 aiv3w apd ${className}` : "aia aiv3 aiv3w apd", "data-name": name, children: [
       /* @__PURE__ */ jsx(BrowserBar, {}),
       /* @__PURE__ */ jsx("div", { className: "aia-gpt apd-page", "data-name": "ChatGPT / Plugin detail", children: /* @__PURE__ */ jsxs("div", { className: "apd-vp", children: [
         /* @__PURE__ */ jsxs("nav", { className: "apd-rail", "data-name": "Sidebar (collapsed)", children: [
@@ -3362,7 +3362,7 @@ function V3AppDetail({ className } = {}) {
     ] }) })
   ] }) });
 }
-function V3AppDetailMotion() {
+function V3AppDetailMotion({ mweb = false } = {}) {
   const rootRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
   const fontsReady = useFontsReady();
@@ -3371,7 +3371,10 @@ function V3AppDetailMotion() {
   useEffect(() => {
     if (playing) setRun((r) => r + 1);
   }, [playing]);
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(V3AppDetail, { className: playing ? "apdm apdm--play" : "apdm" }, run) });
+  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(V3AppDetail, { mweb, className: playing ? "apdm apdm--play" : "apdm" }, run) });
+}
+function V3AppDetailMwebMotion() {
+  return /* @__PURE__ */ jsx(V3AppDetailMotion, { mweb: true });
 }
 const audiencesBg = "/images/ai-assistants/v3/assets/audiences_bg_3x-CeMPiv1g.webp";
 const returnReductionBg = "/images/ai-assistants/v3/assets/return_reduction_bg_3x-PTzwbPCJ.webp";
@@ -3626,19 +3629,25 @@ function ResultCard({ v }) {
     ] })
   ] });
 }
-function Dashboard({ v, stageRef, runKey }) {
+function Dashboard({ v, stageRef, runKey, mweb = false }) {
   const enter = v.animate ? " la-enter" : "";
-  return /* @__PURE__ */ jsx(
+  const frame = /* @__PURE__ */ jsx(
     InsightsFrame,
     {
+      bare: mweb,
+      compact: mweb,
       className: "cgi",
       saved: chatGptInsights.saved,
       recent: chatGptInsights.recent,
       active: v.sent ? chatGptInsights.query : void 0,
       activeEnter: v.animate,
-      stageRef,
+      stageRef: mweb ? void 0 : stageRef,
       runKey,
       children: /* @__PURE__ */ jsxs("section", { className: "la-chat", children: [
+        mweb && /* @__PURE__ */ jsxs("header", { className: "la-fit__head", children: [
+          /* @__PURE__ */ jsx("span", { className: "la-serif la-fit__title", children: "Insights" }),
+          v.sent && /* @__PURE__ */ jsx("span", { className: `la-fit__crumb${v.animate ? " la-fade" : ""}`, children: chatGptInsights.query })
+        ] }),
         /* @__PURE__ */ jsxs("div", { className: "la-thread", children: [
           v.sent && /* @__PURE__ */ jsx("div", { className: `la-user${enter}`, children: /* @__PURE__ */ jsx("p", { children: chatGptInsights.query }) }),
           v.sent && /* @__PURE__ */ jsx("div", { className: "la-thought cgi-thought", children: v.thinking ? /* @__PURE__ */ jsx(
@@ -3670,8 +3679,9 @@ function Dashboard({ v, stageRef, runKey }) {
       ] })
     }
   );
+  return mweb ? /* @__PURE__ */ jsx("figure", { className: "la-fit-figure", ref: stageRef, children: /* @__PURE__ */ jsx("div", { className: "la-fit-canvas", children: /* @__PURE__ */ jsx("div", { className: "la-fit", children: frame }) }) }) : frame;
 }
-function ChatGptInsightsMotion() {
+function ChatGptInsightsMotion({ mweb = false } = {}) {
   var _a;
   const stageRef = useRef(null);
   const t = useChatTimeline(beats, useLandedOnScreen(stageRef));
@@ -3688,9 +3698,13 @@ function ChatGptInsightsMotion() {
     steps: [1, 2, 3, 4].filter((n) => t.reached(`step-${n}`)).length,
     animate: !t.reducedMotion
   };
-  return /* @__PURE__ */ jsx(Dashboard, { v, stageRef, runKey: t.runKey });
+  return /* @__PURE__ */ jsx(Dashboard, { v, stageRef, runKey: t.runKey, mweb });
+}
+function ChatGptInsightsMwebMotion() {
+  return /* @__PURE__ */ jsx(ChatGptInsightsMotion, { mweb: true });
 }
 const V3InsightsMotion = () => /* @__PURE__ */ jsx(ChatGptInsightsMotion, {});
+const V3InsightsMwebMotion = () => /* @__PURE__ */ jsx(ChatGptInsightsMwebMotion, {});
 const bag = (p) => ({
   id: p.id,
   name: p.title,
@@ -3858,11 +3872,13 @@ function V3PromoLaunches() {
 }
 export {
   V3AppDetailMotion,
+  V3AppDetailMwebMotion,
   V3BackInStockMotion,
   V3CheckoutMotion,
   V3ConfigureMotion,
   V3ExchangeMotion,
   V3InsightsMotion,
+  V3InsightsMwebMotion,
   V3LoyaltyMotion,
   V3OrderStatusMotion,
   V3PriceDropMotion,

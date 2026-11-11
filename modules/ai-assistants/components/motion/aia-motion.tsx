@@ -5,11 +5,13 @@ import type { SceneEntry } from "@/modules/sell/components/motion/scene-panel";
 import "./motion.css";
 import {
   V3AppDetailMotion,
+  V3AppDetailMwebMotion,
   V3BackInStockMotion,
   V3CheckoutMotion,
   V3ConfigureMotion,
   V3ExchangeMotion,
   V3InsightsMotion,
+  V3InsightsMwebMotion,
   V3LoyaltyMotion,
   V3OrderStatusMotion,
   V3PriceDropMotion,
@@ -23,7 +25,8 @@ import {
 
 /*
  * The AI Assistants page's motion visuals, built from the "Crossword — AI Assistants V3 motion" source
- * (Crossword-AI-Assistants-V3-Motion/source): aia-v3.js is its Vite build of the 15 visuals, unminified with React
+ * (Crossword-AI-Assistants-V3-Motion-2026-11-11/source, the 11 November 2026 update: the 24px gold-edged window
+ * standard, and 11m and 15m, the mobile web visuals): aia-v3.js is its Vite build of the 17 visuals, unminified with React
  * external, so markup, classes, copy and timings are the source's own. Mechanical changes only:
  *
  * - The follow-scrolls in GiftJourneyV2Motion and ProductDiscoveryV2Motion divide their getBoundingClientRect values by
@@ -41,6 +44,10 @@ import {
  * | 11 `app-detail-motion` | 1280 × 599 | brand/brand-aesthetics.tsx |
  * | 12–14 `promo-upgrade`, `promo-offer`, `promo-launches` | 355 × 402 | promotions/promotions.tsx |
  * | 15 `insights-motion` | 1280 × 599 | insights/insights.tsx |
+ * | 11m `app-detail-mweb-motion`, 15m `insights-mweb-motion` | 353 × 440 | the same sections, below 768px |
+ *
+ * The page's window standard (the source's ai-assistants-v3-motion.css) is scoped under the source page's `.hv2` root,
+ * which lifts it over the visuals' shared rules; the root here carries `hv2` too (motion.css has `.aia-motion.hv2 …`).
  */
 
 
@@ -57,7 +64,7 @@ export function AiaMotionRoot({ children }: { children: ReactNode }) {
     () => true,
     () => false,
   );
-  return <div className="aia-motion">{client && children}</div>;
+  return <div className="aia-motion hv2">{client && children}</div>;
 }
 
 /*
@@ -173,6 +180,20 @@ export const aiaScenes = {
     label: "The merchant's Insights dashboard: what customers asked in ChatGPT, what they picked, and the carts, orders and support cases that followed.",
     width: 1280,
     height: 599,
+    duration: 7800,
+  },
+  "app-detail-mweb-motion": {
+    Component: V3AppDetailMwebMotion,
+    label: "ChatGPT's plugin page for Sorelle Labs on a phone: the brand's own app, listed inside ChatGPT.",
+    width: 353,
+    height: 440,
+    duration: 1000,
+  },
+  "insights-mweb-motion": {
+    Component: V3InsightsMwebMotion,
+    label: "The merchant's Insights dashboard on a phone: what customers asked in ChatGPT, what they picked, and the carts, orders and support cases that followed.",
+    width: 353,
+    height: 440,
     duration: 7800,
   },
 } satisfies Record<string, SceneEntry>;
