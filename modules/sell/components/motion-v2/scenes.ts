@@ -5,6 +5,7 @@ import {
   BundleBuildingMotion,
   CartUpsellOfferMotion,
   ComparisonGuidanceMotion,
+  ComparisonGuidanceMwebMotion,
   CompleteChannelDeploymentMotion,
   ConversationalDiscoveryMotion,
   CrossSellMotion,
@@ -12,14 +13,17 @@ import {
   GiftFinderMotion,
   GuidedFinderMotion,
   HumanModeMotion,
+  HumanModeMwebMotion,
   OutfitBuildingMotion,
   PlaceItWhereverMotion,
   PriceObjectionMotion,
   ProactiveInterventionMotion,
+  ProactiveInterventionMwebMotion,
   ProductComparisonMotion,
   ProductQaMotion,
   PurchaseConfirmationMotion,
   ReturnVisitComparisonMotion,
+  ReturnVisitComparisonMwebMotion,
   SizeFitMotion,
   StockAvailabilityMotion,
   TryItOnMotion,
@@ -168,6 +172,34 @@ export const proactiveScenes = {
 } satisfies Record<string, SceneEntry>;
 
 /**
+ * Proactive messages 21m–23m, for phones: each desktop page laid out narrow (528 × 510, no thumbnail rail, a larger
+ * photo) with its widget centred, shown at 2/3 in a 352 × 340 frame. Same product, motion, background and fade.
+ */
+export const proactiveMwebScenes = {
+  "proactive-intervention": {
+    Component: ProactiveInterventionMwebMotion,
+    label: proactiveScenes["proactive-intervention"].label,
+    width: 352,
+    height: 340,
+    duration: 7000,
+  },
+  "comparison-guidance": {
+    Component: ComparisonGuidanceMwebMotion,
+    label: proactiveScenes["comparison-guidance"].label,
+    width: 352,
+    height: 340,
+    duration: 7000,
+  },
+  "return-visit-comparison": {
+    Component: ReturnVisitComparisonMwebMotion,
+    label: proactiveScenes["return-visit-comparison"].label,
+    width: 352,
+    height: 340,
+    duration: 7000,
+  },
+} satisfies Record<keyof typeof proactiveScenes, SceneEntry>;
+
+/**
  * Conversion assist 28b–33b: a phone chat on the 687 × 586 aubergine frame, the camera zooming into each moment.
  * Durations are the chat's run plus the camera's moves (about 7.3s, as on Upsell).
  */
@@ -265,5 +297,17 @@ export const humanModeScene: SceneEntry = {
     "Three moments in one Sorelle Labs skincare chat, played in turn: the assistant asks if a serum works for sensitive skin and offers to check the ingredients, then recommends the fragrance-free Calming Serum as a better match that costs $16 less.",
   width: 1280,
   height: 599,
+  duration: 24000,
+};
+
+/**
+ * Human mode 34m, for phones (352 × 560): 34b's three chapters, motion and chat camera restacked for a phone column, the
+ * phone on top and the chapter tabs in one sliding row under it, on its own background.
+ */
+export const humanModeMwebScene: SceneEntry = {
+  Component: HumanModeMwebMotion,
+  label: humanModeScene.label,
+  width: 352,
+  height: 560,
   duration: 24000,
 };

@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 import { proactiveTriggerScenes, proactiveTriggers } from "../../config/proactive";
 import { ScenePanel } from "../motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
-import { proactiveScenes } from "../motion-v2/scenes";
+import { proactiveMwebScenes, proactiveScenes } from "../motion-v2/scenes";
 
 /** How long each trigger stays up before the next one takes over, at least. */
 const DURATION_MS = 6000;
@@ -16,6 +16,12 @@ const HOLD_MS = 2500;
 const sceneFor = (i: number) => {
   const slug = proactiveTriggerScenes[i];
   return slug ? proactiveScenes[slug as keyof typeof proactiveScenes] : undefined;
+};
+
+/** The trigger's phone layout (21m–23m, 352 × 340), shown below 768px in place of the wide stage. */
+const mwebSceneFor = (i: number) => {
+  const slug = proactiveTriggerScenes[i];
+  return slug ? proactiveMwebScenes[slug as keyof typeof proactiveMwebScenes] : undefined;
 };
 
 /**
@@ -43,6 +49,8 @@ export function TriggerTabs() {
   }, []);
 
   const scene = sceneFor(active);
+
+  const mwebScene = mwebSceneFor(active);
   // Long enough for the scene to play out and hold.
   const duration = Math.max(DURATION_MS, scene ? scene.duration + HOLD_MS : 0);
 
@@ -72,7 +80,7 @@ export function TriggerTabs() {
         id={`${id}-panel`}
         aria-labelledby={`${id}-tab-${active}`}
         // The scene draws its own sand ground and hairline border; without one the stage draws them.
-        className={cn("relative aspect-[1280/509] w-full", !scene && "border-x border-t border-black/25 bg-[#f3e7d3]")}
+        className={cn("relative aspect-[1280/509] w-full max-md:hidden", !scene && "border-x border-t border-black/25 bg-[#f3e7d3]")}
       >
         {/*
           Fills the panel at every width, past its drawn 1280px on wide screens, so its ground and border meet the tabs
@@ -80,6 +88,13 @@ export function TriggerTabs() {
           minimum font size and overflow.
         */}
         {scene && <ScenePanel key={`${active}-${run}`} scene={scene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />}
+      </div>
+      {/* Below 768px: the trigger's phone layout (352 × 340) in place of the wide stage; only the shown one mounts. */}
+      <div
+        aria-hidden
+        className={cn("relative aspect-[352/340] w-full md:hidden", !mwebScene && "border-x border-t border-black/25 bg-[#f3e7d3]")}
+      >
+        {mwebScene && <ScenePanel key={`m-${active}-${run}`} scene={mwebScene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />}
       </div>
 
       <div role="tablist" aria-label="Proactive message triggers" onKeyDown={onKeyDown} className="flex w-full flex-col md:flex-row">

@@ -3,7 +3,7 @@ import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
 import { ScenePanel } from "../motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
-import { humanModeScene } from "../motion-v2/scenes";
+import { humanModeMwebScene, humanModeScene } from "../motion-v2/scenes";
 
 /**
  * Figma "Library · Wide panel (Human mode)", as Audiences on Retain: the eyebrow and a two-line
@@ -54,8 +54,12 @@ export function HumanMode() {
           Fills the content width (past its drawn 1280px on wide screens), edge to edge with the heading above. Scaled
           with a transform: zoomed down to a phone's width its text would hit the browser's minimum font size and overflow.
         */}
-        <div className="relative aspect-[1280/599] w-full overflow-hidden">
+        <div className="relative aspect-[1280/599] w-full overflow-hidden max-md:hidden">
           <ScenePanel scene={humanModeScene} root={SellMotionRoot} maxScale={Infinity} transform interactive />
+        </div>
+        {/* Below 768px: 34m, the phone on top and the chapter tabs in a sliding row under it (352 × 560). */}
+        <div className="relative aspect-[352/560] w-full overflow-hidden md:hidden">
+          <ScenePanel scene={humanModeMwebScene} root={SellMotionRoot} maxScale={Infinity} transform interactive />
         </div>
       </div>
     </section>

@@ -21,6 +21,7 @@ export {
   BundleBuildingMotion,
   CartUpsellOfferMotion,
   ComparisonGuidanceMotion,
+  ComparisonGuidanceMwebMotion,
   CompleteChannelDeploymentMotion,
   ConversationalDiscoveryMotion,
   CrossSellMotion,
@@ -28,14 +29,17 @@ export {
   GiftFinderMotion,
   GuidedFinderMotion,
   HumanModeMotion,
+  HumanModeMwebMotion,
   OutfitBuildingMotion,
   PlaceItWhereverMotion,
   PriceObjectionMotion,
   ProactiveInterventionMotion,
+  ProactiveInterventionMwebMotion,
   ProductComparisonMotion,
   ProductQaMotion,
   PurchaseConfirmationMotion,
   ReturnVisitComparisonMotion,
+  ReturnVisitComparisonMwebMotion,
   SizeFitMotion,
   StockAvailabilityMotion,
   TryItOnMotion,
@@ -43,10 +47,14 @@ export {
   VisualDiscoveryMotion,
 } from "./sell-motion";
 
-/** The scope sell-motion.css lives under (the source page's `:root` tokens and body type), in its crimson colour context. */
+/**
+ * The scope sell-motion.css lives under (the source page's `:root` tokens and body type), in its crimson colour context.
+ * It carries `hv2` too: the source page's window standard (24px corners and a gold edge on 09–16 and 21–23) is scoped
+ * under it, and reads `.cw-sell-v2.hv2 …` here.
+ */
 export function SellMotionRoot({ children }: { children: ReactNode }) {
   return (
-    <div className="cw-sell-v2">
+    <div className="cw-sell-v2 hv2">
       <SellColorContext>{children}</SellColorContext>
     </div>
   );
