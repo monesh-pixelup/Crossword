@@ -121,10 +121,7 @@ function RecentPosts() {
                 {post.title}
               </h3>
               <p className="font-sans text-[14px] leading-5 font-normal tracking-[-0.28px] text-ink-soft motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
-                {post.excerptLines[0]}
-                {/* Figma breaks the excerpt after "your" on desktop; it wraps naturally below. */}
-                <br className="max-lg:hidden" />
-                {post.excerptLines[1]}
+                {post.excerpt}
               </p>
             </Link>
           </li>
