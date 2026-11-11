@@ -4,6 +4,7 @@ import Image from "next/image";
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import type { Icon } from "@phosphor-icons/react";
 import { ArticleIcon, ChatCircleDotsIcon, QuestionIcon, TrendUpIcon } from "@phosphor-icons/react/ssr";
+import { PlusLines } from "@/components/ui/plus-lines";
 import { cn } from "@/lib/cn";
 import { tabTurn } from "@/lib/use-autoplay-tabs";
 import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
@@ -207,13 +208,7 @@ export function AdaptiveTabs() {
                         selected && "rotate-180",
                       )}
                     >
-                      <span className="absolute inset-x-0 top-[6.3px] h-[1.4px] bg-ink-soft" />
-                      <span
-                        className={cn(
-                          "absolute inset-y-0 left-[6.3px] w-[1.4px] bg-ink-soft transition-[scale,opacity] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-                          selected ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100",
-                        )}
-                      />
+                      <PlusLines open={selected} className="text-ink-soft" />
                     </span>
                   </span>
                   <span className="pl-8 font-sans text-[14px] leading-5 tracking-[-0.28px] text-ink-muted">{feature.description}</span>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { PlusLines } from "@/components/ui/plus-lines";
 import { cn } from "@/lib/cn";
 import { faqs } from "../../config/pricing";
 
@@ -51,14 +52,7 @@ export function FaqList({
                     expanded && "rotate-180",
                   )}
                 >
-                  <span className={cn("absolute inset-x-0 top-[6.3px] h-[1.4px]", plain ? "bg-ink-soft" : "bg-gold")} />
-                  <span
-                    className={cn(
-                      "absolute inset-y-0 left-[6.3px] w-[1.4px] transition-[scale,opacity] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-                      plain ? "bg-ink-soft" : "bg-gold",
-                      expanded ? "scale-y-0 opacity-0" : "scale-y-100 opacity-100",
-                    )}
-                  />
+                  <PlusLines open={expanded} className={plain ? "text-ink-soft" : "text-gold"} />
                 </span>
               </button>
             </h3>
