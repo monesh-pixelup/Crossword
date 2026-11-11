@@ -172,9 +172,9 @@ export function HandoffTabs() {
               >
                 <div className="min-h-0 overflow-hidden">
                   <div className="px-6 pb-8">
-                    <div className="relative aspect-[1280/599] w-full overflow-hidden bg-[#f3e7d3]">
+                    <div className="relative aspect-[353/440] w-full overflow-hidden bg-[#f3e7d3]">
                       {wide !== true && (selected || i === closing) && (
-                        <HandoffScene key={`${i}-${run}`} index={i} active={visible && selected} />
+                        <HandoffScene key={`${i}-${run}`} index={i} active={visible && selected} mobile />
                       )}
                     </div>
                   </div>

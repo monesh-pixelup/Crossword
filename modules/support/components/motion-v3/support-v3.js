@@ -4,7 +4,7 @@
 // unminified, React external. See ./support-motion.tsx for the mechanical changes.
 
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import { useRef, useState, useLayoutEffect, forwardRef, useEffect, Fragment as Fragment$1, useMemo, useCallback } from "react";
+import { useRef, useState, useLayoutEffect, forwardRef, useEffect, Fragment as Fragment$1, useMemo, useCallback, createContext, useContext } from "react";
 import { createPortal } from "react-dom";
 const frameBackground = "/images/support/v3/assets/background-GiCSjLb9.svg";
 const frameTexture = "/images/support/v3/assets/background-texture-C4nqYl4R.webp";
@@ -84,7 +84,7 @@ const aurelia = {
   ink: "oklch(0.372050 0.104087 11.375080)",
   paper: "oklch(0.949854 0.035765 83.776669)",
   plate: "oklch(0.949854 0.035765 83.776669)",
-  font: 'var(--font-geist), system-ui, sans-serif',
+  font: '"Geist", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Merchant workflow modules; no retail product imagery.",
@@ -99,7 +99,7 @@ const marais = {
   ink: "oklch(0.333797 0.017711 52.846973)",
   paper: "oklch(0.917788 0.014926 80.705576)",
   plate: "oklch(0.917788 0.014926 80.705576)",
-  font: 'var(--font-playfair-display), Georgia, serif',
+  font: '"Playfair Display", Georgia, serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
@@ -114,7 +114,7 @@ const goodwell = {
   ink: "#3D2A52",
   paper: "#ECE5F4",
   plate: "#ECE5F4",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Plum-labelled jars on soft lavender backgrounds.",
@@ -129,7 +129,7 @@ const moonrest = {
   ink: "oklch(0.322726 0.043440 265.959396)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Midnight blue sleep-wellness packaging.",
@@ -145,7 +145,7 @@ const dusklight = {
   ink: "oklch(0.407553 0.025289 297.472985)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-playfair-display), Georgia, serif',
+  font: '"Playfair Display", Georgia, serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Sculptural lighting in muted dusk neutrals.",
@@ -201,7 +201,7 @@ const aura = {
   ink: "oklch(0.383958 0.041934 259.291287)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Ivory earbud shells with small uppercase branding.",
@@ -216,7 +216,7 @@ const auden$1 = {
   ink: "oklch(0.287317 0.010592 139.435369)",
   paper: "oklch(0.953751 0.006637 106.524690)",
   plate: "oklch(0.953751 0.006637 106.524690)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants."
@@ -227,7 +227,7 @@ const lumen = {
   ink: "oklch(0.471130 0.054860 60.711055)",
   paper: "oklch(0.918283 0.023989 73.599537)",
   plate: "oklch(0.918283 0.023989 73.599537)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
   imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging."
@@ -268,7 +268,7 @@ const vela = {
   ink: "oklch(0.400862 0.039974 357.323084)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Muted rose and charcoal styling tools."
@@ -305,7 +305,7 @@ const hearthware = {
   ink: "oklch(0.443046 0.078484 38.521350)",
   paper: "oklch(0.968556 0.013078 82.401983)",
   plate: "oklch(0.968556 0.013078 82.401983)",
-  font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+  font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting."
@@ -327,7 +327,7 @@ const aurelle = {
   ink: "oklch(0.372050 0.104087 11.375080)",
   paper: "oklch(0.949854 0.035765 83.776669)",
   plate: "oklch(0.949854 0.035765 83.776669)",
-  font: 'var(--font-playfair-display), Georgia, serif',
+  font: '"Playfair Display", Georgia, serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
   imageDirection: "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
@@ -345,7 +345,7 @@ const registry = {
     ink: "oklch(0.312021 0.017679 40.980349)",
     paper: "oklch(0.928960 0.013702 120.286628)",
     plate: "oklch(0.928960 0.013702 120.286628)",
-    font: 'var(--font-playfair-display), Georgia, serif',
+    font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
@@ -362,7 +362,7 @@ const registry = {
     ink: "oklch(0.452877 0.059042 53.979984)",
     paper: "oklch(0.968556 0.013078 82.401983)",
     plate: "oklch(0.968556 0.013078 82.401983)",
-    font: 'var(--font-playfair-display), Georgia, serif',
+    font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
@@ -382,7 +382,7 @@ const registry = {
     ink: "oklch(0.389321 0.051580 45.883998)",
     paper: "oklch(0.931264 0.021080 79.091606)",
     plate: "oklch(0.931264 0.021080 79.091606)",
-    font: 'var(--font-playfair-display), Georgia, serif',
+    font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces."
@@ -400,7 +400,7 @@ const registry = {
     ink: "oklch(0.377131 0.052841 265.419694)",
     paper: "oklch(0.968556 0.013078 82.401983)",
     plate: "oklch(0.968556 0.013078 82.401983)",
-    font: 'var(--font-face-inter-motion), system-ui, sans-serif',
+    font: '"Inter", system-ui, sans-serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
     imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding."
@@ -1453,6 +1453,8 @@ const cutouts = {
 };
 const cutoutSrcs = new Set(Object.values(cutouts));
 const amberChairImage = "/images/support/v3/assets/amber-oak-lounge-chair-Dc-4UdBJ.webp";
+const amberOpalLampImage = "/images/support/v3/assets/amber-oak-opal-glass-lamp-CSWTBSbc.webp";
+const amberPleatedLampImage = "/images/support/v3/assets/amber-oak-pleated-linen-lamp-DU9AZH7n.webp";
 const trailwellWeekenderImage = "/images/support/v3/assets/trailwell-weekender-FcXfEIMe.webp";
 const trailwellRoamImage = "/images/support/v3/assets/trailwell-roam-E1xpy3ga.webp";
 const trailwellOvernightImage = "/images/support/v3/assets/trailwell-overnight-Bh3WrqOg.webp";
@@ -1837,6 +1839,22 @@ const catalog = {
     title: "Copper-Rim Bedside Lamp",
     image: cutouts.bedsideLamp,
     price: "$98"
+  },
+  amberOpalGlass: {
+    id: "amber-oak-opal-glass-lamp",
+    brandId: "amber-and-oak",
+    brand: registry["amber-and-oak"].name,
+    title: "Opal Glass Table Lamp",
+    image: amberOpalLampImage,
+    price: "$138"
+  },
+  amberPleatedLinen: {
+    id: "amber-oak-pleated-linen-lamp",
+    brandId: "amber-and-oak",
+    brand: registry["amber-and-oak"].name,
+    title: "Pleated Linen Table Lamp",
+    image: amberPleatedLampImage,
+    price: "$118"
   },
   dusklightArc: {
     id: "dusklight-arc",
@@ -2779,7 +2797,7 @@ function useFollowLatest$1(animate, mounted, settled, runKey) {
 function Dashboard$3({ sc, v, stageRef, runKey }) {
   const { threadRef, contentRef } = useFollowLatest$1(v.animate, v.sent, v.done, runKey);
   const Frame = sc.frame === "scene" ? SceneFrame : InsightFrame;
-  return /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx("div", { className: sc.frame === "scene" ? "aid-viewport aid-viewport--scene" : "aid-viewport", children: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx("div", { className: ["aid-viewport", sc.frame === "scene" && "aid-viewport--scene", sc.inset && "aid-viewport--inset"].filter(Boolean).join(" "), children: /* @__PURE__ */ jsx(
     InsightsFrame,
     {
       bare: true,
@@ -2852,6 +2870,7 @@ function motionOf(sc) {
   };
 }
 const askScenario = {
+  inset: true,
   query: askDashboard.query,
   steps: askDashboard.steps,
   reply: askDashboard.reply,
@@ -3037,20 +3056,19 @@ function measure(lens, sel, W, H) {
   y1 = Math.min(H, y1);
   return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
 }
-const INSET = 24;
-const clamp = (t, k, size) => {
-  const a = INSET, b = size - INSET;
+const clamp = (t, k, size, inset = 24) => {
+  const a = inset, b = size - inset;
   return Math.min(a - a * k, Math.max(b - b * k, t));
 };
-function fit(r, W, H, above = 0) {
+function fit(r, W, H, above = 0, inset = 24) {
   const y = Math.max(0, r.y - above);
   const h = r.y + r.h - y;
   const k = LENS.find((z) => (r.w + 2 * PAD) * z <= W && (h + 2 * PAD) * z <= H) ?? 1;
   if (k === 1) return FULL;
   return {
     k,
-    tx: clamp(W / 2 - (r.x + r.w / 2) * k, k, W),
-    ty: clamp(H / 2 - (y + h / 2) * k, k, H)
+    tx: clamp(W / 2 - (r.x + r.w / 2) * k, k, W, inset),
+    ty: clamp(H / 2 - (y + h / 2) * k, k, H, inset)
   };
 }
 function inView(r, v, W, H) {
@@ -3058,7 +3076,7 @@ function inView(r, v, W, H) {
   return left >= -1 && top >= -1 && left + r.w * v.k <= W + 1 && top + r.h * v.k <= H + 1;
 }
 function useFrameCamera(shot, animate, runKey, config = INSIGHT_INBOX_CAMERA) {
-  const { w: W, h: H, focus: FOCUS } = config;
+  const { w: W, h: H, focus: FOCUS, inset: INSET = 24 } = config;
   const stageRef = useRef(null);
   const lensRef = useRef(null);
   const [view, setView] = useState(FULL);
@@ -3090,7 +3108,7 @@ function useFrameCamera(shot, animate, runKey, config = INSIGHT_INBOX_CAMERA) {
     if (!lens) return;
     if (!f) return go(FULL, true);
     const r = measure(lens, f.sel, W, H);
-    if (r) go(fit(r, W, H, f.above));
+    if (r) go(fit(r, W, H, f.above, INSET));
   }, [shot, go]);
   useLayoutEffect(() => {
     if (!animate) return;
@@ -3103,7 +3121,7 @@ function useFrameCamera(shot, animate, runKey, config = INSIGHT_INBOX_CAMERA) {
       const f = FOCUS[shot] ?? null;
       if (!lens || !f || movingRef.current) return;
       const r = measure(lens, f.sel, W, H);
-      if (r && !inView(r, viewRef.current, W, H)) go(fit(r, W, H, f.above));
+      if (r && !inView(r, viewRef.current, W, H)) go(fit(r, W, H, f.above, INSET));
     }, 250);
     return () => window.clearInterval(id);
   }, [shot, animate, go]);
@@ -3622,7 +3640,8 @@ function ChatMotionScene({
   threadClassName,
   alignTallTurnTop = false,
   expandAfter,
-  observeRef
+  observeRef,
+  growComposer = false
 }) {
   const rootRef = useRef(null);
   const expandRef = useRef(null);
@@ -3679,6 +3698,7 @@ function ChatMotionScene({
       viewportRef,
       composerValue: composer && composer.value ? composer.value : void 0,
       composerTyping: (composer == null ? void 0 : composer.typing) ?? false,
+      growComposer,
       children: threadClassName ? /* @__PURE__ */ jsx("div", { className: threadClassName, children: thread }) : thread
     }
   );
@@ -3791,9 +3811,9 @@ function Conversation(t) {
     ] })
   ] });
 }
-function GuardrailsMotion() {
+function GuardrailsMotion({ mweb = false } = {}) {
   const [flowSlot, setFlowSlot] = useState(null);
-  return /* @__PURE__ */ jsx("div", { className: "ill-guardrails-scale", children: /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-frame", children: [
+  return /* @__PURE__ */ jsx("div", { className: mweb ? "ill-guardrails-scale ill-guardrails--mweb" : "ill-guardrails-scale", children: /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-frame", children: [
     /* @__PURE__ */ jsx("img", { className: "ill-guardrails-frame__bg", src: frameBg, alt: "", "aria-hidden": "true" }),
     /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-row", children: [
       /* @__PURE__ */ jsx("div", { className: "ill-guardrails-panel-slot", ref: setFlowSlot }),
@@ -3802,8 +3822,8 @@ function GuardrailsMotion() {
         {
           brand,
           beats: beats$3,
-          width: 550,
-          height: 520,
+          width: mweb ? 321 : 550,
+          height: mweb ? 360 : 520,
           className: (t) => `ill-shell--standard ${stage(t, "shell", "ill-guardrails-motion--shell-enter")}`,
           children: (t) => /* @__PURE__ */ jsxs(Fragment, { children: [
             flowSlot && createPortal(/* @__PURE__ */ jsx(FlowLayer, { t }), flowSlot),
@@ -3814,6 +3834,10 @@ function GuardrailsMotion() {
     ] })
   ] }) });
 }
+function GuardrailsMwebMotion() {
+  return /* @__PURE__ */ jsx(GuardrailsMotion, { mweb: true });
+}
+const mwebBg = "/images/support/v3/assets/mweb-bg-green-C8jt4i4X.webp";
 const ME = { name: "Priya Raman", face: me };
 const P = {
   sparkle: "M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z",
@@ -3929,6 +3953,7 @@ function EventCard({
     ] })
   ] });
 }
+const InboxMweb = createContext(false);
 function Inbox({
   title,
   count,
@@ -3949,7 +3974,8 @@ function Inbox({
   runKey,
   rowIcon = "sparkle"
 }) {
-  const dash = /* @__PURE__ */ jsxs("div", { className: "dk wd", children: [
+  const mweb = useContext(InboxMweb);
+  const dash = /* @__PURE__ */ jsxs("div", { className: mweb ? "dk wd dk--mweb" : "dk wd", children: [
     /* @__PURE__ */ jsxs("nav", { className: "dk-rail", children: [
       /* @__PURE__ */ jsx("img", { className: "dk-rail__logo", src: crosswordMark, alt: "" }),
       ["house", "cube", "headset", "chartBar"].map((n) => /* @__PURE__ */ jsx("span", { className: n === "headset" ? "dk-rail__item dk-rail__item--on" : "dk-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
@@ -4017,6 +4043,8 @@ function Inbox({
     overlay,
     toast
   ] }, runKey);
+  if (mweb)
+    return /* @__PURE__ */ jsx("div", { className: "dkm-frame", ref: stageRef, style: { backgroundImage: `url(${mwebBg})` }, children: dash });
   return /* @__PURE__ */ jsx("div", { className: "la-stage wd-stage", ref: stageRef, children: /* @__PURE__ */ jsx(LandscapeCanvas, { backdrop: "green", bleed: true, scene: dash }) });
 }
 function HeadActions({ mine = false, pressed = false }) {
@@ -4242,6 +4270,9 @@ function TakeoverDashboardMotion() {
   };
   return /* @__PURE__ */ jsx(Dashboard$2, { v, stageRef, runKey: t.runKey });
 }
+function TakeoverDashboardMwebMotion() {
+  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(TakeoverDashboardMotion, {}) });
+}
 const CUSTOMER$1 = { name: "Omar Haddad", face: omar };
 const OTHER = { name: "Kenji Watanabe", face: kenji, text: "Refund $78.00 on order SM-10429?", age: "2h", dot: true };
 const beats$1 = [
@@ -4332,6 +4363,9 @@ function DecisionDashboardMotion() {
     animate: !t.reducedMotion
   };
   return /* @__PURE__ */ jsx(Dashboard$1, { v, stageRef, runKey: t.runKey });
+}
+function DecisionDashboardMwebMotion() {
+  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(DecisionDashboardMotion, {}) });
 }
 const CUSTOMER = { name: "Sofia Marino", face: shopper };
 const OTHERS = [
@@ -4432,9 +4466,14 @@ function WhisperDashboardMotion() {
   };
   return /* @__PURE__ */ jsx(Dashboard, { v, stageRef, runKey: t.runKey });
 }
+function WhisperDashboardMwebMotion() {
+  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(WhisperDashboardMotion, {}) });
+}
 export {
   DecisionDashboardMotion,
+  DecisionDashboardMwebMotion,
   GuardrailsMotion,
+  GuardrailsMwebMotion,
   HelpdeskInsightsDashboardMotion,
   MerchantInsightDeskMotion,
   MerchantInsightMotion,
@@ -4445,5 +4484,7 @@ export {
   ShadeChangeMotion,
   SizeExchangeMotion,
   TakeoverDashboardMotion,
-  WhisperDashboardMotion
+  TakeoverDashboardMwebMotion,
+  WhisperDashboardMotion,
+  WhisperDashboardMwebMotion
 };

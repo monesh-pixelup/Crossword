@@ -5,7 +5,9 @@ import type { SceneEntry } from "@/modules/sell/components/motion/scene-panel";
 import "./motion.css";
 import {
   DecisionDashboardMotion,
+  DecisionDashboardMwebMotion,
   GuardrailsMotion,
+  GuardrailsMwebMotion,
   HelpdeskInsightsDashboardMotion,
   MerchantInsightDeskMotion,
   MerchantInsightMotion,
@@ -16,7 +18,9 @@ import {
   ShadeChangeMotion,
   SizeExchangeMotion,
   TakeoverDashboardMotion,
+  TakeoverDashboardMwebMotion,
   WhisperDashboardMotion,
+  WhisperDashboardMwebMotion,
 } from "./support-v3";
 
 /*
@@ -64,6 +68,14 @@ export function SupportMotionRoot({ children }: { children: ReactNode }) {
  * | 09 `guardrails` | 1280 × 498 | guardrails/guardrails.tsx |
  * | 10–12 `human-takeover-dashboard`, `merchant-approval-dashboard`, `whisper-to-agent-dashboard` | 1280 × 599 | handoff/handoff-scene.tsx |
  */
+/**
+ * 09 at its desktop layout. Since the 11 November 2026 update GuardrailsMotion takes an optional `mweb` flag (09m is it
+ * with `mweb`, see GuardrailsMwebMotion), which doesn't fit the scenes' `{ play }` props, so it's registered through this.
+ */
+function GuardrailsDesktopMotion() {
+  return <GuardrailsMotion />;
+}
+
 export const supportScenes = {
   "order-tracking": {
     Component: OrderTrackingMotion,
@@ -138,7 +150,7 @@ export const supportScenes = {
     duration: 16400,
   },
   guardrails: {
-    Component: GuardrailsMotion,
+    Component: GuardrailsDesktopMotion,
     label:
       "The merchant's guardrails (refund policy, tone of voice, escalation) connect to the assistant's chat. Checking the refund policy, the assistant declines to override the return window, offers to flag a specialist, and marks the policy as respected.",
     width: 1280,
@@ -167,6 +179,41 @@ export const supportScenes = {
       "In the helpdesk inbox, a team member privately tells the assistant that a disappointed shopper is a premium customer and to keep it warm, and the assistant replies with a warm, personal apology.",
     width: 1280,
     height: 599,
+    duration: 11200,
+  },
+  // 09m–12m, for phones (353 × 440, the 11 November 2026 update): the same beats, copy and overlays as 09–12, drawn at
+  // 85% inside a 440px gold-bordered background. 09m stacks the guardrails over the chat; 10m–12m fold the inbox into
+  // one chat window (no rail, chats list or Details panel).
+  "guardrails-mweb": {
+    Component: GuardrailsMwebMotion,
+    label:
+      "The merchant's guardrails (refund policy, tone of voice, escalation) connect to the assistant's chat. Checking the refund policy, the assistant declines to override the return window, offers to flag a specialist, and marks the policy as respected.",
+    width: 353,
+    height: 440,
+    duration: 5900,
+  },
+  "human-takeover-mweb": {
+    Component: TakeoverDashboardMwebMotion,
+    label:
+      "In the helpdesk inbox, a shopper asks for a person. The assistant brings in the team, a team member takes over the conversation and replies with the full context.",
+    width: 353,
+    height: 440,
+    duration: 14900,
+  },
+  "merchant-approval-mweb": {
+    Component: DecisionDashboardMwebMotion,
+    label:
+      "In the helpdesk inbox, a shopper asks for 20% off. The assistant checks with the team, the merchant approves 15%, and the assistant offers 15% off the order.",
+    width: 353,
+    height: 440,
+    duration: 12300,
+  },
+  "whisper-to-agent-mweb": {
+    Component: WhisperDashboardMwebMotion,
+    label:
+      "In the helpdesk inbox, a team member privately tells the assistant that a disappointed shopper is a premium customer and to keep it warm, and the assistant replies with a warm, personal apology.",
+    width: 353,
+    height: 440,
     duration: 11200,
   },
 } satisfies Record<string, SceneEntry>;

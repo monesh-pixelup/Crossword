@@ -30,12 +30,16 @@ export function Guardrails() {
           </p>
         </div>
 
-        <div className="relative aspect-[1280/498] w-full">
+        <div className="relative aspect-[1280/498] w-full max-md:hidden">
           {/*
             Fills the content width (past its drawn 1280px on wide screens), edge to edge with the heading above. Scaled
             with a transform: zoomed down to a phone's width its text would hit the browser's minimum font size and overflow.
           */}
           <SupportScenePanel slug="guardrails" fill transform />
+        </div>
+        {/* Below 768px: 09m, the guardrails stacked over the chat (353 × 440), in place of the wide visual. */}
+        <div className="relative aspect-[353/440] w-full md:hidden">
+          <SupportScenePanel slug="guardrails-mweb" fill transform />
         </div>
       </div>
     </section>
