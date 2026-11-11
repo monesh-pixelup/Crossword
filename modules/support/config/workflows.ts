@@ -10,7 +10,7 @@ export const workflows: { /** Its Phosphor glyph (phosphoricons.com). */ icon: I
   },
   {
     icon: UserSwitchIcon,
-    title: "Human override",
+    title: "API didn’t work, hands it over to Human",
     body: "When a situation falls outside the rules, a human can step in, override the workflow, and take it from there.",
   },
 ];
