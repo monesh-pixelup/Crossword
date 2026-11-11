@@ -66,13 +66,16 @@ export function Eyebrow({ children, surface = "cream", size = "label", className
         className,
       )}
     >
-      {/* Section labels are 10px on phones and 12px from 768px, their 12% tracking with them; step tags are always 12px. */}
+      {/*
+        Figma's Label/M (3991:205901): Geist SemiBold 12/14 at +12% (1.44px), in caps. Section labels are 10px on phones
+        and 12px from 768px, their 12% tracking with them.
+      */}
       <span
         className={cn(
           "text-center whitespace-nowrap uppercase",
           tag
-            ? "font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px]"
-            : "font-open-sans text-[10px] leading-[1.1667] font-semibold tracking-[1.2px] md:text-[12px] md:tracking-[1.44px]",
+            ? "font-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px]"
+            : "font-sans text-[10px] leading-[1.1667] font-semibold tracking-[1.2px] md:text-[12px] md:tracking-[1.44px]",
         )}
       >
         {children}

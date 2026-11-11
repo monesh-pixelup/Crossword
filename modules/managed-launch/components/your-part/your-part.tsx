@@ -50,7 +50,7 @@ export function YourPart() {
                   Figma 3991:204034: the step's tag, a plain engraved box (0.5px #b7ae9a on cream, its corner ornaments
                   left off), 5px × 2px around the Label/M caps in olive, with the eyebrow's soft drop shadow.
                 */}
-                <span className="border-[0.5px] border-engraved bg-cream px-[5px] py-0.5 font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] text-label-olive uppercase drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px]">
+                <span className="border-[0.5px] border-engraved bg-cream px-[5px] py-0.5 font-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] text-label-olive uppercase drop-shadow-[0px_1px_1px_rgba(0,0,0,0.11)] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px]">
                   {step.tag}
                 </span>
                 <h3 className="font-serif text-[32px] leading-[1.09375] font-light tracking-[-1.6px] max-md:text-[24px] max-md:leading-[27px] max-md:tracking-[-1.2px] text-ink">{step.title}</h3>

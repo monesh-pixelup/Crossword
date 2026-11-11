@@ -14,6 +14,7 @@ import ribbon5 from "../../assets/library/ribbon-5.svg";
 import ribbon6 from "../../assets/library/ribbon-6.svg";
 import ribbon7 from "../../assets/library/ribbon-7.svg";
 import { libraryJourneys } from "../../config/launch";
+import { ScatterStrip } from "./scatter-strip";
 
 /** Figma's punched note (its "Subtract"), 299.117 × 303.674, exported at 2x, one per livery. */
 const NOTE_W = 299.117;
@@ -35,6 +36,8 @@ type Card = {
   /** Top-left corner on the strip (356px down the panel) and turn about its centre. */
   at: [number, number];
   angle: number;
+  /** How far it moves when the strip scatters (Figma 4060:25451), from `at`; its turn stays. */
+  scatter: [number, number];
 };
 
 /**
@@ -42,17 +45,24 @@ type Card = {
  * parchment, aubergine, maroon), ribbon colour and turn.
  */
 const cards: Card[] = [
-  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon1, w: 136.626, h: 41.731, top: 31.85 }, title: "text-black", at: [104.74, 20.61], angle: -3.2 },
-  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon2, w: 144.93, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [413.06, 6.76], angle: 3.15 },
-  { journey: 2, note: noteAubergine, ink: light, ribbon: { src: ribbon3, w: 137.023, h: 42.65, top: 30.93 }, title: "text-black", at: [707.11, 21.03], angle: -2.16 },
-  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon4, w: 136.223, h: 42.727, top: 31.85 }, title: "text-[#faedd4]", at: [1011.87, 39.98], angle: 9.21 },
-  { journey: 2, note: noteMaroon, ink: light, ribbon: { src: ribbon5, w: 132.397, h: 41.731, top: 31.85 }, title: "text-black", at: [234.99, 316.19], angle: 7.04 },
-  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon6, w: 138.212, h: 42.158, top: 31.42 }, title: "text-[#faedd4]", at: [569.06, 328.26], angle: -7.07 },
-  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon7, w: 133.29, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [905.74, 335.61], angle: -3.2 },
+  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon1, w: 136.626, h: 41.731, top: 31.85, scatter: [-83.66, 19.37] }, title: "text-black", at: [104.74, 20.61], angle: -3.2, scatter: [-83.66, 19.37] },
+  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon2, w: 144.93, h: 41.731, top: 31.85, scatter: [-7.07, 2.8] }, title: "text-[#faedd4]", at: [413.06, 6.76], angle: 3.15, scatter: [-7.07, 2.8] },
+  { journey: 2, note: noteAubergine, ink: light, ribbon: { src: ribbon3, w: 137.023, h: 42.65, top: 30.93, scatter: [29.06, -50] }, title: "text-black", at: [707.11, 21.03], angle: -2.16, scatter: [29.06, -50] },
+  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon4, w: 136.223, h: 42.727, top: 31.85, scatter: [70.67, 0] }, title: "text-[#faedd4]", at: [1011.87, 39.98], angle: 9.21, scatter: [70.67, 0] },
+  { journey: 2, note: noteMaroon, ink: light, ribbon: { src: ribbon5, w: 132.397, h: 41.731, top: 31.85, scatter: [-96.16, 96.94] }, title: "text-black", at: [234.99, 316.19], angle: 7.04, scatter: [-96.16, 96.94] },
+  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon6, w: 138.212, h: 42.158, top: 31.42, scatter: [-3.56, 160.23] }, title: "text-[#faedd4]", at: [569.06, 328.26], angle: -7.07, scatter: [-3.56, 160.23] },
+  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon7, w: 133.29, h: 41.731, top: 31.85, scatter: [81, 98.21] }, title: "text-[#faedd4]", at: [905.74, 335.61], angle: -3.2, scatter: [81, 98.21] },
 ];
 
 /** Below 1200px, the three journeys once each (Gift finder, Style match, Size and fit), as the first row's notes. */
 const compactCards = [cards[0], cards[1], cards[2]];
+
+/**
+ * A note in the scattering strip: still at first, then, once the strip is `data-scattered` (ScatterStrip), it glides
+ * out by its `--dx` / `--dy` over 1.4s on a soft ease-out, each a little after the last.
+ */
+const SCATTER =
+  "transition-[translate] duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none group-data-[scattered]/strip:[translate:var(--dx)_var(--dy)]";
 
 /** The cards' strip: the panel's 1392px width, from 356px down to the panel's foot at 1171px. */
 const STRIP_W = 1392;
@@ -62,14 +72,33 @@ const STRIP_H = 1171 - 356;
  * A journey's note: the ribbon with its Crimson 22 title, and 93.08px down, 18px in, the 270px line of Geist 16 (its
  * lead in Medium) in the livery's ink, turned `angle`.
  */
-function JourneyNote({ card, style, className = "" }: { card: Card; style?: CSSProperties; className?: string }) {
+function JourneyNote({
+  card,
+  order,
+  style,
+  className = "",
+}: {
+  card: Card;
+  /** Where it falls in the strip's scatter (its stagger); left out, it doesn't scatter (the compact grid). */
+  order?: number;
+  style?: CSSProperties;
+  className?: string;
+}) {
+  const scatter =
+    order === undefined
+      ? undefined
+      : ({
+          "--dx": `${card.scatter[0]}px`,
+          "--dy": `${card.scatter[1]}px`,
+          transitionDelay: `${order * 70}ms`,
+        } as CSSProperties);
   const journey = libraryJourneys[card.journey];
   const { ribbon } = card;
   return (
     <div
       role="listitem"
-      className={`absolute ${className}`}
-      style={{ width: NOTE_W, height: NOTE_H, rotate: `${card.angle}deg`, ...style }}
+      className={`absolute ${order === undefined ? "" : SCATTER} ${className}`}
+      style={{ width: NOTE_W, height: NOTE_H, rotate: `${card.angle}deg`, ...scatter, ...style }}
     >
       <Image src={card.note} alt="" aria-hidden sizes="300px" className="pointer-events-none absolute inset-0 size-full max-w-none select-none" />
       <Image
@@ -131,16 +160,15 @@ export function JourneyLibrary() {
 
         {/* From 1200px: Figma's strip, 29px under the copy, scaled to the panel's width, down to the panel's foot. */}
         <div className="@container mt-[29px] max-[1199px]:hidden">
-          <div
-            role="list"
-            aria-label="Journeys"
-            className="relative scale-to-container"
+          {/* Laid out as before at first; once in view, the notes scatter to Figma's spread (4060:25451). */}
+          <ScatterStrip
+            className="group/strip relative scale-to-container"
             style={{ "--fit-width": `${STRIP_W}px`, width: STRIP_W, height: STRIP_H } as CSSProperties}
           >
             {cards.map((card, i) => (
-              <JourneyNote key={i} card={card} style={{ left: card.at[0], top: card.at[1] }} />
+              <JourneyNote key={i} card={card} order={i} style={{ left: card.at[0], top: card.at[1] }} />
             ))}
-          </div>
+          </ScatterStrip>
         </div>
 
         {/* Below 1200px: the three journeys (the first row's notes) each in its own cell at full size, turned as in Figma. */}
