@@ -18,6 +18,13 @@ type TwillPanelProps = {
   stamp?: boolean;
   /** Another twill tile in place of the default (Managed Launch's CTA uses Figma's own export). */
   tile?: StaticImageData;
+  /**
+   * The finished surface, cut from Figma's own 2x render (two periods of the weave, 691px, lossless), drawn at
+   * 345.65px with no blending in place of the maroon and tile. Figma blends the tile over #7D0034 at full size and
+   * then scales the result; a browser scales the tile first and blends after, which loses the weave's dark threads
+   * and leaves the panel lighter than Figma's. Baked, the colour is Figma's at any screen density.
+   */
+  surface?: StaticImageData;
   className?: string;
   children: ReactNode;
 };
@@ -27,15 +34,22 @@ type TwillPanelProps = {
  * tile at 172.82px with darken, a 0.75px gold hairline frame inside it, and either four corner studs or (the CTA
  * banners) a postage stamp in the top right corner.
  */
-export function TwillPanel({ frameInset, studInset, stamp, tile = twillTile, className, children }: TwillPanelProps) {
+export function TwillPanel({ frameInset, studInset, stamp, tile = twillTile, surface, className, children }: TwillPanelProps) {
   return (
     <div className={cn("relative isolate", className)}>
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-1">
         <div className="absolute inset-0 bg-maroon" />
-        <div
-          className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left mix-blend-darken"
-          style={{ backgroundImage: `url(${tile.src})` }}
-        />
+        {surface ? (
+          <div
+            className="absolute inset-0 bg-size-[345.64909994602204px_345.64909994602204px] bg-top-left"
+            style={{ backgroundImage: `url(${surface.src})` }}
+          />
+        ) : (
+          <div
+            className="absolute inset-0 bg-size-[172.82454997301102px_172.82454997301102px] bg-top-left mix-blend-darken"
+            style={{ backgroundImage: `url(${tile.src})` }}
+          />
+        )}
       </div>
       <div
         aria-hidden

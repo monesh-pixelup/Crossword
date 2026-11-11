@@ -1,8 +1,6 @@
 import { StampButton } from "@/components/ui/stamp-button";
 import { CtaBannerPanel, CtaBannerTitle } from "@/modules/ai-assistants/components/cta/cta";
 import { ctaLinks } from "@/modules/marketing";
-// Figma's own twill tile for this panel (3991:204201): lighter than the shared one, so the maroon reads as in Figma.
-import twillTile from "../../assets/cta/twill-tile.webp";
 
 /**
  * Figma "Section · CTA (team, not just a product)" (node 3262:692), closing the page in the site's CTA banner layout
@@ -14,7 +12,7 @@ export function PilotCta() {
   return (
     <section aria-labelledby="pilot-cta-title" className="relative py-16 md:py-24">
       <div className="content-width">
-        <CtaBannerPanel tile={twillTile}>
+        <CtaBannerPanel>
           <CtaBannerTitle
             id="pilot-cta-title"
             initial="Y"
