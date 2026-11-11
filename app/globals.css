@@ -337,14 +337,26 @@
   visibility: var(--rails-shown, hidden);
 }
 
+/*
+ * The hero sits on layer 0 and everything after it on layer 1, so the sections still slide over it. (It used to sit
+ * at z-index -1, under the page itself: that hid it from the pointer too, so its buttons got no hover and no clicks.)
+ * The page's rails are lifted to layer 1 as well, drawn after the sections, so they stay over the sections' cream
+ * (as before).
+ */
 main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child {
   position: sticky;
   top: var(--hero-stick, 0px);
-  z-index: -1;
+  z-index: 0;
+}
+
+.site-rails-host:has(main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child) > .site-rails {
+  z-index: 1;
 }
 
 @layer base {
   main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child ~ * {
+    position: relative;
+    z-index: 1;
     background-color: var(--color-cream);
   }
 
