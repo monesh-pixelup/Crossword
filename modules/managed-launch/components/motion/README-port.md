@@ -31,3 +31,17 @@ these mechanical edits:
 only), filling the panel it sits in, used by journey/journey.tsx. It plays as in the source: it starts once it is 30%
 on screen with the tab focused, fades out and loops when it finishes, and shows its final state with
 `prefers-reduced-motion`.
+
+## 11 November 2026 update
+
+From the updated handoff (the window standard, and 01m):
+
+- **01m** (`ManagedLaunchMwebStatic`, 353 × 440): the plan card at its final state, laid out for a phone.
+  `ManagedLaunchMwebPanel` draws it; journey/journey.tsx shows it below 768px in place of 01.
+- **Window standard:** the source's page stylesheet, `managed-launch-motion.css`, is scoped under `.mlm`, which its page
+  sets on <body>. The `.ml-motion` root carries `mlm` too, so those rules read `.ml-motion.mlm …`.
+- **Source changes carried over:** GrowComposer (new) and Shell's `growComposer`, LaunchAudience's merchant mark,
+  `bare` / `compact` / `railActive` and `fit`, the Amber & Oak lamps, the Auden names, and `beatsDurationMs`.
+- **motion.css** was regenerated from the new source's stylesheets in its build order (GrowComposer.css and
+  managed-launch-motion.css are new; SceneFrame.css now comes before BrandIdentity.css). The new 353 × 440 green frame
+  is the one relative url, pointing at assets/motion/ill-frame. A "Site" rule at the end hides 01m's gallery caption.

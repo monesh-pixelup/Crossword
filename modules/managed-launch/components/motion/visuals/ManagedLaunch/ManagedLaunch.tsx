@@ -767,3 +767,20 @@ export function ManagedLaunchMotion() {
     </div>
   );
 }
+
+/* 01m: a static at 353x440 — the plan card at its final state (every step
+   done, the improvement applied, the next journey suggested). The plan is
+   the one part of 01 that is already portrait, so it reads at full size;
+   the desktop 01 carries the store's reaction. */
+export const ManagedLaunchMwebStatic = () => (
+  <figure className="ml-mweb-figure">
+    <figcaption className="app-stage__tile-label">Managed Launch · 353x440</figcaption>
+    <div className="ml-mweb">
+      <div className="ml-mweb__window ml-mweb__window--static">
+        <div className="ml-stage">
+          <div className="ml-dash ml-dash--plan"><Plan v={STATIC_VIEWS[6]} /></div>
+        </div>
+      </div>
+    </div>
+  </figure>
+);

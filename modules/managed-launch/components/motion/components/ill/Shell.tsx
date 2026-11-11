@@ -1,4 +1,5 @@
 import { ChatHeader } from "./ChatHeader";
+import { GrowComposer } from "./GrowComposer";
 import { ChatComposer } from "./ChatComposer";
 import { ConversationViewport } from "./ConversationViewport";
 
@@ -25,6 +26,7 @@ export function Shell({
   rootRef,
   header,
   composer,
+  growComposer = false,
   className,
 }: {
   brand: string;
@@ -58,6 +60,12 @@ export function Shell({
   // existing call site keeps rendering the standard ChatComposer driven
   // by composerValue/composerTyping.
   composer?: React.ReactNode;
+  // The default composer grows upward a line at a time as the message
+  // wraps (GrowComposer: padding kept, send button with the last line,
+  // capped at five lines) instead of squeezing a second line into the
+  // pill. Opt-in, for a scene whose typed message wraps (Support V3
+  // motion 04 and 06).
+  growComposer?: boolean;
   // Extra class on the shell's own root — e.g. a scenario-scoped theme
   // override (CSS custom property re-pointed for just that subtree).
   // Unused by default.
@@ -71,7 +79,12 @@ export function Shell({
     >
       {header ?? <ChatHeader brand={brand} />}
       <ConversationViewport ref={viewportRef}>{children}</ConversationViewport>
-      {composer ?? <ChatComposer value={composerValue} typing={composerTyping} />}
+      {composer ??
+        (growComposer ? (
+          <GrowComposer value={composerValue} typing={composerTyping} />
+        ) : (
+          <ChatComposer value={composerValue} typing={composerTyping} />
+        ))}
     </div>
   );
 }

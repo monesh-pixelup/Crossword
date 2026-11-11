@@ -97,7 +97,10 @@ function animateScrollTo(el, to, durationMs = 320) {
   };
 }
 function isWindowActive() {
-  return typeof document !== "undefined" && document.visibilityState === "visible" && document.hasFocus();
+  // Site change: visible only, not `document.hasFocus()` as the source had. Focus is often false while the page loads
+  // (with no focus event after it), on phones until the first tap, and whenever the address bar or another window has
+  // it, which left the visuals sitting unplayed on screen. They still pause while the tab is hidden.
+  return typeof document !== "undefined" && document.visibilityState === "visible";
 }
 function useLandedOnScreen(ref) {
   const [intersecting, setIntersecting] = useState(false);

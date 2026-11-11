@@ -179,6 +179,8 @@ export const storefronts: Record<
         "Lighting",
         "Copper-rim detail · bedside scale",
       ),
+      product(catalog.amberOpalGlass, "Lighting", "Opal glass · brushed brass"),
+      product(catalog.amberPleatedLinen, "Lighting", "Pleated linen · walnut"),
     ],
   },
   dusklight: {

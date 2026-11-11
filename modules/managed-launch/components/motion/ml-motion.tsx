@@ -2,13 +2,15 @@
 
 import { type ReactNode, useSyncExternalStore } from "react";
 import { type SceneEntry, ScenePanel } from "@/modules/sell/components/motion/scene-panel";
-import { ManagedLaunchMotion } from "./visuals/ManagedLaunch/ManagedLaunch";
+import { ManagedLaunchMotion, ManagedLaunchMwebStatic } from "./visuals/ManagedLaunch/ManagedLaunch";
 import "./motion.css";
 
 const subscribe = () => () => {};
 
 /**
- * The `.ml-motion` scope the Managed Launch visual renders in (motion.css is prefixed with it).
+ * The `.ml-motion` scope the Managed Launch visual renders in (motion.css is prefixed with it). It carries `mlm` too,
+ * the class the source page sets on <body> for its window standard (24px top corners and a 2px gold ring on 01's
+ * landscape window), so those rules apply here.
  * Drawn on the client only: the visual reads `prefers-reduced-motion` and the window's focus on
  * its first render, which the server can't know.
  */
@@ -18,7 +20,7 @@ function MlMotionRoot({ children }: { children: ReactNode }) {
     () => true,
     () => false,
   );
-  return <div className="ml-motion">{client && children}</div>;
+  return <div className="ml-motion mlm">{client && children}</div>;
 }
 
 /**
@@ -44,4 +46,22 @@ const managedLaunchScene: SceneEntry = {
  */
 export function ManagedLaunchPanel() {
   return <ScenePanel scene={managedLaunchScene} root={MlMotionRoot} maxScale={Infinity} transform />;
+}
+
+/**
+ * Managed Launch 01m (353 × 440), a static: the plan card at its final state (every step done, the improvement
+ * applied, the next journey suggested), laid out at a phone's width on the green frame. It reuses 01's plan and copy.
+ */
+const managedLaunchMwebScene: SceneEntry = {
+  Component: ManagedLaunchMwebStatic,
+  label:
+    "Crossword's launch plan for Aurelle with every step done (define goal, choose journey, customize, test and launch, measure, improve), the improvement applied and the next journey suggested.",
+  width: 353,
+  height: 440,
+  duration: 0,
+};
+
+/** The Managed Launch visual for phones (01m), filling the panel it sits in. */
+export function ManagedLaunchMwebPanel() {
+  return <ScenePanel scene={managedLaunchMwebScene} root={MlMotionRoot} maxScale={Infinity} transform />;
 }

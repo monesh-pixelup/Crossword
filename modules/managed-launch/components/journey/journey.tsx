@@ -2,7 +2,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "@/modules/landing/assets/shared/rail-accent.svg";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import { ManagedLaunchPanel } from "../motion/ml-motion";
+import { ManagedLaunchMwebPanel, ManagedLaunchPanel } from "../motion/ml-motion";
 
 /**
  * Figma "Library · Wide panel" (Journey, 3512:24936): the eyebrow over a left-aligned two-line headline, with the
@@ -32,8 +32,12 @@ export function Journey() {
           </div>
         </div>
 
-        <div className="relative aspect-[1280/599] w-full">
+        <div className="relative aspect-[1280/599] w-full max-md:hidden">
           <ManagedLaunchPanel />
+        </div>
+        {/* Below 768px: 01m, the plan at its final state laid out for a phone (353 × 440), in place of the wide visual. */}
+        <div className="relative aspect-[353/440] w-full md:hidden">
+          <ManagedLaunchMwebPanel />
         </div>
       </div>
     </section>

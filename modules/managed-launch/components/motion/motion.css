@@ -1,6 +1,7 @@
 /*
  * Managed Launch motion visual: every style the visual uses, ported from the
- * "Crossword — Managed Launch motion" source (its src/ stylesheets), in the order
+ * "Crossword — Managed Launch motion" source (its src/ stylesheets; the 11 Nov
+ * 2026 update, with 01m and the window standard), in the order
  * Vite concatenates them (its module graph from the full gallery, kept to the
  * files this visual imports), each block headed by its source file.
  * Generated, not hand-written. Mechanical changes:
@@ -16,6 +17,9 @@
  *   as is storefronts/fonts.css: its @font-face rules load Geist from local
  *   files, and here every "Geist" is the site's next/font Geist. Background
  *   urls point at modules/managed-launch/assets/motion.
+ * - The source page's window standard (managed-launch-motion.css) is scoped
+ *   under `.mlm`, which its page sets on <body>; here the `.ml-motion` root
+ *   carries `mlm` too, so those rules read `.ml-motion.mlm …`.
  */
 
 /* The source page's body: Geist at 16px, normal line height, black text, default smoothing. */
@@ -357,6 +361,11 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.ml-motion .gj2-card[data-product-id="pendant-1"] .gj2-card__tile img {
+  transform: scale(1.18);
+  object-position: center 56%;
 }
 
 .ml-motion .gj2-badge {
@@ -787,23 +796,23 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ml-motion .gj2-msg--user.gj2-in,
-.ml-motion .gj2-in-ai,
-.ml-motion .gj2-word,
-.ml-motion .gj2-rise,
-.ml-motion .gj2-think__line,
-.ml-motion .gj2-think__mark svg,
-.ml-motion .gj2-caret,
-.ml-motion .gj2-skel__media,
-.ml-motion .gj2-skel__line,
-.ml-motion .gj2-cta--lifecycle,
-.ml-motion .gj2-cta__fill,
-.ml-motion .gj2-cta__phase {
+  .ml-motion .gj2-in-ai,
+  .ml-motion .gj2-word,
+  .ml-motion .gj2-rise,
+  .ml-motion .gj2-think__line,
+  .ml-motion .gj2-think__mark svg,
+  .ml-motion .gj2-caret,
+  .ml-motion .gj2-skel__media,
+  .ml-motion .gj2-skel__line,
+  .ml-motion .gj2-cta--lifecycle,
+  .ml-motion .gj2-cta__fill,
+  .ml-motion .gj2-cta__phase {
     animation-duration: 1ms !important;
     animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
   }
   .ml-motion .gj2-skel,
-.ml-motion .gj2-think { transition: none; }
+  .ml-motion .gj2-think { transition: none; }
 }
 
 .ml-motion .gj2-transcript > * { flex-shrink: 0; }
@@ -875,7 +884,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ml-motion .gj2-followups--in .gj2-followup,
-.ml-motion .gj2-followups--tap .gj2-followup--picked { animation: none; }
+  .ml-motion .gj2-followups--tap .gj2-followup--picked { animation: none; }
   .ml-motion .gj2-followup { transition: none; }
 }
 
@@ -946,6 +955,28 @@
 
 .ml-motion .gj2-msg strong {
   font-weight: 500;
+}
+
+/* ---- Chat-shell standard (crossword-chat-shell-standard), opt-in by
+   class for the windows that have been standardised (Sell v2 09–16):
+   40px corners, no gold glow (the 2px gold edge and the dark shadow
+   stay), flat cards, and a composer that grows a whole line at a time
+   with no height animation. ---- */
+.ml-motion .gj2-win.gj2-win--standard {
+  border-radius: 40px;
+  box-shadow:
+    0 0 0 2px var(--ill-color-accent-soft),
+    0 4.234px 8.679px rgba(0, 0, 0, 0.25);
+}
+
+/* Product card: drop the gold cast, keep the hairline. */
+.ml-motion .gj2-win--standard .gj2-card {
+  box-shadow: 0 0 0 0.556px var(--gj2-hairline);
+}
+
+/* A wrapped message grows the composer by whole lines, without easing. */
+.ml-motion .gj2-win--standard .gj2-composer {
+  transition: none;
 }
 
 /* visuals/ManagedLaunch/ManagedLaunch.css */
@@ -3371,19 +3402,66 @@
 /* Reduced motion: no movement; the loop's fade (opacity only) stays. */
 @media (prefers-reduced-motion: reduce) {
   .ml-motion .ml-stage--motion *,
-.ml-motion .ml-pdp-scene,
-.ml-motion .ml-options__cta,
-.ml-motion .ml-progress__bar i::after {
+  .ml-motion .ml-pdp-scene,
+  .ml-motion .ml-options__cta,
+  .ml-motion .ml-progress__bar i::after {
     animation: none !important;
     transition: none !important;
   }
 
   .ml-motion .ml-loop,
-.ml-motion .ml-loop--out {
+  .ml-motion .ml-loop--out {
     filter: none;
     transition: opacity 200ms ease;
   }
 }
+
+/* ---------- 01m: 353x440 static ----------
+   The green mweb frame; a 313x400 window drawn at 85% so it sits inside
+   the frame's gold border. Corner and ring set for the scale so they read
+   16px / 2px on screen (small-frame standard). */
+.ml-motion .ml-mweb-figure { margin: 0; }
+.ml-motion .ml-mweb { width: 353px; height: 440px; display: grid; place-items: center; overflow: hidden;
+  background: #1d3a2a url("../../assets/motion/ill-frame/mweb_440px_green.webp") center / cover no-repeat; }
+.ml-motion .ml-mweb__window { flex: none; transform: scale(0.85); transform-origin: center; border-radius: 18.82px; background: rgb(232, 226, 212);
+  box-shadow: 0 0 0 2.35px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+
+/* 01m: the plan column alone, laid out at the window's width (313x400,
+   drawn at 85% like 01m), on 01's own beige. */
+.ml-motion .ml-mweb__window--static { width: 313px; height: 400px; overflow: hidden; }
+.ml-motion .ml-dash.ml-dash--plan { width: 100%; height: 100%; padding: 12px; }
+.ml-motion .ml-dash--plan .ml-plan { width: 100%; }
+.ml-motion .ml-dash--plan .ml-plan { width: auto; flex: 1; min-width: 0; }
+/* Done steps fold to their title: the check says it, so the summary line
+   goes; the active step keeps its detail (the applied improvement). */
+.ml-motion .ml-dash--plan .ml-step--done .ml-step__detail { display: none; }
+.ml-motion .ml-mweb__window--static > .ml-stage { width: 100%; height: 100%; }
+/* 01m fit: the card sizes to its content (no fixed flex height), done
+   rows tighten, the active row's owner tag drops (its ring says "in
+   progress"), the brand line drops "for Aurelle". */
+.ml-motion .ml-dash--plan .ml-plan { gap: 8px; }
+.ml-motion .ml-dash--plan .ml-card { flex: none; padding: 14px 14px 10px; }
+.ml-motion .ml-dash--plan .ml-card__title { margin-bottom: 10px; }
+.ml-motion .ml-dash--plan .ml-progress { margin-bottom: 8px; }
+.ml-motion .ml-dash--plan .ml-step--done { padding-top: 4px; padding-bottom: 4px; }
+.ml-motion .ml-dash--plan .ml-step--done:not(:last-child)::before { top: 24px; bottom: -6px; }
+.ml-motion .ml-dash--plan .ml-step__who, .ml-motion .ml-dash--plan .ml-plan__for { display: none; }
+.ml-motion .ml-dash--plan .ml-addnext { margin-top: 6px; }
+.ml-motion .ml-dash--plan .ml-commit { flex: none; }
+/* The checks already say 5 of 5, so the eyebrow and progress bar give way
+   to the footer ("You 30 minutes a week / Crossword everything else"). */
+.ml-motion .ml-dash--plan .ml-card__eyebrow, .ml-motion .ml-dash--plan .ml-progress { display: none; }
+.ml-motion .ml-dash--plan .ml-addnext__label, .ml-motion .ml-dash--plan .ml-addnext__hint { white-space: nowrap; }
+.ml-motion .ml-dash--plan .ml-addnext__hint { font-size: 12px; }
+.ml-motion .ml-dash--plan .ml-addnext__plus { flex: none; }
+/* Footer: each half on one line. */
+.ml-motion .ml-dash--plan .ml-commit { height: 32px; padding: 0 12px; font-size: 11.5px; }
+.ml-motion .ml-dash--plan .ml-commit > span { white-space: nowrap; }
+.ml-motion .ml-dash--plan .ml-addnext { gap: 8px; padding-left: 10px; padding-right: 10px; }
+.ml-motion .ml-dash--plan .ml-addnext__label { font-size: 13px; }
+.ml-motion .ml-dash--plan .ml-addnext__hint { font-size: 11px; margin-left: auto; }
+.ml-motion .ml-dash--plan .ml-commit { gap: 10px; font-size: 11px; }
+.ml-motion .ml-dash--plan .ml-commit b { margin-right: 4px; }
 
 /* illustrations/WidgetLandscape/WidgetLandscape.css */
 /* ---------- Frame ----------
@@ -3986,44 +4064,6 @@
   );
 }
 
-/* brands/BrandIdentity.css */
-.ml-motion .demo-brand-mark {
-  display: inline-grid;
-  flex: none;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--brand-ink);
-  color: var(--brand-paper);
-  overflow: hidden;
-}
-
-.ml-motion .demo-brand-mark > svg,
-.ml-motion .demo-brand-mark > img { display: block; width: 66%; height: 66%; object-fit: contain; }
-.ml-motion .demo-brand-mark[data-brand-id="aurelle"] > img { width: 58.6%; height: auto; transform: translateY(-5.6%); }
-.ml-motion .demo-brand-name { font-family: var(--font-geist), system-ui, sans-serif; letter-spacing: normal; text-transform: none; }
-.ml-motion .demo-brand-wordmark { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
-.ml-motion .demo-brand-wordmark > .demo-brand-mark { width: 1.15em; height: 1.15em; }
-.ml-motion .demo-brand-wordmark > .demo-brand-name { color: var(--brand-ink); }
-.ml-motion .demo-brand-mark.hm2-nudge__disc { width: 44px; height: 44px; }
-.ml-motion .demo-brand-mark.gjm-orb-mark { width: 100%; height: 100%; }
-
-.ml-motion .demo-brand-storefront .ill-marketplace__gallery-main .ill-media {
-  object-fit: contain;
-  padding: 16px;
-  background: var(--brand-plate);
-}
-
-.ml-motion .demo-brand-mark > .demo-brand-mark__asset { display: block; width: 66%; height: 66%; background: currentColor; mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
-
-/* Supplied marks already contain their own artboard spacing. */
-.ml-motion .demo-brand-mark > img.demo-brand-mark__supplied { width: 100%; height: 100%; transform: none; object-fit: contain; }
-
-.ml-motion .aurelia-mark > .demo-brand-mark.legacy-supplied-mark { width: 100%; height: 100%; }
-
-.ml-motion .pcx-ad__avatar > .demo-brand-mark.goodwell-supplied-avatar { width: 100%; height: 100%; background: transparent; }
-
 /* visuals/AiAssistantsV3/ProductImage.css */
 .ml-motion .aiv3-product-image {
   --product-media-background: #f5f5f5;
@@ -4131,6 +4171,44 @@
   height: calc(100% - 31.96px);
   object-fit: fill;
 }
+
+/* brands/BrandIdentity.css */
+.ml-motion .demo-brand-mark {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--brand-ink);
+  color: var(--brand-paper);
+  overflow: hidden;
+}
+
+.ml-motion .demo-brand-mark > svg,
+.ml-motion .demo-brand-mark > img { display: block; width: 66%; height: 66%; object-fit: contain; }
+.ml-motion .demo-brand-mark[data-brand-id="aurelle"] > img { width: 58.6%; height: auto; transform: translateY(-5.6%); }
+.ml-motion .demo-brand-name { font-family: var(--font-geist), system-ui, sans-serif; letter-spacing: normal; text-transform: none; }
+.ml-motion .demo-brand-wordmark { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.ml-motion .demo-brand-wordmark > .demo-brand-mark { width: 1.15em; height: 1.15em; }
+.ml-motion .demo-brand-wordmark > .demo-brand-name { color: var(--brand-ink); }
+.ml-motion .demo-brand-mark.hm2-nudge__disc { width: 44px; height: 44px; }
+.ml-motion .demo-brand-mark.gjm-orb-mark { width: 100%; height: 100%; }
+
+.ml-motion .demo-brand-storefront .ill-marketplace__gallery-main .ill-media {
+  object-fit: contain;
+  padding: 16px;
+  background: var(--brand-plate);
+}
+
+.ml-motion .demo-brand-mark > .demo-brand-mark__asset { display: block; width: 66%; height: 66%; background: currentColor; mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
+
+/* Supplied marks already contain their own artboard spacing. */
+.ml-motion .demo-brand-mark > img.demo-brand-mark__supplied { width: 100%; height: 100%; transform: none; object-fit: contain; }
+
+.ml-motion .aurelia-mark > .demo-brand-mark.legacy-supplied-mark { width: 100%; height: 100%; }
+
+.ml-motion .pcx-ad__avatar > .demo-brand-mark.goodwell-supplied-avatar { width: 100%; height: 100%; background: transparent; }
 
 /* brands/ColorContext.css */
 .ml-motion .cw-context {
@@ -5405,11 +5483,11 @@
     gap: 16px;
   }
   .ml-motion .sf-hero,
-.ml-motion .sf-sorelle,
-.ml-motion .sf-aurelle,
-.ml-motion .sf-amber,
-.ml-motion .sf-crestline,
-.ml-motion .sf-brewhaus {
+  .ml-motion .sf-sorelle,
+  .ml-motion .sf-aurelle,
+  .ml-motion .sf-amber,
+  .ml-motion .sf-crestline,
+  .ml-motion .sf-brewhaus {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -5681,7 +5759,7 @@
     gap: 4px;
   }
   .ml-motion .sf-workspace > aside > .sf-eyebrow,
-.ml-motion .sf-workspace > aside > small {
+  .ml-motion .sf-workspace > aside > small {
     display: none;
   }
   .ml-motion .sf-workspace > aside button {
@@ -6262,7 +6340,7 @@
 }
 @container storefront (max-width: 900px) {
   .ml-motion .sf-aura,
-.ml-motion .sf-proteinmax {
+  .ml-motion .sf-proteinmax {
     grid-template-columns: 1fr 1fr;
   }
   .ml-motion .sf-aura__details {
@@ -6308,15 +6386,15 @@
     font-size: 16px;
   }
   .ml-motion .sf-trailwell,
-.ml-motion .sf-aura,
-.ml-motion .sf-stride,
-.ml-motion .sf-marais,
-.ml-motion .sf-proteinmax {
+  .ml-motion .sf-aura,
+  .ml-motion .sf-stride,
+  .ml-motion .sf-marais,
+  .ml-motion .sf-proteinmax {
     padding: 28px 20px;
   }
   .ml-motion .sf-trailwell,
-.ml-motion .sf-aura,
-.ml-motion .sf-proteinmax {
+  .ml-motion .sf-aura,
+  .ml-motion .sf-proteinmax {
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -6359,13 +6437,13 @@
     padding-top: 24px;
   }
   .ml-motion .sf-comparison-section,
-.ml-motion .sf-fit-guide,
-.ml-motion .sf-aura-specs,
-.ml-motion .sf-marais-pair {
+  .ml-motion .sf-fit-guide,
+  .ml-motion .sf-aura-specs,
+  .ml-motion .sf-marais-pair {
     padding: 28px 20px;
   }
   .ml-motion .sf-aura .sf-intro h1,
-.ml-motion .sf-proteinmax .sf-intro h1 {
+  .ml-motion .sf-proteinmax .sf-intro h1 {
     font-size: 36px;
   }
   .ml-motion .sf-aura__stage {
@@ -6383,12 +6461,12 @@
     gap: 16px;
   }
   .ml-motion .sf-aura-specs,
-.ml-motion .sf-fit-guide {
+  .ml-motion .sf-fit-guide {
     grid-template-columns: 1fr;
     gap: 24px;
   }
   .ml-motion .sf-aura-specs .sf-routine,
-.ml-motion .sf-fit-guide .sf-routine {
+  .ml-motion .sf-fit-guide .sf-routine {
     padding: 0;
   }
   .ml-motion .sf-stride__top {
@@ -7003,6 +7081,21 @@
   flex-shrink: 0;
 }
 
+/* Chat-shell standard (the crossword-chat-shell-standard skill): 40px
+   corners, no #E0BE60 gold glow and no inner rose glow (::after). The
+   dark shadow layers and the gold border stay. Opt-in by class, so
+   shells that haven't been standardised keep the series glow. */
+.ml-motion .ill-shell.ill-shell--standard {
+  border-radius: 40px;
+  box-shadow:
+    0px 0px 5.172px 1.293px rgba(0, 0, 0, 0.02),
+    0px 4.234px 8.679px rgba(0, 0, 0, 0.25);
+}
+
+.ml-motion .ill-shell.ill-shell--standard::after {
+  box-shadow: none;
+}
+
 /* components/ill/ChatHeader.css */
 .ml-motion .ill-chat-header {
   display: flex;
@@ -7252,7 +7345,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ml-motion .ill-chat-composer--expanded,
-.ml-motion .ill-chat-composer--expanded--hidden {
+  .ml-motion .ill-chat-composer--expanded--hidden {
     transition: none;
   }
 }
@@ -7290,6 +7383,50 @@
   font-size: 14px;
   letter-spacing: -0.0681px;
   color: var(--ill-color-text-secondary);
+}
+
+/* components/ill/GrowComposer.css */
+/* The pill aligns to its bottom edge, so new lines push the top up and the
+   send button stays with the last line. */
+.ml-motion .ill-grow-composer {
+  align-items: flex-end;
+}
+
+/* An explicit line-height, so the line maths below is exact. Block
+   padding centres a single line on the 40px send button, and stays the
+   same however many lines there are. */
+.ml-motion .ill-grow-composer__text {
+  --ill-grow-line: 20px;
+  display: block;
+  padding-block: calc((40px - var(--ill-grow-line)) / 2);
+  line-height: var(--ill-grow-line);
+}
+
+/* The cap sits inside the padding, at exactly five lines, so overflow
+   clips on a line boundary. column-reverse keeps the caret's line in
+   view and lets earlier lines leave off the top. */
+.ml-motion .ill-grow-composer__clip {
+  display: flex;
+  flex-direction: column-reverse;
+  max-height: calc(5 * var(--ill-grow-line));
+  overflow: hidden;
+}
+
+.ml-motion .ill-grow-composer__content {
+  display: block;
+  flex: none;
+}
+
+/* Once capped, a short fade on the top line so it reads as scrolled
+   rather than cropped. */
+.ml-motion .ill-grow-composer--capped .ill-grow-composer__clip {
+  mask-image: linear-gradient(to bottom, transparent 0, #000 var(--ill-grow-line));
+}
+
+/* Past one line: a fixed radius in place of the pill's, concentric with
+   the send button's (its 20px radius + the 4px inset). */
+.ml-motion .ill-grow-composer--multiline {
+  border-radius: 24px;
 }
 
 /* components/ill/ConversationViewport.css */
@@ -7634,6 +7771,24 @@
     rgba(255, 249, 233, 0.93) 86%,
     rgb(255, 249, 233) 100%
   );
+}
+
+/* Retain v2 12 — chat-shell standard. The page panel (the outer window)
+   takes 40px on its top corners; the drawer docks into its top-left
+   corner at a 0 inset, so it is concentric at 40px there and stays
+   square on its docked right and bottom sides. ill-shell--standard
+   (Shell.css) drops the gold glow and inner glow; the drawer keeps its
+   1px gold edge line and its dark cast. */
+.ml-motion .sbl .scd .ill-landscape-canvas__page,
+.ml-motion .sbl .scd .ill-landscape-canvas__widget {
+  border-radius: 40px 40px 0 0;
+}
+
+.ml-motion .sbl .scd .scd-drawer.ill-shell--standard {
+  border-radius: 40px 0 0 0;
+  box-shadow:
+    1px 0 0 rgba(224, 190, 96, 0.4),
+    12px 0 32px rgba(22, 23, 25, 0.22);
 }
 
 /* illustrations/LaunchAudience/LaunchAudience.css */
@@ -8242,7 +8397,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ml-motion .la-dash *,
-.ml-motion .la-dash *::before {
+  .ml-motion .la-dash *::before {
     animation: none !important;
     transition: none !important;
   }
@@ -8292,6 +8447,60 @@
 .ml-motion .la-skeleton > span {
   border-radius: 4px;
 }
+
+/* The merchant's mark in place of the "C" logo placeholder. */
+.ml-motion .la-rail__logo--mark {
+  display: block;
+  object-fit: cover;
+}
+
+/* ---------- 11m: the dashboard at 353x440 (as Personal Agents 07m) ----------
+   The window reflows with container queries on itself: the chats list is
+   folded (compact), and under 360px the rail folds and the card restacks. */
+.ml-motion .la-fit-figure { margin: 0; }
+.ml-motion .la-fit-canvas { width: 353px; height: 440px; display: grid; place-items: center; overflow: hidden;
+  background: #1d3a2a url("../../assets/motion/ill-frame/mweb_440px_green.webp") center / cover no-repeat; }
+.ml-motion .la-fit { container-type: inline-size; width: 313px; height: 400px; overflow: hidden; border-radius: 16px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+.ml-motion .la-fit .la-stage, .ml-motion .la-fit .la-dash { width: 100%; height: 100%; }
+.ml-motion .la-fit .la-dash { padding: 0; gap: 0; }
+.ml-motion .la-fit .la-main { border-radius: 0; }
+.ml-motion .la-fit .la-chat { min-width: 0; padding: 12px; }
+.ml-motion .la-fit .la-thread { padding-top: 12px; margin-bottom: 10px; }
+.ml-motion .la-fit .la-card { max-width: none; }
+
+.ml-motion .la-fit__head { display: flex; flex: none; align-items: baseline; gap: 8px; min-width: 0; padding-bottom: 8px; border-bottom: 1px solid var(--la-border); }
+.ml-motion .la-fit__title { flex: none; font-size: 18px; line-height: 22px; letter-spacing: -0.5px; }
+.ml-motion .la-fit__crumb { min-width: 0; overflow: hidden; color: var(--la-muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Slim composer that grows a line at a time as the query wraps. */
+.ml-motion .la-fit .la-composer { flex: none; display: flex; align-items: flex-end; min-height: 40px; height: auto; border-radius: 4px; }
+.ml-motion .la-fit .la-composer__text { display: block; flex: 1; min-width: 0; height: auto; padding: 11px 12px; line-height: 18px; }
+.ml-motion .la-fit .la-composer__foot { padding: 6px 5px; }
+.ml-motion .la-fit .la-upload { display: none; }
+.ml-motion .la-fit .la-send { width: 28px; height: 28px; }
+
+@container (max-width: 360px) {
+  .ml-motion .la-fit .la-rail { display: none; }
+  .ml-motion .la-fit .la-user { max-width: 86%; font-size: 13px; line-height: 18px; }
+}
+/* 11m at 85% so it sits inside the backdrop's gold border; corner and
+   edges set for the scale to read 16px on screen. */
+.ml-motion .la-fit { transform: scale(0.85); transform-origin: center; border-radius: 18.82px; }
+@container (max-width: 360px) {
+  .ml-motion .la-fit .la-card__top { padding: 10px 12px 12px; }
+  .ml-motion .la-fit .la-hero { flex-wrap: wrap; row-gap: 6px; }
+  .ml-motion .la-fit .la-card__products { padding: 12px; }
+  /* Products restack: one per row, a small plate left, its text right. */
+  .ml-motion .la-fit .la-products { grid-template-columns: 1fr; gap: 10px; }
+  .ml-motion .la-fit .la-product { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 10px; margin: 0; }
+  .ml-motion .la-fit .la-product__media { aspect-ratio: 1; border-radius: 6px; }
+  .ml-motion .la-fit .la-product__badge { display: none; }
+  .ml-motion .la-fit .la-product__title, .ml-motion .la-fit .la-product__price { margin: 0; }
+  .ml-motion .la-fit .la-product__request { margin-top: 4px; padding-top: 4px; font-size: 12px; line-height: 16px; }
+}
+/* 11m: the 2px gold ring (set for the 0.85 scale), as every window on the page. */
+.ml-motion .la-fit { box-shadow: 0 0 0 2.35px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
 
 /* components/ill/StaggerText.css */
 .ml-motion .ill-stagger-text__word {
@@ -8524,9 +8733,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ml-motion .sbp-seam__swap,
-.ml-motion .sbp-shimmer,
-.ml-motion .sbp-in,
-.ml-motion .sbp-tile.sbp-in {
+  .ml-motion .sbp-shimmer,
+  .ml-motion .sbp-in,
+  .ml-motion .sbp-tile.sbp-in {
     animation: none;
   }
 }
@@ -8627,4 +8836,25 @@
   background: color-mix(in srgb, var(--ill-color-accent-strong) 10%, var(--gj2-card));
   box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ill-color-accent-strong) 28%, transparent);
   color: var(--ill-color-accent-strong);
+}
+
+/* managed-launch-motion.css */
+/* Managed Launch motion: window standard, as on Personal Agents and Retain
+   v2 motion (11 Nov 2026). Page-scoped under body.mlm (set in
+   managed-launch-motion-main) because LandscapeCanvas and the gj2 window
+   are shared with the statics and other pages.
+   01: the landscape window bleeds off the bottom — 24px top, square
+   bottom, a 2px gold ring. The gold belongs to the outer window only, so
+   Aurelle's chat inside the store (a chat inside a page) drops its gold
+   ring and glow and keeps a neutral edge and its drop shadow. */
+.ml-motion.mlm .ml-stage .ill-landscape-canvas .ill-landscape-canvas__page { border-radius: 24px 24px 0 0; box-shadow: 0 0 0 2px #e0be60; }
+.ml-motion.mlm .ml-stage .gj2-win.ml-win { box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 4.234px 8.679px rgba(0, 0, 0, .25); border-color: transparent; }
+
+/*
+ * Site: 01m captions itself with the gallery's tile label (`.app-stage__tile-label`, styled by the gallery page, not by
+ * the visual). On the site the section says what the visual is, so the label is left out and 01m is just its 353 × 440
+ * frame.
+ */
+.ml-motion .app-stage__tile-label {
+  display: none;
 }

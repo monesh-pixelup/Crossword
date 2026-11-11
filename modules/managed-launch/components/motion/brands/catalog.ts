@@ -1,4 +1,6 @@
 import amberChairImageImage from "@/modules/managed-launch/assets/motion/brands/products/amber-oak-lounge-chair.png";
+import amberOpalLampImageImage from "@/modules/managed-launch/assets/motion/brands/products/amber-oak-opal-glass-lamp.png";
+import amberPleatedLampImageImage from "@/modules/managed-launch/assets/motion/brands/products/amber-oak-pleated-linen-lamp.png";
 import trailwellWeekenderImageImage from "@/modules/managed-launch/assets/motion/brands/products/trailwell-weekender.png";
 import trailwellRoamImageImage from "@/modules/managed-launch/assets/motion/brands/products/trailwell-roam.png";
 import trailwellOvernightImageImage from "@/modules/managed-launch/assets/motion/brands/products/trailwell-overnight.png";
@@ -46,6 +48,8 @@ import type { BrandId } from "./BrandIdentity";
 
 
 const amberChairImage = amberChairImageImage.src;
+const amberOpalLampImage = amberOpalLampImageImage.src;
+const amberPleatedLampImage = amberPleatedLampImageImage.src;
 const trailwellWeekenderImage = trailwellWeekenderImageImage.src;
 const trailwellRoamImage = trailwellRoamImageImage.src;
 const trailwellOvernightImage = trailwellOvernightImageImage.src;
@@ -445,6 +449,22 @@ export const catalog = {
     image: cutouts.bedsideLamp,
     price: "$98",
   },
+  amberOpalGlass: {
+    id: "amber-oak-opal-glass-lamp",
+    brandId: "amber-and-oak",
+    brand: registry["amber-and-oak"].name,
+    title: "Opal Glass Table Lamp",
+    image: amberOpalLampImage,
+    price: "$138",
+  },
+  amberPleatedLinen: {
+    id: "amber-oak-pleated-linen-lamp",
+    brandId: "amber-and-oak",
+    brand: registry["amber-and-oak"].name,
+    title: "Pleated Linen Table Lamp",
+    image: amberPleatedLampImage,
+    price: "$118",
+  },
   dusklightArc: {
     id: "dusklight-arc",
     brandId: "dusklight",
@@ -547,7 +567,7 @@ export const catalog = {
     id: "ivory",
     brandId: "auden",
     brand: registry.auden.name,
-    title: "Auden Wave Pro — Ivory",
+    title: "Auden Studio — Ivory",
     image: cutouts.audenIvory,
     price: "$499",
     color: "Ivory",
@@ -556,7 +576,7 @@ export const catalog = {
     id: "olive",
     brandId: "auden",
     brand: registry.auden.name,
-    title: "Auden Wave Pro — Olive",
+    title: "Auden Endurance — Olive",
     image: cutouts.audenOlive,
     price: "$549",
     color: "Olive",
@@ -565,7 +585,7 @@ export const catalog = {
     id: "mustard",
     brandId: "auden",
     brand: registry.auden.name,
-    title: "Auden Wave Pro — Mustard",
+    title: "Auden Air — Mustard",
     image: cutouts.audenMustard,
     price: "$599",
     color: "Mustard",

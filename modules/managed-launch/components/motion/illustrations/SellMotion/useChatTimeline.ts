@@ -58,6 +58,28 @@ function replyRevealMs(text: string) {
   return wordCount(text) * REPLY_STAGGER_MS + REPLY_WORD_ANIM_MS + REPLY_SETTLE_MS;
 }
 
+// How long a beat list takes to play, from the same constants the
+// timeline runs on (composer jitter averages out) — for a progress timer.
+export function beatsDurationMs(beats: Beat[]) {
+  return beats.reduce((ms, b, i) => {
+    switch (b.type) {
+      case "compose":
+        if (!b.text) return ms + (b.holdMs ?? 700);
+        return ms + (b.leadMs ?? (i === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS)) + b.text.length * (b.msPerChar ?? CHAR_INTERVAL_MS) + SENT_SETTLE_MS;
+      case "think":
+        return ms + (b.labels.length === 2 ? THINKING_STAGE_1_MS + THINKING_STAGE_2_MS : THINKING_SINGLE_MS) + THINKING_EXIT_MS;
+      case "text":
+        return ms + replyRevealMs(b.text);
+      case "appear":
+        return ms + (b.ms ?? APPEAR_MS);
+      case "load":
+        return ms + (b.ms ?? LOAD_MS);
+      case "pause":
+        return ms + b.ms;
+    }
+  }, 0);
+}
+
 export interface Timeline {
   // Reached = this beat has started (content gated on it mounts now).
   reached: (id: string) => boolean;
