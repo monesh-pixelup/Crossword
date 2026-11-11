@@ -19,7 +19,7 @@ const pinned = "md:sticky md:left-0 md:z-1";
 /**
  * Section · Differentiation (Figma 3305:792): a centred eyebrow, swash headline and the demo button,
  * then 64px below the comparison table (3305:797) in the studded lattice frame (3906:6242, as Pricing's credits
- * table): a cream head row (Crimson Medium 18 caps, the Crossword head wine with a bright gold label), then the rows
+ * table): a cream head row (Crimson Medium 18 caps, the Crossword head sand with an ink label, running on from its column), then the rows
  * on #faf3e2 at 360 / 440 / 482 of 1282: the moment in Crimson 22 down the left, what happens without Crossword in
  * Geist 18 ink muted, and the featured Crossword column on sand (ink soft copy). Rules are engraved at 50% under every
  * row. Below 880px the table scrolls sideways inside the frame. Personal agents (3308:380) passes its own headline, column
@@ -33,6 +33,7 @@ export function Differentiation({
   width = 616,
   columns = ["The experience", "Without Crossword", "With Crossword connected"],
   rows = differentiationRows,
+  featuredHead = "sand",
 }: {
   id?: string;
   initial?: string;
@@ -43,6 +44,11 @@ export function Differentiation({
   /** The three column heads, the last over the featured Crossword column. */
   columns?: [string, string, string];
   rows?: DifferentiationRow[];
+  /**
+   * The featured column's head: sand with an ink label, running on from the column below it (Figma 3991:206122), on
+   * every table; `maroon` (a bright gold label) is the earlier look, kept as an option.
+   */
+  featuredHead?: "maroon" | "sand";
 }) {
   return (
     <section aria-labelledby={id} className="relative section-pad">
@@ -68,7 +74,7 @@ export function Differentiation({
                 <th scope="col" className={cn(head, "text-ink-soft")}>
                   {columns[1]}
                 </th>
-                <th scope="col" className={cn(head, "bg-[#7d0034] text-gold-bright")}>
+                <th scope="col" className={cn(head, featuredHead === "sand" ? "bg-[#f3e9d4] text-[#141414]" : "bg-[#7d0034] text-gold-bright")}>
                   {columns[2]}
                 </th>
               </tr>

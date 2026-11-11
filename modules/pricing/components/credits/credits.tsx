@@ -31,7 +31,7 @@ const none = (
  * eyebrow, swash headline and copy, and 24px under it the pilot button beside a link to the calculator. 64px below,
  * the rate table (Figma 3904:16873) in a 1px #d2cdc0 frame 10px wider than the content each side, its 8px band a
  * studded lattice; inside, a 1px engraved/50 line round the table at 520 / 254 / 253 / 253 of 1280: a cream head
- * row (Crimson Medium 18 caps, the credits head wine with a bright gold label), then the rows on #faf3e2: the
+ * row (Crimson Medium 18 caps, the credits head sand with an ink label, running on from its column), then the rows on #faf3e2: the
  * interactions in Crimson 22 down the left, the credits column on sand (Geist 18 ink-soft), what each is billed per
  * and a note beside it in Geist 18 ink-muted (notes wrap at 200px), every cell left-aligned at 20px / 32px with 1px
  * engraved/50 rules under every row. "Always free" and "Free for a limited time" open their groups in 48px rows of
@@ -76,7 +76,7 @@ export function Credits() {
                 <th scope="col" className={cn(rule, "bg-cream md:sticky md:left-0 md:z-1")}>
                   <span className="sr-only">Interaction</span>
                 </th>
-                <th scope="col" className={cn(head, "bg-[#7d0034] text-gold-bright")}>
+                <th scope="col" className={cn(head, "bg-[#f3e9d4] text-[#141414]")}>
                   Credits
                 </th>
                 <th scope="col" className={cn(head, "text-ink-soft")}>
