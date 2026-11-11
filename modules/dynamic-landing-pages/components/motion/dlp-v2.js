@@ -1477,7 +1477,8 @@ function StaggerText({ text, boldText }) {
     ] }, `bold-${i}`))
   ] });
 }
-const asset = (name) => `${"/images/dynamic-landing-pages/v2/"}assets/${name}.png`;
+// The images were converted to WebP in public/ (the .png names 404ed).
+const asset = (name) => `${"/images/dynamic-landing-pages/v2/"}assets/${name}.webp`;
 const sellDynamicProducts = {
   weekender: catalog.trailwellWeekender.image,
   roam: catalog.trailwellRoam.image,
@@ -4662,7 +4663,7 @@ const journey = {
     alt: "Clear 4 hurdles. Earn $5 off. Play a quick game. Find your next backpack. Trailwell Weekender in a mountain landscape."
   },
   campaignCreative: {
-    image: `${"/images/dynamic-landing-pages/v2/"}assets/trailwell-ad-creative-v2.png`,
+    image: `${"/images/dynamic-landing-pages/v2/"}assets/trailwell-ad-creative-v2.webp`,
     alt: "Trailwell backpacks in cobalt, burnt orange and mustard",
     headline: ad.headline,
     detail: "Clear 4 hurdles. Unlock $5 off."
