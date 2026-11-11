@@ -1,6 +1,7 @@
 /*
  * Personal Agents motion visuals: every style the visuals use, ported from the
- * "Crossword — Personal Agents motion" source (its src/ stylesheets), in the order
+ * "Crossword — Personal Agents motion" source (its src/ stylesheets; the 11 Nov 2026 update, with 00m, 07m and the
+ * window standard), in the order
  * Vite concatenates them (its module graph from the full gallery, kept to the
  * files these visuals import), each block headed by its source file.
  * Generated, not hand-written. Mechanical changes:
@@ -15,7 +16,11 @@
  * - The gallery page's own rules (HomeV2Page.css,
  *   index.css) are left out, and background urls point at
  *   modules/personal-agents/assets/motion. One site rule is added at the
- *   end: see "Site".
+ *   end: see "Site". The Insights backdrop (PersonalAgentInsights.css's
+ *   first rule) is Figma's Insights panel in place of the source's.
+ * - The source page's window standard (personal-agents-motion.css) is scoped
+ *   under `.pam`, which its page sets on <body>; here the `.pa-motion` root
+ *   carries `pam` too, so those rules read `.pa-motion.pam …`.
  */
 
 /* The source page's body: Geist at 16px, normal line height, black text, default smoothing. */
@@ -164,12 +169,7 @@
 @keyframes pam-pap-spin { to { transform: rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .pa-motion .pap-motion .pap-dots i,
-.pa-motion .pap-motion .pap-grok *,
-.pa-motion .pap-motion .pap-grok,
-.pa-motion .pap-motion .pap-activity__spin,
-.pa-motion .pap-motion .pap-activity__line,
-.pa-motion .pap-motion .pap-header__title small { animation: none; }
+  .pa-motion .pap-motion .pap-dots i, .pa-motion .pap-motion .pap-grok *, .pa-motion .pap-motion .pap-grok, .pa-motion .pap-motion .pap-activity__spin, .pa-motion .pap-motion .pap-activity__line, .pa-motion .pap-motion .pap-header__title small { animation: none; }
 }
 
 /* Grok Bot avatar states (xAI's Grok Bot design notes; the notes give the
@@ -177,8 +177,7 @@
    idle: a slow, curious breath. ack: one quick nod as the task lands.
    working: the mark turns, "in gear". thinking: it rocks while the
    upper half glints. done: it settles home. */
-.pa-motion .pap-motion .pap-grok__halves,
-.pa-motion .pap-motion .pap-grok__blade { transform-box: fill-box; transform-origin: center; }
+.pa-motion .pap-motion .pap-grok__halves, .pa-motion .pap-motion .pap-grok__blade { transform-box: fill-box; transform-origin: center; }
 .pa-motion .pap-motion [data-state="idle"] .pap-grok { animation: pam-pap-g-breathe 3.2s ease-in-out infinite; }
 .pa-motion .pap-motion [data-state="ack"] .pap-grok { animation: pam-pap-g-nod 320ms cubic-bezier(.23, 1, .32, 1) both; }
 .pa-motion .pap-motion [data-state="working"] .pap-grok__halves { animation: pam-pap-spin 1.1s cubic-bezier(.65, 0, .35, 1) infinite; }
@@ -191,12 +190,13 @@
 @keyframes pam-pap-g-glint { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
 @keyframes pam-pap-g-settle { from { transform: rotate(-40deg); } to { transform: rotate(0); } }
 
-/* Chat-shell standard: 40px window corners on 01–06 (.pap-motion); 28px on
-   the smaller 08–10 (.pap--r40). 00 and 07 keep their own radius.
+/* Chat-shell standard: 40px window corners on 01–06 (.pap-motion); the
+   small-frame 16px on the smaller 08–10 (.pap--r40; was 28, 11 November
+   2026). 00 and 07 keep their own radius.
    Logo tiles are concentric with the window corner (radius − inset), which
    is larger than half the tile at these insets, so they resolve to circles. */
 .pa-motion .pap.pap-motion { border-radius: 40px; }
-.pa-motion .pap.pap--compact.pap--r40 { border-radius: 28px; }
+.pa-motion .pap.pap--compact.pap--r40 { border-radius: 16px; }
 .pa-motion .pap.pap-motion .pap-logo,
 .pa-motion .pap.pap--compact.pap--r40 .pap-logo { border-radius: 50%; overflow: hidden; }
 
@@ -248,9 +248,7 @@
 .pa-motion .pap--grok { --bg: #0b0b0d; --bar: #141416; --fg: #f4f4f5; --muted: #a1a1aa; --line: rgba(255, 255, 255, .08);
     --bubble: #2a2a2e; --bubble-fg: #f4f4f5; --dots: #1f1f23; --dot: #a1a1aa;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 2px 8px rgba(10, 10, 14, .12), 0 24px 56px rgba(10, 10, 14, .28); }
-.pa-motion .pap *,
-.pa-motion .pap *::before,
-.pa-motion .pap *::after { box-sizing: border-box; }
+.pa-motion .pap *, .pa-motion .pap *::before, .pa-motion .pap *::after { box-sizing: border-box; }
 .pa-motion .pap p { margin: 0; }
 .pa-motion .pap b { font-weight: 500; }
 .pa-motion .pap small { display: block; }
@@ -352,12 +350,10 @@
 /* Grok Bot's own pick sits in Grok's dark theme; only Trailwell's card stays white. */
 .pa-motion .pap--grok .pap-pick { --card: #18181b; --card-fg: #f4f4f5; --card-muted: #a1a1aa; --plate: #232327;
     box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .55), 0 8px 24px rgba(0, 0, 0, .3); }
-.pa-motion .pap--grok .pap-pick__tag,
-.pa-motion .pap--grok .pap-puck { background: rgba(255, 255, 255, .1); color: #e4e4e7; }
+.pa-motion .pap--grok .pap-pick__tag, .pa-motion .pap--grok .pap-puck { background: rgba(255, 255, 255, .1); color: #e4e4e7; }
 .pa-motion .pap--grok .pap-merchant { --card: #18181b; --card-fg: #f4f4f5; --card-muted: #a1a1aa; --plate: #232327;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, .08); }
-.pa-motion .pap--grok .pap-via,
-.pa-motion .pap--grok .pap-detail { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+.pa-motion .pap--grok .pap-via, .pa-motion .pap--grok .pap-detail { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
 .pa-motion .pap--grok .pap-detail__head { border-bottom-color: rgba(255, 255, 255, .08); }
 .pa-motion .pap--grok .pap-benefits li + li { border-top-color: rgba(255, 255, 255, .06); }
 .pa-motion .pap--grok .pap-benefits__icon { background: rgba(255, 255, 255, .1); color: #e4e4e7; }
@@ -514,8 +510,7 @@
    so the Grok Bot frames inherit the dark card treatment. */
 .pa-motion .pap { --hair: rgba(22, 23, 27, .08); --good: #157347; --good-wash: #e7f6ec; }
 .pa-motion .pap--grok { --hair: rgba(255, 255, 255, .1); --good: #6ee7a0; --good-wash: rgba(110, 231, 160, .14); --wash: rgba(255, 255, 255, .1); }
-.pa-motion .pap--grok,
-.pa-motion .pap--grok .pap-merchant { --primary: #f4f4f5; --on-primary: #0f0f10; }
+.pa-motion .pap--grok, .pa-motion .pap--grok .pap-merchant { --primary: #f4f4f5; --on-primary: #0f0f10; }
 
 .pa-motion .pal-actions { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
 .pa-motion .pal-btn { flex: none; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: 999px;
@@ -1235,7 +1230,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .pa-motion .la-dash *,
-.pa-motion .la-dash *::before {
+  .pa-motion .la-dash *::before {
     animation: none !important;
     transition: none !important;
   }
@@ -1660,8 +1655,7 @@
 .pa-motion .pai-src .pai-mark--muse img { width: 13px; height: 13px; }
 .pa-motion .pai-src .pai-mark--grok svg { width: 20px; height: 20px; }
 .pa-motion .pai-src b { display: block; font-weight: 500; font-size: 13px; }
-.pa-motion .pai-src small,
-.pa-motion .pai-out small { display: block; color: var(--la-faint); font-size: 11px; line-height: 15px; }
+.pa-motion .pai-src small, .pa-motion .pai-out small { display: block; color: var(--la-faint); font-size: 11px; line-height: 15px; }
 .pa-motion .pai-req { color: var(--la-fg); }
 .pa-motion .pai-act { color: var(--la-muted); }
 .pa-motion .pai-out { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
@@ -1681,6 +1675,72 @@
 }
 .pa-motion .pai .pai-tr.cgi-rise--pending { transform: translateY(6px); }
 @media (prefers-reduced-motion: reduce) { .pa-motion .pai .pai-tr.cgi-rise { transition: none; } }
+
+
+/* 07m: the dashboard at its viewport's size (353x440 canvas, 313x400
+   window, 00m's corner and shadow). It reflows with container queries on
+   the window, not breakpoints on the page: under 360px the rail folds and
+   the four-column table restacks to one row per record. */
+.pa-motion .pai-fit-figure { margin: 0; }
+.pa-motion .pai-fit-canvas { width: 353px; height: 440px; display: grid; place-items: center; overflow: hidden;
+    background: #5c0f2c url("../../assets/motion/ill-frame/bg_retain.webp") center / cover no-repeat; }
+.pa-motion .pai-fit { container-type: inline-size; width: 313px; height: 400px; overflow: hidden; border-radius: 16px; background: #fff;
+    box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+.pa-motion .pai-fit .la-stage, .pa-motion .pai-fit .la-dash { width: 100%; height: 100%; }
+.pa-motion .pai-fit .la-dash { padding: 0; gap: 0; }
+.pa-motion .pai-fit .la-main { border-radius: 0; }
+.pa-motion .pai-fit .la-dash--compact .la-rail { width: 52px; }
+.pa-motion .pai-fit .la-chat { min-width: 0; padding: 12px 12px 12px; }
+.pa-motion .pai-fit .la-thread { overflow: hidden; margin-bottom: 12px; }
+.pa-motion .pai-fit .la-card { margin-top: 12px; }
+
+/* The chat's own header, since the list that named it is folded. */
+.pa-motion .pai-chat__head { display: flex; flex: none; align-items: baseline; gap: 8px; min-width: 0; padding-bottom: 10px; margin-bottom: 4px; border-bottom: 1px solid var(--la-border); }
+.pa-motion .pai-chat__title { flex: none; font-size: 20px; line-height: 26px; letter-spacing: -0.5px; }
+.pa-motion .pai-chat__crumb { min-width: 0; overflow: hidden; color: var(--la-muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Slim composer: one row; the upload control folds into its icon. */
+.pa-motion .pai-fit .la-composer { flex: none; display: flex; align-items: center; height: 40px; min-height: 0; border-radius: 4px; }
+.pa-motion .pai-fit .la-composer__text { flex: 1; min-width: 0; padding: 0 12px; white-space: nowrap; overflow: hidden; }
+.pa-motion .pai-fit .la-composer__foot { padding: 5px; }
+.pa-motion .pai-fit .la-send { width: 28px; height: 28px; }
+.pa-motion .pai-fit .la-upload { display: none; }
+
+@container (max-width: 360px) {
+  .pa-motion .pai-fit .la-rail { display: none; }
+  .pa-motion .pai-fit .la-user { max-width: 86%; font-size: 13px; line-height: 18px; }
+  .pa-motion .pai-fit .la-card__head { height: auto; min-height: 36px; flex-wrap: wrap; padding: 6px 10px; row-gap: 4px; }
+  /* The table restacks: header row folds; each record is mark + request,
+     then the outcome under it; the action (the long middle column) folds. */
+  .pa-motion .pai-fit .pai-tr--head, .pa-motion .pai-fit .pai-act, .pa-motion .pai-fit .pai-src > span:not(.pai-mark) { display: none; }
+  .pa-motion .pai-fit .pai-tr { grid-template-columns: 18px minmax(0, 1fr); column-gap: 8px; row-gap: 3px; padding: 7px 10px; }
+  .pa-motion .pai-fit .pai-src .pai-mark { width: 18px; height: 18px; }
+  .pa-motion .pai-fit .pai-tr--head + .pai-tr { border-top: 0; }
+  .pa-motion .pai-fit .pai-req { grid-column: 2; }
+  .pa-motion .pai-fit .pai-out { grid-column: 2; flex-direction: row; align-items: center; gap: 6px; min-width: 0; }
+  .pa-motion .pai-fit .pai-out small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+/* 07m fit pass: the card whole, the composer's text centred, details whole. */
+.pa-motion .pai-fit .pai-chat__head { padding-bottom: 8px; margin-bottom: 0; }
+.pa-motion .pai-fit .pai-chat__title { font-size: 18px; line-height: 22px; }
+.pa-motion .pai-fit .la-thread { margin-bottom: 10px; }
+.pa-motion .pai-fit .la-composer__text { display: flex; align-items: center; align-self: stretch; padding-top: 0; padding-bottom: 0; }
+@container (max-width: 360px) {
+  .pa-motion .pai-fit .pai-outcome { height: 18px; padding: 0 5px; font-size: 11px; line-height: 16px; }
+  .pa-motion .pai-fit .pai-out small { overflow: visible; text-overflow: clip; font-size: 10.5px; }
+  .pa-motion .pai-fit .pai-tr { padding: 6px 10px; }
+}
+.pa-motion .pai-fit .la-composer__text { height: auto; align-self: center; padding: 0 12px; line-height: 18px; }
+/* The composer grows a line at a time as the query wraps (same padding,
+   no height animation), send button on the last line; one row when empty. */
+.pa-motion .pai-fit .la-composer { height: auto; min-height: 40px; align-items: flex-end; }
+.pa-motion .pai-fit .la-composer__text { align-self: auto; padding: 11px 12px; white-space: normal; overflow: visible; line-height: 18px; }
+.pa-motion .pai-fit .la-composer__foot { padding: 6px 5px; }
+.pa-motion .pai-fit .la-composer__text { display: block; }
+/* 07m: the thread starts 12px under the header rule, so the first bubble
+   never meets it (the 12px rhythm used everywhere else in the window). */
+.pa-motion .pai-fit .la-thread { padding-top: 12px; }
+.pa-motion .pai-fit .la-thread > :first-child { margin-top: 0; }
 
 /* components/ill/tokens.css */
 /*
@@ -2422,8 +2482,7 @@
 .pa-motion .ppr-tile { display: flex; flex-direction: column; gap: 2px; padding: 3px 3px 7px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--hair); }
 .pa-motion .ppr-tile__media { position: relative; height: 64px; margin-bottom: 4px; border-radius: 9px; background: var(--plate); }
 .pa-motion .ppr-tile__media img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 6px; object-fit: contain; }
-.pa-motion .ppr-tile > b,
-.pa-motion .ppr-tile > .ppr-price { padding: 0 5px; }
+.pa-motion .ppr-tile > b, .pa-motion .ppr-tile > .ppr-price { padding: 0 5px; }
 .pa-motion .ppr-tile > b { font-size: 11px; line-height: 15px; }
 
 /* Grok Bot, light mode: Grok's own black mark and type on white; its
@@ -2442,14 +2501,12 @@
 /* Minimal landing, once: the bubble rises, the card follows, then the
    card's contents settle 60ms apart. Transitions from a resting hidden
    state, so nothing loops or replays. */
-.pa-motion .ppr-land .pap-thread > *,
-.pa-motion .ppr-land .pap-merchant > * {
+.pa-motion .ppr-land .pap-thread > *, .pa-motion .ppr-land .pap-merchant > * {
   opacity: 0; transform: translateY(6px); filter: blur(2px);
   transition: opacity 260ms ease-out, transform 420ms cubic-bezier(0.23, 1, 0.32, 1), filter 260ms ease-out;
 }
 .pa-motion .ppr-land .pap-merchant { transform: translateY(10px); }
-.pa-motion .ppr-land--in .pap-thread > *,
-.pa-motion .ppr-land--in .pap-merchant > * { opacity: 1; transform: none; filter: none; }
+.pa-motion .ppr-land--in .pap-thread > *, .pa-motion .ppr-land--in .pap-merchant > * { opacity: 1; transform: none; filter: none; }
 .pa-motion .ppr-land--in .pap-thread > :nth-child(1) { transition-delay: 150ms; }
 .pa-motion .ppr-land--in .pap-thread > :nth-child(2) { transition-delay: 380ms; }
 .pa-motion .ppr-land--in .pap-merchant > :nth-child(1) { transition-delay: 520ms; }
@@ -2457,8 +2514,7 @@
 .pa-motion .ppr-land--in .pap-merchant > :nth-child(3) { transition-delay: 640ms; }
 .pa-motion .ppr-land--in .pap-merchant > :nth-child(4) { transition-delay: 700ms; }
 @media (prefers-reduced-motion: reduce) {
-  .pa-motion .ppr-land .pap-thread > *,
-.pa-motion .ppr-land .pap-merchant > * { transform: none; filter: none; transition: opacity 200ms ease-out; }
+  .pa-motion .ppr-land .pap-thread > *, .pa-motion .ppr-land .pap-merchant > * { transform: none; filter: none; transition: opacity 200ms ease-out; }
 }
 .pa-motion .pap--grok.pap--light .pap-merchant { --on-primary: #fff; }
 
@@ -2475,9 +2531,7 @@
     --g-field: #f2f2f3; --site: #f3f6ee; --site-plate: #e6ebdd; --site-line: #dfe5d4; --cw: rgb(0, 76, 39); --cw-soft: rgba(0, 76, 39, .035);
     width: 1286px; height: 598px; display: flex; flex-direction: column; background: var(--g-bg); color: var(--g-fg);
     font: 400 14px/20px Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-.pa-motion .pac-app *,
-.pa-motion .pac-app *::before,
-.pa-motion .pac-app *::after { box-sizing: border-box; }
+.pa-motion .pac-app *, .pa-motion .pac-app *::before, .pa-motion .pac-app *::after { box-sizing: border-box; }
 .pa-motion .pac-app p { margin: 0; }
 .pa-motion .pac-app b { font-weight: 500; }
 
@@ -2617,8 +2671,7 @@
 @keyframes pam-pac-in { from { opacity: 0; transform: translateY(8px); filter: blur(2px); } }
 .pa-motion .pap-motion .pac-spin { animation: pam-pap-spin .8s linear infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .pa-motion .pac-store[data-animate] *,
-.pa-motion .pac-store[data-animate] > * { animation: none !important; }
+  .pa-motion .pac-store[data-animate] *, .pa-motion .pac-store[data-animate] > * { animation: none !important; }
 }
 
 /* 4B: what the agent never read. A light grey-out (not a fade-out) and a
@@ -2631,8 +2684,7 @@
     font: 500 12px/14.4px Inter, sans-serif; white-space: nowrap;
     opacity: 0; transform: translateY(3px); transition: opacity 300ms ease-out, transform 300ms ease-out; }
 .pa-motion .pac-scan--read .pac-unread__badge { opacity: 1; transform: none; }
-.pa-motion .pac-scan--read .pac-unread:nth-of-type(1) .pac-unread__badge,
-.pa-motion .pac-scan--read .pac-scan__side .pac-unread__badge { transition-delay: 150ms; }
+.pa-motion .pac-scan--read .pac-unread:nth-of-type(1) .pac-unread__badge, .pa-motion .pac-scan--read .pac-scan__side .pac-unread__badge { transition-delay: 150ms; }
 .pa-motion .pac-scan { padding-top: 20px; }
 .pa-motion .pac-scan__side { gap: 18px; padding-top: 8px; }
 
@@ -2652,12 +2704,7 @@
 .pa-motion .pac-mini .pac-agent-tag { top: 6px; left: 6px; opacity: 0; transition: opacity 260ms ease-out; }
 .pa-motion .pac-mini__card--pick .pac-agent-tag { opacity: 1; }
 .pa-motion .pac-mini__media { transition: box-shadow 260ms ease-out, background-color 260ms ease-out; }
-@media (prefers-reduced-motion: reduce) { .pa-motion .pac-unread__body,
-.pa-motion .pac-unread__badge,
-.pa-motion .pac-scan__lit,
-.pa-motion .pac-scan__tag,
-.pa-motion .pac-mini__media,
-.pa-motion .pac-mini .pac-agent-tag { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .pa-motion .pac-unread__body, .pa-motion .pac-unread__badge, .pa-motion .pac-scan__lit, .pa-motion .pac-scan__tag, .pa-motion .pac-mini__media, .pa-motion .pac-mini .pac-agent-tag { transition: none; } }
 
 /* Badges sit inside their modules (Storybook Badge: filled pill, 12/14.4
    medium, 6x12, no border). The side modules give the badge its own row. */
@@ -2697,8 +2744,7 @@
 .pa-motion .pac-banner .pac-banner__cta { flex: none; align-self: flex-end; margin: 0; height: 44px; padding: 0 22px; display: inline-flex; align-items: center;
     border-radius: 10px; font-size: 15px; font-weight: 500; }
 .pa-motion .pac-split__shop .pac-banner .pac-banner__cta { height: 34px; padding: 0 14px; font-size: 12.5px; border-radius: 8px; }
-.pa-motion .pac-scan .pac-banner,
-.pa-motion .pac-results .pac-banner { min-height: 136px; }
+.pa-motion .pac-scan .pac-banner, .pa-motion .pac-results .pac-banner { min-height: 136px; }
 .pa-motion .pac-banner__copy { align-self: center; }
 
 /* Banner CTA: centred vertically, a brand-green button. */
@@ -2716,8 +2762,240 @@
 .pa-motion .pac-pc { overflow: hidden; transition: opacity 360ms ease-out 200ms, transform 560ms cubic-bezier(0.77, 0, 0.175, 1); }
 .pa-motion .pac-pc > * { width: 828px; }
 .pa-motion .pac-body[data-panel="closed"] .pac-pc { opacity: 0; transform: translateX(48px); }
-@media (prefers-reduced-motion: reduce) { .pa-motion .pac-chat.pap,
-.pa-motion .pac-pc { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .pa-motion .pac-chat.pap, .pa-motion .pac-pc { transition: none; } }
+
+
+/* 00m mobile canvas: 353x440 on the green backdrop. */
+.pa-motion .pac-mweb { position: relative; width: 353px; height: 440px; overflow: hidden; background: #1d3a2a center / cover no-repeat; }
+
+/* 00m mobile: 353x440 canvas, 313x400 phone-width window. The chat owns the
+   window; the computer is a sheet that slides up over it (20px short of the
+   top so the chat still reads behind), and the storefront restacks to one
+   column: banner, the read results, then the two skipped modules. */
+.pa-motion .pac-mweb--phone { display: grid; place-items: center; }
+.pa-motion .pac-app.pac-app--mweb { width: 313px; height: 400px; border-radius: 28px; overflow: hidden; font-size: 13px; line-height: 18px;
+    box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .22); }
+.pa-motion .pac-app--mweb .pac-top { height: 48px; padding: 0 12px 0 14px; gap: 8px; }
+.pa-motion .pac-app--mweb .pac-top .pap-logo { width: 28px; height: 28px; }
+.pa-motion .pac-app--mweb .pac-top__title b { font-size: 14px; line-height: 18px; }
+.pa-motion .pac-app--mweb .pac-top__title small { font-size: 11px; line-height: 14px; }
+.pa-motion .pac-app--mweb .pac-top__pc { width: 30px; height: 30px; border-radius: 50%; }
+.pa-motion .pac-app--mweb .pac-body { position: relative; }
+.pa-motion .pac-app--mweb .pac-chat.pap, .pa-motion .pac-app--mweb .pac-body[data-panel="closed"] .pac-chat.pap { width: 100%; border-right: 0; transition: none; font-size: 13px; line-height: 18px; }
+.pa-motion .pac-app--mweb .pac-thread { max-width: none; gap: 10px; padding: 12px 12px 8px; overflow: hidden; justify-content: flex-end; }
+.pa-motion .pac-app--mweb .pap-bubble { padding: 8px 12px; border-radius: 16px; max-width: 86%; }
+.pa-motion .pac-app--mweb .pap-activity { font-size: 12px; line-height: 16px; }
+.pa-motion .pac-app--mweb .pac-composer, .pa-motion .pac-app--mweb .pac-body[data-panel="closed"] .pac-composer { width: auto; height: 40px; margin: 0 10px 10px; padding: 0 5px 0 14px; font-size: 13px; }
+.pa-motion .pac-app--mweb .pac-send { width: 30px; height: 30px; }
+.pa-motion .pac-app--mweb .pac-caret { height: 15px; }
+.pa-motion .pac-app--mweb .pac-result { gap: 10px; padding: 8px; border-radius: 16px; flex-wrap: wrap; }
+.pa-motion .pac-app--mweb .pac-result__media { width: 56px; height: 56px; border-radius: 10px; }
+.pa-motion .pac-app--mweb .pac-result__media img { width: 48px; height: 48px; }
+.pa-motion .pac-app--mweb .pac-result__body b { font-size: 13px; line-height: 17px; }
+.pa-motion .pac-app--mweb .pac-result__body small, .pa-motion .pac-app--mweb .pac-result__body span { font-size: 11px; line-height: 15px; }
+.pa-motion .pac-app--mweb .pac-done { height: 22px; padding: 0 8px; font-size: 11px; }
+
+/* The sheet. */
+.pa-motion .pac-app--mweb .pac-pc, .pa-motion .pac-app--mweb .pac-body[data-panel="closed"] .pac-pc {
+    position: absolute; inset: 20px 0 0; padding: 8px 10px 10px; gap: 8px; background: #fff; border-radius: 20px 20px 0 0;
+    box-shadow: 0 -1px 0 rgba(15, 15, 16, .08), 0 -12px 32px rgba(10, 10, 14, .14);
+    opacity: 1; transform: translateY(102%); transition: transform 520ms cubic-bezier(0.32, 0.72, 0, 1); }
+.pa-motion .pac-app--mweb .pac-body[data-sheet="up"] .pac-pc { transform: none; }
+.pa-motion .pac-app--mweb .pac-pc > * { width: auto; }
+.pa-motion .pac-app--mweb .pac-pc::before { content: ""; align-self: center; flex: none; width: 32px; height: 4px; border-radius: 2px; background: #d4d4d8; }
+.pa-motion .pac-app--mweb .pac-pc__nav { display: none; }
+.pa-motion .pac-app--mweb .pac-pc__bar { gap: 8px; }
+.pa-motion .pac-app--mweb .pac-pc__url { min-width: 0; height: 28px; padding: 0 10px; border-radius: 8px; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; line-height: 28px; }
+.pa-motion .pac-app--mweb .pac-pc__url svg { display: none; }
+.pa-motion .pac-app--mweb .pac-pc__live { flex: none; font-size: 0; gap: 0; }
+.pa-motion .pac-app--mweb .pac-pc__live::before { width: 8px; height: 8px; }
+.pa-motion .pac-app--mweb .pac-store { border-radius: 10px; }
+.pa-motion .pac-app--mweb .pac-store__head { height: 36px; padding: 0 10px; gap: 8px; font-size: 11px; }
+.pa-motion .pac-app--mweb .pac-store__head nav { display: none; }
+.pa-motion .pac-app--mweb .pac-store__brand { flex: 1; font-size: 13px; gap: 6px; }
+.pa-motion .pac-app--mweb .pac-store__mark.demo-brand-mark { width: 18px; height: 18px; }
+.pa-motion .pac-app--mweb .pac-store__search { height: 24px; padding: 0 9px; font-size: 10.5px; }
+
+/* Storefront, one column. */
+.pa-motion .pac-app--mweb .pac-scan { gap: 8px; padding: 10px; }
+.pa-motion .pac-app--mweb .pac-scan .pac-banner { min-height: 0; padding: 10px 12px; gap: 8px; border-radius: 10px; }
+.pa-motion .pac-app--mweb .pac-scan .pac-banner b { font-size: 14px; line-height: 17px; }
+.pa-motion .pac-app--mweb .pac-banner span { font-size: 10.5px; line-height: 14px; }
+.pa-motion .pac-app--mweb .pac-banner .pac-banner__cta { height: 26px; padding: 0 9px; border-radius: 7px; font-size: 10.5px; }
+.pa-motion .pac-app--mweb .pac-scan__row { flex: none; grid-template-columns: 1fr; gap: 8px; }
+.pa-motion .pac-app--mweb .pac-scan__lit { padding: 22px 6px 6px; border-radius: 10px; }
+.pa-motion .pac-app--mweb .pac-scan__tag { top: 5px; left: 7px; font-size: 10px; line-height: 13px; }
+.pa-motion .pac-app--mweb .pac-mini { gap: 6px; }
+.pa-motion .pac-app--mweb .pac-mini__card { font-size: 10.5px; line-height: 14px; }
+.pa-motion .pac-app--mweb .pac-mini__card small { font-size: 9.5px; line-height: 13px; }
+.pa-motion .pac-app--mweb .pac-scan__lit .pac-mini__media { flex: none; height: 56px; min-height: 0; margin-bottom: 4px; border-radius: 8px; }
+.pa-motion .pac-app--mweb .pac-mini .pac-agent-tag { top: 3px; left: 3px; padding: 2px 5px; font-size: 8.5px; line-height: 11px; }
+.pa-motion .pac-app--mweb .pac-scan__side { flex-direction: row; gap: 6px; }
+.pa-motion .pac-app--mweb .pac-scan__side .pac-mod { padding: 26px 6px 6px; gap: 6px; border-radius: 10px; align-items: flex-start; }
+.pa-motion .pac-app--mweb .pac-mod__media { width: 32px; height: 32px; border-radius: 7px; }
+.pa-motion .pac-app--mweb .pac-mod__media img { width: 26px; height: 26px; }
+.pa-motion .pac-app--mweb .pac-mod__media i { right: -4px; bottom: -4px; padding: 0 4px; font-size: 8.5px; line-height: 12px; }
+.pa-motion .pac-app--mweb .pac-mod > span:last-child { font-size: 9.5px; line-height: 12px; min-width: 0; }
+.pa-motion .pac-app--mweb .pac-mod small { font-size: 8px; line-height: 11px; }
+.pa-motion .pac-app--mweb .pac-mod b { font-size: 10.5px; line-height: 13px; }
+.pa-motion .pac-app--mweb .pac-unread__badge { top: 5px; right: auto; left: 5px; padding: 3px 7px 2px; font-size: 9px; line-height: 12px; }
+.pa-motion .pac-app--mweb .pac-scan > .pac-unread .pac-unread__badge { left: auto; right: 6px; }
+@media (prefers-reduced-motion: reduce) { .pa-motion .pac-app--mweb .pac-pc { transition: none; } }
+/* Fit the reveal: the URL bar already says where Grok is, so the store
+   header goes; shorter product plates. */
+.pa-motion .pac-app--mweb .pac-store__head { display: none; }
+.pa-motion .pac-app--mweb .pac-scan__lit .pac-mini__media { height: 48px; }
+.pa-motion .pac-app--mweb .pac-pc, .pa-motion .pac-app--mweb .pac-body[data-panel="closed"] .pac-pc { top: 12px; }
+.pa-motion .pac-app--mweb .pac-scan__lit .pac-mini__media img { width: auto; height: 42px; }
+.pa-motion .pac-app--mweb .pac-mini { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pa-motion .pac-app--mweb .pac-scan__side > *, .pa-motion .pac-app--mweb .pac-scan__side .pac-unread__body, .pa-motion .pac-app--mweb .pac-scan__side .pac-mod { flex: 1 1 0; min-width: 0; }
+.pa-motion .pac-app--mweb .pac-scan__row { grid-template-columns: minmax(0, 1fr); }
+.pa-motion .pac-app--mweb .pac-scan, .pa-motion .pac-app--mweb .pac-scan__lit, .pa-motion .pac-app--mweb .pac-page { min-width: 0; }
+
+/* 00m, per xAI's Grok Bot docs: on mobile there's no pinned preview panel.
+   The title-bar computer icon carries the status; the computer is opened
+   from the conversation and takes the screen under the title bar (pushed
+   in from the right, iOS navigation curve), with a back chevron to return. */
+.pa-motion .pac-app--mweb .pac-pc, .pa-motion .pac-app--mweb .pac-body[data-panel="closed"] .pac-pc {
+    top: 0; inset: 0; border-radius: 0; padding: 8px 10px 10px; box-shadow: none;
+    transform: translateX(100%); transition: transform 460ms cubic-bezier(0.32, 0.72, 0, 1); }
+.pa-motion .pac-app--mweb .pac-body[data-sheet="up"] .pac-pc { transform: none; }
+.pa-motion .pac-app--mweb .pac-pc::before { display: none; }
+/* The chat parallaxes back a little as the computer pushes over it. */
+.pa-motion .pac-app--mweb .pac-chat.pap { transition: transform 460ms cubic-bezier(0.32, 0.72, 0, 1); }
+.pa-motion .pac-app--mweb .pac-body[data-sheet="up"] .pac-chat.pap { transform: translateX(-24%); }
+/* Back chevron only (no forward), sized as a 28px hit target. */
+.pa-motion .pac-app--mweb .pac-pc__nav { display: inline-grid; place-items: center; width: 28px; height: 28px; margin-left: -4px; color: var(--g-fg); }
+.pa-motion .pac-app--mweb .pac-pc__nav svg + svg { display: none; }
+/* Status: the icon lights while the computer works, and presses as it's
+   opened (the open follows the press by the transition's own delay). */
+.pa-motion .pac-app--mweb .pac-top__pc { transition: transform 160ms ease-out, background-color 200ms ease, color 200ms ease, box-shadow 200ms ease; }
+.pa-motion .pac-app--mweb:has(.pac-body[data-sheet="up"]) .pac-top__pc { animation: pam-pac-press 320ms ease-out; }
+@keyframes pam-pac-press { 40% { transform: scale(0.9); } }
+.pa-motion .pac-app--mweb .pac-body[data-sheet="up"] .pac-pc { transition-delay: 140ms; }
+@media (prefers-reduced-motion: reduce) {
+  .pa-motion .pac-app--mweb .pac-pc, .pa-motion .pac-app--mweb .pac-chat.pap { transition: none; }
+  .pa-motion .pac-app--mweb .pac-top__pc { animation: none !important; }
+}
+
+/* 00m spacing and hierarchy pass. */
+/* The pick: ring + "Read by" region carry it; the tag shortens so the
+   photo stays visible. */
+.pa-motion .pac-app--mweb .pac-mini .pac-agent-tag { font-size: 0; padding: 2px 6px; }
+.pa-motion .pac-app--mweb .pac-mini .pac-agent-tag::after { content: "Picked"; font-size: 8.5px; line-height: 11px; }
+/* Skipped modules: text only (both photos repeat the Roam), full width. */
+.pa-motion .pac-app--mweb .pac-scan__side .pac-mod__media { display: none; }
+.pa-motion .pac-app--mweb .pac-scan__side .pac-mod { padding: 26px 8px 8px; }
+.pa-motion .pac-app--mweb .pac-mod > span:last-child { gap: 1px; }
+.pa-motion .pac-app--mweb .pac-mod small { font-size: 8.5px; letter-spacing: .06em; }
+/* Banner: badge top-left in its own row, as on the modules. */
+.pa-motion .pac-app--mweb .pac-scan .pac-banner { padding: 26px 10px 10px 12px; position: relative; }
+.pa-motion .pac-app--mweb .pac-scan > .pac-unread .pac-unread__badge { left: 6px; right: auto; }
+.pa-motion .pac-app--mweb .pac-banner .pac-banner__cta { padding: 0 8px; }
+.pa-motion .pac-app--mweb .pac-banner span { text-wrap: balance; }
+/* Banner on mobile: badge, title, one-line offer; the CTA goes so the
+   skipped modules below stay whole. */
+.pa-motion .pac-app--mweb .pac-banner .pac-banner__cta { display: none; }
+.pa-motion .pac-app--mweb .pac-banner span { white-space: nowrap; }
+/* "Not read" badges straddle each card's top edge instead of taking a
+   reserved row; the gaps above leave room for the half that rises out. */
+.pa-motion .pac-app--mweb .pac-scan .pac-banner { padding: 12px 12px 10px; }
+.pa-motion .pac-app--mweb .pac-scan__side .pac-mod { padding: 12px 8px 8px; }
+.pa-motion .pac-app--mweb .pac-unread__badge, .pa-motion .pac-app--mweb .pac-scan > .pac-unread .pac-unread__badge { top: 0; left: 8px; right: auto; transform: translateY(calc(-50% + 3px)); }
+.pa-motion .pac-app--mweb .pac-scan--read .pac-unread__badge { transform: translateY(-50%); }
+.pa-motion .pac-app--mweb .pac-scan { padding-top: 14px; }
+.pa-motion .pac-app--mweb .pac-scan__row { gap: 14px; }
+/* The freed height goes to the product plates. */
+.pa-motion .pac-app--mweb .pac-scan__lit .pac-mini__media { height: 62px; }
+.pa-motion .pac-app--mweb .pac-scan__lit .pac-mini__media img { height: 52px; }
+
+/* 00m declutter. The address bar frames the page, so the storefront runs
+   to the screen edges instead of sitting in its own pane. */
+.pa-motion .pac-app--mweb .pac-pc, .pa-motion .pac-app--mweb .pac-body[data-panel="closed"] .pac-pc { padding-bottom: 0; }
+.pa-motion .pac-app--mweb .pac-store { margin: 0 -10px; border-radius: 0; box-shadow: 0 -1px 0 var(--site-line); }
+/* What Grok skipped is one group: one card, a hairline between, one badge. */
+.pa-motion .pac-app--mweb .pac-scan__side { position: relative; gap: 0; border-radius: 10px; background: #fff; box-shadow: 0 0 0 1px var(--site-line); }
+.pa-motion .pac-app--mweb .pac-scan__side .pac-mod { box-shadow: none; background: transparent; border-radius: 0; }
+.pa-motion .pac-app--mweb .pac-scan__side > .pac-unread + .pac-unread { box-shadow: -1px 0 0 var(--site-line); }
+.pa-motion .pac-app--mweb .pac-scan__side > .pac-unread + .pac-unread .pac-unread__badge { display: none; }
+/* The ring and Grok's answer carry the pick. */
+.pa-motion .pac-app--mweb .pac-mini .pac-agent-tag { display: none; }
+
+/* 00m spacing system: one 12px rhythm between sections, every block's
+   content 10px in, and both label kinds straddle their block's top edge. */
+.pa-motion .pac-app--mweb .pac-scan { padding: 16px 12px 12px; gap: 12px; }
+.pa-motion .pac-app--mweb .pac-scan__row { gap: 12px; }
+.pa-motion .pac-app--mweb .pac-scan .pac-banner { padding: 12px 10px 10px; }
+.pa-motion .pac-app--mweb .pac-scan__side .pac-mod { padding: 12px 10px 10px; }
+.pa-motion .pac-app--mweb .pac-unread__badge, .pa-motion .pac-app--mweb .pac-scan > .pac-unread .pac-unread__badge { left: 10px; }
+.pa-motion .pac-app--mweb .pac-scan__lit { padding: 12px 10px 10px; }
+.pa-motion .pac-app--mweb .pac-scan__tag { top: 0; left: 10px; transform: translateY(-50%); padding: 2px 7px 2px 6px; border-radius: 999px;
+    background: #fff; box-shadow: 0 0 0 1px rgba(0, 76, 39, .25); font-size: 9px; line-height: 12px; }
+.pa-motion .pac-app--mweb .pac-scan__tag::before { width: 5px; height: 5px; }
+.pa-motion .pac-app--mweb .pac-mini { gap: 8px; }
+
+/* 00m chat spacing: turns 20px apart, parts of Grok's turn 12px, the
+   composer set off from the thread; one 12px side edge for everything. */
+.pa-motion .pac-app--mweb .pac-thread { gap: 12px; padding: 16px 12px 16px; }
+.pa-motion .pac-app--mweb .pac-thread > .pap-turn--user { margin-bottom: 8px; }
+.pa-motion .pac-app--mweb .pac-log { gap: 5px; }
+.pa-motion .pac-app--mweb .pac-composer, .pa-motion .pac-app--mweb .pac-body[data-panel="closed"] .pac-composer { margin: 0 12px 12px; }
+
+/* personal-agents-motion.css */
+/* Personal Agents motion: chat-shell standard (11 Nov 2026) applied as
+   page-scoped overrides under body.pam (set in personal-agents-motion-main),
+   because the statics and other pages share these classes. Outer windows:
+   24px (16px under ~320px), each keeping its own shadow (gold edge removed at the user's request); corner children at
+   R − inset; icons, round buttons and flush children exempt. */
+
+/* 01–06: 40 → 24. */
+.pa-motion.pam .pap.pap-motion { border-radius: 24px; }
+/* The last card at the bottom, 16px in: bottom corners 24 − 16 = 8. */
+.pa-motion.pam .pap-motion .pap-thread > :last-child :is(.pap-merchant, .pap-pick, .pal-approve), .pa-motion.pam .pap-motion .pap-thread > :last-child:is(.pap-merchant, .pap-pick, .pal-approve) { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+
+
+/* 00 and 07: the landscape page window, 12 → 24 (bleed frames:
+   the bottom runs out of frame by design). */
+.pa-motion.pam .ill-landscape-canvas__page:has(.pac-app),
+.pa-motion.pam .ill-landscape-canvas__page:has(.la-dash) { border-radius: 24px; }
+/* 07: the main panel 10px in → 14. */
+.pa-motion.pam .ill-landscape-canvas__page .la-dash .la-main { border-radius: 14px; }
+
+/* 00m: small frame (313px) → 16; the skipped card 12px in → 4. */
+.pa-motion.pam .pac-app.pac-app--mweb { border-radius: 16px; }
+.pa-motion.pam .pac-app--mweb .pac-scan__side { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; }
+
+/* Consistency with 01–10: the Grok logo tile is a circle on every window,
+   and 00m's shadow matches the other light windows (.18, not .22). */
+.pa-motion.pam .pac-top .pap-logo { border-radius: 50%; overflow: hidden; }
+.pa-motion.pam .pac-app.pac-app--mweb { box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+/* The Grok glyph fills its tile at any tile size, so it's always centred
+   (00m's 28px tile held a 32px glyph: 2px off down-right, blade clipped). */
+.pa-motion.pam .pap-logo--grok svg { width: 100%; height: 100%; }
+
+/* 07: the frame bleeds off the bottom, so the outer window's bottom corners are square. */
+.pa-motion.pam .ill-landscape-canvas__page:has(.la-dash) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+/* 00: also a bleed frame, so the outer window's bottom corners are square (as 07). */
+.pa-motion.pam .ill-landscape-canvas__page:has(.pac-app) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+
+/* 00m: the window at 85% so it sits inside the backdrop's gold border.
+   Corner set for the scale so it still reads 16px on screen (16 / 0.85). */
+.pa-motion.pam .pac-app.pac-app--mweb { transform: scale(0.85); transform-origin: center; border-radius: 18.82px; }
+
+/* Gold ring, no glow (user's call): 2px #e0be60 on every outer window,
+   over each window's own drop shadow. 00m is drawn at 0.85, so its ring
+   is 2 / 0.85 to read 2px on screen. */
+.pa-motion.pam .pap.pap-motion, .pa-motion.pam .pap.pap--compact { box-shadow: 0 0 0 2px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+.pa-motion.pam .pap.pap--grok.pap-motion { box-shadow: 0 0 0 2px #e0be60, 0 2px 8px rgba(10, 10, 14, .12), 0 24px 56px rgba(10, 10, 14, .28); }
+.pa-motion.pam .ill-landscape-canvas__page:has(.pac-app), .pa-motion.pam .ill-landscape-canvas__page:has(.la-dash) { box-shadow: 0 0 0 2px #e0be60; }
+.pa-motion.pam .pai-fit { box-shadow: 0 0 0 2px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+.pa-motion.pam .pac-app.pac-app--mweb { box-shadow: 0 0 0 2.35px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+/* Gold on near-black reads heavier than on white at the same width, so the
+   dark Grok windows (02, 05) take 1.5px to match the light ones optically. */
+.pa-motion.pam .pap.pap--grok.pap-motion { box-shadow: 0 0 0 1.5px #e0be60, 0 2px 8px rgba(10, 10, 14, .12), 0 24px 56px rgba(10, 10, 14, .28); }
+/* 07m at 85%, as 00m: corner and ring set for the scale to read 16px / 2px. */
+.pa-motion.pam .pai-fit { transform: scale(0.85); transform-origin: center; border-radius: 18.82px;
+    box-shadow: 0 0 0 2.35px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
 
 /*
  * Site: 00–06 and 08–10 caption themselves with the gallery's tile label

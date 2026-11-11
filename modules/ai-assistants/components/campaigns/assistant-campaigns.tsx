@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { cn } from "@/lib/cn";
 import { AiaScenePanel } from "../motion/aia-scene-panel";
 import type { MotionSlug } from "../motion/motion-scenes";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -24,6 +25,7 @@ export function AssistantCampaigns({
   mobileWidth,
   copy,
   scene,
+  mobileScene,
 }: {
   id?: string;
   eyebrow?: ReactNode;
@@ -38,6 +40,8 @@ export function AssistantCampaigns({
   copy?: ReactNode;
   /** The motion visual the panel plays (1280 × 599); the bare panel without one. */
   scene?: MotionSlug;
+  /** Below 768px, the visual's phone layout (353 × 440) in its place (Personal Agents 00m). */
+  mobileScene?: MotionSlug;
 }) {
   return (
     <section aria-labelledby={id} className="relative section-pad">
@@ -54,7 +58,7 @@ export function AssistantCampaigns({
           )}
         </div>
 
-        <div className="relative aspect-[1280/599] w-full overflow-clip bg-forest">
+        <div className={cn("relative aspect-[1280/599] w-full overflow-clip bg-forest", mobileScene && "max-md:hidden")}>
           {scene ? (
             // Fills the content width (past its drawn 1280px on wide screens); a transform, so it shrinks cleanly on phones.
             <AiaScenePanel slug={scene} fill transform />
@@ -62,6 +66,12 @@ export function AssistantCampaigns({
             <Image src={panelForest} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-cover" />
           )}
         </div>
+        {/* Phones: the phone layout at its 353:440 shape (the wide one hidden, so only one plays). */}
+        {mobileScene && (
+          <div className="relative aspect-[353/440] w-full overflow-clip md:hidden">
+            <AiaScenePanel slug={mobileScene} fill transform />
+          </div>
+        )}
       </div>
     </section>
   );

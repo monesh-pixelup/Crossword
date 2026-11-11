@@ -36,3 +36,17 @@ both pages' registries (`modules/ai-assistants/components/motion/motion-scenes.t
 | 04–06 `pa-send-it-back-motion` … `pa-something-i-like-motion` | 679 × 579 | Logged-in panel, by the open quote (config/logged-in.ts) |
 | 07 `pa-insights-motion` | 1280 × 599 | Insights (`scene`, the page) |
 | 08–10 `pa-upgrade-suggestion-motion` … `pa-merchandising-priorities-motion` | 355 × 402 | Promotions steps' cells (config/promotions.ts) |
+
+## 11 November 2026 update
+
+From the updated handoff (the window standard, 00m and 07m):
+
+- **00m** (`PaTheCaseMobile`) and **07m** (`PersonalAgentInsightsFit`), 353 × 440, are `pa-the-case-mweb-motion` and
+  `pa-insights-mweb-motion`. The page passes them as `mobileScene` to The case (AssistantCampaigns) and Insights,
+  which show them below 768px in place of 00 and 07.
+- **Window standard:** the source's page stylesheet, `personal-agents-motion.css`, is scoped under `.pam`, which its
+  page sets on <body>. The `.pa-motion` root carries `pam` too, so those rules read `.pa-motion.pam …`.
+- **motion.css** was regenerated from the new source's stylesheets in its build order, with this port's font mapping
+  (quoted names, Geist and Space Grotesk to the next/font variables; an unquoted Inter stays). Two site changes are
+  carried over: the Insights backdrop (Figma's panel, PersonalAgentInsights.css's first rule) and the "Site" rule at the
+  end. ill-frame/compact_bg.webp stays the site's re-export.

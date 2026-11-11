@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import mwebBgImage from "@/modules/personal-agents/assets/motion/ill-frame/mweb_440px_green.webp";
 import { useLandedOnScreen } from "../../components/ill/useLandedOnScreen";
 import { useChatTimeline, type Beat } from "../../illustrations/SellMotion/useChatTimeline";
 import { RichStagger } from "../../illustrations/SellMotion/RichStagger";
@@ -7,6 +8,8 @@ import { BrandMark } from "../../brands/BrandIdentity";
 import { Activity, GrokMark } from "./PersonalAgentsPossibilities";
 import { $ } from "./data";
 import { theCase as c } from "./theCaseData";
+
+const mwebBg = mwebBgImage.src;
 
 // Personal Agents → The Case. AI Assistants 15's frame (LandscapeCanvas,
 // green backdrop, bleed; 1286x598 scene at 1168/1286), holding Grok Bot's
@@ -204,16 +207,18 @@ function Computer({ step, view, picked, animate }: { step: Step; view?: View } &
 
 // `panel` (motion): the computer panel opens only once Grok starts working;
 // before that the chat has the whole window.
-function Scene({ step, view, mark, panel = true, ...flags }: { step: Step; view?: View; mark?: string } & Flags) {
+function Scene({ step, view, mark, panel = true, mobile, ...flags }: { step: Step; view?: View; mark?: string; mobile?: boolean } & Flags) {
   const state = mark ?? (step === 1 ? "working" : step === 2 ? "working" : "done");
   return (
-    <div className="pac-app" data-step={step}>
+    <div className={mobile ? "pac-app pac-app--mweb" : "pac-app"} data-step={step}>
       <header className="pac-top">
         <GrokMark state={state} />
         <span className="pac-top__title"><b>Grok Bot</b><small>{state === "working" ? "Working" : state === "done" ? "Done" : "Agent"}</small></span>
         <span className={state === "working" ? "pac-top__pc pac-top__pc--on" : "pac-top__pc"} title="Computer"><Icon d={I.monitor} /></span>
       </header>
-      <div className="pac-body" data-panel={panel ? "open" : "closed"}>
+      {/* Mobile: no room for a side panel, so the computer is a sheet over the
+          chat: up while Grok browses, down for its answer, up for the reveal. */}
+      <div className="pac-body" data-panel={panel ? "open" : "closed"} data-sheet={mobile ? (panel && step !== 3 ? "up" : "down") : undefined}>
         <Chat step={step} {...flags} />
         <Computer step={step} view={view} {...flags} />
       </div>
@@ -270,6 +275,30 @@ export function PaTheCaseMotion() {
             <Scene step={step} view="scan" mark={mark} panel={working} asked={t.passed("ask")} typed={t.composer?.value} working={working} picked={t.reached("pick")} animate={!t.reducedMotion} />
           </div>
         } />
+      </div>
+    </figure>
+  );
+}
+
+/* 00m mobile: the same take as Grok Bot's phone layout at 353x440. A
+   phone-width window on the green backdrop; the computer rides over the
+   chat as a sheet. Plays once. */
+export function PaTheCaseMobile() {
+  const ref = useRef<HTMLDivElement>(null);
+  const landed = useLandedOnScreen(ref);
+  const played = useRef(false);
+  const t = useChatTimeline(beats, landed || played.current);
+  if (t.done) played.current = true;
+  const step: Step = t.reached("reveal") ? 4 : t.reached("answer") ? 3 : t.reached("search") ? 2 : 1;
+  const working = t.reached("open");
+  const mark = t.loading("sent") ? "ack" : working && !t.reached("answer") ? "working" : t.reached("answer") ? "done" : "idle";
+  return (
+    <figure className="pac-figure pap-motion" ref={ref}>
+      <figcaption className="app-stage__tile-label">The Case · 353x440</figcaption>
+      <div className="pac-mweb pac-mweb--phone" style={{ backgroundImage: `url(${mwebBg})` }}>
+        <div key={t.runKey}>
+          <Scene mobile step={step} view="scan" mark={mark} panel={working} asked={t.passed("ask")} typed={t.composer?.value} working={working} picked={t.reached("pick")} animate={!t.reducedMotion} />
+        </div>
       </div>
     </figure>
   );

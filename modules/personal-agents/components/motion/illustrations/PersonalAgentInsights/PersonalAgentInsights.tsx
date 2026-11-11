@@ -1,11 +1,11 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { animateScrollTo } from "../../components/ill/scrollEase";
 import { InsightsFrame, Ph } from "../LaunchAudience/LaunchAudience";
 import { useLandedOnScreen } from "../../components/ill/useLandedOnScreen";
 import { useChatTimeline, type Beat } from "../SellMotion/useChatTimeline";
 import { GrokGlyph } from "../../visuals/PersonalAgentsPossibilities/PersonalAgentsPossibilities";
 import museMarkImage from "@/modules/personal-agents/assets/motion/hero/entry-points/muse-fill.svg";
 import { personalAgentInsights as s, type Agent } from "./data";
-
 
 const museMark = museMarkImage.src;
 
@@ -99,11 +99,17 @@ function ActivityCard({ v }: { v: View }) {
   );
 }
 
-function Dashboard({ v, stageRef, runKey }: { v: View; stageRef?: React.Ref<HTMLDivElement>; runKey?: number }) {
+// `fit` (07m): the same dashboard laid out at its viewport's own size
+// instead of 07's fixed 1286px frame. The chats list folds (InsightsFrame
+// `compact`, as Home 09b), and container queries in the CSS fold the rail,
+// add the chat's own header and restack the table as the width drops.
+function Dashboard({ v, stageRef, runKey, fit, threadRef }: { v: View; stageRef?: React.Ref<HTMLDivElement>; runKey?: number; fit?: boolean; threadRef?: React.Ref<HTMLDivElement> }) {
   const enter = v.animate ? " la-enter" : "";
   return (
     <InsightsFrame
       className="cgi pai"
+      bare={fit}
+      compact={fit}
       saved={s.saved}
       recent={s.recent}
       active={v.sent ? s.query : undefined}
@@ -112,7 +118,13 @@ function Dashboard({ v, stageRef, runKey }: { v: View; stageRef?: React.Ref<HTML
       runKey={runKey}
     >
       <section className="la-chat">
-        <div className="la-thread">
+        {fit && (
+          <header className="pai-chat__head">
+            <span className="la-serif pai-chat__title">Insights</span>
+            {v.sent && <span className={`pai-chat__crumb${v.animate ? " la-fade" : ""}`}>{s.query}</span>}
+          </header>
+        )}
+        <div className="la-thread" ref={threadRef}>
           {v.sent && <div className={`la-user${enter}`}><p>{s.query}</p></div>}
           {v.sent && (
             <div className="la-thought cgi-thought">
@@ -164,4 +176,39 @@ export function PersonalAgentInsightsMotion() {
   };
   // Keyed inside the stage, so the on-screen observer keeps its node.
   return <Dashboard v={v} stageRef={stageRef} runKey={t.runKey} />;
+}
+
+
+/* 07m: 07 at 353x440 (00m's size), responsive rather than redrawn. */
+export function PersonalAgentInsightsFit() {
+  const ref = useRef<HTMLDivElement>(null);
+  const threadRef = useRef<HTMLDivElement>(null);
+  const landed = useLandedOnScreen(ref);
+  const played = useRef(false);
+  const t = useChatTimeline(beats, landed || played.current);
+  if (t.done) played.current = true;
+  const v: View = {
+    sent: t.passed("ask"), composer: t.composer?.value ?? "", typing: !!t.composer,
+    thinking: t.status("think"), thought: t.passed("think"),
+    card: t.reached("card"), cardLoading: t.loading("card"), rows: t.reached("rows"), animate: !t.reducedMotion,
+  };
+  // Follow the newest content; pin the end once the rows have landed.
+  useEffect(() => {
+    const el = threadRef.current;
+    if (!el) return;
+    if (!v.animate) { el.scrollTop = el.scrollHeight; return; }
+    const id = window.setTimeout(() => animateScrollTo(el, el.scrollHeight - el.clientHeight), 60);
+    const pin = window.setTimeout(() => { el.scrollTop = el.scrollHeight; }, 1400);
+    return () => { window.clearTimeout(id); window.clearTimeout(pin); };
+  }, [t.index, t.runKey, v.animate, v.sent]);
+  return (
+    <figure className="pai-fit-figure" ref={ref}>
+      <figcaption className="app-stage__tile-label">Insights · 353x440</figcaption>
+      <div className="pai-fit-canvas">
+        <div className="pai-fit">
+          <Dashboard fit v={v} runKey={t.runKey} threadRef={threadRef} />
+        </div>
+      </div>
+    </figure>
+  );
 }

@@ -2,7 +2,7 @@
 
 import { type ReactNode, useSyncExternalStore } from "react";
 import type { SceneEntry } from "@/modules/sell/components/motion/scene-panel";
-import { PersonalAgentInsightsMotion } from "./illustrations/PersonalAgentInsights/PersonalAgentInsights";
+import { PersonalAgentInsightsFit, PersonalAgentInsightsMotion } from "./illustrations/PersonalAgentInsights/PersonalAgentInsights";
 import {
   PaOfferMotion,
   PaSendBackMotion,
@@ -12,7 +12,7 @@ import {
   PaWhyThisMotion,
 } from "./visuals/PersonalAgentsPossibilities/PersonalAgentsPossibilitiesMotion";
 import { PaPriorities, PaPromotion, PaUpgrade } from "./visuals/PersonalAgentsPossibilities/Promotions";
-import { PaTheCaseMotion } from "./visuals/PersonalAgentsPossibilities/TheCase";
+import { PaTheCaseMobile, PaTheCaseMotion } from "./visuals/PersonalAgentsPossibilities/TheCase";
 import "./motion.css";
 
 const subscribe = () => () => {};
@@ -28,7 +28,8 @@ export function PaMotionRoot({ children }: { children: ReactNode }) {
     () => true,
     () => false,
   );
-  return <div className="pa-motion">{client && children}</div>;
+  // `pam`: the class the source page sets on <body> for its window standard (motion.css's `.pa-motion.pam …` rules).
+  return <div className="pa-motion pam">{client && children}</div>;
 }
 
 /*
@@ -96,6 +97,22 @@ export const paScenes = {
     label: "The merchant's Insights dashboard: what personal agents requested, the actions they took, and the outcomes.",
     width: 1280,
     height: 599,
+    duration: 5400,
+  },
+  // 00m and 07m, the phone layouts (353 × 440), shown below 768px in place of 00 and 07. Each plays once.
+  "pa-the-case-mweb-motion": {
+    Component: PaTheCaseMobile,
+    label:
+      "On a phone, a shopper's agent, Grok Bot, shops a brand's store on its own and finishes the purchase, while the brand's own story never reaches the shopper.",
+    width: 353,
+    height: 440,
+    duration: 9600,
+  },
+  "pa-insights-mweb-motion": {
+    Component: PersonalAgentInsightsFit,
+    label: "On a phone, the merchant's Insights dashboard: what personal agents requested, the actions they took, and the outcomes.",
+    width: 353,
+    height: 440,
     duration: 5400,
   },
   "pa-upgrade-suggestion-motion": {
