@@ -13,26 +13,39 @@ const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD
 const label = "font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] whitespace-nowrap text-label-olive uppercase";
 
 /**
- * A field: an Open Sans caps label over a 48px cream input on a 1px engraved line, with a maroon
- * focus ring (guidelines 11.13). Empty, it shows its placeholder (a default, where it has one).
+ * A field: an Open Sans caps label (with its unit in brackets) over a 48px cream input on a 1px engraved line, with a
+ * maroon focus ring (guidelines 11.13). The unit also sits in the input, muted: a `$` before the number, or a word or
+ * `%` after it. Empty, it shows its placeholder (a default, where it has one).
  */
 function Field({
   name,
+  unit,
   value,
   onChange,
   placeholder,
   className,
 }: {
   name: string;
+  /** The value's unit: `{ prefix: "$" }` or `{ suffix: "%" }` and the like; `label` overrides the bracketed name. */
+  unit: { prefix?: string; suffix?: string; label?: string };
   value: string;
   onChange: (v: string) => void;
   placeholder: string;
   className?: string;
 }) {
   const id = useId();
+  const unitName = unit.label ?? unit.prefix ?? unit.suffix;
+  const adornment = "pointer-events-none absolute top-1/2 -translate-y-1/2 font-sans text-base leading-6 tracking-[-0.02em] text-ink-muted max-md:text-[15px]";
   return (
     <label htmlFor={id} className={cn("flex min-w-0 flex-col gap-2", className)}>
-      <span className={label}>{name}</span>
+      {/* The unit can make a label long, so it may wrap here (on phones). */}
+      <span className={cn(label, "whitespace-normal")}>
+        {name}
+        {unitName && <span className="normal-case"> ({unitName})</span>}
+      </span>
+      <span className="relative block">
+        {unit.prefix && <span aria-hidden className={cn(adornment, "left-[17px]")}>{unit.prefix}</span>}
+        {unit.suffix && <span aria-hidden className={cn(adornment, "right-[17px]")}>{unit.suffix}</span>}
       <input
         id={id}
         type="number"
@@ -41,8 +54,13 @@ function Field({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="h-12 w-full min-w-0 bg-cream px-[17px] font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink shadow-[inset_0_0_0_1px_var(--color-engraved)] outline-none placeholder:text-ink-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        className={cn(
+          "h-12 w-full min-w-0 bg-cream px-[17px] font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink shadow-[inset_0_0_0_1px_var(--color-engraved)] outline-none placeholder:text-ink-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
+          unit.prefix && "pl-[33px]",
+          unit.suffix && (unit.suffix.length > 2 ? "pr-[88px]" : "pr-[40px]"),
+        )}
       />
+      </span>
     </label>
   );
 }
@@ -96,19 +114,20 @@ export function RoiCalculator() {
       <Studs inset={7} />
 
       <div className="relative grid gap-4 sm:grid-cols-2">
-        <Field name="Monthly site traffic" value={traffic} onChange={setTraffic} placeholder="Add your monthly site traffic" />
-        <Field name="Chat engagement rate" value={rate} onChange={setRate} placeholder={`${calculatorDefaults.engagementRate}%`} />
+        <Field name="Monthly site traffic" unit={{ suffix: "visitors" }} value={traffic} onChange={setTraffic} placeholder="Add your monthly site traffic" />
+        <Field name="Chat engagement rate" unit={{ suffix: "%" }} value={rate} onChange={setRate} placeholder={String(calculatorDefaults.engagementRate)} />
       </div>
       <Field
         name="Average replies per conversation"
+        unit={{ suffix: "replies" }}
         value={replies}
         onChange={setReplies}
         placeholder={String(calculatorDefaults.repliesPerConversation)}
         className="relative"
       />
       <div className="relative grid gap-4 sm:grid-cols-2">
-        <Field name="AOV" value={aov} onChange={setAov} placeholder="Add your AOV" />
-        <Field name="Conversion rate" value={conversion} onChange={setConversion} placeholder="Add your conversion rate" />
+        <Field name="AOV" unit={{ prefix: "$", label: "USD" }} value={aov} onChange={setAov} placeholder="Add your AOV" />
+        <Field name="Conversion rate" unit={{ suffix: "%" }} value={conversion} onChange={setConversion} placeholder="Add your conversion rate" />
       </div>
 
       <StampAction onClick={() => setShown(true)} className="gap-3 self-start">
