@@ -40,9 +40,9 @@ const variants = {
     studs: [studGoldFaint, studGoldFaintSm],
     hoverStuds,
   },
-  /** Transparent with a solid grey hairline; fades like the text links on hover. */
+  /** Cream (#fff9ea) with a solid grey hairline; on hover the fill clears to transparent, border, label and studs unchanged (Figma 4062:23471). */
   outline: {
-    frame: "border-solid border-[#b8b8b8] text-[#646464] hover:opacity-50",
+    frame: "border-solid border-[#b8b8b8] bg-[#fff9ea] text-[#646464] hover:bg-transparent",
     studs: [studGrey, studGreySm],
     hoverStuds: null,
   },
