@@ -86,9 +86,8 @@ function Tagline() {
  */
 export function SiteFooter() {
   return (
-    <footer className="@container relative overflow-clip pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
-      {/* A flat #00331A (forest), by request: no grain over it, so the colour is exactly #00331A. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[#00331a]" />
+    <footer className="@container relative overflow-clip bg-[#00331a] pt-24 pb-24 lg:pt-[93px] lg:pb-[115.47px]">
+      {/* A flat #00331A (forest), by request: set on the footer itself, with no grain or layer over it, so the colour is exactly #00331A. */}
       <FooterFrame />
 
       {/* The sections' content box: the 1440px-capped page less --page-pad a side, centred in the full-width footer. */}

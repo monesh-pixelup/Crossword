@@ -8,7 +8,7 @@ export const HERO_COVER_EVENT = "herocover";
 
 /**
  * The page's hero: the first section in `main`, labelled by its `…hero-title` heading (every page's hero is). A page
- * opts out with `data-no-curtain` on its `main` (the home page): its hero scrolls away with the page as usual.
+ * opts out with `data-no-curtain` on its `main` (the journal and its posts): its hero scrolls away with the page as usual.
  */
 const HERO = 'main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child';
 /** The hero of a page that opts out of the curtain. */
@@ -40,7 +40,7 @@ export function HeroCurtain() {
       root.style.removeProperty("--hero-stick");
       root.style.removeProperty("--rails-top");
       root.style.removeProperty("--rails-shown");
-      // A page without the curtain (the home page) still keeps its rails off its hero: they're drawn over the page,
+      // A page without the curtain (the journal and its posts) still keeps its rails off its hero: they're drawn over the page,
       // so they start at the hero's foot there too.
       const plain = document.querySelector<HTMLElement>(PLAIN_HERO);
       const next = plain?.nextElementSibling;

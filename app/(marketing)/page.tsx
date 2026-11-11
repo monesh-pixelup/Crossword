@@ -15,7 +15,7 @@ import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 
 export default function HomePage() {
   return (
-    <main data-no-curtain>
+    <main>
       <Hero />
       <Lifecycle />
       <ShopperExperience />
