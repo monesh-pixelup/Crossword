@@ -1,7 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import { ReturnMotion } from "../motion/retain-motion";
+import { ReturnMotion, ReturnMwebMotion } from "../motion/retain-motion";
 
 /**
  * Figma "Library · Three-card row" (Return reduction), as Storefront presence on Sell: the eyebrow,
@@ -24,8 +24,12 @@ export function ReturnReduction() {
           </p>
         </div>
 
-        <div className="relative aspect-[1280/599] w-full overflow-clip bg-[#660331]">
+        <div className="relative aspect-[1280/599] w-full overflow-clip bg-[#660331] max-md:hidden">
           <ReturnMotion />
+        </div>
+        {/* Below 768px: 12m, a phone-size product page where Ask AI opens the chat as a bottom sheet (353 × 440). */}
+        <div className="relative aspect-[353/440] w-full overflow-clip md:hidden">
+          <ReturnMwebMotion />
         </div>
       </div>
     </section>

@@ -45,6 +45,7 @@ export function ChatMotionScene({
   alignTallTurnTop = false,
   expandAfter,
   observeRef,
+  growComposer = false,
 }: {
   brand: string;
   beats: Beat[];
@@ -57,6 +58,8 @@ export function ChatMotionScene({
   alignTallTurnTop?: boolean;
   expandAfter?: string;
   observeRef?: React.RefObject<Element | null>;
+  /** Shell's growComposer, for messages that wrap to 2+ lines. */
+  growComposer?: boolean;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   // With `expandAfter`, the on-screen check watches the unclipped wrapper:
@@ -132,6 +135,7 @@ export function ChatMotionScene({
       viewportRef={viewportRef}
       composerValue={composer && composer.value ? composer.value : undefined}
       composerTyping={composer?.typing ?? false}
+      growComposer={growComposer}
     >
       {threadClassName ? <div className={threadClassName}>{thread}</div> : thread}
     </Shell>

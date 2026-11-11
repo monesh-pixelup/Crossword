@@ -27,13 +27,22 @@ const cartIcon = cartIconImage.src;
 // product, not as a separate confirmation module).
 // `askAi` (12b) adds the store's "Ask AI" entry point to the header's
 // right side, beside the cart — the pill that opens the chat drawer.
-export function JacketPdpScene({ askAi = false }: { askAi?: boolean } = {}) {
-  const p = s.product;
+// `page` (opt-in, Managed Launch 01) swaps in another merchant's product
+// and store name with the same anatomy; unset, it's the jacket as before.
+export type PdpSceneData = {
+  url: string;
+  brand: string;
+  sizesLabel?: string;
+  product: typeof s.product;
+};
+
+export function JacketPdpScene({ askAi = false, page }: { askAi?: boolean; page?: PdpSceneData } = {}) {
+  const p = page?.product ?? s.product;
   return (
     <div className="ill-marketplace">
-      <BrowserChrome url={s.url} />
+      <BrowserChrome url={page?.url ?? s.url} />
       <div className="ill-marketplace__nav">
-        <span className="ill-marketplace__logo">{s.brand}</span>
+        <span className="ill-marketplace__logo">{page?.brand ?? s.brand}</span>
         <div className="ill-marketplace__nav-links">
           <span />
           <span />
@@ -74,7 +83,7 @@ export function JacketPdpScene({ askAi = false }: { askAi?: boolean } = {}) {
             <span className="ill-landscape-pdp__value">{p.color}</span>
           </div>
           <div className="ill-marketplace__sizes">
-            <span className="ill-marketplace__sizes-label">Size</span>
+            <span className="ill-marketplace__sizes-label">{page?.sizesLabel ?? "Size"}</span>
             {p.sizes.map((size) => (
               <Chip key={size}>{size}</Chip>
             ))}

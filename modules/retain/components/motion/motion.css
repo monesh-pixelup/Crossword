@@ -1,6 +1,7 @@
 /*
  * Retain motion visuals: every style the visuals use, ported from the
- * "Crossword — Retain v2 motion" source (its src/ stylesheets), in the order Vite
+ * "Crossword — Retain v2 motion" source (its src/ stylesheets; the 11 Nov 2026
+ * update, with 11m, 12m and the window standard), in the order Vite
  * concatenates them (its module graph from the full gallery, kept to the files
  * these visuals import), each block headed by its source file. Mechanical changes:
  *
@@ -14,6 +15,9 @@
  * - The gallery page's own rules (HomeV2Page.css, index.css) are left out,
  *   and background urls point at modules/retain/assets/motion (the one
  *   site-root url, /assets/trailwell-mark.svg, at its public/ copy).
+ * - The source page's window standard (retain-v2-motion.css) is scoped under
+ *   `.rv2m`, which its page sets on <body>; here the `.rtn-motion` root carries
+ *   `rv2m` too, so those rules read `.rtn-motion.rv2m …`.
  */
 
 /* The source page's body: Geist at 16px, normal line height, black text, default smoothing. */
@@ -256,6 +260,25 @@
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
+/* ---------- 01 and 06 — chat-shell standard on the iMessage window ----------
+   40px on screen; the shell is authored at 255px and scaled 1.7647x
+   (OutboundCampaign.css), so 40 / 1.7647 = 22.667px authored. No gold
+   glow (the gold border and dark cast stay), no inner glow. */
+.rtn-motion .sbl .ill-outbound .ill-channel-shell,
+.rtn-motion .sbl .ill-outbound .ill-channel-shell__glow {
+  border-radius: 22.667px;
+}
+
+.rtn-motion .sbl .ill-outbound .ill-channel-shell {
+  box-shadow:
+    0px 0px 3.365px 0.841px rgba(0, 0, 0, 0.02),
+    0px 2.755px 5.647px rgba(0, 0, 0, 0.25);
+}
+
+.rtn-motion .sbl .ill-outbound .ill-channel-shell__glow {
+  box-shadow: none;
+}
+
 /* visuals/SellDynamicV2/SellDynamicV2.css */
 /* Sell: Dynamic 03–06 rebuilt against STORYBOOK_MAPPING.md. One layer,
    scoped to .sbl, over the original visuals and their motion: structure,
@@ -352,9 +375,8 @@
   color: var(--ill-color-text-body);
 }
 
-/* Brand disc: the merchant's own mark from the repo — Trailwell's on its
-   ad-avatar blue, Goodwell's on its jar-lid aubergine; Crossword's own
-   logo in the merchant Insights (06–08). */
+/* Brand disc: the merchant's supplied mark from the repo; Crossword's own
+   logo appears in merchant Insights (06–08). */
 .rtn-motion .sbl .ill-chat-header__brand::before {
   content: "";
   flex: none;
@@ -370,7 +392,7 @@
 }
 
 .rtn-motion .sbl .ais .ill-chat-header__brand::before {
-  background: #4a3a63 url("../../assets/motion/brands/goodwell-mark.svg") center / 18px no-repeat;
+  background: #65513d url("../../assets/motion/brands/supplied/amber-and-oak-mark.svg") center / 28px no-repeat;
 }
 
 .rtn-motion .sbl .ill-chat-header [aria-label="Expand"] > * {
@@ -756,10 +778,27 @@
   border-radius: 10px;
 }
 
-/* 04 · 07: the opened card stays, its sibling recedes (01's card is the
-   rail's first; the PDP product is the first pick). */
-.rtn-motion .sbl .ais-picks--picking .gj2-card:not(:first-child) {
-  opacity: 0.4;
+/* 04 · 07: the tap lands on the card itself (01's card is the rail's
+   first; the PDP product is the first pick), in 01's tap language — the
+   press to .97 its picked chips use — with a full-strength primary ring
+   (a chip's 28% ring is too faint at card size). The sibling stays as it
+   is: the tap is the signal, not the other card receding. The ring keeps
+   the card's hairline and gold cast beneath it. */
+.rtn-motion .sbl .ais-picks .gj2-card {
+  transition: box-shadow 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.rtn-motion .sbl .ais-picks--picking .gj2-card:first-child {
+  box-shadow:
+    0 0 0 1.5px var(--ill-color-accent-strong),
+    0 2px 2.5px rgba(224, 190, 96, 0.78);
+  animation: gj2-tap 320ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rtn-motion .sbl .ais-picks--picking .gj2-card:first-child {
+    animation: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1330,6 +1369,46 @@
   padding-top: 12px;
   padding-bottom: 24px;
 }
+
+/* Outer shells take Support V3's 40px corner (ill-shell--standard): every
+   visual's outermost window — the browser windows and 01's store. Ads
+   (Instagram cards and their plates) keep their own radius, as do chats
+   inside a page (drawers, docked widgets, the 01 window). */
+.rtn-motion .sbl :is(.ais-store, .ask-store, .adj-store, .shell.store) { border-radius: 40px; }
+/* The plate that grows from the ad into the storefront lands on the
+   window's 40px corner (it starts at the ad's own radius). */
+.rtn-motion .sbl .adjm--store .adjm-plate { border-radius: 40px; }
+/* 07's agent window is the visual's outer window: 40px, and its header
+   takes the 16px inset on top as well as the sides. */
+.rtn-motion .sbl .pa-window { border-radius: 40px; }
+/* 03's landing banner: 16px corners (requested over the 40 − inset 24px). */
+.rtn-motion .sbl .ais-hero { border-radius: 16px; }
+/* 06's assistant window is its visual's outer window too: 40px. */
+.rtn-motion .sbl .aia { border-radius: 40px; overflow: hidden; }
+.rtn-motion .sbl .pa-header { padding-top: 16px; }
+/* 01 store: 24px of air under the product cards (the 40px corner needs
+   it); the shelf images and banner give up the height. */
+/* 16px inset on every side, so inner corners sit concentric with the
+   40px window (40 − 16 = 24 on the corner cards). */
+.rtn-motion .sbl .roas .store { padding: 16px 16px 16px; }
+.rtn-motion .sbl .roas .grid .card:first-child { border-bottom-left-radius: 24px; }
+.rtn-motion .sbl .roas .grid .card:last-child { border-bottom-right-radius: 24px; }
+.rtn-motion .sbl .roas .hero { height: 98px; }
+.rtn-motion .sbl .roas .store { gap: 8px; }
+.rtn-motion .sbl .roas .media { aspect-ratio: 1 / .5; }
+/* 04 comparison page: the landing fills to a 16px bottom inset (matching
+   the sides), and the highlighted values may wrap instead of running
+   past the table's edge. */
+.rtn-motion .sbl .ctm .cmp-landing { height: 372px; }
+.rtn-motion .sbl .ctm .cmp-row--highlight :is(.ill-comparison-row__value-a, .ill-comparison-row__value-b) { white-space: normal; line-height: 1.25; }
+.rtn-motion .sbl .ctm .ais-body > .ill-content-fade { height: 12px; }
+
+/* 03 and 04 — concentric corner children (outer window 40px, 16px inset).
+   03's "Add to bag" sits in the bottom-right corner: 40 − 16 = 24 is more
+   than half its 36px height, so it's a pill. 04's comparison card rounds
+   only its outer (bottom-right) corner to 40 − 16 = 24. */
+.rtn-motion .sbl .adpb .ask-details__cta { border-radius: 999px; }
+.rtn-motion .sbl .ctm .cmp-module { border-bottom-right-radius: 24px; }
 
 /* components/ill/tokens.css */
 /*
@@ -2891,6 +2970,21 @@
   flex-shrink: 0;
 }
 
+/* Chat-shell standard (the crossword-chat-shell-standard skill): 40px
+   corners, no #E0BE60 gold glow and no inner rose glow (::after). The
+   dark shadow layers and the gold border stay. Opt-in by class, so
+   shells that haven't been standardised keep the series glow. */
+.rtn-motion .ill-shell.ill-shell--standard {
+  border-radius: 40px;
+  box-shadow:
+    0px 0px 5.172px 1.293px rgba(0, 0, 0, 0.02),
+    0px 4.234px 8.679px rgba(0, 0, 0, 0.25);
+}
+
+.rtn-motion .ill-shell.ill-shell--standard::after {
+  box-shadow: none;
+}
+
 /* components/ill/ChatHeader.css */
 .rtn-motion .ill-chat-header {
   display: flex;
@@ -3178,6 +3272,50 @@
   font-size: 14px;
   letter-spacing: -0.0681px;
   color: var(--ill-color-text-secondary);
+}
+
+/* components/ill/GrowComposer.css */
+/* The pill aligns to its bottom edge, so new lines push the top up and the
+   send button stays with the last line. */
+.rtn-motion .ill-grow-composer {
+  align-items: flex-end;
+}
+
+/* An explicit line-height, so the line maths below is exact. Block
+   padding centres a single line on the 40px send button, and stays the
+   same however many lines there are. */
+.rtn-motion .ill-grow-composer__text {
+  --ill-grow-line: 20px;
+  display: block;
+  padding-block: calc((40px - var(--ill-grow-line)) / 2);
+  line-height: var(--ill-grow-line);
+}
+
+/* The cap sits inside the padding, at exactly five lines, so overflow
+   clips on a line boundary. column-reverse keeps the caret's line in
+   view and lets earlier lines leave off the top. */
+.rtn-motion .ill-grow-composer__clip {
+  display: flex;
+  flex-direction: column-reverse;
+  max-height: calc(5 * var(--ill-grow-line));
+  overflow: hidden;
+}
+
+.rtn-motion .ill-grow-composer__content {
+  display: block;
+  flex: none;
+}
+
+/* Once capped, a short fade on the top line so it reads as scrolled
+   rather than cropped. */
+.rtn-motion .ill-grow-composer--capped .ill-grow-composer__clip {
+  mask-image: linear-gradient(to bottom, transparent 0, #000 var(--ill-grow-line));
+}
+
+/* Past one line: a fixed radius in place of the pill's, concentric with
+   the send button's (its 20px radius + the 4px inset). */
+.rtn-motion .ill-grow-composer--multiline {
+  border-radius: 24px;
 }
 
 /* components/ill/ConversationViewport.css */
@@ -3701,6 +3839,167 @@
   margin-top: auto;
 }
 
+/* visuals/visualCanvasFramed.css */
+/* Framed variant shared by Visuals 21-23 (ProactiveIntervention,
+   ComparisonGuidance, ReturnVisitComparison) — Figma node 2752:2738.
+   Scoped by modifier because the base `.ill-visual-canvas` classes are
+   shared across those three files.
+   Viewport 1280x509, fill #f3e7d3, 1px rgba(0,0,0,.25) border on top and
+   sides only. Positions below are the node's own, less the 1px border
+   (absolute offsets start inside it). */
+.rtn-motion .ill-visual-canvas.ill-visual-canvas--framed {
+  width: 1280px;
+  height: 509px;
+  background: #f3e7d3;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: none;
+}
+
+/* Marketplace at (57.149, 57), 1165.701px wide: the 1286px scene scaled
+   by 1165.701 / 1286, clipped by the viewport's bottom edge. */
+.rtn-motion .ill-visual-canvas--framed .ill-visual-canvas__background {
+  position: absolute;
+  left: 56.149px;
+  top: 56px;
+  height: auto;
+  transform: scale(0.90646);
+  transform-origin: 0 0;
+}
+
+/* Gradient node 2754:3539: 1527x353 at (-123.5, 258.598), above the
+   marketplace and beneath the widget (DOM order). */
+.rtn-motion .ill-visual-canvas--framed .ill-visual-canvas__fade {
+  left: -124.5px;
+  top: 257.598px;
+  width: 1527px;
+  height: 353px;
+}
+
+.rtn-motion .ill-visual-canvas--framed .ill-visual-canvas__widget.ill-visual-canvas__widget--centered {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* illustrations/SellMotion/ProactiveMotion.css */
+/* Pins every proactive widget's bottom edge to the same canvas
+   coordinate, so each widget's composer — a fixed distance above its own
+   bottom edge regardless of the widget's height — lands at the identical
+   y position across all three (21-23), rather than each one keeping its
+   own static-page position. In the framed 1280x509 canvas
+   (visualCanvasFramed.css) the offset is set so the tallest widget —
+   22's, 442.8px with its reply reserved — sits centred:
+   (509 - 442.8) / 2 = 33.1px; 21 and 23 are shorter and fit below it.
+   Horizontally centred to match the static pages. */
+.rtn-motion .ill-visual-canvas--framed .ill-visual-canvas__widget.sell-widget-align-composer {
+  top: auto;
+  bottom: 33.1px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* A proactive widget's final layout is reserved from the first frame (a
+   hidden ghost holds the reply's and the actions' space), so the thinking
+   row, the cascading reply and the buttons land in place — the frame
+   never grows or shifts as the message arrives. */
+.rtn-motion .sell-reserve {
+  position: relative;
+}
+
+.rtn-motion .sell-hidden {
+  visibility: hidden;
+}
+
+.rtn-motion .sell-reserve__live {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Frame 1 -> Frame 2 (Figma: compact composer -> full widget). The widget
+   is laid out in its final state from the first frame; only what's
+   visible of it changes. Frame 1 clips the shell down to the composer
+   pill's own rect (its offsets are measured, see ExpandShell), and the
+   expansion eases that clip out past the shell's edges — so the composer
+   never moves, the container grows upward around it, and nothing scales
+   or reflows. The final inset is negative so the shell's glow shadow,
+   clipped while compact, comes in with the edges rather than popping. */
+.rtn-motion .sell-expand {
+  clip-path: inset(
+    var(--sell-clip-top, 0px) var(--sell-clip-right, 0px) var(--sell-clip-bottom, 0px)
+      var(--sell-clip-left, 0px) round var(--sell-clip-radius, 0px)
+  );
+}
+
+/* The transition lives on the expanded state only: measuring the clip in
+   the compact state (first paint, a font-load re-measure) must snap, not
+   animate the widget shrinking down to the pill. */
+.rtn-motion .sell-expand--expanded {
+  clip-path: inset(-48px round var(--sell-expanded-radius, 17.077px));
+  transition: clip-path 600ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Until measured, show nothing rather than a flash of the full widget. */
+.rtn-motion .sell-expand--unmeasured {
+  visibility: hidden;
+}
+
+/* The pill arriving on the page before anything is typed — opacity and a
+   few px of rise only, no scale. */
+.rtn-motion .sell-widget-enter {
+  animation: rtn-sell-widget-in 320ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
+}
+
+@keyframes rtn-sell-widget-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header and conversation content fade in, staggered, once the shell has
+   started opening — each section by its own --sell-i. */
+.rtn-motion .sell-expand-item {
+  opacity: 0;
+}
+
+.rtn-motion .sell-expand--expanded .sell-expand-item {
+  animation: rtn-sell-expand-item-in 360ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation-delay: calc(180ms + var(--sell-i, 0) * 70ms);
+}
+
+@keyframes rtn-sell-expand-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rtn-motion .sell-widget-enter,
+  .rtn-motion .sell-expand--expanded .sell-expand-item {
+    animation: none;
+  }
+
+  .rtn-motion .sell-expand--expanded .sell-expand-item {
+    opacity: 1;
+  }
+
+  .rtn-motion .sell-expand--expanded {
+    transition: none;
+  }
+}
+
 /* components/ill/ProductReference.css */
 /* ILL/Module/Product/Reference (2071:16875) — exact literal values from
    the Figma source. Horizontal, content-width (not a fixed/percentage
@@ -4143,6 +4442,8 @@
   justify-content: center;
   background: url("../../assets/motion/ill-frame/conversion-assistance-bg.webp") center / cover no-repeat;
   flex-shrink: 0;
+  /* Clips the chat camera's close shots (28b–33b) to the frame. */
+  overflow: hidden;
 }
 
 .rtn-motion .ill-conversion-assistance-frame__content {
@@ -4372,6 +4673,28 @@
   .rtn-motion .ill-channel-frame__tray-glyphs img {
     transition: none;
   }
+}
+
+/* Chat-shell standard (crossword-chat-shell-standard), opt-in for the
+   Sell v2 motion visuals 26 and 35 (`.ccd-motion`, `.bwc`); statics and
+   Retain/Outbound keep the series look. Corners at the standard's 40px,
+   scaled to this 255px shell like its 8.264px base (Shell's 12.701px at
+   0.65): 26px. No gold glow (the gold border and dark cast stay), no
+   inner glow. */
+.rtn-motion .ccd-motion .ill-channel-shell,
+.rtn-motion .bwc .ill-channel-shell {
+  border-radius: 26px;
+}
+
+.rtn-motion .ccd-motion .ill-channel-shell {
+  box-shadow:
+    0px 0px 3.365px 0.841px rgba(0, 0, 0, 0.02),
+    0px 2.755px 5.647px rgba(0, 0, 0, 0.25);
+}
+
+.rtn-motion .ccd-motion .ill-channel-shell__glow,
+.rtn-motion .bwc .ill-channel-shell__glow {
+  box-shadow: none;
 }
 
 /* visuals/CompleteChannelDeployment/channels/IMessageChannel.css */
@@ -4750,167 +5073,6 @@
   position: relative;
   z-index: 0;
   margin: -11px 0 0 -3px;
-}
-
-/* visuals/visualCanvasFramed.css */
-/* Framed variant shared by Visuals 21-23 (ProactiveIntervention,
-   ComparisonGuidance, ReturnVisitComparison) — Figma node 2752:2738.
-   Scoped by modifier because the base `.ill-visual-canvas` classes are
-   shared across those three files.
-   Viewport 1280x509, fill #f3e7d3, 1px rgba(0,0,0,.25) border on top and
-   sides only. Positions below are the node's own, less the 1px border
-   (absolute offsets start inside it). */
-.rtn-motion .ill-visual-canvas.ill-visual-canvas--framed {
-  width: 1280px;
-  height: 509px;
-  background: #f3e7d3;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  border-bottom: none;
-}
-
-/* Marketplace at (57.149, 57), 1165.701px wide: the 1286px scene scaled
-   by 1165.701 / 1286, clipped by the viewport's bottom edge. */
-.rtn-motion .ill-visual-canvas--framed .ill-visual-canvas__background {
-  position: absolute;
-  left: 56.149px;
-  top: 56px;
-  height: auto;
-  transform: scale(0.90646);
-  transform-origin: 0 0;
-}
-
-/* Gradient node 2754:3539: 1527x353 at (-123.5, 258.598), above the
-   marketplace and beneath the widget (DOM order). */
-.rtn-motion .ill-visual-canvas--framed .ill-visual-canvas__fade {
-  left: -124.5px;
-  top: 257.598px;
-  width: 1527px;
-  height: 353px;
-}
-
-.rtn-motion .ill-visual-canvas--framed .ill-visual-canvas__widget.ill-visual-canvas__widget--centered {
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* illustrations/SellMotion/ProactiveMotion.css */
-/* Pins every proactive widget's bottom edge to the same canvas
-   coordinate, so each widget's composer — a fixed distance above its own
-   bottom edge regardless of the widget's height — lands at the identical
-   y position across all three (21-23), rather than each one keeping its
-   own static-page position. In the framed 1280x509 canvas
-   (visualCanvasFramed.css) the offset is set so the tallest widget —
-   22's, 442.8px with its reply reserved — sits centred:
-   (509 - 442.8) / 2 = 33.1px; 21 and 23 are shorter and fit below it.
-   Horizontally centred to match the static pages. */
-.rtn-motion .ill-visual-canvas--framed .ill-visual-canvas__widget.sell-widget-align-composer {
-  top: auto;
-  bottom: 33.1px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* A proactive widget's final layout is reserved from the first frame (a
-   hidden ghost holds the reply's and the actions' space), so the thinking
-   row, the cascading reply and the buttons land in place — the frame
-   never grows or shifts as the message arrives. */
-.rtn-motion .sell-reserve {
-  position: relative;
-}
-
-.rtn-motion .sell-hidden {
-  visibility: hidden;
-}
-
-.rtn-motion .sell-reserve__live {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-/* Frame 1 -> Frame 2 (Figma: compact composer -> full widget). The widget
-   is laid out in its final state from the first frame; only what's
-   visible of it changes. Frame 1 clips the shell down to the composer
-   pill's own rect (its offsets are measured, see ExpandShell), and the
-   expansion eases that clip out past the shell's edges — so the composer
-   never moves, the container grows upward around it, and nothing scales
-   or reflows. The final inset is negative so the shell's glow shadow,
-   clipped while compact, comes in with the edges rather than popping. */
-.rtn-motion .sell-expand {
-  clip-path: inset(
-    var(--sell-clip-top, 0px) var(--sell-clip-right, 0px) var(--sell-clip-bottom, 0px)
-      var(--sell-clip-left, 0px) round var(--sell-clip-radius, 0px)
-  );
-}
-
-/* The transition lives on the expanded state only: measuring the clip in
-   the compact state (first paint, a font-load re-measure) must snap, not
-   animate the widget shrinking down to the pill. */
-.rtn-motion .sell-expand--expanded {
-  clip-path: inset(-48px round var(--sell-expanded-radius, 17.077px));
-  transition: clip-path 600ms cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-/* Until measured, show nothing rather than a flash of the full widget. */
-.rtn-motion .sell-expand--unmeasured {
-  visibility: hidden;
-}
-
-/* The pill arriving on the page before anything is typed — opacity and a
-   few px of rise only, no scale. */
-.rtn-motion .sell-widget-enter {
-  animation: rtn-sell-widget-in 320ms cubic-bezier(0.32, 0.72, 0, 1) backwards;
-}
-
-@keyframes rtn-sell-widget-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Header and conversation content fade in, staggered, once the shell has
-   started opening — each section by its own --sell-i. */
-.rtn-motion .sell-expand-item {
-  opacity: 0;
-}
-
-.rtn-motion .sell-expand--expanded .sell-expand-item {
-  animation: rtn-sell-expand-item-in 360ms cubic-bezier(0.32, 0.72, 0, 1) both;
-  animation-delay: calc(180ms + var(--sell-i, 0) * 70ms);
-}
-
-@keyframes rtn-sell-expand-item-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-    filter: blur(2px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rtn-motion .sell-widget-enter,
-  .rtn-motion .sell-expand--expanded .sell-expand-item {
-    animation: none;
-  }
-
-  .rtn-motion .sell-expand--expanded .sell-expand-item {
-    opacity: 1;
-  }
-
-  .rtn-motion .sell-expand--expanded {
-    transition: none;
-  }
 }
 
 /* illustrations/CampaignFrame.css */
@@ -5438,6 +5600,81 @@
     rgb(255, 249, 233) 100%
   );
 }
+
+/* Retain v2 12 — chat-shell standard. The page panel (the outer window)
+   takes 40px on its top corners; the drawer docks into its top-left
+   corner at a 0 inset, so it is concentric at 40px there and stays
+   square on its docked right and bottom sides. ill-shell--standard
+   (Shell.css) drops the gold glow and inner glow; the drawer keeps its
+   1px gold edge line and its dark cast. */
+.rtn-motion .sbl .scd .ill-landscape-canvas__page,
+.rtn-motion .sbl .scd .ill-landscape-canvas__widget {
+  border-radius: 40px 40px 0 0;
+}
+
+.rtn-motion .sbl .scd .scd-drawer.ill-shell--standard {
+  border-radius: 40px 0 0 0;
+  box-shadow:
+    1px 0 0 rgba(224, 190, 96, 0.4),
+    12px 0 32px rgba(22, 23, 25, 0.22);
+}
+
+/* illustrations/WidgetLandscapeMotion/SizeConfidenceMwebMotion.css */
+/* 12m — 353x440 on the purple mweb frame; a 313x400 phone-width window at
+   85% (inside the frame's gold border, as Personal Agents 00m/07m). Corner
+   and ring are set for the scale so they read 16px / 2px on screen. */
+.rtn-motion .scm2-figure { margin: 0; --scm2-out: cubic-bezier(0.32, 0.72, 0, 1); }
+.rtn-motion .scm2-canvas { width: 353px; height: 440px; display: grid; place-items: center; overflow: hidden;
+  background: #45225c url("../../assets/motion/ill-frame/mweb/bg.webp") center / cover no-repeat; }
+.rtn-motion .scm2-window { position: relative; width: 313px; height: 400px; overflow: hidden; background: #fff;
+  transform: scale(0.85); transform-origin: center; border-radius: 18.82px;
+  box-shadow: 0 0 0 2.35px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18);
+  font-family: var(--font-face-inter-motion), system-ui, sans-serif; color: #16171b; -webkit-font-smoothing: antialiased; }
+.rtn-motion .scm2-window *, .rtn-motion .scm2-window *::before, .rtn-motion .scm2-window *::after { box-sizing: border-box; }
+
+/* The PDP at phone width: address bar, header with Ask AI, hero, info. 12px rhythm. */
+.rtn-motion .scm2-page { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.rtn-motion .scm2-url { flex: none; display: flex; align-items: center; justify-content: center; gap: 4px; height: 28px; margin: 8px 12px 0;
+  border-radius: 7px; background: #f2f2f3; font-size: 10.5px; color: #555; }
+.rtn-motion .scm2-nav { flex: none; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; border-bottom: 1px solid rgba(22, 23, 27, .08); }
+.rtn-motion .scm2-logo { flex: 1; font-weight: 600; font-size: 14px; letter-spacing: .08em; }
+.rtn-motion .scm2-ask { display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 11px; border-radius: 999px;
+  background: #161719; color: #fff; font-size: 12px; font-weight: 500; }
+.rtn-motion .scm2-cart { flex: none; }
+.rtn-motion .scm2-media { flex: none; height: 136px; margin: 12px 12px 0; border-radius: 8px; background: #f3efe7; display: grid; place-items: center; overflow: hidden; }
+.rtn-motion .scm2-media img { height: 100%; width: 100%; object-fit: contain; }
+.rtn-motion .scm2-info { display: flex; flex-direction: column; gap: 6px; padding: 12px; }
+.rtn-motion .scm2-brand { font-size: 10px; letter-spacing: .08em; color: #6f7178; }
+.rtn-motion .scm2-title { margin: 0; font-size: 15px; line-height: 19px; font-weight: 500; }
+.rtn-motion .scm2-price { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.rtn-motion .scm2-sizes { display: flex; gap: 6px; }
+.rtn-motion .scm2-sizes span { display: grid; place-items: center; min-width: 34px; height: 28px; padding: 0 8px; border-radius: 6px;
+  border: 1px solid rgba(22, 23, 27, .14); font-size: 12px; }
+.rtn-motion .scm2-cta { display: grid; place-items: center; height: 40px; margin-top: 4px; border-radius: 8px; background: #462160; color: #fff; font-size: 13px; font-weight: 500; }
+
+/* Ask AI presses as it's tapped. */
+.rtn-motion .scm2-window:has(.scm2-sheet--tap) .scm2-ask { animation: rtn-scm2-press 300ms var(--scm2-out); }
+@keyframes rtn-scm2-press { 40% { transform: scale(0.94); } }
+
+/* Scrim, then the chat as a bottom sheet (the drawer's edge on a phone). */
+.rtn-motion .scm2-scrim { position: absolute; inset: 0; background: rgba(22, 23, 25, .24); opacity: 0; transition: opacity 600ms var(--scm2-out); }
+.rtn-motion .scm2-window:has(.scm2-sheet--open) .scm2-scrim { opacity: 1; }
+.rtn-motion .scm2-window .scm2-sheet { position: absolute; left: 0; bottom: 0; border-radius: 16px 16px 0 0 !important;
+  transform: translateY(102%); transition: transform 600ms var(--scm2-out);
+  box-shadow: 0 -8px 24px rgba(10, 10, 14, .16) !important; }
+.rtn-motion .scm2-window .scm2-sheet--open { transform: none; }
+.rtn-motion .scm2-window .scm2-sheet::after { box-shadow: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .rtn-motion .scm2-scrim, .rtn-motion .scm2-window .scm2-sheet { transition: none; }
+  .rtn-motion .scm2-window .scm2-ask { animation: none !important; }
+}
+
+/* The layer's 2px gold border is the window ring, not the sheet's: keep the
+   2px (nothing inside shifts) and make it transparent. */
+.rtn-motion .sbl .scm2-window .scm2-sheet { border-color: transparent; }
+/* At phone width the size row wraps, so "Recommended fit" drops under S/M
+   instead of running past the card's edge. */
+.rtn-motion .scm2-sheet .ill-size-card__sizes { flex-wrap: wrap; row-gap: 6px; }
 
 /* illustrations/LaunchAudience/LaunchAudience.css */
 /* Measured from Storybook "Dashboard/Final/Insights" (Cart, Launch and
@@ -6094,6 +6331,104 @@
 .rtn-motion .la-product__badge,
 .rtn-motion .la-skeleton > span {
   border-radius: 4px;
+}
+
+/* The merchant's mark in place of the "C" logo placeholder. */
+.rtn-motion .la-rail__logo--mark {
+  display: block;
+  object-fit: cover;
+}
+
+/* ---------- 11m: the dashboard at 353x440 (as Personal Agents 07m) ----------
+   The window reflows with container queries on itself: the chats list is
+   folded (compact), and under 360px the rail folds and the card restacks. */
+.rtn-motion .la-fit-figure { margin: 0; }
+.rtn-motion .la-fit-canvas { width: 353px; height: 440px; display: grid; place-items: center; overflow: hidden;
+  background: #1d3a2a url("../../assets/motion/ill-frame/mweb_440px_green.webp") center / cover no-repeat; }
+.rtn-motion .la-fit { container-type: inline-size; width: 313px; height: 400px; overflow: hidden; border-radius: 16px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+.rtn-motion .la-fit .la-stage, .rtn-motion .la-fit .la-dash { width: 100%; height: 100%; }
+.rtn-motion .la-fit .la-dash { padding: 0; gap: 0; }
+.rtn-motion .la-fit .la-main { border-radius: 0; }
+.rtn-motion .la-fit .la-chat { min-width: 0; padding: 12px; }
+.rtn-motion .la-fit .la-thread { padding-top: 12px; margin-bottom: 10px; }
+.rtn-motion .la-fit .la-card { max-width: none; }
+
+.rtn-motion .la-fit__head { display: flex; flex: none; align-items: baseline; gap: 8px; min-width: 0; padding-bottom: 8px; border-bottom: 1px solid var(--la-border); }
+.rtn-motion .la-fit__title { flex: none; font-size: 18px; line-height: 22px; letter-spacing: -0.5px; }
+.rtn-motion .la-fit__crumb { min-width: 0; overflow: hidden; color: var(--la-muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Slim composer that grows a line at a time as the query wraps. */
+.rtn-motion .la-fit .la-composer { flex: none; display: flex; align-items: flex-end; min-height: 40px; height: auto; border-radius: 4px; }
+.rtn-motion .la-fit .la-composer__text { display: block; flex: 1; min-width: 0; height: auto; padding: 11px 12px; line-height: 18px; }
+.rtn-motion .la-fit .la-composer__foot { padding: 6px 5px; }
+.rtn-motion .la-fit .la-upload { display: none; }
+.rtn-motion .la-fit .la-send { width: 28px; height: 28px; }
+
+@container (max-width: 360px) {
+  .rtn-motion .la-fit .la-rail { display: none; }
+  .rtn-motion .la-fit .la-user { max-width: 86%; font-size: 13px; line-height: 18px; }
+}
+/* 11m at 85% so it sits inside the backdrop's gold border; corner and
+   edges set for the scale to read 16px on screen. */
+.rtn-motion .la-fit { transform: scale(0.85); transform-origin: center; border-radius: 18.82px; }
+@container (max-width: 360px) {
+  .rtn-motion .la-fit .la-card__top { padding: 10px 12px 12px; }
+  .rtn-motion .la-fit .la-hero { flex-wrap: wrap; row-gap: 6px; }
+  .rtn-motion .la-fit .la-card__products { padding: 12px; }
+  /* Products restack: one per row, a small plate left, its text right. */
+  .rtn-motion .la-fit .la-products { grid-template-columns: 1fr; gap: 10px; }
+  .rtn-motion .la-fit .la-product { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 10px; margin: 0; }
+  .rtn-motion .la-fit .la-product__media { aspect-ratio: 1; border-radius: 6px; }
+  .rtn-motion .la-fit .la-product__badge { display: none; }
+  .rtn-motion .la-fit .la-product__title, .rtn-motion .la-fit .la-product__price { margin: 0; }
+  .rtn-motion .la-fit .la-product__request { margin-top: 4px; padding-top: 4px; font-size: 12px; line-height: 16px; }
+}
+/* 11m: the 2px gold ring (set for the 0.85 scale), as every window on the page. */
+.rtn-motion .la-fit { box-shadow: 0 0 0 2.35px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+
+/* retain-v2-motion.css */
+/* Retain v2 motion: window standard, as on Personal Agents motion (11 Nov
+   2026): 24px windows (16px under ~320px) with a 2px gold ring and no glow,
+   each keeping its own drop shadow. Page-scoped under body.rv2m (set in
+   retain-v2-motion-main) because .sbl, the shells and LandscapeCanvas are
+   shared with the statics and other pages. Values on scaled windows are
+   set for the scale so they read 24px / 2px on screen. */
+
+/* 02–05, 07–10: the standalone chat windows. The 2px gold border is the
+   ring; the glow goes; 28 → 24. (12's drawer is a chat inside a page and
+   keeps its own corners.) */
+.rtn-motion.rv2m :is(.ill-conversion-assistance-frame__content, .ill-campaign-frame__content) > .ill-shell {
+  border-radius: 24px;
+  box-shadow: 0 0 5.172px 1.293px rgba(0, 0, 0, .02), 0 4.234px 8.679px rgba(0, 0, 0, .25);
+}
+
+/* 01, 06: the iMessage windows, drawn at 1.7647×. 40 → 24 on screen
+   (24 / 1.7647). The 1px border goes transparent (kept, so nothing shifts)
+   and the ring is a shadow at 2 / 1.7647, which a border would snap to 1px. */
+.rtn-motion.rv2m .ill-outbound > .ill-channel-shell { border-radius: 13.6px; border-color: transparent;
+  box-shadow: 0 0 0 1.1333px #e0be60, 0 0 3.365px .841px rgba(0, 0, 0, .02), 0 2.755px 5.647px rgba(0, 0, 0, .25); }
+
+/* 11, 12: the landscape page windows bleed off the bottom: 24px top,
+   square bottom, the ring. */
+.rtn-motion.rv2m .ill-landscape-canvas .ill-landscape-canvas__page { border-radius: 24px 24px 0 0; box-shadow: 0 0 0 2px #e0be60; }
+/* 12: the widget layer and the drawer docked into the page's top-left
+   corner (inset 0) follow the page's 24px, or the drawer's own 40px
+   corner shows as a notch inside it. */
+.rtn-motion.rv2m .sbl .scd .ill-landscape-canvas__widget { border-radius: 24px 24px 0 0; }
+.rtn-motion.rv2m .sbl .scd .scd-drawer.ill-shell--standard { border-radius: 24px 0 0 0; }
+
+/* 12, to the standard: the gold ring belongs to the outer window only, and
+   no inner shadows. The storefront's inset rose glow (and its drop shadow,
+   which can't show inside the page) go. The docked drawer drops its gold
+   border (kept at 2px, transparent, so nothing inside shifts) and its gold
+   edge line; a neutral hairline marks where it meets the page, and its
+   cast onto the page stays. The 0.5–1px inset lines on buttons, the
+   composer and "Added to cart" are drawn borders, so they stay. */
+.rtn-motion.rv2m .sbl .scd .ill-marketplace { box-shadow: none; }
+.rtn-motion.rv2m .sbl .scd .scd-drawer.ill-shell--standard {
+  border-color: transparent;
+  box-shadow: 1px 0 0 rgba(22, 23, 27, .08), 12px 0 32px rgba(22, 23, 25, .22);
 }
 
 /*

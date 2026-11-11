@@ -13,8 +13,10 @@ import {
   ReviewSolicitationV2Motion,
   SegmentedCampaignV2Motion,
   SizeConfidenceDrawerV2Motion,
+  SizeConfidenceMwebV2Motion,
   WinBackCampaignV2Motion,
 } from "./visuals/RetainV2/RetainV2";
+import { LaunchAudienceFit } from "./illustrations/LaunchAudience/LaunchAudience";
 import "./motion.css";
 
 /** Retain v2 motion 01–05, in the order of the Proactive recovery items (config/recovery.ts). */
@@ -69,7 +71,8 @@ function MotionStage({
     <div aria-hidden className="@container w-full">
       <div inert className="scale-to-container" style={{ width, height, "--fit-width": `${width}px` } as CSSProperties}>
         {client && (
-          <div className={tone ? `rtn-motion rtn-tone-${tone}` : "rtn-motion"}>
+          // `rv2m`: the class the source page sets on <body> for its window standard (motion.css's `.rtn-motion.rv2m …`).
+          <div className={tone ? `rtn-motion rv2m rtn-tone-${tone}` : "rtn-motion rv2m"}>
             <Scene />
           </div>
         )}
@@ -97,4 +100,17 @@ export function AudienceMotion() {
 /** Return reduction's 1280 × 599 panel: Ask AI opens a drawer with a confident size, then it's in the cart. */
 export function ReturnMotion() {
   return <MotionStage scene={SizeConfidenceDrawerV2Motion} width={1280} height={599} />;
+}
+
+/**
+ * Audiences on a phone (11m, 353 × 440): the same Insights dashboard laid out at the small window's size (container
+ * queries fold the rail and restack the card). Plays once.
+ */
+export function AudienceMwebMotion() {
+  return <MotionStage scene={LaunchAudienceFit} width={353} height={440} />;
+}
+
+/** Return reduction on a phone (12m, 353 × 440): a phone-size product page where Ask AI opens the chat as a bottom sheet. Plays once. */
+export function ReturnMwebMotion() {
+  return <MotionStage scene={SizeConfidenceMwebV2Motion} width={353} height={440} />;
 }

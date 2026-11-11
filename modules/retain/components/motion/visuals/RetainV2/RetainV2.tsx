@@ -12,6 +12,7 @@ import { ReviewSolicitationMotion } from "../../illustrations/CampaignsMotion/Re
 import { DemandDiscoveryMotion } from "../../illustrations/WidgetLandscapeMotion/DemandDiscoveryMotion";
 import { SizeConfidenceMotion } from "../../illustrations/WidgetLandscapeMotion/SizeConfidenceMotion";
 import { SizeConfidenceDrawerMotion } from "../../illustrations/WidgetLandscapeMotion/SizeConfidenceDrawerMotion";
+import { SizeConfidenceMwebMotion } from "../../illustrations/WidgetLandscapeMotion/SizeConfidenceMwebMotion";
 import { LaunchAudience, LaunchAudienceMotion } from "../../illustrations/LaunchAudience/LaunchAudience";
 
 // Retain motion against STORYBOOK_MAPPING.md, as Sell: Dynamic v2: each
@@ -33,6 +34,8 @@ export const DemandDiscoveryV2Motion = () => <Layer><DemandDiscoveryMotion /></L
 export const SizeConfidenceV2Motion = () => <Layer><SizeConfidenceMotion /></Layer>;
 // 12b: 12 opened from the header's "Ask AI" into a left drawer.
 export const SizeConfidenceDrawerV2Motion = () => <Layer><SizeConfidenceDrawerMotion /></Layer>;
+// 12m: 12 as mobile web (353x440), in the same Storybook layer.
+export const SizeConfidenceMwebV2Motion = () => <Layer><SizeConfidenceMwebMotion /></Layer>;
 // 11 (formerly 13; the original 11, DemandDiscovery, is archived) is the
 // Storybook Insights dashboard itself, so it needs no layer.
 // Statics on retain-v2.html; the motion on retain-v2-motion.html.

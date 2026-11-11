@@ -9,6 +9,7 @@ import omarHaddadImage from "../../../../assets/motion/illustrations/LaunchAudie
 import sofiaMarinoImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/sofia-marino.svg";
 import emmaLindqvistImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/emma-lindqvist.svg";
 import kenjiWatanabeImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/kenji-watanabe.svg";
+import orgMarkImage from "../../../../assets/motion/brand/org-mark.svg";
 import priyaRamanImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/priya-raman.svg";
 
 const priyaNair = priyaNairImage.src;
@@ -16,6 +17,7 @@ const omarHaddad = omarHaddadImage.src;
 const sofiaMarino = sofiaMarinoImage.src;
 const emmaLindqvist = emmaLindqvistImage.src;
 const kenjiWatanabe = kenjiWatanabeImage.src;
+const orgMark = orgMarkImage.src;
 const priyaRaman = priyaRamanImage.src;
 
 // Retain 11 — "Turn customer patterns into your audience", in the Storybook
@@ -80,9 +82,9 @@ const ICONS = {
   send: "M231.87,114l-168-95.89A16,16,0,0,0,40.92,37.34L71.55,128,40.92,218.67A16,16,0,0,0,56,240a16.15,16.15,0,0,0,7.93-2.1l167.92-96.05a16,16,0,0,0,.05-27.89ZM56,224a.56.56,0,0,0,0-.12L85.74,136H144a8,8,0,0,0,0-16H85.74L56.06,32.16A.46.46,0,0,0,56,32l168,95.83Z",
 } as const;
 
-type IconName = keyof typeof ICONS;
+export type IconName = keyof typeof ICONS;
 
-function Ph({ name, className }: { name: IconName; className?: string }) {
+export function Ph({ name, className }: { name: IconName; className?: string }) {
   return (
     <svg className={["la-icon", className].filter(Boolean).join(" ")} viewBox="0 0 256 256" fill="currentColor" aria-hidden>
       <path d={ICONS[name]} />
@@ -246,27 +248,50 @@ function useFollowLatest(animate: boolean, runKey?: number) {
   return { threadRef, contentRef };
 }
 
-function Dashboard({ v, stageRef, runKey }: { v: View; stageRef?: React.Ref<HTMLDivElement>; runKey?: number }) {
-  const enter = v.animate ? " la-enter" : "";
-  const { threadRef, contentRef } = useFollowLatest(v.animate, runKey);
-  return (
-    <div className="la-stage" ref={stageRef}>
-      <LandscapeCanvas
-        backdrop="green"
-        bleed
-        scene={
-          <div className="la-dash" key={runKey}>
+export type RecentChat = { text: string; age: string };
+
+// The Storybook "Dashboard/Final/Insights" shell in #12's frame: the icon
+// rail, the Insights chat list (Saved / Recent) and a chat column passed as
+// children. `active` is the open chat, listed first under Recent.
+export function InsightsFrame({
+  saved,
+  recent,
+  active,
+  activeEnter = false,
+  stageRef,
+  runKey,
+  className,
+  bare = false,
+  compact = false,
+  railActive = "chartBar",
+  children,
+}: {
+  saved: string[];
+  recent: RecentChat[];
+  active?: string;
+  activeEnter?: boolean;
+  stageRef?: React.Ref<HTMLDivElement>;
+  runKey?: number;
+  className?: string;
+  // Just the dashboard, without #12's frame — for callers that place it
+  // in their own viewport (Home 09b's camera).
+  bare?: boolean;
+  // The chats list collapsed (Home 09b's narrow viewport): rail + chat.
+  compact?: boolean;
+  // The rail's current section (Analytics by default; Build is "cube").
+  railActive?: "house" | "cube" | "headset" | "chartBar";
+  children: React.ReactNode;
+}) {
+  const dash = (
+          <div className={compact ? "la-dash la-dash--compact" : "la-dash"} key={runKey}>
             <nav className="la-rail">
-              <span className="la-rail__logo">C</span>
+              <img className="la-rail__logo la-rail__logo--mark" src={orgMark} alt="" />
               <div className="la-rail__group">
-                {(["house", "cube", "headset"] as const).map((n) => (
-                  <span className="la-rail__item" key={n}>
+                {(["house", "cube", "headset", "chartBar"] as const).map((n) => (
+                  <span className={n === railActive ? "la-rail__item la-rail__item--active" : "la-rail__item"} key={n}>
                     <Ph name={n} />
                   </span>
                 ))}
-                <span className="la-rail__item la-rail__item--active">
-                  <Ph name="chartBar" />
-                </span>
               </div>
               <div className="la-rail__group la-rail__group--end">
                 {(["search", "bell", "gear"] as const).map((n) => (
@@ -276,16 +301,13 @@ function Dashboard({ v, stageRef, runKey }: { v: View; stageRef?: React.Ref<HTML
                 ))}
                 <span className="la-rail__rule" />
                 <span className="la-rail__item">
-                  <span className="la-rail__org">C</span>
-                </span>
-                <span className="la-rail__item">
                   <img className="la-rail__me" src={priyaRaman} alt="" />
                 </span>
               </div>
             </nav>
 
             <main className="la-main">
-              <section className="la-list">
+              {!compact && (<section className="la-list">
                 <div className="la-list__head">
                   <h2 className="la-serif la-serif--24">Insights</h2>
                   <Ph name="sidebar" className="la-muted" />
@@ -299,7 +321,7 @@ function Dashboard({ v, stageRef, runKey }: { v: View; stageRef?: React.Ref<HTML
                   New chat
                 </div>
                 <div className="la-section--nav">Saved</div>
-                {s.saved.map((text) => (
+                {saved.map((text) => (
                   <div className="la-row" key={text}>
                     <Ph name="bookmarkFill" className="la-primary" />
                     <span className="la-row__text">{text}</span>
@@ -307,86 +329,117 @@ function Dashboard({ v, stageRef, runKey }: { v: View; stageRef?: React.Ref<HTML
                   </div>
                 ))}
                 <div className="la-section--nav">Recent</div>
-                {v.sent && (
-                  <div className={`la-row la-row--active${v.animate ? " la-row--enter" : ""}`}>
+                {active && (
+                  <div className={`la-row la-row--active${activeEnter ? " la-row--enter" : ""}`}>
                     <Ph name="chat" className="la-muted" />
-                    <span className="la-row__text">{s.query}</span>
+                    <span className="la-row__text">{active}</span>
                     <span className="la-row__age">now</span>
                   </div>
                 )}
-                {s.recent.map((r) => (
+                {recent.map((r) => (
                   <div className="la-row" key={r.text}>
                     <Ph name="chat" className="la-muted" />
                     <span className="la-row__text">{r.text}</span>
                     <span className="la-row__age">{r.age}</span>
                   </div>
                 ))}
-              </section>
+              </section>)}
 
-              <section className="la-chat">
-                <div className="la-thread" ref={threadRef}>
-                  <div className="la-thread__content" ref={contentRef}>
-                    {v.sent && (
-                      <div className={`la-user${enter}`}>
-                        <p>{s.query}</p>
-                      </div>
-                    )}
-                    {v.sent && (
-                      <div className="la-thought">
-                        {v.thinking ? (
-                          <span
-                            className={["la-thinking", v.animate && "la-thinking--live", !v.thinking.visible && "la-thinking--out"].filter(Boolean).join(" ")}
-                            key={v.thinking.label}
-                          >
-                            {v.thinking.label}
-                          </span>
-                        ) : (
-                          v.thought && (
-                            <span className={`la-thought__done${v.animate ? " la-fade" : ""}`}>
-                              {s.thought}
-                              <Ph name="caretRight" />
-                            </span>
-                          )
-                        )}
-                      </div>
-                    )}
-                    {v.card && <AudienceCard v={v} />}
-                    {v.reply && <p className="la-reply">{v.animate ? <StaggerText text={s.reply} /> : s.reply}</p>}
-                    {v.yes && (
-                      <div className={`la-user la-user--next${enter}`}>
-                        <p>{s.approval}</p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="la-composer">
-                  <div className="la-composer__text">
-                    {v.composer ? (
-                      <>
-                        {v.composer}
-                        {v.typing && <span className="la-caret" />}
-                      </>
-                    ) : (
-                      <span className="la-composer__placeholder">Ask about your visitors...</span>
-                    )}
-                  </div>
-                  <div className="la-composer__foot">
-                    <span className="la-upload">
-                      <Ph name="plus" />
-                      Upload file
-                    </span>
-                    <span className={`la-send${v.composer ? " la-send--ready" : ""}`}>
-                      <Ph name="send" />
-                    </span>
-                  </div>
-                </div>
-              </section>
+              {children}
             </main>
           </div>
-        }
-      />
+  );
+  return (
+    <div className={["la-stage", className].filter(Boolean).join(" ")} ref={stageRef}>
+      {bare ? dash : <LandscapeCanvas backdrop="green" bleed scene={dash} />}
     </div>
+  );
+}
+
+// `fit` (11m): the same dashboard laid out at its viewport's own size
+// instead of 11's fixed 1286px frame (as Personal Agents 07m): the chats
+// list folds (`compact`), the chat gets its own header, and container
+// queries in LaunchAudience.css fold the rail and restack the card.
+function Dashboard({ v, stageRef, runKey, fit }: { v: View; stageRef?: React.Ref<HTMLDivElement>; runKey?: number; fit?: boolean }) {
+  const enter = v.animate ? " la-enter" : "";
+  const { threadRef, contentRef } = useFollowLatest(v.animate, runKey);
+  return (
+    <InsightsFrame
+      bare={fit}
+      compact={fit}
+      saved={s.saved}
+      recent={s.recent}
+      active={v.sent ? s.query : undefined}
+      activeEnter={v.animate}
+      stageRef={stageRef}
+      runKey={runKey}
+    >
+      <section className="la-chat">
+        {fit && (
+          <header className="la-fit__head">
+            <span className="la-serif la-fit__title">Insights</span>
+            {v.sent && <span className={`la-fit__crumb${v.animate ? " la-fade" : ""}`}>{s.query}</span>}
+          </header>
+        )}
+        <div className="la-thread" ref={threadRef}>
+          <div className="la-thread__content" ref={contentRef}>
+            {v.sent && (
+              <div className={`la-user${enter}`}>
+                <p>{s.query}</p>
+              </div>
+            )}
+            {v.sent && (
+              <div className="la-thought">
+                {v.thinking ? (
+                  <span
+                    className={["la-thinking", v.animate && "la-thinking--live", !v.thinking.visible && "la-thinking--out"].filter(Boolean).join(" ")}
+                    key={v.thinking.label}
+                  >
+                    {v.thinking.label}
+                  </span>
+                ) : (
+                  v.thought && (
+                    <span className={`la-thought__done${v.animate ? " la-fade" : ""}`}>
+                      {s.thought}
+                      <Ph name="caretRight" />
+                    </span>
+                  )
+                )}
+              </div>
+            )}
+            {v.card && <AudienceCard v={v} />}
+            {v.reply && <p className="la-reply">{v.animate ? <StaggerText text={s.reply} /> : s.reply}</p>}
+            {v.yes && (
+              <div className={`la-user la-user--next${enter}`}>
+                <p>{s.approval}</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="la-composer">
+          <div className="la-composer__text">
+            {v.composer ? (
+              <>
+                {v.composer}
+                {v.typing && <span className="la-caret" />}
+              </>
+            ) : (
+              <span className="la-composer__placeholder">Ask about your visitors...</span>
+            )}
+          </div>
+          <div className="la-composer__foot">
+            <span className="la-upload">
+              <Ph name="plus" />
+              Upload file
+            </span>
+            <span className={`la-send${v.composer ? " la-send--ready" : ""}`}>
+              <Ph name="send" />
+            </span>
+          </div>
+        </div>
+      </section>
+    </InsightsFrame>
   );
 }
 
@@ -413,4 +466,29 @@ export function LaunchAudienceMotion() {
   };
   // Keyed inside the stage, so the on-screen observer keeps its node.
   return <Dashboard v={v} stageRef={stageRef} runKey={t.runKey} />;
+}
+
+/* 11m: 11 at 353x440, responsive rather than redrawn. Plays once. */
+export function LaunchAudienceFit() {
+  const ref = useRef<HTMLDivElement>(null);
+  const landed = useLandedOnScreen(ref);
+  const played = useRef(false);
+  const t = useChatTimeline(beats, landed || played.current);
+  if (t.done) played.current = true;
+  const v: View = {
+    sent: t.passed("ask"), composer: t.composer?.value ?? "", typing: !!t.composer,
+    thinking: t.status("think"), thought: t.passed("think"),
+    card: t.reached("card"), cardLoading: t.loading("card"), products: t.reached("products"),
+    reply: t.reached("reply"), yes: t.passed("approve"), animate: !t.reducedMotion,
+  };
+  return (
+    <figure className="la-fit-figure" ref={ref}>
+      <figcaption className="app-stage__tile-label">Insights · 353x440</figcaption>
+      <div className="la-fit-canvas">
+        <div className="la-fit">
+          <Dashboard fit v={v} runKey={t.runKey} />
+        </div>
+      </div>
+    </figure>
+  );
 }

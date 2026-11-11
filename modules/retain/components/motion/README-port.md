@@ -44,3 +44,18 @@ client only. It exports:
 At 1440px wide every panel is exactly its drawn size, so the zoom is 1. Playback works as in the
 source: a visual starts once it is 30% on screen with the tab focused, restarts when the viewer
 comes back, and shows its final state when `prefers-reduced-motion` is set.
+
+## 11 November 2026 update
+
+From the updated handoff (the window standard, 11m and 12m):
+
+- **11m** (`LaunchAudienceFit`) and **12m** (`SizeConfidenceMwebV2Motion`), 353 × 440: `AudienceMwebMotion` and
+  `ReturnMwebMotion`, shown below 768px in place of 11 and 12 (audience/audience-builder.tsx, returns/return-reduction.tsx).
+- **Window standard:** the source's page stylesheet, `retain-v2-motion.css`, is scoped under `.rv2m`, which its page sets
+  on <body>. MotionStage's `.rtn-motion` root carries `rv2m` too, so those rules read `.rtn-motion.rv2m …`.
+- **Source changes carried over:** GrowComposer (new) with Shell's and ChatMotionScene's `growComposer`, 12's drawer on
+  the standard shell, SizeConfidence's `page` option, LaunchAudience's merchant mark and `fit` (11m), the Amber & Oak
+  lamps, the Auden names, `msPerChar` and `beatsDurationMs`. 12 keeps the site's `maroon` backdrop.
+- **motion.css** was regenerated from the new source's stylesheets in its build order, kept to the files these visuals
+  import (visualCanvasFramed.css and ProactiveMotion.css now come earlier, as the new gallery's graph loads them). The
+  "Site addition" rules (the campaign liveries, the bare campaign frame) stay at the end.

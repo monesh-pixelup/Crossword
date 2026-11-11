@@ -34,7 +34,7 @@ const beats: Beat[] = [
 // state classes drive them (`:has()` in the CSS).
 const shellState = (t: Timeline) =>
   [
-    "ill-landscape-shell ill-landscape-shell--compact ill-landscape-shell--aubergine scd-drawer",
+    "ill-landscape-shell ill-landscape-shell--compact ill-landscape-shell--aubergine ill-shell--standard scd-drawer",
     t.reached("tap-ask") && "scd-drawer--tap",
     t.reached("open") && "scd-drawer--open",
   ]
@@ -59,6 +59,7 @@ export function SizeConfidenceDrawerMotion() {
               width={420}
               height={543}
               className={shellState}
+              growComposer
             >
               {(t) =>
                 t.passed("ask") && (

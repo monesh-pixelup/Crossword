@@ -12,7 +12,9 @@ export type Beat =
   // a turn that's an upload, not typed words. `leadMs` overrides the
   // default pause before typing starts (for a compose beat that follows
   // an intro rather than an earlier turn).
-  | { id: string; type: "compose"; text?: string; holdMs?: number; leadMs?: number }
+  // `msPerChar` (opt-in) slows or speeds this one beat's typing; unset,
+  // the kit's uniform pace.
+  | { id: string; type: "compose"; text?: string; holdMs?: number; leadMs?: number; msPerChar?: number }
   // The AI status row. One label holds ~600ms; two labels play the kit's
   // usual "Thinking" -> content-aware second label.
   | { id: string; type: "think"; labels: [string] | [string, string] }
@@ -54,6 +56,28 @@ export function wordCount(text: string) {
 
 function replyRevealMs(text: string) {
   return wordCount(text) * REPLY_STAGGER_MS + REPLY_WORD_ANIM_MS + REPLY_SETTLE_MS;
+}
+
+// How long a beat list takes to play, from the same constants the
+// timeline runs on (composer jitter averages out) — for a progress timer.
+export function beatsDurationMs(beats: Beat[]) {
+  return beats.reduce((ms, b, i) => {
+    switch (b.type) {
+      case "compose":
+        if (!b.text) return ms + (b.holdMs ?? 700);
+        return ms + (b.leadMs ?? (i === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS)) + b.text.length * (b.msPerChar ?? CHAR_INTERVAL_MS) + SENT_SETTLE_MS;
+      case "think":
+        return ms + (b.labels.length === 2 ? THINKING_STAGE_1_MS + THINKING_STAGE_2_MS : THINKING_SINGLE_MS) + THINKING_EXIT_MS;
+      case "text":
+        return ms + replyRevealMs(b.text);
+      case "appear":
+        return ms + (b.ms ?? APPEAR_MS);
+      case "load":
+        return ms + (b.ms ?? LOAD_MS);
+      case "pause":
+        return ms + b.ms;
+    }
+  }, 0);
 }
 
 export interface Timeline {
@@ -130,7 +154,7 @@ export function useChatTimeline(beats: Beat[], active: boolean): Timeline {
         const text = beat.text;
         after(beat.leadMs ?? (index === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS), () => {
           cancelReveal = revealText(text, {
-            msPerStep: CHAR_INTERVAL_MS,
+            msPerStep: beat.msPerChar ?? CHAR_INTERVAL_MS,
             onTick: (value) => setTyped({ index, value }),
             onDone: () => after(SENT_SETTLE_MS, next),
           });

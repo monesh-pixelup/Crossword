@@ -1,7 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import { AudienceMotion } from "../motion/retain-motion";
+import { AudienceMotion, AudienceMwebMotion } from "../motion/retain-motion";
 
 /**
  * Figma "Library · Wide panel" (Audiences): the eyebrow and a two-line headline on the left, a line
@@ -26,8 +26,12 @@ export function AudienceBuilder() {
           </p>
         </div>
 
-        <div className="relative aspect-[1280/599] w-full overflow-clip bg-[#00331b]">
+        <div className="relative aspect-[1280/599] w-full overflow-clip bg-[#00331b] max-md:hidden">
           <AudienceMotion />
+        </div>
+        {/* Below 768px: 11m, the dashboard laid out for a phone (353 × 440), in place of the wide visual. */}
+        <div className="relative aspect-[353/440] w-full overflow-clip md:hidden">
+          <AudienceMwebMotion />
         </div>
       </div>
     </section>
