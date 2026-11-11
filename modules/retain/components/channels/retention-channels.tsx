@@ -36,7 +36,7 @@ export function RetentionChannels() {
           </div>
 
           {/*
-            Figma 4035:24375: the abandoned-visit follow-up (the shopper didn't buy, write a note, choose the channel order,
+            Figma 4060:25755 (the card variation): the abandoned-visit follow-up (the shopper didn't buy, write a note, choose the channel order,
             try each channel five minutes apart, then answer a reply or stop reaching out, and end), exported as one vector at
             1280 × 440 and drawn across the content width. Below 768px it keeps a readable 860px and scrolls sideways.
           */}

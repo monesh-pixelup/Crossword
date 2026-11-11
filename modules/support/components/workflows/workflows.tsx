@@ -1,5 +1,6 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import flowDiagramMobile from "../../assets/workflows/flow-diagram-mobile.svg";
 import flowDiagram from "../../assets/workflows/flow-diagram.svg";
 import ornament from "../../assets/workflows/ornament.webp";
 import { workflows } from "../../config/workflows";
@@ -31,18 +32,23 @@ export function Workflows() {
           </div>
 
           {/*
-            Figma 4035:24081: the review-request flow (start, wait, check, the "OK to ask?" condition branching to write and
-            email the ask or skip, then end), exported as one vector at 1280 × 370 and drawn across the content width. Below
-            768px it keeps a readable 860px and scrolls sideways.
+            Figma 4060:24926 (the card variation): the review-request flow (start, wait, check, the "OK to ask?" condition
+            branching to write and email the ask or skip, then end), exported as one vector at 1280 × 370 and drawn across
+            the content width. Below 768px, Figma 4077:5972's vertical version instead (353 × 718), the steps stacked and
+            the two branches side by side, at the content width.
           */}
-          <div className="-mx-[calc(var(--page-pad)-var(--frame-inset))] overflow-x-auto px-[calc(var(--page-pad)-var(--frame-inset))] [scrollbar-width:none] md:mx-0 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
-            <img
-              src={flowDiagram.src}
-              alt="A workflow: start when the order is delivered, wait a week, check for open returns or tickets, then if it's OK to ask, write and email a review request, otherwise skip, and end."
-              className="block aspect-[1280/370] h-auto w-full max-w-none max-md:w-[860px]"
-            />
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
+          <img
+            src={flowDiagram.src}
+            alt="A workflow: start when the order is delivered, wait a week, check for open returns or tickets, then if it's OK to ask, write and email a review request, otherwise skip, and end."
+            className="block aspect-[1280/370] h-auto w-full max-w-none max-md:hidden"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
+          <img
+            src={flowDiagramMobile.src}
+            alt="A workflow: start when the order is delivered, wait a week, check for open returns or tickets, then if it's OK to ask, write and email a review request, otherwise skip, and end."
+            className="mx-auto block aspect-[353/718] h-auto w-full max-w-[353px] md:hidden"
+          />
 
           {/* The row spans the content column, its two workflows sharing it 537:513 either side of the rule (at 1280px, Figma's 537px first column, the rule 652px in). */}
           <div className="flex flex-col gap-12 md:flex-row md:gap-[115px]">
