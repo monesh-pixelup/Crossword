@@ -1,4 +1,5 @@
 export { SupportChannels } from "./components/channels/support-channels";
+export { SupportCta } from "./components/cta/support-cta";
 export { TakeControl } from "./components/control/take-control";
 export { Guardrails } from "./components/guardrails/guardrails";
 export { HumanHandoff } from "./components/handoff/human-handoff";

@@ -7,6 +7,7 @@ import {
   HelpdeskOptions,
   HumanHandoff,
   SupportChannels,
+  SupportCta,
   SupportHero,
   TakeControl,
   Workflows,
@@ -38,6 +39,7 @@ export default function SupportPage() {
       </div>
       <SupportChannels />
       <Testimonials variant="support" />
+      <SupportCta />
     </main>
   );
 }

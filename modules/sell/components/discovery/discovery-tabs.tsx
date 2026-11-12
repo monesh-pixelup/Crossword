@@ -154,7 +154,7 @@ export function DiscoveryTabs() {
             <div
               key={feature.label}
               inert={i !== active}
-              className="tab-panel grid w-full grid-rows-subgrid items-start"
+              className="tab-panel tab-panel--soft grid w-full grid-rows-subgrid items-start"
               style={{ gridArea: "1 / 1 / 3 / 2" }}
             >
               <FeatureCopy feature={feature} />

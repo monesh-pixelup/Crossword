@@ -5958,13 +5958,28 @@ function useAssetsReady() {
   }, []);
   return ready;
 }
+// Site: holds a "landed" flag back a moment, so a visual starts a beat after it comes on screen rather than at once
+// (resets straight away when it leaves, so it waits again on the next visit).
+function useLandedAfter(landed, ms) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (!landed) {
+      setReady(false);
+      return;
+    }
+    const timer = setTimeout(() => setReady(true), ms);
+    return () => clearTimeout(timer);
+  }, [landed, ms]);
+  return ready;
+}
 function SponsoredComparisonMotion({
   comparison: comparison2,
   comparisonMs = 300
 } = {}) {
   const beats2 = baseBeats.map((b) => b.id === "comparison" ? { ...b, ms: comparisonMs } : b);
   const rootRef = useRef(null);
-  const landed = useLandedOnScreen(rootRef);
+  // Site: the home page's Shopper experience starts 600ms after it lands.
+  const landed = useLandedAfter(useLandedOnScreen(rootRef), 600);
   const assetsReady = useAssetsReady();
   const t = useChatTimeline(beats2, landed && assetsReady);
   const open = t.reached("open");

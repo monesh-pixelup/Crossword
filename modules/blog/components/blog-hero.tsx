@@ -20,7 +20,7 @@ export function BlogHero() {
 
       <div className="flex content-width flex-col items-start gap-8 min-[1280px]:flex-row min-[1280px]:items-end min-[1280px]:justify-between min-[1280px]:gap-10">
         <div className="flex flex-col items-start gap-6">
-          <Eyebrow>Conversational interface</Eyebrow>
+          <Eyebrow>Blog</Eyebrow>
           <SectionTitle
             as="h1"
             id="blog-hero-title"

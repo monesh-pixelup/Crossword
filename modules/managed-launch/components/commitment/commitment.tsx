@@ -49,10 +49,6 @@ function Note() {
             className="absolute top-[13.76px] left-1/2 flex w-[435.348px] -translate-x-1/2 items-center justify-between font-hand tracking-[-0.7115px] whitespace-nowrap text-[rgba(18,18,18,0.61)]"
           >
             <p className="rotate-[0.14deg] text-[23.718px] leading-[1.13]">Crossword</p>
-            <p className="rotate-[0.14deg] leading-[1.13]">
-              <span className="text-[19.72px]">EST </span>
-              <span className="text-[23.718px]">.2026</span>
-            </p>
           </div>
 
           <dl>
@@ -93,7 +89,7 @@ function Rule({ src, className, vertical }: { src: typeof rule1; className: stri
 /**
  * Figma "Library · Wide panel" (3810:34213), Managed launch and progress: on the cream page, between its rails, a
  * paper note (turned 1.18°) holding the two commitments, each an engraved eyebrow over a Crimson Light 70 value and its
- * Geist Medium 18 unit, with "Crossword" and "EST .2026" handwritten across its top. A wax seal and a postage stamp
+ * Geist Medium 18 unit, with "Crossword" handwritten at its top left. A wax seal and a postage stamp
  * overlap its edges; faint hand-drawn hairlines cross behind it and two scroll flourishes sit in the top-right and
  * bottom-left corners. The gold rail accent runs 232px down the left rail from 98px.
  *

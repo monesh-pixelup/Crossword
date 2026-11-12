@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   AdaptivePages,
   DedicatedTabs,
+  DynamicCta,
   DynamicHero,
   Personalization,
   RoasGap,
@@ -37,6 +38,7 @@ export default function DynamicLandingPagesPage() {
         <BandDivider glyph="gear" />
       </div>
       <AdaptivePages />
+      <DynamicCta />
     </main>
   );
 }

@@ -150,7 +150,17 @@ export function AubergineSteps({
                 // Notched card (345.65 × 222.09px in Figma), 5.51px from the cell's top and centred across it.
                 <div className={`absolute flex items-center justify-center ${v.card}`}>
                   <Image src={cardArt} alt="" fill className="max-w-none" />
-                  <Image src={stamps?.[i] ?? stamp} alt="" sizes="88px" className="relative h-auto w-[87.67px]" />
+                  {/*
+                    A step's own stamp (Retain's Loyalty) is Figma's 4x export, lossless, and served as it is
+                    (`unoptimized`): resized and re-encoded by the image optimiser, its fine print and dashed rule blurred.
+                  */}
+                  <Image
+                    src={stamps?.[i] ?? stamp}
+                    alt=""
+                    sizes="88px"
+                    unoptimized={!!stamps?.[i]}
+                    className="relative h-auto w-[87.67px]"
+                  />
                 </div>
               )}
             </div>

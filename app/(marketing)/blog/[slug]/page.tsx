@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import { PostBody } from "@/modules/blog/components/post-body";
 import { PostHero } from "@/modules/blog/components/post-hero";
 import { blogPosts, getPost } from "@/modules/blog/config/posts";
-import { CtaEnvelope } from "@/modules/landing";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
+import { PilotCta } from "@/modules/managed-launch/components/pilot/pilot-cta";
 
 /**
  * Every post is prerendered. (`dynamicParams` isn't allowed with Cache Components; any other slug is a 404 through
@@ -22,7 +21,7 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
 
 /**
  * A journal post (after the Limelight "Blog Slug" page, Figma 1655:2466, in the site's design): the post's header,
- * the article beside its Index, then, as on the journal, the patterned band and the envelope CTA. Like the journal, it
+ * the article beside its Index, then the maroon CTA banner (Managed launch's "You're getting a team"). Like the journal, it
  * has no hero curtain: the article scrolls in below the header instead of sliding over it.
  */
 export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">) {
@@ -33,10 +32,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
     <main data-no-curtain>
       <PostHero post={post} />
       <PostBody post={post} />
-      <div className="relative h-6 max-md:h-[18px]">
-        <DividerBand glyph="chat" />
-      </div>
-      <CtaEnvelope />
+      <PilotCta />
     </main>
   );
 }

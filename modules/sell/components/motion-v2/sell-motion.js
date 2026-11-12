@@ -3663,9 +3663,10 @@ function HumanModeV2ChaptersMotion({ mweb = false } = {}) {
     setChapter(i);
     swap.current = window.setTimeout(() => setPlaying(i), reduced ? 0 : SWAP_MS);
   };
-  const next = (i) => () => {
-    if (i < 2) goTo(i + 1);
-  };
+  // Site: each chapter hands over to the next as a fresh run (`pick`), and the last back to the first, so the three
+  // play on a loop. A chapter that had already played was otherwise reused as it was: its chat already finished, it
+  // never reported done again (the steps stuck there), while its progress bar still ran from its old timing.
+  const next = (i) => () => pick(i < 2 ? i + 1 : 0);
   useEffect(() => () => window.clearTimeout(swap.current), []);
   const [runs, setRuns] = useState([0, 0, 0]);
   const pick = (i) => {
@@ -3680,6 +3681,21 @@ function HumanModeV2ChaptersMotion({ mweb = false } = {}) {
   const report = useCallback((f) => {
     setFocus((prev) => f.mode === "full" ? (prev == null ? void 0 : prev.phone) === f.phone ? null : prev : f);
     if (f.timerMs) setTimers((p) => p[f.phone] ? p : p.map((v, i) => i === f.phone ? f.timerMs : v));
+  }, []);
+  // Site: a hidden browser tab throttles the chat's timers but not the progress bar's CSS transition, so coming back the
+  // two had drifted apart (the chat frozen mid-way under a running bar). Coming back replays the open chapter afresh.
+  const chapterRef = useRef(chapter);
+  chapterRef.current = chapter;
+  const startedRef = useRef(started);
+  startedRef.current = started;
+  const pickRef = useRef(pick);
+  pickRef.current = pick;
+  useEffect(() => {
+    const onShow = () => {
+      if (document.visibilityState === "visible" && startedRef.current) pickRef.current(chapterRef.current);
+    };
+    document.addEventListener("visibilitychange", onShow);
+    return () => document.removeEventListener("visibilitychange", onShow);
   }, []);
   const cam = useStageCamera(focus);
   const rig = { report };

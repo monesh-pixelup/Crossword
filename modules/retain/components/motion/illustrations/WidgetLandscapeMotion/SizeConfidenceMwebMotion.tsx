@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { UserTurn } from "../../components/ill/UserTurn";
 import { AssistantTurn } from "../../components/ill/AssistantTurn";
 import { ChatMessage } from "../../components/ill/ChatMessage";
@@ -8,6 +8,7 @@ import { SizedProductCard } from "../WidgetLandscape/SizeConfidence";
 import { sizeConfidence as s } from "../WidgetLandscape/data";
 import { ChatMotionScene } from "../SellMotion/ChatMotionScene";
 import { LoadingFrame } from "../SellMotion/LoadingFrame";
+import { LoopWhenDone } from "../SellMotion/LoopWhenDone";
 import { AssistantText, Thinking } from "../SellMotion/parts";
 import type { Beat, Timeline } from "../SellMotion/useChatTimeline";
 import cartIconImage from "../../../../assets/motion/ill-icons/cart.svg";
@@ -65,15 +66,21 @@ function MobilePdp() {
 
 export function SizeConfidenceMwebMotion() {
   const rootRef = useRef<HTMLDivElement>(null);
+  // Site: plays on a loop. Bumped once the script has played out and held, re-keying the chat so it starts again from
+  // the resting page.
+  const [loop, setLoop] = useState(0);
+  const replay = useCallback(() => setLoop((n) => n + 1), []);
   return (
     <figure className="scm2-figure" ref={rootRef}>
       <div className="scm2-canvas">
         <div className="scm2-window">
           <MobilePdp />
           <div className="scm2-scrim" />
-          <ChatMotionScene brand={s.brand} beats={beats} observeRef={rootRef} width={313} height={348} className={shellState} growComposer>
-            {(t) =>
-              t.passed("ask") && (
+          <ChatMotionScene key={loop} brand={s.brand} beats={beats} observeRef={rootRef} width={313} height={348} className={shellState} growComposer>
+            {(t) => (
+              <>
+                <LoopWhenDone t={t} onLoop={replay} />
+                {t.passed("ask") && (
                 <>
                   <UserTurn animateIn><ChatMessage role="user" text={s.userQuestion} /></UserTurn>
                   <AssistantTurn animateIn>
@@ -93,8 +100,9 @@ export function SizeConfidenceMwebMotion() {
                     </>
                   )}
                 </>
-              )
-            }
+                )}
+              </>
+            )}
           </ChatMotionScene>
         </div>
       </div>

@@ -3811,8 +3811,21 @@ function Conversation(t) {
     ] })
   ] });
 }
+// Site: Guardrails plays on a loop. Once its script has played out it holds this long, then replays from the top.
+const GUARDRAILS_LOOP_HOLD_MS = 3000;
+function LoopWhenDone({ t, onLoop }) {
+  useEffect(() => {
+    if (!t.done || t.reducedMotion) return;
+    const id = window.setTimeout(onLoop, GUARDRAILS_LOOP_HOLD_MS);
+    return () => window.clearTimeout(id);
+  }, [t.done, t.reducedMotion, onLoop]);
+  return null;
+}
 function GuardrailsMotion({ mweb = false } = {}) {
   const [flowSlot, setFlowSlot] = useState(null);
+  // Site: bumped to replay the scene (keys the row, so the panel, connector and chat all start again).
+  const [loop, setLoop] = useState(0);
+  const replay = useCallback(() => setLoop((n) => n + 1), []);
   return /* @__PURE__ */ jsx("div", { className: mweb ? "ill-guardrails-scale ill-guardrails--mweb" : "ill-guardrails-scale", children: /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-frame", children: [
     /* @__PURE__ */ jsx("img", { className: "ill-guardrails-frame__bg", src: frameBg, alt: "", "aria-hidden": "true" }),
     /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-row", children: [
@@ -3827,9 +3840,11 @@ function GuardrailsMotion({ mweb = false } = {}) {
           className: (t) => `ill-shell--standard ${stage(t, "shell", "ill-guardrails-motion--shell-enter")}`,
           children: (t) => /* @__PURE__ */ jsxs(Fragment, { children: [
             flowSlot && createPortal(/* @__PURE__ */ jsx(FlowLayer, { t }), flowSlot),
-            Conversation(t)
+            Conversation(t),
+            /* @__PURE__ */ jsx(LoopWhenDone, { t, onLoop: replay })
           ] })
-        }
+        },
+        loop
       ) }) }) })
     ] })
   ] }) });

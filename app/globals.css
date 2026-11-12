@@ -216,12 +216,27 @@
   }
 }
 
+/* Slightly delayed and slower, so a tab switch eases in rather than snapping. */
 .lifecycle-stage-enter {
-  animation: lifecycle-stage-in 0.42s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: lifecycle-stage-in 0.75s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both;
+}
+
+/* Home lifecycle: the open feature's mock-up fading in over the shared frame as it changes. */
+@keyframes lifecycle-visual-in {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    scale: 0.985;
+  }
+}
+
+.lifecycle-visual-enter {
+  animation: lifecycle-visual-in 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.15s both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lifecycle-stage-enter {
+  .lifecycle-stage-enter,
+  .lifecycle-visual-enter {
     animation: none;
   }
 }
@@ -249,13 +264,33 @@
     filter 0.4s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
+/*
+ * A slower, softer crossfade (Conversational interface, Product discovery): the outgoing card fades and blurs away over
+ * longer, and the chosen one eases in after it with only the lightest blur, so the swap reads as one smooth dissolve.
+ */
+.tab-panel--soft {
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1) 0.18s,
+    filter 1s cubic-bezier(0.22, 1, 0.36, 1) 0.18s;
+}
+
+.tab-panel--soft[inert] {
+  filter: blur(1px);
+  transition:
+    opacity 0.7s cubic-bezier(0.45, 0, 0.55, 1),
+    filter 0.7s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tab-panel,
-  .tab-panel[inert] {
+  .tab-panel[inert],
+  .tab-panel--soft,
+  .tab-panel--soft[inert] {
     transition: opacity 0.2s linear;
   }
 
-  .tab-panel[inert] {
+  .tab-panel[inert],
+  .tab-panel--soft[inert] {
     filter: none;
   }
 }

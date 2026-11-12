@@ -62,6 +62,11 @@ export function UpsellTabs() {
   const [wide, setWide] = useState<boolean | null>(null);
   // The accordion item closing as another opens, kept drawn until it has eased shut.
   const [closing, setClosing] = useState<number | null>(null);
+  // Side by side: the feature whose visual is fading out as the open one fades in (`.tab-panel--soft`), and how many
+  // times each feature has opened, to key its scene so it plays from the start each time without redrawing the one
+  // fading out.
+  const [previous, setPrevious] = useState<number | null>(null);
+  const [plays, setPlays] = useState(() => upsellFeatures.map(() => 0));
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 1280px)");
@@ -85,21 +90,17 @@ export function UpsellTabs() {
     return () => observer.disconnect();
   }, []);
 
-  // Hands over to the next feature once this one's scene has played out and held; never with reduced motion, and only
-  // side by side (stacked, the visitor taps to change them).
-  useEffect(() => {
-    if (!wide || !visible || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setTimeout(
-      () => setActive((a) => (a === last ? 0 : a + 1)),
-      Math.max(DURATION_MS, scene.duration + HOLD_MS),
-    );
-    return () => window.clearTimeout(timer);
-  }, [active, run, visible, scene.duration, last, wide]);
+  /** The open feature's turn: long enough for its scene to play out and hold. */
+  const turn = Math.max(DURATION_MS, scene.duration + HOLD_MS);
 
   const select = (i: number) => {
-    if (i !== active) setClosing(active);
+    if (i !== active) {
+      setClosing(active);
+      setPrevious(active);
+    }
     setActive(i);
     setRun((r) => r + 1);
+    setPlays((p) => p.map((n, j) => (j === i ? n + 1 : n)));
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -236,8 +237,25 @@ export function UpsellTabs() {
                     // Stacked (below 1280px) the last isn't drawn and its gap goes too, so the list ends on the panel's padding.
                     "shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]",
                     i === last && "max-[1279px]:hidden",
+                    "relative",
                   )}
-                />
+                >
+                  {/*
+                    Side by side, the open feature's progress loader (as the site's other tabs): a 1.5px maroon line
+                    filling along its rule over the feature's turn, paused while the section is off screen; once full,
+                    the next feature takes over. Not drawn below 1280px (tapped there, never on a timer); with reduced
+                    motion it sits full and nothing moves on by itself.
+                  */}
+                  {on && wide === true && (
+                    <span
+                      key={run}
+                      aria-hidden
+                      onAnimationEnd={() => select(active === last ? 0 : active + 1)}
+                      className="pointer-events-none absolute -top-[0.75px] left-0 h-[1.5px] w-0 animate-[insights-progress_linear_forwards] bg-maroon motion-reduce:w-full motion-reduce:animate-none"
+                      style={{ animationDuration: `${turn}ms`, animationPlayState: visible ? "running" : "paused" }}
+                    />
+                  )}
+                </span>
               </div>
             );
           })}
@@ -256,11 +274,26 @@ export function UpsellTabs() {
         aria-labelledby={`${id}-tab-${active}`}
         className="relative aspect-[738/680] w-full shrink-0 overflow-hidden max-[1279px]:hidden min-[1280px]:-mr-1 min-[1280px]:w-[687px]"
       >
-        {wide !== false && (
-          <div key={`${active}-${run}`} className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0">
-            <ScenePanel scene={scene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />
-          </div>
-        )}
+        {/*
+          Every feature's layer is stacked in the panel and they crossfade as the Product discovery tabs do
+          (`.tab-panel--soft`): the outgoing visual fades and softly blurs away while the chosen one eases in after it. A
+          scene is drawn only while its feature is open or fading out.
+        */}
+        {wide !== false &&
+          upsellFeatures.map((feature, i) => (
+            <div key={feature.title} inert={i !== active} className="tab-panel tab-panel--soft absolute inset-0">
+              {(i === active || i === previous) && (
+                <ScenePanel
+                  key={plays[i]}
+                  scene={upsellScenes[feature.scene]}
+                  active={visible && i === active}
+                  root={SellMotionRoot}
+                  maxScale={Infinity}
+                  transform
+                />
+              )}
+            </div>
+          ))}
       </div>
     </div>
   );

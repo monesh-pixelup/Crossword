@@ -6,6 +6,7 @@ import {
   Campaigns,
   Loyalty,
   ProactiveRecovery,
+  RetainCta,
   RetainHero,
   RetentionChannels,
   ReturnReduction,
@@ -36,6 +37,7 @@ export default function RetainPage() {
       <ReturnReduction />
       <RetentionChannels />
       <Testimonials variant="retain" />
+      <RetainCta />
     </main>
   );
 }

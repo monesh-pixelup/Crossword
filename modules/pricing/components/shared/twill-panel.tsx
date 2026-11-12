@@ -12,7 +12,7 @@ type TwillPanelProps = {
   studInset?: number;
   /**
    * The tilted green postage stamp in the top right corner, as the CTA banners set it (Figma 3305:1697): 95.84 ×
-   * 94.96 at (1130.4, 40.46) in the 1280px panel, so 53.76px in from its right edge (exported at 3x, cut out of the
+   * 94.96 at (1130.4, 40.46) in the 1280px panel, so 53.76px in from its right edge (exported at 4x, cut out of the
    * maroon). Smaller on tablets and phones; the panel's own top padding should clear it there.
    */
   stamp?: boolean;
@@ -63,6 +63,8 @@ export function TwillPanel({ frameInset, studInset, stamp, tile = twillTile, sur
           alt=""
           aria-hidden
           sizes="96px"
+          // Figma's 4x export, lossless, served as it is: resized and re-encoded by the image optimiser, its fine print blurred.
+          unoptimized
           className="pointer-events-none absolute top-[40.5px] right-[53.8px] h-auto w-[95px] select-none max-lg:top-[28px] max-lg:right-[32px] max-lg:w-[76px] max-md:top-[22px] max-md:right-[22px] max-md:w-[58px]"
         />
       )}

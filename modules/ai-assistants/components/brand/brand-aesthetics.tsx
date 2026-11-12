@@ -13,7 +13,7 @@ export function BrandAesthetics() {
       id="brand-aesthetics-title"
       eyebrow="Brand aesthetics"
       initial="Y"
-      firstLine=" our brand,"
+      firstLine="our brand,"
       secondLine="inside ChatGPT"
       variant="default"
       layout="split"

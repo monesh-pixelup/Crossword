@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/cn";
 
 /** How far below the top of the screen a part counts as the one being read (under the 72.5px header). */
@@ -9,7 +8,7 @@ const READ_LINE = 140;
 
 /**
  * A post's Index (after the Limelight post's sidebar, Figma 1655:2573, in the site's design): a sand panel with an
- * engraved line, the "Index" eyebrow over one row per part of the post (Geist 14/22, between engraved hairlines). The
+ * engraved line and one row per part of the post (Geist 14/22, between engraved hairlines), with no heading. The
  * part being read is in ink with a maroon rule along its left; the rest are muted. Each row jumps to its part.
  */
 export function PostIndex({ items }: { items: { id: string; title: string }[] }) {
@@ -40,10 +39,7 @@ export function PostIndex({ items }: { items: { id: string; title: string }[] })
   }, [items]);
 
   return (
-    <nav aria-label="Index" className="flex w-full flex-col gap-4 border-[0.5px] border-engraved bg-sand py-6">
-      <div className="px-6">
-        <Eyebrow surface="sand">Index</Eyebrow>
-      </div>
+    <nav aria-label="Index" className="flex w-full flex-col border-[0.5px] border-engraved bg-sand py-4">
       <ol className="flex flex-col pr-4 pl-6">
         {items.map(({ id, title }, i) => {
           const on = i === active;

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { UserTurn } from "../../components/ill/UserTurn";
 import { AssistantTurn } from "../../components/ill/AssistantTurn";
 import { ChatMessage } from "../../components/ill/ChatMessage";
@@ -7,6 +7,7 @@ import { JacketPdpScene, SizedProductCard } from "../WidgetLandscape/SizeConfide
 import { sizeConfidence as s } from "../WidgetLandscape/data";
 import { ChatMotionScene } from "../SellMotion/ChatMotionScene";
 import { LoadingFrame } from "../SellMotion/LoadingFrame";
+import { LoopWhenDone } from "../SellMotion/LoopWhenDone";
 import { AssistantText, Thinking } from "../SellMotion/parts";
 import type { Beat, Timeline } from "../SellMotion/useChatTimeline";
 
@@ -43,6 +44,10 @@ const shellState = (t: Timeline) =>
 
 export function SizeConfidenceDrawerMotion() {
   const rootRef = useRef<HTMLDivElement>(null);
+  // Site: plays on a loop. Bumped once the script has played out and held, re-keying the chat so it starts again from
+  // the resting page.
+  const [loop, setLoop] = useState(0);
+  const replay = useCallback(() => setLoop((n) => n + 1), []);
   return (
     <div className="scd" ref={rootRef}>
       <LandscapeCanvas
@@ -53,6 +58,7 @@ export function SizeConfidenceDrawerMotion() {
           <>
             <div className="scd-scrim" />
             <ChatMotionScene
+              key={loop}
               brand={s.brand}
               beats={beats}
               observeRef={rootRef}
@@ -61,8 +67,10 @@ export function SizeConfidenceDrawerMotion() {
               className={shellState}
               growComposer
             >
-              {(t) =>
-                t.passed("ask") && (
+              {(t) => (
+                <>
+                  <LoopWhenDone t={t} onLoop={replay} />
+                  {t.passed("ask") && (
                   <>
                     <UserTurn animateIn>
                       <ChatMessage role="user" text={s.userQuestion} />
@@ -88,8 +96,9 @@ export function SizeConfidenceDrawerMotion() {
                       </>
                     )}
                   </>
-                )
-              }
+                  )}
+                </>
+              )}
             </ChatMotionScene>
           </>
         }

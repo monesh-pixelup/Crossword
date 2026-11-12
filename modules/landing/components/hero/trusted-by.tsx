@@ -1,6 +1,7 @@
 import Image, { type StaticImageData } from "next/image";
 import { Fragment } from "react";
 import { cn } from "@/lib/cn";
+import { MarqueeTrack } from "./marquee-track";
 import divider from "../../assets/hero/decor/logo-divider.svg";
 import absoluteScience from "../../assets/hero/logos/absolute-science.png";
 import alexAni from "../../assets/hero/logos/alex-ani.png";
@@ -33,31 +34,36 @@ const rows: Logo[][] = [
   ],
 ];
 
-function LogoRow({ logos }: { logos: Logo[] }) {
+const logos = rows.flat();
+
+/**
+ * One set of the logos for the marquee: every logo at its Figma size, 35px either side of a 52px divider (as Figma's
+ * rows; 24px either side on phones), with the same gap trailing the last logo so two sets join seamlessly.
+ */
+function LogoSet({ hidden }: { hidden?: boolean }) {
   return (
-    <ul
-      className={cn(
-        // Figma: one centred row from 992px, 35px either side of a 52px divider (625px and 706px wide);
-        // below that the logos wrap, centred, without the dividers. Phones use MobileLogoGrid instead.
-        "flex w-full max-md:hidden flex-wrap items-center justify-center gap-x-8 gap-y-6 lg:w-auto lg:flex-nowrap lg:gap-[35px]",
-      )}
-    >
+    <ul aria-hidden={hidden || undefined} className="flex shrink-0 items-center gap-6 pr-6 md:gap-[35px] md:pr-[35px]">
       {logos.map((logo, i) => (
         <Fragment key={logo.name}>
           {i > 0 && (
-            <li aria-hidden className="relative hidden h-[52px] w-0 lg:block">
+            <li aria-hidden className="relative h-10 w-0 shrink-0 md:h-[52px]">
               <Image src={divider} alt="" className="absolute inset-y-0 -left-[0.527px] h-full w-[1.054px] max-w-none" />
             </li>
           )}
           <li className="shrink-0">
             <Image
               src={logo.src}
-              alt={logo.name}
+              alt={hidden ? "" : logo.name}
               sizes={`${logo.width}px`}
               className="block max-w-none object-contain"
               style={{ width: logo.width, height: logo.height }}
             />
           </li>
+          {i === logos.length - 1 && (
+            <li aria-hidden className="relative h-10 w-0 shrink-0 md:h-[52px]">
+              <Image src={divider} alt="" className="absolute inset-y-0 -left-[0.527px] h-full w-[1.054px] max-w-none" />
+            </li>
+          )}
         </Fragment>
       ))}
     </ul>
@@ -65,38 +71,28 @@ function LogoRow({ logos }: { logos: Logo[] }) {
 }
 
 /**
- * Phones (below 768px): all ten logos in one grid, three per row, the last one centred. Each logo keeps its Figma size
- * but shrinks to its cell if the screen is too narrow.
+ * The logos as a marquee: two copies of the set side by side, the track sliding left by one set's width at a steady,
+ * linear pace, then looping (MarqueeTrack). Its edges fade out over the page.
  */
-function MobileLogoGrid() {
+function LogoMarquee() {
   return (
-    <ul className="flex w-full flex-wrap justify-center gap-y-8 md:hidden">
-      {rows.flat().map((logo) => (
-        <li key={logo.name} className="flex basis-1/3 items-center justify-center px-2">
-          <Image
-            src={logo.src}
-            alt={logo.name}
-            sizes={`${logo.width}px`}
-            className="block h-auto max-w-full object-contain"
-            style={{ width: logo.width, aspectRatio: `${logo.width} / ${logo.height}` }}
-          />
-        </li>
-      ))}
-    </ul>
+    <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <MarqueeTrack duration={40000}>
+        <LogoSet />
+        <LogoSet hidden />
+      </MarqueeTrack>
+    </div>
   );
 }
 
-/** Figma 3800:29441: the line of copy 40px over the first row of logos, and the second 40px under it. */
+/** Figma 3800:29441: the line of copy 40px over the logos. */
 export function TrustedBy({ className }: { className?: string }) {
   return (
     <div className={cn("flex content-width flex-col items-center gap-10", className)}>
       <p className="text-center text-base leading-6 font-normal tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
         Trusted by
       </p>
-      {rows.map((logos, i) => (
-        <LogoRow key={i} logos={logos} />
-      ))}
-      <MobileLogoGrid />
+      <LogoMarquee />
     </div>
   );
 }

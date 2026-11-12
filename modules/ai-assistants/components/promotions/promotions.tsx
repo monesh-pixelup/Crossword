@@ -21,7 +21,7 @@ import { AiaScenePanel } from "../motion/aia-scene-panel";
 export function Promotions({
   id = "promotions-title",
   initial = "G",
-  firstLine = " et the right offer",
+  firstLine = "et the right offer",
   secondLine = "into the conversation",
   width = 440,
   copy = (

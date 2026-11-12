@@ -64,7 +64,7 @@ export default function PersonalAgentsPage() {
       <ShopperAsks
         id="agent-possibilities-title"
         initial="W"
-        firstLine=" hen a customer’s agent shows up,"
+        firstLine="hen a customer’s agent shows up,"
         secondLine="Crossword answers for you"
         width={820}
         copy={null}

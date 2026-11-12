@@ -175,9 +175,12 @@ export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run:
       </div>
       <div inert className="contents">
         {entry && (
-          <HomeMotion>
-            <entry.Component key={`${visual}-${run}-${replay}`} />
-          </HomeMotion>
+          // Keyed by the feature (not by replays), so changing tabs fades the new mock-up in over the frame.
+          <div key={visual} className="lifecycle-visual-enter relative">
+            <HomeMotion>
+              <entry.Component key={`${visual}-${run}-${replay}`} />
+            </HomeMotion>
+          </div>
         )}
       </div>
     </div>

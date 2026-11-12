@@ -1218,10 +1218,25 @@ function useAssetsReady(src) {
   }, [src]);
   return ready;
 }
+// Site: holds a "landed" flag back a moment, so a visual starts a beat after it comes on screen rather than at once
+// (resets straight away when it leaves, so it waits again on the next visit).
+function useLandedAfter(landed, ms) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (!landed) {
+      setReady(false);
+      return;
+    }
+    const timer = setTimeout(() => setReady(true), ms);
+    return () => clearTimeout(timer);
+  }, [landed, ms]);
+  return ready;
+}
 function SponsoredComparisonMobileMotion() {
   const { searchState: searchState2, pdpState: pdpState2 } = useSponsoredScenario();
   const rootRef = useRef(null);
-  const landed = useLandedOnScreen(rootRef);
+  // Site: starts 600ms after it lands, as the desktop visual does.
+  const landed = useLandedAfter(useLandedOnScreen(rootRef), 600);
   const ready = useAssetsReady(pdpState2.image);
   const t = useChatTimeline(beats, landed && ready);
   const cls = (base, flags) => [base, ...Object.entries(flags).filter(([, on]) => on).map(([k]) => `${base}--${k}`)].join(" ");
