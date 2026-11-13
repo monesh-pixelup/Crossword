@@ -6078,6 +6078,7 @@ function ViewOutGlyph() {
   return /* @__PURE__ */ jsx("svg", { viewBox: "0 0 12 12", width: 10, height: 10, fill: "none", stroke: "currentColor", strokeWidth: 1.2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true", children: /* @__PURE__ */ jsx("path", { d: "M3.5 8.5l5-5M4.5 3.5h4v4" }) });
 }
 const COMPARISON_THINK_MS = 1600;
+/** @param {{ startDelayMs?: number, onDone?: () => void }} [props] */
 function SponsoredComparisonV2Motion({ startDelayMs, onDone } = {}) {
   return /* @__PURE__ */ jsx("div", { className: "sc2-motion", children: /* @__PURE__ */ jsx(
     SponsoredComparisonMotion,

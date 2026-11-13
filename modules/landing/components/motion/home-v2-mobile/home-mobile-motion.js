@@ -1232,6 +1232,7 @@ function useLandedAfter(landed, ms) {
   }, [landed, ms]);
   return ready;
 }
+/** @param {{ startDelayMs?: number, onDone?: () => void }} [props] */
 function SponsoredComparisonMobileMotion({ startDelayMs = 600, onDone } = {}) {
   const { searchState: searchState2, pdpState: pdpState2 } = useSponsoredScenario();
   const rootRef = useRef(null);
