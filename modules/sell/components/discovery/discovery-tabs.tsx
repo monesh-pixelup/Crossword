@@ -19,10 +19,10 @@ const turns = discoveryFeatures.map((feature) => tabTurn(discoveryScenes[feature
 
 type Feature = (typeof discoveryFeatures)[number];
 
-/** A feature's title, description and GET STARTED, 24px over its panel. */
+/** A feature's title, description and LEARN MORE, 24px over its panel. */
 function FeatureCopy({ feature }: { feature: Feature }) {
   return (
-    <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-end md:justify-between md:gap-8">
+    <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-start md:justify-between md:gap-8">
       <div className="flex flex-col items-start gap-3">
         <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{feature.label}</h3>
         {feature.description && (
@@ -35,7 +35,7 @@ function FeatureCopy({ feature }: { feature: Feature }) {
         href={feature.href}
         className="flex shrink-0 items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-cream p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-ink-soft transition-opacity duration-150 hover:opacity-50"
       >
-        GET STARTED
+        LEARN MORE
         <Image src={arrowRight} alt="" className="size-3" />
       </Link>
     </div>
@@ -75,7 +75,7 @@ function FeaturePanel({ feature, scene, play, replay }: { feature: Feature; scen
  * Figma "Library · Vertical tabs" (3257:35922), as AI Assistants' Shopper asks and Retain's Campaigns & outbound: the list
  * of features on the left from 992px (above the panel below that), each label 24px in (10.2px tall padding around its
  * 24px line, so 44.4px rows; 20px after), the active one ink on cream with a 2px gold bar down its left edge, the rest
- * ink/40; and the active feature in the 820px right column (its title, description and GET STARTED, 24px over the
+ * ink/40; and the active feature in the 820px right column (its title, description and LEARN MORE, 24px over the
  * framed 821 × 611 maroon damask panel, its motion visual playing inside the lattice frame).
  *
  * They play on their own (see `useAutoplayTabs`): each feature stays up for its turn (its scene's run plus a short

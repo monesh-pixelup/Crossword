@@ -75,7 +75,7 @@ export function Hero() {
         </div>
       </section>
 
-      <div className="pt-[92px] pb-[124px]">
+      <div className="py-[88px]">
         <TrustedBy />
       </div>
     </>

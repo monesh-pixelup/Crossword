@@ -5972,16 +5972,25 @@ function useLandedAfter(landed, ms) {
   }, [landed, ms]);
   return ready;
 }
+// Site: tells the page once a run has played to its end (so it can loop it).
+function useReportDone(onDone, done) {
+  useEffect(() => {
+    if (done && onDone) onDone();
+  }, [done, onDone]);
+}
 function SponsoredComparisonMotion({
   comparison: comparison2,
-  comparisonMs = 300
+  comparisonMs = 300,
+  startDelayMs = 600,
+  onDone
 } = {}) {
   const beats2 = baseBeats.map((b) => b.id === "comparison" ? { ...b, ms: comparisonMs } : b);
   const rootRef = useRef(null);
-  // Site: the home page's Shopper experience starts 600ms after it lands.
-  const landed = useLandedAfter(useLandedOnScreen(rootRef), 600);
+  // Site: the home page's Shopper experience starts 600ms after it lands (at once on a loop's replay, startDelayMs 0).
+  const landed = useLandedAfter(useLandedOnScreen(rootRef), startDelayMs);
   const assetsReady = useAssetsReady();
   const t = useChatTimeline(beats2, landed && assetsReady);
+  useReportDone(onDone, landed && t.done && !t.reducedMotion);
   const open = t.reached("open");
   const imageIn = t.passed("open");
   const sceneClass = [
@@ -6069,10 +6078,12 @@ function ViewOutGlyph() {
   return /* @__PURE__ */ jsx("svg", { viewBox: "0 0 12 12", width: 10, height: 10, fill: "none", stroke: "currentColor", strokeWidth: 1.2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true", children: /* @__PURE__ */ jsx("path", { d: "M3.5 8.5l5-5M4.5 3.5h4v4" }) });
 }
 const COMPARISON_THINK_MS = 1600;
-function SponsoredComparisonV2Motion() {
+function SponsoredComparisonV2Motion({ startDelayMs, onDone } = {}) {
   return /* @__PURE__ */ jsx("div", { className: "sc2-motion", children: /* @__PURE__ */ jsx(
     SponsoredComparisonMotion,
     {
+      startDelayMs,
+      onDone,
       comparisonMs: COMPARISON_THINK_MS,
       comparison: (t) => /* @__PURE__ */ jsx(ComparisonEmbed, { phase: t.passed("comparison") ? "in" : "thinking" })
     }

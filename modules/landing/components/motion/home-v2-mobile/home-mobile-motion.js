@@ -1232,13 +1232,18 @@ function useLandedAfter(landed, ms) {
   }, [landed, ms]);
   return ready;
 }
-function SponsoredComparisonMobileMotion() {
+function SponsoredComparisonMobileMotion({ startDelayMs = 600, onDone } = {}) {
   const { searchState: searchState2, pdpState: pdpState2 } = useSponsoredScenario();
   const rootRef = useRef(null);
-  // Site: starts 600ms after it lands, as the desktop visual does.
-  const landed = useLandedAfter(useLandedOnScreen(rootRef), 600);
+  // Site: starts 600ms after it lands, as the desktop visual does (at once on a loop's replay, startDelayMs 0).
+  const landed = useLandedAfter(useLandedOnScreen(rootRef), startDelayMs);
   const ready = useAssetsReady(pdpState2.image);
   const t = useChatTimeline(beats, landed && ready);
+  // Site: tells the page once the run has played to its end (so it can loop it).
+  const done = landed && t.done && !t.reducedMotion;
+  useEffect(() => {
+    if (done && onDone) onDone();
+  }, [done, onDone]);
   const cls = (base, flags) => [base, ...Object.entries(flags).filter(([, on]) => on).map(([k]) => `${base}--${k}`)].join(" ");
   const scene = cls("scm", {
     tap: t.reached("tap"),

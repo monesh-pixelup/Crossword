@@ -13,7 +13,7 @@ import { motionScene } from "../motion/motion-scenes";
 /** A question's title, line of copy and GET A DEMO, 24px over its panel. */
 function QuestionCopy({ question }: { question: ShopperQuestion }) {
   return (
-    <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-end md:justify-between md:gap-8">
+    <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-start md:justify-between md:gap-8">
       <div className="flex flex-col items-start gap-3">
         <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{question.label}</h3>
         {question.description && (

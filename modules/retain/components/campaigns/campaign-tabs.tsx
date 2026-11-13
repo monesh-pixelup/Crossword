@@ -38,15 +38,15 @@ function OnceInView({ children }: { children: ReactNode }) {
   );
 }
 
-/** A campaign's title, line of copy and GET STARTED, 24px over its panel. */
+/** A campaign's title, line of copy and LEARN MORE, 24px over its panel. */
 function CampaignCopy({ campaign }: { campaign: Campaign }) {
   return (
-    <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-end md:justify-between md:gap-8">
+    <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-start md:justify-between md:gap-8">
       <div className="flex flex-col items-start gap-3">
         <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{campaign.title}</h3>
         <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{campaign.description}</p>
       </div>
-      <TextLink href={ctaLinks.learnMore}>GET STARTED</TextLink>
+      <TextLink href={ctaLinks.learnMore}>LEARN MORE</TextLink>
     </div>
   );
 }

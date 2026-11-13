@@ -102,10 +102,10 @@ export function Trust() {
                 powering billions of messages for enterprises across 160+ countries.
               </p>
               <Link
-                href="#trust"
+                href="/privacy"
                 className="flex items-center gap-2 border-b border-white/30 p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-[#d9dddb] transition-opacity duration-150 hover:opacity-50"
               >
-                GET STARTED
+                LEARN MORE
                 <Image src={arrowRight} alt="" className="size-4" />
               </Link>
             </div>

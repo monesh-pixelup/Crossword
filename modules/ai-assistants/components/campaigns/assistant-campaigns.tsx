@@ -44,7 +44,7 @@ export function AssistantCampaigns({
   mobileScene?: MotionSlug;
 }) {
   return (
-    <section aria-labelledby={id} className="relative section-pad">
+    <section aria-labelledby={id} className="relative section-pad pb-0!">
       <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
       <div className="flex content-width flex-col gap-section">

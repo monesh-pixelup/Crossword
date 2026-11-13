@@ -24,7 +24,7 @@ export type LifecycleStage = {
 };
 
 // Labels follow the motion visuals.
-// "Get started" opens the feature's product page (the search bar is part of Sell).
+// "Learn more" opens the feature's product page (the search bar is part of Sell).
 export const lifecycleStages: LifecycleStage[] = [
   {
     number: "01",

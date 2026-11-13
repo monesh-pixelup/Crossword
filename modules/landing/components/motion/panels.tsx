@@ -1,6 +1,6 @@
 "use client";
 
-import { type ComponentType, useEffect, useRef, useState } from "react";
+import { type ComponentType, useCallback, useEffect, useRef, useState } from "react";
 import type { InsightVisual } from "../../config/insights";
 import type { LifecycleVisual } from "../../config/lifecycle";
 import {
@@ -218,8 +218,28 @@ export function InsightPanel({ visual, run }: { visual: InsightVisual; run: numb
  * Below 768px it's 08m instead, the same story laid out for a phone (353 × 440 at 1:1, its own gold-edged browser
  * window), zoomed to the column the same way. Each only plays once on screen, so the hidden one never runs.
  */
+/** How long the Shopper experience holds its finished frame before it plays again. */
+const SHOPPER_LOOP_HOLD_MS = 2000;
+
+/**
+ * Loops a visual: once it reports its run done, waits SHOPPER_LOOP_HOLD_MS, then counts a new run (the visual is
+ * keyed by it, so it replays from the start). Replays start at once, without the first run's delay.
+ */
+function useLoopAfterHold() {
+  const [loop, setLoop] = useState(0);
+  const timer = useRef(0);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+  const onDone = useCallback(() => {
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setLoop((n) => n + 1), SHOPPER_LOOP_HOLD_MS);
+  }, []);
+  return [loop, onDone] as const;
+}
+
 export function ShopperPanel() {
   const [ref, replay] = useReplayOnReturn();
+  const [loop, onDone] = useLoopAfterHold();
+  const [mobileLoop, onMobileDone] = useLoopAfterHold();
   const label =
     "A shopper searches for Gillette, clicks Harry's sponsored comparison, and lands on a Harry's product page where Crossword compares the razor with Gillette's to win the sale";
   return (
@@ -231,7 +251,7 @@ export function ShopperPanel() {
       >
         <div inert className="contents">
           <HomeMotion>
-            <SponsoredComparisonMotion key={replay} />
+            <SponsoredComparisonMotion key={`${replay}-${loop}`} startDelayMs={loop ? 0 : 600} onDone={onDone} />
           </HomeMotion>
         </div>
       </div>
@@ -242,7 +262,7 @@ export function ShopperPanel() {
       >
         <div inert className="contents">
           <HomeMobileMotion>
-            <SponsoredComparisonMobileMotion key={replay} />
+            <SponsoredComparisonMobileMotion key={`${replay}-${mobileLoop}`} startDelayMs={mobileLoop ? 0 : 600} onDone={onMobileDone} />
           </HomeMobileMotion>
         </div>
       </div>

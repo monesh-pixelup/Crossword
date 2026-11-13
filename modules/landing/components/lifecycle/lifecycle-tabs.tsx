@@ -57,7 +57,7 @@ function Reveal({ open, children }: { open: boolean; children: ReactNode }) {
  * Lifecycle stages as tabs (Figma 3073:20862): a row of stage tabs over a box holding the stage's features
  * on the left and the open feature's motion mock-up on the right. The open tab carries its badge and, along
  * its top edge, a maroon bar filling through the stage. Within a stage the open feature shows its chip, copy and
- * GET STARTED; the others are titles at 50%, between hairlines. Features play on their own: each stays open
+ * LEARN MORE; the others are titles at 50%, between hairlines. Features play on their own: each stays open
  * for its turn while the section is on screen, then the next opens (the last of a stage moves on to the next
  * stage, and the last stage back to the first). Keyboard focus pauses the turn (hovering doesn't); with reduced
  * motion nothing advances on its own. Choosing a tab opens its first feature; choosing a title opens it.
@@ -278,7 +278,7 @@ export function LifecycleTabs() {
                           href={feature.href}
                           className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-ink-soft transition-opacity duration-150 hover:opacity-50"
                         >
-                          GET STARTED
+                          LEARN MORE
                           <Image src={arrowRight} alt="" className="size-3" />
                         </Link>
                       </div>
