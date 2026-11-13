@@ -107,4 +107,8 @@ export const footerPlatformGroups: FooterLink[][] = [
     { label: "Retain", href: "/retain" },
     { label: "Support", href: "/support" },
   ],
+  [
+    { label: "AI Assistants", href: "/ai-assistants" },
+    { label: "Personal Agents", href: "/personal-agents" },
+  ],
 ];
