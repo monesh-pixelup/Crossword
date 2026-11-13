@@ -64,8 +64,14 @@ export function HeroCurtain() {
     const set = (name: string, value: string) => {
       if (root.style.getPropertyValue(name) !== value) root.style.setProperty(name, value);
     };
+    // The screen's height with the phone browser's bars showing (100svh), read off a probe. Not `innerHeight`: on a
+    // phone that grows as the address bar slides away mid-scroll, which moved where the hero sticks and made it jump
+    // just as the next section slid over it. The small height never changes while scrolling.
+    const probe = document.createElement("div");
+    probe.style.cssText = "position:fixed;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none";
+    document.body.appendChild(probe);
     const measure = () => {
-      set("--hero-stick", `${Math.min(0, window.innerHeight - hero.offsetHeight)}px`);
+      set("--hero-stick", `${Math.min(0, (probe.offsetHeight || window.innerHeight) - hero.offsetHeight)}px`);
       // The hero's foot, as where the next section starts in the rails' box (their positioned parent).
       const next = hero.nextElementSibling as HTMLElement | null;
       const box = main.parentElement;
@@ -108,6 +114,7 @@ export function HeroCurtain() {
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      probe.remove();
       window.removeEventListener("resize", update);
       window.removeEventListener("scroll", onScroll);
       hero.style.visibility = "";
