@@ -49,7 +49,7 @@ export const platformMenu = {
       examples: "agents",
     },
   ],
-  feature: { href: "#insights", alt: "Insight: Turning Interest into Action.", cta: "Read more" },
+  feature: { href: "/blog", alt: "Insight: Turning Interest into Action.", cta: "Read more" },
 } satisfies {
   website: { title: string; description: string };
   sell: { label: string; links: PlatformLink[] };

@@ -61,7 +61,8 @@ function Reveal({ open, children }: { open: boolean; children: ReactNode }) {
  * for its turn while the section is on screen, then the next opens (the last of a stage moves on to the next
  * stage, and the last stage back to the first). Keyboard focus pauses the turn (hovering doesn't); with reduced
  * motion nothing advances on its own. Choosing a tab opens its first feature; choosing a title opens it.
- * Below 1280px the tabs scroll sideways and the mock-up sits above the features.
+ * Below 1280px the tabs scroll sideways (a soft fade at either edge where more lie beyond it) and the mock-up sits
+ * above the features.
  */
 export function LifecycleTabs() {
   const id = useId();
@@ -131,6 +132,26 @@ export function LifecycleTabs() {
     };
   }, []);
 
+  // Whether more tabs lie off the row's left and right edges (below 1280px, where it scrolls): each shows a soft fade there.
+  const [more, setMore] = useState({ left: false, right: false });
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const update = () => {
+      const left = list.scrollLeft > 1;
+      const right = list.scrollLeft + list.clientWidth < list.scrollWidth - 1;
+      setMore((m) => (m.left === left && m.right === right ? m : { left, right }));
+    };
+    update();
+    list.addEventListener("scroll", update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(list);
+    return () => {
+      list.removeEventListener("scroll", update);
+      observer.disconnect();
+    };
+  }, []);
+
   // When the tabs scroll sideways (below 1280px), bring the open one into view.
   useEffect(() => {
     const list = listRef.current;
@@ -166,6 +187,11 @@ export function LifecycleTabs() {
         if (!e.currentTarget.contains(e.relatedTarget)) focused.current = false;
       }}
     >
+      {/*
+        The row's edges fade into the page's cream (with a slight blur) wherever more tabs lie beyond them, so it reads
+        as scrollable: on the right until the last tab is in, on the left once the first has scrolled off.
+      */}
+      <div className="relative w-full">
       <div
         ref={listRef}
         role="tablist"
@@ -229,6 +255,20 @@ export function LifecycleTabs() {
             </button>
           );
         })}
+      </div>
+        {(["left", "right"] as const).map((side) => (
+          <span
+            key={side}
+            aria-hidden
+            className={cn(
+              "pointer-events-none absolute inset-y-0 z-2 w-12 from-cream/90 to-cream/0 backdrop-blur-[1.5px] transition-opacity duration-300 motion-reduce:transition-none xl:hidden",
+              side === "left"
+                ? "left-0 bg-linear-to-r [mask-image:linear-gradient(to_right,#000,transparent)]"
+                : "right-0 bg-linear-to-l [mask-image:linear-gradient(to_left,#000,transparent)]",
+              more[side] ? "opacity-100" : "opacity-0",
+            )}
+          />
+        ))}
       </div>
 
       <div

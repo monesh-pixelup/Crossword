@@ -1,26 +1,23 @@
 import { PolicyContents } from "./policy-contents";
 import { PrivacyContent } from "./privacy-content";
 
-/** The sidebar's contents, one per numbered section of the policy (section-01 … section-18). */
+/** The sidebar's contents, one per numbered section of the policy (section-01 … section-15). */
 const sections = [
   "Personal Information We Collect",
-  "How We Collect Your Personal Information",
+  "How We Collect Personal Information",
   "How We Use Personal Information",
-  "Sharing of Personal Information",
-  "Cookies and Other Technologies",
-  "How Long Do We Keep Your Personal Information",
-  "How We Protect Your Personal Information",
-  "Your Choices and Controls",
-  "International use of the Site",
-  "Children’s privacy",
-  "Links to third-party websites",
-  "California residents",
-  "Information for Individuals in the EU and UK",
-  "Exercising Your Individual Privacy Rights",
-  "Information for Individuals in Canada",
-  "Automated decision-making and AI",
-  "Changes to this Privacy Policy",
-  "Contact us",
+  "How We Share Personal Information",
+  "Cookies and Similar Technologies",
+  "How Long We Keep Personal Information",
+  "How We Protect Personal Information",
+  "International Transfers",
+  "Your Rights and Choices",
+  "Additional Information for Certain Regions",
+  "AI Features and Automated Decision-Making",
+  "Children’s Privacy",
+  "Third-Party Sites and Services",
+  "Changes to This Privacy Policy",
+  "Contact Us",
 ];
 
 /**
@@ -34,7 +31,7 @@ export function PrivacyBody() {
       <div className="grid content-width grid-cols-1 gap-y-12 lg:grid-cols-[313px_minmax(0,1fr)] lg:gap-x-14 lg:gap-y-0">
         <div className="pt-10 lg:sticky lg:top-[72.5px] lg:self-start lg:pb-10">
           <PolicyContents
-            updated="Last updated: July 8, 2026"
+            updated="Last updated: October 26, 2026"
             summary="Our privacy policy outlines how we collect, use, and protect your personal information."
             sections={sections}
           />

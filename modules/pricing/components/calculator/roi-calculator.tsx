@@ -26,7 +26,7 @@ function Field({
   className,
 }: {
   name: string;
-  /** The value's unit: `{ prefix: "$" }` or `{ suffix: "%" }` and the like; `label` overrides the bracketed name. */
+  /** The value's unit: `{ prefix: "$" }` or `{ suffix: "%" }` and the like; `label` overrides the bracketed name ("" for none). */
   unit: { prefix?: string; suffix?: string; label?: string };
   value: string;
   onChange: (v: string) => void;
@@ -119,7 +119,7 @@ export function RoiCalculator() {
       </div>
       <Field
         name="Average replies per conversation"
-        unit={{ suffix: "replies" }}
+        unit={{ suffix: "replies", label: "" }}
         value={replies}
         onChange={setReplies}
         placeholder={String(calculatorDefaults.repliesPerConversation)}
