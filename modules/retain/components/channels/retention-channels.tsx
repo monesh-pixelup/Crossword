@@ -37,16 +37,16 @@ export function RetentionChannels() {
           </div>
 
           {/*
-            Figma 4060:25755 (the card variation): the abandoned-visit follow-up (the shopper didn't buy, write a note,
+            Figma 4145:23163 (the workflow, desktop 1280): the abandoned-visit follow-up (the shopper didn't buy, write a note,
             choose the channel order, try each channel five minutes apart, then answer a reply or stop reaching out, and
-            end), exported as one vector at 1280 × 440 and drawn across the content width. Below 768px, Figma 4078:5972's
+            end), exported as one vector at 1280 × 649 and drawn across the content width. Below 768px, Figma 4078:5972's
             vertical version instead (353 × 641), the steps stacked and the two outcomes side by side, at the content width.
           */}
           {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
           <img
             src={flowDiagram.src}
             alt="A follow-up flow: 30 minutes after a shopper leaves without buying, write a note, choose the channel order, then try iMessage, WhatsApp, email and SMS five minutes apart; answer a reply on the same channel, or stop reaching out if it's read with no reply."
-            className="block aspect-[1280/440] h-auto w-full max-w-none max-md:hidden"
+            className="block aspect-[1280/649] h-auto w-full max-w-none max-md:hidden"
           />
           {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
           <img
