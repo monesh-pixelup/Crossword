@@ -22,6 +22,7 @@ const PLAIN_HERO = 'main[data-no-curtain] > section[aria-labelledby$="hero-title
  *   first scrolls until its foot is in view (its copy never hidden), then holds.
  * - `--rails-top`: where the page's frame rails start, the hero's foot, so they run beside the sections sliding up
  *   without drawing over the hero. Unset (the rails' own -72.5px) on a page without a hero.
+ * - `--curtain-top`: the hero's foot within `main`, where the cream backing behind the sections starts (below 992px).
  * - `--rails-shown`: `visible` once `--rails-top` is measured. On a page with a hero the rails stay hidden until then
  *   (globals.css, "Rails on a hero page"), so on load they never flash down the hero's sides at their -72.5px start.
  *
@@ -78,6 +79,8 @@ export function HeroCurtain() {
       if (next && box) {
         set("--rails-top", `${Math.round(next.getBoundingClientRect().top - box.getBoundingClientRect().top)}px`);
         set("--rails-shown", "visible");
+        // The same foot within `main`, where the cream backing behind the sections starts (globals.css, "Curtain backing").
+        set("--curtain-top", `${Math.round(next.getBoundingClientRect().top - main.getBoundingClientRect().top)}px`);
       }
     };
     // Once the sections have slid all the way over it, the hero is hidden: otherwise, stuck in view behind them, its
@@ -123,6 +126,7 @@ export function HeroCurtain() {
       root.style.removeProperty("--hero-stick");
       root.style.removeProperty("--rails-top");
       root.style.removeProperty("--rails-shown");
+      root.style.removeProperty("--curtain-top");
     };
   }, [pathname]);
 

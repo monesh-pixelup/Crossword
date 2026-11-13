@@ -388,6 +388,29 @@ main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child
   z-index: 1;
 }
 
+/*
+ * Curtain backing (phones and tablets, below 992px): a plain cream sheet from the hero's foot (`--curtain-top`,
+ * HeroCurtain) to the page's end, over the hero and under the sections. Flung fast on a phone, the browser scrolls
+ * ahead of what it has drawn; the sections' undrawn stretches are see-through, and the hero, stuck behind them, showed
+ * in those gaps until they filled in. The sheet is a layer of its own with nothing in it but its colour, which needs no
+ * drawing, so it is always there: a gap now shows the page's cream. It appears only once the foot is measured.
+ */
+@media (max-width: 991.98px) {
+  main:not([data-no-curtain]):has(> section[aria-labelledby$="hero-title"]:first-child) {
+    position: relative;
+  }
+
+  main:not([data-no-curtain]):has(> section[aria-labelledby$="hero-title"]:first-child)::after {
+    content: "";
+    position: absolute;
+    inset: var(--curtain-top, 100%) 0 0;
+    z-index: 0;
+    background-color: var(--color-cream);
+    pointer-events: none;
+    will-change: transform;
+  }
+}
+
 @layer base {
   main:not([data-no-curtain]) > section[aria-labelledby$="hero-title"]:first-child ~ * {
     position: relative;
