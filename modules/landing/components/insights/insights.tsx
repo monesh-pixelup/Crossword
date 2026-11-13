@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { ctaLinks } from "@/modules/marketing/config/navigation";
 import arrowRight from "../../assets/insights/arrow-right.svg";
 import railAccent from "../../assets/insights/rail-accent.svg";
 import sharedRailAccent from "../../assets/shared/rail-accent.svg";
@@ -37,7 +38,9 @@ export function Insights() {
             </div>
           </div>
           <Link
-            href="#insights"
+            href={ctaLinks.bookDemo}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 border-b border-[rgba(40,40,40,0.3)] p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-ink-soft transition-opacity duration-150 hover:opacity-50"
           >
             LEARN MORE

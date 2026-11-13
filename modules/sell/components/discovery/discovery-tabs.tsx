@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
+import { ctaLinks } from "@/modules/marketing/config/navigation";
 import arrowRight from "../../assets/discovery/arrow-right.svg";
 import panel from "../../assets/discovery/panel-conversational.webp";
 import { discoveryFeatures } from "../../config/discovery";
@@ -32,7 +33,9 @@ function FeatureCopy({ feature }: { feature: Feature }) {
         )}
       </div>
       <Link
-        href={feature.href}
+        href={ctaLinks.bookDemo}
+        target="_blank"
+        rel="noopener noreferrer"
         className="flex shrink-0 items-center gap-2 border-b border-[rgba(40,40,40,0.3)] bg-cream p-[2px] font-serif text-base leading-[22px] tracking-[-0.48px] max-md:text-[15px] max-md:leading-5 max-md:tracking-[-0.45px] whitespace-nowrap text-ink-soft transition-opacity duration-150 hover:opacity-50"
       >
         LEARN MORE

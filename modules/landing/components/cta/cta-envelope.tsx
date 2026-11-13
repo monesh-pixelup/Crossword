@@ -289,6 +289,8 @@ export function CtaEnvelope() {
             {/* The call to action, underlined with the site's text-link hairline (ink 30%), fading on hover like the other links. */}
             <Link
               href={ctaLinks.bookDemo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="underline decoration-[rgba(40,40,40,0.3)] decoration-1 underline-offset-[0.12em] transition-opacity duration-150 hover:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
             >
               pilot with us today

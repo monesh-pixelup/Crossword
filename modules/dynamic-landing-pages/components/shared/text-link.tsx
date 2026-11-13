@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/cn";
+import { externalLinkProps } from "@/lib/external-link";
 
 const tones = {
   /** Ink soft over a hairline at ink 30% (cream and sand grounds). */
@@ -27,6 +28,7 @@ export function TextLink({ tone = "ink", underline = true, className, children, 
         tones[tone],
         className,
       )}
+      {...externalLinkProps(props.href)}
       {...props}
     >
       {children}

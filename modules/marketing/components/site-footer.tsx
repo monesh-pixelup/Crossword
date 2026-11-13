@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { externalLinkProps } from "@/lib/external-link";
 import complianceBadges from "../assets/footer/compliance-badges.webp";
 import monogramFrame from "../assets/footer/monogram-frame.svg";
 import stamp from "../assets/footer/stamp.webp";
@@ -21,7 +22,7 @@ function FooterLinkItem({ link }: { link: FooterLink }) {
   }
   return (
     <li className={`${linkText} ${linkSize}`}>
-      <Link href={link.href} className="text-on-dark transition-colors hover:text-white">
+      <Link href={link.href} {...externalLinkProps(link.href)} className="text-on-dark transition-colors hover:text-white">
         {link.label}
       </Link>
     </li>

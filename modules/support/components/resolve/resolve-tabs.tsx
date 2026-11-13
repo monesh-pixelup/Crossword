@@ -26,7 +26,7 @@ function CaseCopy({ item }: { item: Case }) {
           <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{item.label}</h3>
           <p className="max-w-[595px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{item.description}</p>
         </div>
-        <TextLink href={ctaLinks.learnMore}>LEARN MORE</TextLink>
+        <TextLink href={ctaLinks.bookDemo}>LEARN MORE</TextLink>
       </div>
     </>
   );

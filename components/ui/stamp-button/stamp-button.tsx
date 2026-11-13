@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/cn";
+import { externalLinkProps } from "@/lib/external-link";
 import studGold from "./assets/stud-gold.svg";
 import studGoldFaint from "./assets/stud-gold-faint.svg";
 import studGoldFaintSm from "./assets/stud-gold-faint-sm.svg";
@@ -100,7 +101,7 @@ export function StampButton({
   ...props
 }: StampButtonProps) {
   return (
-    <Link className={cn(base, variants[variant].frame, className)} {...props}>
+    <Link className={cn(base, variants[variant].frame, className)} {...externalLinkProps(props.href)} {...props}>
       {children}
       <StampStuds variant={variant} />
     </Link>

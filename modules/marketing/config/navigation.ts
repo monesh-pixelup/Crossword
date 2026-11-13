@@ -74,7 +74,8 @@ export const primaryNav: NavItem[] = [
 
 export const ctaLinks = {
   signUp: "#sign-up",
-  bookDemo: "#book-a-demo",
+  /** The demo booking page (Calendly); links to it open in a new tab (externalLinkProps). */
+  bookDemo: "https://calendly.com/melissa-crossword/30min",
   learnMore: "#learn-more",
 } as const;
 
