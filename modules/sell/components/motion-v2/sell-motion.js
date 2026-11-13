@@ -3666,7 +3666,11 @@ function HumanModeV2ChaptersMotion({ mweb = false } = {}) {
   // Site: each chapter hands over to the next as a fresh run (`pick`), and the last back to the first, so the three
   // play on a loop. A chapter that had already played was otherwise reused as it was: its chat already finished, it
   // never reported done again (the steps stuck there), while its progress bar still ran from its old timing.
-  const next = (i) => () => pick(i < 2 ? i + 1 : 0);
+  // Only the open chapter hands over: one left behind (a tab was chosen, or the open one replayed) could otherwise
+  // finish in the background and jump the steps on mid-way through the chapter now playing.
+  const next = (i) => () => {
+    if (chapterRef.current === i) pick(i < 2 ? i + 1 : 0);
+  };
   useEffect(() => () => window.clearTimeout(swap.current), []);
   const [runs, setRuns] = useState([0, 0, 0]);
   const pick = (i) => {
@@ -3902,7 +3906,7 @@ function KnowsWhenToHelp({ play, onDone, rig }) {
       /* @__PURE__ */ jsx("span", { className: "piw2-orb gjmm-orb", "aria-label": "Open chat", children: /* @__PURE__ */ jsx(BrandMark, { brand, className: "gjm-orb-mark" }) })
     ] }),
     /* @__PURE__ */ jsx("div", { className: "gjm-scrim gjmm-scrim" }),
-    /* @__PURE__ */ jsx("div", { className: "gjmm-sheet-slot", children: /* @__PURE__ */ jsx(Sheet, { beats: helpBeats, active: risen, onDone, cam: rig && { rig, phone: 0, nudge: true, open: stage === "open", pre: approach, armed: play, preMs: IDLE_MS$1 + CAMERA_LEAD_MS + NUDGE_MS + PRESS_MS$1 + RISE_MS$1 }, children: (t, animate) => /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx("div", { className: "gjmm-sheet-slot", children: /* @__PURE__ */ jsx(Sheet, { beats: helpBeats, active: risen && play, onDone, cam: rig && { rig, phone: 0, nudge: true, open: stage === "open", pre: approach, armed: play, preMs: IDLE_MS$1 + CAMERA_LEAD_MS + NUDGE_MS + PRESS_MS$1 + RISE_MS$1 }, children: (t, animate) => /* @__PURE__ */ jsxs(Fragment, { children: [
       /* @__PURE__ */ jsx("p", { className: "gj2-msg gj2-msg--ai", children: proactiveMessage }),
       t.passed("ask") && /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx(User, { text: userMessage, animate }),
@@ -4010,7 +4014,7 @@ function RisingScreen({ play, storefront, children }) {
     storefront,
     /* @__PURE__ */ jsx("div", { className: "gjm-launcher hm2-launcher", children: /* @__PURE__ */ jsx("span", { className: "piw2-orb gjmm-orb", "aria-label": "Open chat", children: /* @__PURE__ */ jsx(BrandMark, { brand, className: "gjm-orb-mark" }) }) }),
     /* @__PURE__ */ jsx("div", { className: "gjm-scrim gjmm-scrim" }),
-    /* @__PURE__ */ jsx("div", { className: "gjmm-sheet-slot", children: children(risen) })
+    /* @__PURE__ */ jsx("div", { className: "gjmm-sheet-slot", children: children(risen && play) })
   ] });
 }
 function Sheet({ beats, active, onDone, cam, children }) {
