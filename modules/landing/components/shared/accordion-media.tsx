@@ -36,6 +36,11 @@ type AccordionMediaProps = {
    * a plus on the closed items and a minus on the open one.
    */
   toggleIcon?: boolean;
+  /**
+   * A maroon progress loader (as the site's other tabs): a 1.5px line filling along the open item's rule over its turn,
+   * then the next item takes over. Only side by side (from 992px) when the stacked layout is an accordion.
+   */
+  progress?: boolean;
 };
 
 /** The stacked accordion's open / close: the row eases its height while the media fades. */
@@ -63,6 +68,7 @@ export function AccordionMedia({
   lastRule = spacedRules,
   stackedAccordion = false,
   toggleIcon = false,
+  progress = false,
 }: AccordionMediaProps) {
   // Which layout is showing (null until known), when the stacked layout is an accordion: only its media is drawn.
   const [wide, setWide] = useState<boolean | null>(null);
@@ -76,7 +82,7 @@ export function AccordionMedia({
   }, [stackedAccordion]);
   const accordion = stackedAccordion && wide !== true;
 
-  const { active, plays, root, open } = useAutoplayTabs(turns, { manual: accordion });
+  const { active, plays, root, fills, open } = useAutoplayTabs(turns, { manual: accordion });
 
   // The accordion item closing as another opens, kept drawn until it has eased shut.
   const [closing, setClosing] = useState<number | null>(null);
@@ -203,15 +209,34 @@ export function AccordionMedia({
                 </div>
               )}
               {/* The open item's rule is 1px black/30; the others' a 0.5px black/20 line. None under the last, unless `spacedRules`. */}
-              {(i !== last || lastRule) && (
+              {/* With `progress`, the last item gets a bare track (no rule drawn) while it's open, so its loader shows too. */}
+              {(i !== last || lastRule || (progress && on)) && (
                 <span
                   aria-hidden
                   className={cn(
                     "w-full shrink-0 transition-[margin] duration-300 ease-out",
-                    on ? "h-px bg-black/30" : "h-0 shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]",
+                    on ? (i !== last || lastRule ? "h-px bg-black/30" : "h-px") : "h-0 shadow-[0_0_0_0.25px_rgba(0,0,0,0.2)]",
                     on && spacedRules && "mt-2",
+                    progress && "relative",
+                    // The bare track goes where its loader isn't drawn (the stacked accordion), so it adds no gap there.
+                    i === last && !lastRule && stackedAccordion && "max-lg:hidden",
                   )}
-                />
+                >
+                  {/* The open item's loader: grown along the rule by useAutoplayTabs (its `scale`), paused off screen. */}
+                  {progress && on && (
+                    <span
+                      ref={(el) => {
+                        fills.current[i] = el;
+                      }}
+                      aria-hidden
+                      className={cn(
+                        "pointer-events-none absolute top-1/2 left-0 h-[1.5px] w-full -translate-y-1/2 origin-left bg-maroon",
+                        stackedAccordion && "max-lg:hidden",
+                      )}
+                      style={{ scale: "0 1" }}
+                    />
+                  )}
+                </span>
               )}
             </div>
           );

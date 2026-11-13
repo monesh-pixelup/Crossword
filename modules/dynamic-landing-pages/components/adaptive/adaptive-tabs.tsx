@@ -62,8 +62,8 @@ function Mark({ id, on }: { id: AdaptiveId; on: boolean }) {
  * where the tabs would be squeezed into a sliver, the photo stacks over them at the visual's 738:760 shape,
  * and under 768px the tabs pad 24px in rather than 40px.
  *
- * As the guidelines ask (P1, P7, 11.6), the cycle pauses off screen, while a mouse is over the tab
- * column, and while a tab has keyboard focus. A click doesn't count as focus here, so choosing a tab
+ * As the guidelines ask (P1, P7, 11.6), the cycle pauses off screen and while a tab has keyboard
+ * focus (not on hover, by request). A click doesn't count as focus here, so choosing a tab
  * with the mouse never leaves the cycle stuck. Under reduced motion the bar sits full and nothing
  * advances.
  *
@@ -128,8 +128,7 @@ export function AdaptiveTabs() {
     tabs.current[next]?.focus();
   };
 
-  // Hover is left to CSS (group-hover below): :hover stays right while the page scrolls under a
-  // still pointer, where pointerleave often doesn't fire, which used to leave the bar paused.
+  // Hovering the tabs doesn't pause the bar (by request): it pauses only off screen or while a tab has keyboard focus.
   const running = visible && !keyboardFocus;
 
   return (
@@ -220,7 +219,7 @@ export function AdaptiveTabs() {
                     aria-hidden
                     data-paused={!running || undefined}
                     onAnimationEnd={() => select(active === adaptiveFeatures.length - 1 ? 0 : active + 1)}
-                    className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-3 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-maroon group-hover/tabs:[animation-play-state:paused] data-paused:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none"
+                    className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-3 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-maroon data-paused:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none"
                     style={{ animationDuration: `${turns[i]}ms` }}
                   />
                 )}

@@ -27,6 +27,8 @@ export function RecoveryList() {
       stackedAccordion
       // There, the FAQ's plus / minus opens and closes each moment.
       toggleIcon
+      // Side by side, the open moment's maroon progress loader along its rule.
+      progress
       renderPanel={(active) => <RecoveryMotion index={active} />}
     />
   );

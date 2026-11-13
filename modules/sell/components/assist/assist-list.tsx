@@ -24,6 +24,8 @@ export function AssistList() {
       stackedAccordion
       // There, the FAQ's plus / minus opens and closes each feature.
       toggleIcon
+      // Side by side, the open feature's maroon progress loader along its rule.
+      progress
       renderPanel={(active) => (
         <ScenePanel scene={assistScenes[assistFeatures[active].scene]} root={SellMotionRoot} maxScale={Infinity} />
       )}

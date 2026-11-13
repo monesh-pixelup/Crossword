@@ -20,14 +20,15 @@ export function QuoteAccordion({ quotes }: { quotes: LoggedInQuote[] }) {
       items={quotes.map((quote) => ({ title: quote.quote, description: quote.description }))}
       turns={turns}
       label="What signed-in customers ask"
-      // Figma 3305:957: the panel ends 7px short of the content edge; the open quote's rule 32px under it (3305:920), none under the last.
+      // Figma 3305:957: the panel ends 7px short of the content edge; the open quote's rule 32px under it (3305:920), and one under the last too, as the other tabs.
       panelClassName="bg-aubergine lg:mr-[7px]"
       spacedRules
-      lastRule={false}
       // Below 992px each quote's visual opens under it, accordion-style, and they change only when tapped.
       stackedAccordion
       // There, the FAQ's plus / minus opens and closes each quote.
       toggleIcon
+      // Side by side, the open quote's maroon progress loader along its rule.
+      progress
       panelBackground={<Image src={panelArt} alt="" fill sizes="(min-width: 1024px) 687px, 100vw" className="object-cover" />}
       renderPanel={(active) => {
         const slug = quotes[active].scene;

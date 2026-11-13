@@ -134,7 +134,7 @@ export function TriggerTabs() {
                   key={run}
                   aria-hidden
                   onAnimationEnd={() => select(active === proactiveTriggers.length - 1 ? 0 : active + 1)}
-                  className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold motion-reduce:w-full motion-reduce:animate-none"
+                  className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-maroon motion-reduce:w-full motion-reduce:animate-none"
                   style={{ animationDuration: `${duration}ms`, animationPlayState: visible ? "running" : "paused" }}
                 />
               )}
