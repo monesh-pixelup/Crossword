@@ -1,6 +1,6 @@
 "use client";
 
-import { type ComponentType, useCallback, useEffect, useRef, useState } from "react";
+import { type ComponentType, useEffect, useRef, useState } from "react";
 import type { InsightVisual } from "../../config/insights";
 import type { LifecycleVisual } from "../../config/lifecycle";
 import {
@@ -15,16 +15,16 @@ import {
   RetentionGrowthMotion,
   RevenueAttributionMotion,
   ServiceResolutionMotion,
+  SponsoredComparisonMobileMotion,
   SponsoredComparisonMotion,
 } from "./home-v2";
-import { HomeMobileMotion, SponsoredComparisonMobileMotion } from "./home-v2-mobile";
 import frameTexture from "./home-v2/assets/background-texture.webp";
 import frameBackground from "./home-v2/assets/icons/scene-frame-background.svg";
 
 /**
- * Home v2's 40px chat window (the 11 November 2026 changes to 01, 04 and 05): the visual inside a `display: contents`
- * `.hv2-r40` wrapper, so layout is unchanged and only these visuals' `.gj2-win` corners go from the shared 28px to 40px
- * (home-motion.css).
+ * Home v2's chat window on 01, 04 and 05, as the source page wraps them: the visual inside a `display: contents`
+ * `.hv2-r40` wrapper, so layout is unchanged and only these visuals' `.gj2-win` takes the page's outer-window standard
+ * (24px corners under `.hv2`, home-motion.css).
  */
 const r40 = (C: ComponentType) =>
   function R40() {
@@ -86,7 +86,7 @@ export const lifecycleVisuals: Record<LifecycleVisual, Visual> = {
   "personal-agents": {
     Component: PersonalAgentsMotion,
     label:
-      "A shopper's personal agent asks Crossword about products and offers on their behalf, then answers the shopper with the picks",
+      "A shopper asks their personal agent Muse for a daily moisturiser under $50; Muse asks Sorelle Labs through Crossword and answers with two picks, one with a free gift",
   },
 };
 
@@ -159,7 +159,7 @@ export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run:
         // switching tabs changes the visual alone. Both are `!important`: home-motion.css is outside any @layer, so it
         // beats a plain utility, and the visuals' own backdrops (a crimson picture with its gold rule baked in about 1px
         // off this frame's, on the visuals without a chat scene) drew over the card, its inner border jumping between tabs.
-        "[&_:is(.adj,.ais,.pa,.aia-canvas,.ask,.hm-ill-scene-frame--sized,.hm-ill-sponsored-frame)]:[background:none]!",
+        "[&_:is(.adj,.ais,.pa,.pap-canvas,.aia-canvas,.ask,.hm-ill-scene-frame--sized,.hm-ill-sponsored-frame)]:[background:none]!",
         "[&_:is(.hm-ill-scene-frame\\_\\_background,.hm-ill-scene-frame\\_\\_texture,.hm-ill-sponsored-frame\\_\\_texture,.hm-ill-sponsored-frame\\_\\_outline,.hm-ill-sponsored-frame\\_\\_dot,.hm-ill-insight-frame\\_\\_background)]:hidden!",
       ].join(" ")}
     >
@@ -217,29 +217,12 @@ export function InsightPanel({ visual, run }: { visual: InsightVisual; run: numb
  *
  * Below 768px it's 08m instead, the same story laid out for a phone (353 × 440 at 1:1, its own gold-edged browser
  * window), zoomed to the column the same way. Each only plays once on screen, so the hidden one never runs.
+ *
+ * Both loop on their own, as the source plays them: the finished comparison holds 7s, the page dissolves and the
+ * window closes back to the search results, then it plays again (the ad held more briefly on replays).
  */
-/** How long the Shopper experience holds its finished frame before it plays again. */
-const SHOPPER_LOOP_HOLD_MS = 2000;
-
-/**
- * Loops a visual: once it reports its run done, waits SHOPPER_LOOP_HOLD_MS, then counts a new run (the visual is
- * keyed by it, so it replays from the start). Replays start at once, without the first run's delay.
- */
-function useLoopAfterHold() {
-  const [loop, setLoop] = useState(0);
-  const timer = useRef(0);
-  useEffect(() => () => window.clearTimeout(timer.current), []);
-  const onDone = useCallback(() => {
-    window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setLoop((n) => n + 1), SHOPPER_LOOP_HOLD_MS);
-  }, []);
-  return [loop, onDone] as const;
-}
-
 export function ShopperPanel() {
   const [ref, replay] = useReplayOnReturn();
-  const [loop, onDone] = useLoopAfterHold();
-  const [mobileLoop, onMobileDone] = useLoopAfterHold();
   const label =
     "A shopper searches for Gillette, clicks Harry's sponsored comparison, and lands on a Harry's product page where Crossword compares the razor with Gillette's to win the sale";
   return (
@@ -251,7 +234,7 @@ export function ShopperPanel() {
       >
         <div inert className="contents">
           <HomeMotion>
-            <SponsoredComparisonMotion key={`${replay}-${loop}`} startDelayMs={loop ? 0 : 600} onDone={onDone} />
+            <SponsoredComparisonMotion key={replay} />
           </HomeMotion>
         </div>
       </div>
@@ -261,9 +244,9 @@ export function ShopperPanel() {
         className="relative h-[440px] w-[353px] shrink-0 overflow-clip select-none scale-to-container [--fit-width:353px] md:hidden"
       >
         <div inert className="contents">
-          <HomeMobileMotion>
-            <SponsoredComparisonMobileMotion key={`${replay}-${mobileLoop}`} startDelayMs={mobileLoop ? 0 : 600} onDone={onMobileDone} />
-          </HomeMobileMotion>
+          <HomeMotion>
+            <SponsoredComparisonMobileMotion key={replay} />
+          </HomeMotion>
         </div>
       </div>
     </div>

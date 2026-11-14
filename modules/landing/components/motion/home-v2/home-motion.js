@@ -1,7 +1,8 @@
 "use client";
 
-// Built from the "Crossword — Home v2 Motion (01–11)" source (Crossword-Homev2-Motion-01-11/source) with Vite,
-// unminified, React external. See ./index.tsx for the mechanical changes.
+// Built from the "Crossword — Home page visuals (v2, motion)" source of 15 November 2026 (Crossword-Homev2-Motion/source)
+// with Vite, unminified, React external: the 12 visuals, 01–11 and 08m. See ./index.tsx for the mechanical changes;
+// the few site changes are marked "Site".
 
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import { useState, useEffect, useRef, useLayoutEffect, Fragment as Fragment$1, createContext, forwardRef, useMemo, useContext } from "react";
@@ -384,6 +385,7 @@ const aurelia = {
   tracking: "-0.025em",
   imageDirection: "Merchant workflow modules; no retail product imagery.",
   logomarkPath: "src/assets/brands/supplied/aurelia-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelia.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelia-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -399,6 +401,7 @@ const marais = {
   tracking: "0.12em",
   imageDirection: "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
   logomarkPath: "src/assets/brands/supplied/marais-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/marais.png",
   identitySourcePath: "src/assets/brands/supplied/marais-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -414,6 +417,7 @@ const goodwell = {
   tracking: "-0.025em",
   imageDirection: "Plum-labelled jars on soft lavender backgrounds.",
   logomarkPath: "src/assets/brands/supplied/goodwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/goodwell.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/goodwell-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -432,7 +436,8 @@ const moonrest = {
   wordmarkPath: "src/assets/brands/placeholders/moonrest-wordmark.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/moonrest-badge.svg",
-  wordmarkTreatment: "plain-text"
+  wordmarkTreatment: "plain-text",
+  logomarkRasterPath: "src/assets/brands/logomarks/moonrest.png"
 };
 const dusklight = {
   name: "Dusklight",
@@ -445,6 +450,7 @@ const dusklight = {
   tracking: "-0.025em",
   imageDirection: "Sculptural lighting in muted dusk neutrals.",
   logomarkPath: "src/assets/brands/supplied/dusklight-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/dusklight.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/dusklight-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -460,6 +466,7 @@ const crestline = {
   tracking: "0.12em",
   imageDirection: "Graphite and ivory outdoor equipment on neutral studio backgrounds.",
   logomarkPath: "src/assets/brands/supplied/crestline-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/crestline.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/crestline-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -475,6 +482,7 @@ const brewhaus = {
   tracking: "0.12em",
   imageDirection: "Brushed steel machines and cream coffee packaging; warm studio light.",
   logomarkPath: "src/assets/brands/supplied/brewhaus-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/brewhaus.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/brewhaus-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -488,7 +496,12 @@ const waveline = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents."
+  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents.",
+  logomarkPath: "src/assets/brands/logomarks/source/waveline.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/waveline.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/waveline.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aura = {
   name: "Aura",
@@ -501,6 +514,7 @@ const aura = {
   tracking: "0.12em",
   imageDirection: "Ivory earbud shells with small uppercase branding.",
   logomarkPath: "src/assets/brands/supplied/aura-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aura.png",
   identitySourcePath: "src/assets/brands/supplied/aura-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -514,7 +528,12 @@ const auden = {
   font: 'var(--font-face-inter-motion), system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants."
+  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants.",
+  logomarkPath: "src/assets/brands/logomarks/source/auden.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/auden.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/auden.svg",
+  wordmarkTreatment: "plain-text"
 };
 const lumen = {
   name: "Lumen",
@@ -525,7 +544,12 @@ const lumen = {
   font: 'var(--font-face-inter-motion), system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging."
+  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging.",
+  logomarkPath: "src/assets/brands/logomarks/source/lumen.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/lumen.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/lumen.svg",
+  wordmarkTreatment: "plain-text"
 };
 const trailwell = {
   name: "Trailwell",
@@ -538,6 +562,7 @@ const trailwell = {
   tracking: "-0.025em",
   imageDirection: "Outdoor utility, olive fabric and durable metal bottles.",
   logomarkPath: "src/assets/brands/supplied/trailwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/trailwell.png",
   identitySourcePath: "src/assets/brands/supplied/trailwell-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -553,6 +578,7 @@ const stride = {
   tracking: "-0.025em",
   imageDirection: "Minimal footwear; black, tan and white are separate image assets, never CSS colour filters.",
   logomarkPath: "src/assets/brands/supplied/stride-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/stride.png",
   identitySourcePath: "src/assets/brands/supplied/stride-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -566,7 +592,12 @@ const vela = {
   font: 'var(--font-face-inter-motion), system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Muted rose and charcoal styling tools."
+  imageDirection: "Muted rose and charcoal styling tools.",
+  logomarkPath: "src/assets/brands/logomarks/source/vela.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/vela.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/vela.svg",
+  wordmarkTreatment: "plain-text"
 };
 const formwork = {
   name: "Formwork",
@@ -577,7 +608,12 @@ const formwork = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair."
+  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair.",
+  logomarkPath: "src/assets/brands/logomarks/source/formwork.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/formwork.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/formwork.svg",
+  wordmarkTreatment: "plain-text"
 };
 const proteinmax = {
   name: "Proteinmax",
@@ -590,6 +626,7 @@ const proteinmax = {
   tracking: "0.12em",
   imageDirection: "Black protein tubs, red accents and consistent PROTEINMAX labels.",
   logomarkPath: "src/assets/brands/supplied/proteinmax-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/proteinmax.png",
   identitySourcePath: "src/assets/brands/supplied/proteinmax-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -603,7 +640,12 @@ const hearthware = {
   font: 'var(--font-face-inter-motion), system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting."
+  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting.",
+  logomarkPath: "src/assets/brands/logomarks/source/hearthware.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/hearthware.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/hearthware.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aeria = {
   name: "Aeria",
@@ -614,7 +656,12 @@ const aeria = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks."
+  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks.",
+  logomarkPath: "src/assets/brands/logomarks/source/aeria.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aeria.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/aeria.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aurelle = {
   name: "Aurelle",
@@ -627,6 +674,7 @@ const aurelle = {
   tracking: "-0.025em",
   imageDirection: "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
   logomarkPath: "src/assets/brands/supplied/aurelle-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelle.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelle-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -645,6 +693,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
     logomarkPath: "src/assets/brands/supplied/sorelle-labs-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/sorelle-labs.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/sorelle-labs-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -662,6 +711,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
     logomarkPath: "src/assets/brands/supplied/amber-and-oak-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/amber-and-oak.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/amber-and-oak-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -680,7 +730,12 @@ const registry = {
     font: 'var(--font-playfair-display), Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces."
+    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces.",
+    logomarkPath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/holt-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   auden,
   lumen,
@@ -698,7 +753,12 @@ const registry = {
     font: 'var(--font-face-inter-motion), system-ui, sans-serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding."
+    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding.",
+    logomarkPath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/echo-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   hearthware,
   aeria,
@@ -1313,14 +1373,37 @@ const __vite_glob_0_10 = "/images/landing/home-v2/assets/proteinmax-mark-CAjpFhM
 const __vite_glob_0_11 = "/images/landing/home-v2/assets/sorelle-labs-mark-CQBfsdpQ.svg";
 const __vite_glob_0_12 = "/images/landing/home-v2/assets/stride-mark-BhAcSYrg.svg";
 const __vite_glob_0_13 = "/images/landing/home-v2/assets/trailwell-mark-DWHfUX1B.svg";
-const __vite_glob_1_0 = "/images/landing/home-v2/assets/amber-and-oak-mark-DyBTEnHG.svg";
-const __vite_glob_1_1 = "/images/landing/home-v2/assets/aurelia-mark-WAhMDRAF.svg";
-const __vite_glob_1_2 = "/images/landing/home-v2/assets/aurelle-mark-CkALuNbG.svg";
-const __vite_glob_1_3 = "/images/landing/home-v2/assets/brewhaus-mark-CPBhNKZi.svg";
-const __vite_glob_1_4 = "/images/landing/home-v2/assets/crestline-mark-x07nlP5x.svg";
-const __vite_glob_1_5 = "/images/landing/home-v2/assets/dusklight-mark-BxLi6ckI.svg";
-const __vite_glob_1_6 = "/images/landing/home-v2/assets/moonrest-mark-C1S3y54t.svg";
-const __vite_glob_1_7 = "/images/landing/home-v2/assets/sorelle-labs-mark-DwV8-BRm.svg";
+const __vite_glob_1_0 = "/images/landing/home-v2/assets/aeria-YYq39Tmj.webp";
+const __vite_glob_1_1 = "/images/landing/home-v2/assets/amber-and-oak-B_E1LHFp.webp";
+const __vite_glob_1_2 = "/images/landing/home-v2/assets/auden-D6bviGYb.webp";
+const __vite_glob_1_3 = "/images/landing/home-v2/assets/aura-9M4MUBrO.webp";
+const __vite_glob_1_4 = "/images/landing/home-v2/assets/aurelia-DIkgKc6E.webp";
+const __vite_glob_1_5 = "/images/landing/home-v2/assets/aurelle-D4MmoaJI.webp";
+const __vite_glob_1_6 = "/images/landing/home-v2/assets/brewhaus-nqvL_9rd.webp";
+const __vite_glob_1_7 = "/images/landing/home-v2/assets/crestline-10BYG1fb.webp";
+const __vite_glob_1_8 = "/images/landing/home-v2/assets/dusklight-D4BTEpTH.webp";
+const __vite_glob_1_9 = "/images/landing/home-v2/assets/echo-and-co-v-USWRkm.webp";
+const __vite_glob_1_10 = "/images/landing/home-v2/assets/formwork-D1yGSW-s.webp";
+const __vite_glob_1_11 = "/images/landing/home-v2/assets/goodwell-D-tqaLX2.webp";
+const __vite_glob_1_12 = "/images/landing/home-v2/assets/hearthware-BV2ZsyEY.webp";
+const __vite_glob_1_13 = "/images/landing/home-v2/assets/holt-and-co-CNH9FNcC.webp";
+const __vite_glob_1_14 = "/images/landing/home-v2/assets/lumen-BKTnlTLa.webp";
+const __vite_glob_1_15 = "/images/landing/home-v2/assets/marais-vhL6aN8y.webp";
+const __vite_glob_1_16 = "/images/landing/home-v2/assets/moonrest-jpQQ4DyZ.webp";
+const __vite_glob_1_17 = "/images/landing/home-v2/assets/proteinmax-CfxeVd4u.webp";
+const __vite_glob_1_18 = "/images/landing/home-v2/assets/sorelle-labs-CQqgbOme.webp";
+const __vite_glob_1_19 = "/images/landing/home-v2/assets/stride-BjAZUFR_.webp";
+const __vite_glob_1_20 = "/images/landing/home-v2/assets/trailwell-vb-FA88_.webp";
+const __vite_glob_1_21 = "/images/landing/home-v2/assets/vela-qtSHjO_9.webp";
+const __vite_glob_1_22 = "/images/landing/home-v2/assets/waveline-BNXG9I4L.webp";
+const __vite_glob_2_0 = "/images/landing/home-v2/assets/amber-and-oak-mark-DyBTEnHG.svg";
+const __vite_glob_2_1 = "/images/landing/home-v2/assets/aurelia-mark-WAhMDRAF.svg";
+const __vite_glob_2_2 = "/images/landing/home-v2/assets/aurelle-mark-CkALuNbG.svg";
+const __vite_glob_2_3 = "/images/landing/home-v2/assets/brewhaus-mark-CPBhNKZi.svg";
+const __vite_glob_2_4 = "/images/landing/home-v2/assets/crestline-mark-x07nlP5x.svg";
+const __vite_glob_2_5 = "/images/landing/home-v2/assets/dusklight-mark-BxLi6ckI.svg";
+const __vite_glob_2_6 = "/images/landing/home-v2/assets/moonrest-mark-C1S3y54t.svg";
+const __vite_glob_2_7 = "/images/landing/home-v2/assets/sorelle-labs-mark-DwV8-BRm.svg";
 const goodwellMark = "/images/landing/home-v2/assets/goodwell-mark-D2M8-7dz.svg";
 const normalise = (name) => name.toLowerCase().replace(/[^a-z0-9]/g, "");
 function getBrand(name) {
@@ -1365,21 +1448,23 @@ const marks = {
   aeria: "M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h5"
 };
 const suppliedMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/supplied/amber-and-oak-mark.svg": __vite_glob_0_0, "../assets/brands/supplied/aura-mark.svg": __vite_glob_0_1, "../assets/brands/supplied/aurelia-mark.svg": __vite_glob_0_2, "../assets/brands/supplied/aurelle-mark.svg": __vite_glob_0_3, "../assets/brands/supplied/brewhaus-mark.svg": __vite_glob_0_4, "../assets/brands/supplied/crestline-mark.svg": __vite_glob_0_5, "../assets/brands/supplied/dusklight-mark.svg": __vite_glob_0_6, "../assets/brands/supplied/goodwell-mark.svg": __vite_glob_0_7, "../assets/brands/supplied/marais-mark.svg": __vite_glob_0_8, "../assets/brands/supplied/moonrest-mark.svg": __vite_glob_0_9, "../assets/brands/supplied/proteinmax-mark.svg": __vite_glob_0_10, "../assets/brands/supplied/sorelle-labs-mark.svg": __vite_glob_0_11, "../assets/brands/supplied/stride-mark.svg": __vite_glob_0_12, "../assets/brands/supplied/trailwell-mark.svg": __vite_glob_0_13 });
+const rasterMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/logomarks/aeria.png": __vite_glob_1_0, "../assets/brands/logomarks/amber-and-oak.png": __vite_glob_1_1, "../assets/brands/logomarks/auden.png": __vite_glob_1_2, "../assets/brands/logomarks/aura.png": __vite_glob_1_3, "../assets/brands/logomarks/aurelia.png": __vite_glob_1_4, "../assets/brands/logomarks/aurelle.png": __vite_glob_1_5, "../assets/brands/logomarks/brewhaus.png": __vite_glob_1_6, "../assets/brands/logomarks/crestline.png": __vite_glob_1_7, "../assets/brands/logomarks/dusklight.png": __vite_glob_1_8, "../assets/brands/logomarks/echo-and-co.png": __vite_glob_1_9, "../assets/brands/logomarks/formwork.png": __vite_glob_1_10, "../assets/brands/logomarks/goodwell.png": __vite_glob_1_11, "../assets/brands/logomarks/hearthware.png": __vite_glob_1_12, "../assets/brands/logomarks/holt-and-co.png": __vite_glob_1_13, "../assets/brands/logomarks/lumen.png": __vite_glob_1_14, "../assets/brands/logomarks/marais.png": __vite_glob_1_15, "../assets/brands/logomarks/moonrest.png": __vite_glob_1_16, "../assets/brands/logomarks/proteinmax.png": __vite_glob_1_17, "../assets/brands/logomarks/sorelle-labs.png": __vite_glob_1_18, "../assets/brands/logomarks/stride.png": __vite_glob_1_19, "../assets/brands/logomarks/trailwell.png": __vite_glob_1_20, "../assets/brands/logomarks/vela.png": __vite_glob_1_21, "../assets/brands/logomarks/waveline.png": __vite_glob_1_22 });
 const placeholderMarks = /* @__PURE__ */ Object.assign({
-  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_1_0,
-  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_1_1,
-  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_1_2,
-  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_1_3,
-  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_1_4,
-  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_1_5,
-  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_1_6,
-  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_1_7
+  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_2_0,
+  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_2_1,
+  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_2_2,
+  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_2_3,
+  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_2_4,
+  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_2_5,
+  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_2_6,
+  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_2_7
 });
 function BrandMark({
   brand: name,
   className = ""
 }) {
   const brand2 = getBrand(name);
+  const raster = rasterMarks[`../assets/brands/logomarks/${brand2.id}.png`];
   const supplied = suppliedMarks[`../assets/brands/supplied/${brand2.id}-mark.svg`];
   return /* @__PURE__ */ jsx(
     "span",
@@ -1387,9 +1472,9 @@ function BrandMark({
       className: `demo-brand-mark ${className}`,
       style: brandStyle(name),
       "data-brand-id": brand2.id,
-      "data-identity-asset": supplied ? "supplied" : "placeholder",
+      "data-identity-asset": raster ? "raster-logomark" : supplied ? "supplied" : "placeholder",
       "aria-hidden": "true",
-      children: supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: supplied, alt: "" }) : brand2.id === "aurelle" || brand2.id === "goodwell" ? /* @__PURE__ */ jsx(
+      children: raster || supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: raster ?? supplied, alt: "" }) : brand2.id === "aurelle" || brand2.id === "goodwell" ? /* @__PURE__ */ jsx(
         "img",
         {
           src: brand2.id === "aurelle" ? placeholderMarks["../assets/brands/placeholders/aurelle-mark.svg"] : goodwellMark,
@@ -1444,7 +1529,7 @@ function BrandWordmark({
     /* @__PURE__ */ jsx(BrandName, { brand: brand2 })
   ] });
 }
-const brand$5 = "Aurelle";
+const brand$6 = "Aurelle";
 const turn1$2 = {
   userMessage: "I need a birthday gift for my wife. She has pretty expensive taste, but my budget doesn't really match it this year.",
   assistantMessage: "Let's find something that still feels special without stretching your budget — here are three pieces under $150 that read more expensive than they cost.",
@@ -1452,9 +1537,9 @@ const turn1$2 = {
   followups: ["More like the pendant", "Show rose gold", "Under $100"]
 };
 const firstPicks = [
-  { ...catalog.aurelleAnklet, brand: brand$5, rating: 4, ratingCount: "312", image: catalog.aurelleAnklet.image },
-  { ...catalog.aurellePendant, brand: brand$5, rating: 5, ratingCount: "1.1k", image: catalog.aurellePendant.image, imageFit: "cover" },
-  { ...catalog.aurelleBracelet, brand: brand$5, rating: 4, ratingCount: "487", image: catalog.aurelleBracelet.image }
+  { ...catalog.aurelleAnklet, brand: brand$6, rating: 4, ratingCount: "312", image: catalog.aurelleAnklet.image },
+  { ...catalog.aurellePendant, brand: brand$6, rating: 5, ratingCount: "1.1k", image: catalog.aurellePendant.image, imageFit: "cover" },
+  { ...catalog.aurelleBracelet, brand: brand$6, rating: 4, ratingCount: "487", image: catalog.aurelleBracelet.image }
 ];
 const turn2$2 = {
   userMessage: "I like the middle one. Can you show me more styles like that, in rose gold?",
@@ -1462,9 +1547,9 @@ const turn2$2 = {
   followups: ["Add the first one to my cart", "Compare these", "Is gift wrap free?"]
 };
 const pendants = [
-  { ...catalog.aurelleRosePendant, brand: brand$5, rating: 5, ratingCount: "860", image: catalog.aurelleRosePendant.image, imageFit: "cover" },
-  { ...catalog.aurelleHalo, brand: brand$5, rating: 5, ratingCount: "402", image: catalog.aurelleHalo.image, imageFit: "cover" },
-  { ...catalog.aurelleBar, brand: brand$5, rating: 4, ratingCount: "275", image: catalog.aurelleBar.image, imageFit: "cover" }
+  { ...catalog.aurelleRosePendant, brand: brand$6, rating: 5, ratingCount: "860", image: catalog.aurelleRosePendant.image, imageFit: "cover" },
+  { ...catalog.aurelleHalo, brand: brand$6, rating: 5, ratingCount: "402", image: catalog.aurelleHalo.image, imageFit: "cover" },
+  { ...catalog.aurelleBar, brand: brand$6, rating: 4, ratingCount: "275", image: catalog.aurelleBar.image, imageFit: "cover" }
 ];
 const turn3$2 = {
   userMessage: "Add the first one to my cart.",
@@ -1478,9 +1563,9 @@ const turn4$2 = {
   followups: ["Which length?", "Show gold instead", "Compare chains"]
 };
 const chains = [
-  { ...catalog.aurelleBoxChain, brand: brand$5, rating: 5, ratingCount: "930", tag: "Most paired", image: catalog.aurelleBoxChain.image, imageFit: "cover" },
-  { ...catalog.aurelleSnakeChain, brand: brand$5, rating: 4, ratingCount: "214", image: catalog.aurelleSnakeChain.image, imageFit: "cover" },
-  { ...catalog.aurelleCurbChain, brand: brand$5, rating: 4, ratingCount: "158", image: catalog.aurelleCurbChain.image, imageFit: "cover" }
+  { ...catalog.aurelleBoxChain, brand: brand$6, rating: 5, ratingCount: "930", tag: "Most paired", image: catalog.aurelleBoxChain.image, imageFit: "cover" },
+  { ...catalog.aurelleSnakeChain, brand: brand$6, rating: 4, ratingCount: "214", image: catalog.aurelleSnakeChain.image, imageFit: "cover" },
+  { ...catalog.aurelleCurbChain, brand: brand$6, rating: 4, ratingCount: "158", image: catalog.aurelleCurbChain.image, imageFit: "cover" }
 ];
 const turn5$1 = {
   userMessage: "Perfect, add that one too.",
@@ -1504,7 +1589,7 @@ function ChatHead({ brand: store } = {}) {
 function AureliaIdentity() {
   return /* @__PURE__ */ jsxs("div", { className: "gj2-head__identity", children: [
     /* @__PURE__ */ jsx(AureliaMark, { className: "gj2-head__logo" }),
-    /* @__PURE__ */ jsx("span", { className: "gj2-head__name", children: brand$5 })
+    /* @__PURE__ */ jsx("span", { className: "gj2-head__name", children: brand$6 })
   ] });
 }
 function StoreIdentity({ name }) {
@@ -1955,20 +2040,6 @@ function Rating({ value, count }) {
     ] })
   ] });
 }
-function Chip({
-  children,
-  kind = "label",
-  size = "md",
-  tone = "primary"
-}) {
-  const classes = [
-    "hm-ill-chip",
-    kind === "discount" && "hm-ill-chip--discount",
-    kind === "action" && `hm-ill-chip--action hm-ill-chip--action-${tone}`,
-    size === "sm" && "hm-ill-chip--sm"
-  ].filter(Boolean).join(" ");
-  return /* @__PURE__ */ jsx("span", { className: classes, children });
-}
 function Button({ appearance, label, onClick, iconLeading, iconTrailing, className }) {
   return /* @__PURE__ */ jsxs("button", { type: "button", className: ["hm-ill-button", `hm-ill-button--${appearance}`, className].filter(Boolean).join(" "), onClick, children: [
     iconLeading,
@@ -2274,6 +2345,7 @@ function Shell({
   header,
   composer,
   growComposer = false,
+  note = false,
   className
 }) {
   return /* @__PURE__ */ jsxs(
@@ -2285,7 +2357,11 @@ function Shell({
       children: [
         header ?? /* @__PURE__ */ jsx(ChatHeader, { brand: brand2 }),
         /* @__PURE__ */ jsx(ConversationViewport, { ref: viewportRef, children }),
-        composer ?? (growComposer ? /* @__PURE__ */ jsx(GrowComposer, { value: composerValue, typing: composerTyping }) : /* @__PURE__ */ jsx(ChatComposer, { value: composerValue, typing: composerTyping }))
+        composer ?? (growComposer ? /* @__PURE__ */ jsx(GrowComposer, { value: composerValue, typing: composerTyping }) : /* @__PURE__ */ jsx(ChatComposer, { value: composerValue, typing: composerTyping })),
+        note && /* @__PURE__ */ jsxs("p", { className: "hm-ill-shell__note", children: [
+          "AI can make mistakes. Powered by ",
+          /* @__PURE__ */ jsx("u", { children: "Crossword" })
+        ] })
       ]
     }
   );
@@ -2498,7 +2574,7 @@ function StoreNavItems() {
 const tripodAngle = "/images/landing/home-v2/assets/amber-tripod-angle-CKeA7390.webp";
 const tripodRoom = "/images/landing/home-v2/assets/amber-tripod-room-vTF0ni1E.webp";
 const tripodDetail = "/images/landing/home-v2/assets/amber-tripod-detail-BKu19Fpx.webp";
-const brand$4 = "Amber & Oak";
+const brand$5 = "Amber & Oak";
 const domain$2 = "amberandoak.com";
 const productPath = "warm-tripod-table-lamp";
 const page$1 = {
@@ -2564,7 +2640,7 @@ const pdp = {
 function ProductVisual({ product: product2, className }) {
   return /* @__PURE__ */ jsx("div", { className: ["ais-product-visual", className].filter(Boolean).join(" "), children: /* @__PURE__ */ jsx(ProductImage, { src: product2.image, alt: `${product2.name}, ${product2.variant}` }) });
 }
-function Nav({ searching, merchant: merchant2 = brand$4 }) {
+function Nav({ searching, merchant: merchant2 = brand$5 }) {
   return /* @__PURE__ */ jsxs("header", { className: "hm-ill-chat-header ais-nav", children: [
     /* @__PURE__ */ jsx("span", { className: "ais-nav__logo", children: /* @__PURE__ */ jsx(BrandWordmark, { brand: merchant2 }) }),
     /* @__PURE__ */ jsx(StoreNavItems, {}),
@@ -2678,8 +2754,8 @@ function Pdp() {
     ] })
   ] });
 }
-const sleepThreeQuarter = "/images/landing/home-v2/assets/goodwell-sleep-three-quarter-CwUI_ana.webp";
-const sleepElevated = "/images/landing/home-v2/assets/goodwell-sleep-elevated-T1ADQ_Ns.webp";
+const goodwellThreeQuarter = "/images/landing/home-v2/assets/goodwell-sleep-three-quarter-CwUI_ana.webp";
+const goodwellElevated = "/images/landing/home-v2/assets/goodwell-sleep-elevated-T1ADQ_Ns.webp";
 ({
   sleep60: { ...catalog.goodwellSleep60, image: catalog.goodwellSleep60.image },
   sleep28: { ...catalog.goodwellSleep28, image: catalog.goodwellSleep28.image },
@@ -2689,8 +2765,8 @@ const sleepElevated = "/images/landing/home-v2/assets/goodwell-sleep-elevated-T1
 ({
   gallery: [
     { src: catalog.goodwellSleep60.image, alt: "Goodwell Daily Sleep Gummies, 60 count — front view" },
-    { src: sleepThreeQuarter, alt: "Goodwell Daily Sleep Gummies — three-quarter view" },
-    { src: sleepElevated, alt: "Goodwell Daily Sleep Gummies — elevated lid view" },
+    { src: goodwellThreeQuarter, alt: "Goodwell Daily Sleep Gummies — three-quarter view" },
+    { src: goodwellElevated, alt: "Goodwell Daily Sleep Gummies — elevated lid view" },
     { src: goodwellSocialAd, alt: "Daily Sleep with Calm Mood and Daily Focus in the Goodwell campaign" }
   ]
 });
@@ -2842,6 +2918,7 @@ function useFollowLatest$1(scrollerRef, {
   focus,
   clearance = 0,
   pinOffset = 0,
+  shownOnly,
   index,
   reducedMotion
 }) {
@@ -2854,7 +2931,16 @@ function useFollowLatest$1(scrollerRef, {
       const box = scroller.getBoundingClientRect();
       const scale = scroller.offsetHeight ? box.height / scroller.offsetHeight : 1;
       const toContent = (y) => (y - box.top) / scale + scroller.scrollTop;
-      let target = Math.max(0, toContent(threadEl.getBoundingClientRect().bottom) - scroller.clientHeight + clearance);
+      let bottom = threadEl.getBoundingClientRect().bottom;
+      if (shownOnly) {
+        bottom = threadEl.getBoundingClientRect().top;
+        threadEl.querySelectorAll("*").forEach((el) => {
+          if (el.closest(shownOnly) || el.querySelector(shownOnly)) return;
+          bottom = Math.max(bottom, el.getBoundingClientRect().bottom);
+        });
+        bottom += parseFloat(getComputedStyle(threadEl).paddingBottom) || 0;
+      }
+      let target = Math.max(0, toContent(bottom) - scroller.clientHeight + clearance);
       const pins = pin ? threadEl.querySelectorAll(pin) : null;
       const pinned = pins == null ? void 0 : pins[pins.length - 1];
       const pinTop = pinned ? Math.max(0, toContent(pinned.getBoundingClientRect().top) - pinOffset) : 0;
@@ -2882,20 +2968,17 @@ function useFollowLatest$1(scrollerRef, {
       observer.disconnect();
       cancelScroll == null ? void 0 : cancelScroll();
     };
-  }, [scrollerRef, thread, pin, focus, clearance, pinOffset, index, reducedMotion]);
+  }, [scrollerRef, thread, pin, focus, clearance, pinOffset, shownOnly, index, reducedMotion]);
 }
 function cx(...names) {
   return names.filter(Boolean).join(" ");
 }
+catalog.goodwellSleep60.brand;
 ({
   name: catalog.goodwellSleep60.title,
   image: catalog.goodwellSleep60.image,
-  price: catalog.goodwellSleep60.price
-});
-({
-  name: catalog.goodwellSleep60.title,
-  image: catalog.goodwellSleep60.image,
-  price: catalog.goodwellSleep60.price
+  price: catalog.goodwellSleep60.price,
+  size: catalog.goodwellSleep60.size
 });
 const handWaveUrl = "/images/landing/home-v2/assets/hand-wave-DV6aLLq6.webp";
 const BUZZ_NOTE_CSS = `
@@ -3855,20 +3938,6 @@ function AgentFace({ size = "md" }) {
   catalog.maraisTailoredTrousers,
   catalog.maraisSneakers
 ].map(({ id, title, image }) => ({ id, name: title, image }));
-[
-  { ...catalog.goodwellEnergy, subtitle: "Mornings · 60 count" },
-  { ...catalog.goodwellSleep60, subtitle: "Nights · 60 count" }
-];
-function ProductReference({ image, alt, brand: brand2, title, price, size }) {
-  return /* @__PURE__ */ jsxs("div", { className: "hm-ill-product-reference", children: [
-    /* @__PURE__ */ jsx("div", { className: "hm-ill-product-reference__media", style: size ? { width: size, height: size } : void 0, children: image ? /* @__PURE__ */ jsx(ProductImage, { src: image, alt, className: `hm-ill-media${cutoutSrcs.has(image) ? " hm-ill-media--cutout" : ""}` }) : /* @__PURE__ */ jsx(Media, { alt }) }),
-    /* @__PURE__ */ jsxs("div", { className: "hm-ill-product-reference__text", children: [
-      brand2 && /* @__PURE__ */ jsx("p", { className: "hm-ill-product-reference__brand", children: brand2 }),
-      /* @__PURE__ */ jsx("p", { className: "hm-ill-product-reference__title", children: title }),
-      price && /* @__PURE__ */ jsx("p", { className: "hm-ill-product-reference__price", children: price })
-    ] })
-  ] });
-}
 const content = {
   brand: "Goodwell",
   domain: "goodwell.com/gummies",
@@ -3904,7 +3973,7 @@ const content = {
     result: "For your evening routine, compare Daily Sleep in two jar sizes and Calm Mood:"
   }
 };
-const { brand: brand$3, domain: domain$1, campaignProducts, campaignCreative, knockLine: knockLine$1, ad, page, picks: picks$2, widget } = content;
+const { brand: brand$4, domain: domain$1, campaignProducts, campaignCreative, knockLine: knockLine$1, ad, page, picks: picks$3, widget } = content;
 const steps$1 = [
   "Instagram ad",
   "Landing page",
@@ -3917,13 +3986,13 @@ const steps$1 = [
 const adDefaults = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   ad,
-  brand: brand$3,
+  brand: brand$4,
   campaignCreative,
   campaignProducts,
   domain: domain$1,
   knockLine: knockLine$1,
   page,
-  picks: picks$2,
+  picks: picks$3,
   steps: steps$1,
   widget
 }, Symbol.toStringTag, { value: "Module" }));
@@ -3965,7 +4034,7 @@ function Picks({ loading = false, staggerResolve = false }) {
     b.id
   )) }) });
 }
-const answerText$1 = (q, key) => q.options.find((o) => o.key === key).text;
+const answerText = (q, key) => q.options.find((o) => o.key === key).text;
 function Thread$1({ step }) {
   const { widget: widget2 } = useContext(AdJourneyContext);
   if (step === 3 || step === 4) {
@@ -3979,13 +4048,13 @@ function Thread$1({ step }) {
   }
   if (step === 5) {
     return /* @__PURE__ */ jsxs(Fragment, { children: [
-      /* @__PURE__ */ jsx(UserTurn, { children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: answerText$1(widget2.q1, widget2.q1Answer) }) }),
+      /* @__PURE__ */ jsx(UserTurn, { children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: answerText(widget2.q1, widget2.q1Answer) }) }),
       /* @__PURE__ */ jsx(AssistantTurn, { children: /* @__PURE__ */ jsx(AnswerRows, { question: widget2.q2 }) })
     ] });
   }
   if (step === 6) {
     return /* @__PURE__ */ jsxs(Fragment, { children: [
-      /* @__PURE__ */ jsx(UserTurn, { children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: answerText$1(widget2.q2, widget2.q2Answer) }) }),
+      /* @__PURE__ */ jsx(UserTurn, { children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: answerText(widget2.q2, widget2.q2Answer) }) }),
       /* @__PURE__ */ jsxs(AssistantTurn, { children: [
         /* @__PURE__ */ jsxs("div", { className: "adj-thinking", children: [
           /* @__PURE__ */ jsx(Icon, { name: "insight", size: 14 }),
@@ -4102,7 +4171,7 @@ function Storefront({ step = 2, widget: widgetSlot, hero: override }) {
   ] });
 }
 const invite = "Want $5 off your next order? Clear 4 hurdles to unlock it.";
-const beats$7 = [
+const beats$6 = [
   { id: "ad", type: "pause", ms: 1400 },
   { id: "tap-ad", type: "appear", ms: 280 },
   { id: "store", type: "appear", ms: 750 },
@@ -4134,8 +4203,8 @@ const beats$7 = [
   { id: "reward", type: "appear", ms: 700 },
   { id: "hold", type: "pause", ms: 1600 }
 ];
-beats$7.map(
-  (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 3600 } : b.id === "pick-play" ? { ...b, ms: 450 } : b
+beats$6.map(
+  (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 1800 } : b.id === "pick-play" ? { ...b, ms: 450 } : b
 );
 function AiStatusIcon() {
   return /* @__PURE__ */ jsx(
@@ -4194,6 +4263,10 @@ const askAiChips = [
   { id: "size", text: "Bottle size?" }
 ];
 const detailAnswer = "Yes, Sorelle Labs Daily Hydrating Serum is fragrance-free and formulated to support sensitive skin. It helps hydrate and support your skin barrier.";
+const detailFollowUps = [
+  { id: "ingredients", text: "Full ingredients" },
+  { id: "pairing", text: "Pair with a moisturiser" }
+];
 const directAsk = {
   answer: detailAnswer
 };
@@ -4227,7 +4300,7 @@ function RichStagger({ text }) {
     ] }, i);
   }) });
 }
-function Enter({ children, delayMs }) {
+function Enter$1({ children, delayMs }) {
   return /* @__PURE__ */ jsx("div", { className: "hm-ill-assistant-turn--enter", style: delayMs ? { animationDelay: `${delayMs}ms` } : void 0, children });
 }
 function Thinking({ t, id }) {
@@ -4238,6 +4311,7 @@ function AssistantText({ text }) {
   return /* @__PURE__ */ jsx(ChatMessage, { role: "assistant", children: /* @__PURE__ */ jsx(RichStagger, { text }) });
 }
 askAiChips.find((c) => c.id === "fragrance");
+detailFollowUps.find((c) => c.id === "pairing");
 const courtProfile = "/images/landing/home-v2/assets/court-01-profile-DERNvCRo.webp";
 const courtOverhead = "/images/landing/home-v2/assets/court-01-overhead-Cq5u_wrK.webp";
 const product = {
@@ -4258,7 +4332,20 @@ const recs = [
 ];
 recs.map((r) => r.id);
 [product, ...recs].reduce((sum, p) => sum + Number(p.price.slice(1)), 0);
-const beats$6 = [
+const goodwellGummies = "/images/landing/home-v2/assets/goodwell-sleep-gummies-detail-PYunvh33.webp";
+({
+  brand: catalog.goodwellSleep60.brand,
+  product: {
+    name: catalog.goodwellSleep60.title,
+    image: catalog.goodwellSleep60.image,
+    price: catalog.goodwellSleep60.price
+  },
+  gallery: [catalog.goodwellSleep60.image, goodwellThreeQuarter, goodwellElevated, goodwellGummies]
+});
+const directQuestion = {
+  answer: "Yes. Goodwell Daily Sleep Gummies are made without melatonin. The 60-count jar contains magnesium glycinate, L-Theanine and chamomile."
+};
+const beats$5 = [
   { id: "pdp", type: "pause", ms: 1200 },
   { id: "scroll", type: "appear", ms: 800 },
   { id: "activate", type: "appear", ms: 650 },
@@ -4269,13 +4356,13 @@ const beats$6 = [
   { id: "follow-ups", type: "appear", ms: 450 }
 ];
 [
-  ...beats$6.slice(0, beats$6.findIndex((b) => b.id === "answer")).map((b) => b.id === "think" ? { ...b, labels: ["Checking the formula…"] } : b),
+  ...beats$5.slice(0, beats$5.findIndex((b) => b.id === "answer")).map((b) => b.id === "think" ? { ...b, labels: ["Checking the formula…"] } : b),
   { id: "skeleton", type: "load", ms: 1200 },
-  { id: "answer", type: "text", text: directAsk.answer },
+  { id: "answer", type: "text", text: directQuestion.answer },
   { id: "follow-ups", type: "appear", ms: 450 }
 ];
-const crosswordMark = "/images/landing/home-v2/assets/crossword-logo-C5ShBt7d.svg";
-const brand$2 = "Sorelle Labs";
+const orgMark = "/images/landing/home-v2/assets/crossword-logo-C5ShBt7d.svg";
+const brand$3 = "Sorelle Labs";
 const states = [
   { state: 1, label: "Request received" },
   { state: 2, label: "Consulting Crossword" },
@@ -4290,7 +4377,7 @@ const agent = {
   followUp: "Any current offers?",
   close: "Noted. I'll show both options and the free gift offer to my user."
 };
-const picks$1 = [catalog.sorelleCream, catalog.sorelleSet].map((p) => ({
+const picks$2 = [catalog.sorelleCream, catalog.sorelleSet].map((p) => ({
   id: p.id,
   name: p.title,
   price: p.price,
@@ -4328,79 +4415,16 @@ const offer = {
 const defaultScenario$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   agent,
-  brand: brand$2,
+  brand: brand$3,
   calls,
   offer,
-  picks: picks$1,
+  picks: picks$2,
   states
 }, Symbol.toStringTag, { value: "Module" }));
 const PersonalAgentContext = createContext(defaultScenario$1);
 PersonalAgentContext.Provider;
-const usePersonalAgentScenario = () => useContext(PersonalAgentContext);
-function AgentNode({ done = false }) {
-  return /* @__PURE__ */ jsx("span", { className: "pa-node pa-node--agent", "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { viewBox: "0 0 12 12", width: "12", height: "12", fill: "none", stroke: "currentColor", strokeWidth: "1.2", children: done ? /* @__PURE__ */ jsx("path", { d: "M3 6.2l2 2 4-4.4", strokeLinecap: "round", strokeLinejoin: "round" }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx("circle", { cx: "6", cy: "6", r: "4.25" }),
-    /* @__PURE__ */ jsx("circle", { cx: "6", cy: "6", r: "1.6", fill: "currentColor", stroke: "none" })
-  ] }) }) });
-}
-function CrosswordNode() {
-  return /* @__PURE__ */ jsx("span", { className: "pa-node pa-node--crossword", "aria-hidden": "true", children: /* @__PURE__ */ jsx("img", { src: crosswordMark, alt: "" }) });
-}
-function AgentStep({ text, done = false }) {
-  return /* @__PURE__ */ jsxs("li", { className: "pa-step pa-step--agent", children: [
-    /* @__PURE__ */ jsx(AgentNode, { done }),
-    /* @__PURE__ */ jsx("p", { className: "pa-step__text", children: text })
-  ] });
-}
-function CallStep({
-  topic,
-  returned,
-  pending,
-  children
-}) {
-  const { brand: brand2 } = usePersonalAgentScenario();
-  return /* @__PURE__ */ jsxs("li", { className: "pa-step pa-step--call", children: [
-    /* @__PURE__ */ jsx(CrosswordNode, {}),
-    /* @__PURE__ */ jsxs("section", { className: "pa-call", "data-name": `Tool call / Crossword / ${topic}`, children: [
-      /* @__PURE__ */ jsxs("header", { className: "pa-call__header", children: [
-        /* @__PURE__ */ jsxs("span", { className: "pa-call__tool", children: [
-          "Crossword",
-          /* @__PURE__ */ jsx("span", { className: "pa-call__merchant", children: brand2 })
-        ] }),
-        /* @__PURE__ */ jsx(Chip, { size: "sm", children: topic })
-      ] }),
-      returned ? children : pending
-    ] })
-  ] });
-}
-function PickList() {
-  const { picks: picks2 } = usePersonalAgentScenario();
-  return /* @__PURE__ */ jsx("div", { className: "pa-picks", children: picks2.map((p) => /* @__PURE__ */ jsx("div", { className: "pa-pick", children: /* @__PURE__ */ jsx(ProductReference, { image: p.image, alt: p.name, title: p.name, price: p.price, size: 44 }) }, p.id)) });
-}
-function OfferCard() {
-  const { offer: offer2 } = usePersonalAgentScenario();
-  return /* @__PURE__ */ jsxs("div", { className: "pa-offer", children: [
-    /* @__PURE__ */ jsx("span", { className: "pa-offer__icon", "aria-hidden": "true", children: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 16 16", width: "16", height: "16", fill: "none", stroke: "currentColor", strokeWidth: "1.3", strokeLinejoin: "round", children: [
-      /* @__PURE__ */ jsx("path", { d: "M8.6 1.75H14.25V7.4L7.4 14.25L1.75 8.6Z" }),
-      /* @__PURE__ */ jsx("circle", { cx: "11.1", cy: "4.9", r: "1", fill: "currentColor", stroke: "none" })
-    ] }) }),
-    /* @__PURE__ */ jsxs("span", { className: "pa-offer__text", children: [
-      /* @__PURE__ */ jsx("span", { className: "pa-offer__title", children: offer2.title }),
-      /* @__PURE__ */ jsx("span", { className: "pa-offer__detail", children: offer2.detail })
-    ] }),
-    /* @__PURE__ */ jsx("span", { className: "pa-offer__terms", children: offer2.terms })
-  ] });
-}
-const shopper$1 = {
-  ask: "Find me a daily moisturiser for dry skin, under $50."
-};
-const panel = {
-  open: "Consulting Crossword",
-  done: "Used Crossword",
-  lookups: (n) => `${n} lookup${n === 1 ? "" : "s"}`
-};
-const answer = [
-  `Here are two options from ${brand$2}. The `,
+const answer$1 = [
+  `Here are two options from ${brand$3}. The `,
   { b: "Deep Hydration Cream" },
   " is $42. For $13 more, the ",
   { b: "Deep Hydration Set" },
@@ -4408,10 +4432,9 @@ const answer = [
   { b: "Winter Glow Special" },
   " free gift."
 ];
-const placeholder$1 = "Message your agent";
-const merchant = "Sorelle Labs";
+const merchant$1 = "Sorelle Labs";
 const domain = "chatgpt.com";
-const picks = [
+const picks$1 = [
   { id: "cream", name: catalog.sorelleCream.title, price: catalog.sorelleCream.price, note: "Rich moisture that never feels sticky", image: catalog.sorelleCream.image },
   { id: "lotion", name: catalog.sorelleLotion.title, price: catalog.sorelleLotion.price, note: "Lightweight daily lotion with ceramides", image: catalog.sorelleLotion.image },
   { id: "gel", name: catalog.sorelleGel.title, price: catalog.sorelleGel.price, note: "Water-gel texture for normal to dry skin", image: catalog.sorelleGel.image }
@@ -4511,8 +4534,8 @@ function LoadingTile() {
 function OrderSummary() {
   return /* @__PURE__ */ jsxs("section", { className: "aia-order", "data-name": "Order summary", children: [
     /* @__PURE__ */ jsxs("p", { className: "aia-order__merchant", children: [
-      /* @__PURE__ */ jsx(BrandMark, { brand: merchant, className: "aia-order__mark" }),
-      merchant
+      /* @__PURE__ */ jsx(BrandMark, { brand: merchant$1, className: "aia-order__mark" }),
+      merchant$1
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "aia-order__row", children: [
       /* @__PURE__ */ jsx(ProductImage, { className: "aia-order__thumb", src: bundle.image, alt: bundle.name }),
@@ -4570,7 +4593,7 @@ function Composer$1({ send: send2, value }) {
     /* @__PURE__ */ jsx("span", { className: "aia-send", children: /* @__PURE__ */ jsx(Glyph$1, { name: send2, size: 18 }, send2) })
   ] }) });
 }
-const beats$5 = [
+const beats$4 = [
   { id: "ad", type: "pause", ms: 1400 },
   { id: "tap-ad", type: "appear", ms: 280 },
   { id: "store", type: "appear", ms: 750 },
@@ -4592,8 +4615,8 @@ const beats$5 = [
   { id: "result", type: "text", text: widget.result },
   { id: "resolved", type: "pause", ms: 600 }
 ];
-const knockBeats = beats$5.map(
-  (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 3600 } : b
+const knockBeats = beats$4.map(
+  (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 1800 } : b
 );
 function Quiz({ t, id, pickId, question, answer: answer2 }) {
   if (!t.reached(id)) return null;
@@ -4615,10 +4638,11 @@ function Widgets({ t }) {
     const expanded = expandedRef.current;
     if (!showCompact || !layer || !surface || !compact || !expanded) return;
     const box = layer.getBoundingClientRect();
+    const k = box.height ? layer.offsetHeight / box.height : 1;
     const place = (name, el) => {
       const r = el.getBoundingClientRect();
       const insets = { t: r.top - box.top, r: box.right - r.right, b: box.bottom - r.bottom, l: r.left - box.left };
-      for (const [side, value] of Object.entries(insets)) surface.style.setProperty(`--adjm-${name}-${side}`, `${value}px`);
+      for (const [side, value] of Object.entries(insets)) surface.style.setProperty(`--adjm-${name}-${side}`, `${value * k}px`);
     };
     place("from", compact);
     place("to", expanded);
@@ -4647,7 +4671,7 @@ function Widgets({ t }) {
     showCompact && !composerDefault && /* @__PURE__ */ jsx(
       Shell,
       {
-        brand: brand$3,
+        brand: brand$4,
         rootRef: compactRef,
         className: cx(
           "adj-widget adj-widget--compact adjm-compact",
@@ -4664,7 +4688,7 @@ function Widgets({ t }) {
     /* @__PURE__ */ jsxs(
       Shell,
       {
-        brand: brand$3,
+        brand: brand$4,
         rootRef: expandedRef,
         viewportRef,
         className: cx("adj-widget adj-widget--expanded adjm-expanded", expanding && "adjm-expanded--open"),
@@ -4677,12 +4701,12 @@ function Widgets({ t }) {
               t.reached("intro") && /* @__PURE__ */ jsx(AssistantText, { text: widget.intro }),
               /* @__PURE__ */ jsx(Quiz, { t, id: "q1", pickId: "pick-q1", question: widget.q1, answer: widget.q1Answer })
             ] }),
-            t.reached("answer-1") && /* @__PURE__ */ jsx(UserTurn, { animateIn: true, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: answerText$1(widget.q1, widget.q1Answer) }) }),
+            t.reached("answer-1") && /* @__PURE__ */ jsx(UserTurn, { animateIn: true, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: answerText(widget.q1, widget.q1Answer) }) }),
             t.reached("think-2") && /* @__PURE__ */ jsxs(AssistantTurn, { children: [
               /* @__PURE__ */ jsx(Thinking, { t, id: "think-2" }),
               /* @__PURE__ */ jsx(Quiz, { t, id: "q2", pickId: "pick-q2", question: widget.q2, answer: widget.q2Answer })
             ] }),
-            t.reached("answer-2") && /* @__PURE__ */ jsx(UserTurn, { animateIn: true, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: answerText$1(widget.q2, widget.q2Answer) }) }),
+            t.reached("answer-2") && /* @__PURE__ */ jsx(UserTurn, { animateIn: true, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: answerText(widget.q2, widget.q2Answer) }) }),
             t.reached("think-3") && /* @__PURE__ */ jsxs(AssistantTurn, { children: [
               /* @__PURE__ */ jsx(Thinking, { t, id: "think-3" }),
               t.reached("result") && /* @__PURE__ */ jsx(AssistantText, { text: widget.result }),
@@ -4707,10 +4731,10 @@ function AdJourneyMotion() {
   const landed = useLandedOnScreen(rootRef);
   const fontsReady = useFontsReady();
   const composerDefault = useContext(StorybookComposerDefault);
-  const t = useChatTimeline(composerDefault ? knockBeats : beats$5, landed && fontsReady);
+  const t = useChatTimeline(composerDefault ? knockBeats : beats$4, landed && fontsReady);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene$3, { t }, t.runKey) });
 }
-const beats$4 = [
+const beats$3 = [
   { id: "home", type: "pause", ms: 1200 },
   { id: "open-search", type: "appear", ms: 1300 },
   { id: "pick", type: "appear", ms: 850 },
@@ -4738,9 +4762,9 @@ function Crossword({ t, closing }) {
   return /* @__PURE__ */ jsx(
     Shell,
     {
-      brand: brand$4,
+      brand: brand$5,
       className: cx("ais-cw aism-cw", closing && "aism-cw--closing"),
-      header: /* @__PURE__ */ jsx(ChatHeader, { brand: brand$4, showExpand: false }),
+      header: /* @__PURE__ */ jsx(ChatHeader, { brand: brand$5, showExpand: false }),
       composerValue: results.composer,
       viewportRef,
       children: /* @__PURE__ */ jsxs("div", { className: "ais-thread", children: [
@@ -4750,11 +4774,11 @@ function Crossword({ t, closing }) {
           t.reached("answer") && /* @__PURE__ */ jsx(AssistantText, { text: results.answer }),
           t.reached("picks") && /* @__PURE__ */ jsx("div", { className: picking ? "ais-picks ais-picks--picking" : "ais-picks", children: storybook ? /* @__PURE__ */ jsx(Rail, { products: results.picks.map(toCard), loading: !t.passed("picks") }) : /* @__PURE__ */ jsx(ProductCollection, { children: results.picks.map((p, i) => /* @__PURE__ */ jsx("div", { className: picking && p.id === pdp.product.id ? "ais-pick ais-pick--selected" : "ais-pick", children: /* @__PURE__ */ jsx(CommerceProductCard, { product: toCard(p), loading: !t.passed("picks"), resolveDelayMs: i * 90 }) }, p.id)) }) }),
           t.reached("more") && /* @__PURE__ */ jsxs(Fragment, { children: [
-            /* @__PURE__ */ jsx(Enter, { children: /* @__PURE__ */ jsxs("div", { className: "ais-more aism-more", children: [
+            /* @__PURE__ */ jsx(Enter$1, { children: /* @__PURE__ */ jsxs("div", { className: "ais-more aism-more", children: [
               /* @__PURE__ */ jsx("p", { className: "ais-label", children: results.moreLabel }),
               /* @__PURE__ */ jsx(ProductCollection, { children: results.more.map((g) => /* @__PURE__ */ jsx(RecommendationProductCard, { product: { id: g.id, name: g.name, price: g.price, image: g.image } }, g.id)) })
             ] }) }),
-            /* @__PURE__ */ jsx(Enter, { delayMs: 260, children: /* @__PURE__ */ jsx(AiPills, { options: results.followUps, selectedId: "" }) })
+            /* @__PURE__ */ jsx(Enter$1, { delayMs: 260, children: /* @__PURE__ */ jsx(AiPills, { options: results.followUps, selectedId: "" }) })
           ] })
         ] })
       ] })
@@ -4822,7 +4846,7 @@ function AiSearchMotion() {
   const rootRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
   const fontsReady = useFontsReady();
-  const t = useChatTimeline(beats$4, landed && fontsReady);
+  const t = useChatTimeline(beats$3, landed && fontsReady);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene$2, { t }, t.runKey) });
 }
 function LoadingFrame({
@@ -4852,7 +4876,7 @@ function LoadingFrame({
 const markup = (runs) => runs.map((r) => typeof r === "string" ? r : `**${r.b}**`).join("");
 const productsReply = markup(calls.products.reply);
 const offersReply = markup(calls.offers.reply);
-const railBeats = [
+[
   { id: "ask", type: "text", text: agent.ask },
   { id: "call-1", type: "appear", ms: 380 },
   { id: "think-1", type: "think", labels: ["Checking products", "Matching under $50"] },
@@ -4867,126 +4891,7 @@ const railBeats = [
   { id: "read-2", type: "pause", ms: 900 },
   { id: "close", type: "text", text: agent.close }
 ];
-function MotionRail({ t }) {
-  const { products, offers } = calls;
-  return /* @__PURE__ */ jsxs("ol", { className: "pa-rail", children: [
-    t.reached("ask") && /* @__PURE__ */ jsx(AgentStep, { text: /* @__PURE__ */ jsx(StaggerText, { text: agent.ask }) }),
-    t.reached("call-1") && /* @__PURE__ */ jsxs(CallStep, { topic: products.topic, returned: t.reached("reply-1"), pending: /* @__PURE__ */ jsx(Thinking, { t, id: "think-1" }), children: [
-      /* @__PURE__ */ jsx("p", { className: "pa-call__reply", children: /* @__PURE__ */ jsx(RichStagger, { text: productsReply }) }),
-      /* @__PURE__ */ jsx("div", { className: "pa-picks", children: picks$1.map((p, i) => /* @__PURE__ */ jsx(LoadingFrame, { loading: !t.passed("picks"), radius: 8, resolveDelayMs: i * 110, children: /* @__PURE__ */ jsx("div", { className: "pa-pick", children: /* @__PURE__ */ jsx(ProductReference, { image: p.image, alt: p.name, title: p.name, price: p.price, size: 44 }) }) }, p.id)) })
-    ] }),
-    t.reached("follow") && /* @__PURE__ */ jsx(AgentStep, { text: /* @__PURE__ */ jsx(StaggerText, { text: agent.followUp }) }),
-    t.reached("call-2") && /* @__PURE__ */ jsxs(CallStep, { topic: offers.topic, returned: t.reached("reply-2"), pending: /* @__PURE__ */ jsx(Thinking, { t, id: "think-2" }), children: [
-      /* @__PURE__ */ jsx("p", { className: "pa-call__reply", children: /* @__PURE__ */ jsx(RichStagger, { text: offersReply }) }),
-      /* @__PURE__ */ jsx(LoadingFrame, { loading: !t.passed("offer"), radius: 8, children: /* @__PURE__ */ jsx(OfferCard, {}) })
-    ] }),
-    t.reached("close") && /* @__PURE__ */ jsx(AgentStep, { text: /* @__PURE__ */ jsx(StaggerText, { text: agent.close }), done: true })
-  ] });
-}
-const answerText = markup(answer);
-const beats$3 = [
-  { id: "idle", type: "pause", ms: 500 },
-  { id: "type-ask", type: "compose", text: shopper$1.ask, leadMs: 300 },
-  { id: "sent", type: "appear", ms: 650 },
-  { id: "panel", type: "appear", ms: 420 },
-  ...railBeats,
-  { id: "hold", type: "pause", ms: 900 },
-  { id: "collapse", type: "appear", ms: 480 },
-  { id: "answer", type: "text", text: answerText },
-  { id: "answer-cards", type: "appear", ms: 600 }
-];
-function Chevron({ open }) {
-  return /* @__PURE__ */ jsx(
-    "svg",
-    {
-      className: cx("pa2-chevron pa2m-chevron", open && "pa2m-chevron--open"),
-      width: "12",
-      height: "12",
-      viewBox: "0 0 12 12",
-      fill: "none",
-      stroke: "currentColor",
-      strokeWidth: "1.3",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      "aria-hidden": "true",
-      children: /* @__PURE__ */ jsx("path", { d: "M3 4.5L6 7.5l3-3" })
-    }
-  );
-}
-function ActivityPanel({ t }) {
-  const bodyRef = useRef(null);
-  const scrollRef = useRef(null);
-  const collapsing = t.reached("collapse");
-  const lookups = t.reached("call-2") ? 2 : 1;
-  useFollowLatest$1(scrollRef, { thread: ".pa-rail", index: t.index, reducedMotion: t.reducedMotion });
-  useLayoutEffect(() => {
-    const body = bodyRef.current;
-    if (!collapsing || !body || t.reducedMotion) return;
-    const animation = body.animate(
-      [{ height: `${body.offsetHeight}px`, opacity: 1 }, { height: "0px", opacity: 0 }],
-      { duration: 420, easing: "cubic-bezier(0.45, 0, 0.15, 1)", fill: "forwards" }
-    );
-    return () => animation.cancel();
-  }, [collapsing, t.reducedMotion]);
-  const title = collapsing ? panel.done : panel.open;
-  return /* @__PURE__ */ jsxs("section", { className: cx("pa2-panel pa2m-panel", collapsing && "pa2-panel--collapsed"), "data-name": "Activity / Crossword", children: [
-    /* @__PURE__ */ jsxs("header", { className: "pa2-panel__header", children: [
-      /* @__PURE__ */ jsx("span", { className: "pa-node pa-node--crossword", "aria-hidden": "true", children: /* @__PURE__ */ jsx("img", { src: crosswordMark, alt: "" }) }),
-      /* @__PURE__ */ jsx("span", { className: "pa2-panel__title pa2m-swap", children: title }, title),
-      /* @__PURE__ */ jsxs("span", { className: "pa2-panel__count pa2m-swap", children: [
-        "· ",
-        panel.lookups(lookups)
-      ] }, lookups),
-      /* @__PURE__ */ jsx(Chevron, { open: !collapsing })
-    ] }),
-    !t.reached("answer") && /* @__PURE__ */ jsx("div", { className: "pa2-panel__body pa2m-body", ref: bodyRef, children: /* @__PURE__ */ jsx("div", { className: "pa2m-scroll", ref: scrollRef, children: /* @__PURE__ */ jsx(MotionRail, { t }) }) })
-  ] });
-}
-function Scene$1({ t }) {
-  var _a;
-  const typed = (_a = t.composer) == null ? void 0 : _a.value;
-  const working = t.reached("sent") && !t.reached("answer");
-  return /* @__PURE__ */ jsx("figure", { className: cx("pa pa2 pam pa2m", t.reached("close") && "pam--done"), "data-name": "Personal agents V2 / Motion", children: /* @__PURE__ */ jsxs("article", { className: "pa-window", children: [
-    /* @__PURE__ */ jsxs("header", { className: "pa-header", children: [
-      /* @__PURE__ */ jsxs("span", { className: "pa-header__title", children: [
-        /* @__PURE__ */ jsx("span", { className: "pa-node pa-node--agent", "aria-hidden": "true", children: /* @__PURE__ */ jsxs("svg", { viewBox: "0 0 12 12", width: "12", height: "12", fill: "none", stroke: "currentColor", strokeWidth: "1.2", children: [
-          /* @__PURE__ */ jsx("circle", { cx: "6", cy: "6", r: "4.25" }),
-          /* @__PURE__ */ jsx("circle", { cx: "6", cy: "6", r: "1.6", fill: "currentColor", stroke: "none" })
-        ] }) }),
-        agent.label
-      ] }),
-      working && /* @__PURE__ */ jsxs("span", { className: cx("pa-status pa2m-status", t.reached("collapse") && "pa2m-status--out"), children: [
-        /* @__PURE__ */ jsx("span", { className: "pa-status__dot", "aria-hidden": "true" }),
-        agent.status
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "pa2-chat", children: [
-      t.passed("type-ask") && /* @__PURE__ */ jsx("p", { className: "pa2-bubble pa2m-rise", children: shopper$1.ask }),
-      t.reached("panel") && /* @__PURE__ */ jsx(ActivityPanel, { t }),
-      t.reached("answer") && /* @__PURE__ */ jsxs("div", { className: "pa2-answer", "data-name": "Turn / Agent answer", children: [
-        /* @__PURE__ */ jsx("p", { className: "pa-call__reply", children: /* @__PURE__ */ jsx(RichStagger, { text: answerText }) }),
-        t.reached("answer-cards") && /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsx("div", { className: "pa2m-rise", children: /* @__PURE__ */ jsx(PickList, {}) }),
-          /* @__PURE__ */ jsx("div", { className: "pa2m-rise", style: { animationDelay: "90ms" }, children: /* @__PURE__ */ jsx(OfferCard, {}) })
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "pa2-composer", "data-name": "Composer", children: [
-      /* @__PURE__ */ jsx("span", { className: cx("pa2-composer__placeholder", typed && "pa2m-typed"), children: typed ? /* @__PURE__ */ jsxs(Fragment, { children: [
-        typed,
-        /* @__PURE__ */ jsx("span", { className: "pa2m-caret" })
-      ] }) : placeholder$1 }),
-      /* @__PURE__ */ jsx("span", { className: cx("pa2-composer__send", t.reached("sent") && !t.passed("sent") && "pa2m-send"), "aria-hidden": "true", children: /* @__PURE__ */ jsx("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ jsx("path", { d: "M12 19V5M6.5 10.5L12 5l5.5 5.5" }) }) })
-    ] })
-  ] }) });
-}
-function PersonalAgentsV2Motion() {
-  const rootRef = useRef(null);
-  const landed = useLandedOnScreen(rootRef);
-  const fontsReady = useFontsReady();
-  const t = useChatTimeline(beats$3, landed && fontsReady);
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene$1, { t }, t.runKey) });
-}
+markup(answer$1);
 const STREAM_MS_PER_WORD = 34;
 const TOKEN_FADE_MS = 280;
 const plain = (runs) => runs.map((r) => typeof r === "string" ? r : r.b).join("");
@@ -4996,7 +4901,7 @@ const user = (i) => {
   const turn = transcript[i];
   return turn.role === "user" ? turn.text : "";
 };
-const reply = (i) => {
+const reply$1 = (i) => {
   const turn = transcript[i];
   return turn.role === "assistant" ? turn.text : [];
 };
@@ -5005,17 +4910,17 @@ const beats$2 = [
   { id: "ask", type: "compose", text: user(0), leadMs: 300 },
   { id: "wait-1", type: "appear", ms: 900 },
   { id: "search", type: "appear", ms: 2e3 },
-  { id: "reply-1", type: "appear", ms: streamMs(reply(1)) },
+  { id: "reply-1", type: "appear", ms: streamMs(reply$1(1)) },
   { id: "tiles", type: "appear", ms: 700 },
   { id: "read-1", type: "pause", ms: 1700 },
   { id: "choose", type: "compose", text: user(2), leadMs: 300 },
   { id: "wait-2", type: "appear", ms: 1e3 },
-  { id: "reply-2", type: "appear", ms: streamMs(reply(3)) },
+  { id: "reply-2", type: "appear", ms: streamMs(reply$1(3)) },
   { id: "set", type: "appear", ms: 700 },
   { id: "read-2", type: "pause", ms: 1900 },
   { id: "take", type: "compose", text: user(4), leadMs: 300 },
   { id: "wait-3", type: "appear", ms: 800 },
-  { id: "reply-3", type: "appear", ms: streamMs(reply(5)) },
+  { id: "reply-3", type: "appear", ms: streamMs(reply$1(5)) },
   { id: "order", type: "appear", ms: 700 },
   { id: "done", type: "pause", ms: 300 }
 ];
@@ -5054,23 +4959,23 @@ function Thread({ t }) {
   return /* @__PURE__ */ jsxs("div", { className: "aia-thread", children: [
     t.passed("ask") && /* @__PURE__ */ jsx("div", { className: "aia-turn aia-turn--user aiam-send", children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(0) }) }),
     t.reached("wait-1") && /* @__PURE__ */ jsxs("div", { className: "aia-turn aia-turn--assistant", children: [
-      /* @__PURE__ */ jsx(ReplySlot, { t, runs: reply(1), replyId: "reply-1", statusId: "search" }),
-      /* @__PURE__ */ jsx(Reserved, { show: t.reached("search"), className: "aiam-fade", children: /* @__PURE__ */ jsx("div", { className: "aia-carousel", children: picks.map((p, i) => /* @__PURE__ */ jsx(TileSlot, { loading: !t.reached("tiles"), delayMs: i * 110, children: /* @__PURE__ */ jsx(ProductTile, { product: p }) }, p.id)) }) })
+      /* @__PURE__ */ jsx(ReplySlot, { t, runs: reply$1(1), replyId: "reply-1", statusId: "search" }),
+      /* @__PURE__ */ jsx(Reserved, { show: t.reached("search"), className: "aiam-fade", children: /* @__PURE__ */ jsx("div", { className: "aia-carousel", children: picks$1.map((p, i) => /* @__PURE__ */ jsx(TileSlot, { loading: !t.reached("tiles"), delayMs: i * 110, children: /* @__PURE__ */ jsx(ProductTile, { product: p }) }, p.id)) }) })
     ] }),
     t.passed("choose") && /* @__PURE__ */ jsx("div", { className: "aia-turn aia-turn--user aiam-send", children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(2) }) }),
     t.reached("wait-2") && /* @__PURE__ */ jsxs("div", { className: "aia-turn aia-turn--assistant", children: [
-      /* @__PURE__ */ jsx(ReplySlot, { t, runs: reply(3), replyId: "reply-2" }),
+      /* @__PURE__ */ jsx(ReplySlot, { t, runs: reply$1(3), replyId: "reply-2" }),
       /* @__PURE__ */ jsx(Reserved, { show: t.reached("reply-2"), className: "aiam-fade", children: /* @__PURE__ */ jsx(TileSlot, { loading: !t.reached("set"), children: /* @__PURE__ */ jsx(ProductTile, { product: bundle, wide: true }) }) })
     ] }),
     t.passed("take") && /* @__PURE__ */ jsx("div", { className: "aia-turn aia-turn--user aiam-send", children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(4) }) }),
     t.reached("wait-3") && /* @__PURE__ */ jsxs("div", { className: "aia-turn aia-turn--assistant", children: [
-      /* @__PURE__ */ jsx(ReplySlot, { t, runs: reply(5), replyId: "reply-3" }),
+      /* @__PURE__ */ jsx(ReplySlot, { t, runs: reply$1(5), replyId: "reply-3" }),
       /* @__PURE__ */ jsx(Reserved, { show: t.reached("order"), className: "aiam-rise", children: /* @__PURE__ */ jsx(OrderSummary, {}) }),
       /* @__PURE__ */ jsx(Reserved, { show: t.reached("done"), className: "aiam-fade", children: /* @__PURE__ */ jsx(Actions, {}) })
     ] })
   ] });
 }
-function Scene({ t }) {
+function Scene$1({ t }) {
   var _a;
   const scrollRef = useRef(null);
   useFollowLatest$1(scrollRef, { thread: ".aia-thread", index: t.index, reducedMotion: t.reducedMotion });
@@ -5100,14 +5005,14 @@ function AiAssistantsMotion() {
   const landed = useLandedOnScreen(rootRef);
   const fontsReady = useFontsReady();
   const t = useChatTimeline(beats$2, landed && fontsReady);
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene, { t }, t.runKey) });
+  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene$1, { t }, t.runKey) });
 }
 // Site: Figma 3073:21692's own backdrop (the green hallway with its gold arches, cover-fitted to 738 × 640), where the
 // source drew a brown arched hallway.
 const insightsBackground = "/images/landing/home-v2/assets/insights-background-green.webp";
-function InsightFrame({ children }) {
+function InsightFrame({ children, background = insightsBackground }) {
   return /* @__PURE__ */ jsx("div", { className: "hm-ill-insight-frame-scale", children: /* @__PURE__ */ jsxs("div", { className: "hm-ill-insight-frame", children: [
-    /* @__PURE__ */ jsx("img", { className: "hm-ill-insight-frame__background", src: insightsBackground, alt: "", "aria-hidden": "true" }),
+    /* @__PURE__ */ jsx("img", { className: "hm-ill-insight-frame__background", src: background, alt: "", "aria-hidden": "true" }),
     /* @__PURE__ */ jsx("div", { className: "hm-ill-insight-frame__content", children })
   ] }) });
 }
@@ -5115,7 +5020,7 @@ const script$1 = {
   query: "Find people who reached checkout but didn't purchase in the last 7 days.",
   result: "3,284 people reached checkout. 2,140 are still deciding. Most dropped after seeing shipping costs."
 };
-const brand$1 = "Aurelia";
+const brand$2 = "Aurelia";
 const context = { ...catalog.aurellePendant };
 const offerTurn = {
   assistantMessage: "20% off orders above $100. You're eligible. Want to use it?",
@@ -5147,7 +5052,6 @@ function Layer({ children }) {
 }
 const AdJourneyV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AdJourneyMotion, {}) });
 const AiSearchV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AiSearchMotion, {}) });
-const PersonalAgentsV2SbMotion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(PersonalAgentsV2Motion, {}) });
 const AiAssistantsV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AiAssistantsMotion, {}) });
 const CHAR_INTERVAL_MS$1 = 26;
 const COMPOSER_SEND_GAP_MS = 220;
@@ -5550,7 +5454,7 @@ const wifeLookGoldHoopSet = "/images/landing/home-v2/assets/wife-natural-gold-ho
 const wifeLookPearlDropSet = "/images/landing/home-v2/assets/wife-natural-pearl-drops-DjrfzSSN.webp";
 const wifeLookCitrineStudSet = "/images/landing/home-v2/assets/wife-natural-citrine-studs-BH6qP1J2.webp";
 const photoUploadedByShopper = "/images/landing/home-v2/assets/wife-natural-upload-BkRy2z43.webp";
-const brand = "Aurelle";
+const brand$1 = "Aurelle";
 const turn1 = {
   assistantMessage: "Good to see you again. Did your wife like her rose gold pendant?",
   userMessage: "Oh yes, now I need something special for our vacation in Miami. It's our anniversary."
@@ -5559,9 +5463,9 @@ const turn2 = {
   assistantMessage: "Let me share a few earrings and bracelet options, and build a look for her."
 };
 const looks = [
-  { id: "look-1", brand, title: "Gold Hoop Set", image: lookGoldHoopSet, price: "$89", rating: 4, ratingCount: "312" },
-  { id: "look-2", brand, title: "Pearl Drop Set", image: lookPearlDropSet, price: "$96", rating: 5, ratingCount: "208" },
-  { id: "look-3", brand, title: "Citrine Stud Set", image: lookCitrineStudSet, price: "$74", rating: 4, ratingCount: "165" }
+  { id: "look-1", brand: brand$1, title: "Gold Hoop Set", image: lookGoldHoopSet, price: "$89", rating: 4, ratingCount: "312" },
+  { id: "look-2", brand: brand$1, title: "Pearl Drop Set", image: lookPearlDropSet, price: "$96", rating: 5, ratingCount: "208" },
+  { id: "look-3", brand: brand$1, title: "Citrine Stud Set", image: lookCitrineStudSet, price: "$74", rating: 4, ratingCount: "165" }
 ];
 const turn3 = {
   userMessage: "I wonder how this would look on her…",
@@ -5575,9 +5479,9 @@ const turn4 = {
   assistantMessage: "Here are the same looks, but for her!"
 };
 const personalisedLooks = [
-  { id: "wife-look-1", brand, title: "Gold Hoop Set", image: wifeLookGoldHoopSet, price: "$89", rating: 4, ratingCount: "312" },
-  { id: "wife-look-2", brand, title: "Pearl Drop Set", image: wifeLookPearlDropSet, price: "$96", rating: 5, ratingCount: "208" },
-  { id: "wife-look-3", brand, title: "Citrine Stud Set", image: wifeLookCitrineStudSet, price: "$74", rating: 4, ratingCount: "165" }
+  { id: "wife-look-1", brand: brand$1, title: "Gold Hoop Set", image: wifeLookGoldHoopSet, price: "$89", rating: 4, ratingCount: "312" },
+  { id: "wife-look-2", brand: brand$1, title: "Pearl Drop Set", image: wifeLookPearlDropSet, price: "$96", rating: 5, ratingCount: "208" },
+  { id: "wife-look-3", brand: brand$1, title: "Citrine Stud Set", image: wifeLookCitrineStudSet, price: "$74", rating: 4, ratingCount: "165" }
 ];
 const followups = {
   turn1: ["She loved it", "Shop new arrivals"],
@@ -5757,7 +5661,7 @@ function SkeletonCover({
     }
   ) });
 }
-const bag = "/images/landing/home-v2/assets/bag-B7O3GVmE.svg";
+const bag$1 = "/images/landing/home-v2/assets/bag-B7O3GVmE.svg";
 const heart = "/images/landing/home-v2/assets/heart-ozq9Thds.svg";
 const insightMark = "/images/landing/home-v2/assets/insight-mark-Dd8J1nJH.svg";
 const starFull = "/images/landing/home-v2/assets/star-full-Du_I1bJs.svg";
@@ -5867,7 +5771,7 @@ function PdpState({
         /* @__PURE__ */ jsx("span", { style: { width: 37.64 } }),
         /* @__PURE__ */ jsx("span", { style: { width: 49.47 } })
       ] }),
-      /* @__PURE__ */ jsx("img", { src: bag, alt: "", width: 20.432, height: 20.432 })
+      /* @__PURE__ */ jsx("img", { src: bag$1, alt: "", width: 20.432, height: 20.432 })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "hm-ill-sponsored__gallery", children: [
       /* @__PURE__ */ jsx(ProductImage, { src: pdpState2.image, alt: pdpState2.imageAlt }),
@@ -5942,7 +5846,9 @@ const baseBeats = [
   { id: "price", type: "load", ms: 200 },
   { id: "comparison", type: "load", ms: 300 }
 ];
-function useAssetsReady() {
+const CLOSE_STAGES_MS$1 = [0, 300];
+const CLOSE_MS$1 = 300 + 160 + 650 + 200;
+function useAssetsReady$1() {
   const [ready, setReady] = useState(false);
   useEffect(() => {
     var _a;
@@ -5958,45 +5864,53 @@ function useAssetsReady() {
   }, []);
   return ready;
 }
-// Site: holds a "landed" flag back a moment, so a visual starts a beat after it comes on screen rather than at once
-// (resets straight away when it leaves, so it waits again on the next visit).
-function useLandedAfter(landed, ms) {
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    if (!landed) {
-      setReady(false);
-      return;
-    }
-    const timer = setTimeout(() => setReady(true), ms);
-    return () => clearTimeout(timer);
-  }, [landed, ms]);
-  return ready;
-}
-// Site: tells the page once a run has played to its end (so it can loop it).
-function useReportDone(onDone, done) {
-  useEffect(() => {
-    if (done && onDone) onDone();
-  }, [done, onDone]);
-}
 function SponsoredComparisonMotion({
   comparison: comparison2,
   comparisonMs = 300,
-  startDelayMs = 600,
-  onDone
+  loopDelayMs,
+  beatMs,
+  replayBeatMs,
+  closeMs = CLOSE_MS$1
 } = {}) {
-  const beats2 = baseBeats.map((b) => b.id === "comparison" ? { ...b, ms: comparisonMs } : b);
+  const [replaying, setReplaying] = useState(false);
+  const msKey = JSON.stringify([comparisonMs, beatMs, replaying ? replayBeatMs : null]);
+  const beats2 = useMemo(() => {
+    const ms = replaying ? { ...beatMs, ...replayBeatMs } : beatMs;
+    return baseBeats.map(
+      (b) => b.id === "comparison" ? { ...b, ms: comparisonMs } : (ms == null ? void 0 : ms[b.id]) != null ? { ...b, ms: ms[b.id] } : b
+    );
+  }, [msKey]);
   const rootRef = useRef(null);
-  // Site: the home page's Shopper experience starts 600ms after it lands (at once on a loop's replay, startDelayMs 0).
-  const landed = useLandedAfter(useLandedOnScreen(rootRef), startDelayMs);
-  const assetsReady = useAssetsReady();
-  const t = useChatTimeline(beats2, landed && assetsReady);
-  useReportDone(onDone, landed && t.done && !t.reducedMotion);
-  const open = t.reached("open");
-  const imageIn = t.passed("open");
+  const landed = useLandedOnScreen(rootRef);
+  const assetsReady = useAssetsReady$1();
+  const [rewinding, setRewinding] = useState(false);
+  const [closeStage, setCloseStage] = useState(0);
+  const closing = closeStage > 0;
+  const t = useChatTimeline(beats2, landed && assetsReady && !rewinding);
+  useEffect(() => {
+    if (loopDelayMs == null || !t.done || t.reducedMotion) return;
+    const timers = [
+      ...CLOSE_STAGES_MS$1.map((at, i) => window.setTimeout(() => setCloseStage(i + 1), loopDelayMs + at)),
+      window.setTimeout(() => setRewinding(true), loopDelayMs + closeMs)
+    ];
+    return () => timers.forEach(window.clearTimeout);
+  }, [loopDelayMs, closeMs, t.done, t.reducedMotion]);
+  useEffect(() => {
+    if (!t.done) setCloseStage(0);
+  }, [t.done]);
+  useEffect(() => {
+    if (!rewinding) return;
+    setReplaying(true);
+    const id = requestAnimationFrame(() => setRewinding(false));
+    return () => cancelAnimationFrame(id);
+  }, [rewinding]);
+  const open = t.reached("open") && closeStage < 2;
+  const imageIn = t.passed("open") && closeStage < 2;
   const sceneClass = [
     "hm-ill-sponsored-motion__scene",
     open && "hm-ill-sponsored-motion__scene--open",
-    imageIn && "hm-ill-sponsored-motion__scene--image"
+    imageIn && "hm-ill-sponsored-motion__scene--image",
+    closing && "hm-ill-sponsored-motion__scene--closing"
   ].filter(Boolean).join(" ");
   return /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion", ref: rootRef, children: /* @__PURE__ */ jsx(PurpleFrame, { centered: false, children: /* @__PURE__ */ jsxs("div", { className: sceneClass, children: [
     /* @__PURE__ */ jsx("div", { className: "hm-ill-sponsored-motion__shell" }),
@@ -6077,21 +5991,161 @@ function SparkleGlyph() {
 function ViewOutGlyph() {
   return /* @__PURE__ */ jsx("svg", { viewBox: "0 0 12 12", width: 10, height: 10, fill: "none", stroke: "currentColor", strokeWidth: 1.2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true", children: /* @__PURE__ */ jsx("path", { d: "M3.5 8.5l5-5M4.5 3.5h4v4" }) });
 }
-const COMPARISON_THINK_MS = 1600;
-/** @param {{ startDelayMs?: number, onDone?: () => void }} [props] */
-function SponsoredComparisonV2Motion({ startDelayMs, onDone } = {}) {
+const COMPARISON_THINK_MS = 2e3;
+const LOOP_DELAY_MS$1 = 7e3;
+const BEAT_MS = { idle: 1400, open: 480, title: 550, price: 500 };
+const REPLAY_BEAT_MS = { idle: 500 };
+function SponsoredComparisonV2Motion() {
   return /* @__PURE__ */ jsx("div", { className: "sc2-motion", children: /* @__PURE__ */ jsx(
     SponsoredComparisonMotion,
     {
-      startDelayMs,
-      onDone,
       comparisonMs: COMPARISON_THINK_MS,
+      loopDelayMs: LOOP_DELAY_MS$1,
+      beatMs: BEAT_MS,
+      replayBeatMs: REPLAY_BEAT_MS,
       comparison: (t) => /* @__PURE__ */ jsx(ComparisonEmbed, { phase: t.passed("comparison") ? "in" : "thinking" })
     }
   ) });
 }
+const frameBg = "/images/landing/home-v2/assets/bg-C5bBjcVp.webp";
+function makeBeats(replay) {
+  return [
+    { id: "idle", type: "pause", ms: replay ? 500 : 1400 },
+    { id: "tap", type: "pause", ms: 380 },
+    { id: "open", type: "appear", ms: 560 },
+    { id: "title", type: "load", ms: 550 },
+    { id: "price", type: "load", ms: 500 },
+    { id: "scroll", type: "pause", ms: 700 },
+    { id: "comparison", type: "load", ms: 2e3 }
+  ];
+}
+const LOOP_DELAY_MS = 7e3;
+const CLOSE_STAGES_MS = [0, 300];
+const CLOSE_MS = 300 + 650 + 200;
+function useAssetsReady(src) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    var _a;
+    let cancelled = false;
+    const img = new Image();
+    img.src = src;
+    Promise.all([(_a = document.fonts) == null ? void 0 : _a.ready, img.decode().catch(() => void 0)]).then(() => {
+      if (!cancelled) setReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [src]);
+  return ready;
+}
+function SponsoredComparisonMobileMotion() {
+  const { searchState: searchState2, pdpState: pdpState2 } = useSponsoredScenario();
+  const rootRef = useRef(null);
+  const landed = useLandedOnScreen(rootRef);
+  const ready = useAssetsReady(pdpState2.image);
+  const [replaying, setReplaying] = useState(false);
+  const beats2 = useMemo(() => makeBeats(replaying), [replaying]);
+  const [rewinding, setRewinding] = useState(false);
+  const [closeStage, setCloseStage] = useState(0);
+  const t = useChatTimeline(beats2, landed && ready && !rewinding);
+  useEffect(() => {
+    if (!t.done || t.reducedMotion) return;
+    const timers = [
+      ...CLOSE_STAGES_MS.map((at, i) => window.setTimeout(() => setCloseStage(i + 1), LOOP_DELAY_MS + at)),
+      window.setTimeout(() => setRewinding(true), LOOP_DELAY_MS + CLOSE_MS)
+    ];
+    return () => timers.forEach(window.clearTimeout);
+  }, [t.done, t.reducedMotion]);
+  useEffect(() => {
+    if (!t.done) setCloseStage(0);
+  }, [t.done]);
+  useEffect(() => {
+    if (!rewinding) return;
+    setReplaying(true);
+    const id = requestAnimationFrame(() => setRewinding(false));
+    return () => cancelAnimationFrame(id);
+  }, [rewinding]);
+  const shown = closeStage < 2;
+  const cls = (base, flags) => [base, ...Object.entries(flags).filter(([, on]) => on).map(([k]) => `${base}--${k}`)].join(" ");
+  const scene = cls("scm", {
+    tap: t.reached("tap") && shown,
+    open: t.reached("open") && shown,
+    image: t.passed("open") && shown,
+    title: t.passed("title") && shown,
+    price: t.passed("price") && shown,
+    scroll: t.reached("scroll") && shown,
+    closing: closeStage > 0
+  });
+  return /* @__PURE__ */ jsx("div", { className: "scm-root", ref: rootRef, children: /* @__PURE__ */ jsxs("div", { className: scene, children: [
+    /* @__PURE__ */ jsx("img", { className: "scm__bg", src: frameBg, alt: "", "aria-hidden": "true" }),
+    /* @__PURE__ */ jsxs("div", { className: "scm__window", children: [
+      /* @__PURE__ */ jsxs("div", { className: "scm__chrome", children: [
+        /* @__PURE__ */ jsx("div", { className: "scm__chrome-layer scm__chrome-layer--search", children: /* @__PURE__ */ jsx(BrowserChrome, { url: searchState2.query, field: "search" }) }),
+        /* @__PURE__ */ jsx("div", { className: "scm__chrome-layer scm__chrome-layer--address", children: /* @__PURE__ */ jsx(BrowserChrome, { url: pdpState2.url }) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "scm__viewport", children: [
+        /* @__PURE__ */ jsxs("div", { className: "scm__search", children: [
+          /* @__PURE__ */ jsxs("div", { className: "scm__ad", children: [
+            /* @__PURE__ */ jsxs("div", { className: "scm__ad-head", children: [
+              /* @__PURE__ */ jsxs("span", { className: "scm__ad-brand", children: [
+                /* @__PURE__ */ jsx("span", { className: "scm__ad-logo", children: "H" }),
+                /* @__PURE__ */ jsx("span", { className: "scm__label", children: searchState2.brand })
+              ] }),
+              /* @__PURE__ */ jsx("span", { className: "scm__label", children: searchState2.sponsored })
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "scm__ad-title", children: searchState2.title }),
+            /* @__PURE__ */ jsx("span", { className: "scm__bar", style: { width: "78%" } }),
+            /* @__PURE__ */ jsx("span", { className: "scm__bar", style: { width: "54%" } })
+          ] }),
+          [[74, 72, 92], [58, 60, 84], [66, 68, 88]].map(([a, b, c], i) => /* @__PURE__ */ jsxs("div", { className: "scm__result", children: [
+            /* @__PURE__ */ jsxs("span", { className: "scm__result-source", children: [
+              /* @__PURE__ */ jsx("i", {}),
+              /* @__PURE__ */ jsx("span", { className: "scm__rbar", style: { width: a } })
+            ] }),
+            /* @__PURE__ */ jsx("span", { className: "scm__rtitle", style: { width: `${b}%` } }),
+            /* @__PURE__ */ jsx("span", { className: "scm__rbar", style: { width: `${c}%` } })
+          ] }, i))
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "scm__pdp", children: /* @__PURE__ */ jsxs("div", { className: "scm__page", children: [
+          /* @__PURE__ */ jsxs("div", { className: "scm__nav", children: [
+            /* @__PURE__ */ jsx("span", { className: "scm__store", children: pdpState2.storeName }),
+            /* @__PURE__ */ jsx("img", { src: bag$1, alt: "", width: 18, height: 18 })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "scm__gallery", children: [
+            /* @__PURE__ */ jsx(ProductImage, { src: pdpState2.image, alt: pdpState2.imageAlt }),
+            /* @__PURE__ */ jsx("span", { className: "scm__skel scm__skel--gallery" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "scm__info", children: [
+            /* @__PURE__ */ jsxs("div", { className: "scm__row scm__row--title", children: [
+              /* @__PURE__ */ jsx("h2", { className: "scm__name", children: pdpState2.productName }),
+              /* @__PURE__ */ jsx("span", { className: "scm__heart", children: /* @__PURE__ */ jsx("img", { src: heart, alt: "", width: 12, height: 12 }) }),
+              /* @__PURE__ */ jsxs("span", { className: "scm__skel scm__skel--row", children: [
+                /* @__PURE__ */ jsx("b", { style: { width: 132 } }),
+                /* @__PURE__ */ jsx("b", { style: { width: 28, marginLeft: "auto" } })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "scm__row scm__row--price", children: [
+              /* @__PURE__ */ jsx("span", { className: "scm__price", children: pdpState2.price }),
+              /* @__PURE__ */ jsx("span", { className: "scm__price scm__price--was", children: pdpState2.originalPrice }),
+              /* @__PURE__ */ jsx("span", { className: "scm__discount", children: pdpState2.discount }),
+              /* @__PURE__ */ jsx("button", { type: "button", className: "scm__cart", children: pdpState2.addToCart }),
+              /* @__PURE__ */ jsxs("span", { className: "scm__skel scm__skel--row", children: [
+                /* @__PURE__ */ jsx("b", { style: { width: 52 } }),
+                /* @__PURE__ */ jsx("b", { style: { width: 50 } }),
+                /* @__PURE__ */ jsx("b", { style: { width: 44 } }),
+                /* @__PURE__ */ jsx("b", { style: { width: 92, marginLeft: "auto" } })
+              ] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "scm__embed", children: /* @__PURE__ */ jsx(ComparisonEmbed, { phase: t.passed("comparison") ? "in" : t.reached("comparison") ? "thinking" : "loading" }) })
+        ] }) })
+      ] })
+    ] })
+  ] }) });
+}
 const audiencesBg = "/images/landing/home-v2/assets/audiences_bg_3x-CeMPiv1g.webp";
-const backdrops = { green: audiencesBg, purple: returnReductionBg };
+const forestBg = "/images/landing/home-v2/assets/forest_wide_bg_3x-D-Dz7kSE.webp";
+const backdrops = { green: audiencesBg, purple: returnReductionBg, forest: forestBg };
 function LandscapeCanvas({
   scene,
   widget: widget2,
@@ -6111,8 +6165,9 @@ const omarHaddad = "/images/landing/home-v2/assets/omar-haddad-DhZ90vGZ.svg";
 const sofiaMarino = "/images/landing/home-v2/assets/sofia-marino-DQ9d7XfE.svg";
 const shopper = "/images/landing/home-v2/assets/emma-lindqvist-BfFwzYUz.svg";
 const kenjiWatanabe = "/images/landing/home-v2/assets/kenji-watanabe-DWnXW3nN.svg";
-const orgMark = "/images/landing/home-v2/assets/org-mark-Alk5D-x9.svg";
-const priyaRaman = "/images/landing/home-v2/assets/priya-raman-CMwZrsBD.svg";
+function RailTile({ className, initial: initial2 = "A" }) {
+  return /* @__PURE__ */ jsx("span", { className: className ? `rail-tile ${className}` : "rail-tile", "aria-hidden": "true", children: initial2 });
+}
 const ICONS = {
   house: "M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z",
   cube: "M223.68,66.15,135.68,18h0a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32h0l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z",
@@ -6158,7 +6213,7 @@ function InsightsFrame({
       /* @__PURE__ */ jsxs("div", { className: "la-rail__group la-rail__group--end", children: [
         ["search", "bell", "gear"].map((n) => /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
         /* @__PURE__ */ jsx("span", { className: "la-rail__rule" }),
-        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx("span", { className: "la-rail__me", "aria-hidden": true, children: "A" }) })
+        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx(RailTile, {}) })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("main", { className: "la-main", children: [
@@ -6251,6 +6306,9 @@ const askDashboard = {
     { text: "Who should hear first about our new arrivals?", age: "3d" }
   ]
 };
+// Site: 09 keeps Figma 3073:21692's green hallway too, as 10 and 11 (above), where the 15 November 2026 source gives it
+// a backdrop of its own (a concierge desk, insights-background-ask-v4), so the three Insights tabs share one backdrop.
+const askBackground = insightsBackground;
 function beatsFor(sc) {
   return [
     { id: "ask", type: "compose", text: sc.query, leadMs: 1100 },
@@ -6411,7 +6469,7 @@ function useFollowLatest(animate, mounted, settled, runKey) {
 function Dashboard({ sc, v, stageRef, runKey }) {
   const { threadRef, contentRef } = useFollowLatest(v.animate, v.sent, v.done, runKey);
   const Frame = sc.frame === "scene" ? SceneFrame : InsightFrame;
-  return /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx("div", { className: ["aid-viewport", sc.frame === "scene" && "aid-viewport--scene", sc.inset && "aid-viewport--inset"].filter(Boolean).join(" "), children: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(Frame, { background: sc.background, children: /* @__PURE__ */ jsx("div", { className: ["aid-viewport", sc.frame === "scene" && "aid-viewport--scene", sc.inset && "aid-viewport--inset"].filter(Boolean).join(" "), children: /* @__PURE__ */ jsx(
     InsightsFrame,
     {
       bare: true,
@@ -6485,6 +6543,7 @@ function motionOf(sc) {
 }
 const askScenario = {
   inset: true,
+  background: askBackground,
   query: askDashboard.query,
   steps: askDashboard.steps,
   reply: askDashboard.reply,
@@ -6576,7 +6635,7 @@ function Conversation({ v, stageRef, runKey }) {
         /* @__PURE__ */ jsx("dt", { children: "Channel" }),
         /* @__PURE__ */ jsxs("dd", { children: [
           "Web · ",
-          brand$1
+          brand$2
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "cv-section", children: [
@@ -6727,6 +6786,237 @@ const traffic = {
   action: { text: action.statement, cta: action.cta }
 };
 const AnonymousTrafficDashboardMotion = motionOf(traffic);
+const museMark = "/images/landing/home-v2/assets/muse-fill-DJ2Qt4YH.svg";
+const bag = (p) => ({
+  id: p.id,
+  name: p.title,
+  size: p.size ?? "",
+  color: p.color ?? "",
+  price: Number(p.price.slice(1)),
+  image: p.image
+});
+({
+  overnight: bag(catalog.trailwellOvernight),
+  weekender: bag(catalog.trailwellWeekender),
+  roam: bag(catalog.trailwellRoam)
+});
+const $ = (n) => `$${Number.isInteger(n) ? n : n.toFixed(2)}`;
+const brand = { id: "stride", name: "Stride" };
+const whatsNew = {
+  reply: "Three sneakers just launched this season, all under $300 and ready to ship:",
+  muse: [
+    "Stride's newest sneakers all fit your budget. The ",
+    { b: "Court 01" },
+    " at $245 is the best all-rounder; the ",
+    { b: "Suede Runner" },
+    " is the softest, with 4 left."
+  ]
+};
+const whyThis = {
+  reply: "Here's what sets the Court 01 apart:",
+  grok: [
+    "On a daily commute you're on your feet and in and out of transit, so the ",
+    { b: "lighter build" },
+    " matters most. The stitched sole stands up to daily wear, and the warranty covers it if the sole or stitching gives out."
+  ]
+};
+const offers = {
+  reply: "Three offers are available on sneakers right now:",
+  muse: [
+    "If you're set on the Court 01, the ",
+    { b: "care-kit bundle" },
+    " adds the kit for $14. Want something softer? The ",
+    { b: "Suede Runner trade-up" },
+    " is $30 off. Which would you like?"
+  ]
+};
+function AgentHeader({ agent: agent2, status: status2, state }) {
+  return /* @__PURE__ */ jsxs("header", { className: status2 ? "pap-header pap-header--busy" : "pap-header", "data-name": "Header", children: [
+    agent2 === "muse" ? /* @__PURE__ */ jsx("span", { className: "pap-logo pap-logo--muse", "aria-hidden": true, children: /* @__PURE__ */ jsx("img", { src: museMark, alt: "" }) }) : /* @__PURE__ */ jsx(GrokMark, { state }),
+    /* @__PURE__ */ jsxs("span", { className: "pap-header__title", children: [
+      /* @__PURE__ */ jsx("b", { children: agent2 === "muse" ? "Muse" : "Grok Bot" }),
+      /* @__PURE__ */ jsx("small", { children: status2 ?? (agent2 === "muse" ? "Personal agent" : "Agent") })
+    ] })
+  ] });
+}
+const GrokGlyph = () => /* @__PURE__ */ jsx("svg", { className: "pap-grok", viewBox: "-5 -5 34 34", fill: "#fff", fillRule: "evenodd", "aria-hidden": true, children: /* @__PURE__ */ jsxs("g", { className: "pap-grok__halves", children: [
+  /* @__PURE__ */ jsx("path", { className: "pap-grok__blade", d: "M9.27 15.29l7.978-5.897c.391-.29.95-.177 1.137.272.98 2.369.542 5.215-1.41 7.169-1.951 1.954-4.667 2.382-7.149 1.406l-2.711 1.257c3.889 2.661 8.611 2.003 11.562-.953 2.341-2.344 3.066-5.539 2.388-8.42l.006.007c-.983-4.232.242-5.924 2.75-9.383.06-.082.12-.164.179-.248l-3.301 3.305v-.01L9.267 15.292" }),
+  /* @__PURE__ */ jsx("path", { className: "pap-grok__half", d: "M7.623 16.723c-2.792-2.67-2.31-6.801.071-9.184 1.761-1.763 4.647-2.483 7.166-1.425l2.705-1.25a7.808 7.808 0 00-1.829-1A8.975 8.975 0 005.984 5.83c-2.533 2.536-3.33 6.436-1.962 9.764 1.022 2.487-.653 4.246-2.34 6.022-.599.63-1.199 1.259-1.682 1.925l7.62-6.815" })
+] }) });
+const GrokMark = ({ state }) => /* @__PURE__ */ jsx("span", { className: "pap-logo pap-logo--grok", "data-state": state, "aria-hidden": true, children: /* @__PURE__ */ jsx(GrokGlyph, {}) });
+const User = ({ children, refBag, refBrand = brand.name, className = "" }) => /* @__PURE__ */ jsxs("div", { className: `pap-turn pap-turn--user ${className}`, "data-name": "Turn / Shopper", children: [
+  refBag && /* @__PURE__ */ jsxs("span", { className: "pap-ref", "data-name": `Reference / ${refBag.name}`, children: [
+    /* @__PURE__ */ jsx("img", { src: refBag.image, alt: "" }),
+    /* @__PURE__ */ jsxs("span", { children: [
+      /* @__PURE__ */ jsxs("b", { children: [
+        refBrand,
+        " ",
+        refBag.name
+      ] }),
+      /* @__PURE__ */ jsx("small", { children: $(refBag.price) })
+    ] })
+  ] }),
+  /* @__PURE__ */ jsx("p", { className: "pap-bubble", children })
+] });
+const Working = ({ line }) => /* @__PURE__ */ jsxs("div", { className: "pap-working", "data-name": "Working", children: [
+  /* @__PURE__ */ jsxs("span", { className: "pap-dots", "aria-hidden": true, children: [
+    /* @__PURE__ */ jsx("i", {}),
+    /* @__PURE__ */ jsx("i", {}),
+    /* @__PURE__ */ jsx("i", {})
+  ] }),
+  /* @__PURE__ */ jsx("span", { className: "pap-working__line", children: line })
+] });
+const Load = ({ loading, i, radius = 16, children }) => loading === void 0 ? /* @__PURE__ */ jsx(Fragment, { children }) : /* @__PURE__ */ jsx(LoadingFrame, { loading, radius, resolveDelayMs: i * 120, children });
+function Merchant({ reply: reply2, brand: brand2 = "trailwell", name = "Trailwell", children }) {
+  return /* @__PURE__ */ jsxs("section", { className: "pap-merchant", "data-name": `${name} via Crossword`, children: [
+    /* @__PURE__ */ jsxs("span", { className: "pap-via", children: [
+      /* @__PURE__ */ jsx(BrandMark, { brand: brand2, className: "pap-via__mark" }),
+      /* @__PURE__ */ jsx("b", { children: name }),
+      " via Crossword"
+    ] }),
+    /* @__PURE__ */ jsx("p", { className: "pap-merchant__reply", children: reply2 }),
+    children
+  ] });
+}
+({ name: catalog.sorelleCream.title, image: catalog.sorelleCream.image });
+({ name: catalog.maraisTailoredTrousers.title, image: catalog.maraisTailoredTrousers.image });
+const storeCredit = {
+  reply: "Two wool sweaters in your size. The crewneck is covered in full by your credit:",
+  grok: ["Checkout is ready. Your store credit covers the full ", { b: "$128.33" }, ", and nothing is placed until you approve."]
+};
+const md = (runs) => runs.map((r) => typeof r === "string" ? r : `**${r.b}**`).join("");
+const museFlow = (reply2, answer2) => [
+  { id: "lead", type: "pause", ms: 500 },
+  { id: "ask", type: "appear", ms: 500 },
+  { id: "work", type: "pause", ms: 1700 },
+  { id: "card", type: "text", text: reply2 },
+  { id: "results", type: "load", ms: 950 },
+  { id: "read", type: "pause", ms: 1300 },
+  { id: "answer", type: "text", text: answer2 },
+  { id: "end", type: "pause", ms: 3e3 }
+];
+museFlow(whatsNew.reply, md(whatsNew.muse));
+museFlow(offers.reply, md(offers.muse));
+[
+  { id: "lead", type: "pause", ms: 500 },
+  { id: "ask", type: "appear", ms: 500 },
+  { id: "work", type: "pause", ms: 1900 },
+  { id: "card", type: "text", text: whyThis.reply },
+  { id: "results", type: "load", ms: 950 },
+  { id: "read", type: "pause", ms: 1500 },
+  { id: "think", type: "pause", ms: 900 },
+  { id: "answer", type: "text", text: md(whyThis.grok) },
+  { id: "pick", type: "appear", ms: 500 },
+  { id: "end", type: "pause", ms: 3e3 }
+];
+function Scene({ agent: agent2, name, beats: beats2, logged, children }) {
+  const stageRef = useRef(null);
+  const threadRef = useRef(null);
+  const active = useLandedOnScreen(stageRef);
+  const t = useChatTimeline(beats2, active);
+  useEffect(() => {
+    const el = threadRef.current;
+    if (!el) return;
+    if (t.index === 0) {
+      el.scrollTop = 0;
+      return;
+    }
+    const to = el.scrollHeight - el.clientHeight;
+    if (to > el.scrollTop + 1) return animateScrollTo(el, to);
+  }, [t.index, t.runKey]);
+  const busy = beats2.filter((b) => b.id.startsWith("work")).some((b) => t.loading(b.id));
+  const thinking = beats2.some((b) => b.id === "think") && t.loading("think");
+  const status2 = agent2 === "grok" ? busy ? "Working" : thinking ? "Thinking" : void 0 : void 0;
+  const workedOnce = beats2.some((b) => b.id.startsWith("work") && t.passed(b.id));
+  const mark = busy ? "working" : thinking ? "thinking" : t.loading("ask") ? "ack" : workedOnce ? "done" : "idle";
+  return /* @__PURE__ */ jsxs("figure", { className: logged ? "pap-figure pap-logged" : "pap-figure", ref: stageRef, children: [
+    /* @__PURE__ */ jsx("figcaption", { className: "app-stage__tile-label", children: name }),
+    /* @__PURE__ */ jsx("div", { className: "pap-canvas", children: /* @__PURE__ */ jsxs("div", { className: `pap pap--${agent2} pap-motion`, "data-name": name, children: [
+      /* @__PURE__ */ jsx(AgentHeader, { agent: agent2, status: status2, state: agent2 === "grok" ? mark : void 0 }),
+      /* @__PURE__ */ jsx("div", { className: "pap-thread", ref: threadRef, "data-name": "Conversation", children: children(t) }, t.runKey)
+    ] }) })
+  ] });
+}
+const Enter = ({ children }) => /* @__PURE__ */ jsx("div", { className: "hm-ill-assistant-turn--enter", children });
+const Answer = ({ runs }) => /* @__PURE__ */ jsx("p", { className: "pap-text", children: /* @__PURE__ */ jsx(RichStagger, { text: md(runs) }) });
+function MuseTurns({ t, ask: ask2, line, reply: reply2, results: results2, answer: answer2, merchant: merchant2 = brand }) {
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    t.reached("ask") && /* @__PURE__ */ jsx(User, { className: "hm-ill-user-turn--enter", children: ask2 }),
+    t.loading("work") && /* @__PURE__ */ jsx(Enter, { children: /* @__PURE__ */ jsx(Working, { line }) }),
+    t.reached("card") && /* @__PURE__ */ jsx(Enter, { children: /* @__PURE__ */ jsx(Merchant, { brand: merchant2.id, name: merchant2.name, reply: /* @__PURE__ */ jsx(RichStagger, { text: reply2 }), children: t.reached("results") && results2(t.loading("results")) }) }),
+    t.reached("answer") && /* @__PURE__ */ jsx(Answer, { runs: answer2 })
+  ] });
+}
+[
+  { id: "lead", type: "pause", ms: 500 },
+  { id: "ask", type: "appear", ms: 500 },
+  { id: "work", type: "pause", ms: 1300 },
+  { id: "auth", type: "text", text: "To use your store credit, sign in to your Marais account." },
+  { id: "authWait", type: "pause", ms: 1500 },
+  { id: "signed", type: "appear", ms: 700 },
+  { id: "work2", type: "pause", ms: 1700 },
+  { id: "picks", type: "text", text: storeCredit.reply },
+  { id: "account", type: "appear", ms: 500 },
+  { id: "sweaters", type: "load", ms: 950 },
+  { id: "read", type: "pause", ms: 1600 },
+  { id: "choose", type: "appear", ms: 600 },
+  { id: "work3", type: "pause", ms: 1300 },
+  { id: "checkout", type: "text", text: "Here's your checkout with store credit applied:" },
+  { id: "summary", type: "load", ms: 900 },
+  { id: "read2", type: "pause", ms: 1500 },
+  { id: "think", type: "pause", ms: 800 },
+  { id: "answer", type: "text", text: md(storeCredit.grok) },
+  { id: "approve", type: "appear", ms: 500 },
+  { id: "end", type: "pause", ms: 3e3 }
+];
+const merchant = { id: "sorelle-labs", name: "Sorelle Labs" };
+const ask = "Find me a daily moisturiser for dry skin, under $50.";
+const reply = "Two picks for dry skin. The set also qualifies for the Winter Glow Special, a free gift on orders over $50:";
+const picks = [
+  { p: catalog.sorelleCream, meta: "Daily face cream", note: "Fits your budget", badge: void 0 },
+  { p: catalog.sorelleSet, meta: "Cream, night mask, cleanser", note: "Free gift · until Nov 30", badge: "Free gift" }
+];
+const answer = [
+  "The ",
+  { b: "Deep Hydration Cream" },
+  " is $42 and fits your budget. For $13 more, the ",
+  { b: "Deep Hydration Set" },
+  " adds a night mask and travel-size cleanser, and gets you the ",
+  { b: "Winter Glow" },
+  " free gift."
+];
+const BEATS = museFlow(reply, md(answer));
+function Moisturisers({ loading }) {
+  return /* @__PURE__ */ jsx("div", { className: "pap-cards", "data-name": "Products", children: picks.map(({ p, meta, note, badge }, i) => /* @__PURE__ */ jsx(Load, { loading, i, children: /* @__PURE__ */ jsxs("article", { className: "pap-card", "data-name": `Product / ${p.title}`, children: [
+    /* @__PURE__ */ jsxs("div", { className: "pap-card__media", children: [
+      /* @__PURE__ */ jsx("img", { src: p.image, alt: p.title }),
+      badge && /* @__PURE__ */ jsx("span", { className: "pap-badge", children: badge })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "pap-card__body", children: [
+      /* @__PURE__ */ jsx("b", { children: p.title }),
+      /* @__PURE__ */ jsx("small", { children: meta }),
+      /* @__PURE__ */ jsx("span", { className: "pap-card__price", children: p.price }),
+      /* @__PURE__ */ jsxs("span", { className: "pap-stock", children: [
+        /* @__PURE__ */ jsx("i", { className: "pap-stock__dot" }),
+        note
+      ] })
+    ] })
+  ] }) }, p.id)) });
+}
+function HomePersonalAgentMotion() {
+  return /* @__PURE__ */ jsx("div", { className: "pam hpa", children: /* @__PURE__ */ jsx(Scene, { agent: "muse", name: "07 Personal agents · Muse", beats: BEATS, children: (t) => /* @__PURE__ */ jsx(
+    MuseTurns,
+    {
+      t,
+      ask,
+      line: "Asking Sorelle Labs via Crossword",
+      reply,
+      merchant,
+      results: (loading) => /* @__PURE__ */ jsx(Moisturisers, { loading }),
+      answer
+    }
+  ) }) });
+}
 export {
   AdJourneyV2Motion as AdJourneyMotion,
   AiAssistantsV2Motion as AiAssistantsMotion,
@@ -6734,9 +7024,10 @@ export {
   AnonymousTrafficDashboardMotion as AnonymousTrafficMotion,
   AskInsightDashboardMotion as AskInsightMotion,
   GiftJourneyV2Motion as GiftJourneyMotion,
-  PersonalAgentsV2SbMotion as PersonalAgentsMotion,
+  HomePersonalAgentMotion as PersonalAgentsMotion,
   RetentionGrowthV2Motion as RetentionGrowthMotion,
   ConversationRevenueDashboardMotion as RevenueAttributionMotion,
   ServiceResolutionV2Motion as ServiceResolutionMotion,
+  SponsoredComparisonMobileMotion,
   SponsoredComparisonV2Motion as SponsoredComparisonMotion
 };
