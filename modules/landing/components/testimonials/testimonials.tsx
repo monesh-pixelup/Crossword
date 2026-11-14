@@ -110,7 +110,7 @@ export function Testimonials({ variant = "home" }: { variant?: Variant }) {
 
   return (
     <section aria-labelledby="testimonials-title" className="relative section-pad">
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[98px]">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[calc(98px+var(--section-shift,0px))]">
         <RailAccent src={railAccent} className="absolute top-0 left-[calc(var(--frame-inset)-0.5px)]" />
         <RailAccent src={railAccent} className="absolute top-0 right-[calc(var(--frame-inset)-0.5px)]" />
       </div>

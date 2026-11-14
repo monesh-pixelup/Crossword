@@ -13,12 +13,12 @@ export function Insights() {
     <section aria-labelledby="insights-title" className="relative section-pad">
       <RailAccent
         src={railAccent}
-        className="pointer-events-none absolute top-[99px] left-[calc(var(--frame-inset)-0.5px)] max-lg:hidden"
+        className="pointer-events-none absolute top-[calc(99px+var(--section-shift,0px))] left-[calc(var(--frame-inset)-0.5px)] max-lg:hidden"
       />
       {/* Stacked, the left rail's accent is drawn as in Managed launch. */}
       <RailAccent
         src={sharedRailAccent}
-        className="pointer-events-none absolute top-[99px] left-[calc(var(--frame-inset)-0.5px)] lg:hidden"
+        className="pointer-events-none absolute top-[calc(99px+var(--section-shift,0px))] left-[calc(var(--frame-inset)-0.5px)] lg:hidden"
       />
 
       <div className="flex content-width flex-col items-start gap-section">

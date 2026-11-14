@@ -138,7 +138,7 @@ export function Blog() {
       <DividerBand glyph="quill" />
       <RailAccent
         src={railAccent}
-        className="pointer-events-none absolute top-[122px] left-[calc(var(--frame-inset)-0.5px)]"
+        className="pointer-events-none absolute top-[calc(122px+var(--section-shift,0px))] left-[calc(var(--frame-inset)-0.5px)]"
       />
 
       <div className="flex content-width flex-col items-start gap-section">

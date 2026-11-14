@@ -14,9 +14,9 @@ export function Lifecycle() {
       </div>
 
       {/* The left rail's gold accent: 103.49px down the section, below the band, and 208.94px long. */}
-      <RailAccent className="absolute top-[calc(24px+103.49px)] left-[calc(var(--frame-inset)-0.5px)] h-[208.94px] w-px" />
+      <RailAccent className="absolute top-[calc(24px+103.49px+var(--section-shift,0px))] left-[calc(var(--frame-inset)-0.5px)] h-[208.94px] w-px" />
 
-      <div className="flex content-width flex-col items-start gap-section pt-(--section-pad)">
+      <div className="flex content-width flex-col items-start gap-section pt-[calc(var(--section-pad)+var(--section-shift,0px))]">
         <div className="flex flex-col items-start gap-6">
           <Eyebrow>Customer lifecycle</Eyebrow>
           <SectionTitle

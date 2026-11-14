@@ -162,13 +162,23 @@
   margin-inline: auto;
 }
 
-/* Section padding; sections opening with a divider band add its 24px on top. */
+/*
+ * Section padding; sections opening with a divider band add its 24px on top. `--section-shift` moves a section's top
+ * padding (and the rail accents placed from it) without touching its bottom: 0 everywhere but the home page, whose
+ * sections start 88px down from 992px (`section-top-88` on its <main>), 32px less than the 120px `--section-pad`.
+ */
 @utility section-pad {
-  padding-block: var(--section-pad);
+  padding-top: calc(var(--section-pad) + var(--section-shift, 0px));
+  padding-bottom: var(--section-pad);
 }
 @utility section-pad-band {
-  padding-top: calc(var(--section-pad) + 24px);
+  padding-top: calc(var(--section-pad) + 24px + var(--section-shift, 0px));
   padding-bottom: var(--section-pad);
+}
+@utility section-top-88 {
+  @media (width >= 992px) {
+    --section-shift: -32px;
+  }
 }
 
 /* Gap between a section's header and its content. */

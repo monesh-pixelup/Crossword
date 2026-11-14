@@ -53,8 +53,8 @@ export function CustomerIntelligence() {
     <section aria-labelledby="intel-title" className="relative section-pad-band">
       <DividerBand glyph="book" />
       <div aria-hidden>
-        <RailAccent className={cn(frameAccent, "top-[124px] left-(--frame-inset) h-[325px] -translate-x-1/2")} />
-        <RailAccent className={cn(frameAccent, "top-[124px] right-(--frame-inset) h-[325px] translate-x-1/2")} />
+        <RailAccent className={cn(frameAccent, "top-[calc(124px+var(--section-shift,0px))] left-(--frame-inset) h-[325px] -translate-x-1/2")} />
+        <RailAccent className={cn(frameAccent, "top-[calc(124px+var(--section-shift,0px))] right-(--frame-inset) h-[325px] translate-x-1/2")} />
       </div>
 
       <div className="flex content-width flex-col items-stretch">
