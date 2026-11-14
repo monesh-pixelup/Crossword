@@ -8850,6 +8850,287 @@
 .ml-motion.mlm .ml-stage .ill-landscape-canvas .ill-landscape-canvas__page { border-radius: 24px 24px 0 0; box-shadow: 0 0 0 2px #e0be60; }
 .ml-motion.mlm .ml-stage .gj2-win.ml-win { box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 4.234px 8.679px rgba(0, 0, 0, .25); border-color: transparent; }
 
+/* visuals/ManagedLaunch/JourneyDiagram.css */
+/* Managed Launch · how it works. Tokens, type and radii follow the
+   Managed Launch visual (STORYBOOK_MAPPING §14l): Geist 12/13/14/22 only,
+   no uppercase; radii 12 (surfaces) / 10 (inner cards) / 6 (thumbs,
+   chips) / 4 (badges) / pill; one green for Crossword, gold for the
+   merchant; the Launch story's card head (tinted, Phosphor icon, muted
+   12/500 title); hairline totals 22/28. Backdrop: LandscapeCanvas's
+   green damask. */
+.ml-motion .jd-stage {
+  --fg: #16171b;
+  --muted: #3f3f3f;
+  --faint: oklch(0.62 0 0);
+  --border: oklch(0.93 0 0);
+  --subtle: #fafafa;
+  --hair: rgba(0, 0, 0, 0.08);
+  --green: rgb(0, 76, 39);
+  --green-wash: rgba(0, 76, 39, 0.08);
+  --gold: #c99a2e;
+  --gold-wash: #fbf3dc;
+  --gold-ink: #4e3a1f;
+  --raised: 0 0 0 1px oklch(0 0 0 / 0.07), 0 1px 2px oklch(0 0 0 / 0.08);
+  width: 1280px;
+  height: 598px;
+  box-sizing: border-box;
+  padding: 40px 48px;
+  background: #0f3a26 url("../../assets/motion/ill-frame/retain/audiences_bg_3x.webp") center / cover no-repeat;
+  font-family: var(--font-geist), var(--font-face-inter-motion), system-ui, sans-serif;
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+.ml-motion .jd-stage p { margin: 0; }
+.ml-motion .jd-eyebrow { font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.72); }
+.ml-motion .jd-title { margin: 4px 0 0; font-size: 22px; line-height: 28px; font-weight: 500; letter-spacing: -0.01em; color: #fff; }
+
+/* Shared atoms */
+.ml-motion .jd-chip__n { flex: none; width: 20px; height: 20px; border-radius: 999px; display: grid; place-items: center; background: var(--green); color: #fff; font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; }
+/* Storybook Badge: 20px, radius 4, wash. */
+.ml-motion .jd-who { display: inline-flex; align-items: center; height: 20px; padding: 0 6px; border-radius: 4px; background: var(--green-wash); color: var(--green); font-size: 12px; font-weight: 500; white-space: nowrap; }
+.ml-motion .jd-who.is-you { background: var(--gold-wash); color: var(--gold-ink); box-shadow: inset 0 0 0 1px rgba(224, 190, 96, 0.5); }
+
+/* A — lanes */
+.ml-motion .jd-lanes { display: flex; gap: 16px; margin-top: 8px; }
+.ml-motion .jd-lane-labels { display: grid; grid-template-rows: 88px 152px; gap: 12px; width: 104px; }
+.ml-motion .jd-lane-label { align-self: center; font-size: 13px; font-weight: 500; color: rgba(255, 255, 255, 0.85); }
+.ml-motion .jd-grid { position: relative; flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 88px 152px 40px; column-gap: 12px; row-gap: 12px; }
+.ml-motion .jd-lane-bg { grid-column: 1 / -1; grid-row: 1; border-radius: 12px; background: rgba(255, 255, 255, 0.06); border: 1px dashed rgba(255, 255, 255, 0.24); }
+.ml-motion .jd-lane-bg.is-team { grid-row: 2; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.16); }
+.ml-motion .jd-col { display: contents; }
+.ml-motion .jd-slot { grid-row: 1; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+.ml-motion .jd-slot.is-team { grid-row: 2; padding: 8px; }
+.ml-motion .jd-col:nth-child(3) .jd-slot { grid-column: 1; }
+.ml-motion .jd-col:nth-child(4) .jd-slot { grid-column: 2; }
+.ml-motion .jd-col:nth-child(5) .jd-slot { grid-column: 3; }
+.ml-motion .jd-col:nth-child(6) .jd-slot { grid-column: 4; }
+.ml-motion .jd-touch { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px 0 10px; border-radius: 999px; background: var(--gold-wash); box-shadow: inset 0 0 0 1px rgba(224, 190, 96, 0.6), 0 1px 2px rgba(0, 0, 0, 0.08); color: var(--gold-ink); font-size: 12px; font-weight: 500; }
+.ml-motion .jd-touch::after { content: ""; position: absolute; left: 50%; top: calc(50% + 14px); height: 38px; border-left: 1px dashed rgba(224, 190, 96, 0.8); }
+.ml-motion .jd-touch__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--gold); box-shadow: 0 0 0 3px rgba(201, 154, 46, 0.18); }
+.ml-motion .jd-chip { width: 100%; height: 100%; box-sizing: border-box; display: flex; gap: 10px; padding: 14px; border-radius: 10px; background: #fff; box-shadow: var(--raised); }
+.ml-motion .jd-chip__title { font-size: 14px; line-height: 20px; font-weight: 500; }
+.ml-motion .jd-chip__line { margin-top: 4px !important; font-size: 13px; line-height: 18px; color: var(--muted); }
+.ml-motion .jd-loop { position: absolute; left: 0; right: 0; bottom: 8px; width: 100%; height: 30px; color: rgba(255, 255, 255, 0.7); }
+.ml-motion .jd-loop__label { position: absolute; left: 62.5%; bottom: 0; transform: translateX(-50%); font-size: 12px; font-weight: 500; color: #fff; }
+
+/* C — deliverable cards */
+.ml-motion .hv2-figure[data-slug="managed-launch-diagram-c"] { width: 100% !important; max-width: 1280px; }
+.ml-motion .jd-stage--c { width: 100%; max-width: 1280px; height: auto; min-height: 598px; container-type: inline-size; }
+.ml-motion .jd-flow { display: flex; flex-direction: column; }
+.ml-motion .jd-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.ml-motion .jd-card { display: grid; grid-template-rows: auto auto auto 1fr; padding: 14px; border-radius: 12px; background: #fff; box-shadow: var(--raised), 0 12px 32px rgba(0, 0, 0, 0.16); }
+.ml-motion .jd-card__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ml-motion .jd-card__title { margin-top: 12px !important; font-size: 14px; line-height: 20px; font-weight: 500; }
+.ml-motion .jd-card__line { margin: 4px 0 14px !important; font-size: 13px; line-height: 18px; color: var(--muted); }
+
+/* The Launch story's card, at artifact size. */
+.ml-motion .jd-doc { align-self: end; height: 212px; box-sizing: border-box; display: flex; flex-direction: column; border-radius: 10px; background: #fff; box-shadow: inset 0 0 0 1px var(--border); overflow: hidden; }
+.ml-motion .jd-doc__head { flex: none; display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 10px; background: oklch(0.985 0 0); border-bottom: 1px solid var(--border); font-size: 12px; line-height: 18px; }
+.ml-motion .jd-doc__icon { width: 14px; height: 14px; color: var(--muted); }
+.ml-motion .jd-doc__label { font-weight: 500; color: var(--muted); }
+.ml-motion .jd-doc__meta { margin-left: auto; color: var(--faint); }
+.ml-motion .jd-doc__body { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; min-height: 0; }
+.ml-motion .jd-doc__foot { flex: none; padding: 8px 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--faint); }
+.ml-motion .jd-doc__lead { font-size: 14px; line-height: 20px; font-weight: 500; }
+.ml-motion .jd-kv { margin: 0; display: flex; flex-direction: column; font-size: 12px; line-height: 18px; }
+.ml-motion .jd-kv div { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-top: 1px solid var(--border); }
+.ml-motion .jd-kv dt { color: var(--faint); }
+.ml-motion .jd-kv dd { margin: 0; color: var(--fg); font-weight: 500; }
+.ml-motion .jd-ask { align-self: flex-end; max-width: 92%; padding: 5px 10px; border-radius: 10px; background: #f5f5f5; font-size: 12px; line-height: 18px; white-space: nowrap; }
+.ml-motion .jd-picks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.ml-motion .jd-pick { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.ml-motion .jd-pick img { width: 100%; height: 60px; object-fit: cover; border-radius: 6px; background: #f8f8f8; box-shadow: inset 0 0 0 1px var(--hair); }
+.ml-motion .jd-check { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 18px; }
+.ml-motion .jd-check > span:last-child { display: flex; flex-direction: column; }
+.ml-motion .jd-check em { font-style: normal; font-size: 12px; color: var(--faint); }
+.ml-motion .jd-box { flex: none; width: 14px; height: 14px; margin-top: 2px; border-radius: 999px; display: grid; place-items: center; background: var(--green); color: #fff; }
+.ml-motion .jd-box svg { width: 8px; height: 8px; }
+/* "Live"'s neutral status pill with a primary dot (§14l). */
+.ml-motion .jd-status { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px 0 8px; border-radius: 999px; background: var(--subtle); box-shadow: inset 0 0 0 1px var(--border); color: var(--fg); font-size: 12px; font-weight: 500; }
+.ml-motion .jd-status__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--green); box-shadow: 0 0 0 3px rgba(0, 76, 39, 0.14); }
+/* Hairline totals (AI Assistants 15's .cgi-metrics), 22/28. */
+.ml-motion .jd-totals { display: grid; grid-template-columns: 1fr 1fr; margin: -10px -12px 0; border-bottom: 1px solid var(--border); }
+.ml-motion .jd-totals > div { display: flex; flex-direction: column; gap: 2px; padding: 8px 12px; }
+.ml-motion .jd-totals > div + div { border-left: 1px solid var(--border); }
+.ml-motion .jd-totals__label { font-size: 12px; color: var(--faint); }
+.ml-motion .jd-totals__value { font-size: 22px; line-height: 28px; font-weight: 500; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; color: var(--green); }
+.ml-motion .jd-totals__value.is-was { color: var(--faint); }
+.ml-motion .jd-doc__small { font-size: 12px; color: var(--faint); }
+.ml-motion .jd-doc__fix { margin-top: auto !important; font-size: 12px; line-height: 18px; padding: 6px 8px; border-radius: 6px; background: var(--green-wash); color: var(--green); }
+
+.ml-motion .jd-repeat { position: relative; height: 34px; color: rgba(255, 255, 255, 0.7); }
+.ml-motion .jd-repeat__arc { position: absolute; inset: 0 0 12px; width: 100%; height: 22px; }
+.ml-motion .jd-repeat__label { position: absolute; left: 62.5%; bottom: 0; transform: translateX(-50%); padding: 0 8px; font-size: 12px; font-weight: 500; color: #fff; white-space: nowrap; }
+
+@container (max-width: 900px) {
+  .ml-motion .jd-cards { grid-template-columns: repeat(2, 1fr); }
+  .ml-motion .jd-repeat { height: auto; margin-top: 14px; }
+  .ml-motion .jd-repeat__arc { display: none; }
+  .ml-motion .jd-repeat__label { position: static; transform: none; display: block; text-align: center; }
+}
+@container (max-width: 560px) {
+  .ml-motion .jd-cards { grid-template-columns: 1fr; }
+  .ml-motion .jd-doc { height: auto; min-height: 180px; }
+}
+@media (max-width: 640px) {
+  .ml-motion .jd-stage--c { padding: 24px 16px; min-height: 0; }
+}
+
+/* Step shells: a shade of the backdrop green with the frame's gold
+   hairline; the artifacts inside stay white. */
+.ml-motion .jd-stage { --shell: rgba(6, 46, 28, 0.82); --shell-gold: rgba(224, 190, 96, 0.55); }
+.ml-motion .jd-card, .ml-motion .jd-chip {
+  background: var(--shell);
+  box-shadow: inset 0 0 0 1px var(--shell-gold), 0 12px 32px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+}
+.ml-motion .jd-card__title, .ml-motion .jd-chip__title { color: #fff; }
+.ml-motion .jd-card__line, .ml-motion .jd-chip__line { color: rgba(255, 255, 255, 0.72); }
+.ml-motion .jd-chip__n { background: #e0be60; color: #06301c; }
+.ml-motion .jd-who { background: rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.9); }
+.ml-motion .jd-who.is-you { background: rgba(224, 190, 96, 0.16); color: #f1d891; box-shadow: inset 0 0 0 1px rgba(224, 190, 96, 0.4); }
+.ml-motion .jd-doc { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12); }
+
+/* Artifact card from Figma (TiAeD9ICNjjC8N3zoUJExk, node 4209:7506, the
+   Goal summary): page-cream body, bone head, linen foot, rail hairlines,
+   forest ink, olive labels. Applied to all four artifacts. */
+.ml-motion .jd-stage {
+  --forest: #00331a;
+  --bone: #e8dec1;
+  --rail: #d2cbba;
+  --olive: #766640;
+  --linen: #efe9db;
+  --page: #fff9e9;
+}
+.ml-motion .jd-doc { background: var(--page); box-shadow: inset 0 0 0 1px var(--rail); color: var(--forest); }
+.ml-motion .jd-doc__head { background: var(--bone); border-bottom-color: var(--rail); }
+.ml-motion .jd-doc__icon, .ml-motion .jd-doc__label { color: var(--olive); }
+.ml-motion .jd-doc__meta { color: var(--forest); font-weight: 500; }
+.ml-motion .jd-doc__foot { background: var(--linen); border-top-color: var(--rail); color: var(--olive); }
+.ml-motion .jd-doc__lead, .ml-motion .jd-kv dd, .ml-motion .jd-check, .ml-motion .jd-pick { color: var(--forest); }
+.ml-motion .jd-kv div { border-top-color: var(--rail); }
+.ml-motion .jd-kv dt, .ml-motion .jd-check em, .ml-motion .jd-doc__small, .ml-motion .jd-totals__label { color: var(--olive); }
+.ml-motion .jd-ask { background: var(--linen); color: var(--forest); }
+.ml-motion .jd-pick img { box-shadow: inset 0 0 0 1px var(--rail); }
+.ml-motion .jd-box { background: var(--forest); }
+.ml-motion .jd-status { background: var(--linen); box-shadow: inset 0 0 0 1px var(--rail); color: var(--forest); }
+.ml-motion .jd-status__dot { background: var(--forest); }
+.ml-motion .jd-totals { border-bottom-color: var(--rail); }
+.ml-motion .jd-totals > div + div { border-left-color: var(--rail); }
+.ml-motion .jd-totals__value { color: var(--forest); }
+.ml-motion .jd-totals__value.is-was { color: var(--olive); opacity: 0.7; }
+.ml-motion .jd-doc__fix { background: var(--bone); color: var(--forest); }
+
+/* Full diagram from Figma (TiAeD9ICNjjC8N3zoUJExk, node 4209:7481):
+   solid forest-light shells, gold-bordered cream artifacts with neutral
+   ink, gold dashed refine connector. */
+.ml-motion .jd-card, .ml-motion .jd-chip { background: #004c27; box-shadow: 0 12px 16px rgba(0, 0, 0, 0.22); }
+.ml-motion .jd-doc { background: var(--page); border: 1px solid #e0be60; box-shadow: 0 2px 2px rgba(0, 0, 0, 0.32); color: #16171b; }
+.ml-motion .jd-doc__icon, .ml-motion .jd-doc__label { color: #3f3f3f; }
+.ml-motion .jd-doc__meta { color: #868686; font-weight: 400; }
+.ml-motion .jd-doc__foot { color: #868686; }
+.ml-motion .jd-card:first-child .jd-doc__meta { color: var(--forest); }
+.ml-motion .jd-card:first-child .jd-doc__foot { color: var(--olive); }
+.ml-motion .jd-doc__lead, .ml-motion .jd-kv dd, .ml-motion .jd-check, .ml-motion .jd-pick { color: #16171b; }
+.ml-motion .jd-kv dt, .ml-motion .jd-check em, .ml-motion .jd-doc__small, .ml-motion .jd-totals__label { color: #868686; }
+.ml-motion .jd-ask { background: #fbedd4; color: #16171b; }
+.ml-motion .jd-pick img { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.ml-motion .jd-box { background: #004c27; }
+.ml-motion .jd-status { background: #fbedd4; box-shadow: none; color: #16171b; }
+.ml-motion .jd-status__dot { background: #004c27; }
+.ml-motion .jd-totals__value { color: #004c27; }
+.ml-motion .jd-totals__value.is-was { color: #868686; opacity: 1; }
+.ml-motion .jd-doc__fix { margin-top: 0 !important; padding: 4px 8px; background: rgba(0, 76, 39, 0.08); color: #004c27; }
+.ml-motion .jd-who.is-you { box-shadow: none; }
+.ml-motion .jd-repeat__arc { inset: auto; left: 36.28%; top: 2px; width: 50.08%; height: 31.5px; }
+.ml-motion .jd-repeat__label { left: 60.9%; transform: translateX(-50%); bottom: auto; top: 22px; padding: 0; }
+.ml-motion .jd-card:first-child .jd-who { background: #00311a; color: #dfe3d2; }
+
+/* Artifact spacing from Figma (4209:7546): head 36 incl. hairline, body
+   10/12 with 8 gap, foot 8/12 at normal leading — all inside 212px so the
+   ask bubble and picks never crop. */
+.ml-motion .jd-doc, .ml-motion .jd-doc * { box-sizing: border-box; }
+.ml-motion .jd-doc__head { height: 36px; border-bottom-width: 1.25px; }
+.ml-motion .jd-doc__body { padding: 10px 12px; gap: 8px; flex: 1 1 0; min-height: 0; }
+.ml-motion .jd-doc__foot { padding: 8px 12px; line-height: normal; border-top-width: 1.25px; }
+.ml-motion .jd-ask { flex: none; padding: 5px 10px; border-radius: 10px; line-height: 18px; }
+.ml-motion .jd-picks { flex: none; gap: 6px; }
+.ml-motion .jd-pick { gap: 4px; line-height: normal; }
+.ml-motion .jd-pick img { display: block; height: 60px; }
+
+/* Figma stroke icons (16px) in the artifact head. */
+.ml-motion .jd-doc__icon { flex: none; width: 16px; height: 16px; }
+/* Weekly report: tighter totals so the note keeps its 10px bottom inset. */
+.ml-motion .jd-card:last-child .jd-doc__body { gap: 6px; }
+.ml-motion .jd-card:last-child .jd-totals > div { padding: 6px 12px; }
+
+/* Landing motion: once on load. Cards rise in a short left-to-right
+   stagger, each artifact settles just after its shell, then the refine
+   loop draws back from step 4 to step 2 and its label fades in.
+   Transform + opacity + clip-path only. */
+.ml-motion .jd-stage--c { --jd-ease: cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes mlm-jd-rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes mlm-jd-settle { from { opacity: 0; transform: translateY(4px) scale(0.985); } }
+@keyframes mlm-jd-draw { from { clip-path: inset(0 0 0 100%); } }
+@keyframes mlm-jd-fade { from { opacity: 0; } }
+.ml-motion .jd-stage--c .jd-card { animation: mlm-jd-rise 560ms var(--jd-ease) both; }
+.ml-motion .jd-stage--c .jd-doc { animation: mlm-jd-settle 520ms var(--jd-ease) both; animation-delay: inherit; }
+.ml-motion .jd-stage--c .jd-card:nth-child(1) { animation-delay: 80ms; }
+.ml-motion .jd-stage--c .jd-card:nth-child(2) { animation-delay: 150ms; }
+.ml-motion .jd-stage--c .jd-card:nth-child(3) { animation-delay: 220ms; }
+.ml-motion .jd-stage--c .jd-card:nth-child(4) { animation-delay: 290ms; }
+.ml-motion .jd-stage--c .jd-card:nth-child(1) .jd-doc { animation-delay: 180ms; }
+.ml-motion .jd-stage--c .jd-card:nth-child(2) .jd-doc { animation-delay: 250ms; }
+.ml-motion .jd-stage--c .jd-card:nth-child(3) .jd-doc { animation-delay: 320ms; }
+.ml-motion .jd-stage--c .jd-card:nth-child(4) .jd-doc { animation-delay: 390ms; }
+.ml-motion .jd-stage--c .jd-repeat__arc { animation: mlm-jd-draw 700ms cubic-bezier(0.77, 0, 0.175, 1) 650ms both; }
+.ml-motion .jd-stage--c .jd-repeat__label { animation: mlm-jd-fade 300ms ease-out 1150ms both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ml-motion .jd-stage--c .jd-card, .ml-motion .jd-stage--c .jd-doc { animation-name: mlm-jd-fade; animation-duration: 240ms; }
+  .ml-motion .jd-stage--c .jd-repeat__arc { animation: mlm-jd-fade 240ms ease-out 300ms both; }
+}
+
+/* Stronger stagger: cards 120ms apart, and inside each card the badge row,
+   title, line, artifact and the artifact's body items cascade 50ms apart. */
+.ml-motion .jd-stage--c .jd-card { --i: 0; animation-delay: calc(var(--i) * 120ms + 60ms); }
+.ml-motion .jd-stage--c .jd-card:nth-child(1) { --i: 0; }
+.ml-motion .jd-stage--c .jd-card:nth-child(2) { --i: 1; }
+.ml-motion .jd-stage--c .jd-card:nth-child(3) { --i: 2; }
+.ml-motion .jd-stage--c .jd-card:nth-child(4) { --i: 3; }
+.ml-motion .jd-stage--c .jd-card__top,
+.ml-motion .jd-stage--c .jd-card__title,
+.ml-motion .jd-stage--c .jd-card__line,
+.ml-motion .jd-stage--c .jd-doc__body > * { animation: mlm-jd-rise 480ms var(--jd-ease) both; }
+.ml-motion .jd-stage--c .jd-card__top   { animation-delay: calc(var(--i) * 120ms + 140ms); }
+.ml-motion .jd-stage--c .jd-card__title { animation-delay: calc(var(--i) * 120ms + 190ms); }
+.ml-motion .jd-stage--c .jd-card__line  { animation-delay: calc(var(--i) * 120ms + 240ms); }
+.ml-motion .jd-stage--c .jd-card .jd-doc { animation-delay: calc(var(--i) * 120ms + 290ms); }
+.ml-motion .jd-stage--c .jd-doc__body > :nth-child(1) { animation-delay: calc(var(--i) * 120ms + 360ms); }
+.ml-motion .jd-stage--c .jd-doc__body > :nth-child(2) { animation-delay: calc(var(--i) * 120ms + 410ms); }
+.ml-motion .jd-stage--c .jd-doc__body > :nth-child(3) { animation-delay: calc(var(--i) * 120ms + 460ms); }
+.ml-motion .jd-stage--c .jd-doc__body > :nth-child(4) { animation-delay: calc(var(--i) * 120ms + 510ms); }
+.ml-motion .jd-stage--c .jd-repeat__arc { animation-delay: 950ms; }
+.ml-motion .jd-stage--c .jd-repeat__label { animation-delay: 1450ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ml-motion .jd-stage--c .jd-card__top, .ml-motion .jd-stage--c .jd-card__title, .ml-motion .jd-stage--c .jd-card__line, .ml-motion .jd-stage--c .jd-doc__body > * { animation-name: mlm-jd-fade; animation-duration: 240ms; }
+}
+
+/*
+ * Site: the diagram's landing motion plays "once on load" in the source, where it is the first thing on its page. Here
+ * it sits a few sections down, so it waits (every animation paused on its first frame) until the diagram is on screen
+ * (`jd-wait`, set and cleared by ManagedLaunchDiagram in ml-motion.tsx), then plays once as written.
+ */
+.ml-motion.jd-wait .jd-stage--c,
+.ml-motion.jd-wait .jd-stage--c * {
+  animation-play-state: paused !important;
+}
+
 /*
  * Site: 01m captions itself with the gallery's tile label (`.app-stage__tile-label`, styled by the gallery page, not by
  * the visual). On the site the section says what the visual is, so the label is left out and 01m is just its 353 × 440

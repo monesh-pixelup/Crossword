@@ -45,3 +45,20 @@ From the updated handoff (the window standard, and 01m):
 - **motion.css** was regenerated from the new source's stylesheets in its build order (GrowComposer.css and
   managed-launch-motion.css are new; SceneFrame.css now comes before BrandIdentity.css). The new 353 × 440 green frame
   is the one relative url, pointing at assets/motion/ill-frame. A "Site" rule at the end hides 01m's gallery caption.
+
+## 15 November 2026 update: the diagram
+
+From the "Crossword — Managed Launch · Diagram" handoff, whose one visual is "C — Deliverable per step"
+(`DeliverableSteps`):
+
+- `visuals/ManagedLaunch/JourneyDiagram.tsx` is the source file with the image imports changed as above (its icons and
+  the refine connector are in `assets/motion/managed-launch/`). It reads `journeyPreview` from `data.ts`, which is
+  unchanged, as is the catalog.
+- **motion.css** has its stylesheet, `JourneyDiagram.css`, as a new segment after managed-launch-motion.css, scoped and
+  renamed like the rest (`.ml-motion …`, `mlm-jd-*` keyframes, Geist and Inter on the next/font variables, the green
+  damask at assets/motion/ill-frame/retain). One "Site" rule follows it: the landing motion waits until the diagram is
+  on screen (`jd-wait`), where the source plays it on load.
+- `ManagedLaunchDiagram` (ml-motion.tsx) draws it in the `.ml-motion` scope, on the server too, as a block that fills
+  its column and reflows by its own width; journey/journey.tsx shows it at every screen width, in place of 01 and 01m.
+  `ManagedLaunchPanel` and `ManagedLaunchMwebPanel` (01 and 01m) are still here but no longer used on the page.
+

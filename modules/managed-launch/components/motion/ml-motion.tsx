@@ -1,7 +1,8 @@
 "use client";
 
-import { type ReactNode, useSyncExternalStore } from "react";
+import { type ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { type SceneEntry, ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { DeliverableSteps } from "./visuals/ManagedLaunch/JourneyDiagram";
 import { ManagedLaunchMotion, ManagedLaunchMwebStatic } from "./visuals/ManagedLaunch/ManagedLaunch";
 import "./motion.css";
 
@@ -64,4 +65,39 @@ const managedLaunchMwebScene: SceneEntry = {
 /** The Managed Launch visual for phones (01m), filling the panel it sits in. */
 export function ManagedLaunchMwebPanel() {
   return <ScenePanel scene={managedLaunchMwebScene} root={MlMotionRoot} maxScale={Infinity} transform />;
+}
+
+/**
+ * Managed Launch · Diagram, "C — Deliverable per step" (the 15 November 2026 handoff, Figma 4209:7481): the four steps
+ * of a managed launch as cards on the green damask (kickoff call, design and build, review and launch, weekly
+ * check-ins), each with the deliverable it produces, and the "Refine & repeat" loop from step 4 back to step 2.
+ *
+ * Unlike the other visuals it isn't a fixed frame scaled to fit: as in the source it is a block that fills its
+ * column (up to 1280px, at least 598px tall) and reflows by its own width: four cards across, two below 900px, one
+ * below 560px. So it is drawn as it is at every screen width, on the server too, with its real text.
+ *
+ * Its landing motion plays once, when it first comes on screen (see `jd-wait` in motion.css).
+ */
+export function ManagedLaunchDiagram() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [landed, setLanded] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setLanded(true);
+        observer.disconnect();
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className={landed ? "ml-motion" : "ml-motion jd-wait"}>
+      <DeliverableSteps />
+    </div>
+  );
 }
