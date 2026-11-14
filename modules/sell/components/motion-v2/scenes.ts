@@ -41,69 +41,69 @@ import {
  * build, plus a short margin for the final transition). Render them with `root={SellMotionRoot}`.
  */
 
-/** Product discovery 09–16: the 738 × 680 maroon frame with a chat window. */
+/** Product discovery 09–16: a chat window (676 × 467) on the 788 × 579 damask canvas, as the source page draws them since 15 November 2026. */
 export const discoveryScenes = {
   "conversational-discovery": {
     Component: ConversationalDiscoveryMotion,
     label:
       "A shopper asks for something for a beach wedding, saying they run hot and hate anything tight; the assistant replies with three linen dresses, a sea glass maxi, a coral midi and a lavender maxi.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 5900,
   },
   "try-it-on": {
     Component: TryItOnMotion,
     label:
       "A shopper asks whether a dress would work on them, uploads a photo when the assistant offers a try-on, and gets a personalised try-on image.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 7300,
   },
   "product-qa": {
     Component: ProductQaMotion,
     label:
       "A shopper asks whether a laptop is good enough for them; the assistant answers based on how they use their laptop.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 5200,
   },
   "outfit-building": {
     Component: OutfitBuildingMotion,
     label:
       "A shopper says they love a shirt and asks what to wear with it; the assistant suggests pieces to go with it, shown as product cards.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 5800,
   },
   "guided-finder": {
     Component: GuidedFinderMotion,
     label:
       "A shopper asks for help finding the right foundation. The assistant asks about their preferred finish, what they want to cover and their skin type, then recommends a foundation.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 7300,
   },
   "visual-discovery": {
     Component: VisualDiscoveryMotion,
     label:
       "A shopper uploads a photo of a lamp and asks for something like it. The assistant shows three matching lamps: an aged brass triple-dome, an asymmetric two-dome and a copper four-dome.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 5100,
   },
   "size-fit": {
     Component: SizeFitMotion,
     label: "A shopper asks whether a helmet will fit them, and the assistant recommends the right size for them.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 4200,
   },
   "gift-finder": {
     Component: GiftFinderMotion,
     label:
       "A shopper asks for a birthday gift for their mum, around $150. Drawing on past gifts, the assistant notes she prefers simple gold jewellery and shows three options under $150.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 5700,
   },
 } satisfies Record<string, SceneEntry>;

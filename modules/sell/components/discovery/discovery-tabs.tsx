@@ -51,7 +51,7 @@ function FeaturePanel({ feature, scene, play, replay }: { feature: Feature; scen
     <>
       {/*
         As Shopper asks and Campaigns & outbound: the framed panel art (821 × 611, a maroon damask in 16px of studded
-        lattice inside a 1px #d2cdc0 border) fills the column. The feature's visual (738 × 680) is fitted whole inside
+        lattice inside a 1px #d2cdc0 border) fills the column. The feature's visual (788 × 579) fills
         the damask, 16px in, and centred in it, without its own maroon frame and texture (`.sell-bare`), so only the
         panel's frame shows around the chat. Drawn while its feature shows or fades out.
       */}

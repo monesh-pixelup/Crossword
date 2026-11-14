@@ -2,7 +2,8 @@
 
 // Built from the "Crossword — Sell: Conversational interface v2 (motion)" source (the package with the camera
 // versions of Upsell 17b–20b, Conversion assist 28b–33b and Human mode 34b; the 11 November 2026 update with the window
-// standard, 34m and 21m–23m) with Vite, unminified, React external.
+// standard, 34m and 21m–23m; the 15 November 2026 update with 09–16 on the 788 × 579 damask canvas and 21–23 on the
+// polished storefront) with Vite, unminified, React external. The few site changes are marked "Site".
 // See ./index.tsx for the mechanical changes.
 
 import { createContext, useContext, useState, useEffect, useRef, useMemo, useLayoutEffect, Fragment as Fragment$1, useCallback, createElement } from "react";
@@ -362,14 +363,37 @@ const __vite_glob_0_10 = "/images/sell/motion-v2/assets/proteinmax-mark-CAjpFhM5
 const __vite_glob_0_11 = "/images/sell/motion-v2/assets/sorelle-labs-mark-CQBfsdpQ.svg";
 const __vite_glob_0_12 = "/images/sell/motion-v2/assets/stride-mark-BhAcSYrg.svg";
 const __vite_glob_0_13 = "/images/sell/motion-v2/assets/trailwell-mark-DWHfUX1B.svg";
-const __vite_glob_1_0 = "/images/sell/motion-v2/assets/amber-and-oak-mark-DyBTEnHG.svg";
-const __vite_glob_1_1 = "/images/sell/motion-v2/assets/aurelia-mark-WAhMDRAF.svg";
-const __vite_glob_1_2 = "/images/sell/motion-v2/assets/aurelle-mark-CkALuNbG.svg";
-const __vite_glob_1_3 = "/images/sell/motion-v2/assets/brewhaus-mark-CPBhNKZi.svg";
-const __vite_glob_1_4 = "/images/sell/motion-v2/assets/crestline-mark-x07nlP5x.svg";
-const __vite_glob_1_5 = "/images/sell/motion-v2/assets/dusklight-mark-BxLi6ckI.svg";
-const __vite_glob_1_6 = "/images/sell/motion-v2/assets/moonrest-mark-C1S3y54t.svg";
-const __vite_glob_1_7 = "/images/sell/motion-v2/assets/sorelle-labs-mark-DwV8-BRm.svg";
+const __vite_glob_1_0 = "/images/sell/motion-v2/assets/aeria-YYq39Tmj.webp";
+const __vite_glob_1_1 = "/images/sell/motion-v2/assets/amber-and-oak-B_E1LHFp.webp";
+const __vite_glob_1_2 = "/images/sell/motion-v2/assets/auden-D6bviGYb.webp";
+const __vite_glob_1_3 = "/images/sell/motion-v2/assets/aura-9M4MUBrO.webp";
+const __vite_glob_1_4 = "/images/sell/motion-v2/assets/aurelia-DIkgKc6E.webp";
+const __vite_glob_1_5 = "/images/sell/motion-v2/assets/aurelle-D4MmoaJI.webp";
+const __vite_glob_1_6 = "/images/sell/motion-v2/assets/brewhaus-nqvL_9rd.webp";
+const __vite_glob_1_7 = "/images/sell/motion-v2/assets/crestline-10BYG1fb.webp";
+const __vite_glob_1_8 = "/images/sell/motion-v2/assets/dusklight-D4BTEpTH.webp";
+const __vite_glob_1_9 = "/images/sell/motion-v2/assets/echo-and-co-v-USWRkm.webp";
+const __vite_glob_1_10 = "/images/sell/motion-v2/assets/formwork-D1yGSW-s.webp";
+const __vite_glob_1_11 = "/images/sell/motion-v2/assets/goodwell-D-tqaLX2.webp";
+const __vite_glob_1_12 = "/images/sell/motion-v2/assets/hearthware-BV2ZsyEY.webp";
+const __vite_glob_1_13 = "/images/sell/motion-v2/assets/holt-and-co-CNH9FNcC.webp";
+const __vite_glob_1_14 = "/images/sell/motion-v2/assets/lumen-BKTnlTLa.webp";
+const __vite_glob_1_15 = "/images/sell/motion-v2/assets/marais-vhL6aN8y.webp";
+const __vite_glob_1_16 = "/images/sell/motion-v2/assets/moonrest-jpQQ4DyZ.webp";
+const __vite_glob_1_17 = "/images/sell/motion-v2/assets/proteinmax-CfxeVd4u.webp";
+const __vite_glob_1_18 = "/images/sell/motion-v2/assets/sorelle-labs-CQqgbOme.webp";
+const __vite_glob_1_19 = "/images/sell/motion-v2/assets/stride-BjAZUFR_.webp";
+const __vite_glob_1_20 = "/images/sell/motion-v2/assets/trailwell-vb-FA88_.webp";
+const __vite_glob_1_21 = "/images/sell/motion-v2/assets/vela-qtSHjO_9.webp";
+const __vite_glob_1_22 = "/images/sell/motion-v2/assets/waveline-BNXG9I4L.webp";
+const __vite_glob_2_0 = "/images/sell/motion-v2/assets/amber-and-oak-mark-DyBTEnHG.svg";
+const __vite_glob_2_1 = "/images/sell/motion-v2/assets/aurelia-mark-WAhMDRAF.svg";
+const __vite_glob_2_2 = "/images/sell/motion-v2/assets/aurelle-mark-CkALuNbG.svg";
+const __vite_glob_2_3 = "/images/sell/motion-v2/assets/brewhaus-mark-CPBhNKZi.svg";
+const __vite_glob_2_4 = "/images/sell/motion-v2/assets/crestline-mark-x07nlP5x.svg";
+const __vite_glob_2_5 = "/images/sell/motion-v2/assets/dusklight-mark-BxLi6ckI.svg";
+const __vite_glob_2_6 = "/images/sell/motion-v2/assets/moonrest-mark-C1S3y54t.svg";
+const __vite_glob_2_7 = "/images/sell/motion-v2/assets/sorelle-labs-mark-DwV8-BRm.svg";
 const aurelia = {
   name: "Aurelia",
   category: "Merchant workspace",
@@ -381,6 +405,7 @@ const aurelia = {
   tracking: "-0.025em",
   imageDirection: "Merchant workflow modules; no retail product imagery.",
   logomarkPath: "src/assets/brands/supplied/aurelia-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelia.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelia-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -396,6 +421,7 @@ const marais = {
   tracking: "0.12em",
   imageDirection: "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
   logomarkPath: "src/assets/brands/supplied/marais-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/marais.png",
   identitySourcePath: "src/assets/brands/supplied/marais-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -411,6 +437,7 @@ const goodwell = {
   tracking: "-0.025em",
   imageDirection: "Plum-labelled jars on soft lavender backgrounds.",
   logomarkPath: "src/assets/brands/supplied/goodwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/goodwell.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/goodwell-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -429,7 +456,8 @@ const moonrest = {
   wordmarkPath: "src/assets/brands/placeholders/moonrest-wordmark.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/moonrest-badge.svg",
-  wordmarkTreatment: "plain-text"
+  wordmarkTreatment: "plain-text",
+  logomarkRasterPath: "src/assets/brands/logomarks/moonrest.png"
 };
 const dusklight = {
   name: "Dusklight",
@@ -442,6 +470,7 @@ const dusklight = {
   tracking: "-0.025em",
   imageDirection: "Sculptural lighting in muted dusk neutrals.",
   logomarkPath: "src/assets/brands/supplied/dusklight-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/dusklight.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/dusklight-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -457,6 +486,7 @@ const crestline = {
   tracking: "0.12em",
   imageDirection: "Graphite and ivory outdoor equipment on neutral studio backgrounds.",
   logomarkPath: "src/assets/brands/supplied/crestline-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/crestline.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/crestline-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -472,6 +502,7 @@ const brewhaus = {
   tracking: "0.12em",
   imageDirection: "Brushed steel machines and cream coffee packaging; warm studio light.",
   logomarkPath: "src/assets/brands/supplied/brewhaus-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/brewhaus.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/brewhaus-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -485,7 +516,12 @@ const waveline = {
   font: 'var(--font-space-grotesk), system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents."
+  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents.",
+  logomarkPath: "src/assets/brands/logomarks/source/waveline.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/waveline.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/waveline.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aura = {
   name: "Aura",
@@ -498,6 +534,7 @@ const aura = {
   tracking: "0.12em",
   imageDirection: "Ivory earbud shells with small uppercase branding.",
   logomarkPath: "src/assets/brands/supplied/aura-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aura.png",
   identitySourcePath: "src/assets/brands/supplied/aura-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -511,7 +548,12 @@ const auden$1 = {
   font: 'var(--font-face-inter-motion), system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants."
+  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants.",
+  logomarkPath: "src/assets/brands/logomarks/source/auden.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/auden.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/auden.svg",
+  wordmarkTreatment: "plain-text"
 };
 const lumen = {
   name: "Lumen",
@@ -522,7 +564,12 @@ const lumen = {
   font: 'var(--font-face-inter-motion), system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging."
+  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging.",
+  logomarkPath: "src/assets/brands/logomarks/source/lumen.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/lumen.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/lumen.svg",
+  wordmarkTreatment: "plain-text"
 };
 const trailwell = {
   name: "Trailwell",
@@ -535,6 +582,7 @@ const trailwell = {
   tracking: "-0.025em",
   imageDirection: "Outdoor utility, olive fabric and durable metal bottles.",
   logomarkPath: "src/assets/brands/supplied/trailwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/trailwell.png",
   identitySourcePath: "src/assets/brands/supplied/trailwell-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -550,6 +598,7 @@ const stride = {
   tracking: "-0.025em",
   imageDirection: "Minimal footwear; black, tan and white are separate image assets, never CSS colour filters.",
   logomarkPath: "src/assets/brands/supplied/stride-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/stride.png",
   identitySourcePath: "src/assets/brands/supplied/stride-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -563,7 +612,12 @@ const vela = {
   font: 'var(--font-face-inter-motion), system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Muted rose and charcoal styling tools."
+  imageDirection: "Muted rose and charcoal styling tools.",
+  logomarkPath: "src/assets/brands/logomarks/source/vela.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/vela.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/vela.svg",
+  wordmarkTreatment: "plain-text"
 };
 const formwork = {
   name: "Formwork",
@@ -574,7 +628,12 @@ const formwork = {
   font: 'var(--font-space-grotesk), system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair."
+  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair.",
+  logomarkPath: "src/assets/brands/logomarks/source/formwork.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/formwork.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/formwork.svg",
+  wordmarkTreatment: "plain-text"
 };
 const proteinmax = {
   name: "Proteinmax",
@@ -587,6 +646,7 @@ const proteinmax = {
   tracking: "0.12em",
   imageDirection: "Black protein tubs, red accents and consistent PROTEINMAX labels.",
   logomarkPath: "src/assets/brands/supplied/proteinmax-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/proteinmax.png",
   identitySourcePath: "src/assets/brands/supplied/proteinmax-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -600,7 +660,12 @@ const hearthware = {
   font: 'var(--font-face-inter-motion), system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting."
+  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting.",
+  logomarkPath: "src/assets/brands/logomarks/source/hearthware.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/hearthware.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/hearthware.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aeria = {
   name: "Aeria",
@@ -611,7 +676,12 @@ const aeria = {
   font: 'var(--font-space-grotesk), system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks."
+  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks.",
+  logomarkPath: "src/assets/brands/logomarks/source/aeria.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aeria.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/aeria.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aurelle = {
   name: "Aurelle",
@@ -624,6 +694,7 @@ const aurelle = {
   tracking: "-0.025em",
   imageDirection: "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
   logomarkPath: "src/assets/brands/supplied/aurelle-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelle.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelle-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -642,6 +713,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
     logomarkPath: "src/assets/brands/supplied/sorelle-labs-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/sorelle-labs.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/sorelle-labs-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -659,6 +731,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
     logomarkPath: "src/assets/brands/supplied/amber-and-oak-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/amber-and-oak.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/amber-and-oak-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -677,7 +750,12 @@ const registry = {
     font: 'var(--font-playfair-display), Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces."
+    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces.",
+    logomarkPath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/holt-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   auden: auden$1,
   lumen,
@@ -695,7 +773,12 @@ const registry = {
     font: 'var(--font-face-inter-motion), system-ui, sans-serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding."
+    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding.",
+    logomarkPath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/echo-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   hearthware,
   aeria,
@@ -745,21 +828,23 @@ const marks = {
   aeria: "M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h5"
 };
 const suppliedMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/supplied/amber-and-oak-mark.svg": __vite_glob_0_0, "../assets/brands/supplied/aura-mark.svg": __vite_glob_0_1, "../assets/brands/supplied/aurelia-mark.svg": __vite_glob_0_2, "../assets/brands/supplied/aurelle-mark.svg": __vite_glob_0_3, "../assets/brands/supplied/brewhaus-mark.svg": __vite_glob_0_4, "../assets/brands/supplied/crestline-mark.svg": __vite_glob_0_5, "../assets/brands/supplied/dusklight-mark.svg": __vite_glob_0_6, "../assets/brands/supplied/goodwell-mark.svg": __vite_glob_0_7, "../assets/brands/supplied/marais-mark.svg": __vite_glob_0_8, "../assets/brands/supplied/moonrest-mark.svg": __vite_glob_0_9, "../assets/brands/supplied/proteinmax-mark.svg": __vite_glob_0_10, "../assets/brands/supplied/sorelle-labs-mark.svg": __vite_glob_0_11, "../assets/brands/supplied/stride-mark.svg": __vite_glob_0_12, "../assets/brands/supplied/trailwell-mark.svg": __vite_glob_0_13 });
+const rasterMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/logomarks/aeria.png": __vite_glob_1_0, "../assets/brands/logomarks/amber-and-oak.png": __vite_glob_1_1, "../assets/brands/logomarks/auden.png": __vite_glob_1_2, "../assets/brands/logomarks/aura.png": __vite_glob_1_3, "../assets/brands/logomarks/aurelia.png": __vite_glob_1_4, "../assets/brands/logomarks/aurelle.png": __vite_glob_1_5, "../assets/brands/logomarks/brewhaus.png": __vite_glob_1_6, "../assets/brands/logomarks/crestline.png": __vite_glob_1_7, "../assets/brands/logomarks/dusklight.png": __vite_glob_1_8, "../assets/brands/logomarks/echo-and-co.png": __vite_glob_1_9, "../assets/brands/logomarks/formwork.png": __vite_glob_1_10, "../assets/brands/logomarks/goodwell.png": __vite_glob_1_11, "../assets/brands/logomarks/hearthware.png": __vite_glob_1_12, "../assets/brands/logomarks/holt-and-co.png": __vite_glob_1_13, "../assets/brands/logomarks/lumen.png": __vite_glob_1_14, "../assets/brands/logomarks/marais.png": __vite_glob_1_15, "../assets/brands/logomarks/moonrest.png": __vite_glob_1_16, "../assets/brands/logomarks/proteinmax.png": __vite_glob_1_17, "../assets/brands/logomarks/sorelle-labs.png": __vite_glob_1_18, "../assets/brands/logomarks/stride.png": __vite_glob_1_19, "../assets/brands/logomarks/trailwell.png": __vite_glob_1_20, "../assets/brands/logomarks/vela.png": __vite_glob_1_21, "../assets/brands/logomarks/waveline.png": __vite_glob_1_22 });
 const placeholderMarks = /* @__PURE__ */ Object.assign({
-  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_1_0,
-  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_1_1,
-  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_1_2,
-  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_1_3,
-  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_1_4,
-  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_1_5,
-  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_1_6,
-  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_1_7
+  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_2_0,
+  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_2_1,
+  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_2_2,
+  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_2_3,
+  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_2_4,
+  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_2_5,
+  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_2_6,
+  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_2_7
 });
 function BrandMark({
   brand: name,
   className = ""
 }) {
   const brand2 = getBrand(name);
+  const raster = rasterMarks[`../assets/brands/logomarks/${brand2.id}.png`];
   const supplied = suppliedMarks[`../assets/brands/supplied/${brand2.id}-mark.svg`];
   return /* @__PURE__ */ jsx(
     "span",
@@ -767,9 +852,9 @@ function BrandMark({
       className: `demo-brand-mark ${className}`,
       style: brandStyle(name),
       "data-brand-id": brand2.id,
-      "data-identity-asset": supplied ? "supplied" : "placeholder",
+      "data-identity-asset": raster ? "raster-logomark" : supplied ? "supplied" : "placeholder",
       "aria-hidden": "true",
-      children: supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: supplied, alt: "" }) : brand2.id === "aurelle" || brand2.id === "goodwell" ? /* @__PURE__ */ jsx(
+      children: raster || supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: raster ?? supplied, alt: "" }) : brand2.id === "aurelle" || brand2.id === "goodwell" ? /* @__PURE__ */ jsx(
         "img",
         {
           src: brand2.id === "aurelle" ? placeholderMarks["../assets/brands/placeholders/aurelle-mark.svg"] : goodwellMark,
@@ -3643,7 +3728,7 @@ const followups$2 = {
 const CHAPTERS = [
   { title: "Knows when to help", body: "A shopper lingers on a serum. Crossword offers the answer before they ask." },
   { title: "Knows how to guide", body: "Comparing two serums? It lays out what matters and helps them choose." },
-  { title: "Knows when you’re ready", body: "Once they’ve decided, it adds the right one to the cart." }
+  { title: "Knows when they’re ready", body: "Once they’ve decided, it adds the right one to the cart." }
 ];
 const CH_SLOT_H = 531;
 const SWAP_MS = 450;
@@ -3979,7 +4064,6 @@ const readyBeats = [
   { id: "think", type: "think", labels: ["Thinking", "Adding it to your cart"] },
   { id: "reply", type: "text", text: knowsWhenYoureReady.assistantMessage },
   { id: "card", type: "load", ms: 600 },
-  { id: "added", type: "pause", ms: 1800 },
   FOLLOWUPS
 ];
 function KnowsWhenYoureReady({ play, onDone, rig }) {
@@ -5878,6 +5962,7 @@ function XMark() {
     /* @__PURE__ */ jsx("line", { x1: "200", y1: "200", x2: "56", y2: "56" })
   ] });
 }
+const helmetCutout = "/images/sell/motion-v2/assets/crestline-helmet-cutout-5eS08xy9.webp";
 function Media({ src, alt }) {
   if (src) {
     return /* @__PURE__ */ jsx("img", { className: `sv-ill-media${cutoutSrcs.has(src) ? " sv-ill-media--cutout" : ""}`, src, alt });
@@ -5894,6 +5979,26 @@ function Thumbnail({ src, alt, state = "default", size = 56 }) {
     }
   );
 }
+const starFilled = "/images/sell/motion-v2/assets/star-filled-H5Ymy-7D.svg";
+const starEmpty = "/images/sell/motion-v2/assets/star-empty-CaQMISUB.svg";
+function Rating({ value, count }) {
+  const filled = Math.round(value);
+  return /* @__PURE__ */ jsxs("div", { className: "sv-ill-rating", children: [
+    /* @__PURE__ */ jsx("div", { className: "sv-ill-rating__stars", children: Array.from({ length: 5 }, (_, i) => /* @__PURE__ */ jsx("img", { src: i < filled ? starFilled : starEmpty, alt: "", width: 9, height: 9 }, i)) }),
+    /* @__PURE__ */ jsxs("span", { className: "sv-ill-rating__count", children: [
+      "(",
+      count,
+      ")"
+    ] })
+  ] });
+}
+function Button({ appearance, label, onClick, iconLeading, iconTrailing, className }) {
+  return /* @__PURE__ */ jsxs("button", { type: "button", className: ["sv-ill-button", `sv-ill-button--${appearance}`, className].filter(Boolean).join(" "), onClick, children: [
+    iconLeading,
+    label,
+    iconTrailing
+  ] });
+}
 function Chip({
   children,
   kind = "label",
@@ -5907,26 +6012,6 @@ function Chip({
     size === "sm" && "sv-ill-chip--sm"
   ].filter(Boolean).join(" ");
   return /* @__PURE__ */ jsx("span", { className: classes, children });
-}
-function Button({ appearance, label, onClick, iconLeading, iconTrailing, className }) {
-  return /* @__PURE__ */ jsxs("button", { type: "button", className: ["sv-ill-button", `sv-ill-button--${appearance}`, className].filter(Boolean).join(" "), onClick, children: [
-    iconLeading,
-    label,
-    iconTrailing
-  ] });
-}
-const starFilled = "/images/sell/motion-v2/assets/star-filled-H5Ymy-7D.svg";
-const starEmpty = "/images/sell/motion-v2/assets/star-empty-CaQMISUB.svg";
-function Rating({ value, count }) {
-  const filled = Math.round(value);
-  return /* @__PURE__ */ jsxs("div", { className: "sv-ill-rating", children: [
-    /* @__PURE__ */ jsx("div", { className: "sv-ill-rating__stars", children: Array.from({ length: 5 }, (_, i) => /* @__PURE__ */ jsx("img", { src: i < filled ? starFilled : starEmpty, alt: "", width: 9, height: 9 }, i)) }),
-    /* @__PURE__ */ jsxs("span", { className: "sv-ill-rating__count", children: [
-      "(",
-      count,
-      ")"
-    ] })
-  ] });
 }
 const cartIcon = "/images/sell/motion-v2/assets/cart-C6m-05Y7.svg";
 const marketplace$2 = {
@@ -5954,68 +6039,6 @@ const intervention = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.define
   marketplace: marketplace$2,
   widget: widget$2
 }, Symbol.toStringTag, { value: "Module" }));
-function MarketplaceBackground$2() {
-  return /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace demo-brand-storefront", style: brandStyle(marketplace$2.retailer), children: [
-    /* @__PURE__ */ jsx(BrowserChrome, { url: marketplace$2.url }),
-    /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__nav", children: [
-      /* @__PURE__ */ jsx(BrandWordmark, { brand: marketplace$2.retailer, className: "sv-ill-marketplace__logo" }),
-      /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__nav-links", children: [
-        /* @__PURE__ */ jsx("span", {}),
-        /* @__PURE__ */ jsx("span", {}),
-        /* @__PURE__ */ jsx("span", {}),
-        /* @__PURE__ */ jsx("span", {})
-      ] }),
-      /* @__PURE__ */ jsx(
-        "img",
-        {
-          className: "sv-ill-marketplace__cart",
-          src: cartIcon,
-          alt: "",
-          "aria-hidden": "true",
-          width: 20,
-          height: 20
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__body", children: [
-      /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__gallery", children: [
-        /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__thumbnails", children: marketplace$2.thumbnails.map((src, i) => /* @__PURE__ */ jsx(
-          Thumbnail,
-          {
-            src,
-            alt: "",
-            state: i === 0 ? "selected" : "default",
-            size: 78.561
-          },
-          src
-        )) }),
-        /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__gallery-main", children: /* @__PURE__ */ jsx(Media, { src: marketplace$2.image, alt: marketplace$2.title }) })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__info", children: [
-        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__info-top", children: [
-          /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__brand-row", children: [
-            /* @__PURE__ */ jsx("span", { className: "sv-ill-marketplace__brand", children: marketplace$2.retailer }),
-            /* @__PURE__ */ jsx(Icon, { name: "caretDown", size: 20 })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__heading", children: [
-            /* @__PURE__ */ jsx("p", { className: "sv-ill-marketplace__title", children: marketplace$2.title }),
-            /* @__PURE__ */ jsx("p", { className: "sv-ill-marketplace__subtitle", children: marketplace$2.subtitle })
-          ] }),
-          /* @__PURE__ */ jsx(Rating, { value: marketplace$2.rating, count: marketplace$2.ratingCount }),
-          /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__price-row", children: /* @__PURE__ */ jsx("p", { className: "sv-ill-marketplace__price", children: marketplace$2.price }) })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__sizes", children: [
-          /* @__PURE__ */ jsx("span", { className: "sv-ill-marketplace__sizes-label", children: marketplace$2.sizeLabel }),
-          marketplace$2.sizes.map((size) => /* @__PURE__ */ jsx(Chip, { children: size }, size))
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__actions", children: [
-          /* @__PURE__ */ jsx(Button, { appearance: "primary", label: "Add to Cart" }),
-          /* @__PURE__ */ jsx(Button, { appearance: "secondary", label: "Buy Now" })
-        ] })
-      ] })
-    ] })
-  ] });
-}
 const foundations = [
   { ...catalog.lumenSecondSkin, attributeLabel: "Finish", attributeValue: "Dewy · Fawn", widgetImage: catalog.lumenSecondSkin.image },
   { ...catalog.lumenSkinVeil, attributeLabel: "Finish", attributeValue: "Dewy · Warm Beige", widgetImage: catalog.lumenSkinVeil.image },
@@ -6042,63 +6065,6 @@ const guidance = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProp
   marketplace: marketplace$1,
   widget: widget$1
 }, Symbol.toStringTag, { value: "Module" }));
-function MarketplaceBackground$1() {
-  const [, viewedA, viewedB] = foundations;
-  return /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace demo-brand-storefront", style: brandStyle(marketplace$1.retailer), children: [
-    /* @__PURE__ */ jsx(BrowserChrome, { url: marketplace$1.url }),
-    /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__nav", children: [
-      /* @__PURE__ */ jsx(BrandWordmark, { brand: marketplace$1.retailer, className: "sv-ill-marketplace__logo" }),
-      /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__nav-links", children: [
-        /* @__PURE__ */ jsx("span", {}),
-        /* @__PURE__ */ jsx("span", {}),
-        /* @__PURE__ */ jsx("span", {}),
-        /* @__PURE__ */ jsx("span", {})
-      ] }),
-      /* @__PURE__ */ jsx(
-        "img",
-        {
-          className: "sv-ill-marketplace__cart",
-          src: cartIcon,
-          alt: "",
-          "aria-hidden": "true",
-          width: 20,
-          height: 20
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__body", children: [
-      /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__gallery", children: [
-        /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__thumbnails", children: marketplace$1.thumbnails.map((src, i) => /* @__PURE__ */ jsx(Thumbnail, { src, alt: "", state: i === 0 ? "selected" : "default", size: 78.561 }, src)) }),
-        /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__gallery-main", children: /* @__PURE__ */ jsx(Media, { src: marketplace$1.image, alt: marketplace$1.title }) })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__info", children: [
-        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__info-top", children: [
-          /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__brand-row", children: [
-            /* @__PURE__ */ jsx("span", { className: "sv-ill-marketplace__brand", children: marketplace$1.retailer }),
-            /* @__PURE__ */ jsx(Icon, { name: "caretDown", size: 20 })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__heading", children: [
-            /* @__PURE__ */ jsx("p", { className: "sv-ill-marketplace__title", children: marketplace$1.title }),
-            /* @__PURE__ */ jsx("p", { className: "sv-ill-marketplace__subtitle", children: marketplace$1.subtitle })
-          ] }),
-          /* @__PURE__ */ jsx(Rating, { value: marketplace$1.rating, count: marketplace$1.ratingCount }),
-          /* @__PURE__ */ jsx("p", { className: "sv-ill-marketplace__price", children: marketplace$1.price })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__recently-viewed", children: [
-          /* @__PURE__ */ jsx("span", { className: "sv-ill-marketplace__recently-viewed-label", children: "Recently viewed" }),
-          /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__recently-viewed-row", children: [viewedA, viewedB].map((p) => /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__recently-viewed-item", children: [
-            /* @__PURE__ */ jsx(Thumbnail, { src: p.image, alt: p.title, size: 56 }),
-            /* @__PURE__ */ jsx("span", { children: p.title })
-          ] }, p.title)) })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__actions", children: [
-          /* @__PURE__ */ jsx(Button, { appearance: "primary", label: "Add to Cart" }),
-          /* @__PURE__ */ jsx(Button, { appearance: "secondary", label: "Buy Now" })
-        ] })
-      ] })
-    ] })
-  ] });
-}
 const thumb1 = "/images/sell/motion-v2/assets/thumb-1-D5p0e31p.webp";
 const thumb2 = "/images/sell/motion-v2/assets/thumb-2-CqbmVPsZ.webp";
 const thumb3 = "/images/sell/motion-v2/assets/thumb-3-2EAxs_AY.webp";
@@ -6135,67 +6101,168 @@ const returnVisit = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
   marketplace,
   widget
 }, Symbol.toStringTag, { value: "Module" }));
-function MarketplaceBackground() {
-  return /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace demo-brand-storefront", style: brandStyle(marketplace.retailer), children: [
-    /* @__PURE__ */ jsx(BrowserChrome, { url: marketplace.url }),
-    /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__nav", children: [
-      /* @__PURE__ */ jsx(BrandWordmark, { brand: marketplace.retailer, className: "sv-ill-marketplace__logo" }),
-      /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__nav-links", children: [
-        /* @__PURE__ */ jsx("span", {}),
-        /* @__PURE__ */ jsx("span", {}),
-        /* @__PURE__ */ jsx("span", {}),
-        /* @__PURE__ */ jsx("span", {})
-      ] }),
-      /* @__PURE__ */ jsx(
-        "img",
-        {
-          className: "sv-ill-marketplace__cart",
-          src: cartIcon,
-          alt: "",
-          "aria-hidden": "true",
-          width: 20,
-          height: 20
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__body", children: [
-      /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__gallery", children: [
-        /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__thumbnails", children: marketplace.thumbnails.map((src, i) => /* @__PURE__ */ jsx(Thumbnail, { src, alt: "", state: i === 0 ? "selected" : "default", size: 78.561 }, src)) }),
-        /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__gallery-main", children: /* @__PURE__ */ jsx(Media, { src: marketplace.image, alt: marketplace.title }) })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__info", children: [
-        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__info-top", children: [
-          /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__brand-row", children: [
-            /* @__PURE__ */ jsx("span", { className: "sv-ill-marketplace__brand", children: marketplace.retailer }),
-            /* @__PURE__ */ jsx(Icon, { name: "caretDown", size: 20 })
+function PolishedPage({ s }) {
+  var _a;
+  return /* @__PURE__ */ jsxs(
+    "div",
+    {
+      className: `sv-ill-marketplace pv2p demo-brand-storefront${s.variant ? ` pv2p--${s.variant}` : ""}`,
+      style: { ...brandStyle(s.retailer), "--pv2p-accent": s.accent, "--cw-accent": s.accent },
+      children: [
+        /* @__PURE__ */ jsx(BrowserChrome, { url: s.url }),
+        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__nav", children: [
+          /* @__PURE__ */ jsx(BrandWordmark, { brand: s.retailer, className: "sv-ill-marketplace__logo" }),
+          /* @__PURE__ */ jsx("nav", { className: "pv2p-nav", children: s.nav.map((n) => /* @__PURE__ */ jsx("span", { children: n }, n)) }),
+          /* @__PURE__ */ jsx("img", { className: "sv-ill-marketplace__cart", src: cartIcon, alt: "", "aria-hidden": "true", width: 20, height: 20 })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__body", children: [
+          /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__gallery", children: [
+            s.thumbs && /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__thumbnails pv2p-thumbs", children: s.thumbs.map((src, i) => /* @__PURE__ */ jsx(Thumbnail, { src, alt: "", state: i === 0 ? "selected" : "default", size: 78.561 }, i)) }),
+            /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__gallery-main pv2p-hero", children: /* @__PURE__ */ jsx(Media, { src: s.image, alt: s.title }) })
           ] }),
-          /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__heading", children: [
-            /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__title-row", children: [
-              /* @__PURE__ */ jsx("p", { className: "sv-ill-marketplace__title", children: marketplace.title }),
-              /* @__PURE__ */ jsx(Chip, { children: marketplace.viewedLabel })
+          /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__info pv2p-info", children: [
+            /* @__PURE__ */ jsxs("div", { className: "pv2p-top", children: [
+              /* @__PURE__ */ jsx("p", { className: "sf-eyebrow", children: s.eyebrow }),
+              /* @__PURE__ */ jsx("h2", { className: "pv2p-title", children: s.title }),
+              /* @__PURE__ */ jsx("p", { className: "pv2p-sub", children: s.subtitle }),
+              /* @__PURE__ */ jsx(Rating, { value: s.rating, count: s.ratingCount }),
+              /* @__PURE__ */ jsx("strong", { className: "sf-price", children: s.price })
             ] }),
-            /* @__PURE__ */ jsx("p", { className: "sv-ill-marketplace__subtitle", children: marketplace.subtitle })
-          ] }),
-          /* @__PURE__ */ jsx(Rating, { value: marketplace.rating, count: marketplace.ratingCount }),
-          /* @__PURE__ */ jsx("p", { className: "sv-ill-marketplace__price", children: marketplace.price })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__also-viewed", children: [
-          /* @__PURE__ */ jsx("span", { className: "sv-ill-marketplace__also-viewed-label", children: "Also viewed" }),
-          /* @__PURE__ */ jsx("div", { className: "sv-ill-marketplace__also-viewed-row", children: alsoViewed.map((p) => /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__also-viewed-item", children: [
-            /* @__PURE__ */ jsx(Thumbnail, { src: p.image, alt: p.title, size: 56 }),
-            /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__also-viewed-text", children: [
-              /* @__PURE__ */ jsx("span", { className: "sv-ill-marketplace__also-viewed-title", children: p.title }),
-              /* @__PURE__ */ jsx("span", { className: "sv-ill-marketplace__also-viewed-price", children: p.price })
+            /* @__PURE__ */ jsxs("div", { className: "sf-pdp pv2p-buy", children: [
+              /* @__PURE__ */ jsxs("div", { className: "pv2p-buyhead", children: [
+                /* @__PURE__ */ jsxs("span", { children: [
+                  s.title,
+                  " · ",
+                  s.price
+                ] }),
+                s.badge ? /* @__PURE__ */ jsx(Chip, { children: s.badge }) : /* @__PURE__ */ jsx(Rating, { value: s.rating, count: s.ratingCount })
+              ] }),
+              s.shades && /* @__PURE__ */ jsxs("div", { className: "pv2p-shades", children: [
+                /* @__PURE__ */ jsxs("span", { className: "pv2p-shades__label", children: [
+                  "Shade ",
+                  /* @__PURE__ */ jsx("b", { children: (_a = s.shades.find((x) => x.picked)) == null ? void 0 : _a.name })
+                ] }),
+                /* @__PURE__ */ jsx("div", { className: "pv2p-shades__row", children: s.shades.map((x) => /* @__PURE__ */ jsx(
+                  "span",
+                  {
+                    className: `pv2p-shade${x.picked ? " pv2p-shade--picked" : ""}`,
+                    style: { background: x.color },
+                    title: x.name
+                  },
+                  x.name
+                )) })
+              ] }),
+              /* @__PURE__ */ jsxs("fieldset", { children: [
+                /* @__PURE__ */ jsx("legend", { children: s.options.legend }),
+                /* @__PURE__ */ jsx("div", { className: "pv2p-seats", children: s.options.values.map((v) => /* @__PURE__ */ jsxs("label", { className: v === s.options.hover ? "pv2p-seat--hover" : void 0, children: [
+                  /* @__PURE__ */ jsx("input", { type: "radio", name: `pv2p-${s.retailer}`, checked: v === s.options.picked, readOnly: true }),
+                  v
+                ] }, v)) })
+              ] }),
+              /* @__PURE__ */ jsx("p", { className: "sf-fit-note pv2p-stock", children: s.note }),
+              /* @__PURE__ */ jsx(Button, { appearance: "primary", label: s.cta }),
+              s.evidence,
+              s.specs && /* @__PURE__ */ jsx("dl", { className: "pv2p-specs", children: s.specs.map(([k, v]) => /* @__PURE__ */ jsxs("div", { children: [
+                /* @__PURE__ */ jsx("dt", { children: k }),
+                /* @__PURE__ */ jsx("dd", { children: v })
+              ] }, k)) }),
+              s.details.map((d, i) => /* @__PURE__ */ jsxs("details", { open: i === 0 && !!d.body, children: [
+                /* @__PURE__ */ jsx("summary", { children: d.summary }),
+                d.body && /* @__PURE__ */ jsx("p", { children: d.body })
+              ] }, d.summary))
             ] })
-          ] }, p.title)) })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "sv-ill-marketplace__actions", children: [
-          /* @__PURE__ */ jsx(Button, { appearance: "primary", label: "Add to Cart" }),
-          /* @__PURE__ */ jsx(Button, { appearance: "secondary", label: "Buy Now" })
+          ] })
         ] })
-      ] })
-    ] })
-  ] });
+      ]
+    }
+  );
+}
+function PolishedStorefront() {
+  return /* @__PURE__ */ jsx(
+    PolishedPage,
+    {
+      s: {
+        ...marketplace$2,
+        image: helmetCutout,
+        eyebrow: "Mountain bike helmets",
+        nav: ["Helmets", "Apparel", "Protection"],
+        accent: "var(--ill-color-accent-strong)",
+        variant: "sport",
+        options: { legend: "Helmet size", values: ["S", "M", "L"], picked: "M", hover: "S" },
+        note: "Only 2 left in S",
+        cta: `Add to bag · ${marketplace$2.price}`,
+        // Crestline PDP copy (BrandStorefront), verbatim.
+        details: [
+          { summary: "Finding your fit", body: "Measure around the widest part of your head. Check the manufacturer's size chart and safety instructions; letter sizes alone do not establish a safe fit." },
+          { summary: "Product details" }
+        ]
+      }
+    }
+  );
+}
+function PolishedGuidanceStorefront() {
+  return /* @__PURE__ */ jsx(
+    PolishedPage,
+    {
+      s: {
+        ...marketplace$1,
+        eyebrow: "Foundation",
+        nav: ["Face", "Eyes", "Skincare"],
+        accent: "var(--color-aubergine)",
+        variant: "editorial",
+        shades: [
+          { name: "Porcelain", color: "#f1d9c4" },
+          { name: "Warm Beige", color: "#dfb48f" },
+          { name: "Fawn", color: "#c99a72", picked: true },
+          { name: "Honey", color: "#b07c4f" },
+          { name: "Espresso", color: "#6b4630" }
+        ],
+        options: { legend: "Finish", values: ["Dewy", "Satin", "Matte"], picked: "Dewy", hover: "Matte" },
+        note: "Medium coverage · Shade match guaranteed",
+        cta: `Add to bag · ${marketplace$1.price}`,
+        // The three foundations side by side: the comparison the widget
+        // offers to narrow down, hinted on the page.
+        evidence: /* @__PURE__ */ jsxs("div", { className: "pv2p-viewed", children: [
+          /* @__PURE__ */ jsx("span", { className: "pv2p-viewed__label", children: "You're comparing" }),
+          /* @__PURE__ */ jsx("div", { className: "pv2p-compare", children: foundations.map((f, i) => /* @__PURE__ */ jsxs("div", { className: `pv2p-compare__card${i === 0 ? " pv2p-compare__card--current" : ""}`, children: [
+            /* @__PURE__ */ jsx(Thumbnail, { src: f.image, alt: f.title, size: 28 }),
+            /* @__PURE__ */ jsx("span", { className: "pv2p-compare__finish", children: f.attributeValue.split(" · ").map((t) => /* @__PURE__ */ jsx("span", { children: t }, t)) }),
+            /* @__PURE__ */ jsx("b", { children: f.price })
+          ] }, f.title)) })
+        ] }),
+        details: []
+      }
+    }
+  );
+}
+function PolishedReturnVisitStorefront() {
+  return /* @__PURE__ */ jsx(
+    PolishedPage,
+    {
+      s: {
+        ...marketplace,
+        eyebrow: "Office chairs",
+        nav: ["Chairs", "Desks", "Storage"],
+        thumbs: marketplace.thumbnails,
+        accent: "var(--color-green)",
+        variant: "catalogue",
+        badge: marketplace.viewedLabel,
+        options: { legend: "Frame", values: ["Graphite", "Sand"], picked: "Graphite" },
+        note: "Ships in 3–5 days · 10-year warranty",
+        cta: `Add to cart · ${marketplace.price}`,
+        // The other two chairs; the "Viewed 3×" chip carries the third visit.
+        evidence: /* @__PURE__ */ jsxs("div", { className: "pv2p-viewed", children: [
+          /* @__PURE__ */ jsx("span", { className: "pv2p-viewed__label", children: "Also viewed" }),
+          alsoViewed.map((p) => /* @__PURE__ */ jsxs("div", { className: "pv2p-viewed__line", children: [
+            /* @__PURE__ */ jsx(Thumbnail, { src: p.image, alt: p.title, size: 44 }),
+            /* @__PURE__ */ jsx("span", { children: p.title }),
+            /* @__PURE__ */ jsx("b", { children: p.price })
+          ] }, p.title))
+        ] }),
+        details: []
+      }
+    }
+  );
 }
 function useComposerClip(winRef, runKey) {
   const [clip, setClip] = useState(null);
@@ -6305,20 +6372,20 @@ function WidgetCanvas({
 const knockBeats = [
   { id: "idle", type: "pause", ms: 1200 },
   { id: "knock", type: "appear", ms: 883 },
-  { id: "read", type: "pause", ms: 3600 },
+  { id: "read", type: "pause", ms: 1800 },
   { id: "tap", type: "pause", ms: 320 },
   { id: "expand", type: "appear", ms: 700 },
   { id: "trail", type: "appear", ms: 500 }
 ];
-function ProactiveInterventionV2Motion({ narrow = false } = {}) {
-  const { marketplace: m, widget: w } = intervention;
-  const ref = w.productReference;
-  return /* @__PURE__ */ jsx(
+function ProactiveInterventionPolishedMotion({ narrow = false } = {}) {
+  const { widget: w } = intervention;
+  const ref = { ...w.productReference, image: helmetCutout };
+  return /* @__PURE__ */ jsx("div", { className: "pv2v", children: /* @__PURE__ */ jsx(
     WidgetCanvas,
     {
       narrow,
-      brand: m.retailer,
-      Page: MarketplaceBackground$2,
+      brand: marketplace$2.retailer,
+      Page: PolishedStorefront,
       message: w.message,
       knockLine: w.knockLine,
       knockProduct: ref.image,
@@ -6326,30 +6393,30 @@ function ProactiveInterventionV2Motion({ narrow = false } = {}) {
       secondary: w.secondaryAction,
       primary: w.primaryAction
     }
-  );
+  ) });
 }
 function MwebFrame({ children }) {
   return /* @__PURE__ */ jsx("div", { className: "pv2mc", children: /* @__PURE__ */ jsx("div", { className: "pv2mc__lens", children }) });
 }
 function ProactiveInterventionMwebMotion() {
-  return /* @__PURE__ */ jsx(MwebFrame, { children: /* @__PURE__ */ jsx(ProactiveInterventionV2Motion, { narrow: true }) });
+  return /* @__PURE__ */ jsx(MwebFrame, { children: /* @__PURE__ */ jsx(ProactiveInterventionPolishedMotion, { narrow: true }) });
 }
 function ComparisonGuidanceMwebMotion() {
-  return /* @__PURE__ */ jsx(MwebFrame, { children: /* @__PURE__ */ jsx(ComparisonGuidanceV2Motion, { narrow: true }) });
+  return /* @__PURE__ */ jsx(MwebFrame, { children: /* @__PURE__ */ jsx(ComparisonGuidancePolishedMotion, { narrow: true }) });
 }
 function ReturnVisitComparisonMwebMotion() {
-  return /* @__PURE__ */ jsx(MwebFrame, { children: /* @__PURE__ */ jsx(ReturnVisitComparisonV2Motion, { narrow: true }) });
+  return /* @__PURE__ */ jsx(MwebFrame, { children: /* @__PURE__ */ jsx(ReturnVisitComparisonPolishedMotion, { narrow: true }) });
 }
-function ComparisonGuidanceV2Motion({ narrow = false } = {}) {
+function ComparisonGuidancePolishedMotion({ narrow = false } = {}) {
   const { marketplace: m, widget: w, foundations: foundations2 } = guidance;
   const prices = foundations2.map((f) => Number(f.price.slice(1)));
   const finishes = [...new Set(foundations2.map((f) => f.attributeValue.split(" · ")[0]))].join(", ");
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx("div", { className: "pv2v", children: /* @__PURE__ */ jsx(
     WidgetCanvas,
     {
       narrow,
       brand: m.retailer,
-      Page: MarketplaceBackground$1,
+      Page: PolishedGuidanceStorefront,
       message: w.message,
       knockLine: "Torn between three? I can narrow them down for you.",
       lead: /* @__PURE__ */ jsxs("div", { className: "sbp-row um2-viewed pv2-row", children: [
@@ -6371,16 +6438,16 @@ function ComparisonGuidanceV2Motion({ narrow = false } = {}) {
       ] }),
       primary: w.primaryAction
     }
-  );
+  ) });
 }
-function ReturnVisitComparisonV2Motion({ narrow = false } = {}) {
+function ReturnVisitComparisonPolishedMotion({ narrow = false } = {}) {
   const { marketplace: m, widget: w } = returnVisit;
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx("div", { className: "pv2v", children: /* @__PURE__ */ jsx(
     WidgetCanvas,
     {
       narrow,
       brand: m.retailer,
-      Page: MarketplaceBackground,
+      Page: PolishedReturnVisitStorefront,
       message: w.message,
       knockLine: "Back again? I can compare it with the others you viewed.",
       knockProduct: w.current.image,
@@ -6388,9 +6455,18 @@ function ReturnVisitComparisonV2Motion({ narrow = false } = {}) {
       secondary: w.secondaryAction,
       primary: w.primaryAction
     }
-  );
+  ) });
 }
 const r28 = (C) => () => createElement("div", { className: "sci-r28" }, createElement(C));
+const slug = (name, C) => () => createElement("div", { "data-slug": name, style: { display: "contents" } }, createElement(C));
+const ConversationalDiscoveryMotion = slug("conversational-discovery-motion", ConversationalDiscoveryV2Motion);
+const TryItOnMotion = slug("try-it-on-motion", TryItOnV2Motion);
+const ProductQaMotion = slug("product-qa-motion", ProductQAV2Motion);
+const OutfitBuildingMotion = slug("outfit-building-motion", OutfitBuildingV2Motion);
+const GuidedFinderMotion = slug("guided-finder-motion", GuidedFinderV2Motion);
+const VisualDiscoveryMotion = slug("visual-discovery-motion", VisualDiscoveryV2Motion);
+const SizeFitMotion = slug("size-fit-motion", SizeFitV2Motion);
+const GiftFinderMotion = slug("gift-finder-motion", GiftFinderV2Motion);
 const CompleteChannelDeploymentMotion = r28(CompleteChannelDeploymentMotion$1);
 const BrandedWidgetMotion = r28(BrandedWidgetCycle);
 const PlaceItWhereverMotion = r28(PlaceItWhereverCompactMotion);
@@ -6402,30 +6478,30 @@ export {
   BrowseUpsellV2CameraMotion as BrowseUpsellMotion,
   BundleBuildingV2CameraMotion as BundleBuildingMotion,
   CartUpsellOfferV2CameraMotion as CartUpsellOfferMotion,
-  ComparisonGuidanceV2Motion as ComparisonGuidanceMotion,
+  ComparisonGuidancePolishedMotion as ComparisonGuidanceMotion,
   ComparisonGuidanceMwebMotion,
   CompleteChannelDeploymentMotion,
-  ConversationalDiscoveryV2Motion as ConversationalDiscoveryMotion,
+  ConversationalDiscoveryMotion,
   CrossSellV2CameraMotion as CrossSellMotion,
   DecisionSupportV2CameraMotion as DecisionSupportMotion,
-  GiftFinderV2Motion as GiftFinderMotion,
-  GuidedFinderV2Motion as GuidedFinderMotion,
+  GiftFinderMotion,
+  GuidedFinderMotion,
   HumanModeV2ChaptersMotion as HumanModeMotion,
   HumanModeV2ChaptersMwebMotion as HumanModeMwebMotion,
-  OutfitBuildingV2Motion as OutfitBuildingMotion,
+  OutfitBuildingMotion,
   PlaceItWhereverMotion,
   PriceObjectionV2CameraMotion as PriceObjectionMotion,
-  ProactiveInterventionV2Motion as ProactiveInterventionMotion,
+  ProactiveInterventionPolishedMotion as ProactiveInterventionMotion,
   ProactiveInterventionMwebMotion,
   ProductComparisonV2CameraMotion as ProductComparisonMotion,
-  ProductQAV2Motion as ProductQaMotion,
+  ProductQaMotion,
   PurchaseConfirmationV2CameraMotion as PurchaseConfirmationMotion,
-  ReturnVisitComparisonV2Motion as ReturnVisitComparisonMotion,
+  ReturnVisitComparisonPolishedMotion as ReturnVisitComparisonMotion,
   ReturnVisitComparisonMwebMotion,
   SellColorContext,
-  SizeFitV2Motion as SizeFitMotion,
+  SizeFitMotion,
   StockAvailabilityV2CameraMotion as StockAvailabilityMotion,
-  TryItOnV2Motion as TryItOnMotion,
+  TryItOnMotion,
   UpsellUpgradeV2CameraMotion as UpsellUpgradeMotion,
-  VisualDiscoveryV2Motion as VisualDiscoveryMotion
+  VisualDiscoveryMotion
 };

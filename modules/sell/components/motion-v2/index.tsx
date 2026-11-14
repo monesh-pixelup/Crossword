@@ -18,6 +18,10 @@ import "./sell-motion.css";
  * prefixed `sv-` (see sell-motion.css), brand fonts point at the next/font variables, and assets are served from
  * public/images/sell/motion-v2/assets (photos as WebP).
  *
+ * Since the 15 November 2026 update: 09–16 render inside a `data-slug` wrapper (no box of its own), which the source
+ * page's stylesheet keys their 788 × 579 damask canvas and 676 × 467 window on, and 21–23 are the source's "polished
+ * storefront" versions (the plain ones are still in the build, unexported).
+ *
  * Each visual starts itself once it is at least 30% on screen with the tab focused and fonts loaded, as in the
  * source; mount it (keyed) to replay it from the start.
  */
