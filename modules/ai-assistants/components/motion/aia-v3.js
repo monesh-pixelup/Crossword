@@ -1,6 +1,6 @@
 "use client";
 
-// Built from the "Crossword — AI Assistants V3 motion" source (Crossword-AI-Assistants-V3-Motion/source) with Vite,
+// Built from the "Crossword — AI Assistants V3 motion" source (Crossword-AI-Assistants-V3-Motion/source, the 15 November 2026 update) with Vite,
 // unminified, React external. See ./aia-motion.tsx for the mechanical changes.
 
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
@@ -119,6 +119,7 @@ const aurelia = {
   tracking: "-0.025em",
   imageDirection: "Merchant workflow modules; no retail product imagery.",
   logomarkPath: "src/assets/brands/supplied/aurelia-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelia.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelia-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -134,6 +135,7 @@ const marais = {
   tracking: "0.12em",
   imageDirection: "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
   logomarkPath: "src/assets/brands/supplied/marais-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/marais.png",
   identitySourcePath: "src/assets/brands/supplied/marais-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -149,6 +151,7 @@ const goodwell = {
   tracking: "-0.025em",
   imageDirection: "Plum-labelled jars on soft lavender backgrounds.",
   logomarkPath: "src/assets/brands/supplied/goodwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/goodwell.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/goodwell-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -167,7 +170,8 @@ const moonrest = {
   wordmarkPath: "src/assets/brands/placeholders/moonrest-wordmark.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/moonrest-badge.svg",
-  wordmarkTreatment: "plain-text"
+  wordmarkTreatment: "plain-text",
+  logomarkRasterPath: "src/assets/brands/logomarks/moonrest.png"
 };
 const dusklight = {
   name: "Dusklight",
@@ -180,6 +184,7 @@ const dusklight = {
   tracking: "-0.025em",
   imageDirection: "Sculptural lighting in muted dusk neutrals.",
   logomarkPath: "src/assets/brands/supplied/dusklight-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/dusklight.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/dusklight-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -195,6 +200,7 @@ const crestline = {
   tracking: "0.12em",
   imageDirection: "Graphite and ivory outdoor equipment on neutral studio backgrounds.",
   logomarkPath: "src/assets/brands/supplied/crestline-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/crestline.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/crestline-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -210,6 +216,7 @@ const brewhaus = {
   tracking: "0.12em",
   imageDirection: "Brushed steel machines and cream coffee packaging; warm studio light.",
   logomarkPath: "src/assets/brands/supplied/brewhaus-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/brewhaus.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/brewhaus-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -223,7 +230,12 @@ const waveline = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents."
+  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents.",
+  logomarkPath: "src/assets/brands/logomarks/source/waveline.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/waveline.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/waveline.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aura = {
   name: "Aura",
@@ -236,6 +248,7 @@ const aura = {
   tracking: "0.12em",
   imageDirection: "Ivory earbud shells with small uppercase branding.",
   logomarkPath: "src/assets/brands/supplied/aura-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aura.png",
   identitySourcePath: "src/assets/brands/supplied/aura-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -249,7 +262,12 @@ const auden = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants."
+  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants.",
+  logomarkPath: "src/assets/brands/logomarks/source/auden.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/auden.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/auden.svg",
+  wordmarkTreatment: "plain-text"
 };
 const lumen = {
   name: "Lumen",
@@ -260,7 +278,12 @@ const lumen = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging."
+  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging.",
+  logomarkPath: "src/assets/brands/logomarks/source/lumen.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/lumen.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/lumen.svg",
+  wordmarkTreatment: "plain-text"
 };
 const trailwell = {
   name: "Trailwell",
@@ -273,6 +296,7 @@ const trailwell = {
   tracking: "-0.025em",
   imageDirection: "Outdoor utility, olive fabric and durable metal bottles.",
   logomarkPath: "src/assets/brands/supplied/trailwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/trailwell.png",
   identitySourcePath: "src/assets/brands/supplied/trailwell-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -288,6 +312,7 @@ const stride = {
   tracking: "-0.025em",
   imageDirection: "Minimal footwear; black, tan and white are separate image assets, never CSS colour filters.",
   logomarkPath: "src/assets/brands/supplied/stride-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/stride.png",
   identitySourcePath: "src/assets/brands/supplied/stride-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -301,7 +326,12 @@ const vela = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Muted rose and charcoal styling tools."
+  imageDirection: "Muted rose and charcoal styling tools.",
+  logomarkPath: "src/assets/brands/logomarks/source/vela.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/vela.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/vela.svg",
+  wordmarkTreatment: "plain-text"
 };
 const formwork = {
   name: "Formwork",
@@ -312,7 +342,12 @@ const formwork = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair."
+  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair.",
+  logomarkPath: "src/assets/brands/logomarks/source/formwork.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/formwork.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/formwork.svg",
+  wordmarkTreatment: "plain-text"
 };
 const proteinmax = {
   name: "Proteinmax",
@@ -325,6 +360,7 @@ const proteinmax = {
   tracking: "0.12em",
   imageDirection: "Black protein tubs, red accents and consistent PROTEINMAX labels.",
   logomarkPath: "src/assets/brands/supplied/proteinmax-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/proteinmax.png",
   identitySourcePath: "src/assets/brands/supplied/proteinmax-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -338,7 +374,12 @@ const hearthware = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting."
+  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting.",
+  logomarkPath: "src/assets/brands/logomarks/source/hearthware.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/hearthware.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/hearthware.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aeria = {
   name: "Aeria",
@@ -349,7 +390,12 @@ const aeria = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks."
+  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks.",
+  logomarkPath: "src/assets/brands/logomarks/source/aeria.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aeria.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/aeria.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aurelle = {
   name: "Aurelle",
@@ -362,6 +408,7 @@ const aurelle = {
   tracking: "-0.025em",
   imageDirection: "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
   logomarkPath: "src/assets/brands/supplied/aurelle-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelle.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelle-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -380,6 +427,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
     logomarkPath: "src/assets/brands/supplied/sorelle-labs-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/sorelle-labs.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/sorelle-labs-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -397,6 +445,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
     logomarkPath: "src/assets/brands/supplied/amber-and-oak-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/amber-and-oak.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/amber-and-oak-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -415,7 +464,12 @@ const registry = {
     font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces."
+    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces.",
+    logomarkPath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/holt-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   auden,
   lumen,
@@ -433,7 +487,12 @@ const registry = {
     font: '"Inter", system-ui, sans-serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding."
+    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding.",
+    logomarkPath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/echo-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   hearthware,
   aeria,
@@ -1498,14 +1557,37 @@ const __vite_glob_0_10 = "/images/ai-assistants/v3/assets/proteinmax-mark-CAjpFh
 const __vite_glob_0_11 = "/images/ai-assistants/v3/assets/sorelle-labs-mark-CQBfsdpQ.svg";
 const __vite_glob_0_12 = "/images/ai-assistants/v3/assets/stride-mark-BhAcSYrg.svg";
 const __vite_glob_0_13 = "/images/ai-assistants/v3/assets/trailwell-mark-DWHfUX1B.svg";
-const __vite_glob_1_0 = "/images/ai-assistants/v3/assets/amber-and-oak-mark-DyBTEnHG.svg";
-const __vite_glob_1_1 = "/images/ai-assistants/v3/assets/aurelia-mark-WAhMDRAF.svg";
-const __vite_glob_1_2 = "/images/ai-assistants/v3/assets/aurelle-mark-CkALuNbG.svg";
-const __vite_glob_1_3 = "/images/ai-assistants/v3/assets/brewhaus-mark-CPBhNKZi.svg";
-const __vite_glob_1_4 = "/images/ai-assistants/v3/assets/crestline-mark-x07nlP5x.svg";
-const __vite_glob_1_5 = "/images/ai-assistants/v3/assets/dusklight-mark-BxLi6ckI.svg";
-const __vite_glob_1_6 = "/images/ai-assistants/v3/assets/moonrest-mark-C1S3y54t.svg";
-const __vite_glob_1_7 = "/images/ai-assistants/v3/assets/sorelle-labs-mark-DwV8-BRm.svg";
+const __vite_glob_1_0 = "/images/ai-assistants/v3/assets/aeria-YYq39Tmj.webp";
+const __vite_glob_1_1 = "/images/ai-assistants/v3/assets/amber-and-oak-B_E1LHFp.webp";
+const __vite_glob_1_2 = "/images/ai-assistants/v3/assets/auden-D6bviGYb.webp";
+const __vite_glob_1_3 = "/images/ai-assistants/v3/assets/aura-9M4MUBrO.webp";
+const __vite_glob_1_4 = "/images/ai-assistants/v3/assets/aurelia-DIkgKc6E.webp";
+const __vite_glob_1_5 = "/images/ai-assistants/v3/assets/aurelle-D4MmoaJI.webp";
+const __vite_glob_1_6 = "/images/ai-assistants/v3/assets/brewhaus-nqvL_9rd.webp";
+const __vite_glob_1_7 = "/images/ai-assistants/v3/assets/crestline-10BYG1fb.webp";
+const __vite_glob_1_8 = "/images/ai-assistants/v3/assets/dusklight-D4BTEpTH.webp";
+const __vite_glob_1_9 = "/images/ai-assistants/v3/assets/echo-and-co-v-USWRkm.webp";
+const __vite_glob_1_10 = "/images/ai-assistants/v3/assets/formwork-D1yGSW-s.webp";
+const __vite_glob_1_11 = "/images/ai-assistants/v3/assets/goodwell-D-tqaLX2.webp";
+const __vite_glob_1_12 = "/images/ai-assistants/v3/assets/hearthware-BV2ZsyEY.webp";
+const __vite_glob_1_13 = "/images/ai-assistants/v3/assets/holt-and-co-CNH9FNcC.webp";
+const __vite_glob_1_14 = "/images/ai-assistants/v3/assets/lumen-BKTnlTLa.webp";
+const __vite_glob_1_15 = "/images/ai-assistants/v3/assets/marais-vhL6aN8y.webp";
+const __vite_glob_1_16 = "/images/ai-assistants/v3/assets/moonrest-jpQQ4DyZ.webp";
+const __vite_glob_1_17 = "/images/ai-assistants/v3/assets/proteinmax-CfxeVd4u.webp";
+const __vite_glob_1_18 = "/images/ai-assistants/v3/assets/sorelle-labs-CQqgbOme.webp";
+const __vite_glob_1_19 = "/images/ai-assistants/v3/assets/stride-BjAZUFR_.webp";
+const __vite_glob_1_20 = "/images/ai-assistants/v3/assets/trailwell-vb-FA88_.webp";
+const __vite_glob_1_21 = "/images/ai-assistants/v3/assets/vela-qtSHjO_9.webp";
+const __vite_glob_1_22 = "/images/ai-assistants/v3/assets/waveline-BNXG9I4L.webp";
+const __vite_glob_2_0 = "/images/ai-assistants/v3/assets/amber-and-oak-mark-DyBTEnHG.svg";
+const __vite_glob_2_1 = "/images/ai-assistants/v3/assets/aurelia-mark-WAhMDRAF.svg";
+const __vite_glob_2_2 = "/images/ai-assistants/v3/assets/aurelle-mark-CkALuNbG.svg";
+const __vite_glob_2_3 = "/images/ai-assistants/v3/assets/brewhaus-mark-CPBhNKZi.svg";
+const __vite_glob_2_4 = "/images/ai-assistants/v3/assets/crestline-mark-x07nlP5x.svg";
+const __vite_glob_2_5 = "/images/ai-assistants/v3/assets/dusklight-mark-BxLi6ckI.svg";
+const __vite_glob_2_6 = "/images/ai-assistants/v3/assets/moonrest-mark-C1S3y54t.svg";
+const __vite_glob_2_7 = "/images/ai-assistants/v3/assets/sorelle-labs-mark-DwV8-BRm.svg";
 const goodwellMark = "/images/ai-assistants/v3/assets/goodwell-mark-D2M8-7dz.svg";
 const normalise = (name) => name.toLowerCase().replace(/[^a-z0-9]/g, "");
 function getBrand(name) {
@@ -1550,21 +1632,23 @@ const marks = {
   aeria: "M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h5"
 };
 const suppliedMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/supplied/amber-and-oak-mark.svg": __vite_glob_0_0, "../assets/brands/supplied/aura-mark.svg": __vite_glob_0_1, "../assets/brands/supplied/aurelia-mark.svg": __vite_glob_0_2, "../assets/brands/supplied/aurelle-mark.svg": __vite_glob_0_3, "../assets/brands/supplied/brewhaus-mark.svg": __vite_glob_0_4, "../assets/brands/supplied/crestline-mark.svg": __vite_glob_0_5, "../assets/brands/supplied/dusklight-mark.svg": __vite_glob_0_6, "../assets/brands/supplied/goodwell-mark.svg": __vite_glob_0_7, "../assets/brands/supplied/marais-mark.svg": __vite_glob_0_8, "../assets/brands/supplied/moonrest-mark.svg": __vite_glob_0_9, "../assets/brands/supplied/proteinmax-mark.svg": __vite_glob_0_10, "../assets/brands/supplied/sorelle-labs-mark.svg": __vite_glob_0_11, "../assets/brands/supplied/stride-mark.svg": __vite_glob_0_12, "../assets/brands/supplied/trailwell-mark.svg": __vite_glob_0_13 });
+const rasterMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/logomarks/aeria.png": __vite_glob_1_0, "../assets/brands/logomarks/amber-and-oak.png": __vite_glob_1_1, "../assets/brands/logomarks/auden.png": __vite_glob_1_2, "../assets/brands/logomarks/aura.png": __vite_glob_1_3, "../assets/brands/logomarks/aurelia.png": __vite_glob_1_4, "../assets/brands/logomarks/aurelle.png": __vite_glob_1_5, "../assets/brands/logomarks/brewhaus.png": __vite_glob_1_6, "../assets/brands/logomarks/crestline.png": __vite_glob_1_7, "../assets/brands/logomarks/dusklight.png": __vite_glob_1_8, "../assets/brands/logomarks/echo-and-co.png": __vite_glob_1_9, "../assets/brands/logomarks/formwork.png": __vite_glob_1_10, "../assets/brands/logomarks/goodwell.png": __vite_glob_1_11, "../assets/brands/logomarks/hearthware.png": __vite_glob_1_12, "../assets/brands/logomarks/holt-and-co.png": __vite_glob_1_13, "../assets/brands/logomarks/lumen.png": __vite_glob_1_14, "../assets/brands/logomarks/marais.png": __vite_glob_1_15, "../assets/brands/logomarks/moonrest.png": __vite_glob_1_16, "../assets/brands/logomarks/proteinmax.png": __vite_glob_1_17, "../assets/brands/logomarks/sorelle-labs.png": __vite_glob_1_18, "../assets/brands/logomarks/stride.png": __vite_glob_1_19, "../assets/brands/logomarks/trailwell.png": __vite_glob_1_20, "../assets/brands/logomarks/vela.png": __vite_glob_1_21, "../assets/brands/logomarks/waveline.png": __vite_glob_1_22 });
 const placeholderMarks = /* @__PURE__ */ Object.assign({
-  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_1_0,
-  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_1_1,
-  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_1_2,
-  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_1_3,
-  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_1_4,
-  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_1_5,
-  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_1_6,
-  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_1_7
+  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_2_0,
+  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_2_1,
+  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_2_2,
+  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_2_3,
+  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_2_4,
+  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_2_5,
+  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_2_6,
+  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_2_7
 });
 function BrandMark({
   brand: name,
   className = ""
 }) {
   const brand = getBrand(name);
+  const raster = rasterMarks[`../assets/brands/logomarks/${brand.id}.png`];
   const supplied = suppliedMarks[`../assets/brands/supplied/${brand.id}-mark.svg`];
   return /* @__PURE__ */ jsx(
     "span",
@@ -1572,9 +1656,9 @@ function BrandMark({
       className: `demo-brand-mark ${className}`,
       style: brandStyle(name),
       "data-brand-id": brand.id,
-      "data-identity-asset": supplied ? "supplied" : "placeholder",
+      "data-identity-asset": raster ? "raster-logomark" : supplied ? "supplied" : "placeholder",
       "aria-hidden": "true",
-      children: supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: supplied, alt: "" }) : brand.id === "aurelle" || brand.id === "goodwell" ? /* @__PURE__ */ jsx(
+      children: raster || supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: raster ?? supplied, alt: "" }) : brand.id === "aurelle" || brand.id === "goodwell" ? /* @__PURE__ */ jsx(
         "img",
         {
           src: brand.id === "aurelle" ? placeholderMarks["../assets/brands/placeholders/aurelle-mark.svg"] : goodwellMark,
@@ -3378,7 +3462,8 @@ function V3AppDetailMwebMotion() {
 }
 const audiencesBg = "/images/ai-assistants/v3/assets/audiences_bg_3x-CeMPiv1g.webp";
 const returnReductionBg = "/images/ai-assistants/v3/assets/return_reduction_bg_3x-PTzwbPCJ.webp";
-const backdrops = { green: audiencesBg, purple: returnReductionBg };
+const forestBg = "/images/ai-assistants/v3/assets/forest_wide_bg_3x-D-Dz7kSE.webp";
+const backdrops = { green: audiencesBg, purple: returnReductionBg, forest: forestBg };
 function LandscapeCanvas({
   scene,
   widget,
@@ -3393,8 +3478,10 @@ function LandscapeCanvas({
     widget && /* @__PURE__ */ jsx("div", { className: "ill-landscape-canvas__widget", children: widget })
   ] });
 }
-const orgMark = "/images/ai-assistants/v3/assets/org-mark-Alk5D-x9.svg";
-const priyaRaman = "/images/ai-assistants/v3/assets/priya-raman-CMwZrsBD.svg";
+const orgMark = "/images/ai-assistants/v3/assets/crossword-logo-C5ShBt7d.svg";
+function RailTile({ className, initial = "A" }) {
+  return /* @__PURE__ */ jsx("span", { className: className ? `rail-tile ${className}` : "rail-tile", "aria-hidden": "true", children: initial });
+}
 const ICONS = {
   house: "M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z",
   cube: "M223.68,66.15,135.68,18h0a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32h0l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z",
@@ -3440,7 +3527,7 @@ function InsightsFrame({
       /* @__PURE__ */ jsxs("div", { className: "la-rail__group la-rail__group--end", children: [
         ["search", "bell", "gear"].map((n) => /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
         /* @__PURE__ */ jsx("span", { className: "la-rail__rule" }),
-        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx("span", { className: "la-rail__me", "aria-hidden": true, children: "A" }) })
+        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx(RailTile, {}) })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("main", { className: "la-main", children: [

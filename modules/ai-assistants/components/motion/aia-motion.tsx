@@ -25,8 +25,9 @@ import {
 
 /*
  * The AI Assistants page's motion visuals, built from the "Crossword — AI Assistants V3 motion" source
- * (Crossword-AI-Assistants-V3-Motion-2026-11-11/source, the 11 November 2026 update: the 24px gold-edged window
- * standard, and 11m and 15m, the mobile web visuals): aia-v3.js is its Vite build of the 17 visuals, unminified with React
+ * (Crossword-AI-Assistants-V3-Motion/source, the 15 November 2026 update: the brands' own logomarks, the dashboard
+ * rail's Crossword mark and initial tile, and 01–04's and 11's windows at 16px corners; the 11 November update brought
+ * the gold-edged window standard and 11m and 15m, the mobile web visuals): aia-v3.js is its Vite build of the 17 visuals, unminified with React
  * external, so markup, classes, copy and timings are the source's own. Mechanical changes only:
  *
  * - The follow-scrolls in GiftJourneyV2Motion and ProductDiscoveryV2Motion divide their getBoundingClientRect values by
