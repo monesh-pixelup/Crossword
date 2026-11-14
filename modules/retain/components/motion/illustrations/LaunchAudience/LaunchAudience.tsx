@@ -9,7 +9,8 @@ import omarHaddadImage from "../../../../assets/motion/illustrations/LaunchAudie
 import sofiaMarinoImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/sofia-marino.svg";
 import emmaLindqvistImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/emma-lindqvist.svg";
 import kenjiWatanabeImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/kenji-watanabe.svg";
-import orgMarkImage from "../../../../assets/motion/brand/org-mark.svg";
+import orgMarkImage from "../../../../assets/motion/ill-icons/crossword-logo.svg";
+import { RailTile } from "../SupportV3/RailTile";
 
 const priyaNair = priyaNairImage.src;
 const omarHaddad = omarHaddadImage.src;
@@ -299,7 +300,7 @@ export function InsightsFrame({
                 ))}
                 <span className="la-rail__rule" />
                 <span className="la-rail__item">
-                  <span className="la-rail__me" aria-hidden>A</span>
+                  <RailTile />
                 </span>
               </div>
             </nav>

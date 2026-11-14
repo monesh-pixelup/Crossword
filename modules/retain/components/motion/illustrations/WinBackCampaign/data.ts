@@ -1,31 +1,30 @@
-import calmingSerumImage from "../../../../assets/motion/scenarios/human-mode/calming-serum.png";
-import calmingSerum2Image from "../../../../assets/motion/scenarios/retain/calming-serum-2.png";
+import { catalog } from "../../brands/catalog";
+import goodwellShareImage from "../../../../assets/motion/scenarios/retain-v2/goodwell-winback-share.png";
 
-const calmingSerum = calmingSerumImage.src;
-const calmingSerum2 = calmingSerum2Image.src;
+const goodwellShare = goodwellShareImage.src;
 
-export const brand = "SORELLE LABS";
+export const brand = catalog.goodwellSleep60.brand;
 
 export const script = {
   assistantMessage:
-    "It's been a while. A few new skincare products have arrived since your last order, including a new version of one you used to buy.",
+    "It's been a while since your last order. Daily Sleep Gummies are now available in a 60-count jar if you'd like a longer supply.",
 };
 
 export const previous = {
   label: "Previously purchased",
-  image: calmingSerum,
-  alt: "Calming Serum, 30 ml",
-  title: "Calming Serum",
+  image: catalog.goodwellSleep28.image,
+  alt: "Goodwell Daily Sleep Gummies, 28 count",
+  title: "Daily Sleep Gummies, 28 count",
   meta: "Ordered in March",
 };
 
 export const next = {
-  label: "New version",
-  image: calmingSerum2,
-  alt: "Calming Serum 2.0, 30 ml",
-  brand: "SORELLE LABS",
-  title: "Calming Serum 2.0",
-  subtitle: "Now with ceramides",
-  price: "$52",
-  cta: "See what's new",
+  label: "Larger size",
+  image: goodwellShare,
+  alt: "Goodwell Daily Sleep Gummies, 60 count",
+  brand: catalog.goodwellSleep60.brand,
+  title: "Daily Sleep Gummies, 60 count",
+  subtitle: "Now in a 60-count jar",
+  price: catalog.goodwellSleep60.price,
+  cta: "See the 60-count jar",
 };

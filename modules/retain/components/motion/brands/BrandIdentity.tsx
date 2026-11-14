@@ -15,6 +15,29 @@ import suppliedProteinmaxMarkImage from "../../../assets/motion/brands/supplied/
 import suppliedSorelleLabsMarkImage from "../../../assets/motion/brands/supplied/sorelle-labs-mark.svg";
 import suppliedStrideMarkImage from "../../../assets/motion/brands/supplied/stride-mark.svg";
 import suppliedTrailwellMarkImage from "../../../assets/motion/brands/supplied/trailwell-mark.svg";
+import logomarkAeriaImage from "../../../assets/motion/brands/logomarks/aeria.png";
+import logomarkAmberAndOakImage from "../../../assets/motion/brands/logomarks/amber-and-oak.png";
+import logomarkAudenImage from "../../../assets/motion/brands/logomarks/auden.png";
+import logomarkAuraImage from "../../../assets/motion/brands/logomarks/aura.png";
+import logomarkAureliaImage from "../../../assets/motion/brands/logomarks/aurelia.png";
+import logomarkAurelleImage from "../../../assets/motion/brands/logomarks/aurelle.png";
+import logomarkBrewhausImage from "../../../assets/motion/brands/logomarks/brewhaus.png";
+import logomarkCrestlineImage from "../../../assets/motion/brands/logomarks/crestline.png";
+import logomarkDusklightImage from "../../../assets/motion/brands/logomarks/dusklight.png";
+import logomarkEchoAndCoImage from "../../../assets/motion/brands/logomarks/echo-and-co.png";
+import logomarkFormworkImage from "../../../assets/motion/brands/logomarks/formwork.png";
+import logomarkGoodwellImage from "../../../assets/motion/brands/logomarks/goodwell.png";
+import logomarkHearthwareImage from "../../../assets/motion/brands/logomarks/hearthware.png";
+import logomarkHoltAndCoImage from "../../../assets/motion/brands/logomarks/holt-and-co.png";
+import logomarkLumenImage from "../../../assets/motion/brands/logomarks/lumen.png";
+import logomarkMaraisImage from "../../../assets/motion/brands/logomarks/marais.png";
+import logomarkMoonrestImage from "../../../assets/motion/brands/logomarks/moonrest.png";
+import logomarkProteinmaxImage from "../../../assets/motion/brands/logomarks/proteinmax.png";
+import logomarkSorelleLabsImage from "../../../assets/motion/brands/logomarks/sorelle-labs.png";
+import logomarkStrideImage from "../../../assets/motion/brands/logomarks/stride.png";
+import logomarkTrailwellImage from "../../../assets/motion/brands/logomarks/trailwell.png";
+import logomarkVelaImage from "../../../assets/motion/brands/logomarks/vela.png";
+import logomarkWavelineImage from "../../../assets/motion/brands/logomarks/waveline.png";
 import placeholderAmberAndOakMarkImage from "../../../assets/motion/brands/placeholders/amber-and-oak-mark.svg";
 import placeholderAureliaMarkImage from "../../../assets/motion/brands/placeholders/aurelia-mark.svg";
 import placeholderAurelleMarkImage from "../../../assets/motion/brands/placeholders/aurelle-mark.svg";
@@ -105,6 +128,32 @@ const suppliedMarks: Record<string, string> = {
   "../assets/brands/supplied/trailwell-mark.svg": suppliedTrailwellMarkImage.src,
 };
 
+const rasterMarks: Record<string, string> = {
+  "../assets/brands/logomarks/aeria.png": logomarkAeriaImage.src,
+  "../assets/brands/logomarks/amber-and-oak.png": logomarkAmberAndOakImage.src,
+  "../assets/brands/logomarks/auden.png": logomarkAudenImage.src,
+  "../assets/brands/logomarks/aura.png": logomarkAuraImage.src,
+  "../assets/brands/logomarks/aurelia.png": logomarkAureliaImage.src,
+  "../assets/brands/logomarks/aurelle.png": logomarkAurelleImage.src,
+  "../assets/brands/logomarks/brewhaus.png": logomarkBrewhausImage.src,
+  "../assets/brands/logomarks/crestline.png": logomarkCrestlineImage.src,
+  "../assets/brands/logomarks/dusklight.png": logomarkDusklightImage.src,
+  "../assets/brands/logomarks/echo-and-co.png": logomarkEchoAndCoImage.src,
+  "../assets/brands/logomarks/formwork.png": logomarkFormworkImage.src,
+  "../assets/brands/logomarks/goodwell.png": logomarkGoodwellImage.src,
+  "../assets/brands/logomarks/hearthware.png": logomarkHearthwareImage.src,
+  "../assets/brands/logomarks/holt-and-co.png": logomarkHoltAndCoImage.src,
+  "../assets/brands/logomarks/lumen.png": logomarkLumenImage.src,
+  "../assets/brands/logomarks/marais.png": logomarkMaraisImage.src,
+  "../assets/brands/logomarks/moonrest.png": logomarkMoonrestImage.src,
+  "../assets/brands/logomarks/proteinmax.png": logomarkProteinmaxImage.src,
+  "../assets/brands/logomarks/sorelle-labs.png": logomarkSorelleLabsImage.src,
+  "../assets/brands/logomarks/stride.png": logomarkStrideImage.src,
+  "../assets/brands/logomarks/trailwell.png": logomarkTrailwellImage.src,
+  "../assets/brands/logomarks/vela.png": logomarkVelaImage.src,
+  "../assets/brands/logomarks/waveline.png": logomarkWavelineImage.src,
+};
+
 const placeholderMarks: Record<string, string> = {
   "../assets/brands/placeholders/amber-and-oak-mark.svg": placeholderAmberAndOakMarkImage.src,
   "../assets/brands/placeholders/aurelia-mark.svg": placeholderAureliaMarkImage.src,
@@ -124,17 +173,18 @@ export function BrandMark({
   className?: string;
 }) {
   const brand = getBrand(name);
+  const raster = rasterMarks[`../assets/brands/logomarks/${brand.id}.png`];
   const supplied = suppliedMarks[`../assets/brands/supplied/${brand.id}-mark.svg`];
   return (
     <span
       className={`demo-brand-mark ${className}`}
       style={brandStyle(name)}
       data-brand-id={brand.id}
-      data-identity-asset={supplied ? "supplied" : "placeholder"}
+      data-identity-asset={raster ? "raster-logomark" : supplied ? "supplied" : "placeholder"}
       aria-hidden="true"
     >
-      {supplied ? (
-        <img className="demo-brand-mark__supplied" src={supplied} alt="" />
+      {raster || supplied ? (
+        <img className="demo-brand-mark__supplied" src={raster ?? supplied} alt="" />
       ) : brand.id === "aurelle" || brand.id === "goodwell" ? (
         <img
           src={

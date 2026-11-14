@@ -27,6 +27,7 @@ export function Shell({
   header,
   composer,
   growComposer = false,
+  note = false,
   className,
 }: {
   brand: string;
@@ -66,6 +67,9 @@ export function Shell({
   // pill. Opt-in, for a scene whose typed message wraps (Support V3
   // motion 04 and 06).
   growComposer?: boolean;
+  // Disclaimer line under the composer, as Sell conversational interface
+  // 01 (gj2-note). Opt-in: Support V3 motion 01–06.
+  note?: boolean;
   // Extra class on the shell's own root — e.g. a scenario-scoped theme
   // override (CSS custom property re-pointed for just that subtree).
   // Unused by default.
@@ -85,6 +89,7 @@ export function Shell({
         ) : (
           <ChatComposer value={composerValue} typing={composerTyping} />
         ))}
+      {note && <p className="ill-shell__note">AI can make mistakes. Powered by <u>Crossword</u></p>}
     </div>
   );
 }

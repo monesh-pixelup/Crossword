@@ -1,4 +1,7 @@
 import { catalog } from "../../brands/catalog";
+import auraReviewImage from "../../../../assets/motion/scenarios/retain-v2/aura-review.png";
+
+const auraReview = auraReviewImage.src;
 
 const product = catalog.auraEarbuds;
 
@@ -10,7 +13,7 @@ export const script = {
 };
 
 export const purchase = {
-  image: product.image,
+  image: auraReview,
   alt: `${product.title} in ${product.color}`,
   brand: product.brand,
   title: product.title,

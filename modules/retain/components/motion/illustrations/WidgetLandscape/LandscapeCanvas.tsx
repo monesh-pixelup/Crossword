@@ -2,10 +2,12 @@ import { ContentFade } from "../../components/ill/ContentFade";
 import audiencesBgImage from "../../../../assets/motion/ill-frame/retain/audiences_bg_3x.webp";
 import returnReductionBgImage from "../../../../assets/motion/ill-frame/retain/return_reduction_bg_3x.webp";
 import returnReductionBgMaroonImage from "../../../../assets/motion/ill-frame/retain/return_reduction_bg_3x-maroon.webp";
+import forestBgImage from "../../../../assets/motion/ill-frame/forest_wide_bg_3x.webp";
 
 const audiencesBg = audiencesBgImage.src;
 const returnReductionBg = returnReductionBgImage.src;
 const returnReductionBgMaroon = returnReductionBgMaroonImage.src;
+const forestBg = forestBgImage.src;
 
 // 1280x599 landscape frame: a decorative damask backdrop (green for 11,
 // purple for 12 — each 3x of the frame), the website page inset inside
@@ -16,7 +18,8 @@ const returnReductionBgMaroon = returnReductionBgMaroonImage.src;
 // bottom, Visual 21's placement, so its composer sits low on the page.
 // `maroon` (a site addition, not in the source) is 12's purple backdrop with its damask recoloured
 // to the site's maroon, its gold frame untouched.
-const backdrops = { green: audiencesBg, purple: returnReductionBg, maroon: returnReductionBgMaroon };
+// forest: Figma "Background/Panel/Forest · Wide" (Support 13, help desk).
+const backdrops = { green: audiencesBg, purple: returnReductionBg, maroon: returnReductionBgMaroon, forest: forestBg };
 
 export function LandscapeCanvas({
   scene,

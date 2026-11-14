@@ -279,6 +279,186 @@
   box-shadow: none;
 }
 
+/* ---------- 01 — iMessage window chrome, iOS 26 Messages ----------
+   Per the HIG (Materials, Toolbars, Navigation bars) for iOS 26: the
+   thread sits on systemBackground (white); the nav bar has no fill or
+   hairline, only a scroll-edge fade, with its controls on Liquid Glass —
+   a 44pt circular back button (label-colour chevron, not tinted blue)
+   and a trailing FaceTime button. The contact avatar sits centred with
+   the name in a glass capsule beneath it. The composer puts the + glass
+   button leading and the "iMessage" field trailing, with the mic glyph
+   inside the field. Link previews run their image edge to edge. */
+.rtn-motion .sbl .ill-retain-im {
+  --im-glass: rgba(255, 255, 255, 0.72);
+  --im-glass-edge: rgba(0, 0, 0, 0.06);
+  --im-glass-shadow: 0 calc(2 * var(--im-pt)) calc(12 * var(--im-pt)) rgba(0, 0, 0, 0.1);
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell {
+  background: #fff;
+  padding-top: calc(100 * var(--im-pt));
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__header {
+  top: 0;
+  left: 0;
+  transform: none;
+  width: 100%;
+  height: auto;
+  padding: calc(10 * var(--im-pt)) calc(16 * var(--im-pt)) calc(14 * var(--im-pt));
+  background: linear-gradient(#fff calc(100% - 6px), rgba(255, 255, 255, 0));
+  box-shadow: none;
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__header-row {
+  width: 100%;
+  align-items: flex-start;
+}
+
+.rtn-motion .sbl .ill-retain-im :is(.ill-im-shell__back-btn, .ill-im-shell__video) {
+  box-sizing: border-box;
+  width: calc(44 * var(--im-pt));
+  height: calc(44 * var(--im-pt));
+  margin-top: calc(6 * var(--im-pt));
+  border-radius: 999px;
+  background: var(--im-glass);
+  box-shadow: var(--im-glass-shadow), inset 0 0 0 0.5px var(--im-glass-edge);
+  backdrop-filter: blur(12px) saturate(1.8);
+  color: #000;
+}
+
+/* back.svg is the blue chevron; iOS 26 draws it in label colour. */
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__back {
+  margin: 0;
+  width: calc(22 * var(--im-pt));
+  height: auto;
+  filter: brightness(0);
+}
+
+.rtn-motion .sbl .ill-retain-im :is(.ill-im-shell__back-btn, .ill-im-shell__video) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__video svg {
+  width: calc(20 * var(--im-pt));
+  height: auto;
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__spacer {
+  display: none;
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__contact {
+  width: auto;
+  gap: calc(4 * var(--im-pt));
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__avatar {
+  width: calc(56 * var(--im-pt));
+  height: calc(56 * var(--im-pt));
+  box-shadow: none;
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__name {
+  width: auto;
+  gap: calc(3 * var(--im-pt));
+  padding: calc(3 * var(--im-pt)) calc(10 * var(--im-pt));
+  border-radius: 999px;
+  background: var(--im-glass);
+  box-shadow: var(--im-glass-shadow), inset 0 0 0 0.5px var(--im-glass-edge);
+  font-weight: 500;
+  color: #000;
+}
+
+/* chevron.svg points left; the disclosure chevron points right. */
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__name img {
+  margin-top: 0;
+  width: calc(5 * var(--im-pt));
+  height: auto;
+}
+
+/* Composer: + leading, field trailing, both 36pt glass. */
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__toolbar {
+  left: 0;
+  transform: none;
+  width: 100%;
+  height: auto;
+  bottom: 0;
+  align-items: center;
+  gap: calc(8 * var(--im-pt));
+  padding: calc(8 * var(--im-pt)) calc(16 * var(--im-pt)) calc(20 * var(--im-pt));
+  background: linear-gradient(rgba(255, 255, 255, 0), #fff 40%);
+}
+
+.rtn-motion .sbl .ill-retain-im :is(.ill-im-shell__field, .ill-im-shell__plus) {
+  height: calc(36 * var(--im-pt));
+  background: var(--im-glass);
+  box-shadow: var(--im-glass-shadow), inset 0 0 0 0.5px var(--im-glass-edge);
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__plus {
+  order: -1;
+  width: calc(36 * var(--im-pt));
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__plus img {
+  width: calc(15 * var(--im-pt));
+  height: auto;
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__field {
+  padding: 0 calc(12 * var(--im-pt)) 0 calc(14 * var(--im-pt));
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__mic-glyph {
+  display: flex;
+  color: #8a8a8e;
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__mic-glyph svg {
+  width: calc(11 * var(--im-pt));
+  height: auto;
+}
+
+/* Rich link: image fills the bubble's width, no inset or letterbox. */
+.rtn-motion .sbl .ill-retain-im .ill-outbound__media .ill-media {
+  object-fit: cover;
+  transform: none;
+}
+
+/* 01: bubble and link preview are one run, so 2pt apart as in Messages
+   (the layer's 8pt body gap is for separate messages). */
+.rtn-motion .sbl .ill-retain-im .ill-outbound__body {
+  gap: calc(2 * var(--im-pt));
+}
+
+/* The thread is bottom-anchored like Messages: the newest message sits above the
+   composer and older content scrolls up under the glass header. */
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__body {
+  position: absolute;
+  inset: 0 calc(16 * var(--im-pt)) calc(64 * var(--im-pt));
+  width: auto;
+  height: auto;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-im-shell__body > * {
+  flex-shrink: 0;
+}
+
+/* iMessage loading placeholders: Messages' received-bubble grey. */
+.rtn-motion .sbl .ill-retain-im :is(.sell-loading-frame__overlay, .ill-skeleton-block) {
+  background: #e9e9eb;
+}
+
+.rtn-motion .sbl .ill-retain-im .sell-loading-frame__overlay,
+.rtn-motion .sbl .ill-retain-im .sell-loading-frame__overlay .ill-skeleton-block {
+  border-radius: inherit !important;
+}
+
 /* visuals/SellDynamicV2/SellDynamicV2.css */
 /* Sell: Dynamic 03–06 rebuilt against STORYBOOK_MAPPING.md. One layer,
    scoped to .sbl, over the original visuals and their motion: structure,
@@ -464,7 +644,8 @@
 
 /* Composer: 48px capsule, recessed fill with an inset hairline ring,
    36px send disc. */
-.rtn-motion .sbl .ill-shell > .ill-chat-composer {
+.rtn-motion .sbl .ill-shell > .ill-chat-composer,
+.rtn-motion .sbl .adj-bar .ill-chat-composer { /* 05/07's compact bar: same capsule */
   height: 48px;
   padding: 0 6px 0 16px;
   border: 0;
@@ -1409,6 +1590,26 @@
    only its outer (bottom-right) corner to 40 − 16 = 24. */
 .rtn-motion .sbl .adpb .ask-details__cta { border-radius: 999px; }
 .rtn-motion .sbl .ctm .cmp-module { border-bottom-right-radius: 24px; }
+
+/* The grow composer in the 48px capsule: the base grow maths centres a
+   line on a 40px button with zero block padding, which here sank the text
+   and the 36px send disc to the capsule's bottom edge. 6px block padding
+   centres the disc; the text line centres on it at 8px. */
+.rtn-motion .sbl .ill-shell > .ill-chat-composer.ill-grow-composer {
+  height: auto;
+  min-height: 48px;
+  padding-block: 6px;
+  box-sizing: border-box;
+}
+.rtn-motion .sbl .ill-grow-composer .ill-grow-composer__text {
+  padding-block: calc((36px - var(--ill-grow-line)) / 2);
+}
+/* Past one line: 24px corners, concentric with the 36px send disc
+   (18px radius + 6px inset). The capsule's pill radius above outranks
+   GrowComposer's own --multiline rule, so it's restated here. */
+.rtn-motion .sbl .ill-shell > .ill-chat-composer.ill-grow-composer--multiline {
+  border-radius: 24px;
+}
 
 /* components/ill/tokens.css */
 /*
@@ -2653,6 +2854,51 @@
   margin: -11px 0 0 -3px;
   position: relative;
   z-index: 0;
+}
+
+/* iOS 26 chrome pieces only the Retain V2 layer shows. */
+.rtn-motion .ill-retain-im .ill-im-shell__video,
+.rtn-motion .ill-retain-im .ill-im-shell__mic-glyph {
+  display: none;
+}
+
+/* 01's run: the column inside the thread, carrying the body's own flex
+   layout so wrapping it changes nothing. Its arrival offset (FLIP, set
+   from the component) transitions on transform only. */
+.rtn-motion .ill-retain-im__run {
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
+  gap: inherit;
+  flex-shrink: 0;
+  transition: transform 340ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Arrival: fade and rise 6px (shell px), starting 40ms behind the run's
+   slide. Opacity and transform only: no blur. */
+.rtn-motion .ill-retain-im__arrive {
+  animation: rtn-ill-retain-im-arrive 300ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes rtn-ill-retain-im-arrive {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rtn-motion .ill-retain-im__run { transition: none; }
+  .rtn-motion .ill-retain-im__arrive { animation: rtn-ill-retain-im-fade 200ms ease both; }
+}
+
+@keyframes rtn-ill-retain-im-fade {
+  from { opacity: 0; }
 }
 
 /* components/ill/Media.css */
@@ -5075,6 +5321,660 @@
   margin: -11px 0 0 -3px;
 }
 
+/* illustrations/RetainMotion/BrowseRecoveryWhatsApp.css */
+/* 02b — iOS WhatsApp chat chrome, matched to the shipping iOS app.
+   Meta publishes no chat-UI spec (only the Flows components), so these
+   values come from the app itself, in iOS points, on the same scale as 01's
+   iMessage (1pt = 9/17px, Body 17pt = 9px) so the set reads as one.
+   - Header: translucent light bar with a hairline; a chevron back button,
+     40pt avatar, name in 17pt semibold with the verified badge, a 13pt
+     secondary subtitle, and video and voice call actions on the trailing side.
+   - Thread: the doodle wallpaper; the "Today" date chip; incoming bubbles
+     are white with ~8pt corners, 7×9pt padding, 2pt apart within a run,
+     and the time in 11pt secondary inside each bubble's bottom-right.
+   - Composer: +, a rounded field with the sticker glyph, then camera
+     and mic, all monochrome on a light bar. */
+.rtn-motion .ill-wa2 {
+  --wa-pt: calc(9px / 17);
+  --wa-ink: #111b21;
+  --wa-secondary: #667781;
+}
+
+.rtn-motion .ill-wa2__shell {
+  background: #efeae2;
+  font-family: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: var(--wa-ink);
+}
+
+.rtn-motion .ill-wa2__wallpaper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.rtn-motion .ill-wa2__header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--wa-pt));
+  padding: calc(8 * var(--wa-pt)) calc(16 * var(--wa-pt)) calc(8 * var(--wa-pt)) calc(10 * var(--wa-pt));
+  background: rgba(246, 246, 246, 0.94);
+  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.18);
+}
+
+.rtn-motion .ill-wa2__back,
+.rtn-motion .ill-wa2__action,
+.rtn-motion .ill-wa2__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+}
+
+.rtn-motion .ill-wa2__back svg {
+  width: calc(11 * var(--wa-pt));
+  height: auto;
+}
+
+.rtn-motion .ill-wa2__avatar.demo-brand-mark,
+.rtn-motion .ill-wa2__avatar {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(40 * var(--wa-pt));
+  height: calc(40 * var(--wa-pt));
+  border-radius: 999px;
+  background: var(--color-aubergine, #462160);
+  overflow: hidden;
+}
+
+.rtn-motion .ill-wa2__avatar > img {
+  position: static;
+  width: 100%;
+  height: 100%;
+}
+
+.rtn-motion .ill-wa2__who {
+  flex: 1;
+  min-width: 0;
+}
+
+.rtn-motion .ill-wa2__name,
+.rtn-motion .ill-wa2__status {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.rtn-motion .ill-wa2__name {
+  display: flex;
+  align-items: center;
+  gap: calc(3 * var(--wa-pt));
+  font-size: calc(17 * var(--wa-pt));
+  line-height: calc(22 * var(--wa-pt));
+  font-weight: 600;
+  letter-spacing: calc(-0.43 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__name .ill-wa2__verified {
+  width: calc(15 * var(--wa-pt));
+  height: auto;
+}
+
+.rtn-motion .ill-wa2__status {
+  font-size: calc(13 * var(--wa-pt));
+  line-height: calc(16 * var(--wa-pt));
+  color: var(--wa-secondary);
+}
+
+.rtn-motion .ill-wa2__action {
+  margin-left: calc(18 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__action svg {
+  width: calc(24 * var(--wa-pt));
+  height: auto;
+}
+
+.rtn-motion .ill-wa2__action + .ill-wa2__action svg {
+  width: calc(19 * var(--wa-pt));
+}
+
+/* Thread: bottom-anchored like a chat, the newest message above the bar. */
+.rtn-motion .ill-wa2__body {
+  position: absolute;
+  inset: calc(56 * var(--wa-pt)) calc(12 * var(--wa-pt)) calc(57 * var(--wa-pt)) calc(4 * var(--wa-pt));
+  padding-left: calc(8 * var(--wa-pt));
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: calc(2 * var(--wa-pt));
+  overflow: hidden;
+}
+
+.rtn-motion .ill-wa2__date {
+  align-self: center;
+  margin-bottom: calc(10 * var(--wa-pt));
+  padding: calc(4 * var(--wa-pt)) calc(10 * var(--wa-pt));
+  border-radius: calc(8 * var(--wa-pt));
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0.5px 0.5px rgba(11, 20, 26, 0.13);
+  font-size: calc(12 * var(--wa-pt));
+  line-height: calc(16 * var(--wa-pt));
+  font-weight: 500;
+  color: var(--wa-secondary);
+}
+
+.rtn-motion .ill-wa2__bubble {
+  position: relative;
+  max-width: 82%;
+  padding: calc(6 * var(--wa-pt)) calc(9 * var(--wa-pt)) calc(7 * var(--wa-pt));
+  border-radius: calc(8 * var(--wa-pt));
+  background: #fff;
+}
+
+/* The shadow is a drop-shadow on the item, not a box-shadow on the
+   bubble, so the bubble and its tail cast one outline with no seam. */
+.rtn-motion .ill-wa2__item {
+  filter: drop-shadow(0 0.5px 0.4px rgba(11, 20, 26, 0.16));
+}
+
+/* The first bubble of an incoming run carries the tail, top-left. */
+.rtn-motion .ill-wa2__bubble--first {
+  border-top-left-radius: 0;
+}
+
+.rtn-motion .ill-wa2__bubble { flex-shrink: 0; }
+
+.rtn-motion .ill-wa2__bubble--first::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  /* Overlaps the bubble by 1px so the two fills meet with no hairline;
+     WhatsApp's tail: a curved inner edge and a softly rounded tip. */
+  left: calc(-8 * var(--wa-pt));
+  width: calc(8 * var(--wa-pt) + 1px);
+  height: calc(13 * var(--wa-pt));
+  background: inherit;
+  clip-path: path("M0.9 0 H5.3 V6.9 C4.3 4.4 2.7 2.1 0.5 1.1 C0 0.85 0.15 0 0.9 0 Z");
+}
+
+.rtn-motion .ill-wa2__text {
+  margin: 0;
+  font-size: calc(17 * var(--wa-pt));
+  line-height: calc(22 * var(--wa-pt));
+  letter-spacing: calc(-0.43 * var(--wa-pt));
+}
+
+/* Reserves room on the last line so the time sits inline, bottom-right. */
+.rtn-motion .ill-wa2__spacer {
+  display: inline-block;
+  width: calc(58 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__time {
+  position: absolute;
+  right: calc(8 * var(--wa-pt));
+  bottom: calc(5 * var(--wa-pt));
+  font-size: calc(11 * var(--wa-pt));
+  line-height: calc(13 * var(--wa-pt));
+  color: var(--wa-secondary);
+  white-space: nowrap;
+}
+
+/* Card bubbles: 3pt frame around the media, the time on its own line. */
+.rtn-motion .ill-wa2__bubble--card {
+  display: flex;
+  flex-direction: column;
+  width: 82%;
+  padding: calc(3 * var(--wa-pt)) calc(3 * var(--wa-pt)) calc(20 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__bubble--card .ill-retain-similar {
+  margin: 0;
+  padding: calc(4 * var(--wa-pt)) calc(5 * var(--wa-pt)) 0;
+}
+
+/* Composer. */
+.rtn-motion .ill-wa2__bar {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: calc(14 * var(--wa-pt));
+  padding: calc(7 * var(--wa-pt)) calc(14 * var(--wa-pt)) calc(8 * var(--wa-pt));
+  background: rgba(246, 246, 246, 0.94);
+  box-shadow: 0 -0.5px 0 rgba(0, 0, 0, 0.18);
+}
+
+.rtn-motion .ill-wa2__icon svg {
+  width: calc(20 * var(--wa-pt));
+  height: auto;
+}
+
+.rtn-motion .ill-wa2__icon:last-child svg {
+  width: calc(14 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__field {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  height: calc(34 * var(--wa-pt));
+  padding: 0 calc(10 * var(--wa-pt)) 0 calc(12 * var(--wa-pt));
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+}
+
+.rtn-motion .ill-wa2__placeholder {
+  flex: 1;
+}
+
+.rtn-motion .ill-wa2__sticker {
+  width: calc(19 * var(--wa-pt));
+  height: auto;
+  color: var(--wa-secondary);
+}
+
+.rtn-motion .ill-wa2__camera {
+  width: calc(22 * var(--wa-pt));
+  height: auto;
+  filter: brightness(0);
+}
+
+
+/* The run: the scrolling column inside the bottom-anchored thread. Its
+   arrival offset (set from the component, FLIP) transitions on transform
+   only, so the run's slide up runs on the compositor. */
+.rtn-motion .ill-wa2__run {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(2 * var(--wa-pt));
+  transition: transform 340ms cubic-bezier(0.23, 1, 0.32, 1);
+  align-self: stretch;
+}
+
+.rtn-motion .ill-wa2__item {
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+/* Business product messages: a fixed 270pt bubble, the media inset 3pt
+   with 5pt corners, the text block at bubble padding, then one action row
+   under a hairline in WhatsApp's link blue. */
+.rtn-motion .ill-wa2__bubble--product {
+  width: calc(270 * var(--wa-pt));
+  max-width: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.rtn-motion .ill-wa2__media {
+  display: block;
+  height: calc(var(--wa-media-h, 76) * var(--wa-pt));
+  margin: calc(3 * var(--wa-pt)) calc(3 * var(--wa-pt)) 0;
+  border-radius: calc(5 * var(--wa-pt));
+  overflow: hidden;
+  background: #f5f6f6;
+}
+
+.rtn-motion .ill-wa2__media .ill-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rtn-motion .ill-wa2__pm {
+  position: relative;
+  padding: calc(6 * var(--wa-pt)) calc(9 * var(--wa-pt)) calc(7 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__pm-title,
+.rtn-motion .ill-wa2__pm-sub,
+.rtn-motion .ill-wa2__pm-line {
+  margin: 0;
+  font-size: calc(15 * var(--wa-pt));
+  line-height: calc(20 * var(--wa-pt));
+  letter-spacing: calc(-0.23 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__pm-title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rtn-motion .ill-wa2__pm-sub {
+  color: var(--wa-secondary);
+}
+
+.rtn-motion .ill-wa2__pm-price {
+  color: var(--wa-ink);
+}
+
+.rtn-motion .ill-wa2__pm .ill-wa2__time {
+  right: calc(9 * var(--wa-pt));
+  bottom: calc(8 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__action-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(6 * var(--wa-pt));
+  height: calc(38 * var(--wa-pt));
+  box-shadow: inset 0 0.5px 0 rgba(11, 20, 26, 0.12);
+  font-size: calc(16 * var(--wa-pt));
+  letter-spacing: calc(-0.3 * var(--wa-pt));
+  color: #027eb5;
+}
+
+.rtn-motion .ill-wa2__action-row svg {
+  width: calc(15 * var(--wa-pt));
+  height: auto;
+}
+
+.rtn-motion .sbl .ill-wa2 .sell-loading-frame__overlay,
+.rtn-motion .sbl .ill-wa2 .ill-skeleton-block {
+  background: #eceff0;
+}
+
+/* Arrival: the bubble fades and rises 6pt while the run slides up
+   beneath it, starting 40ms behind the slide so it lands in a slot that
+   is already opening. One 340ms motion, opacity and transform only. */
+.rtn-motion .ill-wa2__arrive {
+  animation: rtn-ill-wa2-arrive 300ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes rtn-ill-wa2-arrive {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(calc(6 * var(--wa-pt)));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Header subtitle: the two labels share one grid cell and crossfade. */
+.rtn-motion .ill-wa2__status {
+  display: grid;
+}
+
+.rtn-motion .ill-wa2__status > span {
+  grid-area: 1 / 1;
+  transition:
+    opacity 240ms cubic-bezier(0.32, 0.72, 0, 1),
+    transform 240ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.rtn-motion .ill-wa2__status > span.is-off {
+  opacity: 0;
+  transform: translateY(calc(-3 * var(--wa-pt)));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rtn-motion .ill-wa2__arrive { animation: rtn-ill-wa2-fade 200ms ease both; }
+  .rtn-motion .ill-wa2__run { transition: none; }
+  .rtn-motion .ill-wa2__status > span { transition: none; transform: none; }
+}
+
+@keyframes rtn-ill-wa2-fade {
+  from { opacity: 0; }
+}
+
+/* ---------- Shared WhatsApp chat (ChannelChats/WhatsAppChat) ---------- */
+.rtn-motion .ill-wa2__brand-name {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+  color: inherit;
+}
+
+/* A product message that opens the run: the tail on its top-left. */
+.rtn-motion .ill-wa2__bubble--product-first {
+  overflow: visible;
+  /* overflow: visible drops the bubble's own block context, which let the
+     media's 3pt top margin collapse out through it (image flush to the
+     top edge). flow-root keeps the margin inside, so the white frame
+     shows on every side. */
+  display: flow-root;
+}
+
+/* Template footer: secondary, under the body. */
+.rtn-motion .ill-wa2__footer {
+  margin: calc(3 * var(--wa-pt)) 0 0;
+  font-size: calc(13 * var(--wa-pt));
+  line-height: calc(18 * var(--wa-pt));
+  color: var(--wa-secondary);
+}
+
+/* Interactive buttons: white tiles under the message, 2pt apart. */
+.rtn-motion .ill-wa2__bubble--with-btns {
+  border-bottom-left-radius: calc(3 * var(--wa-pt));
+  border-bottom-right-radius: calc(3 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__btns {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--wa-pt));
+  margin-top: calc(2 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(6 * var(--wa-pt));
+  height: calc(36 * var(--wa-pt));
+  border-radius: calc(3 * var(--wa-pt));
+  background: #fff;
+  font-size: calc(16 * var(--wa-pt));
+  letter-spacing: calc(-0.3 * var(--wa-pt));
+  color: #027eb5;
+}
+
+.rtn-motion .ill-wa2__btn:last-child {
+  border-bottom-left-radius: calc(8 * var(--wa-pt));
+  border-bottom-right-radius: calc(8 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__btn svg {
+  width: calc(14 * var(--wa-pt));
+  height: auto;
+}
+
+.rtn-motion .ill-wa2__item:has(.ill-wa2__btns) {
+  width: 82%;
+}
+
+.rtn-motion .ill-wa2__item:has(.ill-wa2__btns) .ill-wa2__bubble {
+  max-width: none;
+}
+
+.rtn-motion .ill-wa2__was {
+  text-decoration: line-through;
+}
+
+/* Product imagery sits on a warm beige (the product photography's own
+   backdrop tone). Shots delivered on white are multiplied in, so their
+   white reads as the beige rather than a white box. */
+.rtn-motion .ill-wa2__media {
+  background: #f4eadb;
+  isolation: isolate;
+}
+
+.rtn-motion .ill-wa2__media .ill-media {
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
+/* Skeleton corners follow the card they cover (the overlay's inline
+   radius is a fixed px guess that does not match these pt radii). */
+.rtn-motion .ill-wa2 .sell-loading-frame__overlay,
+.rtn-motion .ill-wa2 .sell-loading-frame__overlay .ill-skeleton-block {
+  border-radius: inherit !important;
+}
+
+/* 10's rating line inside the product message: label, then five
+   outline stars in the secondary grey. */
+.rtn-motion .ill-wa2__rate {
+  margin-top: calc(6 * var(--wa-pt));
+  padding-top: calc(6 * var(--wa-pt));
+  box-shadow: inset 0 0.5px 0 rgba(11, 20, 26, 0.12);
+}
+
+.rtn-motion .ill-wa2__stars {
+  display: flex;
+  gap: calc(6 * var(--wa-pt));
+  margin-top: calc(4 * var(--wa-pt));
+  color: var(--wa-secondary);
+}
+
+.rtn-motion .ill-wa2__stars svg {
+  width: calc(20 * var(--wa-pt));
+  height: auto;
+}
+
+/* A text message with action items: one card, the body at text-bubble
+   size, then each action as a full-width row under a hairline. */
+.rtn-motion .ill-wa2__bubble--text-actions {
+  width: auto;
+  max-width: 82%;
+}
+
+.rtn-motion .ill-wa2__bubble--text-actions .ill-wa2__pm {
+  padding: calc(6 * var(--wa-pt)) calc(9 * var(--wa-pt)) calc(7 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__bubble--text-actions .ill-wa2__text {
+  margin: 0;
+}
+
+.rtn-motion .ill-wa2__bubble--text-actions .ill-wa2__pm .ill-wa2__time {
+  bottom: calc(5 * var(--wa-pt));
+  right: calc(8 * var(--wa-pt));
+}
+
+/* Product imagery fits inside its band (whole product, never cropped),
+   on the beige. */
+.rtn-motion .ill-wa2__media .ill-media {
+  object-fit: contain;
+}
+
+.rtn-motion .ill-wa2__media--photo .ill-media {
+  object-fit: cover;
+  mix-blend-mode: normal;
+}
+
+/* List items with their product thumbnail: 28pt beige tile, 5pt corners. */
+.rtn-motion .ill-wa2__pm-line--thumb {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--wa-pt));
+  margin-top: calc(4 * var(--wa-pt));
+}
+
+.rtn-motion .ill-wa2__thumb {
+  flex-shrink: 0;
+  width: calc(28 * var(--wa-pt));
+  height: calc(28 * var(--wa-pt));
+  border-radius: calc(5 * var(--wa-pt));
+  overflow: hidden;
+  background: #f4eadb;
+  isolation: isolate;
+}
+
+.rtn-motion .ill-wa2__thumb .ill-media {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
+/* Thumbnail lists: the inline spacer wrapped onto its own line when the
+   last item was long, which pushed that row's text off its thumbnail's
+   center and dropped the time below it. The last row reserves the
+   time's room with padding instead (the text column shrinks, never
+   wraps the reserve), and the time sits on that row's baseline. */
+.rtn-motion .ill-wa2__pm-line--thumb .ill-wa2__spacer { display: none; }
+.rtn-motion .ill-wa2__pm-line--thumb:last-of-type > span:last-child { padding-right: calc(58 * var(--wa-pt)); }
+.rtn-motion .ill-wa2__pm:has(> .ill-wa2__pm-line--thumb) .ill-wa2__time { bottom: calc(11 * var(--wa-pt)); }
+
+/* illustrations/ChannelChats/IMessageChat.css */
+.rtn-motion .ill-imc__brand-name {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+  color: inherit;
+}
+
+/* A preview built from a page with several share images (a collection):
+   Messages lays them out three across, square, like Campaigns 06. */
+.rtn-motion .ill-imc .ill-imc--multi .ill-outbound__cards {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.rtn-motion .ill-imc .ill-imc--multi .ill-outbound__media {
+  aspect-ratio: 1;
+}
+
+/* Single product shots are cut-outs, not 3:1 share images: keep the whole
+   product in the band, centred on the preview's grey. */
+.rtn-motion .ill-imc .ill-outbound__collection:not(.ill-imc--multi) .ill-outbound__media .ill-media {
+  object-fit: contain;
+}
+
+/* Loading placeholders in Messages' own greys (the received-bubble grey
+   with a white sheen), never the page cream. Covers 01 too. */
+.rtn-motion .sbl .ill-retain-im :is(.sell-loading-frame__overlay, .ill-skeleton-block) {
+  background: #e9e9eb;
+}
+
+.rtn-motion .sbl .ill-retain-im .ill-skeleton-block::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+}
+
+/* Product imagery on the same warm beige as the WhatsApp set; white
+   product shots are multiplied in so they sit on it. */
+.rtn-motion .ill-imc .ill-outbound__cards,
+.rtn-motion .ill-imc .ill-outbound__media {
+  background: #f4eadb;
+  isolation: isolate;
+}
+
+.rtn-motion .sbl .ill-imc .ill-outbound__media .ill-media {
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
+/* A photo with its own backdrop fills the band instead of sitting as a
+   square inside it. */
+.rtn-motion .ill-imc .ill-outbound__collection.ill-imc--fill:not(.ill-imc--multi) .ill-outbound__media .ill-media {
+  object-fit: cover;
+}
+
+/* Multi-image previews: square tiles for any count. */
+.rtn-motion .ill-imc .ill-imc--multi .ill-outbound__cards {
+  gap: 0;
+}
+
 /* illustrations/CampaignFrame.css */
 .rtn-motion .ill-campaign-frame {
   width: 821px;
@@ -6337,6 +7237,9 @@
 .rtn-motion .la-rail__logo--mark {
   display: block;
   object-fit: cover;
+  background: #6c2332; /* the logo's own maroon fills its circle's corners */
+  box-shadow: none;
+  border-radius: 8px;
 }
 
 /* ---------- 11m: the dashboard at 353x440 (as Personal Agents 07m) ----------
@@ -6387,6 +7290,30 @@
 /* 11m: the 2px gold ring (set for the 0.85 scale), as every window on the page. */
 .rtn-motion .la-fit { box-shadow: 0 0 0 2.35px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
 
+/* illustrations/SupportV3/RailTile.css */
+/* Figma 4158:24253 — the workspace tile at the foot of the rail, where
+   the profile picture was: 23.61px white square, 5.45px corners, Geist
+   SemiBold 10.9px #070707, a 0.9px drop and a 0.9px hairline ring. */
+.rtn-motion .rail-tile.rail-tile {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 23.61px;
+  height: 23.61px;
+  box-sizing: border-box;
+  border-radius: 5.45px;
+  background: #fff;
+  box-shadow:
+    0 0.91px 1.82px rgb(0 0 0 / 0.08),
+    0 0 0 0.91px rgb(0 0 0 / 0.07);
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 600;
+  font-size: 10.9px;
+  line-height: 1;
+  color: #070707;
+  user-select: none;
+}
+
 /* retain-v2-motion.css */
 /* Retain v2 motion: window standard, as on Personal Agents motion (11 Nov
    2026): 24px windows (16px under ~320px) with a 2px gold ring and no glow,
@@ -6431,6 +7358,48 @@
   box-shadow: 1px 0 0 rgba(22, 23, 27, .08), 12px 0 32px rgba(22, 23, 25, .22);
 }
 
+/* 06–10: Support v3 01's canvas and window size — the 788x579 damask
+   frame with a 676x467 window (56px top gap). The channel shells are
+   authored at 1/1.7647 scale, so their authored box is 676/1.7647 x
+   467/1.7647. */
+.rtn-motion.rv2m .rv2-wide .ill-conversion-assistance-frame {
+  width: 788px;
+  height: 579px;
+  align-items: flex-start;
+  padding-top: 56px;
+  box-sizing: border-box;
+  background: url("../../assets/motion/ill-frame/damask_bg.jpg") center / 788px 579px no-repeat;
+}
+.rtn-motion.rv2m .rv2-wide .ill-outbound { width: 676px; height: 467px; }
+.rtn-motion.rv2m .rv2-wide .ill-outbound__shell,
+.rtn-motion.rv2m .rv2-wide .ill-outbound .ill-channel-shell__glow { width: 383.07px; height: 264.63px; }
+
+/* 01–10: space between consecutive bubbles, 2pt → 8pt, so each message
+   reads as its own. Page-scoped; the shared shells keep 2pt elsewhere. */
+.rtn-motion.rv2m .sbl .ill-retain-im .ill-outbound__body { gap: calc(8 * var(--im-pt)); }
+.rtn-motion.rv2m .ill-wa2__run { gap: calc(8 * var(--wa-pt)); }
+
+/* 02–10: WhatsApp bubbles and cards at half the thread's width, with a
+   floor (300pt, which keeps a list's last line and its timestamp on one
+   row — "Noor Mini Top-Handle, $265") so 02–05's narrower threads don't
+   squeeze into a thin column. */
+.rtn-motion.rv2m .ill-wa2 .ill-wa2__item:has(.ill-wa2__bubble--product) { width: max(50%, calc(330 * var(--wa-pt))); }
+.rtn-motion.rv2m .ill-wa2 .ill-wa2__bubble--product { width: 100%; max-width: none; box-sizing: border-box; }
+.rtn-motion.rv2m .ill-wa2 .ill-wa2__bubble:not(.ill-wa2__bubble--product) { max-width: max(50%, calc(330 * var(--wa-pt))); }
+.rtn-motion.rv2m .ill-wa2 .ill-wa2__item:not(:has(.ill-wa2__bubble--product)) .ill-wa2__bubble { max-width: 100%; }
+.rtn-motion.rv2m .ill-wa2 .ill-wa2__item:not(:has(.ill-wa2__bubble--product)) { max-width: max(50%, calc(330 * var(--wa-pt))); }
+
+/* 06–10: the brand avatar takes the maroon damask behind the window
+   (sampled from damask_bg.jpg), as 01–05's aubergine matches theirs. */
+.rtn-motion.rv2m .rv2-wide :is(.ill-im-shell__avatar, .ill-wa2__avatar).demo-brand-mark { background: #640230; }
+
+/* 01–10: product images a third taller, still landscape bands (not
+   square). WhatsApp scales each visual's own band height; iMessage's
+   single-image preview goes 3:1 → 2.25:1 (three-across tiles stay square). */
+.rtn-motion.rv2m .ill-wa2 .ill-wa2__media { height: calc(var(--wa-media-h, 76) * 1.33 * var(--wa-pt)); }
+.rtn-motion.rv2m .ill-retain-im .ill-outbound__collection:not(.ill-imc--multi) .ill-outbound__media { aspect-ratio: 2.25 / 1; }
+.rtn-motion.rv2m .sbl .ill-retain-im .ill-imc--contain-tiles .ill-outbound__media .ill-media { object-fit: contain; padding: 3px; }
+
 /*
  * Site addition (not in the source build): the campaign frame in the site's other two liveries, the
  * source's maroon damask recoloured (its gold frame and rings untouched). Set on the scope by
@@ -6448,4 +7417,26 @@
    damask and gold notched frame there (in every livery; after the .rtn-tone-* rules so it wins over them). */
 .rtn-bare .rtn-motion .ill-campaign-frame {
   background: none;
+}
+
+/*
+ * Site addition, for the 15 November 2026 campaigns (06–10, the iMessage and WhatsApp chats in `.rv2-wide`, 788 × 579
+ * on the source's maroon damask): in the Campaigns & outbound tabs they play inside the section's own framed damask
+ * panel, as the widget versions did, so the canvas drops its own damask there.
+ */
+.rtn-bare .rtn-motion.rv2m .rv2-wide .ill-conversion-assistance-frame {
+  background: none;
+}
+
+/*
+ * And the brand avatar, which the source colours to match the maroon damask behind the window (#640230), matches the
+ * panel's damask in the site's other two liveries (sampled from the aubergine and forest panel art, as the source
+ * sampled its own).
+ */
+.rtn-motion.rv2m.rtn-tone-aubergine .rv2-wide :is(.ill-im-shell__avatar, .ill-wa2__avatar).demo-brand-mark {
+  background: #451e61;
+}
+
+.rtn-motion.rv2m.rtn-tone-forest .rv2-wide :is(.ill-im-shell__avatar, .ill-wa2__avatar).demo-brand-mark {
+  background: #02311a;
 }

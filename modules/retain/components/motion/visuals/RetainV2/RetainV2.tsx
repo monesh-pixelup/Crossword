@@ -1,6 +1,8 @@
 import { Layer } from "../SellDynamicV2/SellDynamicV2";
 import { CartRecoveryMotion } from "../../illustrations/RetainMotion/CartRecoveryMotion";
 import { BrowseRecoveryMotion } from "../../illustrations/RetainMotion/BrowseRecoveryMotion";
+import { BrowseRecoveryWhatsAppMotion } from "../../illustrations/RetainMotion/BrowseRecoveryWhatsAppMotion";
+import { BackInStockIMessage, PriceDropWhatsApp, ReplenishmentIMessage, OutboundWhatsApp, SegmentedIMessage, PostPurchaseWhatsApp, WinBackIMessage, ReviewWhatsApp } from "../../illustrations/ChannelChats/ChannelVariants";
 import { BackInStockMotion } from "../../illustrations/RetainMotion/BackInStockMotion";
 import { PriceDropMotion } from "../../illustrations/RetainMotion/PriceDropMotion";
 import { ReplenishmentMotion } from "../../illustrations/RetainMotion/ReplenishmentMotion";
@@ -22,6 +24,8 @@ import { LaunchAudience, LaunchAudienceMotion } from "../../illustrations/Launch
 // 01 and 06 are iMessage — third-party chrome, so the layer leaves them be.
 export const CartRecoveryV2Motion = () => <Layer><CartRecoveryMotion /></Layer>;
 export const BrowseRecoveryV2Motion = () => <Layer><BrowseRecoveryMotion /></Layer>;
+// 02b: 02 as a native iOS WhatsApp chat with the brand's business account.
+export const BrowseRecoveryWhatsAppV2Motion = () => <Layer><BrowseRecoveryWhatsAppMotion /></Layer>;
 export const BackInStockV2Motion = () => <Layer><BackInStockMotion /></Layer>;
 export const PriceDropV2Motion = () => <Layer><PriceDropMotion /></Layer>;
 export const ReplenishmentV2Motion = () => <Layer><ReplenishmentMotion /></Layer>;
@@ -44,3 +48,13 @@ export const LaunchAudienceStep2 = () => <LaunchAudience step={2} />;
 export const LaunchAudienceStep3 = () => <LaunchAudience step={3} />;
 export const LaunchAudienceStep4 = () => <LaunchAudience step={4} />;
 export const LaunchAudienceV2Motion = () => <LaunchAudienceMotion />;
+
+// 03b–10b: each original in a native channel, odd on iMessage, even on WhatsApp.
+export const BackInStockIMessageV2 = () => <Layer><BackInStockIMessage /></Layer>;
+export const PriceDropWhatsAppV2 = () => <Layer><PriceDropWhatsApp /></Layer>;
+export const ReplenishmentIMessageV2 = () => <Layer><ReplenishmentIMessage /></Layer>;
+export const OutboundWhatsAppV2 = () => <div className="rv2-wide"><Layer><OutboundWhatsApp /></Layer></div>;
+export const SegmentedIMessageV2 = () => <div className="rv2-wide"><Layer><SegmentedIMessage /></Layer></div>;
+export const PostPurchaseWhatsAppV2 = () => <div className="rv2-wide"><Layer><PostPurchaseWhatsApp /></Layer></div>;
+export const WinBackIMessageV2 = () => <div className="rv2-wide"><Layer><WinBackIMessage /></Layer></div>;
+export const ReviewWhatsAppV2 = () => <div className="rv2-wide"><Layer><ReviewWhatsApp /></Layer></div>;

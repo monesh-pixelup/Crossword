@@ -2,20 +2,22 @@ import jacketImage from "../../../../assets/motion/scenarios/retain/jacket.jpg";
 // 3:1 share image (the jacket shot with its own backdrop extended) — the
 // landscape og:image Messages crops a link preview to.
 import jacketShareImage from "../../../../assets/motion/scenarios/retain/jacket-share.jpg";
-import handbagViewedImage from "../../../../assets/motion/scenarios/retain/handbag-viewed.jpg";
 import handbagAlt1Image from "../../../../assets/motion/scenarios/retain/handbag-alt-1.jpg";
 import handbagAlt2Image from "../../../../assets/motion/scenarios/retain/handbag-alt-2.jpg";
-import moisturizerImage from "../../../../assets/motion/scenarios/dynamic-landing-page/moisturizer.webp";
-import vitaminCSerumImage from "../../../../assets/motion/scenarios/product-usage/vitamin-c-serum.webp";
+import margotPreviewImage from "../../../../assets/motion/scenarios/retain-v2/marais-margot-preview.png";
+import dusklightShareImage from "../../../../assets/motion/scenarios/retain-v2/dusklight-arc-share.png";
+import aurelleOfferImage from "../../../../assets/motion/scenarios/retain-v2/aurelle-pendant-offer.png";
+import proteinmaxShareImage from "../../../../assets/motion/scenarios/retain-v2/proteinmax-replenishment-share.png";
 import { catalog } from "../../brands/catalog";
 
 const jacket = jacketImage.src;
 const jacketShare = jacketShareImage.src;
-const handbagViewed = handbagViewedImage.src;
 const handbagAlt1 = handbagAlt1Image.src;
 const handbagAlt2 = handbagAlt2Image.src;
-const moisturizer = moisturizerImage.src;
-const vitaminCSerum = vitaminCSerumImage.src;
+const margotPreview = margotPreviewImage.src;
+const dusklightShare = dusklightShareImage.src;
+const aurelleOffer = aurelleOfferImage.src;
+const proteinmaxShare = proteinmaxShareImage.src;
 
 // Retain — five proactive retention messages. Crossword speaks first in
 // every one (no shopper ask), so there are no UserTurns. Dialogue is the
@@ -43,7 +45,7 @@ export const browseRecovery = {
   message:
     "Still looking for a new handbag? The one you spent the most time on is back in stock, and I found two similar options you might like. Want to see them?",
   viewed: {
-    image: handbagViewed,
+    image: margotPreview,
     alt: "Marais Margot top-handle bag in cognac",
     brand: "MARAIS",
     title: "Margot Top-Handle Bag, Cognac",
@@ -58,50 +60,50 @@ export const browseRecovery = {
 };
 
 export const backInStock = {
-  brand: "SORELLE LABS",
-  message: "Good news, the moisturizer you were looking at is back in stock in your preferred shade.",
+  brand: catalog.dusklightArc.brand,
+  message: "Good news, the Arc Task Light you were looking at is back in stock in matte black.",
   product: {
-    image: moisturizer,
-    alt: "Sorelle Labs Skin Tint Moisturizer",
-    brand: "SORELLE LABS",
-    title: "Skin Tint Moisturizer SPF 30",
-    price: "$42",
+    image: dusklightShare,
+    alt: "DUSKLIGHT Arc Task Light on a desk",
+    brand: catalog.dusklightArc.brand,
+    title: catalog.dusklightArc.title,
+    price: catalog.dusklightArc.price,
   },
   status: "Back in stock",
   // Swatch fill is product data (the shade itself), not a system color.
-  shade: { name: "03 Warm Ivory", swatch: "#e8c9a8", note: "Your shade" },
+  shade: { name: "Matte Black", swatch: "#252525", note: "Your finish" },
   cta: "Add to cart",
 };
 
 export const priceDrop = {
-  brand: "SORELLE LABS",
+  brand: catalog.aurelleRosePendant.brand,
   message:
-    "You were looking at this serum earlier. It’s now 20% off with a new coupon. Want to use it before the offer ends?",
+    "You were looking at this pendant earlier. It’s now 20% off with a new coupon. Want to use it before the offer ends?",
   product: {
-    image: vitaminCSerum,
-    alt: "Sorelle Labs Vitamin C Brightening Serum",
-    brand: "SORELLE LABS",
-    title: "Vitamin C Brightening Serum",
+    image: aurelleOffer,
+    alt: "Aurelle Rose Gold Teardrop Pendant Necklace",
+    brand: catalog.aurelleRosePendant.brand,
+    title: catalog.aurelleRosePendant.title,
   },
-  was: "$68",
-  now: "$54.40",
+  was: catalog.aurelleRosePendant.price,
+  now: "$108",
   discount: "20% off",
-  coupon: "GLOW20",
+  coupon: "ROSE20",
   cta: "Apply coupon",
 };
 
 export const replenishment = {
-  brand: catalog.sorelleHydrating.brand,
+  brand: catalog.proteinWhey.brand,
   message:
-    "Running low on your usual serum? It’s around the time you normally restock. Want me to add it to your cart?",
+    "Running low on your usual whey protein? It’s around the time you normally restock. Want me to add it to your cart?",
   product: {
-    image: catalog.sorelleHydrating.image,
-    alt: `${catalog.sorelleHydrating.brand} ${catalog.sorelleHydrating.title}`,
-    brand: catalog.sorelleHydrating.brand,
-    title: `${catalog.sorelleHydrating.title}, 30 ml`,
-    price: catalog.sorelleHydrating.price,
+    image: proteinmaxShare,
+    alt: `${catalog.proteinWhey.brand} ${catalog.proteinWhey.title}, Double Rich Chocolate`,
+    brand: catalog.proteinWhey.brand,
+    title: `${catalog.proteinWhey.title}, 2.17 LB`,
+    price: catalog.proteinWhey.price,
   },
   label: "Your usual",
-  lastOrder: "1 × 30 ml",
+  lastOrder: "1 × 2.17 LB",
   cta: "Reorder",
 };

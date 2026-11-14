@@ -36,8 +36,8 @@ client only. It exports:
 
 | Export | Visuals | Used in |
 | --- | --- | --- |
-| `RecoveryMotion` | 01–05 (687 × 586), shows the open item (`index`) | recovery/proactive-recovery.tsx |
-| `CampaignMotion` | 06–10 (821 × 611), by campaign index | campaigns/campaign-tabs.tsx |
+| `RecoveryMotion` | 01–05 (687 × 586, the channel versions since 15 November), shows the open item (`index`) | recovery/proactive-recovery.tsx |
+| `CampaignMotion` | 06–10 (788 × 579, the channel versions since 15 November), by campaign index | campaigns/campaign-tabs.tsx |
 | `AudienceMotion` | 11, Launch audience (1280 × 599) | audience/audience-builder.tsx |
 | `ReturnMotion` | 12, Size confidence in the Ask AI drawer (1280 × 599) | returns/return-reduction.tsx |
 
@@ -59,3 +59,23 @@ From the updated handoff (the window standard, 11m and 12m):
 - **motion.css** was regenerated from the new source's stylesheets in its build order, kept to the files these visuals
   import (visualCanvasFramed.css and ProactiveMotion.css now come earlier, as the new gallery's graph loads them). The
   "Site addition" rules (the campaign liveries, the bare campaign frame) stay at the end.
+
+## 15 November 2026 update
+
+From the updated handoff, in which 02–10 are native channel chats (odd on iMessage, even on WhatsApp) and the widget
+versions are archived:
+
+- **New files**, ported as above: `illustrations/ChannelChats/` (ChannelVariants, IMessageChat, WhatsAppChat,
+  useRunFlip), `illustrations/RetainMotion/BrowseRecoveryWhatsAppMotion.tsx` and `illustrations/SupportV3/RailTile.tsx`.
+  They size their runs with `offsetHeight` (the shell's own px), so they need nothing for the site's zoom.
+- **Source changes carried over** (merged into the site's files, its own edits kept): RetainV2.tsx's new exports,
+  CartRecoveryMotion, Shell's `note`, the Retain and campaign data, LaunchAudience's Crossword mark and workspace tile
+  (replacing the site's hand edit of the avatar), LandscapeCanvas's `forest` backdrop beside the site's `maroon`, and
+  BrandIdentity's raster logomarks (`assets/motion/brands/logomarks/`, the glob spelled out as imports).
+- `retain-motion.tsx` plays the channel versions: 01–05 at 687 × 586 and 06–10 at 788 × 579 (`.rv2-wide`, was
+  821 × 611). The widget versions' components and styles are still in the port, unused.
+- **motion.css** was regenerated from the new source's stylesheets in its build order (BrowseRecoveryWhatsApp.css,
+  IMessageChat.css and RailTile.css are new). The site additions at the end keep the widget frames' liveries and add,
+  for the new campaigns: no damask of their own inside the section's framed panel (`.rtn-bare`), and the brand avatar
+  matched to the aubergine and forest panels.
+
