@@ -32,10 +32,11 @@ export function Workflows() {
           </div>
 
           {/*
-            Figma 4060:24926 (the card variation): the review-request flow (start, wait, check, the "OK to ask?" condition
+            Figma 4139:5972 (the Storybook layout): the review-request flow (start, wait, check, the "OK to ask?" condition
             branching to write and email the ask or skip, then end), exported as one vector at 1280 × 370 and drawn across
-            the content width. Below 768px, Figma 4077:5972's vertical version instead (353 × 718), the steps stacked and
-            the two branches side by side, at the content width.
+            the content width. Below 768px, Figma 4143:5972's vertical version instead (353 × 765), the steps stacked and
+            the two branches side by side, at the content width. Figma's SVG export leaves out each card's header rule (a
+            bottom-only border), so both files carry it as a 1px rect ("Header rule") placed from Figma's measurements.
           */}
           {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
           <img
@@ -47,7 +48,7 @@ export function Workflows() {
           <img
             src={flowDiagramMobile.src}
             alt="A workflow: start when the order is delivered, wait a week, check for open returns or tickets, then if it's OK to ask, write and email a review request, otherwise skip, and end."
-            className="mx-auto block aspect-[353/718] h-auto w-full max-w-[353px] md:hidden"
+            className="mx-auto block aspect-[353/765] h-auto w-full max-w-[353px] md:hidden"
           />
 
           {/* The row spans the content column, its two workflows sharing it 537:513 either side of the rule (at 1280px, Figma's 537px first column, the rule 652px in). */}

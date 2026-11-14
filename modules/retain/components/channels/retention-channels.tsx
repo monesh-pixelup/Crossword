@@ -37,22 +37,24 @@ export function RetentionChannels() {
           </div>
 
           {/*
-            Figma 4145:23163 (the workflow, desktop 1280): the abandoned-visit follow-up (the shopper didn't buy, write a note,
-            choose the channel order, try each channel five minutes apart, then answer a reply or stop reaching out, and
-            end), exported as one vector at 1280 × 649 and drawn across the content width. Below 768px, Figma 4078:5972's
-            vertical version instead (353 × 641), the steps stacked and the two outcomes side by side, at the content width.
+            Figma 4177:6041 (the cart-recovery workflow, desktop 1280): the cart is abandoned, wait 30 minutes, write the
+            message and send it by iMessage; if that isn't read in five minutes, WhatsApp, then email, then SMS, each five
+            minutes apart, and end. Exported as one vector at 1280 × 391 and drawn across the content width (Figma's SVG
+            export leaves out each card's header rule, a bottom-only border, so the file carries it as a 1px rect, "Header
+            rule", placed from Figma's measurements). Below 768px, Figma 4177:6167's vertical version instead (353 × 859),
+            the same steps stacked one under another, at the content width.
           */}
           {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
           <img
             src={flowDiagram.src}
-            alt="A follow-up flow: 30 minutes after a shopper leaves without buying, write a note, choose the channel order, then try iMessage, WhatsApp, email and SMS five minutes apart; answer a reply on the same channel, or stop reaching out if it's read with no reply."
-            className="block aspect-[1280/649] h-auto w-full max-w-none max-md:hidden"
+            alt="A cart-recovery workflow: 30 minutes after a shopper leaves with items in the cart, write a message and send it by iMessage; if it isn't read in five minutes, send it by WhatsApp, then email, then SMS, each five minutes apart, and end."
+            className="block aspect-[1280/391] h-auto w-full max-w-none max-md:hidden"
           />
           {/* eslint-disable-next-line @next/next/no-img-element -- a static vector illustration, nothing to optimize */}
           <img
             src={flowDiagramMobile.src}
-            alt="A follow-up flow: 30 minutes after a shopper leaves without buying, write a note, choose the channel order, then try iMessage, WhatsApp, email and SMS five minutes apart; answer a reply on the same channel, or stop reaching out if it's read with no reply."
-            className="mx-auto block aspect-[353/641] h-auto w-full max-w-[353px] md:hidden"
+            alt="A cart-recovery workflow: 30 minutes after a shopper leaves with items in the cart, write a message and send it by iMessage; if it isn't read in five minutes, send it by WhatsApp, then email, then SMS, each five minutes apart, and end."
+            className="mx-auto block aspect-[353/859] h-auto w-full max-w-[353px] md:hidden"
           />
 
           {/* The row spans the content column, its two channels sharing it 537:513 either side of the rule (at 1280px, Figma's 537px first column, the rule 652px in). */}
