@@ -4,12 +4,13 @@ import { StaggerText } from "../../components/ill/StaggerText";
 import { useLandedOnScreen } from "../../components/ill/useLandedOnScreen";
 import { useChatTimeline, type Beat } from "../SellMotion/useChatTimeline";
 import { launchAudience as s } from "./data";
+import { RailTile } from "../SupportV3/RailTile";
 import priyaNairImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/priya-nair.svg";
 import omarHaddadImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/omar-haddad.svg";
 import sofiaMarinoImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/sofia-marino.svg";
 import emmaLindqvistImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/emma-lindqvist.svg";
 import kenjiWatanabeImage from "@/modules/personal-agents/assets/motion/illustrations/LaunchAudience/avatars/kenji-watanabe.svg";
-import orgMarkImage from "@/modules/personal-agents/assets/motion/brand/org-mark.svg";
+import orgMarkImage from "@/modules/personal-agents/assets/motion/ill-icons/crossword-logo.svg";
 
 const priyaNair = priyaNairImage.src;
 const omarHaddad = omarHaddadImage.src;
@@ -299,7 +300,7 @@ export function InsightsFrame({
                 ))}
                 <span className="la-rail__rule" />
                 <span className="la-rail__item">
-                  <span className="la-rail__me" aria-hidden>A</span>
+                  <RailTile />
                 </span>
               </div>
             </nav>
@@ -354,11 +355,17 @@ export function InsightsFrame({
   );
 }
 
-function Dashboard({ v, stageRef, runKey }: { v: View; stageRef?: React.Ref<HTMLDivElement>; runKey?: number }) {
+// `fit` (11m): the same dashboard laid out at its viewport's own size
+// instead of 11's fixed 1286px frame (as Personal Agents 07m): the chats
+// list folds (`compact`), the chat gets its own header, and container
+// queries in LaunchAudience.css fold the rail and restack the card.
+function Dashboard({ v, stageRef, runKey, fit }: { v: View; stageRef?: React.Ref<HTMLDivElement>; runKey?: number; fit?: boolean }) {
   const enter = v.animate ? " la-enter" : "";
   const { threadRef, contentRef } = useFollowLatest(v.animate, runKey);
   return (
     <InsightsFrame
+      bare={fit}
+      compact={fit}
       saved={s.saved}
       recent={s.recent}
       active={v.sent ? s.query : undefined}
@@ -367,6 +374,12 @@ function Dashboard({ v, stageRef, runKey }: { v: View; stageRef?: React.Ref<HTML
       runKey={runKey}
     >
       <section className="la-chat">
+        {fit && (
+          <header className="la-fit__head">
+            <span className="la-serif la-fit__title">Insights</span>
+            {v.sent && <span className={`la-fit__crumb${v.animate ? " la-fade" : ""}`}>{s.query}</span>}
+          </header>
+        )}
         <div className="la-thread" ref={threadRef}>
           <div className="la-thread__content" ref={contentRef}>
             {v.sent && (
@@ -452,4 +465,29 @@ export function LaunchAudienceMotion() {
   };
   // Keyed inside the stage, so the on-screen observer keeps its node.
   return <Dashboard v={v} stageRef={stageRef} runKey={t.runKey} />;
+}
+
+/* 11m: 11 at 353x440, responsive rather than redrawn. Plays once. */
+export function LaunchAudienceFit() {
+  const ref = useRef<HTMLDivElement>(null);
+  const landed = useLandedOnScreen(ref);
+  const played = useRef(false);
+  const t = useChatTimeline(beats, landed || played.current);
+  if (t.done) played.current = true;
+  const v: View = {
+    sent: t.passed("ask"), composer: t.composer?.value ?? "", typing: !!t.composer,
+    thinking: t.status("think"), thought: t.passed("think"),
+    card: t.reached("card"), cardLoading: t.loading("card"), products: t.reached("products"),
+    reply: t.reached("reply"), yes: t.passed("approve"), animate: !t.reducedMotion,
+  };
+  return (
+    <figure className="la-fit-figure" ref={ref}>
+      <figcaption className="app-stage__tile-label">Insights · 353x440</figcaption>
+      <div className="la-fit-canvas">
+        <div className="la-fit">
+          <Dashboard fit v={v} runKey={t.runKey} />
+        </div>
+      </div>
+    </figure>
+  );
 }

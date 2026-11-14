@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLandedOnScreen } from "../../components/ill/useLandedOnScreen";
+import { RasterMarkContext } from "../../brands/BrandIdentity";
 import { AgentHeader, Merchant, User, type Agent } from "./PersonalAgentsPossibilities";
 import { $ } from "./data";
 import { priorities, promo, upgrade } from "./promotionsData";
@@ -26,8 +27,11 @@ function Compact({ agent, name, light, standard, children }: { agent: Agent; nam
       <figcaption className="app-stage__tile-label">{name}</figcaption>
       <div className="pap-canvas pap-canvas--compact">
         <div className={`pap pap--${agent} pap--compact ppr-land${played ? " ppr-land--in" : ""}${light ? " pap--light" : ""}${standard ? " pap--r40" : ""}`}>
-          <AgentHeader agent={agent} />
-          <div className="pap-thread" data-name="Conversation">{children}</div>
+          {/* Site: these three visuals keep the brand marks they had before the 15 November 2026 logomarks. */}
+          <RasterMarkContext.Provider value={false}>
+            <AgentHeader agent={agent} />
+            <div className="pap-thread" data-name="Conversation">{children}</div>
+          </RasterMarkContext.Provider>
         </div>
       </div>
     </figure>

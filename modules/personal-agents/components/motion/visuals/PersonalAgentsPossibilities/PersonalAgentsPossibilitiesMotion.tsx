@@ -16,9 +16,9 @@ import { cream, sendBack, somethingILike, storeCredit } from "./loggedInData";
 // shows work on its avatar ("Working", "Thinking") and logs the step, per
 // xAI's Grok Bot design notes. Starts when landed on, restarts on return.
 
-const md = (runs: Run[]) => runs.map((r) => (typeof r === "string" ? r : `**${r.b}**`)).join("");
+export const md = (runs: Run[]) => runs.map((r) => (typeof r === "string" ? r : `**${r.b}**`)).join("");
 
-const museFlow = (reply: string, answer: string): Beat[] => [
+export const museFlow = (reply: string, answer: string): Beat[] => [
   { id: "lead", type: "pause", ms: 500 },
   { id: "ask", type: "appear", ms: 500 },
   { id: "work", type: "pause", ms: 1700 },
@@ -44,7 +44,7 @@ const WHY: Beat[] = [
   { id: "end", type: "pause", ms: 3000 },
 ];
 
-function Scene({ agent, name, beats, logged, children }: { agent: Agent; name: string; beats: Beat[]; logged?: boolean; children: (t: Timeline) => React.ReactNode }) {
+export function Scene({ agent, name, beats, logged, children }: { agent: Agent; name: string; beats: Beat[]; logged?: boolean; children: (t: Timeline) => React.ReactNode }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const threadRef = useRef<HTMLDivElement>(null);
   const active = useLandedOnScreen(stageRef);
@@ -85,8 +85,9 @@ function Scene({ agent, name, beats, logged, children }: { agent: Agent; name: s
 const Enter = ({ children }: { children: React.ReactNode }) => <div className="ill-assistant-turn--enter">{children}</div>;
 const Answer = ({ runs }: { runs: Run[] }) => <p className="pap-text"><RichStagger text={md(runs)} /></p>;
 
-function MuseTurns({ t, ask, line, reply, results, answer }: {
+export function MuseTurns({ t, ask, line, reply, results, answer, merchant = brand }: {
   t: Timeline; ask: string; line: string; reply: string; results: (loading: boolean) => React.ReactNode; answer: Run[];
+  merchant?: { id: string; name: string };
 }) {
   return (
     <>
@@ -94,7 +95,7 @@ function MuseTurns({ t, ask, line, reply, results, answer }: {
       {t.loading("work") && <Enter><Working line={line} /></Enter>}
       {t.reached("card") && (
         <Enter>
-          <Merchant brand={brand.id} name={brand.name} reply={<RichStagger text={reply} />}>{t.reached("results") && results(t.loading("results"))}</Merchant>
+          <Merchant brand={merchant.id} name={merchant.name} reply={<RichStagger text={reply} />}>{t.reached("results") && results(t.loading("results"))}</Merchant>
         </Enter>
       )}
       {t.reached("answer") && <Answer runs={answer} />}

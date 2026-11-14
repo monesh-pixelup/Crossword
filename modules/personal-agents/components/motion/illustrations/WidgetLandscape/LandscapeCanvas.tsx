@@ -1,9 +1,11 @@
 import { ContentFade } from "../../components/ill/ContentFade";
 import audiencesBgImage from "@/modules/personal-agents/assets/motion/ill-frame/retain/audiences_bg_3x.webp";
 import returnReductionBgImage from "@/modules/personal-agents/assets/motion/ill-frame/retain/return_reduction_bg_3x.webp";
+import forestBgImage from "@/modules/personal-agents/assets/motion/ill-frame/forest_wide_bg_3x.webp";
 
 const audiencesBg = audiencesBgImage.src;
 const returnReductionBg = returnReductionBgImage.src;
+const forestBg = forestBgImage.src;
 
 // 1280x599 landscape frame: a decorative damask backdrop (green for 11,
 // purple for 12 — each 3x of the frame), the website page inset inside
@@ -12,7 +14,8 @@ const returnReductionBg = returnReductionBgImage.src;
 // version (same frame and page, no widget). `bleed` (motion 11/12) runs
 // the page off the frame's bottom edge and anchors the widget to the
 // bottom, Visual 21's placement, so its composer sits low on the page.
-const backdrops = { green: audiencesBg, purple: returnReductionBg };
+// forest: Figma "Background/Panel/Forest · Wide" (Support 13, help desk).
+const backdrops = { green: audiencesBg, purple: returnReductionBg, forest: forestBg };
 
 export function LandscapeCanvas({
   scene,

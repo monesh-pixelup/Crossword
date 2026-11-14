@@ -10,6 +10,7 @@
     "tracking": "-0.025em",
     "imageDirection": "Merchant workflow modules; no retail product imagery.",
     "logomarkPath": "src/assets/brands/supplied/aurelia-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/aurelia.png",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "identitySourcePath": "src/assets/brands/supplied/aurelia-badge.svg",
     "wordmarkTreatment": "plain-text"
@@ -25,6 +26,7 @@
     "tracking": "0.12em",
     "imageDirection": "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
     "logomarkPath": "src/assets/brands/supplied/marais-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/marais.png",
     "identitySourcePath": "src/assets/brands/supplied/marais-badge.svg",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
@@ -40,6 +42,7 @@
     "tracking": "-0.025em",
     "imageDirection": "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
     "logomarkPath": "src/assets/brands/supplied/sorelle-labs-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/sorelle-labs.png",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "identitySourcePath": "src/assets/brands/supplied/sorelle-labs-badge.svg",
     "wordmarkTreatment": "plain-text"
@@ -55,6 +58,7 @@
     "tracking": "-0.025em",
     "imageDirection": "Plum-labelled jars on soft lavender backgrounds.",
     "logomarkPath": "src/assets/brands/supplied/goodwell-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/goodwell.png",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "identitySourcePath": "src/assets/brands/supplied/goodwell-badge.svg",
     "wordmarkTreatment": "plain-text"
@@ -73,7 +77,8 @@
     "wordmarkPath": "src/assets/brands/placeholders/moonrest-wordmark.svg",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "identitySourcePath": "src/assets/brands/supplied/moonrest-badge.svg",
-    "wordmarkTreatment": "plain-text"
+    "wordmarkTreatment": "plain-text",
+    "logomarkRasterPath": "src/assets/brands/logomarks/moonrest.png"
   },
   "amber-and-oak": {
     "name": "Amber & Oak",
@@ -86,6 +91,7 @@
     "tracking": "-0.025em",
     "imageDirection": "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
     "logomarkPath": "src/assets/brands/supplied/amber-and-oak-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/amber-and-oak.png",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "identitySourcePath": "src/assets/brands/supplied/amber-and-oak-badge.svg",
     "wordmarkTreatment": "plain-text"
@@ -101,6 +107,7 @@
     "tracking": "-0.025em",
     "imageDirection": "Sculptural lighting in muted dusk neutrals.",
     "logomarkPath": "src/assets/brands/supplied/dusklight-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/dusklight.png",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "identitySourcePath": "src/assets/brands/supplied/dusklight-badge.svg",
     "wordmarkTreatment": "plain-text"
@@ -116,6 +123,7 @@
     "tracking": "0.12em",
     "imageDirection": "Graphite and ivory outdoor equipment on neutral studio backgrounds.",
     "logomarkPath": "src/assets/brands/supplied/crestline-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/crestline.png",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "identitySourcePath": "src/assets/brands/supplied/crestline-badge.svg",
     "wordmarkTreatment": "plain-text"
@@ -131,6 +139,7 @@
     "tracking": "0.12em",
     "imageDirection": "Brushed steel machines and cream coffee packaging; warm studio light.",
     "logomarkPath": "src/assets/brands/supplied/brewhaus-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/brewhaus.png",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "identitySourcePath": "src/assets/brands/supplied/brewhaus-badge.svg",
     "wordmarkTreatment": "plain-text"
@@ -144,7 +153,12 @@
     "font": "var(--font-space-grotesk), system-ui, sans-serif",
     "wordmarkCase": "none",
     "tracking": "-0.025em",
-    "imageDirection": "Clean silver and charcoal electronics, restrained blue-green accents."
+    "imageDirection": "Clean silver and charcoal electronics, restrained blue-green accents.",
+    "logomarkPath": "src/assets/brands/logomarks/source/waveline.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/waveline.png",
+    "identityStatus": "Project logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/source/waveline.svg",
+    "wordmarkTreatment": "plain-text"
   },
   "aura": {
     "name": "Aura",
@@ -157,6 +171,7 @@
     "tracking": "0.12em",
     "imageDirection": "Ivory earbud shells with small uppercase branding.",
     "logomarkPath": "src/assets/brands/supplied/aura-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/aura.png",
     "identitySourcePath": "src/assets/brands/supplied/aura-badge.svg",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
@@ -170,7 +185,12 @@
     "font": "var(--font-playfair-display), Georgia, serif",
     "wordmarkCase": "none",
     "tracking": "-0.025em",
-    "imageDirection": "Cognac leather, subtle debossed wordmarks, warm sand surfaces."
+    "imageDirection": "Cognac leather, subtle debossed wordmarks, warm sand surfaces.",
+    "logomarkPath": "src/assets/brands/logomarks/source/holt-and-co.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/holt-and-co.png",
+    "identityStatus": "Project logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/source/holt-and-co.svg",
+    "wordmarkTreatment": "plain-text"
   },
   "auden": {
     "name": "Auden",
@@ -181,7 +201,12 @@
     "font": "var(--font-face-inter-motion), system-ui, sans-serif",
     "wordmarkCase": "uppercase",
     "tracking": "0.12em",
-    "imageDirection": "Same headphone geometry across black, ivory, olive and mustard variants."
+    "imageDirection": "Same headphone geometry across black, ivory, olive and mustard variants.",
+    "logomarkPath": "src/assets/brands/logomarks/source/auden.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/auden.png",
+    "identityStatus": "Project logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/source/auden.svg",
+    "wordmarkTreatment": "plain-text"
   },
   "lumen": {
     "name": "Lumen",
@@ -192,7 +217,12 @@
     "font": "var(--font-face-inter-motion), system-ui, sans-serif",
     "wordmarkCase": "uppercase",
     "tracking": "0.12em",
-    "imageDirection": "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging."
+    "imageDirection": "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging.",
+    "logomarkPath": "src/assets/brands/logomarks/source/lumen.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/lumen.png",
+    "identityStatus": "Project logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/source/lumen.svg",
+    "wordmarkTreatment": "plain-text"
   },
   "trailwell": {
     "name": "Trailwell",
@@ -205,6 +235,7 @@
     "tracking": "-0.025em",
     "imageDirection": "Outdoor utility, olive fabric and durable metal bottles.",
     "logomarkPath": "src/assets/brands/supplied/trailwell-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/trailwell.png",
     "identitySourcePath": "src/assets/brands/supplied/trailwell-badge.svg",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
@@ -220,6 +251,7 @@
     "tracking": "-0.025em",
     "imageDirection": "Minimal footwear; black, tan and white are separate image assets, never CSS colour filters.",
     "logomarkPath": "src/assets/brands/supplied/stride-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/stride.png",
     "identitySourcePath": "src/assets/brands/supplied/stride-badge.svg",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
@@ -233,7 +265,12 @@
     "font": "var(--font-face-inter-motion), system-ui, sans-serif",
     "wordmarkCase": "none",
     "tracking": "-0.025em",
-    "imageDirection": "Muted rose and charcoal styling tools."
+    "imageDirection": "Muted rose and charcoal styling tools.",
+    "logomarkPath": "src/assets/brands/logomarks/source/vela.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/vela.png",
+    "identityStatus": "Project logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/source/vela.svg",
+    "wordmarkTreatment": "plain-text"
   },
   "formwork": {
     "name": "Formwork",
@@ -244,7 +281,12 @@
     "font": "var(--font-space-grotesk), system-ui, sans-serif",
     "wordmarkCase": "none",
     "tracking": "-0.025em",
-    "imageDirection": "Graphite mesh seating; every gallery angle must be of the same chair."
+    "imageDirection": "Graphite mesh seating; every gallery angle must be of the same chair.",
+    "logomarkPath": "src/assets/brands/logomarks/source/formwork.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/formwork.png",
+    "identityStatus": "Project logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/source/formwork.svg",
+    "wordmarkTreatment": "plain-text"
   },
   "proteinmax": {
     "name": "Proteinmax",
@@ -257,6 +299,7 @@
     "tracking": "0.12em",
     "imageDirection": "Black protein tubs, red accents and consistent PROTEINMAX labels.",
     "logomarkPath": "src/assets/brands/supplied/proteinmax-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/proteinmax.png",
     "identitySourcePath": "src/assets/brands/supplied/proteinmax-badge.svg",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
@@ -270,7 +313,12 @@
     "font": "var(--font-face-inter-motion), system-ui, sans-serif",
     "wordmarkCase": "none",
     "tracking": "-0.025em",
-    "imageDirection": "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding."
+    "imageDirection": "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding.",
+    "logomarkPath": "src/assets/brands/logomarks/source/echo-and-co.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/echo-and-co.png",
+    "identityStatus": "Project logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/source/echo-and-co.svg",
+    "wordmarkTreatment": "plain-text"
   },
   "hearthware": {
     "name": "Hearthware",
@@ -281,7 +329,12 @@
     "font": "var(--font-face-inter-motion), system-ui, sans-serif",
     "wordmarkCase": "none",
     "tracking": "-0.025em",
-    "imageDirection": "Matte charcoal kitchen appliances with warm neutral studio lighting."
+    "imageDirection": "Matte charcoal kitchen appliances with warm neutral studio lighting.",
+    "logomarkPath": "src/assets/brands/logomarks/source/hearthware.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/hearthware.png",
+    "identityStatus": "Project logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/source/hearthware.svg",
+    "wordmarkTreatment": "plain-text"
   },
   "aeria": {
     "name": "Aeria",
@@ -292,7 +345,12 @@
     "font": "var(--font-space-grotesk), system-ui, sans-serif",
     "wordmarkCase": "none",
     "tracking": "-0.025em",
-    "imageDirection": "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks."
+    "imageDirection": "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks.",
+    "logomarkPath": "src/assets/brands/logomarks/source/aeria.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/aeria.png",
+    "identityStatus": "Project logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/source/aeria.svg",
+    "wordmarkTreatment": "plain-text"
   },
   "aurelle": {
     "name": "Aurelle",
@@ -305,6 +363,7 @@
     "tracking": "-0.025em",
     "imageDirection": "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
     "logomarkPath": "src/assets/brands/supplied/aurelle-mark.svg",
+    "logomarkRasterPath": "src/assets/brands/logomarks/aurelle.png",
     "identityStatus": "Supplied logomark; plain-text wordmark",
     "identitySourcePath": "src/assets/brands/supplied/aurelle-badge.svg",
     "wordmarkTreatment": "plain-text"

@@ -1285,7 +1285,58 @@
 .pa-motion .la-rail__logo--mark {
   display: block;
   object-fit: cover;
+  background: #6c2332; /* the logo's own maroon fills its circle's corners */
+  box-shadow: none;
+  border-radius: 8px;
 }
+
+/* ---------- 11m: the dashboard at 353x440 (as Personal Agents 07m) ----------
+   The window reflows with container queries on itself: the chats list is
+   folded (compact), and under 360px the rail folds and the card restacks. */
+.pa-motion .la-fit-figure { margin: 0; }
+.pa-motion .la-fit-canvas { width: 353px; height: 440px; display: grid; place-items: center; overflow: hidden;
+  background: #1d3a2a url("../../assets/motion/ill-frame/mweb_440px_green.webp") center / cover no-repeat; }
+.pa-motion .la-fit { container-type: inline-size; width: 313px; height: 400px; overflow: hidden; border-radius: 16px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
+.pa-motion .la-fit .la-stage, .pa-motion .la-fit .la-dash { width: 100%; height: 100%; }
+.pa-motion .la-fit .la-dash { padding: 0; gap: 0; }
+.pa-motion .la-fit .la-main { border-radius: 0; }
+.pa-motion .la-fit .la-chat { min-width: 0; padding: 12px; }
+.pa-motion .la-fit .la-thread { padding-top: 12px; margin-bottom: 10px; }
+.pa-motion .la-fit .la-card { max-width: none; }
+
+.pa-motion .la-fit__head { display: flex; flex: none; align-items: baseline; gap: 8px; min-width: 0; padding-bottom: 8px; border-bottom: 1px solid var(--la-border); }
+.pa-motion .la-fit__title { flex: none; font-size: 18px; line-height: 22px; letter-spacing: -0.5px; }
+.pa-motion .la-fit__crumb { min-width: 0; overflow: hidden; color: var(--la-muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Slim composer that grows a line at a time as the query wraps. */
+.pa-motion .la-fit .la-composer { flex: none; display: flex; align-items: flex-end; min-height: 40px; height: auto; border-radius: 4px; }
+.pa-motion .la-fit .la-composer__text { display: block; flex: 1; min-width: 0; height: auto; padding: 11px 12px; line-height: 18px; }
+.pa-motion .la-fit .la-composer__foot { padding: 6px 5px; }
+.pa-motion .la-fit .la-upload { display: none; }
+.pa-motion .la-fit .la-send { width: 28px; height: 28px; }
+
+@container (max-width: 360px) {
+  .pa-motion .la-fit .la-rail { display: none; }
+  .pa-motion .la-fit .la-user { max-width: 86%; font-size: 13px; line-height: 18px; }
+}
+/* 11m at 85% so it sits inside the backdrop's gold border; corner and
+   edges set for the scale to read 16px on screen. */
+.pa-motion .la-fit { transform: scale(0.85); transform-origin: center; border-radius: 18.82px; }
+@container (max-width: 360px) {
+  .pa-motion .la-fit .la-card__top { padding: 10px 12px 12px; }
+  .pa-motion .la-fit .la-hero { flex-wrap: wrap; row-gap: 6px; }
+  .pa-motion .la-fit .la-card__products { padding: 12px; }
+  /* Products restack: one per row, a small plate left, its text right. */
+  .pa-motion .la-fit .la-products { grid-template-columns: 1fr; gap: 10px; }
+  .pa-motion .la-fit .la-product { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 10px; margin: 0; }
+  .pa-motion .la-fit .la-product__media { aspect-ratio: 1; border-radius: 6px; }
+  .pa-motion .la-fit .la-product__badge { display: none; }
+  .pa-motion .la-fit .la-product__title, .pa-motion .la-fit .la-product__price { margin: 0; }
+  .pa-motion .la-fit .la-product__request { margin-top: 4px; padding-top: 4px; font-size: 12px; line-height: 16px; }
+}
+/* 11m: the 2px gold ring (set for the 0.85 scale), as every window on the page. */
+.pa-motion .la-fit { box-shadow: 0 0 0 2.35px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
 
 /* illustrations/ChatGptInsights/ChatGptInsights.css */
 /* AI Assistants 12 — the result card inside Retain 11's Insights shell.
@@ -1625,6 +1676,16 @@
     transition: none;
   }
 }
+
+/* 15m — the result card in the narrow .la-fit window: the four totals go
+   two by two, and the recent list stacks above the opened journey. */
+.pa-motion .la-fit .cgi-card { max-width: none; }
+.pa-motion .la-fit .cgi-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pa-motion .la-fit .cgi-metric { padding: 10px 12px; }
+.pa-motion .la-fit .cgi-metric__value { font-size: 22px; line-height: 28px; }
+.pa-motion .la-fit .cgi-body { grid-template-columns: minmax(0, 1fr); }
+.pa-motion .la-fit .cgi-step { grid-template-columns: 24px minmax(0, 1fr); }
+.pa-motion .la-fit .cgi-step > :last-child:not(.cgi-step__body) { grid-column: 2; justify-self: start; }
 
 /* illustrations/PersonalAgentInsights/PersonalAgentInsights.css */
 /* Retain v2 11's frame exactly (1280x599 canvas, 1286x598 dashboard at
@@ -2420,6 +2481,30 @@
   );
 }
 
+/* illustrations/SupportV3/RailTile.css */
+/* Figma 4158:24253 — the workspace tile at the foot of the rail, where
+   the profile picture was: 23.61px white square, 5.45px corners, Geist
+   SemiBold 10.9px #070707, a 0.9px drop and a 0.9px hairline ring. */
+.pa-motion .rail-tile.rail-tile {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 23.61px;
+  height: 23.61px;
+  box-sizing: border-box;
+  border-radius: 5.45px;
+  background: #fff;
+  box-shadow:
+    0 0.91px 1.82px rgb(0 0 0 / 0.08),
+    0 0 0 0.91px rgb(0 0 0 / 0.07);
+  font-family: var(--font-geist), sans-serif;
+  font-weight: 600;
+  font-size: 10.9px;
+  line-height: 1;
+  color: #070707;
+  user-select: none;
+}
+
 /* visuals/PersonalAgentsPossibilities/Promotions.css */
 /* Promotions & Upselling: the Possibilities shell at compact scale.
    355x402 canvas, 292x338 window; type steps down one notch (13/12/11). */
@@ -2997,12 +3082,31 @@
 .pa-motion.pam .pai-fit { transform: scale(0.85); transform-origin: center; border-radius: 18.82px;
     box-shadow: 0 0 0 2.35px #e0be60, 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
 
+/* 01–03: Support V3 01's frame and window (788x579 canvas on the damask
+   backdrop; 676x467 window = its 753x520 shell at .8981). */
+.pa-motion.pam .pap-figure:not(.pap-logged) .pap-canvas {
+  width: 788px; height: 579px;
+  background: #5c0f2c url("../../assets/motion/ill-frame/damask_bg.jpg") center / 788px 579px no-repeat;
+}
+.pa-motion.pam .pap-figure:not(.pap-logged) .pap.pap-motion { width: 676px; height: 467px; }
+
+/*
+ * Site: the Promotions visuals (08–10 here, 355 × 402) keep the frame they had. The 15 November 2026 rule for 01–03
+ * above (`.pap-figure:not(.pap-logged) .pap-canvas`, 788 × 579 on the damask) also matches their compact canvas and
+ * outranks it, which stretched it to 788px; this puts back the compact canvas's own size and backdrop.
+ */
+.pa-motion.pam .pap-figure:not(.pap-logged) .pap-canvas.pap-canvas--compact {
+  width: 355px;
+  height: 402px;
+  background: #5c0f2c url("../../assets/motion/ill-frame/compact_bg.webp") center / cover no-repeat;
+}
+
 /*
  * Site: 00–06 and 08–10 caption themselves with the gallery's tile label
  * (`.app-stage__tile-label`, styled by the gallery page, not by these
  * visuals). On the site the section says what the visual is, so the label
  * is left out and each visual is just its frame (00: 1280 × 599,
- * 01–03: 789 × 579, 04–06: 679 × 579, 08–10: 355 × 402).
+ * 01–03: 788 × 579, 04–06: 679 × 579, 08–10: 355 × 402).
  */
 .pa-motion .app-stage__tile-label {
   display: none;

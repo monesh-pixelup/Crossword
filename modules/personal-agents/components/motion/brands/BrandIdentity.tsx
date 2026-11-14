@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { type CSSProperties, createContext, useContext } from "react";
 import registry from "./registry.json";
 import goodwellMarkImage from "@/modules/personal-agents/assets/motion/brands/goodwell-mark.svg";
 import suppliedAmberAndOakMarkImage from "@/modules/personal-agents/assets/motion/brands/supplied/amber-and-oak-mark.svg";
@@ -15,6 +15,29 @@ import suppliedProteinmaxMarkImage from "@/modules/personal-agents/assets/motion
 import suppliedSorelleLabsMarkImage from "@/modules/personal-agents/assets/motion/brands/supplied/sorelle-labs-mark.svg";
 import suppliedStrideMarkImage from "@/modules/personal-agents/assets/motion/brands/supplied/stride-mark.svg";
 import suppliedTrailwellMarkImage from "@/modules/personal-agents/assets/motion/brands/supplied/trailwell-mark.svg";
+import logomarkAeriaImage from "@/modules/personal-agents/assets/motion/brands/logomarks/aeria.png";
+import logomarkAmberAndOakImage from "@/modules/personal-agents/assets/motion/brands/logomarks/amber-and-oak.png";
+import logomarkAudenImage from "@/modules/personal-agents/assets/motion/brands/logomarks/auden.png";
+import logomarkAuraImage from "@/modules/personal-agents/assets/motion/brands/logomarks/aura.png";
+import logomarkAureliaImage from "@/modules/personal-agents/assets/motion/brands/logomarks/aurelia.png";
+import logomarkAurelleImage from "@/modules/personal-agents/assets/motion/brands/logomarks/aurelle.png";
+import logomarkBrewhausImage from "@/modules/personal-agents/assets/motion/brands/logomarks/brewhaus.png";
+import logomarkCrestlineImage from "@/modules/personal-agents/assets/motion/brands/logomarks/crestline.png";
+import logomarkDusklightImage from "@/modules/personal-agents/assets/motion/brands/logomarks/dusklight.png";
+import logomarkEchoAndCoImage from "@/modules/personal-agents/assets/motion/brands/logomarks/echo-and-co.png";
+import logomarkFormworkImage from "@/modules/personal-agents/assets/motion/brands/logomarks/formwork.png";
+import logomarkGoodwellImage from "@/modules/personal-agents/assets/motion/brands/logomarks/goodwell.png";
+import logomarkHearthwareImage from "@/modules/personal-agents/assets/motion/brands/logomarks/hearthware.png";
+import logomarkHoltAndCoImage from "@/modules/personal-agents/assets/motion/brands/logomarks/holt-and-co.png";
+import logomarkLumenImage from "@/modules/personal-agents/assets/motion/brands/logomarks/lumen.png";
+import logomarkMaraisImage from "@/modules/personal-agents/assets/motion/brands/logomarks/marais.png";
+import logomarkMoonrestImage from "@/modules/personal-agents/assets/motion/brands/logomarks/moonrest.png";
+import logomarkProteinmaxImage from "@/modules/personal-agents/assets/motion/brands/logomarks/proteinmax.png";
+import logomarkSorelleLabsImage from "@/modules/personal-agents/assets/motion/brands/logomarks/sorelle-labs.png";
+import logomarkStrideImage from "@/modules/personal-agents/assets/motion/brands/logomarks/stride.png";
+import logomarkTrailwellImage from "@/modules/personal-agents/assets/motion/brands/logomarks/trailwell.png";
+import logomarkVelaImage from "@/modules/personal-agents/assets/motion/brands/logomarks/vela.png";
+import logomarkWavelineImage from "@/modules/personal-agents/assets/motion/brands/logomarks/waveline.png";
 import placeholderAmberAndOakMarkImage from "@/modules/personal-agents/assets/motion/brands/placeholders/amber-and-oak-mark.svg";
 import placeholderAureliaMarkImage from "@/modules/personal-agents/assets/motion/brands/placeholders/aurelia-mark.svg";
 import placeholderAurelleMarkImage from "@/modules/personal-agents/assets/motion/brands/placeholders/aurelle-mark.svg";
@@ -105,6 +128,32 @@ const suppliedMarks: Record<string, string> = {
   "../assets/brands/supplied/trailwell-mark.svg": suppliedTrailwellMarkImage.src,
 };
 
+const rasterMarks: Record<string, string> = {
+  "../assets/brands/logomarks/aeria.png": logomarkAeriaImage.src,
+  "../assets/brands/logomarks/amber-and-oak.png": logomarkAmberAndOakImage.src,
+  "../assets/brands/logomarks/auden.png": logomarkAudenImage.src,
+  "../assets/brands/logomarks/aura.png": logomarkAuraImage.src,
+  "../assets/brands/logomarks/aurelia.png": logomarkAureliaImage.src,
+  "../assets/brands/logomarks/aurelle.png": logomarkAurelleImage.src,
+  "../assets/brands/logomarks/brewhaus.png": logomarkBrewhausImage.src,
+  "../assets/brands/logomarks/crestline.png": logomarkCrestlineImage.src,
+  "../assets/brands/logomarks/dusklight.png": logomarkDusklightImage.src,
+  "../assets/brands/logomarks/echo-and-co.png": logomarkEchoAndCoImage.src,
+  "../assets/brands/logomarks/formwork.png": logomarkFormworkImage.src,
+  "../assets/brands/logomarks/goodwell.png": logomarkGoodwellImage.src,
+  "../assets/brands/logomarks/hearthware.png": logomarkHearthwareImage.src,
+  "../assets/brands/logomarks/holt-and-co.png": logomarkHoltAndCoImage.src,
+  "../assets/brands/logomarks/lumen.png": logomarkLumenImage.src,
+  "../assets/brands/logomarks/marais.png": logomarkMaraisImage.src,
+  "../assets/brands/logomarks/moonrest.png": logomarkMoonrestImage.src,
+  "../assets/brands/logomarks/proteinmax.png": logomarkProteinmaxImage.src,
+  "../assets/brands/logomarks/sorelle-labs.png": logomarkSorelleLabsImage.src,
+  "../assets/brands/logomarks/stride.png": logomarkStrideImage.src,
+  "../assets/brands/logomarks/trailwell.png": logomarkTrailwellImage.src,
+  "../assets/brands/logomarks/vela.png": logomarkVelaImage.src,
+  "../assets/brands/logomarks/waveline.png": logomarkWavelineImage.src,
+};
+
 const placeholderMarks: Record<string, string> = {
   "../assets/brands/placeholders/amber-and-oak-mark.svg": placeholderAmberAndOakMarkImage.src,
   "../assets/brands/placeholders/aurelia-mark.svg": placeholderAureliaMarkImage.src,
@@ -116,6 +165,12 @@ const placeholderMarks: Record<string, string> = {
   "../assets/brands/placeholders/sorelle-labs-mark.svg": placeholderSorelleLabsMarkImage.src,
 };
 
+/**
+ * Site: whether BrandMark may draw a brand's raster logomark (the 15 November 2026 handoff's). True everywhere but the
+ * three Promotions visuals (Promotions.tsx's Compact), which keep the marks they had before, at the user's request.
+ */
+export const RasterMarkContext = createContext(true);
+
 export function BrandMark({
   brand: name,
   className = "",
@@ -124,17 +179,19 @@ export function BrandMark({
   className?: string;
 }) {
   const brand = getBrand(name);
+  const rasterAllowed = useContext(RasterMarkContext);
+  const raster = rasterAllowed ? rasterMarks[`../assets/brands/logomarks/${brand.id}.png`] : undefined;
   const supplied = suppliedMarks[`../assets/brands/supplied/${brand.id}-mark.svg`];
   return (
     <span
       className={`demo-brand-mark ${className}`}
       style={brandStyle(name)}
       data-brand-id={brand.id}
-      data-identity-asset={supplied ? "supplied" : "placeholder"}
+      data-identity-asset={raster ? "raster-logomark" : supplied ? "supplied" : "placeholder"}
       aria-hidden="true"
     >
-      {supplied ? (
-        <img className="demo-brand-mark__supplied" src={supplied} alt="" />
+      {raster || supplied ? (
+        <img className="demo-brand-mark__supplied" src={raster ?? supplied} alt="" />
       ) : brand.id === "aurelle" || brand.id === "goodwell" ? (
         <img
           src={

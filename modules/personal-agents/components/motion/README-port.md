@@ -32,7 +32,7 @@ both pages' registries (`modules/ai-assistants/components/motion/motion-scenes.t
 | Visuals | Size | Used in |
 | --- | --- | --- |
 | 00 `pa-the-case-motion` | 1280 × 599 | The case (AssistantCampaigns `scene`, app/(product)/personal-agents/page.tsx) |
-| 01–03 `pa-whats-new-motion` … `pa-is-there-an-offer-motion` | 789 × 579 | Possibilities tabs, inside the panel's lattice frame (config/possibilities.ts) |
+| 01–03 `pa-whats-new-motion` … `pa-is-there-an-offer-motion` | 788 × 579 | Possibilities tabs, inside the panel's lattice frame (config/possibilities.ts) |
 | 04–06 `pa-send-it-back-motion` … `pa-something-i-like-motion` | 679 × 579 | Logged-in panel, by the open quote (config/logged-in.ts) |
 | 07 `pa-insights-motion` | 1280 × 599 | Insights (`scene`, the page) |
 | 08–10 `pa-upgrade-suggestion-motion` … `pa-merchandising-priorities-motion` | 355 × 402 | Promotions steps' cells (config/promotions.ts) |
@@ -50,3 +50,20 @@ From the updated handoff (the window standard, 00m and 07m):
   (quoted names, Geist and Space Grotesk to the next/font variables; an unquoted Inter stays). Two site changes are
   carried over: the Insights backdrop (Figma's panel, PersonalAgentInsights.css's first rule) and the "Site" rule at the
   end. ill-frame/compact_bg.webp stays the site's re-export.
+
+## 15 November 2026 update
+
+From the updated handoff (the source renumbers Promotions 07–09 and Insights 10 / 10m; the site's slugs are unchanged):
+
+- **01–03** take Support V3 01's frame: a 788 × 579 canvas on the damask backdrop (`ill-frame/damask_bg.jpg`) with a
+  676 × 467 window (`personal-agents-motion.css`, `.pa-motion.pam .pap-figure:not(.pap-logged) …`). `paScenes` draws
+  them at 788 wide.
+- **Brand marks.** `BrandIdentity.tsx` prefers a brand's raster logomark (`assets/motion/brands/logomarks/*.png`, the
+  source's `import.meta.glob` spelled out as imports, as the other marks) over its supplied or placeholder mark.
+- **Dashboard rail (Insights).** The org mark is the Crossword logo (`ill-icons/crossword-logo.svg`) and the profile
+  picture is the workspace tile (`illustrations/SupportV3/RailTile.tsx`, its stylesheet in motion.css after
+  ContentFade.css, where Vite places it). This replaces the site's earlier hand edit of the avatar.
+- `LaunchAudience.tsx` gains the source's `fit` layout and `LaunchAudienceFit` (unused on this page);
+  `LandscapeCanvas.tsx` its `forest` backdrop; `PersonalAgentsPossibilitiesMotion.tsx` exports `md`, `museFlow`,
+  `Scene` and `MuseTurns` (with a `merchant` prop), which the home page's 07 uses in the source.
+- **motion.css** was regenerated the same way as on 11 November, with the same two site changes carried over.
