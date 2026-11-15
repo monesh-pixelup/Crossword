@@ -1,10 +1,10 @@
 "use client";
 
-// Built from the "Crossword — Sell: Dynamic v2 (motion)" source (Crossword-Sell-Dynamic-V2-Motion/source) with Vite,
+// Built from the "Crossword — Sell: Dynamic v2 (motion)" source (Crossword-Sell-Dynamic-V2-Motion/source, the 15 November 2026 update) with Vite,
 // unminified, React external. See ./dlp-motion.tsx for the mechanical changes.
 
+import { createContext, useRef, useEffect, Fragment as Fragment$1, useState, useLayoutEffect, forwardRef, useMemo, useContext, useCallback, createElement } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import { createContext, useRef, useEffect, Fragment as Fragment$1, useState, useLayoutEffect, forwardRef, useMemo, useContext, useCallback } from "react";
 const StorybookCardSkin = createContext(false);
 const StorybookComposerDefault = createContext(false);
 const __vite_glob_0_0 = "/images/dynamic-landing-pages/v2/assets/amber-and-oak-mark-fxg20Grc.svg";
@@ -21,14 +21,37 @@ const __vite_glob_0_10 = "/images/dynamic-landing-pages/v2/assets/proteinmax-mar
 const __vite_glob_0_11 = "/images/dynamic-landing-pages/v2/assets/sorelle-labs-mark-CQBfsdpQ.svg";
 const __vite_glob_0_12 = "/images/dynamic-landing-pages/v2/assets/stride-mark-BhAcSYrg.svg";
 const __vite_glob_0_13 = "/images/dynamic-landing-pages/v2/assets/trailwell-mark-DWHfUX1B.svg";
-const __vite_glob_1_0 = "/images/dynamic-landing-pages/v2/assets/amber-and-oak-mark-DyBTEnHG.svg";
-const __vite_glob_1_1 = "/images/dynamic-landing-pages/v2/assets/aurelia-mark-WAhMDRAF.svg";
-const __vite_glob_1_2 = "/images/dynamic-landing-pages/v2/assets/aurelle-mark-CkALuNbG.svg";
-const __vite_glob_1_3 = "/images/dynamic-landing-pages/v2/assets/brewhaus-mark-CPBhNKZi.svg";
-const __vite_glob_1_4 = "/images/dynamic-landing-pages/v2/assets/crestline-mark-x07nlP5x.svg";
-const __vite_glob_1_5 = "/images/dynamic-landing-pages/v2/assets/dusklight-mark-BxLi6ckI.svg";
-const __vite_glob_1_6 = "/images/dynamic-landing-pages/v2/assets/moonrest-mark-C1S3y54t.svg";
-const __vite_glob_1_7 = "/images/dynamic-landing-pages/v2/assets/sorelle-labs-mark-DwV8-BRm.svg";
+const __vite_glob_1_0 = "/images/dynamic-landing-pages/v2/assets/aeria-YYq39Tmj.webp";
+const __vite_glob_1_1 = "/images/dynamic-landing-pages/v2/assets/amber-and-oak-B_E1LHFp.webp";
+const __vite_glob_1_2 = "/images/dynamic-landing-pages/v2/assets/auden-D6bviGYb.webp";
+const __vite_glob_1_3 = "/images/dynamic-landing-pages/v2/assets/aura-9M4MUBrO.webp";
+const __vite_glob_1_4 = "/images/dynamic-landing-pages/v2/assets/aurelia-DIkgKc6E.webp";
+const __vite_glob_1_5 = "/images/dynamic-landing-pages/v2/assets/aurelle-D4MmoaJI.webp";
+const __vite_glob_1_6 = "/images/dynamic-landing-pages/v2/assets/brewhaus-nqvL_9rd.webp";
+const __vite_glob_1_7 = "/images/dynamic-landing-pages/v2/assets/crestline-10BYG1fb.webp";
+const __vite_glob_1_8 = "/images/dynamic-landing-pages/v2/assets/dusklight-D4BTEpTH.webp";
+const __vite_glob_1_9 = "/images/dynamic-landing-pages/v2/assets/echo-and-co-v-USWRkm.webp";
+const __vite_glob_1_10 = "/images/dynamic-landing-pages/v2/assets/formwork-D1yGSW-s.webp";
+const __vite_glob_1_11 = "/images/dynamic-landing-pages/v2/assets/goodwell-D-tqaLX2.webp";
+const __vite_glob_1_12 = "/images/dynamic-landing-pages/v2/assets/hearthware-BV2ZsyEY.webp";
+const __vite_glob_1_13 = "/images/dynamic-landing-pages/v2/assets/holt-and-co-CNH9FNcC.webp";
+const __vite_glob_1_14 = "/images/dynamic-landing-pages/v2/assets/lumen-BKTnlTLa.webp";
+const __vite_glob_1_15 = "/images/dynamic-landing-pages/v2/assets/marais-vhL6aN8y.webp";
+const __vite_glob_1_16 = "/images/dynamic-landing-pages/v2/assets/moonrest-jpQQ4DyZ.webp";
+const __vite_glob_1_17 = "/images/dynamic-landing-pages/v2/assets/proteinmax-CfxeVd4u.webp";
+const __vite_glob_1_18 = "/images/dynamic-landing-pages/v2/assets/sorelle-labs-CQqgbOme.webp";
+const __vite_glob_1_19 = "/images/dynamic-landing-pages/v2/assets/stride-BjAZUFR_.webp";
+const __vite_glob_1_20 = "/images/dynamic-landing-pages/v2/assets/trailwell-vb-FA88_.webp";
+const __vite_glob_1_21 = "/images/dynamic-landing-pages/v2/assets/vela-qtSHjO_9.webp";
+const __vite_glob_1_22 = "/images/dynamic-landing-pages/v2/assets/waveline-BNXG9I4L.webp";
+const __vite_glob_2_0 = "/images/dynamic-landing-pages/v2/assets/amber-and-oak-mark-DyBTEnHG.svg";
+const __vite_glob_2_1 = "/images/dynamic-landing-pages/v2/assets/aurelia-mark-WAhMDRAF.svg";
+const __vite_glob_2_2 = "/images/dynamic-landing-pages/v2/assets/aurelle-mark-CkALuNbG.svg";
+const __vite_glob_2_3 = "/images/dynamic-landing-pages/v2/assets/brewhaus-mark-CPBhNKZi.svg";
+const __vite_glob_2_4 = "/images/dynamic-landing-pages/v2/assets/crestline-mark-x07nlP5x.svg";
+const __vite_glob_2_5 = "/images/dynamic-landing-pages/v2/assets/dusklight-mark-BxLi6ckI.svg";
+const __vite_glob_2_6 = "/images/dynamic-landing-pages/v2/assets/moonrest-mark-C1S3y54t.svg";
+const __vite_glob_2_7 = "/images/dynamic-landing-pages/v2/assets/sorelle-labs-mark-DwV8-BRm.svg";
 const aurelia = {
   name: "Aurelia",
   category: "Merchant workspace",
@@ -40,6 +63,7 @@ const aurelia = {
   tracking: "-0.025em",
   imageDirection: "Merchant workflow modules; no retail product imagery.",
   logomarkPath: "src/assets/brands/supplied/aurelia-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelia.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelia-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -55,6 +79,7 @@ const marais = {
   tracking: "0.12em",
   imageDirection: "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
   logomarkPath: "src/assets/brands/supplied/marais-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/marais.png",
   identitySourcePath: "src/assets/brands/supplied/marais-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -70,6 +95,7 @@ const goodwell = {
   tracking: "-0.025em",
   imageDirection: "Plum-labelled jars on soft lavender backgrounds.",
   logomarkPath: "src/assets/brands/supplied/goodwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/goodwell.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/goodwell-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -88,7 +114,8 @@ const moonrest = {
   wordmarkPath: "src/assets/brands/placeholders/moonrest-wordmark.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/moonrest-badge.svg",
-  wordmarkTreatment: "plain-text"
+  wordmarkTreatment: "plain-text",
+  logomarkRasterPath: "src/assets/brands/logomarks/moonrest.png"
 };
 const dusklight = {
   name: "Dusklight",
@@ -101,6 +128,7 @@ const dusklight = {
   tracking: "-0.025em",
   imageDirection: "Sculptural lighting in muted dusk neutrals.",
   logomarkPath: "src/assets/brands/supplied/dusklight-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/dusklight.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/dusklight-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -116,6 +144,7 @@ const crestline = {
   tracking: "0.12em",
   imageDirection: "Graphite and ivory outdoor equipment on neutral studio backgrounds.",
   logomarkPath: "src/assets/brands/supplied/crestline-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/crestline.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/crestline-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -131,6 +160,7 @@ const brewhaus = {
   tracking: "0.12em",
   imageDirection: "Brushed steel machines and cream coffee packaging; warm studio light.",
   logomarkPath: "src/assets/brands/supplied/brewhaus-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/brewhaus.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/brewhaus-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -144,7 +174,12 @@ const waveline = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents."
+  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents.",
+  logomarkPath: "src/assets/brands/logomarks/source/waveline.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/waveline.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/waveline.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aura = {
   name: "Aura",
@@ -157,6 +192,7 @@ const aura = {
   tracking: "0.12em",
   imageDirection: "Ivory earbud shells with small uppercase branding.",
   logomarkPath: "src/assets/brands/supplied/aura-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aura.png",
   identitySourcePath: "src/assets/brands/supplied/aura-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -170,7 +206,12 @@ const auden$1 = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants."
+  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants.",
+  logomarkPath: "src/assets/brands/logomarks/source/auden.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/auden.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/auden.svg",
+  wordmarkTreatment: "plain-text"
 };
 const lumen = {
   name: "Lumen",
@@ -181,7 +222,12 @@ const lumen = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging."
+  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging.",
+  logomarkPath: "src/assets/brands/logomarks/source/lumen.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/lumen.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/lumen.svg",
+  wordmarkTreatment: "plain-text"
 };
 const trailwell = {
   name: "Trailwell",
@@ -194,6 +240,7 @@ const trailwell = {
   tracking: "-0.025em",
   imageDirection: "Outdoor utility, olive fabric and durable metal bottles.",
   logomarkPath: "src/assets/brands/supplied/trailwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/trailwell.png",
   identitySourcePath: "src/assets/brands/supplied/trailwell-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -209,6 +256,7 @@ const stride = {
   tracking: "-0.025em",
   imageDirection: "Minimal footwear; black, tan and white are separate image assets, never CSS colour filters.",
   logomarkPath: "src/assets/brands/supplied/stride-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/stride.png",
   identitySourcePath: "src/assets/brands/supplied/stride-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -222,7 +270,12 @@ const vela = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Muted rose and charcoal styling tools."
+  imageDirection: "Muted rose and charcoal styling tools.",
+  logomarkPath: "src/assets/brands/logomarks/source/vela.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/vela.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/vela.svg",
+  wordmarkTreatment: "plain-text"
 };
 const formwork = {
   name: "Formwork",
@@ -233,7 +286,12 @@ const formwork = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair."
+  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair.",
+  logomarkPath: "src/assets/brands/logomarks/source/formwork.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/formwork.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/formwork.svg",
+  wordmarkTreatment: "plain-text"
 };
 const proteinmax = {
   name: "Proteinmax",
@@ -246,6 +304,7 @@ const proteinmax = {
   tracking: "0.12em",
   imageDirection: "Black protein tubs, red accents and consistent PROTEINMAX labels.",
   logomarkPath: "src/assets/brands/supplied/proteinmax-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/proteinmax.png",
   identitySourcePath: "src/assets/brands/supplied/proteinmax-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -259,7 +318,12 @@ const hearthware = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting."
+  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting.",
+  logomarkPath: "src/assets/brands/logomarks/source/hearthware.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/hearthware.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/hearthware.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aeria = {
   name: "Aeria",
@@ -270,7 +334,12 @@ const aeria = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks."
+  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks.",
+  logomarkPath: "src/assets/brands/logomarks/source/aeria.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aeria.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/aeria.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aurelle = {
   name: "Aurelle",
@@ -283,6 +352,7 @@ const aurelle = {
   tracking: "-0.025em",
   imageDirection: "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
   logomarkPath: "src/assets/brands/supplied/aurelle-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelle.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelle-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -301,6 +371,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
     logomarkPath: "src/assets/brands/supplied/sorelle-labs-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/sorelle-labs.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/sorelle-labs-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -318,6 +389,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
     logomarkPath: "src/assets/brands/supplied/amber-and-oak-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/amber-and-oak.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/amber-and-oak-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -336,7 +408,12 @@ const registry = {
     font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces."
+    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces.",
+    logomarkPath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/holt-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   auden: auden$1,
   lumen,
@@ -354,7 +431,12 @@ const registry = {
     font: '"Inter", system-ui, sans-serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding."
+    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding.",
+    logomarkPath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/echo-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   hearthware,
   aeria,
@@ -404,21 +486,23 @@ const marks = {
   aeria: "M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h5"
 };
 const suppliedMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/supplied/amber-and-oak-mark.svg": __vite_glob_0_0, "../assets/brands/supplied/aura-mark.svg": __vite_glob_0_1, "../assets/brands/supplied/aurelia-mark.svg": __vite_glob_0_2, "../assets/brands/supplied/aurelle-mark.svg": __vite_glob_0_3, "../assets/brands/supplied/brewhaus-mark.svg": __vite_glob_0_4, "../assets/brands/supplied/crestline-mark.svg": __vite_glob_0_5, "../assets/brands/supplied/dusklight-mark.svg": __vite_glob_0_6, "../assets/brands/supplied/goodwell-mark.svg": __vite_glob_0_7, "../assets/brands/supplied/marais-mark.svg": __vite_glob_0_8, "../assets/brands/supplied/moonrest-mark.svg": __vite_glob_0_9, "../assets/brands/supplied/proteinmax-mark.svg": __vite_glob_0_10, "../assets/brands/supplied/sorelle-labs-mark.svg": __vite_glob_0_11, "../assets/brands/supplied/stride-mark.svg": __vite_glob_0_12, "../assets/brands/supplied/trailwell-mark.svg": __vite_glob_0_13 });
+const rasterMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/logomarks/aeria.png": __vite_glob_1_0, "../assets/brands/logomarks/amber-and-oak.png": __vite_glob_1_1, "../assets/brands/logomarks/auden.png": __vite_glob_1_2, "../assets/brands/logomarks/aura.png": __vite_glob_1_3, "../assets/brands/logomarks/aurelia.png": __vite_glob_1_4, "../assets/brands/logomarks/aurelle.png": __vite_glob_1_5, "../assets/brands/logomarks/brewhaus.png": __vite_glob_1_6, "../assets/brands/logomarks/crestline.png": __vite_glob_1_7, "../assets/brands/logomarks/dusklight.png": __vite_glob_1_8, "../assets/brands/logomarks/echo-and-co.png": __vite_glob_1_9, "../assets/brands/logomarks/formwork.png": __vite_glob_1_10, "../assets/brands/logomarks/goodwell.png": __vite_glob_1_11, "../assets/brands/logomarks/hearthware.png": __vite_glob_1_12, "../assets/brands/logomarks/holt-and-co.png": __vite_glob_1_13, "../assets/brands/logomarks/lumen.png": __vite_glob_1_14, "../assets/brands/logomarks/marais.png": __vite_glob_1_15, "../assets/brands/logomarks/moonrest.png": __vite_glob_1_16, "../assets/brands/logomarks/proteinmax.png": __vite_glob_1_17, "../assets/brands/logomarks/sorelle-labs.png": __vite_glob_1_18, "../assets/brands/logomarks/stride.png": __vite_glob_1_19, "../assets/brands/logomarks/trailwell.png": __vite_glob_1_20, "../assets/brands/logomarks/vela.png": __vite_glob_1_21, "../assets/brands/logomarks/waveline.png": __vite_glob_1_22 });
 const placeholderMarks = /* @__PURE__ */ Object.assign({
-  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_1_0,
-  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_1_1,
-  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_1_2,
-  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_1_3,
-  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_1_4,
-  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_1_5,
-  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_1_6,
-  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_1_7
+  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_2_0,
+  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_2_1,
+  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_2_2,
+  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_2_3,
+  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_2_4,
+  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_2_5,
+  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_2_6,
+  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_2_7
 });
 function BrandMark({
   brand: name,
   className = ""
 }) {
   const brand2 = getBrand(name);
+  const raster = rasterMarks[`../assets/brands/logomarks/${brand2.id}.png`];
   const supplied = suppliedMarks[`../assets/brands/supplied/${brand2.id}-mark.svg`];
   return /* @__PURE__ */ jsx(
     "span",
@@ -426,9 +510,9 @@ function BrandMark({
       className: `demo-brand-mark ${className}`,
       style: brandStyle(name),
       "data-brand-id": brand2.id,
-      "data-identity-asset": supplied ? "supplied" : "placeholder",
+      "data-identity-asset": raster ? "raster-logomark" : supplied ? "supplied" : "placeholder",
       "aria-hidden": "true",
-      children: supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: supplied, alt: "" }) : brand2.id === "aurelle" || brand2.id === "goodwell" ? /* @__PURE__ */ jsx(
+      children: raster || supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: raster ?? supplied, alt: "" }) : brand2.id === "aurelle" || brand2.id === "goodwell" ? /* @__PURE__ */ jsx(
         "img",
         {
           src: brand2.id === "aurelle" ? placeholderMarks["../assets/brands/placeholders/aurelle-mark.svg"] : goodwellMark,
@@ -1780,6 +1864,7 @@ function Shell({
   header,
   composer: composer2,
   growComposer = false,
+  note = false,
   className
 }) {
   return /* @__PURE__ */ jsxs(
@@ -1791,7 +1876,11 @@ function Shell({
       children: [
         header ?? /* @__PURE__ */ jsx(ChatHeader, { brand: brand2 }),
         /* @__PURE__ */ jsx(ConversationViewport, { ref: viewportRef, children }),
-        composer2 ?? (growComposer ? /* @__PURE__ */ jsx(GrowComposer, { value: composerValue, typing: composerTyping }) : /* @__PURE__ */ jsx(ChatComposer, { value: composerValue, typing: composerTyping }))
+        composer2 ?? (growComposer ? /* @__PURE__ */ jsx(GrowComposer, { value: composerValue, typing: composerTyping }) : /* @__PURE__ */ jsx(ChatComposer, { value: composerValue, typing: composerTyping })),
+        note && /* @__PURE__ */ jsxs("p", { className: "ill-shell__note", children: [
+          "AI can make mistakes. Powered by ",
+          /* @__PURE__ */ jsx("u", { children: "Crossword" })
+        ] })
       ]
     }
   );
@@ -2154,8 +2243,8 @@ function Nav({ searching, merchant = brand$9 }) {
     ] })
   ] });
 }
-const sleepThreeQuarter = "/images/dynamic-landing-pages/v2/assets/goodwell-sleep-three-quarter-CwUI_ana.webp";
-const sleepElevated = "/images/dynamic-landing-pages/v2/assets/goodwell-sleep-elevated-T1ADQ_Ns.webp";
+const goodwellThreeQuarter = "/images/dynamic-landing-pages/v2/assets/goodwell-sleep-three-quarter-CwUI_ana.webp";
+const goodwellElevated = "/images/dynamic-landing-pages/v2/assets/goodwell-sleep-elevated-T1ADQ_Ns.webp";
 const gummies = {
   sleep60: { ...catalog.goodwellSleep60, image: catalog.goodwellSleep60.image, name: "Daily Sleep Gummies", variant: "60 Count", price: "$29.99", rating: 4.8, reviews: "2,140" },
   sleep28: { ...catalog.goodwellSleep28, image: catalog.goodwellSleep28.image, name: "Daily Sleep Gummies", variant: "28 Count", price: "$17.99", rating: 4.7, reviews: "860" },
@@ -2166,8 +2255,8 @@ const gummies = {
 ({
   gallery: [
     { src: catalog.goodwellSleep60.image, alt: "Goodwell Daily Sleep Gummies, 60 count — front view" },
-    { src: sleepThreeQuarter, alt: "Goodwell Daily Sleep Gummies — three-quarter view" },
-    { src: sleepElevated, alt: "Goodwell Daily Sleep Gummies — elevated lid view" },
+    { src: goodwellThreeQuarter, alt: "Goodwell Daily Sleep Gummies — three-quarter view" },
+    { src: goodwellElevated, alt: "Goodwell Daily Sleep Gummies — elevated lid view" },
     { src: goodwellSocialAd, alt: "Daily Sleep with Calm Mood and Daily Focus in the Goodwell campaign" }
   ]
 });
@@ -2306,10 +2395,7 @@ function Serp({ picked }) {
 function Pdp$2() {
   const p = pdpProduct;
   return /* @__PURE__ */ jsxs("section", { className: "cmp-hero", "data-name": "Product", children: [
-    /* @__PURE__ */ jsxs("div", { className: "cmp-hero__gallery", children: [
-      /* @__PURE__ */ jsx("div", { className: "cmp-hero__media", children: /* @__PURE__ */ jsx("img", { src: p.image, alt: `${p.name}, ${p.variant}` }) }),
-      /* @__PURE__ */ jsx("div", { className: "cmp-hero__thumbs", children: [0, 1, 2, 3].map((i) => /* @__PURE__ */ jsx("div", { className: i === 0 ? "ais-gallery__thumb cmp-hero__thumb cmp-hero__thumb--active" : "ais-gallery__thumb cmp-hero__thumb", children: /* @__PURE__ */ jsx("img", { src: p.image, alt: "" }) }, i)) })
-    ] }),
+    /* @__PURE__ */ jsx("div", { className: "cmp-hero__gallery", children: /* @__PURE__ */ jsx("div", { className: "cmp-hero__media", children: /* @__PURE__ */ jsx("img", { src: p.image, alt: `${p.name}, ${p.variant}` }) }) }),
     /* @__PURE__ */ jsxs("div", { className: "ais-details", children: [
       /* @__PURE__ */ jsxs("div", { className: "ais-details__head", children: [
         /* @__PURE__ */ jsx("h2", { children: p.name }),
@@ -2380,7 +2466,7 @@ function Comparison({ step, stream = false }) {
 }
 function Landing$2({ step, stream }) {
   return /* @__PURE__ */ jsxs("div", { className: "ais-page", children: [
-    /* @__PURE__ */ jsx(Nav, { searching: false }),
+    /* @__PURE__ */ jsx(Nav, { searching: false, merchant: brand$8 }),
     /* @__PURE__ */ jsxs("div", { className: "ais-body", children: [
       /* @__PURE__ */ jsxs("div", { className: "cmp-landing", children: [
         /* @__PURE__ */ jsx(Pdp$2, {}),
@@ -2799,42 +2885,41 @@ function ComparisonToolsMotion() {
     t.runKey
   ) });
 }
-const personalizedCreative = "/images/dynamic-landing-pages/v2/assets/personalized-content-ad-square-v5-GvDO_T0B.webp";
-const brand$7 = "Goodwell";
-const domain$3 = "goodwell.com/sleep";
+const brand$7 = catalog.goodwellSleep60.brand;
+const domain$3 = "goodwell.com/daily-sleep-gummies";
 const product$5 = {
   name: catalog.goodwellSleep60.title,
   image: catalog.goodwellSleep60.image,
   price: catalog.goodwellSleep60.price,
-  size: "60 gummies"
+  size: catalog.goodwellSleep60.size
 };
-const promise = "Better sleep. No melatonin.";
+const promise = "Make room for a calmer night.";
 const ad$4 = {
   cta: "Shop now",
-  caption: "Magnesium sleep gummies for calmer nights and clear mornings.",
-  tags: "#melatoninfree #sleep"
+  caption: "Meet Daily Sleep Gummies, made for your wind-down.",
+  tags: "#goodwell #dailysleep"
 };
 const hero$3 = {
   eyebrow: "From your ad",
   headline: promise,
-  sub: "Goodwell Daily Sleep Gummies, with the details you came for."
+  sub: "Daily Sleep Gummies, with the details you came for."
 };
 const details = {
-  eyebrow: "The gummy from your ad",
+  eyebrow: "The gummies from your ad",
   headline: "A closer look at Daily Sleep.",
-  sub: "Here's the formula, the key ingredient and the routine in one place.",
+  sub: "Explore the routine, the flavour, and the jar.",
   cards: [
-    { id: "formula", index: "01 / The formula", title: "No melatonin.", body: "Wind down without the next-morning grogginess." },
-    { id: "magnesium", index: "02 / The key ingredient", title: "Magnesium, for calm.", body: "Magnesium glycinate with L‑Theanine and chamomile." },
-    { id: "routine", index: "03 / The routine", title: "Two gummies before bed.", body: "30 minutes before lights out. A 30-night supply." }
+    { id: "routine", index: "01 / The routine", title: "Part of your wind-down.", body: "A gummy to fit into the evening routine you already have." },
+    { id: "flavour", index: "02 / The flavour", title: "Lavender notes.", body: "A soft, botanical flavour that matches the jar." },
+    { id: "jar", index: "03 / The jar", title: "60 count.", body: "One jar on the nightstand, ready when you are." }
   ]
 };
 const purchase = { cta: "Add to cart" };
-function Ad$2({ creative = personalizedCreative }) {
+function Ad$2() {
   return /* @__PURE__ */ jsxs("article", { className: "adj-shell adj-ig pcx-ad", "data-name": "Ad", children: [
     /* @__PURE__ */ jsxs("header", { className: "adj-ig__head", children: [
       /* @__PURE__ */ jsxs("div", { className: "adj-ig__profile", children: [
-        /* @__PURE__ */ jsx("span", { className: "adj-ig__avatar pcx-ad__avatar", children: /* @__PURE__ */ jsx(BrandMark, { brand: "Goodwell", className: "goodwell-supplied-avatar" }) }),
+        /* @__PURE__ */ jsx("span", { className: "adj-ig__avatar pcx-ad__avatar", children: /* @__PURE__ */ jsx(BrandMark, { brand: brand$7 }) }),
         /* @__PURE__ */ jsxs("div", { className: "adj-ig__name", children: [
           /* @__PURE__ */ jsx(BrandName, { brand: brand$7 }),
           /* @__PURE__ */ jsx("small", { children: "Sponsored" })
@@ -2843,7 +2928,9 @@ function Ad$2({ creative = personalizedCreative }) {
       /* @__PURE__ */ jsx("img", { className: "adj-ig__more", src: igMore, alt: "" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "adj-ig__media pcx-ad__media", children: [
-      /* @__PURE__ */ jsx("img", { className: "pcx-ad__creative", src: creative, alt: `${promise} Goodwell campaign creative` }),
+      /* @__PURE__ */ jsx("img", { className: "pcx-ad__scene", src: goodwellSocialAd, alt: `${product$5.name} with other Goodwell gummies` }),
+      /* @__PURE__ */ jsx("span", { className: "pcx-ad__eyebrow", children: brand$7.toUpperCase() }),
+      /* @__PURE__ */ jsx("strong", { className: "pcx-ad__headline", children: promise }),
       /* @__PURE__ */ jsx("span", { className: "pcx-ad__jar-anchor", "data-flight-src": product$5.image, "aria-hidden": "true" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "adj-ig__cta", children: [
@@ -2861,14 +2948,14 @@ function Ad$2({ creative = personalizedCreative }) {
 }
 function Page({ step }) {
   return /* @__PURE__ */ jsxs("div", { className: "ais-page", children: [
-    /* @__PURE__ */ jsx(Nav, { searching: false }),
+    /* @__PURE__ */ jsx(Nav, { searching: false, merchant: brand$7 }),
     /* @__PURE__ */ jsxs("div", { className: "ais-body", children: [
       /* @__PURE__ */ jsxs("div", { className: step === 3 ? "pcx-scroll pcx-scroll--details" : "pcx-scroll", children: [
         /* @__PURE__ */ jsxs("section", { className: "pcx-hero", "data-name": "Hero", children: [
           /* @__PURE__ */ jsx("p", { className: "pcx-eyebrow", children: hero$3.eyebrow }),
           /* @__PURE__ */ jsx("h2", { className: "pcx-hero__headline", children: hero$3.headline }),
           /* @__PURE__ */ jsx("p", { className: "pcx-hero__sub", children: hero$3.sub }),
-          /* @__PURE__ */ jsx("div", { className: "pcx-hero__media", children: /* @__PURE__ */ jsx("img", { src: product$5.image, alt: `Goodwell ${product$5.name}` }) })
+          /* @__PURE__ */ jsx("div", { className: "pcx-hero__media", children: /* @__PURE__ */ jsx("img", { src: product$5.image, alt: `${brand$7} ${product$5.name}` }) })
         ] }),
         /* @__PURE__ */ jsxs("section", { className: "pcx-details", "data-name": "Details", children: [
           /* @__PURE__ */ jsx("p", { className: "pcx-eyebrow", children: details.eyebrow }),
@@ -2899,45 +2986,45 @@ function Page({ step }) {
     ] })
   ] });
 }
-const offerCreative = "/images/dynamic-landing-pages/v2/assets/welcome-offer-ad-square-v5-BFS6ml9C.webp";
-const brand$6 = "Goodwell";
-const domain$2 = "goodwell.com/welcome";
+const campaignImage$1 = "/images/dynamic-landing-pages/v2/assets/crestline-forest-helmet-campaign-oNYevmso.webp";
+const helmetCutout = "/images/dynamic-landing-pages/v2/assets/crestline-forest-helmet-cutout-DugNx4Bv.webp";
+const brand$6 = catalog.crestlineHelmet.brand;
+const domain$2 = "crestline.com/helmets/enduro-mtb";
 const product$4 = {
-  name: catalog.goodwellSleep60.title,
-  size: "60 gummies",
-  flavor: "Lavender Berry",
-  image: catalog.goodwellSleep60.image,
-  price: catalog.goodwellSleep60.price,
-  rating: 4.8,
-  reviews: "2,140"
+  name: catalog.crestlineHelmet.title,
+  size: "Mountain biking",
+  flavor: "Forest Green",
+  image: helmetCutout,
+  price: catalog.crestlineHelmet.price,
+  rating: 4,
+  reviews: "320"
 };
 const offer$1 = {
   percent: "10% off",
-  code: "WELCOME10"
+  code: "RIDE10"
 };
 const ad$3 = {
-  // Two lines, like 09's ad, so the tag and jar sit in the same place.
-  headline: ["10% off", "your first jar."],
+  headline: ["10% off", "your first helmet."],
   tag: "Welcome offer · No code needed",
   cta: "Claim 10% off",
-  caption: "Daily Sleep Gummies for calmer nights. Your welcome perk is waiting.",
-  tags: "#goodwell #sleep"
+  caption: "The Enduro MTB Helmet in Forest Green. Your welcome offer is ready.",
+  tags: "#crestline #enduro"
 };
 const hero$2 = {
   eyebrow: "From your ad",
-  headline: "Your welcome perk is ready."
+  headline: "Your welcome offer is ready."
 };
 const knock$1 = {
-  line: "Welcome! Your 10% off is waiting. Want it on your first jar?",
+  line: "Welcome! Your 10% off is waiting. Want it on your first helmet?",
   doors: [{ label: "No, thanks" }, { label: "Show coupon", primary: true }],
-  greet: `Welcome from our ad! As a thank-you, enjoy ${offer$1.percent} your first jar of Daily Sleep Gummies. Here's your code, ready at checkout.`,
-  followups: ["Trending now", "Best deals"]
+  greet: `Welcome from our ad! As a thank-you, enjoy ${offer$1.percent} your first Enduro MTB Helmet. Here's your code, ready at checkout.`,
+  followups: ["Helmet sizes", "Product details"]
 };
 function Ad$1() {
-  return /* @__PURE__ */ jsxs("article", { className: "adj-shell adj-ig pcx-ad", "data-name": "Ad", children: [
+  return /* @__PURE__ */ jsxs("article", { className: "adj-shell adj-ig pcx-ad ofr-ad", "data-name": "Ad", children: [
     /* @__PURE__ */ jsxs("header", { className: "adj-ig__head", children: [
       /* @__PURE__ */ jsxs("div", { className: "adj-ig__profile", children: [
-        /* @__PURE__ */ jsx("span", { className: "adj-ig__avatar pcx-ad__avatar", children: /* @__PURE__ */ jsx(BrandMark, { brand: "Goodwell", className: "goodwell-supplied-avatar" }) }),
+        /* @__PURE__ */ jsx("span", { className: "adj-ig__avatar pcx-ad__avatar", children: /* @__PURE__ */ jsx(BrandMark, { brand: brand$6 }) }),
         /* @__PURE__ */ jsxs("div", { className: "adj-ig__name", children: [
           /* @__PURE__ */ jsx(BrandName, { brand: brand$6 }),
           /* @__PURE__ */ jsx("small", { children: "Sponsored" })
@@ -2946,7 +3033,10 @@ function Ad$1() {
       /* @__PURE__ */ jsx("img", { className: "adj-ig__more", src: igMore, alt: "" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "adj-ig__media pcx-ad__media", children: [
-      /* @__PURE__ */ jsx("img", { className: "pcx-ad__creative", src: offerCreative, alt: `${ad$3.headline.join(" ")} ${ad$3.tag}` }),
+      /* @__PURE__ */ jsx("span", { className: "ofr-ad__brand", children: "CRESTLINE" }),
+      /* @__PURE__ */ jsx("strong", { className: "ofr-ad__headline", children: ad$3.headline.map((line) => /* @__PURE__ */ jsx("span", { children: line }, line)) }),
+      /* @__PURE__ */ jsx("span", { className: "ofr-ad__tag", children: ad$3.tag }),
+      /* @__PURE__ */ jsx("img", { className: "ofr-ad__scene", src: campaignImage$1, alt: `${product$4.name} beside a forest trail` }),
       /* @__PURE__ */ jsx("span", { className: "pcx-ad__jar-anchor", "data-flight-src": product$4.image, "aria-hidden": "true" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "adj-ig__cta ofr-ad__cta", children: [
@@ -3893,7 +3983,7 @@ function Landing$1() {
             ", ",
             product$4.flavor
           ] }),
-          /* @__PURE__ */ jsx("div", { className: "ofr-hero__media", children: /* @__PURE__ */ jsx("img", { src: product$4.image, alt: `Goodwell ${product$4.name}` }) })
+          /* @__PURE__ */ jsx("div", { className: "ofr-hero__media ofr-hero__media--cutout", children: /* @__PURE__ */ jsx("img", { src: product$4.image, alt: `${brand$6} ${product$4.name}` }) })
         ] }),
         /* @__PURE__ */ jsxs("article", { className: "ofr-product", "data-name": "Product", children: [
           /* @__PURE__ */ jsx("div", { className: "ofr-product__media", children: /* @__PURE__ */ jsx("img", { src: product$4.image, alt: "" }) }),
@@ -3974,7 +4064,7 @@ const beats$7 = [
   { id: "store", type: "appear", ms: 1100 },
   { id: "idle", type: "pause", ms: 900 },
   { id: "knock", type: "appear", ms: 883 },
-  { id: "read", type: "pause", ms: 3e3 },
+  { id: "read", type: "pause", ms: 1800 },
   { id: "tap", type: "pause", ms: 320 },
   { id: "dismiss", type: "pause", ms: 360 },
   { id: "open", type: "appear", ms: 700 },
@@ -4039,48 +4129,50 @@ function OffersComposerMotion() {
     ] }) })
   ] }, t.runKey) });
 }
-const brand$5 = "Goodwell";
-const domain$1 = "goodwell.com/my-routine";
+const campaignImage = "/images/dynamic-landing-pages/v2/assets/aurelle-pendant-chain-campaign-3dLAJDb1.webp";
+const pairingCutout = "/images/dynamic-landing-pages/v2/assets/aurelle-pendant-chain-cutout-CLisHiP4.webp";
+const brand$5 = catalog.aurelleRosePendant.brand;
+const domain$1 = "aurelle.com/build-your-necklace";
 const ad$2 = {
-  headline: ["Your daily routine,", "matched to you."],
-  tag: "Personalized wellness bundle",
-  cta: "Find my match",
-  caption: "Two questions, one routine. Let us match your gummies to your day.",
-  tags: "#goodwell #dailyroutine"
+  headline: ["A necklace,", "made yours."],
+  tag: "Pendant and chain pairing",
+  cta: "Find my pairing",
+  caption: "Choose the pendant and chain that feel right together.",
+  tags: "#aurelle #rosegold"
 };
 const hero$1 = {
   eyebrow: "From your ad",
-  headline: "Build your daily wellness bundle.",
-  sub: "Answer two questions and we'll match the gummies to your day."
+  headline: "Build your pendant pairing.",
+  sub: "Answer two questions and we'll suggest a pendant and chain."
 };
 const bundle = [
-  { ...catalog.goodwellEnergy, subtitle: "Mornings · 60 count" },
-  { ...catalog.goodwellSleep60, subtitle: "Nights · 60 count" }
+  { ...catalog.aurelleRosePendant, subtitle: "Rose gold · Pendant" },
+  { ...catalog.aurelleBoxChain, subtitle: "Rose gold · Fine box chain" }
 ];
 const knock = {
-  line: "Two quick questions and I'll match your gummies to your day.",
-  doors: [{ label: "Not now" }, { label: "Find my match", primary: true }]
+  line: "Two quick questions and I'll help pair your pendant and chain.",
+  doors: [{ label: "Not now" }, { label: "Find my pairing", primary: true }]
 };
 const q1 = {
-  picked: "Find my match",
-  ai: "What are you looking to build a routine for?",
-  chips: ["Energy & focus", "Better sleep", "Both"]
+  picked: "Find my pairing",
+  ai: "What kind of necklace are you putting together?",
+  chips: ["Everyday", "A gift", "An occasion"]
 };
 const q2 = {
-  picked: "Both",
-  ai: "Got it: steady energy by day and better sleep at night. Which Goodwell gummies do you already have?",
-  chips: ["Energy", "Sleep", "Starting fresh"]
+  picked: "Everyday",
+  ai: "An everyday piece. Which finish do you prefer?",
+  chips: ["Rose gold", "Gold", "Silver"]
 };
 const result = {
-  picked: "Starting fresh",
-  loading: "Building your bundle…",
-  ai: "Here's your match: Clean Energy for the morning, Daily Sleep for the night."
+  picked: "Rose gold",
+  loading: "Building your pairing…",
+  ai: "Here's a pairing to try: the Rose Gold Teardrop Pendant with the Rose Gold Fine Box Chain."
 };
 function Ad() {
-  return /* @__PURE__ */ jsxs("article", { className: "adj-shell adj-ig pcx-ad", "data-name": "Ad", children: [
+  return /* @__PURE__ */ jsxs("article", { className: "adj-shell adj-ig pcx-ad byb-ad", "data-name": "Ad", children: [
     /* @__PURE__ */ jsxs("header", { className: "adj-ig__head", children: [
       /* @__PURE__ */ jsxs("div", { className: "adj-ig__profile", children: [
-        /* @__PURE__ */ jsx("span", { className: "adj-ig__avatar pcx-ad__avatar", children: /* @__PURE__ */ jsx(BrandMark, { brand: "Goodwell", className: "goodwell-supplied-avatar" }) }),
+        /* @__PURE__ */ jsx("span", { className: "adj-ig__avatar pcx-ad__avatar", children: /* @__PURE__ */ jsx(BrandMark, { brand: brand$5 }) }),
         /* @__PURE__ */ jsxs("div", { className: "adj-ig__name", children: [
           /* @__PURE__ */ jsx(BrandName, { brand: brand$5 }),
           /* @__PURE__ */ jsx("small", { children: "Sponsored" })
@@ -4089,10 +4181,10 @@ function Ad() {
       /* @__PURE__ */ jsx("img", { className: "adj-ig__more", src: igMore, alt: "" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "adj-ig__media pcx-ad__media", children: [
+      /* @__PURE__ */ jsx("img", { className: "byb-campaign-image", src: campaignImage, alt: "Rose Gold Teardrop Pendant paired with a fine box chain" }),
       /* @__PURE__ */ jsx(BrandName, { brand: brand$5, className: "pcx-ad__wordmark" }),
       /* @__PURE__ */ jsx("h2", { className: "pcx-ad__headline", children: ad$2.headline.map((line) => /* @__PURE__ */ jsx("span", { style: { display: "block" }, children: line }, line)) }),
-      /* @__PURE__ */ jsx("span", { className: "pcx-ad__tag", children: ad$2.tag }),
-      /* @__PURE__ */ jsx(Jars, { className: "byb-ad__jars" })
+      /* @__PURE__ */ jsx("span", { className: "pcx-ad__tag", children: ad$2.tag })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "adj-ig__cta", children: [
       ad$2.cta,
@@ -4107,18 +4199,15 @@ function Ad() {
     ] })
   ] });
 }
-function Jars({ className }) {
-  return /* @__PURE__ */ jsx("div", { className: `byb-jars ${className}`, children: bundle.map((p) => /* @__PURE__ */ jsx("img", { src: p.image, alt: `Goodwell ${p.title}` }, p.id)) });
-}
 function Landing() {
   return /* @__PURE__ */ jsxs("div", { className: "ais-page", children: [
-    /* @__PURE__ */ jsx(Nav, { searching: false }),
+    /* @__PURE__ */ jsx(Nav, { searching: false, merchant: brand$5 }),
     /* @__PURE__ */ jsxs("div", { className: "ais-body", children: [
       /* @__PURE__ */ jsx("div", { className: "pcx-scroll", children: /* @__PURE__ */ jsxs("section", { className: "pcx-hero byb-hero", "data-name": "Hero", children: [
         /* @__PURE__ */ jsx("p", { className: "pcx-eyebrow", children: hero$1.eyebrow }),
         /* @__PURE__ */ jsx("h2", { className: "pcx-hero__headline", children: hero$1.headline }),
         /* @__PURE__ */ jsx("p", { className: "pcx-hero__sub", children: hero$1.sub }),
-        /* @__PURE__ */ jsx("div", { className: "pcx-hero__media byb-hero__media", children: /* @__PURE__ */ jsx(Jars, { className: "byb-hero__jars" }) })
+        /* @__PURE__ */ jsx("div", { className: "pcx-hero__media byb-hero__media", children: /* @__PURE__ */ jsx("img", { className: "byb-hero__cutout", src: pairingCutout, alt: "Rose Gold Teardrop Pendant with a fine box chain" }) })
       ] }) }),
       /* @__PURE__ */ jsx(ContentFade, {})
     ] })
@@ -4167,7 +4256,7 @@ const beats$6 = [
   { id: "store", type: "appear", ms: 1100 },
   { id: "idle", type: "pause", ms: 900 },
   { id: "knock", type: "appear", ms: 883 },
-  { id: "read", type: "pause", ms: 2800 },
+  { id: "read", type: "pause", ms: 1800 },
   { id: "press", type: "pause", ms: 320 },
   { id: "open", type: "appear", ms: 700 },
   { id: "match", type: "appear", ms: 420 },
@@ -4261,7 +4350,7 @@ function BuildBundleMotion() {
               title: knock.line,
               product: bundle[0].image,
               doors: knock.doors,
-              pressed: t.reached("press") ? "Find my match" : void 0,
+              pressed: t.reached("press") ? knock.doors[1].label : void 0,
               out: t.reached("open")
             }
           ) })
@@ -4848,16 +4937,11 @@ function Widgets$1({ t }) {
     const expanded = expandedRef.current;
     if (!showCompact || !layer || !surface || !compact || !expanded) return;
     const box = layer.getBoundingClientRect();
-    const zoom = layer.offsetWidth ? box.width / layer.offsetWidth : 1;
+    const k = box.height ? layer.offsetHeight / box.height : 1;
     const place = (name, el) => {
       const r = el.getBoundingClientRect();
-      const insets = {
-        t: (r.top - box.top) / zoom,
-        r: (box.right - r.right) / zoom,
-        b: (box.bottom - r.bottom) / zoom,
-        l: (r.left - box.left) / zoom
-      };
-      for (const [side, value] of Object.entries(insets)) surface.style.setProperty(`--adjm-${name}-${side}`, `${value}px`);
+      const insets = { t: r.top - box.top, r: box.right - r.right, b: box.bottom - r.bottom, l: r.left - box.left };
+      for (const [side, value] of Object.entries(insets)) surface.style.setProperty(`--adjm-${name}-${side}`, `${value * k}px`);
     };
     place("from", compact);
     place("to", expanded);
@@ -4934,7 +5018,7 @@ function Widgets$1({ t }) {
   ] });
 }
 const knockBeats$1 = beats$5.map(
-  (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 3600 } : b.id === "pick-play" ? { ...b, ms: 450 } : b
+  (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 1800 } : b.id === "pick-play" ? { ...b, ms: 450 } : b
 );
 function Scene$5({ t }) {
   return /* @__PURE__ */ jsxs("div", { className: cx$1("adj adjm grm", t.reached("tap-ad") && "adjm--tap", t.reached("store") && "adjm--store"), children: [
@@ -5022,6 +5106,7 @@ const summary = {
   text: "Sorelle Labs Daily Hydrating Serum is fragrance-free and formulated to support sensitive skin. Lightweight daily hydration helps support your skin barrier.",
   more: "Show more",
   less: "Show less",
+  prompt: "Tell me more about this serum",
   details: [
     { id: "formula", title: "Fragrance-free", body: "Formulated without added fragrance." },
     { id: "hydration", title: "Daily hydration", body: "A lightweight serum for your daily routine." },
@@ -5052,6 +5137,12 @@ const detailAnswer = "Yes, Sorelle Labs Daily Hydrating Serum is fragrance-free 
 const detailFollowUps = [
   { id: "ingredients", text: "Full ingredients" },
   { id: "pairing", text: "Pair with a moisturiser" }
+];
+const detailFollowUpAnswer = "Pair it with a light, fragrance-free moisturiser: serum first on damp skin, then moisturiser to seal in hydration, morning and night.";
+const detailSuggestions = [
+  { id: "spf", text: "Works with SPF?" },
+  { id: "results", text: "When will I see results?" },
+  { id: "bundle", text: "Shop the routine" }
 ];
 const directAsk = {
   chipId: "fragrance",
@@ -5196,42 +5287,54 @@ function PdpV2$1({
   summary: summarySlot,
   specificSelected = "",
   specific,
-  askAi
+  askAi,
+  content: content2
 }) {
+  const current = content2 ?? {
+    brand: brand$2,
+    product: { ...product$2, subline: "30 ml · Daily hydration · All skin types" },
+    rating: { value: "4.8", count: "212 reviews" },
+    insight,
+    summary,
+    badges: badges$1,
+    askAiChips: askAiChips$1,
+    lookingChips,
+    specificInfo,
+    secondary: `Subscribe & save 15% · ${product$2.price}`,
+    accordion,
+    accordionBody: `${insight.text} A lightweight serum that layers under moisturiser, morning and night.`
+  };
   return /* @__PURE__ */ jsxs(
     PdpFrameV2,
     {
-      brand: brand$2,
-      image: /* @__PURE__ */ jsx("img", { src: product$2.image, alt: `${brand$2} ${product$2.name}, ${product$2.size}` }),
-      thumbs: [0, 1, 2, 3].map(() => /* @__PURE__ */ jsx("img", { src: product$2.image, alt: "" })),
-      badges: badges$1,
-      askAi: askAi ?? /* @__PURE__ */ jsx(AskAiSection, {}),
+      brand: current.brand,
+      image: /* @__PURE__ */ jsx("img", { src: current.product.image, alt: `${current.brand} ${current.product.name}, ${current.product.size}` }),
+      thumbs: ((content2 == null ? void 0 : content2.gallery) ?? [0, 1, 2, 3].map(() => current.product.image)).map((src) => /* @__PURE__ */ jsx("img", { src, alt: "" })),
+      badges: current.badges,
+      askAi: askAi ?? /* @__PURE__ */ jsx(AskAiSection, { chips: current.askAiChips }),
       children: [
-        /* @__PURE__ */ jsx(RatingRow, {}),
+        /* @__PURE__ */ jsx(RatingRow, { rating: current.rating.value, count: current.rating.count }),
         /* @__PURE__ */ jsxs("p", { className: step >= 2 ? "ask-insight aski-insight ask-insight--active" : "ask-insight aski-insight", "data-name": "Insight", children: [
           /* @__PURE__ */ jsx(Icon, { name: "insight", size: 11 }),
-          /* @__PURE__ */ jsx("span", { className: "aski-insight__text", children: insight.label }),
-          /* @__PURE__ */ jsx("span", { className: "ask-insight__more", children: insight.more })
+          /* @__PURE__ */ jsx("span", { className: "aski-insight__text", children: current.insight.label }),
+          /* @__PURE__ */ jsx("span", { className: "ask-insight__more", children: current.insight.more })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "aski-head", children: [
-          /* @__PURE__ */ jsx("h2", { className: "aski-name", children: product$2.name }),
-          /* @__PURE__ */ jsx("p", { className: "aski-subline", children: "30 ml · Daily hydration · All skin types" }),
-          /* @__PURE__ */ jsx("p", { className: "aski-price", children: product$2.price })
+          /* @__PURE__ */ jsx("h2", { className: "aski-name", children: current.product.name }),
+          /* @__PURE__ */ jsx("p", { className: "aski-subline", children: current.product.subline }),
+          /* @__PURE__ */ jsx("p", { className: "aski-price", children: current.product.price })
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "aski-desc", children: product$2.description }),
+        /* @__PURE__ */ jsx("p", { className: "aski-desc", children: current.product.description }),
         summarySlot ?? /* @__PURE__ */ jsxs("section", { className: "ask-summary ask-summary--clamp", "data-name": "AI summary", children: [
           /* @__PURE__ */ jsxs("p", { className: "ask-insight__label", children: [
             /* @__PURE__ */ jsx(Icon, { name: "insight", size: 12 }),
-            summary.label
+            current.summary.label
           ] }),
-          /* @__PURE__ */ jsx("p", { className: "ask-summary__text", children: summary.text }),
-          /* @__PURE__ */ jsx("span", { className: "ask-link ask-summary__more", children: summary.more })
+          /* @__PURE__ */ jsx("p", { className: "ask-summary__text", children: current.summary.text }),
+          /* @__PURE__ */ jsx("span", { className: "ask-link ask-summary__more", children: current.summary.more })
         ] }),
         /* @__PURE__ */ jsx(Button, { appearance: "primary", label: "Add to cart", className: "ask-details__cta" }),
-        /* @__PURE__ */ jsxs("div", { className: "aski-secondary", children: [
-          "Subscribe & save 15% · ",
-          product$2.price
-        ] }),
+        /* @__PURE__ */ jsx("div", { className: "aski-secondary", children: current.secondary }),
         /* @__PURE__ */ jsxs("div", { className: "aski-acc", children: [
           /* @__PURE__ */ jsxs("div", { className: "aski-acc__row", children: [
             /* @__PURE__ */ jsx("span", { children: "Why it works" }),
@@ -5241,11 +5344,8 @@ function PdpV2$1({
             ] }),
             /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "⌃" })
           ] }),
-          /* @__PURE__ */ jsxs("p", { className: "aski-acc__body", children: [
-            insight.text,
-            " A lightweight serum that layers under moisturiser, morning and night."
-          ] }),
-          accordion.map((r) => /* @__PURE__ */ jsxs("div", { className: "aski-acc__row", children: [
+          /* @__PURE__ */ jsx("p", { className: "aski-acc__body", children: current.accordionBody }),
+          current.accordion.map((r) => /* @__PURE__ */ jsxs("div", { className: "aski-acc__row", children: [
             /* @__PURE__ */ jsx("span", { children: r }),
             /* @__PURE__ */ jsx("span", { "aria-hidden": "true", children: "⌄" })
           ] }, r))
@@ -5253,13 +5353,13 @@ function PdpV2$1({
         /* @__PURE__ */ jsxs("section", { className: "ask-specific", "data-name": "Specific info", children: [
           /* @__PURE__ */ jsxs("p", { className: "ask-insight__label", children: [
             /* @__PURE__ */ jsx(Icon, { name: "insight", size: 12 }),
-            specificInfo.label
+            current.specificInfo.label
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "ask-field", children: [
             /* @__PURE__ */ jsx(Icon, { name: "search", size: 12 }),
-            /* @__PURE__ */ jsx("span", { children: specificInfo.placeholder })
+            /* @__PURE__ */ jsx("span", { children: current.specificInfo.placeholder })
           ] }),
-          specific ?? /* @__PURE__ */ jsx(AiPills, { options: lookingChips, selectedId: specificSelected })
+          specific ?? /* @__PURE__ */ jsx(AiPills, { options: current.lookingChips, selectedId: specificSelected })
         ] })
       ]
     }
@@ -5436,11 +5536,20 @@ const beats$4 = [
   { id: "focus", type: "pause", ms: CAMERA_LEAD_MS },
   { id: "pick", type: "appear", ms: 650 },
   { id: "ask", type: "appear", ms: 450 },
+  // The answer opens in a side drawer over the page.
+  { id: "open", type: "appear", ms: 700 },
   { id: "think", type: "think", labels: ["Checking the formula…"] },
   // Skeleton holds the answer's shape so the text lands without a jump.
   { id: "skeleton", type: "load", ms: 1200 },
   { id: "answer", type: "text", text: detailAnswer },
-  { id: "follow-ups", type: "appear", ms: 700 },
+  { id: "follow-ups", type: "appear", ms: 900 },
+  // Continued question: the shopper picks a follow-up.
+  { id: "pick2", type: "appear", ms: 650 },
+  { id: "ask2", type: "appear", ms: 450 },
+  { id: "think2", type: "think", labels: ["Finding a pairing…"] },
+  { id: "skeleton2", type: "load", ms: 1e3 },
+  { id: "answer2", type: "text", text: detailFollowUpAnswer },
+  { id: "suggest", type: "appear", ms: 700 },
   { id: "read", type: "pause", ms: 2600 },
   { id: "release", type: "pause", ms: 1200 }
 ];
@@ -5451,33 +5560,52 @@ const CAMERA = {
   focus: {
     wide: null,
     // The Ask AI section, with the badges above as context.
-    ask: { sel: [".aski-block"], above: 40 }
+    ask: { sel: [".aski-block"], above: 40 },
+    // The drawer's latest exchange, query included; re-frames as it grows.
+    drawer: { sel: [".askim-drawer__head", ".askim-thread"] }
   }
 };
 const chip = askAiChips$1.find((c) => c.id === "fragrance");
+const chip2 = detailFollowUps.find((c) => c.id === "pairing");
+function Skeleton() {
+  return /* @__PURE__ */ jsxs("div", { className: "askim-skeleton", "aria-hidden": "true", children: [
+    /* @__PURE__ */ jsx(SkeletonBlock, { width: "100%", height: 10, radius: 4 }),
+    /* @__PURE__ */ jsx(SkeletonBlock, { width: "94%", height: 10, radius: 4 }),
+    /* @__PURE__ */ jsx(SkeletonBlock, { width: "88%", height: 10, radius: 4 }),
+    /* @__PURE__ */ jsx(SkeletonBlock, { width: "52%", height: 10, radius: 4 })
+  ] });
+}
 function AskBlock({ t }) {
-  return /* @__PURE__ */ jsx(AskAiSection, { children: !t.reached("ask") ? /* @__PURE__ */ jsx("div", { className: cx$1("askim-chips", t.reached("pick") && "askim-chips--picked"), children: /* @__PURE__ */ jsx(AskChips, { grid: true, options: askAiChips$1, selected: t.reached("pick") ? chip.id : "" }) }) : /* @__PURE__ */ jsxs("div", { className: "aski-thread askim-thread", children: [
-    /* @__PURE__ */ jsx("p", { className: "aski-q", children: chip.text }),
-    /* @__PURE__ */ jsx(Thinking, { t, id: "think" }),
-    t.loading("skeleton") && /* @__PURE__ */ jsxs("div", { className: "askim-skeleton", "aria-hidden": "true", children: [
-      /* @__PURE__ */ jsx(SkeletonBlock, { width: "100%", height: 10, radius: 4 }),
-      /* @__PURE__ */ jsx(SkeletonBlock, { width: "94%", height: 10, radius: 4 }),
-      /* @__PURE__ */ jsx(SkeletonBlock, { width: "88%", height: 10, radius: 4 }),
-      /* @__PURE__ */ jsx(SkeletonBlock, { width: "52%", height: 10, radius: 4 })
+  return /* @__PURE__ */ jsx(AskAiSection, { children: /* @__PURE__ */ jsx("div", { className: cx$1("askim-chips", t.reached("pick") && "askim-chips--picked"), children: /* @__PURE__ */ jsx(AskChips, { grid: true, options: askAiChips$1, selected: t.reached("pick") ? chip.id : "" }) }) });
+}
+function Drawer({ t }) {
+  const ref = useRef(null);
+  useFollowLatest$1(ref, { thread: ".askim-thread", clearance: 16, index: t.index, reducedMotion: t.reducedMotion });
+  return /* @__PURE__ */ jsxs("div", { className: "askim-drawer", "data-name": "Drawer", ref, children: [
+    /* @__PURE__ */ jsxs("div", { className: "askim-drawer__head", children: [
+      /* @__PURE__ */ jsxs("span", { className: "askim-drawer__title", children: [
+        /* @__PURE__ */ jsx(Icon, { name: "insight", size: 12 }),
+        "Ask AI"
+      ] }),
+      /* @__PURE__ */ jsx(IconButton, { icon: "close", label: "Close", variant: "outline" })
     ] }),
-    t.reached("answer") && /* @__PURE__ */ jsx(AssistantText, { text: detailAnswer }),
-    t.reached("follow-ups") && /* @__PURE__ */ jsx("div", { className: "askim-in", children: /* @__PURE__ */ jsx(AskChips, { options: detailFollowUps }) })
-  ] }) });
+    /* @__PURE__ */ jsxs("div", { className: "aski-thread askim-thread", children: [
+      /* @__PURE__ */ jsx("p", { className: "aski-q askim-q", children: chip.text }),
+      /* @__PURE__ */ jsx(Thinking, { t, id: "think" }),
+      t.loading("skeleton") && /* @__PURE__ */ jsx(Skeleton, {}),
+      t.reached("answer") && /* @__PURE__ */ jsx(AssistantText, { text: detailAnswer }),
+      t.reached("follow-ups") && !t.reached("ask2") && /* @__PURE__ */ jsx("div", { className: cx$1("askim-in askim-chips", t.reached("pick2") && "askim-chips--picked"), children: /* @__PURE__ */ jsx(AskChips, { options: detailFollowUps, selected: t.reached("pick2") ? chip2.id : "" }) }),
+      t.reached("ask2") && /* @__PURE__ */ jsx("p", { className: "aski-q askim-q askim-in", children: chip2.text }),
+      /* @__PURE__ */ jsx(Thinking, { t, id: "think2" }),
+      t.loading("skeleton2") && /* @__PURE__ */ jsx(Skeleton, {}),
+      t.reached("answer2") && /* @__PURE__ */ jsx(AssistantText, { text: detailFollowUpAnswer }),
+      t.reached("suggest") && /* @__PURE__ */ jsx("div", { className: "askim-in askim-suggest", children: /* @__PURE__ */ jsx(AskChips, { options: detailSuggestions }) })
+    ] })
+  ] });
 }
 function Scene$4({ t }) {
-  const shot = t.reached("focus") && !t.reached("release") ? "ask" : "wide";
+  const shot = !t.reached("focus") || t.reached("release") ? "wide" : !t.reached("ask") ? "ask" : !t.reached("think") ? "wide" : "drawer";
   const camera = useFrameCamera(shot, !t.reducedMotion, t.runKey, CAMERA);
-  const pageRef = useRef(null);
-  useEffect(() => {
-    var _a;
-    pageRef.current = ((_a = camera.lensRef.current) == null ? void 0 : _a.querySelector(".aski-pdp")) ?? null;
-  }, []);
-  useFollowLatest$1(pageRef, { thread: ".askim-thread", clearance: 48, index: t.index, reducedMotion: t.reducedMotion });
   return /* @__PURE__ */ jsx("div", { className: "ask askim", children: /* @__PURE__ */ jsx("article", { className: "ask-store", children: /* @__PURE__ */ jsxs("div", { ref: camera.lensRef, className: cx$1(camera.className, "askim-lens"), style: camera.style, onTransitionEnd: camera.onTransitionEnd, children: [
     /* @__PURE__ */ jsxs("div", { className: "ill-browser-chrome", children: [
       /* @__PURE__ */ jsxs("div", { className: "ill-browser-chrome__dots", children: [
@@ -5493,12 +5621,14 @@ function Scene$4({ t }) {
     /* @__PURE__ */ jsxs("div", { className: "ask-viewport", children: [
       /* @__PURE__ */ jsx(PdpV2$1, { step: 1, askAi: /* @__PURE__ */ jsx(AskBlock, { t }) }),
       /* @__PURE__ */ jsx(ContentFade, {}),
+      /* @__PURE__ */ jsx("div", { className: cx$1("askim-scrim", t.reached("ask") && "askim-scrim--on") }),
+      t.reached("ask") && /* @__PURE__ */ jsx(Drawer, { t }),
       /* @__PURE__ */ jsx(
         TapRing,
         {
-          target: ".askim-chips .aski-chip--on",
-          tap: t.reached("pick") ? 1 : 0,
-          point: t.reached("focus") && !t.reached("think") ? t.reached("ask") ? ".aski-q" : `.askim-chips .aski-chip:nth-child(${askAiChips$1.indexOf(chip) + 1})` : null
+          target: t.reached("pick2") ? ".askim-drawer .aski-chip--on" : ".aski-block .aski-chip--on",
+          tap: t.reached("pick2") ? 2 : t.reached("pick") ? 1 : 0,
+          point: t.reached("focus") && !t.reached("ask") ? `.aski-block .askim-chips .aski-chip:nth-child(${askAiChips$1.indexOf(chip) + 1})` : t.reached("follow-ups") && !t.reached("ask2") ? `.askim-drawer .askim-chips .aski-chip:nth-child(${detailFollowUps.indexOf(chip2) + 1})` : null
         }
       )
     ] })
@@ -5848,6 +5978,106 @@ function CrossSellMotion({ v2: v22 = false } = {}) {
   const t = useChatTimeline(beats$3, landed && fontsReady);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene$3, { t, v2: v22 }, t.runKey) });
 }
+const goodwellGummies = "/images/dynamic-landing-pages/v2/assets/goodwell-sleep-gummies-detail-PYunvh33.webp";
+const gistContent = {
+  brand: catalog.auraEarbuds.brand,
+  url: "aura.com/wireless-earbuds",
+  product: {
+    name: catalog.auraEarbuds.title,
+    image: catalog.auraEarbuds.image,
+    price: catalog.auraEarbuds.price,
+    size: "Ivory",
+    subline: "Ivory · Wireless earbuds · Charging case",
+    description: "Wireless earbuds in Ivory with a matching charging case for listening on the go."
+  },
+  rating: { value: "4.7", count: "184 reviews" },
+  insight: { label: "What comes with them?", text: "The earbuds come with a matching charging case.", more: "See more" },
+  summary: {
+    label: "AI summary",
+    text: "AURA Wireless Earbuds are an Ivory pair with a matching charging case. The compact set is an easy option for everyday listening.",
+    more: "Show more",
+    less: "Show less",
+    details: [
+      { id: "product", title: "Wireless earbuds", body: "An Ivory pair for everyday listening." },
+      { id: "case", title: "Charging case", body: "The matching case travels with the earbuds." },
+      { id: "colour", title: "Colour", body: "Shown in Ivory." },
+      { id: "price", title: "Price", body: catalog.auraEarbuds.price }
+    ]
+  },
+  badges: [
+    { id: "wireless", mark: "WL", label: "Wireless" },
+    { id: "case", mark: "CC", label: "Charging case" },
+    { id: "ivory", mark: "IV", label: "Ivory" }
+  ],
+  askAiChips: [
+    { id: "case", text: "Charging case?" },
+    { id: "colour", text: "Which colour?" },
+    { id: "price", text: "Price?" }
+  ],
+  lookingChips: [
+    { id: "case", text: "Case included?" },
+    { id: "colour", text: "Which colour?" },
+    { id: "price", text: "Price?" }
+  ],
+  specificInfo: { label: "Looking for specific info?", placeholder: "Ask AI about these earbuds" },
+  secondary: "Ivory · Wireless earbuds",
+  accordion: ["Product details", "Charging case", "Delivery"],
+  accordionBody: "Wireless earbuds in Ivory, shown with their charging case."
+};
+const directContent = {
+  brand: catalog.goodwellSleep60.brand,
+  url: "goodwell.com/daily-sleep",
+  product: {
+    name: catalog.goodwellSleep60.title,
+    image: catalog.goodwellSleep60.image,
+    price: catalog.goodwellSleep60.price,
+    size: "60 gummies",
+    subline: "60 gummies · 30-night supply · No melatonin",
+    description: "Daily Sleep Gummies pair magnesium glycinate, L-Theanine and chamomile in a melatonin-free evening routine."
+  },
+  gallery: [catalog.goodwellSleep60.image, goodwellThreeQuarter, goodwellElevated, goodwellGummies],
+  rating: { value: "4.8", count: "2,140 reviews" },
+  insight: { label: "Does it contain melatonin?", text: "Daily Sleep Gummies are made without melatonin.", more: "See more" },
+  summary: {
+    label: "AI summary",
+    text: "Goodwell Daily Sleep Gummies are a melatonin-free evening option with magnesium glycinate, L-Theanine and chamomile. The 60-count jar is a 30-night supply.",
+    more: "Show more",
+    less: "Show less",
+    details: [
+      { id: "melatonin", title: "No melatonin", body: "Made without melatonin." },
+      { id: "magnesium", title: "Magnesium", body: "Includes magnesium glycinate." },
+      { id: "routine", title: "Evening routine", body: "Two gummies before bed." },
+      { id: "size", title: "Jar size", body: "60 gummies per jar." }
+    ]
+  },
+  badges: [
+    { id: "melatonin", mark: "NM", label: "No melatonin" },
+    { id: "supply", mark: "30", label: "30 nights" },
+    { id: "count", mark: "60", label: "60 gummies" }
+  ],
+  askAiChips: [
+    { id: "melatonin", text: "Melatonin-free?" },
+    { id: "routine", text: "How many?" },
+    { id: "size", text: "Jar size?" }
+  ],
+  lookingChips: [
+    { id: "melatonin", text: "Melatonin-free?" },
+    { id: "routine", text: "How do I take it?" },
+    { id: "size", text: "How many gummies?" }
+  ],
+  specificInfo: { label: "Looking for specific info?", placeholder: "Ask AI about Daily Sleep" },
+  secondary: "One-time purchase · 60 gummies",
+  accordion: ["How to use", "Ingredients", "What to expect"],
+  accordionBody: "Two gummies before bed, as part of an evening routine."
+};
+const directQuestion = {
+  chipId: "melatonin",
+  answer: "Yes. Goodwell Daily Sleep Gummies are made without melatonin. The 60-count jar contains magnesium glycinate, L-Theanine and chamomile.",
+  followUps: [
+    { id: "routine", text: "How do I take them?" },
+    { id: "size", text: "How many gummies?" }
+  ]
+};
 const phases = [
   { id: "intro", ms: 1e3 },
   { id: "scroll", ms: 800 },
@@ -5873,22 +6103,21 @@ function useGistPlayback(active) {
   }, [active, state.index]);
   return state;
 }
-function GistCard({ open }) {
+function GistCard({ open, data = summary }) {
   return /* @__PURE__ */ jsxs("section", { className: cx$1("ask-summary gist-card", open && "gist-card--open"), "data-name": "AI summary", children: [
     /* @__PURE__ */ jsxs("p", { className: "ask-insight__label", children: [
       /* @__PURE__ */ jsx(Icon, { name: "insight", size: 12 }),
-      summary.label
+      data.label
     ] }),
-    /* @__PURE__ */ jsx("p", { className: "ask-summary__text gist-text", children: summary.text }),
-    /* @__PURE__ */ jsx("div", { className: "gist-more", "aria-hidden": !open, children: /* @__PURE__ */ jsx("ul", { className: "gist-details", children: summary.details.map((d) => /* @__PURE__ */ jsxs("li", { children: [
+    /* @__PURE__ */ jsx("p", { className: "ask-summary__text gist-text", children: data.text }),
+    /* @__PURE__ */ jsx("div", { className: "gist-more", "aria-hidden": !open, children: /* @__PURE__ */ jsx("ul", { className: "gist-details", children: data.details.map((d) => /* @__PURE__ */ jsxs("li", { children: [
       /* @__PURE__ */ jsx("b", { children: d.title }),
       /* @__PURE__ */ jsx("span", { children: d.body })
     ] }, d.id)) }) }),
-    /* @__PURE__ */ jsx("span", { className: "ask-link gist-toggle", children: open ? summary.less : summary.more })
+    /* @__PURE__ */ jsx("span", { className: "ask-link gist-toggle", children: open ? data.less : data.more })
   ] });
 }
 function Scene$2({ index, v2: v22 = false }) {
-  const Page2 = v22 ? PdpV2$1 : Pdp$1;
   const viewportRef = useRef(null);
   const reached = (id) => index >= at(id);
   const open = reached("open") && !reached("close");
@@ -5929,11 +6158,11 @@ function Scene$2({ index, v2: v22 = false }) {
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "ill-browser-chrome__address", children: [
         /* @__PURE__ */ jsx("img", { src: addressIcon, width: "10", height: "11", alt: "" }),
-        /* @__PURE__ */ jsx("span", { children: url$2 })
+        /* @__PURE__ */ jsx("span", { children: v22 ? gistContent.url : url$2 })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "ask-viewport", ref: viewportRef, children: [
-      /* @__PURE__ */ jsx(Page2, { step: 1, summary: /* @__PURE__ */ jsx(GistCard, { open }) }),
+      v22 ? /* @__PURE__ */ jsx(PdpV2$1, { step: 1, content: gistContent, summary: /* @__PURE__ */ jsx(GistCard, { open, data: gistContent.summary }) }) : /* @__PURE__ */ jsx(Pdp$1, { step: 1, summary: /* @__PURE__ */ jsx(GistCard, { open }) }),
       /* @__PURE__ */ jsx(ContentFade, {}),
       /* @__PURE__ */ jsx(TapRing, { target: ".gist-toggle", tap: taps, point: v22 ? reached("hover-more") ? ".gist-toggle" : null : void 0 })
     ] })
@@ -5959,13 +6188,13 @@ const beats$2 = [
 const beatsV2 = [
   ...beats$2.slice(0, beats$2.findIndex((b) => b.id === "answer")).map((b) => b.id === "think" ? { ...b, labels: ["Checking the formula…"] } : b),
   { id: "skeleton", type: "load", ms: 1200 },
-  { id: "answer", type: "text", text: directAsk.answer },
+  { id: "answer", type: "text", text: directQuestion.answer },
   { id: "follow-ups", type: "appear", ms: 450 }
 ];
-const chipIn = (list) => list.find((c) => c.id === directAsk.chipId);
-function InlineThread({ t, chip: chip2 }) {
+const chipIn = (list, id) => list.find((c) => c.id === id);
+function InlineThread({ t, chip: chip3 }) {
   return /* @__PURE__ */ jsxs("div", { className: "dam-thread", children: [
-    /* @__PURE__ */ jsx(UserTurn, { animateIn: true, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: chip2.text }) }),
+    /* @__PURE__ */ jsx(UserTurn, { animateIn: true, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: chip3.text }) }),
     t.reached("think") && /* @__PURE__ */ jsxs(AssistantTurn, { children: [
       /* @__PURE__ */ jsx(Thinking, { t, id: "think" }),
       t.reached("answer") && /* @__PURE__ */ jsx(AssistantText, { text: directAsk.answer }),
@@ -6001,9 +6230,9 @@ function SmoothHeight({ columnSel, reducedMotion, children }) {
   }, [columnSel, reducedMotion]);
   return /* @__PURE__ */ jsx("div", { ref: outerRef, className: "damv2-grow", style: { height: h, transition: h !== void 0 && !reducedMotion ? "height 300ms cubic-bezier(0.23, 1, 0.32, 1)" : void 0 }, children: /* @__PURE__ */ jsx("div", { ref: innerRef, children }) });
 }
-function SpecificV2({ t, chip: chip2 }) {
-  return /* @__PURE__ */ jsx(SmoothHeight, { columnSel: ".ask-details", reducedMotion: t.reducedMotion, children: !t.reached("open") ? /* @__PURE__ */ jsx("div", { className: cx$1("askim-chips", t.reached("activate") && "askim-chips--picked"), children: /* @__PURE__ */ jsx(AskChips, { options: lookingChips, selected: t.reached("activate") ? chip2.id : "" }) }) : /* @__PURE__ */ jsxs("div", { className: "aski-thread askim-thread", children: [
-    /* @__PURE__ */ jsx("p", { className: "aski-q", children: chip2.text }),
+function SpecificV2({ t, chip: chip3 }) {
+  return /* @__PURE__ */ jsx(SmoothHeight, { columnSel: ".ask-details", reducedMotion: t.reducedMotion, children: !t.reached("open") ? /* @__PURE__ */ jsx("div", { className: cx$1("askim-chips", t.reached("activate") && "askim-chips--picked"), children: /* @__PURE__ */ jsx(AskChips, { options: directContent.lookingChips, selected: t.reached("activate") ? chip3.id : "" }) }) : /* @__PURE__ */ jsxs("div", { className: "aski-thread askim-thread", children: [
+    /* @__PURE__ */ jsx("p", { className: "aski-q", children: chip3.text }),
     /* @__PURE__ */ jsx(Thinking, { t, id: "think" }),
     t.loading("skeleton") && /* @__PURE__ */ jsxs("div", { className: "askim-skeleton", "aria-hidden": "true", children: [
       /* @__PURE__ */ jsx(SkeletonBlock, { width: "100%", height: 10, radius: 4 }),
@@ -6011,13 +6240,12 @@ function SpecificV2({ t, chip: chip2 }) {
       /* @__PURE__ */ jsx(SkeletonBlock, { width: "88%", height: 10, radius: 4 }),
       /* @__PURE__ */ jsx(SkeletonBlock, { width: "52%", height: 10, radius: 4 })
     ] }),
-    t.reached("answer") && /* @__PURE__ */ jsx(AssistantText, { text: directAsk.answer }),
-    t.reached("follow-ups") && /* @__PURE__ */ jsx("div", { className: "askim-in", children: /* @__PURE__ */ jsx(AskChips, { options: directAsk.followUps }) })
+    t.reached("answer") && /* @__PURE__ */ jsx(AssistantText, { text: directQuestion.answer }),
+    t.reached("follow-ups") && /* @__PURE__ */ jsx("div", { className: "askim-in", children: /* @__PURE__ */ jsx(AskChips, { options: directQuestion.followUps }) })
   ] }) });
 }
 function Scene$1({ t, v2: v22 = false }) {
-  const chip2 = chipIn(v22 ? lookingChips : specificInfo.chips);
-  const Page2 = v22 ? PdpV2$1 : Pdp$1;
+  const chip3 = chipIn(v22 ? directContent.lookingChips : specificInfo.chips, v22 ? directQuestion.chipId : directAsk.chipId);
   const viewportRef = useRef(null);
   const active = t.reached("activate");
   const open = t.reached("open");
@@ -6051,25 +6279,18 @@ function Scene$1({ t, v2: v22 = false }) {
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "ill-browser-chrome__address", children: [
         /* @__PURE__ */ jsx("img", { src: addressIcon, width: "10", height: "11", alt: "" }),
-        /* @__PURE__ */ jsx("span", { children: url$2 })
+        /* @__PURE__ */ jsx("span", { children: v22 ? directContent.url : url$2 })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "ask-viewport", ref: viewportRef, children: [
-      /* @__PURE__ */ jsx(
-        Page2,
-        {
-          step: 1,
-          specificSelected: active ? chip2.id : "",
-          specific: v22 ? /* @__PURE__ */ jsx(SpecificV2, { t, chip: chip2 }) : open ? /* @__PURE__ */ jsx(InlineThread, { t, chip: chip2 }) : void 0
-        }
-      ),
+      v22 ? /* @__PURE__ */ jsx(PdpV2$1, { step: 1, content: directContent, askAi: false, specificSelected: active ? chip3.id : "", specific: /* @__PURE__ */ jsx(SpecificV2, { t, chip: chip3 }) }) : /* @__PURE__ */ jsx(Pdp$1, { step: 1, specificSelected: active ? chip3.id : "", specific: open ? /* @__PURE__ */ jsx(InlineThread, { t, chip: chip3 }) : void 0 }),
       /* @__PURE__ */ jsx(ContentFade, {}),
       v22 && /* @__PURE__ */ jsx(
         TapRing,
         {
           target: ".ask-specific .aski-chip--on",
           tap: active ? 1 : 0,
-          point: t.reached("scroll") && !t.reached("think") ? open ? ".ask-specific .aski-q" : `.ask-specific .aski-chip:nth-child(${lookingChips.indexOf(chip2) + 1})` : null
+          point: t.reached("scroll") && !t.reached("think") ? open ? ".ask-specific .aski-q" : `.ask-specific .aski-chip:nth-child(${directContent.lookingChips.indexOf(chip3) + 1})` : null
         }
       )
     ] })
@@ -6201,7 +6422,7 @@ const beats$1 = [
   { id: "resolved", type: "pause", ms: 600 }
 ];
 const knockBeats = beats$1.map(
-  (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 3600 } : b
+  (b) => b.id === "widget" ? { id: "widget", type: "pause", ms: 1200 } : b.id === "prompts" ? { ...b, ms: 883 + 1800 } : b
 );
 function Quiz({ t, id, pickId, question, answer: answer2 }) {
   if (!t.reached(id)) return null;
@@ -6223,16 +6444,11 @@ function Widgets({ t }) {
     const expanded = expandedRef.current;
     if (!showCompact || !layer || !surface || !compact || !expanded) return;
     const box = layer.getBoundingClientRect();
-    const zoom = layer.offsetWidth ? box.width / layer.offsetWidth : 1;
+    const k = box.height ? layer.offsetHeight / box.height : 1;
     const place = (name, el) => {
       const r = el.getBoundingClientRect();
-      const insets = {
-        t: (r.top - box.top) / zoom,
-        r: (box.right - r.right) / zoom,
-        b: (box.bottom - r.bottom) / zoom,
-        l: (r.left - box.left) / zoom
-      };
-      for (const [side, value] of Object.entries(insets)) surface.style.setProperty(`--adjm-${name}-${side}`, `${value}px`);
+      const insets = { t: r.top - box.top, r: box.right - r.right, b: box.bottom - r.bottom, l: r.left - box.left };
+      for (const [side, value] of Object.entries(insets)) surface.style.setProperty(`--adjm-${name}-${side}`, `${value * k}px`);
     };
     place("from", compact);
     place("to", expanded);
@@ -6636,20 +6852,31 @@ function AdaptiveProductPagesV2Motion() {
 function Layer({ children }) {
   return /* @__PURE__ */ jsx(StorybookCardSkin.Provider, { value: true, children: /* @__PURE__ */ jsx(StorybookComposerDefault.Provider, { value: true, children: /* @__PURE__ */ jsx("div", { className: "sbl", children }) }) });
 }
-const AdJourneyV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AdJourneyMotion, {}) });
-const OffersComposerV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(OffersComposerMotion, {}) });
-const BuildBundleV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(BuildBundleMotion, {}) });
+const AdJourneyV2Motion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AdJourneyMotion, {}) });
+const OffersComposerV2Motion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(OffersComposerMotion, {}) });
+const BuildBundleV2Motion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(BuildBundleMotion, {}) });
 const RoasGapV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(RoasGapMotion, {}) });
 const RoasGapMwebV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(RoasGapMweb, {}) });
-const PersonalizedContentV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(PersonalizedContentMotion, {}) });
-const ComparisonToolsV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(ComparisonToolsMotion, {}) });
-const GamesRewardsV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(GamesRewardsMotion, {}) });
-const AskAiInlineV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AskAiInlineMotion, {}) });
-const GistUpFrontV2bMotion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(GistUpFrontMotion, { v2: true }) });
-const DirectAskV2bMotion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(DirectAskMotion, { v2: true }) });
-const CrossSellV2bMotion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(CrossSellMotion, { v2: true }) });
+const PersonalizedContentV2Motion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(PersonalizedContentMotion, {}) });
+const ComparisonToolsV2Motion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(ComparisonToolsMotion, {}) });
+const GamesRewardsV2Motion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(GamesRewardsMotion, {}) });
+const AskAiInlineV2Motion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AskAiInlineMotion, {}) });
+const GistUpFrontV2bMotion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(GistUpFrontMotion, { v2: true }) });
+const DirectAskV2bMotion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(DirectAskMotion, { v2: true }) });
+const CrossSellV2bMotion$1 = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(CrossSellMotion, { v2: true }) });
 const DedicatedLandingPagesV2Motion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(DedicatedLandingPagesMotion, {}) });
 const AdaptiveProductPagesV2bMotion = () => /* @__PURE__ */ jsx(Layer, { children: /* @__PURE__ */ jsx(AdaptiveProductPagesV2Motion, {}) });
+const slug = (name, C) => () => createElement("div", { "data-slug": name, style: { display: "contents" } }, createElement(C));
+const ComparisonToolsV2Motion = slug("comparison-tools-motion", ComparisonToolsV2Motion$1);
+const GamesRewardsV2Motion = slug("games-rewards-motion", GamesRewardsV2Motion$1);
+const BuildBundleV2Motion = slug("build-your-bundle-motion", BuildBundleV2Motion$1);
+const AdJourneyV2Motion = slug("ad-journey-motion", AdJourneyV2Motion$1);
+const PersonalizedContentV2Motion = slug("personalized-content-motion", PersonalizedContentV2Motion$1);
+const OffersComposerV2Motion = slug("offers-composer-motion", OffersComposerV2Motion$1);
+const AskAiInlineV2Motion = slug("ask-ai-inline-motion", AskAiInlineV2Motion$1);
+const GistUpFrontV2bMotion = slug("gist-up-front-v2-motion", GistUpFrontV2bMotion$1);
+const DirectAskV2bMotion = slug("direct-ask-v2-motion", DirectAskV2bMotion$1);
+const CrossSellV2bMotion = slug("upsell-cross-sell-v2-motion", CrossSellV2bMotion$1);
 export {
   AdJourneyV2Motion,
   AdaptiveProductPagesV2bMotion,

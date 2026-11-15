@@ -38,9 +38,14 @@ import {
  * | --- | --- | --- |
  * | 01 `roas-gap-motion` | 1289 × 600 | gap/roas-gap.tsx (via dlp-scene-panel.tsx) |
  * | 02 `dedicated-landing-pages-motion`, 03 `adaptive-product-pages-v2-motion` | 687 × 586 | options/option-list.tsx |
- * | 04–09 `comparison-tools-motion` … `offers-composer-motion` | 738 × 680 | options/dedicated-tab-list.tsx |
+ * | 04–09 `comparison-tools-motion` … `offers-composer-motion` | 788 × 579 | options/dedicated-tab-list.tsx |
  * | 10–13 `ask-ai-inline-motion` … `upsell-cross-sell-v2-motion` | 738 × 760 | adaptive/adaptive-tabs.tsx |
  * | 01m `roas-gap-mweb-motion` | 352 × 300 | gap/roas-gap.tsx, below 768px |
+ *
+ * The 15 November 2026 update: 04–09 are 788 × 579 on the damask with a 676 × 467 window, 10–13 get a new backdrop,
+ * and 01's window corners change. Its stylesheet keys those on each visual's `data-slug` (the source page's figure), so
+ * the build wraps 04–13 in a box-less `data-slug` element. The source now undoes zoom itself in AdJourneyMotion and
+ * GamesRewardsMotion's composer-to-panel morphs, so the site's own patch there is gone; the other patches stay.
  *
  * The 11 November 2026 update (Crossword-Sell-Dynamic-V2-Motion-2026-11-11) adds 01m and the page's window standard
  * (24px corners and a gold edge, its sell-dynamic-v2-motion.css). That file is scoped under the source page's `.hv2`;
@@ -104,45 +109,45 @@ export const dlpScenes = {
     Component: ComparisonToolsV2Motion,
     label:
       "A shopper searches Goodwell vs Moonrest and lands on a comparison page laying the two brands' labels, pack sizes and prices side by side.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 6600,
   },
   "games-rewards-motion": {
     Component: GamesRewardsV2Motion,
     label: "A shopper taps an ad into a quick game on the landing page, collects stars and unlocks a reward to use at checkout.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 21000,
   },
   "build-your-bundle-motion": {
     Component: BuildBundleV2Motion,
     label:
       "A Goodwell gummies ad leads to its landing page, where two quick questions match the shopper to a bundle of gummies to add.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 20200,
   },
   "ad-journey-motion": {
     Component: AdJourneyV2Motion,
     label: "A shopper taps an ad into a short chat quiz that asks one question at a time and guides them to the right products.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 21400,
   },
   "personalized-content-motion": {
     Component: PersonalizedContentV2Motion,
     label: "The exact product from the ad lands front and center on the page the shopper clicks through to.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 6300,
   },
   "offers-composer-motion": {
     Component: OffersComposerV2Motion,
     label:
       "A welcome offer card pops in above the chat composer on the landing page; tapped, the chat opens with the offer and its WELCOME10 code.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 11400,
   },
   "adaptive-product-pages-v2-motion": {

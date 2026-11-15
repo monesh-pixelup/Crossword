@@ -35,7 +35,7 @@ function TabPanel({ tab, scene, play, replay }: { tab: Tab; scene: boolean; play
     <>
       {/*
         As Shopper asks: the framed panel art (821 × 611, a maroon damask in 16px of studded lattice inside a 1px
-        #d2cdc0 border) fills the column. The component's motion visual (738 × 680) is fitted whole inside the damask,
+        #d2cdc0 border) fills the column. The component's motion visual (788 × 579) fills the damask,
         16px in, and centred in it, without its own crimson backdrop and gold frame (`.dlp-bare`), so only the
         panel's frame shows around the illustration.
       */}
