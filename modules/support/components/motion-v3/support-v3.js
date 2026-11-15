@@ -3,9 +3,8 @@
 // Built from the "Crossword — Support V3 motion visuals" source (Crossword-Support-V3-Motion/source) with Vite,
 // unminified, React external. See ./support-motion.tsx for the mechanical changes.
 
+import { useRef, useState, useLayoutEffect, forwardRef, useEffect, Fragment as Fragment$1, useMemo, createContext, useContext, useCallback, createElement } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import { useRef, useState, useLayoutEffect, forwardRef, useEffect, Fragment as Fragment$1, useMemo, useCallback, createContext, useContext } from "react";
-import { createPortal } from "react-dom";
 const frameBackground = "/images/support/v3/assets/background-GiCSjLb9.svg";
 const frameTexture = "/images/support/v3/assets/background-texture-C4nqYl4R.webp";
 function SceneFrame({
@@ -70,14 +69,37 @@ const __vite_glob_0_10 = "/images/support/v3/assets/proteinmax-mark-CAjpFhM5.svg
 const __vite_glob_0_11 = "/images/support/v3/assets/sorelle-labs-mark-CQBfsdpQ.svg";
 const __vite_glob_0_12 = "/images/support/v3/assets/stride-mark-BhAcSYrg.svg";
 const __vite_glob_0_13 = "/images/support/v3/assets/trailwell-mark-DWHfUX1B.svg";
-const __vite_glob_1_0 = "/images/support/v3/assets/amber-and-oak-mark-DyBTEnHG.svg";
-const __vite_glob_1_1 = "/images/support/v3/assets/aurelia-mark-WAhMDRAF.svg";
-const __vite_glob_1_2 = "/images/support/v3/assets/aurelle-mark-CkALuNbG.svg";
-const __vite_glob_1_3 = "/images/support/v3/assets/brewhaus-mark-CPBhNKZi.svg";
-const __vite_glob_1_4 = "/images/support/v3/assets/crestline-mark-x07nlP5x.svg";
-const __vite_glob_1_5 = "/images/support/v3/assets/dusklight-mark-BxLi6ckI.svg";
-const __vite_glob_1_6 = "/images/support/v3/assets/moonrest-mark-C1S3y54t.svg";
-const __vite_glob_1_7 = "/images/support/v3/assets/sorelle-labs-mark-DwV8-BRm.svg";
+const __vite_glob_1_0 = "/images/support/v3/assets/aeria-YYq39Tmj.webp";
+const __vite_glob_1_1 = "/images/support/v3/assets/amber-and-oak-B_E1LHFp.webp";
+const __vite_glob_1_2 = "/images/support/v3/assets/auden-D6bviGYb.webp";
+const __vite_glob_1_3 = "/images/support/v3/assets/aura-9M4MUBrO.webp";
+const __vite_glob_1_4 = "/images/support/v3/assets/aurelia-DIkgKc6E.webp";
+const __vite_glob_1_5 = "/images/support/v3/assets/aurelle-D4MmoaJI.webp";
+const __vite_glob_1_6 = "/images/support/v3/assets/brewhaus-nqvL_9rd.webp";
+const __vite_glob_1_7 = "/images/support/v3/assets/crestline-10BYG1fb.webp";
+const __vite_glob_1_8 = "/images/support/v3/assets/dusklight-D4BTEpTH.webp";
+const __vite_glob_1_9 = "/images/support/v3/assets/echo-and-co-v-USWRkm.webp";
+const __vite_glob_1_10 = "/images/support/v3/assets/formwork-D1yGSW-s.webp";
+const __vite_glob_1_11 = "/images/support/v3/assets/goodwell-D-tqaLX2.webp";
+const __vite_glob_1_12 = "/images/support/v3/assets/hearthware-BV2ZsyEY.webp";
+const __vite_glob_1_13 = "/images/support/v3/assets/holt-and-co-CNH9FNcC.webp";
+const __vite_glob_1_14 = "/images/support/v3/assets/lumen-BKTnlTLa.webp";
+const __vite_glob_1_15 = "/images/support/v3/assets/marais-vhL6aN8y.webp";
+const __vite_glob_1_16 = "/images/support/v3/assets/moonrest-jpQQ4DyZ.webp";
+const __vite_glob_1_17 = "/images/support/v3/assets/proteinmax-CfxeVd4u.webp";
+const __vite_glob_1_18 = "/images/support/v3/assets/sorelle-labs-CQqgbOme.webp";
+const __vite_glob_1_19 = "/images/support/v3/assets/stride-BjAZUFR_.webp";
+const __vite_glob_1_20 = "/images/support/v3/assets/trailwell-vb-FA88_.webp";
+const __vite_glob_1_21 = "/images/support/v3/assets/vela-qtSHjO_9.webp";
+const __vite_glob_1_22 = "/images/support/v3/assets/waveline-BNXG9I4L.webp";
+const __vite_glob_2_0 = "/images/support/v3/assets/amber-and-oak-mark-DyBTEnHG.svg";
+const __vite_glob_2_1 = "/images/support/v3/assets/aurelia-mark-WAhMDRAF.svg";
+const __vite_glob_2_2 = "/images/support/v3/assets/aurelle-mark-CkALuNbG.svg";
+const __vite_glob_2_3 = "/images/support/v3/assets/brewhaus-mark-CPBhNKZi.svg";
+const __vite_glob_2_4 = "/images/support/v3/assets/crestline-mark-x07nlP5x.svg";
+const __vite_glob_2_5 = "/images/support/v3/assets/dusklight-mark-BxLi6ckI.svg";
+const __vite_glob_2_6 = "/images/support/v3/assets/moonrest-mark-C1S3y54t.svg";
+const __vite_glob_2_7 = "/images/support/v3/assets/sorelle-labs-mark-DwV8-BRm.svg";
 const aurelia = {
   name: "Aurelia",
   category: "Merchant workspace",
@@ -89,6 +111,7 @@ const aurelia = {
   tracking: "-0.025em",
   imageDirection: "Merchant workflow modules; no retail product imagery.",
   logomarkPath: "src/assets/brands/supplied/aurelia-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelia.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelia-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -104,6 +127,7 @@ const marais = {
   tracking: "0.12em",
   imageDirection: "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
   logomarkPath: "src/assets/brands/supplied/marais-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/marais.png",
   identitySourcePath: "src/assets/brands/supplied/marais-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -119,6 +143,7 @@ const goodwell = {
   tracking: "-0.025em",
   imageDirection: "Plum-labelled jars on soft lavender backgrounds.",
   logomarkPath: "src/assets/brands/supplied/goodwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/goodwell.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/goodwell-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -137,7 +162,8 @@ const moonrest = {
   wordmarkPath: "src/assets/brands/placeholders/moonrest-wordmark.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/moonrest-badge.svg",
-  wordmarkTreatment: "plain-text"
+  wordmarkTreatment: "plain-text",
+  logomarkRasterPath: "src/assets/brands/logomarks/moonrest.png"
 };
 const dusklight = {
   name: "Dusklight",
@@ -150,6 +176,7 @@ const dusklight = {
   tracking: "-0.025em",
   imageDirection: "Sculptural lighting in muted dusk neutrals.",
   logomarkPath: "src/assets/brands/supplied/dusklight-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/dusklight.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/dusklight-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -165,6 +192,7 @@ const crestline = {
   tracking: "0.12em",
   imageDirection: "Graphite and ivory outdoor equipment on neutral studio backgrounds.",
   logomarkPath: "src/assets/brands/supplied/crestline-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/crestline.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/crestline-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -180,6 +208,7 @@ const brewhaus = {
   tracking: "0.12em",
   imageDirection: "Brushed steel machines and cream coffee packaging; warm studio light.",
   logomarkPath: "src/assets/brands/supplied/brewhaus-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/brewhaus.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/brewhaus-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -193,7 +222,12 @@ const waveline = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents."
+  imageDirection: "Clean silver and charcoal electronics, restrained blue-green accents.",
+  logomarkPath: "src/assets/brands/logomarks/source/waveline.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/waveline.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/waveline.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aura = {
   name: "Aura",
@@ -206,6 +240,7 @@ const aura = {
   tracking: "0.12em",
   imageDirection: "Ivory earbud shells with small uppercase branding.",
   logomarkPath: "src/assets/brands/supplied/aura-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aura.png",
   identitySourcePath: "src/assets/brands/supplied/aura-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -219,7 +254,12 @@ const auden$1 = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants."
+  imageDirection: "Same headphone geometry across black, ivory, olive and mustard variants.",
+  logomarkPath: "src/assets/brands/logomarks/source/auden.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/auden.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/auden.svg",
+  wordmarkTreatment: "plain-text"
 };
 const lumen = {
   name: "Lumen",
@@ -230,7 +270,12 @@ const lumen = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "uppercase",
   tracking: "0.12em",
-  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging."
+  imageDirection: "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging.",
+  logomarkPath: "src/assets/brands/logomarks/source/lumen.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/lumen.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/lumen.svg",
+  wordmarkTreatment: "plain-text"
 };
 const trailwell = {
   name: "Trailwell",
@@ -243,6 +288,7 @@ const trailwell = {
   tracking: "-0.025em",
   imageDirection: "Outdoor utility, olive fabric and durable metal bottles.",
   logomarkPath: "src/assets/brands/supplied/trailwell-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/trailwell.png",
   identitySourcePath: "src/assets/brands/supplied/trailwell-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -258,6 +304,7 @@ const stride = {
   tracking: "-0.025em",
   imageDirection: "Minimal footwear; black, tan and white are separate image assets, never CSS colour filters.",
   logomarkPath: "src/assets/brands/supplied/stride-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/stride.png",
   identitySourcePath: "src/assets/brands/supplied/stride-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -271,7 +318,12 @@ const vela = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Muted rose and charcoal styling tools."
+  imageDirection: "Muted rose and charcoal styling tools.",
+  logomarkPath: "src/assets/brands/logomarks/source/vela.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/vela.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/vela.svg",
+  wordmarkTreatment: "plain-text"
 };
 const formwork = {
   name: "Formwork",
@@ -282,7 +334,12 @@ const formwork = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair."
+  imageDirection: "Graphite mesh seating; every gallery angle must be of the same chair.",
+  logomarkPath: "src/assets/brands/logomarks/source/formwork.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/formwork.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/formwork.svg",
+  wordmarkTreatment: "plain-text"
 };
 const proteinmax = {
   name: "Proteinmax",
@@ -295,6 +352,7 @@ const proteinmax = {
   tracking: "0.12em",
   imageDirection: "Black protein tubs, red accents and consistent PROTEINMAX labels.",
   logomarkPath: "src/assets/brands/supplied/proteinmax-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/proteinmax.png",
   identitySourcePath: "src/assets/brands/supplied/proteinmax-badge.svg",
   identityStatus: "Supplied logomark; plain-text wordmark",
   wordmarkTreatment: "plain-text"
@@ -308,7 +366,12 @@ const hearthware = {
   font: '"Inter", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting."
+  imageDirection: "Matte charcoal kitchen appliances with warm neutral studio lighting.",
+  logomarkPath: "src/assets/brands/logomarks/source/hearthware.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/hearthware.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/hearthware.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aeria = {
   name: "Aeria",
@@ -319,7 +382,12 @@ const aeria = {
   font: '"Space Grotesk", system-ui, sans-serif',
   wordmarkCase: "none",
   tracking: "-0.025em",
-  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks."
+  imageDirection: "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks.",
+  logomarkPath: "src/assets/brands/logomarks/source/aeria.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aeria.png",
+  identityStatus: "Project logomark; plain-text wordmark",
+  identitySourcePath: "src/assets/brands/logomarks/source/aeria.svg",
+  wordmarkTreatment: "plain-text"
 };
 const aurelle = {
   name: "Aurelle",
@@ -332,6 +400,7 @@ const aurelle = {
   tracking: "-0.025em",
   imageDirection: "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
   logomarkPath: "src/assets/brands/supplied/aurelle-mark.svg",
+  logomarkRasterPath: "src/assets/brands/logomarks/aurelle.png",
   identityStatus: "Supplied logomark; plain-text wordmark",
   identitySourcePath: "src/assets/brands/supplied/aurelle-badge.svg",
   wordmarkTreatment: "plain-text"
@@ -350,6 +419,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
     logomarkPath: "src/assets/brands/supplied/sorelle-labs-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/sorelle-labs.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/sorelle-labs-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -367,6 +437,7 @@ const registry = {
     tracking: "-0.025em",
     imageDirection: "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
     logomarkPath: "src/assets/brands/supplied/amber-and-oak-mark.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/amber-and-oak.png",
     identityStatus: "Supplied logomark; plain-text wordmark",
     identitySourcePath: "src/assets/brands/supplied/amber-and-oak-badge.svg",
     wordmarkTreatment: "plain-text"
@@ -385,7 +456,12 @@ const registry = {
     font: '"Playfair Display", Georgia, serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces."
+    imageDirection: "Cognac leather, subtle debossed wordmarks, warm sand surfaces.",
+    logomarkPath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/holt-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/holt-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   auden: auden$1,
   lumen,
@@ -403,7 +479,12 @@ const registry = {
     font: '"Inter", system-ui, sans-serif',
     wordmarkCase: "none",
     tracking: "-0.025em",
-    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding."
+    imageDirection: "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding.",
+    logomarkPath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    logomarkRasterPath: "src/assets/brands/logomarks/echo-and-co.png",
+    identityStatus: "Project logomark; plain-text wordmark",
+    identitySourcePath: "src/assets/brands/logomarks/source/echo-and-co.svg",
+    wordmarkTreatment: "plain-text"
   },
   hearthware,
   aeria,
@@ -453,21 +534,23 @@ const marks = {
   aeria: "M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h5"
 };
 const suppliedMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/supplied/amber-and-oak-mark.svg": __vite_glob_0_0, "../assets/brands/supplied/aura-mark.svg": __vite_glob_0_1, "../assets/brands/supplied/aurelia-mark.svg": __vite_glob_0_2, "../assets/brands/supplied/aurelle-mark.svg": __vite_glob_0_3, "../assets/brands/supplied/brewhaus-mark.svg": __vite_glob_0_4, "../assets/brands/supplied/crestline-mark.svg": __vite_glob_0_5, "../assets/brands/supplied/dusklight-mark.svg": __vite_glob_0_6, "../assets/brands/supplied/goodwell-mark.svg": __vite_glob_0_7, "../assets/brands/supplied/marais-mark.svg": __vite_glob_0_8, "../assets/brands/supplied/moonrest-mark.svg": __vite_glob_0_9, "../assets/brands/supplied/proteinmax-mark.svg": __vite_glob_0_10, "../assets/brands/supplied/sorelle-labs-mark.svg": __vite_glob_0_11, "../assets/brands/supplied/stride-mark.svg": __vite_glob_0_12, "../assets/brands/supplied/trailwell-mark.svg": __vite_glob_0_13 });
+const rasterMarks = /* @__PURE__ */ Object.assign({ "../assets/brands/logomarks/aeria.png": __vite_glob_1_0, "../assets/brands/logomarks/amber-and-oak.png": __vite_glob_1_1, "../assets/brands/logomarks/auden.png": __vite_glob_1_2, "../assets/brands/logomarks/aura.png": __vite_glob_1_3, "../assets/brands/logomarks/aurelia.png": __vite_glob_1_4, "../assets/brands/logomarks/aurelle.png": __vite_glob_1_5, "../assets/brands/logomarks/brewhaus.png": __vite_glob_1_6, "../assets/brands/logomarks/crestline.png": __vite_glob_1_7, "../assets/brands/logomarks/dusklight.png": __vite_glob_1_8, "../assets/brands/logomarks/echo-and-co.png": __vite_glob_1_9, "../assets/brands/logomarks/formwork.png": __vite_glob_1_10, "../assets/brands/logomarks/goodwell.png": __vite_glob_1_11, "../assets/brands/logomarks/hearthware.png": __vite_glob_1_12, "../assets/brands/logomarks/holt-and-co.png": __vite_glob_1_13, "../assets/brands/logomarks/lumen.png": __vite_glob_1_14, "../assets/brands/logomarks/marais.png": __vite_glob_1_15, "../assets/brands/logomarks/moonrest.png": __vite_glob_1_16, "../assets/brands/logomarks/proteinmax.png": __vite_glob_1_17, "../assets/brands/logomarks/sorelle-labs.png": __vite_glob_1_18, "../assets/brands/logomarks/stride.png": __vite_glob_1_19, "../assets/brands/logomarks/trailwell.png": __vite_glob_1_20, "../assets/brands/logomarks/vela.png": __vite_glob_1_21, "../assets/brands/logomarks/waveline.png": __vite_glob_1_22 });
 const placeholderMarks = /* @__PURE__ */ Object.assign({
-  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_1_0,
-  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_1_1,
-  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_1_2,
-  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_1_3,
-  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_1_4,
-  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_1_5,
-  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_1_6,
-  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_1_7
+  "../assets/brands/placeholders/amber-and-oak-mark.svg": __vite_glob_2_0,
+  "../assets/brands/placeholders/aurelia-mark.svg": __vite_glob_2_1,
+  "../assets/brands/placeholders/aurelle-mark.svg": __vite_glob_2_2,
+  "../assets/brands/placeholders/brewhaus-mark.svg": __vite_glob_2_3,
+  "../assets/brands/placeholders/crestline-mark.svg": __vite_glob_2_4,
+  "../assets/brands/placeholders/dusklight-mark.svg": __vite_glob_2_5,
+  "../assets/brands/placeholders/moonrest-mark.svg": __vite_glob_2_6,
+  "../assets/brands/placeholders/sorelle-labs-mark.svg": __vite_glob_2_7
 });
 function BrandMark({
   brand: name,
   className = ""
 }) {
   const brand2 = getBrand(name);
+  const raster = rasterMarks[`../assets/brands/logomarks/${brand2.id}.png`];
   const supplied = suppliedMarks[`../assets/brands/supplied/${brand2.id}-mark.svg`];
   return /* @__PURE__ */ jsx(
     "span",
@@ -475,9 +558,9 @@ function BrandMark({
       className: `demo-brand-mark ${className}`,
       style: brandStyle(name),
       "data-brand-id": brand2.id,
-      "data-identity-asset": supplied ? "supplied" : "placeholder",
+      "data-identity-asset": raster ? "raster-logomark" : supplied ? "supplied" : "placeholder",
       "aria-hidden": "true",
-      children: supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: supplied, alt: "" }) : brand2.id === "aurelle" || brand2.id === "goodwell" ? /* @__PURE__ */ jsx(
+      children: raster || supplied ? /* @__PURE__ */ jsx("img", { className: "demo-brand-mark__supplied", src: raster ?? supplied, alt: "" }) : brand2.id === "aurelle" || brand2.id === "goodwell" ? /* @__PURE__ */ jsx(
         "img",
         {
           src: brand2.id === "aurelle" ? placeholderMarks["../assets/brands/placeholders/aurelle-mark.svg"] : goodwellMark,
@@ -766,6 +849,7 @@ function Shell({
   header,
   composer,
   growComposer = false,
+  note = false,
   className
 }) {
   return /* @__PURE__ */ jsxs(
@@ -777,7 +861,11 @@ function Shell({
       children: [
         header ?? /* @__PURE__ */ jsx(ChatHeader, { brand: brand2 }),
         /* @__PURE__ */ jsx(ConversationViewport, { ref: viewportRef, children }),
-        composer ?? (growComposer ? /* @__PURE__ */ jsx(GrowComposer, { value: composerValue, typing: composerTyping }) : /* @__PURE__ */ jsx(ChatComposer, { value: composerValue, typing: composerTyping }))
+        composer ?? (growComposer ? /* @__PURE__ */ jsx(GrowComposer, { value: composerValue, typing: composerTyping }) : /* @__PURE__ */ jsx(ChatComposer, { value: composerValue, typing: composerTyping })),
+        note && /* @__PURE__ */ jsxs("p", { className: "ill-shell__note", children: [
+          "AI can make mistakes. Powered by ",
+          /* @__PURE__ */ jsx("u", { children: "Crossword" })
+        ] })
       ]
     }
   );
@@ -1060,7 +1148,6 @@ function StatusSteps({
   ] }, step.label)) });
 }
 const vitaminCSerum = "/images/support/v3/assets/vitamin-c-serum-vnf_1nLn.webp";
-const foundation$1 = "/images/support/v3/assets/foundation-Cmt_XVU-.webp";
 const brand = "Sorelle Labs";
 const orderTracking = {
   userMessage: "Where is my order? It's been a week.",
@@ -1072,25 +1159,6 @@ const orderTracking = {
     { label: "In transit", detail: "Chicago", state: "current" },
     { label: "Out for delivery", detail: "We'll message you", state: "upcoming" }
   ]
-};
-const productUsage = {
-  // The shopper is asking about "this" serum — a product they're already
-  // looking at, so it rides on their turn as a Product/Reference.
-  product: { image: vitaminCSerum, alt: "Sorelle Labs Vitamin C Serum", title: "Vitamin C Serum" },
-  userMessage: "How much of this vitamin C serum should I use?",
-  assistantMessage: "Start with 2–3 drops after cleansing, before moisturizer. If your skin is new to vitamin C, try it every other morning first. Want me to add it to a simple morning routine?",
-  // Reuses the same StatusSteps timeline as 01/03 — "current" repurposed
-  // to mean "the step being asked about," not "in progress now".
-  // Every tab needs its own sub-head — Cleanse/Moisturizer have no dose of
-  // their own, so their sub-heads restate the script's own ordering
-  // language ("after cleansing, before moisturizer") rather than
-  // inventing a new fact.
-  steps: [
-    { label: "Cleanse", detail: "Before serum", state: "done" },
-    { label: "Vitamin C serum", detail: "2–3 drops", state: "current" },
-    { label: "Moisturizer", detail: "After serum", state: "upcoming" }
-  ],
-  cta: "Add to cart"
 };
 const sizeExchange = {
   userMessage: "This doesn't fit. I want to exchange it for a size up.",
@@ -1107,18 +1175,6 @@ const sizeExchange = {
     { label: "Prepaid return label", detail: "In your email", state: "done" },
     { label: "New size ships", detail: "As soon as the return is scanned", state: "upcoming" }
   ]
-};
-const shadeChange = {
-  userMessage: "I ordered the wrong shade of foundation. Can I change it before it ships?",
-  assistantMessage: "Yes. Your order hasn’t shipped yet, so I can switch it from Shade 3 Fair to Shade 4 Buff. Want me to make that change?",
-  product: { image: foundation$1, alt: "Sorelle Labs Foundation in the shopper's order", title: "Foundation" },
-  status: "Not shipped yet",
-  // Swatch fills are product data (the shade itself), not system colors —
-  // replace with the merchant's real shade swatches.
-  from: { label: "In your order", shade: "Shade 3 Fair", swatch: "#efd3bd" },
-  to: { label: "Switch to", shade: "Shade 4 Buff", swatch: "#e2bc9a" },
-  confirm: "Make the change",
-  decline: "Keep Shade 3 Fair"
 };
 const refundStatus = {
   userMessage: "I returned my serum last week. Where’s my refund?",
@@ -1173,9 +1229,6 @@ const merchantInsight = {
   resolution: "The refund is approved but hasn’t reached the payment processor yet. I can draft the response for you."
 };
 const guardrails = {
-  userMessage: "I need to see what’s happening with our customer conversations.",
-  assistantMessage: "I can't override the return window, but I can flag this to a specialist who can review exceptions.",
-  policyChip: "Policy Respected",
   heading: "Your guardrails",
   // Node 2743:33835 gives each row its own title and leading icon; the
   // per-row subcopy was dropped in review (31 Oct 2026).
@@ -1184,6 +1237,35 @@ const guardrails = {
     { title: "Tone of voice", icon: "userSound" },
     { title: "Escalation", icon: "warning" }
   ]
+};
+const guardrailTabs = {
+  refund: {
+    rule: 0,
+    userMessage: "Can I still get a refund? I bought the serum six weeks ago.",
+    assistantMessage: "Our refund window is 30 days, so I can't refund this one myself. I can flag it to a specialist who reviews exceptions.",
+    chip: "Policy respected",
+    shopper: "Maya Chen",
+    topic: "Wants a refund on a serum bought six weeks ago",
+    note: "Refund policy applied: outside the 30-day window"
+  },
+  tone: {
+    rule: 1,
+    userMessage: "This is the second time my order is late. Honestly ridiculous.",
+    assistantMessage: "That's frustrating, and I'm sorry it happened twice. Your order is out for delivery today, and I've added free express shipping to your next one.",
+    chip: "On brand voice",
+    shopper: "Jordan Price",
+    topic: "Second late order, frustrated",
+    note: "Tone of voice applied: calm, owns the delay"
+  },
+  escalation: {
+    rule: 2,
+    userMessage: "I've asked three times now. Can I talk to a real person?",
+    assistantMessage: "Of course. I'm bringing in someone from the team now, and they'll see everything we've discussed.",
+    chip: "Handed to the team",
+    shopper: "Priya Nair",
+    topic: "Asked for a person after three tries",
+    note: "Escalation applied: handed to the team"
+  }
 };
 const humanTakeover = {
   userMessage: "I’ve been going back and forth on this. Can someone help me?",
@@ -1354,7 +1436,7 @@ function useSupportMotionPlayback({
     showReply: phase !== "composing" && phase !== "thinking" && phase !== "thinkingExit"
   };
 }
-function OrderTrackingMotion() {
+function OrderTrackingMotion$1() {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -1367,9 +1449,10 @@ function OrderTrackingMotion() {
   return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
     Shell,
     {
-      className: "ill-shell--standard",
+      className: "ill-shell--standard ill-shell--note",
+      note: true,
       brand,
-      width: 550,
+      width: 753,
       height: 520,
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
@@ -2113,13 +2196,44 @@ function Button({ appearance, label, onClick, iconLeading, iconTrailing, classNa
     iconTrailing
   ] });
 }
-function ProductUsageMotion() {
+const productUsage = {
+  brand: catalog.brewhausMachine.brand,
+  product: {
+    image: catalog.brewhausMachine.image,
+    alt: "BREWHAUS Pro Espresso Machine",
+    title: catalog.brewhausMachine.title
+  },
+  userMessage: "How do I make my first espresso with this machine?",
+  assistantMessage: "Fill the water tank, add ground coffee to the portafilter, and lock it in. Then pull your shot. Rinse the portafilter when you're done. Want the full brewing guide?",
+  steps: [
+    { label: "Fill the tank", detail: "Add fresh water", state: "done" },
+    { label: "Prepare coffee", detail: "Ground coffee in the portafilter", state: "current" },
+    { label: "Pull a shot", detail: "Rinse the portafilter afterward", state: "upcoming" }
+  ],
+  cta: "View brewing guide"
+};
+const shadeChange = {
+  brand: catalog.lumenSecondSkin.brand,
+  product: {
+    image: catalog.lumenSecondSkin.image,
+    alt: "Lumen Second Skin Foundation in the shopper's order",
+    title: catalog.lumenSecondSkin.title
+  },
+  userMessage: "I ordered the wrong shade of Second Skin Foundation. Can I change it before it ships?",
+  assistantMessage: "Yes. Your order hasn’t shipped yet, so I can switch it from Shade 3 Fair to Shade 4 Buff. Want me to make that change?",
+  status: "Not shipped yet",
+  from: { label: "In your order", shade: "Shade 3 Fair", swatch: "#efd3bd" },
+  to: { label: "Switch to", shade: "Shade 4 Buff", swatch: "#e2bc9a" },
+  confirm: "Make the change",
+  decline: "Keep Shade 3 Fair"
+};
+function ProductUsageMotion$1() {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
     userMessage: productUsage.userMessage,
     assistantMessage: productUsage.assistantMessage,
-    thinkingLabel: "Checking the routine",
+    thinkingLabel: "Checking the brewing guide",
     active
   });
   const { product } = productUsage;
@@ -2127,9 +2241,10 @@ function ProductUsageMotion() {
   return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
     Shell,
     {
-      className: "ill-shell--standard",
-      brand,
-      width: 550,
+      className: "ill-shell--standard ill-shell--note",
+      note: true,
+      brand: productUsage.brand,
+      width: 753,
       height: 520,
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
@@ -2151,7 +2266,7 @@ function ProductUsageMotion() {
     }
   ) });
 }
-function SizeExchangeMotion() {
+function SizeExchangeMotion$1() {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -2164,9 +2279,10 @@ function SizeExchangeMotion() {
   return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
     Shell,
     {
-      className: "ill-shell--standard",
-      brand,
-      width: 550,
+      className: "ill-shell--standard ill-shell--note",
+      note: true,
+      brand: "Stride",
+      width: 753,
       height: 520,
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
@@ -2203,7 +2319,7 @@ function SizeExchangeMotion() {
     }
   ) });
 }
-function ShadeChangeMotion() {
+function ShadeChangeMotion$1() {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -2217,9 +2333,10 @@ function ShadeChangeMotion() {
   return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
     Shell,
     {
-      className: "ill-shell--standard",
-      brand,
-      width: 550,
+      className: "ill-shell--standard ill-shell--note",
+      note: true,
+      brand: shadeChange.brand,
+      width: 753,
       height: 520,
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
@@ -2265,7 +2382,7 @@ function AttributeRow({ label, value }) {
     /* @__PURE__ */ jsx("span", { className: "ill-attribute-row__value", children: value })
   ] });
 }
-function RefundStatusMotion() {
+function RefundStatusMotion$1() {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -2278,9 +2395,10 @@ function RefundStatusMotion() {
   return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
     Shell,
     {
-      className: "ill-shell--standard",
+      className: "ill-shell--standard ill-shell--note",
+      note: true,
       brand,
-      width: 550,
+      width: 753,
       height: 520,
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
@@ -2305,7 +2423,7 @@ function RefundStatusMotion() {
     }
   ) });
 }
-function ReturnEligibilityMotion() {
+function ReturnEligibilityMotion$1() {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -2318,9 +2436,10 @@ function ReturnEligibilityMotion() {
   return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
     Shell,
     {
-      className: "ill-shell--standard",
-      brand,
-      width: 550,
+      className: "ill-shell--standard ill-shell--note",
+      note: true,
+      brand: "Proteinmax",
+      width: 753,
       height: 520,
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
@@ -2344,23 +2463,6 @@ function ReturnEligibilityMotion() {
     }
   ) });
 }
-const audiencesBg = "/images/support/v3/assets/audiences_bg_3x-CeMPiv1g.webp";
-const returnReductionBg = "/images/support/v3/assets/return_reduction_bg_3x-PTzwbPCJ.webp";
-const backdrops = { green: audiencesBg, purple: returnReductionBg };
-function LandscapeCanvas({
-  scene,
-  widget,
-  backdrop,
-  bleed = false
-}) {
-  return /* @__PURE__ */ jsxs("div", { className: `ill-landscape-canvas${bleed ? " ill-landscape-canvas--bleed" : ""}`, style: { backgroundImage: `url(${backdrops[backdrop]})` }, children: [
-    /* @__PURE__ */ jsxs("div", { className: "ill-landscape-canvas__page", children: [
-      /* @__PURE__ */ jsx("div", { className: "ill-landscape-canvas__scene", children: scene }),
-      /* @__PURE__ */ jsx("div", { className: "ill-landscape-canvas__fade", children: /* @__PURE__ */ jsx(ContentFade, {}) })
-    ] }),
-    widget && /* @__PURE__ */ jsx("div", { className: "ill-landscape-canvas__widget", children: widget })
-  ] });
-}
 const THINKING_STAGE_1_MS$1 = 300;
 const THINKING_STAGE_2_MS$1 = 500;
 const THINKING_SINGLE_MS = 600;
@@ -2382,6 +2484,25 @@ function wordCount(text) {
 }
 function replyRevealMs(text) {
   return wordCount(text) * REPLY_STAGGER_MS + REPLY_WORD_ANIM_MS + REPLY_SETTLE_MS$1;
+}
+function beatsDurationMs(beats2) {
+  return beats2.reduce((ms, b, i) => {
+    switch (b.type) {
+      case "compose":
+        if (!b.text) return ms + (b.holdMs ?? 700);
+        return ms + (b.leadMs ?? (i === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS)) + b.text.length * (b.msPerChar ?? CHAR_INTERVAL_MS$1) + SENT_SETTLE_MS;
+      case "think":
+        return ms + (b.labels.length === 2 ? THINKING_STAGE_1_MS$1 + THINKING_STAGE_2_MS$1 : THINKING_SINGLE_MS) + THINKING_EXIT_MS$1;
+      case "text":
+        return ms + replyRevealMs(b.text);
+      case "appear":
+        return ms + (b.ms ?? APPEAR_MS);
+      case "load":
+        return ms + (b.ms ?? LOAD_MS);
+      case "pause":
+        return ms + b.ms;
+    }
+  }, 0);
 }
 function useChatTimeline(beats2, active) {
   const reducedMotion = useRef(prefersReducedMotion$1()).current;
@@ -2481,13 +2602,34 @@ function useChatTimeline(beats2, active) {
     };
   }, [beats2, index, typed, thinkStage, exitingIndex, reducedMotion, runKey]);
 }
+const mwebBg = "/images/support/v3/assets/mweb-bg-green-C8jt4i4X.webp";
+const audiencesBg = "/images/support/v3/assets/audiences_bg_3x-CeMPiv1g.webp";
+const returnReductionBg = "/images/support/v3/assets/return_reduction_bg_3x-PTzwbPCJ.webp";
+const forestBg = "/images/support/v3/assets/forest_wide_bg_3x-D-Dz7kSE.webp";
+const backdrops = { green: audiencesBg, purple: returnReductionBg, forest: forestBg };
+function LandscapeCanvas({
+  scene,
+  widget,
+  backdrop,
+  bleed = false
+}) {
+  return /* @__PURE__ */ jsxs("div", { className: `ill-landscape-canvas${bleed ? " ill-landscape-canvas--bleed" : ""}`, style: { backgroundImage: `url(${backdrops[backdrop]})` }, children: [
+    /* @__PURE__ */ jsxs("div", { className: "ill-landscape-canvas__page", children: [
+      /* @__PURE__ */ jsx("div", { className: "ill-landscape-canvas__scene", children: scene }),
+      /* @__PURE__ */ jsx("div", { className: "ill-landscape-canvas__fade", children: /* @__PURE__ */ jsx(ContentFade, {}) })
+    ] }),
+    widget && /* @__PURE__ */ jsx("div", { className: "ill-landscape-canvas__widget", children: widget })
+  ] });
+}
 const priyaNair = "/images/support/v3/assets/priya-nair-BCkMHgBr.svg";
-const omar = "/images/support/v3/assets/omar-haddad-DhZ90vGZ.svg";
-const shopper = "/images/support/v3/assets/sofia-marino-DQ9d7XfE.svg";
+const omarHaddad = "/images/support/v3/assets/omar-haddad-DhZ90vGZ.svg";
+const sofiaMarino = "/images/support/v3/assets/sofia-marino-DQ9d7XfE.svg";
 const emma = "/images/support/v3/assets/emma-lindqvist-BfFwzYUz.svg";
 const kenji = "/images/support/v3/assets/kenji-watanabe-DWnXW3nN.svg";
-const crosswordMark = "/images/support/v3/assets/org-mark-Alk5D-x9.svg";
-const me = "/images/support/v3/assets/priya-raman-CMwZrsBD.svg";
+const crosswordMark$1 = "/images/support/v3/assets/crossword-logo-C5ShBt7d.svg";
+function RailTile({ className, initial = "A" }) {
+  return /* @__PURE__ */ jsx("span", { className: className ? `rail-tile ${className}` : "rail-tile", "aria-hidden": "true", children: initial });
+}
 const ICONS = {
   house: "M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z",
   cube: "M223.68,66.15,135.68,18h0a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32h0l80.34,44L128,120,47.66,76ZM40,90l80,43.78v85.79L40,175.82Zm96,129.57V133.82L216,90v85.78Z",
@@ -2528,12 +2670,12 @@ function InsightsFrame({
 }) {
   const dash = /* @__PURE__ */ jsxs("div", { className: compact ? "la-dash la-dash--compact" : "la-dash", children: [
     /* @__PURE__ */ jsxs("nav", { className: "la-rail", children: [
-      /* @__PURE__ */ jsx("img", { className: "la-rail__logo la-rail__logo--mark", src: crosswordMark, alt: "" }),
+      /* @__PURE__ */ jsx("img", { className: "la-rail__logo la-rail__logo--mark", src: crosswordMark$1, alt: "" }),
       /* @__PURE__ */ jsx("div", { className: "la-rail__group", children: ["house", "cube", "headset", "chartBar"].map((n) => /* @__PURE__ */ jsx("span", { className: n === railActive ? "la-rail__item la-rail__item--active" : "la-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)) }),
       /* @__PURE__ */ jsxs("div", { className: "la-rail__group la-rail__group--end", children: [
         ["search", "bell", "gear"].map((n) => /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
         /* @__PURE__ */ jsx("span", { className: "la-rail__rule" }),
-        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx("span", { className: "la-rail__me", "aria-hidden": true, children: "A" }) })
+        /* @__PURE__ */ jsx("span", { className: "la-rail__item", children: /* @__PURE__ */ jsx(RailTile, {}) })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("main", { className: "la-main", children: [
@@ -2573,197 +2715,28 @@ function InsightsFrame({
   ] }, runKey);
   return /* @__PURE__ */ jsx("div", { className: ["la-stage", className].filter(Boolean).join(" "), ref: stageRef, children: bare ? dash : /* @__PURE__ */ jsx(LandscapeCanvas, { backdrop: "green", bleed: true, scene: dash }) });
 }
-const insightsBackground = "/images/support/v3/assets/insights-background-XsNT8ufi.webp";
-function InsightFrame({ children }) {
-  return /* @__PURE__ */ jsx("div", { className: "ill-insight-frame-scale", children: /* @__PURE__ */ jsxs("div", { className: "ill-insight-frame", children: [
-    /* @__PURE__ */ jsx("img", { className: "ill-insight-frame__background", src: insightsBackground, alt: "", "aria-hidden": "true" }),
-    /* @__PURE__ */ jsx("div", { className: "ill-insight-frame__content", children })
-  ] }) });
-}
-const script = {
-  query: "Find people who reached checkout but didn't purchase in the last 7 days.",
-  result: "3,284 people reached checkout. 2,140 are still deciding. Most dropped after seeing shipping costs."
+const me = "/images/support/v3/assets/priya-raman-CMwZrsBD.svg";
+const ME = { name: "Priya Raman", face: me };
+const P$1 = {
+  sparkle: "M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z",
+  info: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z",
+  check: "M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z",
+  checks: "M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z",
+  x: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z",
+  scales: "M239.43,133l-32-80h0a8,8,0,0,0-9.16-4.84L136,62V40a8,8,0,0,0-16,0V65.58L54.26,80.19A8,8,0,0,0,48.57,85h0v.06L16.57,165a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32a7.92,7.92,0,0,0-.57-3L66.92,93.77,120,82V208H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16H136V78.42L187,67.1,160.57,133a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32A7.92,7.92,0,0,0,239.43,133ZM56,184c-7.53,0-22.76-3.61-23.93-14.64L56,109.54l23.93,59.82C78.76,180.39,63.53,184,56,184Zm144-32c-7.53,0-22.76-3.61-23.93-14.64L200,77.54l23.93,59.82C222.76,148.39,207.53,152,200,152Z",
+  list: "M224,128a8,8,0,0,1-8,8H104a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM104,72H216a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16ZM216,184H104a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM64,52H48a8,8,0,0,0,0,16H64a8,8,0,0,0,0-16Zm0,64H48a8,8,0,0,0,0,16H64a8,8,0,0,0,0-16Zm0,64H48a8,8,0,0,0,0,16H64a8,8,0,0,0,0-16Z",
+  person: "M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z",
+  globe: "M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm87.62,96H175.79C174,83.49,159.94,57.67,148.41,42.4A88.19,88.19,0,0,1,215.62,120ZM96.23,136h63.54c-2.31,41.61-22.23,67.11-31.77,77C118.45,203.1,98.54,177.6,96.23,136Zm0-16C98.54,78.39,118.46,52.89,128,43c9.55,9.93,29.46,35.43,31.77,77Zm11.36-77.6C96.06,57.67,82,83.49,80.21,120H40.37A88.19,88.19,0,0,1,107.59,42.4ZM40.37,136H80.21c1.82,36.51,15.85,62.33,27.38,77.6A88.19,88.19,0,0,1,40.37,136Zm108,77.6c11.53-15.27,25.56-41.09,27.38-77.6h39.84A88.19,88.19,0,0,1,148.41,213.6Z",
+  sort: "M119.39,172.94a8,8,0,0,1-1.73,8.72l-32,32a8,8,0,0,1-11.32,0l-32-32A8,8,0,0,1,48,168H72V48a8,8,0,0,1,16,0V168h24A8,8,0,0,1,119.39,172.94Zm94.27-98.6-32-32a8,8,0,0,0-11.32,0l-32,32A8,8,0,0,0,144,88h24V208a8,8,0,0,0,16,0V88h24a8,8,0,0,0,5.66-13.66Z",
+  arrowUp: "M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z",
+  caretDown: "M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z",
+  caretUp: "M213.66,165.66a8,8,0,0,1-11.32,0L128,91.31,53.66,165.66a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,213.66,165.66Z",
+  checkCircle: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"
 };
-const askDashboard = {
-  greeting: "Good evening, Priya",
-  headline: "What do you want to know about your visitors?",
-  query: script.query,
-  reply: script.result,
-  thought: "Thought for 4s",
-  suggestions: [
-    { icon: "users", text: "Who's most likely to buy this week" },
-    { icon: "cart", text: "Who keeps reaching cart but doesn't buy" },
-    { icon: "rocket", text: "Who should hear first about a launch" }
-  ],
-  steps: [
-    { live: "Thinking…", done: "Thinking done", chips: [] },
-    {
-      live: "Scanning checkout sessions…",
-      done: "Searching done",
-      chips: [script.query, "Last 7 days", "No purchase"]
-    },
-    {
-      live: "Reading where they dropped off…",
-      done: "People found",
-      chips: ["3,284 people", "2,140 still deciding", "1,144 gone quiet"]
-    }
-  ],
-  card: {
-    title: "Checkout abandoners · last 7 days",
-    count: "3,284",
-    unit: "people",
-    tags: ["Reached checkout", "No purchase", "2,140 still deciding"],
-    label: "Where they dropped off",
-    buckets: [
-      { label: "Shipping costs", deciding: 1210, gone: 486 },
-      { label: "Payment step", deciding: 420, gone: 262 },
-      { label: "Account sign-in", deciding: 260, gone: 178 },
-      { label: "Discount code", deciding: 150, gone: 128 },
-      { label: "Other", deciding: 100, gone: 90 }
-    ],
-    legend: { deciding: "Still deciding", gone: "Gone quiet" },
-    stats: [
-      { icon: "cart", label: "Avg. cart", value: "$186" },
-      { icon: "clock", label: "Median time at checkout", value: "2.6 min" },
-      { icon: "repeat", label: "Returned 3+ times", value: "412" }
-    ]
-  },
-  saved: [
-    "Find visitors who keep reaching cart or checkout but don't buy.",
-    "Create a segment of visitors who reach checkout on Subscribe & Save but never buy."
-  ],
-  recent: [
-    { text: "Who's most likely to buy this week?", age: "1d" },
-    { text: "Who should hear first about our new arrivals?", age: "3d" }
-  ]
-};
-function beatsFor(sc) {
-  return [
-    { id: "ask", type: "compose", text: sc.query, leadMs: 1100 },
-    { id: "step0", type: "appear", ms: 800 },
-    { id: "step1", type: "appear", ms: 1300 },
-    { id: "step2", type: "appear", ms: 1300 },
-    { id: "fold", type: "pause", ms: 500 },
-    { id: "reply", type: "text", text: sc.reply },
-    { id: "card", type: "load", ms: 900 },
-    { id: "bars", type: "appear", ms: 900 },
-    ...sc.action ? [{ id: "action", type: "text", text: sc.action.text }, { id: "cta", type: "appear", ms: 400 }] : []
-  ];
+function I$1({ d }) {
+  return /* @__PURE__ */ jsx("svg", { className: "dk-icon", viewBox: "0 0 256 256", fill: "currentColor", "aria-hidden": true, children: /* @__PURE__ */ jsx("path", { d: P$1[d] }) });
 }
-const EXTRA = {
-  money: "M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152ZM240,56H16a8,8,0,0,0-8,8V192a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V64A8,8,0,0,0,240,56ZM193.65,184H62.35A56.78,56.78,0,0,0,24,145.65v-35.3A56.78,56.78,0,0,0,62.35,72h131.3A56.78,56.78,0,0,0,232,110.35v35.3A56.78,56.78,0,0,0,193.65,184ZM232,93.37A40.81,40.81,0,0,1,210.63,72H232ZM45.37,72A40.81,40.81,0,0,1,24,93.37V72ZM24,162.63A40.81,40.81,0,0,1,45.37,184H24ZM210.63,184A40.81,40.81,0,0,1,232,162.63V184Z",
-  footprints: "M216.06,192v12A36,36,0,0,1,144,204V192a8,8,0,0,1,8-8h56A8,8,0,0,1,216.06,192ZM104,160h-56a8,8,0,0,0-8,8v12a36,36,0,0,0,72,0V168A8,8,0,0,0,104,160ZM76,16C64.36,16,53.07,26.31,44.2,45c-13.93,29.38-18.56,73,.29,96a8,8,0,0,0,6.2,2.93h50.55a8,8,0,0,0,6.2-2.93c18.85-23,14.22-66.65.29-96C98.85,26.31,87.57,16,76,16Zm135.8,53C202.93,50.31,191.64,40,180,40s-22.89,10.31-31.77,29c-13.93,29.38-18.56,73,.29,96a8,8,0,0,0,6.2,2.93h50.55a8,8,0,0,0,6.2-2.93C230.36,142,225.73,98.38,211.8,69Z",
-  check: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z",
-  cart: "M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z",
-  clock: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z",
-  repeat: "M24,128A72.08,72.08,0,0,1,96,56H204.69L194.34,45.66a8,8,0,0,1,11.32-11.32l24,24a8,8,0,0,1,0,11.32l-24,24a8,8,0,0,1-11.32-11.32L204.69,72H96a56.06,56.06,0,0,0-56,56,8,8,0,0,1-16,0Zm200-8a8,8,0,0,0-8,8,56.06,56.06,0,0,1-56,56H51.31l10.35-10.34a8,8,0,0,0-11.32-11.32l-24,24a8,8,0,0,0,0,11.32l24,24a8,8,0,0,0,11.32-11.32L51.31,200H160a72.08,72.08,0,0,0,72-72A8,8,0,0,0,224,120Z",
-  funnel: "M200,136a8,8,0,0,1-8,8H64a8,8,0,0,1,0-16H192A8,8,0,0,1,200,136Zm32-56H24a8,8,0,0,0,0,16H232a8,8,0,0,0,0-16Zm-80,96H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16Z",
-  envelope: "M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z",
-  bookmark: "M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Zm0,177.57-51.77-32.35a8,8,0,0,0-8.48,0L72,209.57V48H184Z"
-};
-function Glyph({ name, className }) {
-  if (name in EXTRA) {
-    return /* @__PURE__ */ jsx("svg", { className: ["la-icon", className].filter(Boolean).join(" "), viewBox: "0 0 256 256", fill: "currentColor", "aria-hidden": true, children: /* @__PURE__ */ jsx("path", { d: EXTRA[name] }) });
-  }
-  return /* @__PURE__ */ jsx(Ph, { name, className });
-}
-function Composer$1({ v, className }) {
-  return /* @__PURE__ */ jsxs("div", { className: ["aid-composer", className].filter(Boolean).join(" "), children: [
-    /* @__PURE__ */ jsx("div", { className: "aid-composer__text", children: v.composer ? /* @__PURE__ */ jsxs(Fragment, { children: [
-      v.composer,
-      v.typing && /* @__PURE__ */ jsx("span", { className: "la-caret" })
-    ] }) : /* @__PURE__ */ jsx("span", { className: "la-composer__placeholder", children: "Ask about your visitors..." }) }),
-    /* @__PURE__ */ jsxs("div", { className: "aid-composer__foot", children: [
-      /* @__PURE__ */ jsx(Ph, { name: "plus", className: "la-muted" }),
-      /* @__PURE__ */ jsxs("span", { className: "aid-modes", children: [
-        /* @__PURE__ */ jsxs("span", { className: "aid-mode aid-mode--on", children: [
-          /* @__PURE__ */ jsx(Ph, { name: "chat" }),
-          "Ask"
-        ] }),
-        /* @__PURE__ */ jsxs("span", { className: "aid-mode", children: [
-          /* @__PURE__ */ jsx(Glyph, { name: "funnel" }),
-          "Find a segment"
-        ] }),
-        /* @__PURE__ */ jsxs("span", { className: "aid-mode", children: [
-          /* @__PURE__ */ jsx(Glyph, { name: "envelope" }),
-          "Draft an email"
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("span", { className: `la-send aid-send${v.composer ? " la-send--ready" : ""}`, children: /* @__PURE__ */ jsx(Ph, { name: "send" }) })
-    ] })
-  ] });
-}
-function Steps({ v, steps }) {
-  return /* @__PURE__ */ jsx("div", { className: "aid-steps", children: steps.map((step, i) => {
-    const state = v.steps[i];
-    if (state === "off") return null;
-    return /* @__PURE__ */ jsxs("div", { className: `aid-step${v.animate ? " la-enter" : ""}`, children: [
-      /* @__PURE__ */ jsxs("div", { className: "aid-step__line", children: [
-        state === "done" ? /* @__PURE__ */ jsx(Glyph, { name: "check", className: "la-primary" }) : /* @__PURE__ */ jsx("span", { className: "aid-spinner" }),
-        state === "done" ? /* @__PURE__ */ jsx("span", { className: "la-fade", children: step.done }) : /* @__PURE__ */ jsx("span", { className: "la-thinking la-thinking--live", children: step.live })
-      ] }),
-      state === "done" && step.chips.length > 0 && /* @__PURE__ */ jsx("div", { className: "aid-chips", children: step.chips.map((c, ci) => /* @__PURE__ */ jsxs("span", { className: "aid-chip", style: { "--i": ci }, children: [
-        /* @__PURE__ */ jsx(Glyph, { name: "search" }),
-        c
-      ] }, c)) })
-    ] }, step.done);
-  }) });
-}
-const MAX = Math.max(...askDashboard.card.buckets.map((b) => b.deciding + b.gone));
-function CartCard({ v }) {
-  const c = askDashboard.card;
-  return /* @__PURE__ */ jsxs("div", { className: ["la-card", "aid-card", v.animate && "la-enter", !v.bars && "aid-card--pending"].filter(Boolean).join(" "), children: [
-    /* @__PURE__ */ jsxs("header", { className: "la-card__head", children: [
-      /* @__PURE__ */ jsx(Glyph, { name: "cart", className: "la-muted" }),
-      /* @__PURE__ */ jsx("span", { className: "la-card__title", children: c.title }),
-      /* @__PURE__ */ jsxs("span", { className: "aid-save", children: [
-        /* @__PURE__ */ jsx(Glyph, { name: "bookmark" }),
-        "Save insight"
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "aid-hero", children: [
-      /* @__PURE__ */ jsx("span", { className: "la-faces", children: [priyaNair, omar, shopper].map((src) => /* @__PURE__ */ jsx("img", { src, alt: "" }, src)) }),
-      /* @__PURE__ */ jsx("span", { className: "aid-count", children: c.count }),
-      /* @__PURE__ */ jsx("span", { className: "aid-unit", children: c.unit }),
-      /* @__PURE__ */ jsx("span", { className: "aid-tags", children: c.tags.map((t) => /* @__PURE__ */ jsx("span", { className: "la-tag", children: t }, t)) })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "aid-chart", children: [
-      /* @__PURE__ */ jsx("p", { className: "la-card__label", children: c.label }),
-      c.buckets.map((b, i) => /* @__PURE__ */ jsxs("div", { className: "aid-bar", style: { "--i": i }, children: [
-        /* @__PURE__ */ jsx("span", { className: "aid-bar__label", children: b.label }),
-        /* @__PURE__ */ jsxs("span", { className: "aid-bar__track", children: [
-          /* @__PURE__ */ jsx("span", { className: "aid-bar__fill aid-bar__fill--deciding", style: { width: `${b.deciding / MAX * 100}%` } }),
-          /* @__PURE__ */ jsx("span", { className: "aid-bar__fill aid-bar__fill--gone", style: { width: `${b.gone / MAX * 100}%` } })
-        ] }),
-        /* @__PURE__ */ jsx("span", { className: "aid-bar__value", children: (b.deciding + b.gone).toLocaleString("en-US") })
-      ] }, b.label)),
-      /* @__PURE__ */ jsxs("div", { className: "aid-legend", children: [
-        /* @__PURE__ */ jsxs("span", { children: [
-          /* @__PURE__ */ jsx("i", { className: "aid-key aid-key--deciding" }),
-          c.legend.deciding
-        ] }),
-        /* @__PURE__ */ jsxs("span", { children: [
-          /* @__PURE__ */ jsx("i", { className: "aid-key aid-key--gone" }),
-          c.legend.gone
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "aid-stats", children: c.stats.map((st) => /* @__PURE__ */ jsxs("div", { className: "aid-stat", children: [
-      /* @__PURE__ */ jsxs("span", { className: "aid-stat__label", children: [
-        /* @__PURE__ */ jsx(Glyph, { name: st.icon }),
-        st.label
-      ] }),
-      /* @__PURE__ */ jsx("span", { className: "aid-stat__value", children: st.value })
-    ] }, st.label)) }),
-    v.animate && /* @__PURE__ */ jsxs("div", { className: `la-skeleton${v.cardLoading ? "" : " la-skeleton--hidden"}`, "aria-hidden": true, children: [
-      /* @__PURE__ */ jsx("span", { style: { width: 220, height: 14 } }),
-      /* @__PURE__ */ jsx("span", { style: { width: 380, height: 32 } }),
-      [0, 1, 2, 3].map((i) => /* @__PURE__ */ jsx("span", { style: { width: `${86 - i * 14}%`, height: 14 } }, i)),
-      /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 44 } })
-    ] })
-  ] });
-}
-function useFollowLatest$1(animate, mounted, settled, runKey) {
+function useFollowLatest$1(animate, runKey) {
   const threadRef = useRef(null);
   const contentRef = useRef(null);
   useLayoutEffect(() => {
@@ -2774,164 +2747,609 @@ function useFollowLatest$1(animate, mounted, settled, runKey) {
     follow();
     const observer = new ResizeObserver(follow);
     observer.observe(content);
+    observer.observe(thread);
     return () => observer.disconnect();
-  }, [animate, mounted, runKey]);
-  useEffect(() => {
-    var _a, _b;
-    const thread = threadRef.current;
-    if (!settled || !thread) return;
-    const toEnd = () => thread.scrollTo({ top: thread.scrollHeight, behavior: animate ? "smooth" : "instant" });
-    const pin = () => {
-      thread.scrollTop = thread.scrollHeight;
-    };
-    const id = window.setTimeout(toEnd, animate ? 1200 : 0);
-    const pinId = window.setTimeout(pin, animate ? 2e3 : 0);
-    (_b = (_a = document.fonts) == null ? void 0 : _a.ready) == null ? void 0 : _b.then(animate ? toEnd : pin);
-    return () => {
-      window.clearTimeout(id);
-      window.clearTimeout(pinId);
-    };
-  }, [settled, animate, runKey]);
+  }, [animate, runKey]);
   return { threadRef, contentRef };
 }
-function Dashboard$3({ sc, v, stageRef, runKey }) {
-  const { threadRef, contentRef } = useFollowLatest$1(v.animate, v.sent, v.done, runKey);
-  const Frame = sc.frame === "scene" ? SceneFrame : InsightFrame;
-  return /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx("div", { className: ["aid-viewport", sc.frame === "scene" && "aid-viewport--scene", sc.inset && "aid-viewport--inset"].filter(Boolean).join(" "), children: /* @__PURE__ */ jsx(
-    InsightsFrame,
-    {
-      bare: true,
-      compact: true,
-      saved: askDashboard.saved,
-      recent: askDashboard.recent,
-      active: v.sent ? sc.query : void 0,
-      activeEnter: v.animate,
-      stageRef,
-      runKey,
-      children: /* @__PURE__ */ jsxs("section", { className: "la-chat aid-chat", children: [
-        /* @__PURE__ */ jsxs("header", { className: "aid-chat__head", children: [
-          /* @__PURE__ */ jsx("span", { className: "la-serif aid-chat__title", children: "Insights" }),
-          v.sent && /* @__PURE__ */ jsx("span", { className: `aid-chat__crumb${v.animate ? " la-fade" : ""}`, children: sc.query })
-        ] }),
-        !v.sent ? /* @__PURE__ */ jsxs("div", { className: "aid-home", children: [
-          /* @__PURE__ */ jsx("p", { className: "aid-home__greeting", children: askDashboard.greeting }),
-          /* @__PURE__ */ jsx("h1", { className: "aid-home__headline la-serif", children: askDashboard.headline }),
-          /* @__PURE__ */ jsx(Composer$1, { v, className: "aid-composer--home" }),
-          /* @__PURE__ */ jsx("p", { className: "la-section--nav aid-home__suggested", children: "Suggested" }),
-          /* @__PURE__ */ jsx("div", { className: "aid-suggestions", children: askDashboard.suggestions.map((g) => /* @__PURE__ */ jsxs("span", { className: "aid-suggestion", children: [
-            /* @__PURE__ */ jsx(Glyph, { name: g.icon }),
-            g.text
-          ] }, g.text)) })
-        ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsx("div", { className: "la-thread", ref: threadRef, children: /* @__PURE__ */ jsxs("div", { className: "la-thread__content", ref: contentRef, children: [
-            /* @__PURE__ */ jsx("div", { className: `la-user${v.animate ? " la-enter" : ""}`, children: /* @__PURE__ */ jsx("p", { children: sc.query }) }),
-            v.folded ? /* @__PURE__ */ jsx("div", { className: "la-thought", children: /* @__PURE__ */ jsxs("span", { className: `la-thought__done${v.animate ? " la-fade" : ""}`, children: [
-              askDashboard.thought,
-              /* @__PURE__ */ jsx(Ph, { name: "caretRight" })
-            ] }) }) : /* @__PURE__ */ jsx(Steps, { v, steps: sc.steps }),
-            v.reply && /* @__PURE__ */ jsx("p", { className: "la-reply", children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: sc.reply }) : sc.reply }),
-            v.card && sc.card(v),
-            sc.action && v.action && /* @__PURE__ */ jsxs("div", { className: "aid-action", children: [
-              /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: sc.action.text }) : sc.action.text }),
-              v.cta && /* @__PURE__ */ jsx("span", { className: `aid-cta${v.animate ? " la-enter" : ""}`, children: sc.action.cta })
-            ] })
-          ] }) }),
-          /* @__PURE__ */ jsx(Composer$1, { v: { ...v, composer: "", typing: false }, className: ["aid-composer--slim", v.animate && "la-fade"].filter(Boolean).join(" ") })
-        ] })
-      ] })
-    }
-  ) }) });
-}
-function motionOf(sc) {
-  const beats2 = beatsFor(sc);
-  const last = beats2[beats2.length - 1].id;
-  const has = new Set(beats2.map((b) => b.id));
-  return function InsightsDashboardMotion() {
-    var _a;
-    const stageRef = useRef(null);
-    const t = useChatTimeline(beats2, useLandedOnScreen(stageRef));
-    const step = (id) => t.passed(id) ? "done" : t.reached(id) ? "live" : "off";
-    const v = {
-      sent: t.passed("ask"),
-      composer: ((_a = t.composer) == null ? void 0 : _a.value) ?? "",
-      typing: !!t.composer,
-      steps: [step("step0"), step("step1"), step("step2")],
-      folded: t.passed("fold"),
-      reply: t.reached("reply"),
-      card: t.reached("card"),
-      cardLoading: t.loading("card"),
-      bars: t.reached("bars"),
-      action: has.has("action") && t.reached("action"),
-      cta: has.has("cta") && t.reached("cta"),
-      done: t.passed(last),
-      animate: !t.reducedMotion
-    };
-    return /* @__PURE__ */ jsx(Dashboard$3, { sc, v, stageRef, runKey: t.runKey });
-  };
-}
-const askScenario = {
-  inset: true,
-  query: askDashboard.query,
-  steps: askDashboard.steps,
-  reply: askDashboard.reply,
-  card: (v) => /* @__PURE__ */ jsx(CartCard, { v })
-};
-motionOf(askScenario);
-const initials = (name) => name.split(" ").map((w) => w[0]).join("");
-function InboxCard({ v }) {
-  return /* @__PURE__ */ jsxs("div", { className: ["la-card", "aid-card", v.animate && "la-enter", !v.bars && "aid-card--pending"].filter(Boolean).join(" "), children: [
-    /* @__PURE__ */ jsxs("header", { className: "la-card__head", children: [
-      /* @__PURE__ */ jsx(Glyph, { name: "chat", className: "la-muted" }),
-      /* @__PURE__ */ jsxs("span", { className: "la-card__title", children: [
-        merchantHelpdesk.inboxLabel,
+function Customer({ face, text, time, enter }) {
+  return /* @__PURE__ */ jsxs("div", { className: `wd-msg wd-msg--customer${enter ?? ""}`, children: [
+    /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: face, alt: "" }),
+    /* @__PURE__ */ jsxs("div", { className: "wd-bubble", children: [
+      /* @__PURE__ */ jsx("p", { className: "wd-bubble__text", children: text }),
+      /* @__PURE__ */ jsxs("p", { className: "wd-bubble__foot", children: [
+        /* @__PURE__ */ jsx(I$1, { d: "globe" }),
         " · ",
-        merchantHelpdesk.allConversationsLabel
+        time
       ] })
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "hi-stats", children: merchantHelpdesk.overview.map((o, i) => /* @__PURE__ */ jsxs("div", { className: `hi-stat hi-stat--${o.label.toLowerCase()} aid-reveal`, style: { "--i": i }, children: [
-      /* @__PURE__ */ jsx("span", { className: "hi-stat__value", children: o.value }),
-      /* @__PURE__ */ jsx("span", { className: "hi-stat__label", children: o.label })
-    ] }, o.label)) }),
-    /* @__PURE__ */ jsxs("div", { className: "hi-attention", children: [
-      /* @__PURE__ */ jsxs("p", { className: "la-card__label", children: [
-        merchantHelpdesk.attentionLabel,
-        " · ",
-        merchantHelpdesk.conversations.length
-      ] }),
-      merchantHelpdesk.conversations.map((c, i) => /* @__PURE__ */ jsxs("div", { className: "hi-row aid-reveal", style: { "--i": i + 3 }, children: [
-        /* @__PURE__ */ jsx("span", { className: `hi-row__avatar hi-row__avatar--${c.status.toLowerCase()}`, children: initials(c.name) }),
-        /* @__PURE__ */ jsxs("span", { className: "hi-row__text", children: [
-          /* @__PURE__ */ jsx("span", { className: "hi-row__name", children: c.name }),
-          /* @__PURE__ */ jsxs("span", { className: "hi-row__issue", children: [
-            c.issue,
-            " · ",
-            /* @__PURE__ */ jsx("span", { className: `hi-status--${c.status.toLowerCase()}`, children: c.status })
-          ] })
-        ] }),
-        c.action ? /* @__PURE__ */ jsx("span", { className: "hi-assign", children: c.action }) : /* @__PURE__ */ jsx(Ph, { name: "caretRight", className: "hi-go" })
-      ] }, c.name))
-    ] }),
-    v.animate && /* @__PURE__ */ jsxs("div", { className: `la-skeleton${v.cardLoading ? "" : " la-skeleton--hidden"}`, "aria-hidden": true, children: [
-      /* @__PURE__ */ jsx("span", { style: { width: 200, height: 14 } }),
-      /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 64 } }),
-      /* @__PURE__ */ jsx("span", { style: { width: 140, height: 12 } }),
-      /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 48 } }),
-      /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 48 } })
     ] })
   ] });
 }
-const helpdesk = {
-  query: merchantHelpdesk.userMessage,
-  steps: [
-    { live: "Thinking…", done: "Thinking done", chips: [] },
-    { live: "Reading the team inbox…", done: "Searching done", chips: [merchantHelpdesk.allConversationsLabel, "Today"] },
-    { live: "Sorting what needs attention…", done: "Inbox ready", chips: merchantHelpdesk.overview.map((o) => `${o.value} ${o.label.toLowerCase()}`) }
-  ],
-  reply: merchantHelpdesk.assistantMessage,
-  card: (v) => /* @__PURE__ */ jsx(InboxCard, { v }),
-  frame: "scene"
+function Ai({
+  children,
+  agent = "Shopping Assistant",
+  time,
+  status,
+  enter
+}) {
+  return /* @__PURE__ */ jsxs("div", { className: `wd-msg wd-msg--ai${enter ?? ""}`, children: [
+    /* @__PURE__ */ jsxs("div", { className: "wd-bubble", children: [
+      /* @__PURE__ */ jsx("div", { className: "wd-bubble__text", children }),
+      time && /* @__PURE__ */ jsxs("p", { className: "wd-bubble__foot", children: [
+        agent,
+        " · ",
+        time,
+        " · ",
+        /* @__PURE__ */ jsx(I$1, { d: "checks" }),
+        " ",
+        status
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx("span", { className: "wd-ai-mark", children: /* @__PURE__ */ jsx(I$1, { d: "sparkle" }) })
+  ] });
+}
+function Human({ children, time, status, enter, name = ME.name }) {
+  return /* @__PURE__ */ jsxs("div", { className: `wd-msg wd-msg--ai${enter ?? ""}`, children: [
+    /* @__PURE__ */ jsxs("div", { className: "wd-bubble", children: [
+      /* @__PURE__ */ jsx("div", { className: "wd-bubble__text", children }),
+      time && /* @__PURE__ */ jsxs("p", { className: "wd-bubble__foot", children: [
+        name,
+        /* @__PURE__ */ jsx("span", { className: "wd-bubble__role", children: " · Human agent" }),
+        " · ",
+        time,
+        " · ",
+        /* @__PURE__ */ jsx(I$1, { d: "checks" }),
+        " ",
+        status
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: ME.face, alt: "" })
+  ] });
+}
+function Event({ children, time, enter }) {
+  return /* @__PURE__ */ jsxs("p", { className: `wd-event${enter ?? ""}`, children: [
+    /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: ME.face, alt: "" }),
+    /* @__PURE__ */ jsx("span", { children }),
+    /* @__PURE__ */ jsx("span", { children: "·" }),
+    /* @__PURE__ */ jsx("span", { children: time })
+  ] });
+}
+function EventCard({
+  icon,
+  title,
+  time,
+  tone,
+  children,
+  enter
+}) {
+  return /* @__PURE__ */ jsxs("div", { className: `wd-card${tone === "note" ? " wd-card--note" : ""}${enter ?? ""}`, children: [
+    /* @__PURE__ */ jsx("div", { className: "wd-card__text", children }),
+    /* @__PURE__ */ jsxs("p", { className: "wd-card__foot", children: [
+      /* @__PURE__ */ jsx(I$1, { d: icon }),
+      " ",
+      title,
+      " · ",
+      time
+    ] })
+  ] });
+}
+const InboxMweb = createContext(false);
+function Inbox({
+  title,
+  count,
+  rows,
+  activeIndex = 0,
+  ping,
+  customer,
+  topic,
+  headAction,
+  thread,
+  foot,
+  details,
+  overlay,
+  toast,
+  threadRef,
+  contentRef,
+  stageRef,
+  runKey,
+  rowIcon = "sparkle",
+  backdrop = "green"
+}) {
+  const mweb = useContext(InboxMweb);
+  const dash = /* @__PURE__ */ jsxs("div", { className: mweb ? "dk wd dk--mweb" : "dk wd", children: [
+    /* @__PURE__ */ jsxs("nav", { className: "dk-rail", children: [
+      /* @__PURE__ */ jsx("img", { className: "dk-rail__logo", src: crosswordMark$1, alt: "" }),
+      ["house", "cube", "headset", "chartBar"].map((n) => /* @__PURE__ */ jsx("span", { className: n === "headset" ? "dk-rail__item dk-rail__item--on" : "dk-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
+      /* @__PURE__ */ jsx("span", { className: "dk-rail__item dk-rail__item--end", children: /* @__PURE__ */ jsx(Ph, { name: "gear" }) }),
+      /* @__PURE__ */ jsx(RailTile, { className: "dk-rail__me" })
+    ] }),
+    /* @__PURE__ */ jsxs("section", { className: "wd-list", children: [
+      /* @__PURE__ */ jsxs("div", { className: "wd-list__head", children: [
+        /* @__PURE__ */ jsx("h2", { className: "wd-serif", children: title }),
+        /* @__PURE__ */ jsx("span", { className: "wd-count", children: count })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "wd-search", children: [
+        /* @__PURE__ */ jsx(Ph, { name: "search" }),
+        /* @__PURE__ */ jsx("span", { children: "Search name or message…" })
+      ] }),
+      /* @__PURE__ */ jsxs("span", { className: "wd-sort", children: [
+        /* @__PURE__ */ jsx(I$1, { d: "sort" }),
+        " Last activity ",
+        /* @__PURE__ */ jsx(I$1, { d: "caretDown" })
+      ] }),
+      rows.map((r, i) => /* @__PURE__ */ jsxs(
+        "div",
+        {
+          className: ["wd-row", i === activeIndex && "wd-row--on", i === activeIndex && ping && "wd-row--ping"].filter(Boolean).join(" "),
+          children: [
+            /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: r.face, alt: "" }),
+            /* @__PURE__ */ jsxs("span", { className: "wd-row__body", children: [
+              /* @__PURE__ */ jsxs("span", { className: "wd-row__top", children: [
+                /* @__PURE__ */ jsx("span", { className: "wd-row__name", children: r.name }),
+                rowIcon && /* @__PURE__ */ jsx(I$1, { d: rowIcon })
+              ] }),
+              /* @__PURE__ */ jsxs("span", { className: "wd-row__bottom", children: [
+                /* @__PURE__ */ jsx("span", { className: "wd-row__text", children: r.text }),
+                /* @__PURE__ */ jsxs("span", { className: "wd-row__age", children: [
+                  r.age,
+                  r.dot && /* @__PURE__ */ jsx("span", { className: "wd-dot" })
+                ] })
+              ] })
+            ] })
+          ]
+        },
+        r.name
+      ))
+    ] }),
+    /* @__PURE__ */ jsxs("section", { className: "dk-main", children: [
+      /* @__PURE__ */ jsxs("header", { className: "dk-head", children: [
+        /* @__PURE__ */ jsx("span", { className: "dk-head__name", children: customer.name }),
+        /* @__PURE__ */ jsx("span", { className: "dk-head__actions", children: headAction })
+      ] }),
+      /* @__PURE__ */ jsxs("p", { className: "dk-banner", children: [
+        /* @__PURE__ */ jsx(I$1, { d: "info" }),
+        " ",
+        topic
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "wd-thread", ref: threadRef, children: /* @__PURE__ */ jsx("div", { className: "wd-thread__content", ref: contentRef, children: thread }) }),
+      foot
+    ] }),
+    /* @__PURE__ */ jsxs("aside", { className: "dk-details wd-details", children: [
+      /* @__PURE__ */ jsxs("p", { className: "dk-details__head", children: [
+        /* @__PURE__ */ jsx(I$1, { d: "list" }),
+        " Details"
+      ] }),
+      details
+    ] }),
+    overlay,
+    toast
+  ] }, runKey);
+  if (mweb)
+    return /* @__PURE__ */ jsx("div", { className: "dkm-frame", ref: stageRef, style: { backgroundImage: `url(${mwebBg})` }, children: dash });
+  return /* @__PURE__ */ jsx("div", { className: "la-stage wd-stage", ref: stageRef, children: /* @__PURE__ */ jsx(LandscapeCanvas, { backdrop, bleed: true, scene: dash }) });
+}
+function HeadActions({ mine = false, pressed = false }) {
+  return /* @__PURE__ */ jsxs(Fragment, { children: [
+    /* @__PURE__ */ jsx("span", { className: "dk-iconbtn", children: /* @__PURE__ */ jsx(I$1, { d: "check" }) }),
+    mine ? /* @__PURE__ */ jsxs("span", { className: "dk-takeover wd-enter-soft", children: [
+      /* @__PURE__ */ jsx(I$1, { d: "sparkle" }),
+      " Hand back to Crossword"
+    ] }) : /* @__PURE__ */ jsxs("span", { className: `dk-takeover${pressed ? " wd-pressed" : ""}`, children: [
+      /* @__PURE__ */ jsx(Ph, { name: "headset" }),
+      " Take over"
+    ] })
+  ] });
+}
+function Contact({ name, face, email, extra }) {
+  return /* @__PURE__ */ jsxs("div", { className: "dk-section", children: [
+    /* @__PURE__ */ jsxs("p", { className: "dk-section__title", children: [
+      /* @__PURE__ */ jsx(I$1, { d: "person" }),
+      " Contact",
+      " ",
+      /* @__PURE__ */ jsx("span", { className: "wd-caret", children: /* @__PURE__ */ jsx(I$1, { d: "caretUp" }) })
+    ] }),
+    /* @__PURE__ */ jsxs("p", { className: "dk-contact", children: [
+      /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: face, alt: "" }),
+      name
+    ] }),
+    /* @__PURE__ */ jsxs("p", { className: "dk-row", children: [
+      /* @__PURE__ */ jsx("span", { children: "Channel" }),
+      /* @__PURE__ */ jsxs("span", { className: "wd-inline", children: [
+        /* @__PURE__ */ jsx(I$1, { d: "globe" }),
+        " Web"
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("p", { className: "dk-row", children: [
+      /* @__PURE__ */ jsx("span", { children: "Email" }),
+      /* @__PURE__ */ jsx("span", { children: email })
+    ] }),
+    extra == null ? void 0 : extra.map(([k, val]) => /* @__PURE__ */ jsxs("p", { className: "dk-row", children: [
+      /* @__PURE__ */ jsx("span", { children: k }),
+      /* @__PURE__ */ jsx("span", { children: val })
+    ] }, k)),
+    /* @__PURE__ */ jsx("p", { className: "dk-link", children: "View contact" })
+  ] });
+}
+function Summary({ text }) {
+  return /* @__PURE__ */ jsxs("div", { className: "dk-section dk-summary", children: [
+    /* @__PURE__ */ jsxs("p", { className: "dk-section__title", children: [
+      /* @__PURE__ */ jsx(I$1, { d: "sparkle" }),
+      " Summary",
+      " ",
+      /* @__PURE__ */ jsx("span", { className: "wd-caret", children: /* @__PURE__ */ jsx(I$1, { d: "caretUp" }) })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "dk-summary__box", children: text }),
+    /* @__PURE__ */ jsx("p", { className: "dk-link", children: "Refresh summary" })
+  ] });
+}
+function Composer$1({
+  mode,
+  text,
+  typing,
+  placeholder,
+  steers,
+  bump,
+  enter
+}) {
+  const instruct = mode === "instruct";
+  return /* @__PURE__ */ jsxs("div", { className: `dk-composer wd-composer${instruct ? "" : " wd-composer--reply"}${enter ? " wd-enter-soft" : ""}`, children: [
+    /* @__PURE__ */ jsxs("p", { className: "dk-composer__top", children: [
+      instruct ? /* @__PURE__ */ jsx(I$1, { d: "sparkle" }) : /* @__PURE__ */ jsx(Ph, { name: "headset" }),
+      " ",
+      instruct ? "AI is replying" : "You’re replying",
+      /* @__PURE__ */ jsxs("span", { className: `wd-steers${bump ? " wd-steers--bump" : ""}`, children: [
+        /* @__PURE__ */ jsx(I$1, { d: "sparkle" }),
+        " ",
+        steers === 1 ? "1 instruction" : `${steers} instructions`
+      ] }, steers)
+    ] }),
+    /* @__PURE__ */ jsxs("p", { className: `dk-composer__text${text ? " dk-composer__text--filled" : ""}`, children: [
+      text || placeholder,
+      typing && /* @__PURE__ */ jsx("span", { className: "ib-caret" })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "dk-composer__foot", children: [
+      /* @__PURE__ */ jsxs("span", { className: "wd-pickers", children: [
+        /* @__PURE__ */ jsxs("span", { className: "dk-mode", children: [
+          instruct ? /* @__PURE__ */ jsx(I$1, { d: "sparkle" }) : /* @__PURE__ */ jsx(Ph, { name: "send" }),
+          " ",
+          instruct ? "Instruct Crossword" : "Public reply",
+          " ",
+          /* @__PURE__ */ jsx(I$1, { d: "caretDown" })
+        ] }),
+        instruct && /* @__PURE__ */ jsxs("span", { className: "dk-mode wd-scope", children: [
+          "This chat ",
+          /* @__PURE__ */ jsx(I$1, { d: "caretDown" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("span", { className: `dk-send${text ? " dk-send--ready" : ""}`, children: [
+        instruct ? "Add" : "Send",
+        " ",
+        /* @__PURE__ */ jsx(I$1, { d: "arrowUp" })
+      ] })
+    ] })
+  ] }, mode);
+}
+function Confirm({
+  title,
+  body,
+  action,
+  pressed,
+  leaving
+}) {
+  return /* @__PURE__ */ jsx("div", { className: `wd-scrim${leaving ? " wd-scrim--out" : ""}`, children: /* @__PURE__ */ jsxs("div", { className: "wd-dialog", children: [
+    /* @__PURE__ */ jsx("p", { className: "wd-dialog__title", children: title }),
+    /* @__PURE__ */ jsx("p", { className: "wd-dialog__body", children: body }),
+    /* @__PURE__ */ jsxs("div", { className: "wd-dialog__actions", children: [
+      /* @__PURE__ */ jsx("span", { className: "wd-btn wd-btn--outline", children: "Cancel" }),
+      /* @__PURE__ */ jsx("span", { className: `wd-btn wd-btn--primary${pressed ? " wd-pressed" : ""}`, children: action })
+    ] })
+  ] }) });
+}
+function Toast({ children }) {
+  return /* @__PURE__ */ jsxs("p", { className: "wd-toast", children: [
+    /* @__PURE__ */ jsx(I$1, { d: "checkCircle" }),
+    " ",
+    children
+  ] });
+}
+const CUSTOMER$4 = { name: "Maya Collins", face: emma };
+const OTHERS$2 = [
+  { name: "Omar Haddad", face: omarHaddad, text: "Can I change the delivery address?", age: "4m" },
+  { name: "Sofia Marino", face: sofiaMarino, text: "Thanks, that worked!", age: "12m" },
+  { name: "Kenji Watanabe", face: kenji, text: "Great choice! It's in stock and ships today.", age: "26m" }
+];
+const beats$4 = [
+  { id: "rest", type: "pause", ms: 900 },
+  { id: "ask", type: "appear", ms: 1100 },
+  { id: "think", type: "think", labels: ["Thinking", "Bringing in the team"] },
+  { id: "reply", type: "text", text: humanTakeover.assistantMessage },
+  { id: "handoff", type: "appear", ms: 1300 },
+  { id: "press", type: "appear", ms: 450 },
+  { id: "confirm", type: "appear", ms: 1500 },
+  { id: "confirmPress", type: "appear", ms: 350 },
+  { id: "joined", type: "appear", ms: 1100 },
+  { id: "type", type: "compose", text: humanTakeover.humanMessage, msPerChar: 36 },
+  { id: "sent", type: "appear", ms: 2800 }
+];
+function Dashboard$4({ v, stageRef, runKey }) {
+  const enter = v.animate ? " ib-enter" : "";
+  const { threadRef, contentRef } = useFollowLatest$1(v.animate, runKey);
+  const first = CUSTOMER$4.name.split(" ")[0];
+  const preview = v.sent ? humanTakeover.humanMessage : v.reply ? humanTakeover.assistantMessage : humanTakeover.userMessage;
+  return /* @__PURE__ */ jsx(
+    Inbox,
+    {
+      title: v.joined ? "My Chats" : "AI agents",
+      count: v.joined ? 1 : 4,
+      rows: [{ ...CUSTOMER$4, text: preview, age: v.asked ? "now" : "2m", dot: v.handoff && !v.joined }, ...v.joined ? [] : OTHERS$2],
+      rowIcon: v.joined ? null : "sparkle",
+      ping: v.asked && v.animate && !v.joined,
+      customer: CUSTOMER$4,
+      topic: "Wants a person to help her decide",
+      headAction: /* @__PURE__ */ jsx(HeadActions, { mine: v.joined, pressed: v.pressed && !v.confirm }),
+      threadRef,
+      contentRef,
+      stageRef,
+      runKey,
+      thread: /* @__PURE__ */ jsxs(Fragment, { children: [
+        v.asked && /* @__PURE__ */ jsx(Customer, { face: CUSTOMER$4.face, text: humanTakeover.userMessage, time: "01:20", enter }),
+        (v.thinking || v.reply) && /* @__PURE__ */ jsx(Ai, { enter, time: v.reply ? "01:20" : void 0, status: "Seen", children: v.thinking ? /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: ["la-thinking", v.animate && "la-thinking--live", !v.thinking.visible && "la-thinking--out"].filter(Boolean).join(" "),
+            children: v.thinking.label
+          },
+          v.thinking.label
+        ) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: humanTakeover.assistantMessage }) : humanTakeover.assistantMessage }) }),
+        v.handoff && /* @__PURE__ */ jsxs(EventCard, { icon: "sparkle", title: "Handed to the team · Shopping Assistant", time: "01:20", enter, children: [
+          /* @__PURE__ */ jsx("span", { className: "wd-card__label", children: "Question" }),
+          humanTakeover.userMessage
+        ] }),
+        v.joined && /* @__PURE__ */ jsxs(Event, { time: "01:21", enter, children: [
+          /* @__PURE__ */ jsx("b", { children: ME.name }),
+          " has joined the chat"
+        ] }),
+        v.sent && /* @__PURE__ */ jsx(Human, { time: "01:21", status: "Delivered", enter, children: /* @__PURE__ */ jsx("p", { children: humanTakeover.humanMessage }) })
+      ] }),
+      foot: v.joined ? /* @__PURE__ */ jsx(Composer$1, { mode: "reply", text: v.composer, typing: v.typing, placeholder: `Reply to ${first}…`, steers: 0, enter: v.animate }) : /* @__PURE__ */ jsx(Composer$1, { mode: "instruct", text: "", typing: false, placeholder: "Tell the AI what to do in this chat…", steers: 0 }),
+      details: /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx(Contact, { ...CUSTOMER$4, email: "maya.c@example.net" }),
+        /* @__PURE__ */ jsx(Summary, { text: "Maya has been going back and forth and asked for a person. The AI has handed the chat to the team with everything discussed so far." })
+      ] }),
+      overlay: v.confirm && /* @__PURE__ */ jsx(
+        Confirm,
+        {
+          title: "Take over this conversation?",
+          body: `The AI will stop replying — ${CUSTOMER$4.name}’s messages come to you until you hand it back.`,
+          action: "Take over",
+          pressed: v.confirmPressed
+        }
+      ),
+      toast: v.toast && /* @__PURE__ */ jsx(Toast, { children: "You're now handling this conversation." })
+    }
+  );
+}
+function TakeoverDashboardMotion() {
+  var _a;
+  const stageRef = useRef(null);
+  const t = useChatTimeline(beats$4, useLandedOnScreen(stageRef));
+  const joined = t.reached("joined");
+  const v = {
+    asked: t.reached("ask"),
+    thinking: t.status("think"),
+    reply: t.reached("reply"),
+    handoff: t.reached("handoff"),
+    pressed: t.reached("press"),
+    confirm: t.reached("confirm") && !joined,
+    confirmPressed: t.reached("confirmPress"),
+    joined,
+    composer: ((_a = t.composer) == null ? void 0 : _a.value) ?? "",
+    typing: !!t.composer,
+    sent: t.reached("sent"),
+    toast: joined && !t.passed("type"),
+    animate: !t.reducedMotion
+  };
+  return /* @__PURE__ */ jsx(Dashboard$4, { v, stageRef, runKey: t.runKey });
+}
+function TakeoverDashboardMwebMotion() {
+  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(TakeoverDashboardMotion, {}) });
+}
+const CUSTOMER$3 = { name: "Omar Haddad", face: omarHaddad };
+const OTHER = { name: "Kenji Watanabe", face: kenji, text: "Refund $78.00 on order SM-10429?", age: "2h", dot: true };
+const beats$3 = [
+  { id: "rest", type: "pause", ms: 900 },
+  { id: "ask", type: "appear", ms: 1100 },
+  { id: "think", type: "think", labels: ["Thinking", "Checking with the team"] },
+  { id: "checking", type: "text", text: merchantApproval.checkingMessage },
+  { id: "decision", type: "appear", ms: 2600 },
+  { id: "press", type: "appear", ms: 450 },
+  { id: "decided", type: "appear", ms: 1300 },
+  { id: "think2", type: "think", labels: ["Thinking"] },
+  { id: "offer", type: "text", text: merchantApproval.offerMessage },
+  { id: "read", type: "pause", ms: 2600 }
+];
+function Thinking({ s, animate }) {
+  return /* @__PURE__ */ jsx("span", { className: ["la-thinking", animate && "la-thinking--live", !s.visible && "la-thinking--out"].filter(Boolean).join(" "), children: s.label }, s.label);
+}
+function DecisionCard({ pressed, enter }) {
+  return /* @__PURE__ */ jsxs("div", { className: `wd-decision${enter ? " ib-enter" : ""}`, children: [
+    /* @__PURE__ */ jsxs("p", { className: "wd-decision__head", children: [
+      /* @__PURE__ */ jsx(I$1, { d: "scales" }),
+      " Decision needed"
+    ] }),
+    /* @__PURE__ */ jsx("p", { className: "wd-decision__text", children: merchantApproval.requestMessage }),
+    /* @__PURE__ */ jsxs("div", { className: "wd-decision__actions", children: [
+      /* @__PURE__ */ jsx("span", { className: "wd-note-field", children: "Note (optional)" }),
+      /* @__PURE__ */ jsxs("span", { className: "wd-btn wd-btn--deny", children: [
+        /* @__PURE__ */ jsx(I$1, { d: "x" }),
+        " Deny"
+      ] }),
+      /* @__PURE__ */ jsxs("span", { className: `wd-btn wd-btn--primary${pressed ? " wd-pressed" : ""}`, children: [
+        /* @__PURE__ */ jsx(I$1, { d: "check" }),
+        " ",
+        merchantApproval.decision
+      ] })
+    ] })
+  ] });
+}
+function Dashboard$3({ v, stageRef, runKey }) {
+  const enter = v.animate ? " ib-enter" : "";
+  const { threadRef, contentRef } = useFollowLatest$1(v.animate, runKey);
+  const awaiting = v.decision && !v.decided;
+  const preview = v.offer ? merchantApproval.offerMessage : awaiting ? merchantApproval.requestMessage : v.checking ? merchantApproval.checkingMessage : merchantApproval.userMessage;
+  return /* @__PURE__ */ jsx(
+    Inbox,
+    {
+      title: "Decisions",
+      count: awaiting ? 2 : 1,
+      rows: [{ ...CUSTOMER$3, text: preview, age: "now", dot: awaiting }, OTHER],
+      rowIcon: null,
+      ping: v.decision && v.animate && !v.decided,
+      customer: CUSTOMER$3,
+      topic: "Asking for 20% off the set",
+      headAction: /* @__PURE__ */ jsx(HeadActions, {}),
+      threadRef,
+      contentRef,
+      stageRef,
+      runKey,
+      thread: /* @__PURE__ */ jsxs(Fragment, { children: [
+        v.asked && /* @__PURE__ */ jsx(Customer, { face: CUSTOMER$3.face, text: merchantApproval.userMessage, time: "00:47", enter }),
+        (v.thinking || v.checking) && /* @__PURE__ */ jsx(Ai, { enter, time: v.checking ? "00:47" : void 0, status: "Delivered", children: v.thinking ? /* @__PURE__ */ jsx(Thinking, { s: v.thinking, animate: v.animate }) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: merchantApproval.checkingMessage }) : merchantApproval.checkingMessage }) }),
+        v.decided && /* @__PURE__ */ jsx(EventCard, { icon: "scales", title: `Decision · ${ME.name}`, time: "00:48", tone: "note", enter, children: merchantApproval.decision }),
+        (v.thinking2 || v.offer) && /* @__PURE__ */ jsx(Ai, { enter, time: v.offer ? "00:48" : void 0, status: "Delivered", children: v.thinking2 ? /* @__PURE__ */ jsx(Thinking, { s: v.thinking2, animate: v.animate }) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: merchantApproval.offerMessage }) : merchantApproval.offerMessage }) })
+      ] }),
+      foot: awaiting ? /* @__PURE__ */ jsx(DecisionCard, { pressed: v.pressed, enter: v.animate }) : /* @__PURE__ */ jsx(Composer$1, { mode: "instruct", text: "", typing: false, placeholder: "Tell the AI what to do in this chat…", steers: 0, enter: v.decided && v.animate }),
+      details: /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx(Contact, { ...CUSTOMER$3, email: "omar.h@example.net", extra: [["Orders", "4"]] }),
+        /* @__PURE__ */ jsx(Summary, { text: "Omar loves the set and asked for 20% off. He’s a repeat customer with 4 previous orders, so the AI asked the team to approve." })
+      ] }),
+      toast: v.toast && /* @__PURE__ */ jsx(Toast, { children: "Approved — the AI will tell the visitor." })
+    }
+  );
+}
+function DecisionDashboardMotion() {
+  const stageRef = useRef(null);
+  const t = useChatTimeline(beats$3, useLandedOnScreen(stageRef));
+  const decided = t.reached("decided");
+  const v = {
+    asked: t.reached("ask"),
+    thinking: t.status("think"),
+    checking: t.reached("checking"),
+    decision: t.reached("decision"),
+    pressed: t.reached("press"),
+    decided,
+    thinking2: t.status("think2"),
+    offer: t.reached("offer"),
+    toast: decided && !t.passed("offer"),
+    animate: !t.reducedMotion
+  };
+  return /* @__PURE__ */ jsx(Dashboard$3, { v, stageRef, runKey: t.runKey });
+}
+function DecisionDashboardMwebMotion() {
+  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(DecisionDashboardMotion, {}) });
+}
+const CUSTOMER$2 = { name: "Sofia Marino", face: sofiaMarino };
+const OTHERS$1 = [
+  { name: "Omar Haddad", face: omarHaddad, text: "Can I change the delivery address?", age: "4m" },
+  { name: "Emma Lindqvist", face: emma, text: "Thanks, that worked!", age: "12m" },
+  { name: "Kenji Watanabe", face: kenji, text: "Great choice! It's in stock and ships today.", age: "26m" }
+];
+const EARLIER = {
+  customer: "Hi, my serum arrived with the pump broken.",
+  ai: "I’m sorry to hear that, Sofia. Could you send a photo of the pump so I can sort it out?"
 };
-const HelpdeskInsightsDashboardMotion = motionOf(helpdesk);
+const beats$2 = [
+  { id: "rest", type: "pause", ms: 900 },
+  { id: "arrive", type: "appear", ms: 1200 },
+  { id: "whisper", type: "compose", text: whisperToAgent.whisperMessage, msPerChar: 34 },
+  { id: "steer", type: "appear", ms: 900 },
+  { id: "think", type: "think", labels: ["Thinking", "Keeping it warm"] },
+  { id: "reply", type: "text", text: whisperToAgent.assistantMessage },
+  { id: "read", type: "pause", ms: 2600 }
+];
+function Dashboard$2({ v, stageRef, runKey }) {
+  const enter = v.animate ? " ib-enter" : "";
+  const { threadRef, contentRef } = useFollowLatest$1(v.animate, runKey);
+  const preview = v.reply ? whisperToAgent.assistantMessage : v.arrived ? whisperToAgent.userMessage : EARLIER.ai;
+  return /* @__PURE__ */ jsx(
+    Inbox,
+    {
+      title: "AI agents",
+      count: 4,
+      rows: [{ ...CUSTOMER$2, text: preview, age: v.arrived ? "now" : "6m" }, ...OTHERS$1],
+      ping: v.arrived && v.animate,
+      customer: CUSTOMER$2,
+      topic: "Serum arrived with a broken pump",
+      headAction: /* @__PURE__ */ jsx(HeadActions, {}),
+      threadRef,
+      contentRef,
+      stageRef,
+      runKey,
+      thread: /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx(Customer, { face: CUSTOMER$2.face, text: EARLIER.customer, time: "01:14" }),
+        /* @__PURE__ */ jsx(Ai, { time: "01:14", status: "Seen", children: /* @__PURE__ */ jsx("p", { children: EARLIER.ai }) }),
+        v.arrived && /* @__PURE__ */ jsx(Customer, { face: CUSTOMER$2.face, text: whisperToAgent.userMessage, time: "01:22", enter }),
+        v.steer && /* @__PURE__ */ jsxs("div", { className: `wd-steer${enter}`, children: [
+          /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: ME.face, alt: "" }),
+          /* @__PURE__ */ jsxs("div", { className: "wd-steer__body", children: [
+            /* @__PURE__ */ jsxs("p", { className: "wd-steer__meta", children: [
+              /* @__PURE__ */ jsxs("span", { children: [
+                /* @__PURE__ */ jsx("b", { children: whisperToAgent.whisperSender }),
+                " told the AI"
+              ] }),
+              /* @__PURE__ */ jsx("span", { children: "·" }),
+              /* @__PURE__ */ jsx("span", { children: "This chat" }),
+              /* @__PURE__ */ jsx("span", { children: "·" }),
+              /* @__PURE__ */ jsx("span", { children: "01:22" })
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "wd-steer__text", children: whisperToAgent.whisperMessage })
+          ] })
+        ] }),
+        (v.thinking || v.reply) && /* @__PURE__ */ jsx(Ai, { enter, time: v.reply ? "01:23" : void 0, status: "Delivered", children: v.thinking ? /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: ["la-thinking", v.animate && "la-thinking--live", !v.thinking.visible && "la-thinking--out"].filter(Boolean).join(" "),
+            children: v.thinking.label
+          },
+          v.thinking.label
+        ) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: whisperToAgent.assistantMessage }) : whisperToAgent.assistantMessage }) })
+      ] }),
+      foot: /* @__PURE__ */ jsx(
+        Composer$1,
+        {
+          mode: "instruct",
+          text: v.composer,
+          typing: v.typing,
+          placeholder: "Tell the AI what to do in this chat…",
+          steers: v.steer ? 1 : 0,
+          bump: v.steer && v.animate
+        }
+      ),
+      details: /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx(Contact, { ...CUSTOMER$2, email: "sofia.m@example.net", extra: [["Orders", "14"]] }),
+        /* @__PURE__ */ jsx(Summary, { text: "Sofia’s serum arrived with a broken pump. The AI asked for a photo; she’s now frustrated with the wait." })
+      ] })
+    }
+  );
+}
+function WhisperDashboardMotion() {
+  var _a;
+  const stageRef = useRef(null);
+  const t = useChatTimeline(beats$2, useLandedOnScreen(stageRef));
+  const v = {
+    arrived: t.reached("arrive"),
+    composer: ((_a = t.composer) == null ? void 0 : _a.value) ?? "",
+    typing: !!t.composer,
+    steer: t.passed("whisper"),
+    thinking: t.status("think"),
+    reply: t.reached("reply"),
+    animate: !t.reducedMotion
+  };
+  return /* @__PURE__ */ jsx(Dashboard$2, { v, stageRef, runKey: t.runKey });
+}
+function WhisperDashboardMwebMotion() {
+  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(WhisperDashboardMotion, {}) });
+}
 function HelpdeskHeader({ brand: brand2, tone = "default" }) {
   const gold = tone === "gold";
   const registered = Object.values(registry).some((entry) => entry.name.toLowerCase() === brand2.toLowerCase());
@@ -3143,9 +3561,9 @@ function useFrameCamera(shot, animate, runKey, config = INSIGHT_INBOX_CAMERA) {
     }
   };
 }
-const CUSTOMER$3 = "Sofia Marino";
+const CUSTOMER$1 = "Sofia Marino";
 const DRAFT = "Hi Sofia, your refund for #4821 is approved and on its way. We’ll email you the moment it reaches your bank.";
-const P$1 = {
+const P = {
   sparkle: "M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z",
   info: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z",
   check: "M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z",
@@ -3154,11 +3572,11 @@ const P$1 = {
   arrowUp: "M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z",
   list: "M224,128a8,8,0,0,1-8,8H104a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM104,72H216a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16ZM216,184H104a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM64,52H48a8,8,0,0,0,0,16H64a8,8,0,0,0,0-16Zm0,64H48a8,8,0,0,0,0,16H64a8,8,0,0,0,0-16Zm0,64H48a8,8,0,0,0,0,16H64a8,8,0,0,0,0-16Z"
 };
-function I$1({ d, className }) {
-  return /* @__PURE__ */ jsx("svg", { className: ["dk-icon", className].filter(Boolean).join(" "), viewBox: "0 0 256 256", fill: "currentColor", "aria-hidden": true, children: /* @__PURE__ */ jsx("path", { d: P$1[d] }) });
+function I({ d, className }) {
+  return /* @__PURE__ */ jsx("svg", { className: ["dk-icon", className].filter(Boolean).join(" "), viewBox: "0 0 256 256", fill: "currentColor", "aria-hidden": true, children: /* @__PURE__ */ jsx("path", { d: P[d] }) });
 }
 const SUMMARY_MS = 2050;
-const beats$4 = [
+const beats$1 = [
   { id: "rest", type: "pause", ms: 1200 },
   { id: "toSummary", type: "pause", ms: CAMERA_LEAD_MS },
   // The Summary lands line by line (LineStagger), then holds for reading.
@@ -3186,16 +3604,16 @@ function Desk({ v }) {
   const instruct = v.mode === "instruct";
   return /* @__PURE__ */ jsxs("div", { className: "dk", children: [
     /* @__PURE__ */ jsxs("nav", { className: "dk-rail", children: [
-      /* @__PURE__ */ jsx("img", { className: "dk-rail__logo", src: crosswordMark, alt: "" }),
+      /* @__PURE__ */ jsx("img", { className: "dk-rail__logo", src: crosswordMark$1, alt: "" }),
       ["house", "cube", "headset", "chartBar"].map((n) => /* @__PURE__ */ jsx("span", { className: n === "headset" ? "dk-rail__item dk-rail__item--on" : "dk-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
       /* @__PURE__ */ jsx("span", { className: "dk-rail__item dk-rail__item--end", children: /* @__PURE__ */ jsx(Ph, { name: "gear" }) }),
-      /* @__PURE__ */ jsx("span", { className: "dk-rail__me", "aria-hidden": true, children: "A" })
+      /* @__PURE__ */ jsx(RailTile, { className: "dk-rail__me" })
     ] }),
     /* @__PURE__ */ jsxs("section", { className: "dk-main", children: [
       /* @__PURE__ */ jsxs("header", { className: "dk-head", children: [
-        /* @__PURE__ */ jsx("span", { className: "dk-head__name", children: CUSTOMER$3 }),
+        /* @__PURE__ */ jsx("span", { className: "dk-head__name", children: CUSTOMER$1 }),
         /* @__PURE__ */ jsxs("span", { className: "dk-head__actions", children: [
-          /* @__PURE__ */ jsx("span", { className: "dk-iconbtn", children: /* @__PURE__ */ jsx(I$1, { d: "check" }) }),
+          /* @__PURE__ */ jsx("span", { className: "dk-iconbtn", children: /* @__PURE__ */ jsx(I, { d: "check" }) }),
           /* @__PURE__ */ jsxs("span", { className: "dk-takeover", children: [
             /* @__PURE__ */ jsx(Ph, { name: "headset" }),
             " Take over"
@@ -3203,12 +3621,12 @@ function Desk({ v }) {
         ] })
       ] }),
       /* @__PURE__ */ jsxs("p", { className: "dk-banner", children: [
-        /* @__PURE__ */ jsx(I$1, { d: "info" }),
+        /* @__PURE__ */ jsx(I, { d: "info" }),
         " Refund for order #4821"
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "dk-thread", children: [
         /* @__PURE__ */ jsxs("div", { className: "dk-msg dk-msg--customer", children: [
-          /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: shopper, alt: "" }),
+          /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: sofiaMarino, alt: "" }),
           /* @__PURE__ */ jsxs("div", { className: "dk-bubble", children: [
             /* @__PURE__ */ jsx("p", { children: "My refund for order #4821 still hasn’t come through." }),
             /* @__PURE__ */ jsx("span", { className: "dk-meta", children: "Web · 5:12 pm" })
@@ -3216,7 +3634,7 @@ function Desk({ v }) {
         ] }),
         v.note && /* @__PURE__ */ jsxs("div", { className: `dk-note${enter}`, children: [
           /* @__PURE__ */ jsxs("p", { className: "dk-note__head", children: [
-            /* @__PURE__ */ jsx(I$1, { d: "sparkle" }),
+            /* @__PURE__ */ jsx(I, { d: "sparkle" }),
             " AI · only you can see this"
           ] }),
           v.asked && /* @__PURE__ */ jsx("p", { className: "dk-note__ask", children: merchantInsight.followUpMessage }),
@@ -3229,48 +3647,48 @@ function Desk({ v }) {
       ] }),
       /* @__PURE__ */ jsxs("div", { className: `dk-composer${instruct ? "" : " dk-composer--reply"}`, children: [
         /* @__PURE__ */ jsx("p", { className: "dk-composer__top", children: instruct ? /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsx(I$1, { d: "sparkle" }),
+          /* @__PURE__ */ jsx(I, { d: "sparkle" }),
           " AI is replying"
         ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
-          /* @__PURE__ */ jsx(I$1, { d: "person" }),
+          /* @__PURE__ */ jsx(I, { d: "person" }),
           " You’re replying"
         ] }) }),
         /* @__PURE__ */ jsxs("p", { className: `dk-composer__text${v.text ? " dk-composer__text--filled" : ""}`, children: [
-          v.text || (instruct ? "Tell the AI what to do in this chat…" : `Reply to ${CUSTOMER$3.split(" ")[0]}…`),
+          v.text || (instruct ? "Tell the AI what to do in this chat…" : `Reply to ${CUSTOMER$1.split(" ")[0]}…`),
           v.typing && /* @__PURE__ */ jsx("span", { className: "ib-caret" })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "dk-composer__foot", children: [
           /* @__PURE__ */ jsxs("span", { className: "dk-mode", children: [
             instruct ? /* @__PURE__ */ jsxs(Fragment, { children: [
-              /* @__PURE__ */ jsx(I$1, { d: "sparkle" }),
-              " Instruct the AI"
+              /* @__PURE__ */ jsx(I, { d: "sparkle" }),
+              " Instruct Crossword"
             ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
               /* @__PURE__ */ jsx(Ph, { name: "send" }),
               " Public reply"
             ] }),
-            /* @__PURE__ */ jsx(I$1, { d: "caretDown" })
+            /* @__PURE__ */ jsx(I, { d: "caretDown" })
           ] }),
           /* @__PURE__ */ jsxs("span", { className: `dk-send${v.text ? " dk-send--ready" : ""}`, children: [
             instruct ? "Add" : "Send",
             " ",
-            /* @__PURE__ */ jsx(I$1, { d: "arrowUp" })
+            /* @__PURE__ */ jsx(I, { d: "arrowUp" })
           ] })
         ] })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("aside", { className: "dk-details", children: [
       /* @__PURE__ */ jsxs("p", { className: "dk-details__head", children: [
-        /* @__PURE__ */ jsx(I$1, { d: "list" }),
+        /* @__PURE__ */ jsx(I, { d: "list" }),
         " Details"
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "dk-section", children: [
         /* @__PURE__ */ jsxs("p", { className: "dk-section__title", children: [
-          /* @__PURE__ */ jsx(I$1, { d: "person" }),
+          /* @__PURE__ */ jsx(I, { d: "person" }),
           " Contact"
         ] }),
         /* @__PURE__ */ jsxs("p", { className: "dk-contact", children: [
-          /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: shopper, alt: "" }),
-          CUSTOMER$3
+          /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: sofiaMarino, alt: "" }),
+          CUSTOMER$1
         ] }),
         /* @__PURE__ */ jsxs("p", { className: "dk-row", children: [
           /* @__PURE__ */ jsx("span", { children: "Channel" }),
@@ -3279,7 +3697,7 @@ function Desk({ v }) {
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "dk-section dk-summary", children: [
         /* @__PURE__ */ jsxs("p", { className: "dk-section__title", children: [
-          /* @__PURE__ */ jsx(I$1, { d: "sparkle" }),
+          /* @__PURE__ */ jsx(I, { d: "sparkle" }),
           " Summary"
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "dk-summary__box", children: [
@@ -3297,7 +3715,7 @@ function Stage({ v, camera, shot }) {
 function MerchantInsightDeskMotion() {
   var _a;
   const rootRef = useRef(null);
-  const t = useChatTimeline(beats$4, useLandedOnScreen(rootRef));
+  const t = useChatTimeline(beats$1, useLandedOnScreen(rootRef));
   const replying = t.reached("press");
   const v = {
     summary: t.reached("summary"),
@@ -3318,6 +3736,835 @@ function MerchantInsightDeskMotion() {
     /* @__PURE__ */ jsx("div", { ref: rootRef, style: { width: "100%", maxWidth: 687 }, children: /* @__PURE__ */ jsx(Stage, { v, camera, shot }) })
   );
 }
+const AGENT = "Arjun Mehta";
+const CUSTOMER = { name: "Kenji Watanabe", face: kenji };
+const M = {
+  ask: "I was charged twice for my subscription this month and I want to cancel it. Can I please talk to an actual person?",
+  ai: "I can see two $27.20 charges for this month's renewal, so something definitely went wrong. I've passed this to our billing team with the details — a teammate will reply right here.",
+  refund: "Hi Kenji, this is Arjun. You're right — this month's renewal went through twice. I've refunded the second $27.20 charge; it lands back on your card in 5–10 business days.",
+  ask2: "Thank you! And can you cancel the subscription too?",
+  cancel: "Done — your subscription is cancelled, so there won't be another renewal. You'll get a confirmation email in a few minutes.",
+  thanks: "Perfect, really appreciate it."
+};
+const OTHERS = [
+  { name: "Priya Nair", face: priyaNair, text: "Yes — the Daily Energy Gummies pair well with…", age: "36m" },
+  { name: "Omar Haddad", face: omarHaddad, text: "Ok. It's a gift for my sister's birthday on…", age: "2h" },
+  { name: "Sofia Marino", face: sofiaMarino, text: "Congratulations — and I'm sorry you're…", age: "2h" },
+  { name: "Emma Lindqvist", face: emma, text: "Glad that's sorted, Emma! If you'd like a…", age: "6h" }
+];
+const beats = [
+  { id: "rest", type: "pause", ms: 900 },
+  { id: "ask", type: "appear", ms: 1100 },
+  { id: "think", type: "think", labels: ["Checking billing", "Passing to the team"] },
+  { id: "reply", type: "text", text: M.ai },
+  { id: "handoff", type: "appear", ms: 1300 },
+  { id: "joined", type: "appear", ms: 1e3 },
+  { id: "type", type: "compose", text: M.refund, msPerChar: 22 },
+  { id: "sent", type: "appear", ms: 1400 },
+  { id: "ask2", type: "appear", ms: 1100 },
+  { id: "type2", type: "compose", text: M.cancel, msPerChar: 22 },
+  { id: "sent2", type: "appear", ms: 1300 },
+  { id: "thanks", type: "appear", ms: 1e3 },
+  { id: "resolved", type: "appear", ms: 3200 }
+];
+function Dashboard$1({ v, stageRef, runKey }) {
+  const enter = v.animate ? " ib-enter" : "";
+  const { threadRef, contentRef } = useFollowLatest$1(v.animate, runKey);
+  const preview = v.thanks ? M.thanks : v.sent2 ? M.cancel : v.asked2 ? M.ask2 : v.sent ? M.refund : v.reply ? M.ai : M.ask;
+  return /* @__PURE__ */ jsx(
+    Inbox,
+    {
+      backdrop: "forest",
+      title: "Team inbox",
+      count: 5,
+      rows: [{ ...CUSTOMER, text: preview, age: "now", dot: v.handoff && !v.joined }, ...OTHERS],
+      rowIcon: null,
+      ping: v.asked && v.animate && !v.joined,
+      customer: CUSTOMER,
+      topic: "Charged twice · wants to cancel",
+      headAction: /* @__PURE__ */ jsx(HeadActions, { mine: v.joined }),
+      threadRef,
+      contentRef,
+      stageRef,
+      runKey,
+      thread: /* @__PURE__ */ jsxs(Fragment, { children: [
+        v.asked && /* @__PURE__ */ jsx(Customer, { face: CUSTOMER.face, text: M.ask, time: "21:23", enter }),
+        (v.thinking || v.reply) && /* @__PURE__ */ jsx(Ai, { agent: "Order Support", enter, time: v.reply ? "21:23" : void 0, status: "Seen", children: v.thinking ? /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: ["la-thinking", v.animate && "la-thinking--live", !v.thinking.visible && "la-thinking--out"].filter(Boolean).join(" "),
+            children: v.thinking.label
+          },
+          v.thinking.label
+        ) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: M.ai }) : M.ai }) }),
+        v.handoff && /* @__PURE__ */ jsxs(EventCard, { icon: "sparkle", title: "Assigned to Billing · Order Support", time: "21:23", enter, children: [
+          /* @__PURE__ */ jsx("span", { className: "wd-card__label", children: "Question" }),
+          "Duplicate renewal charge, wants to cancel"
+        ] }),
+        v.joined && /* @__PURE__ */ jsxs(Event, { time: "21:31", enter, children: [
+          /* @__PURE__ */ jsx("b", { children: AGENT }),
+          " has joined the chat"
+        ] }),
+        v.sent && /* @__PURE__ */ jsx(Human, { name: AGENT, time: "21:32", status: "Seen", enter, children: /* @__PURE__ */ jsx("p", { children: M.refund }) }),
+        v.asked2 && /* @__PURE__ */ jsx(Customer, { face: CUSTOMER.face, text: M.ask2, time: "21:33", enter }),
+        v.sent2 && /* @__PURE__ */ jsx(Human, { name: AGENT, time: "21:34", status: "Seen", enter, children: /* @__PURE__ */ jsx("p", { children: M.cancel }) }),
+        v.thanks && /* @__PURE__ */ jsx(Customer, { face: CUSTOMER.face, text: M.thanks, time: "21:35", enter }),
+        v.resolved && /* @__PURE__ */ jsxs(Event, { time: "21:35", enter, children: [
+          /* @__PURE__ */ jsx("b", { children: AGENT }),
+          " resolved the conversation"
+        ] })
+      ] }),
+      foot: /* @__PURE__ */ jsx(Composer$1, { mode: "reply", text: v.composer, typing: v.typing, placeholder: "Reply to Kenji…", steers: 0 }),
+      details: /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx(
+          Contact,
+          {
+            ...CUSTOMER,
+            email: "kenji.w@example.net",
+            extra: [
+              ["Assignee", v.joined ? AGENT : "Billing team"],
+              ["Status", v.resolved ? "Resolved" : "Open"]
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsx(Summary, { text: "Kenji was charged twice for this month's renewal. The duplicate is refunded and the subscription is cancelled at his request." })
+      ] }),
+      toast: v.resolved && v.animate && /* @__PURE__ */ jsx(Toast, { children: "Conversation resolved." })
+    }
+  );
+}
+function HelpDeskDashboardMotion() {
+  var _a;
+  const stageRef = useRef(null);
+  const t = useChatTimeline(beats, useLandedOnScreen(stageRef));
+  const v = {
+    asked: t.reached("ask"),
+    thinking: t.status("think"),
+    reply: t.reached("reply"),
+    handoff: t.reached("handoff"),
+    joined: t.reached("joined"),
+    composer: ((_a = t.composer) == null ? void 0 : _a.value) ?? "",
+    typing: !!t.composer,
+    sent: t.reached("sent"),
+    asked2: t.reached("ask2"),
+    sent2: t.reached("sent2"),
+    thanks: t.reached("thanks"),
+    resolved: t.reached("resolved"),
+    animate: !t.reducedMotion
+  };
+  return /* @__PURE__ */ jsx(Dashboard$1, { v, stageRef, runKey: t.runKey });
+}
+function HelpDeskDashboardMwebMotion() {
+  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(HelpDeskDashboardMotion, {}) });
+}
+const crosswordMark = "/images/support/v3/assets/crossword-rail-mark-CY0PBx6X.svg";
+const initials$1 = (name) => name.split(" ").map((w) => w[0]).join("").slice(0, 2);
+const InfoIcon = () => /* @__PURE__ */ jsxs(
+  "svg",
+  {
+    width: "14",
+    height: "14",
+    viewBox: "0 0 16 16",
+    fill: "none",
+    "aria-hidden": "true",
+    children: [
+      /* @__PURE__ */ jsx("circle", { cx: "8", cy: "8", r: "6.5", stroke: "currentColor" }),
+      /* @__PURE__ */ jsx("path", { d: "M8 7.2V11", stroke: "currentColor", strokeLinecap: "round" }),
+      /* @__PURE__ */ jsx("circle", { cx: "8", cy: "5", r: ".75", fill: "currentColor" })
+    ]
+  }
+);
+const LockIcon = () => /* @__PURE__ */ jsxs(
+  "svg",
+  {
+    width: "12",
+    height: "12",
+    viewBox: "0 0 16 16",
+    fill: "none",
+    "aria-hidden": "true",
+    children: [
+      /* @__PURE__ */ jsx("rect", { x: "3", y: "7", width: "10", height: "7", rx: "1.5", stroke: "currentColor" }),
+      /* @__PURE__ */ jsx("path", { d: "M5.5 7V5a2.5 2.5 0 0 1 5 0v2", stroke: "currentColor" })
+    ]
+  }
+);
+function GuardrailsDashPane({
+  shopper,
+  topic,
+  userMessage,
+  assistantMessage,
+  note,
+  live,
+  leaving,
+  swapIn
+}) {
+  const showMessage = live ? live.message : true;
+  const reply = live ? live.reply : assistantMessage;
+  const showNote = live ? live.note : true;
+  return /* @__PURE__ */ jsxs(
+    "section",
+    {
+      className: `gdp${leaving ? " gdp--leaving" : ""}${swapIn ? " gdp--swap-in" : ""}`,
+      "aria-label": `Conversation with ${shopper}`,
+      children: [
+        /* @__PURE__ */ jsxs("header", { className: "gdp__head", children: [
+          /* @__PURE__ */ jsx("h2", { className: "gdp__name", children: shopper }),
+          /* @__PURE__ */ jsxs("span", { className: "gdp__status", children: [
+            /* @__PURE__ */ jsx("img", { className: "gdp__mark", src: crosswordMark, alt: "" }),
+            "Crossword handling"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "gdp__topic", children: [
+          /* @__PURE__ */ jsx(InfoIcon, {}),
+          /* @__PURE__ */ jsx("span", { children: topic })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "gdp__thread", children: [
+          showMessage && /* @__PURE__ */ jsxs("div", { className: `gdp__row gdp__row--in${live ? " gdp--enter" : ""}`, children: [
+            /* @__PURE__ */ jsx("span", { className: "gdp__avatar", children: initials$1(shopper) }),
+            /* @__PURE__ */ jsxs("div", { className: "gdp__bubble gdp__bubble--in", children: [
+              /* @__PURE__ */ jsx("p", { children: userMessage }),
+              /* @__PURE__ */ jsx("span", { className: "gdp__meta", children: "Web · 01:21" })
+            ] })
+          ] }),
+          (live == null ? void 0 : live.status) && /* @__PURE__ */ jsxs(
+            "div",
+            {
+              className: `gdp__status-line${live.status.visible ? "" : " gdp__status-line--out"}`,
+              children: [
+                /* @__PURE__ */ jsx(
+                  "img",
+                  {
+                    className: "gdp__mark gdp__mark--sm",
+                    src: crosswordMark,
+                    alt: ""
+                  }
+                ),
+                /* @__PURE__ */ jsx("span", { className: "gdp__shimmer", children: live.status.label })
+              ]
+            }
+          ),
+          reply && /* @__PURE__ */ jsx("div", { className: `gdp__row gdp__row--out${live ? " gdp--enter" : ""}`, children: /* @__PURE__ */ jsxs("div", { className: "gdp__bubble gdp__bubble--out", children: [
+            /* @__PURE__ */ jsx("p", { children: reply }),
+            /* @__PURE__ */ jsx("span", { className: "gdp__meta", children: "Returns Specialist · 01:22 · Delivered" })
+          ] }) }),
+          showNote && /* @__PURE__ */ jsxs(
+            "div",
+            {
+              className: `gdp__note${live ? " gdp--enter" : ""}`,
+              "aria-label": `${note}. Internal, only your team can see this.`,
+              children: [
+                /* @__PURE__ */ jsx(LockIcon, {}),
+                /* @__PURE__ */ jsx("span", { className: "gdp__note-text", children: note }),
+                /* @__PURE__ */ jsx("span", { className: "gdp__note-tag", children: "Internal" })
+              ]
+            }
+          )
+        ] })
+      ]
+    }
+  );
+}
+const frameBg = "/images/support/v3/assets/frame-bg-DlNDmdDr.webp";
+const connector = "/images/support/v3/assets/guardrails-connector-mar6qdCu.svg";
+const RULE_GLYPH = { money, userSound, warning };
+function RuleBadge({ icon }) {
+  return /* @__PURE__ */ jsx("span", { className: "ill-guardrails-rule__badge", "aria-hidden": "true", children: /* @__PURE__ */ jsx(
+    "span",
+    {
+      className: "ill-guardrails-rule__glyph",
+      style: { "--glyph": `url(${RULE_GLYPH[icon]})` }
+    }
+  ) });
+}
+const ORDER = ["refund", "tone", "escalation"];
+const segment = (tab, i, first = 0) => [
+  // Hand-off, lead → follow: the old pane blurs out (200ms) as the next
+  // rule lights and the bridge draws to the pane (360ms); the new
+  // conversation lands as the line arrives.
+  ...i > first ? [{ id: `swap:${tab}`, type: "pause", ms: 380 }] : [],
+  { id: `message:${tab}`, type: "appear", ms: 700 },
+  {
+    id: `think:${tab}`,
+    type: "think",
+    labels: ["Thinking", "Checking your guardrails"]
+  },
+  {
+    id: `reply:${tab}`,
+    type: "text",
+    text: guardrailTabs[tab].assistantMessage
+  },
+  {
+    id: `note:${tab}`,
+    type: "appear",
+    ms: i === ORDER.length - 1 ? 500 : 2200
+  }
+];
+const BEATS = [
+  { id: "panel", type: "appear", ms: 420 },
+  { id: "line", type: "appear", ms: 320 },
+  { id: "pane", type: "appear", ms: 280 },
+  ...ORDER.flatMap((tab, i) => segment(tab, i))
+];
+const beatsFrom = (start) => ORDER.slice(start).flatMap((tab, j) => segment(tab, start + j, start));
+function stage(t, id, played, skip = false) {
+  if (skip) return "";
+  return t.reached(id) ? played : "ill-guardrails-motion--pending";
+}
+function Panel({
+  t,
+  active,
+  tab,
+  skip,
+  onPick,
+  timerMs
+}) {
+  const checking = t.reached(`think:${tab}`) && !t.reached(`note:${tab}`);
+  return /* @__PURE__ */ jsxs(
+    "div",
+    {
+      className: `ill-guardrails-panel ill-guardrails-panel--card ${stage(t, "panel", "ill-guardrails-motion--enter", skip)}`,
+      children: [
+        /* @__PURE__ */ jsx("div", { className: "ill-guardrails-panel__title", children: /* @__PURE__ */ jsx("p", { children: guardrails.heading }) }),
+        /* @__PURE__ */ jsx("div", { className: "ill-guardrails-panel__rules", children: guardrails.rules.map((rule, i) => /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: [
+              "ill-guardrails-rule",
+              i === active ? "ill-guardrails-rule--active" : "ill-guardrails-rule--dim",
+              checking && i === active ? "ill-guardrails-rule--checking" : ""
+            ].join(" "),
+            style: i === active ? { "--timer": `${timerMs}ms` } : void 0,
+            role: "button",
+            tabIndex: 0,
+            "aria-pressed": i === active,
+            onClick: () => onPick(i),
+            onKeyDown: (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onPick(i);
+              }
+            },
+            children: [
+              /* @__PURE__ */ jsx(RuleBadge, { icon: rule.icon }),
+              /* @__PURE__ */ jsx("div", { className: "ill-guardrails-rule__text", children: /* @__PURE__ */ jsx("p", { className: "ill-guardrails-rule__title", children: rule.title }) }),
+              /* @__PURE__ */ jsx("div", { className: "ill-guardrails-rule__icon", children: /* @__PURE__ */ jsx(Icon, { name: "caretRight" }) })
+            ]
+          },
+          i
+        )) })
+      ]
+    }
+  );
+}
+// Site: Guardrails plays on a loop. Once its script has played out (the third rule settled) it holds this long, then
+// replays from the top.
+const GUARDRAILS_LOOP_HOLD_MS = 3000;
+function GuardrailsAllMotion({ mweb = false } = {}) {
+  const rootRef = useRef(null);
+  const active = useLandedOnScreen(rootRef);
+  const [pick, setPick] = useState(null);
+  // Site: bumped to replay the whole run (keys it with the pick below, so the panel, connector and pane start again).
+  const [loop, setLoop] = useState(0);
+  const replay = useCallback(() => {
+    setPick(null);
+    setLoop((n) => n + 1);
+  }, []);
+  const [wasActive, setWasActive] = useState(active);
+  if (active !== wasActive) {
+    setWasActive(active);
+    if (active) setPick(null);
+  }
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: mweb ? "ill-guardrails-scale ill-guardrails--mweb ill-guardrails--mweb-dash" : "ill-guardrails-scale",
+      ref: rootRef,
+      children: /* @__PURE__ */ jsx(
+        GuardrailsRun,
+        {
+          active,
+          start: (pick == null ? void 0 : pick.start) ?? null,
+          mweb,
+          onPick: (i) => setPick((p) => ({ start: i, n: ((p == null ? void 0 : p.n) ?? 0) + 1 })),
+          onLoop: replay
+        },
+        `${loop}-${pick ? pick.n : 0}`
+      )
+    }
+  );
+}
+function GuardrailsRun({
+  active,
+  start,
+  mweb,
+  onPick,
+  onLoop
+}) {
+  const skip = start !== null;
+  const beats2 = useMemo(() => skip ? beatsFrom(start) : BEATS, [skip, start]);
+  const t = useChatTimeline(beats2, active);
+  // Site: the loop (see GuardrailsAllMotion).
+  useEffect(() => {
+    if (!t.done || t.reducedMotion || !onLoop) return;
+    const id = window.setTimeout(onLoop, GUARDRAILS_LOOP_HOLD_MS);
+    return () => window.clearTimeout(id);
+  }, [t.done, t.reducedMotion, onLoop]);
+  const first = ORDER[start ?? 0];
+  const tab = [...ORDER].reverse().find((k) => t.reached(`message:${k}`)) ?? first;
+  const data = guardrailTabs[tab];
+  const lit = [...ORDER].reverse().find(
+    (k) => beats2.some((b) => b.id === `swap:${k}`) && t.reached(`swap:${k}`) || beats2.some((b) => b.id === `message:${k}`) && t.reached(`message:${k}`)
+  ) ?? first;
+  const litIndex = ORDER.indexOf(lit);
+  const timerMs = beatsDurationMs(segment(lit, litIndex, start ?? 0)) + // The first rule is lit through the intro too (panel, line, pane).
+  (!skip && litIndex === 0 ? beatsDurationMs(BEATS.slice(0, 3)) : 0);
+  const thinking = t.reached(`think:${tab}`) && !t.passed(`think:${tab}`);
+  const paneRef = useRef(null);
+  const status = t.status(`think:${tab}`);
+  const msgIn = t.reached(`message:${tab}`);
+  const replyIn = t.reached(`reply:${tab}`);
+  const noteIn = t.reached(`note:${tab}`);
+  useEffect(() => {
+    var _a;
+    if (!mweb) return;
+    const thread = (_a = paneRef.current) == null ? void 0 : _a.querySelector(".gdp__thread");
+    if (!thread) return;
+    const raf = requestAnimationFrame(() => {
+      const last = thread.lastElementChild;
+      if (!last) return;
+      const pad = parseFloat(getComputedStyle(thread).paddingBottom) || 0;
+      const bottom = last.offsetTop - thread.offsetTop + last.offsetHeight + pad;
+      const overflow = bottom - thread.clientHeight;
+      thread.style.setProperty("--follow", `${Math.max(0, overflow)}px`);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [mweb, tab, msgIn, status == null ? void 0 : status.visible, replyIn, noteIn]);
+  const nextTab = ORDER[ORDER.indexOf(tab) + 1];
+  const leaving = !!nextTab && t.reached(`swap:${nextTab}`);
+  return /* @__PURE__ */ jsx(Fragment, { children: /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-frame", children: [
+    /* @__PURE__ */ jsx(
+      "img",
+      {
+        className: "ill-guardrails-frame__bg",
+        src: frameBg,
+        alt: "",
+        "aria-hidden": "true"
+      }
+    ),
+    /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-row", children: [
+      /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-panel-slot", children: [
+        /* @__PURE__ */ jsx(Panel, { t, active: guardrailTabs[lit].rule, tab, skip, onPick, timerMs }),
+        /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-connector-wrap", children: [
+          /* @__PURE__ */ jsx(
+            "img",
+            {
+              className: `ill-guardrails-frame__connector ${skip || t.reached("line") ? "ill-guardrails-motion--draw ill-guardrails-motion--bridge" : "ill-guardrails-motion--pending"}`,
+              src: connector,
+              alt: "",
+              "aria-hidden": "true"
+            },
+            lit
+          ),
+          thinking && /* @__PURE__ */ jsx("span", { className: "ill-guardrails-pulse", "aria-hidden": "true" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "ill-guardrails-card-wrap", children: /* @__PURE__ */ jsx(
+        "div",
+        {
+          ref: paneRef,
+          className: `ill-guardrails-shell-crop ${stage(t, "pane", "ill-guardrails-motion--shell-enter", skip)}`,
+          children: /* @__PURE__ */ jsx(
+            GuardrailsDashPane,
+            {
+              swapIn: skip || tab !== ORDER[0],
+              leaving,
+              shopper: data.shopper,
+              topic: data.topic,
+              userMessage: data.userMessage,
+              assistantMessage: data.assistantMessage,
+              note: data.note,
+              live: {
+                message: t.reached(`message:${tab}`),
+                status: t.status(`think:${tab}`),
+                reply: t.reached(`reply:${tab}`) ? (
+                  // Whole, not word by word: the bubble and its text arrive as
+                  // one piece on the row's enter (fade + 6px rise).
+                  data.assistantMessage
+                ) : null,
+                note: t.reached(`note:${tab}`)
+              }
+            },
+            tab
+          )
+        }
+      ) })
+    ] })
+  ] }, t.runKey) });
+}
+function GuardrailsAllMwebMotion() {
+  return /* @__PURE__ */ jsx(GuardrailsAllMotion, { mweb: true });
+}
+const insightsBackground = "/images/support/v3/assets/insights-background-XsNT8ufi.webp";
+function InsightFrame({ children, background = insightsBackground }) {
+  return /* @__PURE__ */ jsx("div", { className: "ill-insight-frame-scale", children: /* @__PURE__ */ jsxs("div", { className: "ill-insight-frame", children: [
+    /* @__PURE__ */ jsx("img", { className: "ill-insight-frame__background", src: background, alt: "", "aria-hidden": "true" }),
+    /* @__PURE__ */ jsx("div", { className: "ill-insight-frame__content", children })
+  ] }) });
+}
+const script = {
+  query: "Find people who reached checkout but didn't purchase in the last 7 days.",
+  result: "3,284 people reached checkout. 2,140 are still deciding. Most dropped after seeing shipping costs."
+};
+const askDashboard = {
+  greeting: "Good evening, Priya",
+  headline: "What do you want to know about your visitors?",
+  query: script.query,
+  reply: script.result,
+  thought: "Thought for 4s",
+  suggestions: [
+    { icon: "users", text: "Who's most likely to buy this week" },
+    { icon: "cart", text: "Who keeps reaching cart but doesn't buy" },
+    { icon: "rocket", text: "Who should hear first about a launch" }
+  ],
+  steps: [
+    { live: "Thinking…", done: "Thinking done", chips: [] },
+    {
+      live: "Scanning checkout sessions…",
+      done: "Searching done",
+      chips: [script.query, "Last 7 days", "No purchase"]
+    },
+    {
+      live: "Reading where they dropped off…",
+      done: "People found",
+      chips: ["3,284 people", "2,140 still deciding", "1,144 gone quiet"]
+    }
+  ],
+  card: {
+    title: "Checkout abandoners · last 7 days",
+    count: "3,284",
+    unit: "people",
+    tags: ["Reached checkout", "No purchase", "2,140 still deciding"],
+    label: "Where they dropped off",
+    buckets: [
+      { label: "Shipping costs", deciding: 1210, gone: 486 },
+      { label: "Payment step", deciding: 420, gone: 262 },
+      { label: "Account sign-in", deciding: 260, gone: 178 },
+      { label: "Discount code", deciding: 150, gone: 128 },
+      { label: "Other", deciding: 100, gone: 90 }
+    ],
+    legend: { deciding: "Still deciding", gone: "Gone quiet" },
+    stats: [
+      { icon: "cart", label: "Avg. cart", value: "$186" },
+      { icon: "clock", label: "Median time at checkout", value: "2.6 min" },
+      { icon: "repeat", label: "Returned 3+ times", value: "412" }
+    ]
+  },
+  saved: [
+    "Find visitors who keep reaching cart or checkout but don't buy.",
+    "Create a segment of visitors who reach checkout on Subscribe & Save but never buy."
+  ],
+  recent: [
+    { text: "Who's most likely to buy this week?", age: "1d" },
+    { text: "Who should hear first about our new arrivals?", age: "3d" }
+  ]
+};
+const askBackground = "/images/support/v3/assets/insights-background-ask-v4-BuR-hwqT.webp";
+function beatsFor(sc) {
+  return [
+    { id: "ask", type: "compose", text: sc.query, leadMs: 1100 },
+    { id: "step0", type: "appear", ms: 800 },
+    { id: "step1", type: "appear", ms: 1300 },
+    { id: "step2", type: "appear", ms: 1300 },
+    { id: "fold", type: "pause", ms: 500 },
+    { id: "reply", type: "text", text: sc.reply },
+    { id: "card", type: "load", ms: 900 },
+    { id: "bars", type: "appear", ms: 900 },
+    ...sc.action ? [{ id: "action", type: "text", text: sc.action.text }, { id: "cta", type: "appear", ms: 400 }] : []
+  ];
+}
+const EXTRA = {
+  money: "M128,88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152ZM240,56H16a8,8,0,0,0-8,8V192a8,8,0,0,0,8,8H240a8,8,0,0,0,8-8V64A8,8,0,0,0,240,56ZM193.65,184H62.35A56.78,56.78,0,0,0,24,145.65v-35.3A56.78,56.78,0,0,0,62.35,72h131.3A56.78,56.78,0,0,0,232,110.35v35.3A56.78,56.78,0,0,0,193.65,184ZM232,93.37A40.81,40.81,0,0,1,210.63,72H232ZM45.37,72A40.81,40.81,0,0,1,24,93.37V72ZM24,162.63A40.81,40.81,0,0,1,45.37,184H24ZM210.63,184A40.81,40.81,0,0,1,232,162.63V184Z",
+  footprints: "M216.06,192v12A36,36,0,0,1,144,204V192a8,8,0,0,1,8-8h56A8,8,0,0,1,216.06,192ZM104,160h-56a8,8,0,0,0-8,8v12a36,36,0,0,0,72,0V168A8,8,0,0,0,104,160ZM76,16C64.36,16,53.07,26.31,44.2,45c-13.93,29.38-18.56,73,.29,96a8,8,0,0,0,6.2,2.93h50.55a8,8,0,0,0,6.2-2.93c18.85-23,14.22-66.65.29-96C98.85,26.31,87.57,16,76,16Zm135.8,53C202.93,50.31,191.64,40,180,40s-22.89,10.31-31.77,29c-13.93,29.38-18.56,73,.29,96a8,8,0,0,0,6.2,2.93h50.55a8,8,0,0,0,6.2-2.93C230.36,142,225.73,98.38,211.8,69Z",
+  check: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z",
+  cart: "M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z",
+  clock: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z",
+  repeat: "M24,128A72.08,72.08,0,0,1,96,56H204.69L194.34,45.66a8,8,0,0,1,11.32-11.32l24,24a8,8,0,0,1,0,11.32l-24,24a8,8,0,0,1-11.32-11.32L204.69,72H96a56.06,56.06,0,0,0-56,56,8,8,0,0,1-16,0Zm200-8a8,8,0,0,0-8,8,56.06,56.06,0,0,1-56,56H51.31l10.35-10.34a8,8,0,0,0-11.32-11.32l-24,24a8,8,0,0,0,0,11.32l24,24a8,8,0,0,0,11.32-11.32L51.31,200H160a72.08,72.08,0,0,0,72-72A8,8,0,0,0,224,120Z",
+  funnel: "M200,136a8,8,0,0,1-8,8H64a8,8,0,0,1,0-16H192A8,8,0,0,1,200,136Zm32-56H24a8,8,0,0,0,0,16H232a8,8,0,0,0,0-16Zm-80,96H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16Z",
+  envelope: "M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z",
+  bookmark: "M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Zm0,177.57-51.77-32.35a8,8,0,0,0-8.48,0L72,209.57V48H184Z"
+};
+function Glyph({ name, className }) {
+  if (name in EXTRA) {
+    return /* @__PURE__ */ jsx("svg", { className: ["la-icon", className].filter(Boolean).join(" "), viewBox: "0 0 256 256", fill: "currentColor", "aria-hidden": true, children: /* @__PURE__ */ jsx("path", { d: EXTRA[name] }) });
+  }
+  return /* @__PURE__ */ jsx(Ph, { name, className });
+}
+function Composer({ v, className }) {
+  return /* @__PURE__ */ jsxs("div", { className: ["aid-composer", className].filter(Boolean).join(" "), children: [
+    /* @__PURE__ */ jsx("div", { className: "aid-composer__text", children: v.composer ? /* @__PURE__ */ jsxs(Fragment, { children: [
+      v.composer,
+      v.typing && /* @__PURE__ */ jsx("span", { className: "la-caret" })
+    ] }) : /* @__PURE__ */ jsx("span", { className: "la-composer__placeholder", children: "Ask about your visitors..." }) }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-composer__foot", children: [
+      /* @__PURE__ */ jsx(Ph, { name: "plus", className: "la-muted" }),
+      /* @__PURE__ */ jsxs("span", { className: "aid-modes", children: [
+        /* @__PURE__ */ jsxs("span", { className: "aid-mode aid-mode--on", children: [
+          /* @__PURE__ */ jsx(Ph, { name: "chat" }),
+          "Ask"
+        ] }),
+        /* @__PURE__ */ jsxs("span", { className: "aid-mode", children: [
+          /* @__PURE__ */ jsx(Glyph, { name: "funnel" }),
+          "Find a segment"
+        ] }),
+        /* @__PURE__ */ jsxs("span", { className: "aid-mode", children: [
+          /* @__PURE__ */ jsx(Glyph, { name: "envelope" }),
+          "Draft an email"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx("span", { className: `la-send aid-send${v.composer ? " la-send--ready" : ""}`, children: /* @__PURE__ */ jsx(Ph, { name: "send" }) })
+    ] })
+  ] });
+}
+function Steps({ v, steps }) {
+  return /* @__PURE__ */ jsx("div", { className: "aid-steps", children: steps.map((step, i) => {
+    const state = v.steps[i];
+    if (state === "off") return null;
+    return /* @__PURE__ */ jsxs("div", { className: `aid-step${v.animate ? " la-enter" : ""}`, children: [
+      /* @__PURE__ */ jsxs("div", { className: "aid-step__line", children: [
+        state === "done" ? /* @__PURE__ */ jsx(Glyph, { name: "check", className: "la-primary" }) : /* @__PURE__ */ jsx("span", { className: "aid-spinner" }),
+        state === "done" ? /* @__PURE__ */ jsx("span", { className: "la-fade", children: step.done }) : /* @__PURE__ */ jsx("span", { className: "la-thinking la-thinking--live", children: step.live })
+      ] }),
+      state === "done" && step.chips.length > 0 && /* @__PURE__ */ jsx("div", { className: "aid-chips", children: step.chips.map((c, ci) => /* @__PURE__ */ jsxs("span", { className: "aid-chip", style: { "--i": ci }, children: [
+        /* @__PURE__ */ jsx(Glyph, { name: "search" }),
+        c
+      ] }, c)) })
+    ] }, step.done);
+  }) });
+}
+const MAX = Math.max(...askDashboard.card.buckets.map((b) => b.deciding + b.gone));
+function CartCard({ v }) {
+  const c = askDashboard.card;
+  return /* @__PURE__ */ jsxs("div", { className: ["la-card", "aid-card", v.animate && "la-enter", !v.bars && "aid-card--pending"].filter(Boolean).join(" "), children: [
+    /* @__PURE__ */ jsxs("header", { className: "la-card__head", children: [
+      /* @__PURE__ */ jsx(Glyph, { name: "cart", className: "la-muted" }),
+      /* @__PURE__ */ jsx("span", { className: "la-card__title", children: c.title }),
+      /* @__PURE__ */ jsxs("span", { className: "aid-save", children: [
+        /* @__PURE__ */ jsx(Glyph, { name: "bookmark" }),
+        "Save insight"
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-hero", children: [
+      /* @__PURE__ */ jsx("span", { className: "la-faces", children: [priyaNair, omarHaddad, sofiaMarino].map((src) => /* @__PURE__ */ jsx("img", { src, alt: "" }, src)) }),
+      /* @__PURE__ */ jsx("span", { className: "aid-count", children: c.count }),
+      /* @__PURE__ */ jsx("span", { className: "aid-unit", children: c.unit }),
+      /* @__PURE__ */ jsx("span", { className: "aid-tags", children: c.tags.map((t) => /* @__PURE__ */ jsx("span", { className: "la-tag", children: t }, t)) })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "aid-chart", children: [
+      /* @__PURE__ */ jsx("p", { className: "la-card__label", children: c.label }),
+      c.buckets.map((b, i) => /* @__PURE__ */ jsxs("div", { className: "aid-bar", style: { "--i": i }, children: [
+        /* @__PURE__ */ jsx("span", { className: "aid-bar__label", children: b.label }),
+        /* @__PURE__ */ jsxs("span", { className: "aid-bar__track", children: [
+          /* @__PURE__ */ jsx("span", { className: "aid-bar__fill aid-bar__fill--deciding", style: { width: `${b.deciding / MAX * 100}%` } }),
+          /* @__PURE__ */ jsx("span", { className: "aid-bar__fill aid-bar__fill--gone", style: { width: `${b.gone / MAX * 100}%` } })
+        ] }),
+        /* @__PURE__ */ jsx("span", { className: "aid-bar__value", children: (b.deciding + b.gone).toLocaleString("en-US") })
+      ] }, b.label)),
+      /* @__PURE__ */ jsxs("div", { className: "aid-legend", children: [
+        /* @__PURE__ */ jsxs("span", { children: [
+          /* @__PURE__ */ jsx("i", { className: "aid-key aid-key--deciding" }),
+          c.legend.deciding
+        ] }),
+        /* @__PURE__ */ jsxs("span", { children: [
+          /* @__PURE__ */ jsx("i", { className: "aid-key aid-key--gone" }),
+          c.legend.gone
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "aid-stats", children: c.stats.map((st) => /* @__PURE__ */ jsxs("div", { className: "aid-stat", children: [
+      /* @__PURE__ */ jsxs("span", { className: "aid-stat__label", children: [
+        /* @__PURE__ */ jsx(Glyph, { name: st.icon }),
+        st.label
+      ] }),
+      /* @__PURE__ */ jsx("span", { className: "aid-stat__value", children: st.value })
+    ] }, st.label)) }),
+    v.animate && /* @__PURE__ */ jsxs("div", { className: `la-skeleton${v.cardLoading ? "" : " la-skeleton--hidden"}`, "aria-hidden": true, children: [
+      /* @__PURE__ */ jsx("span", { style: { width: 220, height: 14 } }),
+      /* @__PURE__ */ jsx("span", { style: { width: 380, height: 32 } }),
+      [0, 1, 2, 3].map((i) => /* @__PURE__ */ jsx("span", { style: { width: `${86 - i * 14}%`, height: 14 } }, i)),
+      /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 44 } })
+    ] })
+  ] });
+}
+function useFollowLatest(animate, mounted, settled, runKey) {
+  const threadRef = useRef(null);
+  const contentRef = useRef(null);
+  useLayoutEffect(() => {
+    const thread = threadRef.current;
+    const content = contentRef.current;
+    if (!thread || !content) return;
+    const follow = () => thread.scrollTo({ top: thread.scrollHeight, behavior: animate ? "smooth" : "instant" });
+    follow();
+    const observer = new ResizeObserver(follow);
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, [animate, mounted, runKey]);
+  useEffect(() => {
+    var _a, _b;
+    const thread = threadRef.current;
+    if (!settled || !thread) return;
+    const toEnd = () => thread.scrollTo({ top: thread.scrollHeight, behavior: animate ? "smooth" : "instant" });
+    const pin = () => {
+      thread.scrollTop = thread.scrollHeight;
+    };
+    const id = window.setTimeout(toEnd, animate ? 1200 : 0);
+    const pinId = window.setTimeout(pin, animate ? 2e3 : 0);
+    (_b = (_a = document.fonts) == null ? void 0 : _a.ready) == null ? void 0 : _b.then(animate ? toEnd : pin);
+    return () => {
+      window.clearTimeout(id);
+      window.clearTimeout(pinId);
+    };
+  }, [settled, animate, runKey]);
+  return { threadRef, contentRef };
+}
+function Dashboard({ sc, v, stageRef, runKey }) {
+  const { threadRef, contentRef } = useFollowLatest(v.animate, v.sent, v.done, runKey);
+  const Frame = sc.frame === "scene" ? SceneFrame : InsightFrame;
+  return /* @__PURE__ */ jsx(Frame, { background: sc.background, children: /* @__PURE__ */ jsx("div", { className: ["aid-viewport", sc.frame === "scene" && "aid-viewport--scene", sc.inset && "aid-viewport--inset"].filter(Boolean).join(" "), children: /* @__PURE__ */ jsx(
+    InsightsFrame,
+    {
+      bare: true,
+      compact: true,
+      saved: askDashboard.saved,
+      recent: askDashboard.recent,
+      active: v.sent ? sc.query : void 0,
+      activeEnter: v.animate,
+      stageRef,
+      runKey,
+      children: /* @__PURE__ */ jsxs("section", { className: "la-chat aid-chat", children: [
+        /* @__PURE__ */ jsxs("header", { className: "aid-chat__head", children: [
+          /* @__PURE__ */ jsx("span", { className: "la-serif aid-chat__title", children: "Insights" }),
+          v.sent && /* @__PURE__ */ jsx("span", { className: `aid-chat__crumb${v.animate ? " la-fade" : ""}`, children: sc.query })
+        ] }),
+        !v.sent ? /* @__PURE__ */ jsxs("div", { className: "aid-home", children: [
+          /* @__PURE__ */ jsx("p", { className: "aid-home__greeting", children: askDashboard.greeting }),
+          /* @__PURE__ */ jsx("h1", { className: "aid-home__headline la-serif", children: askDashboard.headline }),
+          /* @__PURE__ */ jsx(Composer, { v, className: "aid-composer--home" }),
+          /* @__PURE__ */ jsx("p", { className: "la-section--nav aid-home__suggested", children: "Suggested" }),
+          /* @__PURE__ */ jsx("div", { className: "aid-suggestions", children: askDashboard.suggestions.map((g) => /* @__PURE__ */ jsxs("span", { className: "aid-suggestion", children: [
+            /* @__PURE__ */ jsx(Glyph, { name: g.icon }),
+            g.text
+          ] }, g.text)) })
+        ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
+          /* @__PURE__ */ jsx("div", { className: "la-thread", ref: threadRef, children: /* @__PURE__ */ jsxs("div", { className: "la-thread__content", ref: contentRef, children: [
+            /* @__PURE__ */ jsx("div", { className: `la-user${v.animate ? " la-enter" : ""}`, children: /* @__PURE__ */ jsx("p", { children: sc.query }) }),
+            v.folded ? /* @__PURE__ */ jsx("div", { className: "la-thought", children: /* @__PURE__ */ jsxs("span", { className: `la-thought__done${v.animate ? " la-fade" : ""}`, children: [
+              askDashboard.thought,
+              /* @__PURE__ */ jsx(Ph, { name: "caretRight" })
+            ] }) }) : /* @__PURE__ */ jsx(Steps, { v, steps: sc.steps }),
+            v.reply && /* @__PURE__ */ jsx("p", { className: "la-reply", children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: sc.reply }) : sc.reply }),
+            v.card && sc.card(v),
+            sc.action && v.action && /* @__PURE__ */ jsxs("div", { className: "aid-action", children: [
+              /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: sc.action.text }) : sc.action.text }),
+              v.cta && /* @__PURE__ */ jsx("span", { className: `aid-cta${v.animate ? " la-enter" : ""}`, children: sc.action.cta })
+            ] })
+          ] }) }),
+          /* @__PURE__ */ jsx(Composer, { v: { ...v, composer: "", typing: false }, className: ["aid-composer--slim", v.animate && "la-fade"].filter(Boolean).join(" ") })
+        ] })
+      ] })
+    }
+  ) }) });
+}
+function motionOf(sc) {
+  const beats2 = beatsFor(sc);
+  const last = beats2[beats2.length - 1].id;
+  const has = new Set(beats2.map((b) => b.id));
+  return function InsightsDashboardMotion() {
+    var _a;
+    const stageRef = useRef(null);
+    const t = useChatTimeline(beats2, useLandedOnScreen(stageRef));
+    const step = (id) => t.passed(id) ? "done" : t.reached(id) ? "live" : "off";
+    const v = {
+      sent: t.passed("ask"),
+      composer: ((_a = t.composer) == null ? void 0 : _a.value) ?? "",
+      typing: !!t.composer,
+      steps: [step("step0"), step("step1"), step("step2")],
+      folded: t.passed("fold"),
+      reply: t.reached("reply"),
+      card: t.reached("card"),
+      cardLoading: t.loading("card"),
+      bars: t.reached("bars"),
+      action: has.has("action") && t.reached("action"),
+      cta: has.has("cta") && t.reached("cta"),
+      done: t.passed(last),
+      animate: !t.reducedMotion
+    };
+    return /* @__PURE__ */ jsx(Dashboard, { sc, v, stageRef, runKey: t.runKey });
+  };
+}
+const askScenario = {
+  inset: true,
+  background: askBackground,
+  query: askDashboard.query,
+  steps: askDashboard.steps,
+  reply: askDashboard.reply,
+  card: (v) => /* @__PURE__ */ jsx(CartCard, { v })
+};
+motionOf(askScenario);
+const initials = (name) => name.split(" ").map((w) => w[0]).join("");
+function InboxCard({ v }) {
+  return /* @__PURE__ */ jsxs("div", { className: ["la-card", "aid-card", v.animate && "la-enter", !v.bars && "aid-card--pending"].filter(Boolean).join(" "), children: [
+    /* @__PURE__ */ jsxs("header", { className: "la-card__head", children: [
+      /* @__PURE__ */ jsx(Glyph, { name: "chat", className: "la-muted" }),
+      /* @__PURE__ */ jsxs("span", { className: "la-card__title", children: [
+        merchantHelpdesk.inboxLabel,
+        " · ",
+        merchantHelpdesk.allConversationsLabel
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx("div", { className: "hi-stats", children: merchantHelpdesk.overview.map((o, i) => /* @__PURE__ */ jsxs("div", { className: `hi-stat hi-stat--${o.label.toLowerCase()} aid-reveal`, style: { "--i": i }, children: [
+      /* @__PURE__ */ jsx("span", { className: "hi-stat__value", children: o.value }),
+      /* @__PURE__ */ jsx("span", { className: "hi-stat__label", children: o.label })
+    ] }, o.label)) }),
+    /* @__PURE__ */ jsxs("div", { className: "hi-attention", children: [
+      /* @__PURE__ */ jsxs("p", { className: "la-card__label", children: [
+        merchantHelpdesk.attentionLabel,
+        " · ",
+        merchantHelpdesk.conversations.length
+      ] }),
+      merchantHelpdesk.conversations.map((c, i) => /* @__PURE__ */ jsxs("div", { className: "hi-row aid-reveal", style: { "--i": i + 3 }, children: [
+        /* @__PURE__ */ jsx("span", { className: `hi-row__avatar hi-row__avatar--${c.status.toLowerCase()}`, children: initials(c.name) }),
+        /* @__PURE__ */ jsxs("span", { className: "hi-row__text", children: [
+          /* @__PURE__ */ jsx("span", { className: "hi-row__name", children: c.name }),
+          /* @__PURE__ */ jsxs("span", { className: "hi-row__issue", children: [
+            c.issue,
+            " · ",
+            /* @__PURE__ */ jsx("span", { className: `hi-status--${c.status.toLowerCase()}`, children: c.status })
+          ] })
+        ] }),
+        c.action ? /* @__PURE__ */ jsx("span", { className: "hi-assign", children: c.action }) : /* @__PURE__ */ jsx(Ph, { name: "caretRight", className: "hi-go" })
+      ] }, c.name))
+    ] }),
+    v.animate && /* @__PURE__ */ jsxs("div", { className: `la-skeleton${v.cardLoading ? "" : " la-skeleton--hidden"}`, "aria-hidden": true, children: [
+      /* @__PURE__ */ jsx("span", { style: { width: 200, height: 14 } }),
+      /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 64 } }),
+      /* @__PURE__ */ jsx("span", { style: { width: 140, height: 12 } }),
+      /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 48 } }),
+      /* @__PURE__ */ jsx("span", { style: { width: "100%", height: 48 } })
+    ] })
+  ] });
+}
+const helpdesk = {
+  query: merchantHelpdesk.userMessage,
+  steps: [
+    { live: "Thinking…", done: "Thinking done", chips: [] },
+    { live: "Reading the team inbox…", done: "Searching done", chips: [merchantHelpdesk.allConversationsLabel, "Today"] },
+    { live: "Sorting what needs attention…", done: "Inbox ready", chips: merchantHelpdesk.overview.map((o) => `${o.value} ${o.label.toLowerCase()}`) }
+  ],
+  reply: merchantHelpdesk.assistantMessage,
+  card: (v) => /* @__PURE__ */ jsx(InboxCard, { v }),
+  frame: "scene"
+};
+const HelpdeskInsightsDashboardMotion = motionOf(helpdesk);
 function cubicBezier(p1x, p1y, p2x, p2y) {
   const ax = 3 * p1x - 3 * p2x + 1;
   const bx = 3 * p2x - 6 * p1x;
@@ -3510,14 +4757,14 @@ function MerchantInsightMotion() {
     if (!viewport) return;
     const target = (_a = viewport.querySelector(".ill-thread")) == null ? void 0 : _a.lastElementChild;
     if (!target) return;
-    const FADE_CLEARANCE2 = 40;
+    const FADE_CLEARANCE = 40;
     const zoom = viewport.offsetHeight ? viewport.getBoundingClientRect().height / viewport.offsetHeight : 1;
     const unzoom = (r) => ({ top: r.top / zoom, bottom: r.bottom / zoom });
     const viewportRect = unzoom(viewport.getBoundingClientRect());
     const targetRect = unzoom(target.getBoundingClientRect());
-    const isFullyVisible = targetRect.bottom <= viewportRect.bottom - FADE_CLEARANCE2 && targetRect.top >= viewportRect.top;
+    const isFullyVisible = targetRect.bottom <= viewportRect.bottom - FADE_CLEARANCE && targetRect.top >= viewportRect.top;
     if (isFullyVisible) return;
-    const delta = targetRect.bottom - viewportRect.bottom + FADE_CLEARANCE2;
+    const delta = targetRect.bottom - viewportRect.bottom + FADE_CLEARANCE;
     const targetTop = viewport.scrollTop + delta;
     if (reducedMotion) {
       viewport.scrollTop = targetTop;
@@ -3581,914 +4828,20 @@ function MerchantInsightMotion() {
     ) })
   ] }, runKey) });
 }
-function ExpandShell({ expanded, children }) {
-  const ref = useRef(null);
-  const [clip, setClip] = useState(null);
-  useLayoutEffect(() => {
-    var _a, _b;
-    const shell = ref.current;
-    const composer = shell == null ? void 0 : shell.querySelector(".ill-chat-composer");
-    if (!shell || !composer) return;
-    let cancelled = false;
-    const measure2 = () => {
-      if (cancelled) return;
-      const s = shell.getBoundingClientRect();
-      const c = composer.getBoundingClientRect();
-      const zoom = shell.offsetWidth ? s.width / shell.offsetWidth : 1;
-      setClip({
-        top: (c.top - s.top) / zoom,
-        right: (s.right - c.right) / zoom,
-        bottom: (s.bottom - c.bottom) / zoom,
-        left: (c.left - s.left) / zoom,
-        radius: c.height / 2 / zoom
-      });
-    };
-    measure2();
-    (_b = (_a = document.fonts) == null ? void 0 : _a.ready) == null ? void 0 : _b.then(() => {
-      measure2();
-      requestAnimationFrame(measure2);
-    });
-    if (typeof ResizeObserver === "undefined") return () => {
-      cancelled = true;
-    };
-    const observer = new ResizeObserver(measure2);
-    observer.observe(shell);
-    return () => {
-      cancelled = true;
-      observer.disconnect();
-    };
-  }, []);
-  const className = ["sell-expand", expanded && "sell-expand--expanded", !clip && "sell-expand--unmeasured"].filter(Boolean).join(" ");
-  const style = clip ? {
-    "--sell-clip-top": `${clip.top}px`,
-    "--sell-clip-right": `${clip.right}px`,
-    "--sell-clip-bottom": `${clip.bottom}px`,
-    "--sell-clip-left": `${clip.left}px`,
-    "--sell-clip-radius": `${clip.radius}px`
-  } : void 0;
-  return /* @__PURE__ */ jsx("div", { ref, className, style, children });
-}
-const FADE_CLEARANCE = 40;
-function ChatMotionScene({
-  brand: brand2,
-  beats: beats2,
-  children,
-  width,
-  height,
-  header,
-  className,
-  threadClassName,
-  alignTallTurnTop = false,
-  expandAfter,
-  observeRef,
-  growComposer = false
-}) {
-  const rootRef = useRef(null);
-  const expandRef = useRef(null);
-  const viewportRef = useRef(null);
-  const active = useLandedOnScreen(observeRef ?? (expandAfter ? expandRef : rootRef));
-  const timeline = useChatTimeline(beats2, active);
-  const { index, runKey, reducedMotion, composer } = timeline;
-  useEffect(() => {
-    const viewport = viewportRef.current;
-    const thread2 = viewport == null ? void 0 : viewport.querySelector(".ill-thread");
-    if (!viewport || !thread2) return;
-    let cancelScroll;
-    const follow = () => {
-      const target = thread2.lastElementChild;
-      if (!target) {
-        cancelScroll == null ? void 0 : cancelScroll();
-        viewport.scrollTop = 0;
-        return;
-      }
-      const zoom = viewport.offsetHeight ? viewport.getBoundingClientRect().height / viewport.offsetHeight : 1;
-      const unzoom = (r) => ({ top: r.top / zoom, bottom: r.bottom / zoom, height: r.height / zoom });
-      const viewportRect = unzoom(viewport.getBoundingClientRect());
-      const targetRect = unzoom(target.getBoundingClientRect());
-      const isFullyVisible = targetRect.bottom <= viewportRect.bottom - FADE_CLEARANCE && targetRect.top >= viewportRect.top;
-      if (isFullyVisible) return;
-      const available = viewportRect.height - FADE_CLEARANCE;
-      const targetTop = alignTallTurnTop && targetRect.height > available ? viewport.scrollTop + targetRect.top - viewportRect.top : viewport.scrollTop + targetRect.bottom - viewportRect.bottom + FADE_CLEARANCE;
-      cancelScroll == null ? void 0 : cancelScroll();
-      if (reducedMotion) {
-        viewport.scrollTop = targetTop;
-      } else {
-        cancelScroll = animateScrollTo(viewport, targetTop);
-      }
-    };
-    follow();
-    if (typeof ResizeObserver === "undefined") return;
-    const observer = new ResizeObserver(follow);
-    observer.observe(thread2);
-    return () => {
-      observer.disconnect();
-      cancelScroll == null ? void 0 : cancelScroll();
-    };
-  }, [index, runKey, reducedMotion, alignTallTurnTop]);
-  const thread = /* @__PURE__ */ jsx(Thread, { children: children(timeline) });
-  const shell = /* @__PURE__ */ jsx(
-    Shell,
-    {
-      brand: brand2,
-      width,
-      height,
-      header,
-      className: typeof className === "function" ? className(timeline) : className,
-      rootRef,
-      viewportRef,
-      composerValue: composer && composer.value ? composer.value : void 0,
-      composerTyping: (composer == null ? void 0 : composer.typing) ?? false,
-      growComposer,
-      children: threadClassName ? /* @__PURE__ */ jsx("div", { className: threadClassName, children: thread }) : thread
-    }
-  );
-  if (!expandAfter) return shell;
-  return /* @__PURE__ */ jsx("div", { ref: expandRef, children: /* @__PURE__ */ jsx("div", { className: "sell-widget-enter", children: /* @__PURE__ */ jsx(ExpandShell, { expanded: timeline.passed(expandAfter), children: shell }) }, runKey) });
-}
-function toPieces(text) {
-  const pieces = [];
-  let wordIndex = -1;
-  let endedWithSpace = true;
-  text.split("**").forEach((segment, i) => {
-    segment.split(/(\s+)/).forEach((token) => {
-      if (!token) return;
-      if (/^\s+$/.test(token)) {
-        endedWithSpace = true;
-        return;
-      }
-      if (endedWithSpace) wordIndex += 1;
-      pieces.push({ text: token, bold: i % 2 === 1, wordIndex, spaceBefore: endedWithSpace && pieces.length > 0 });
-      endedWithSpace = false;
-    });
-  });
-  return pieces;
-}
-function RichStagger({ text }) {
-  if (!text.includes("**")) return /* @__PURE__ */ jsx(StaggerText, { text });
-  return /* @__PURE__ */ jsx(Fragment, { children: toPieces(text).map((piece, i) => {
-    const Tag = piece.bold ? "strong" : "span";
-    return /* @__PURE__ */ jsxs(Fragment$1, { children: [
-      piece.spaceBefore ? " " : "",
-      /* @__PURE__ */ jsx(Tag, { className: "ill-stagger-text__word", style: { animationDelay: `${piece.wordIndex * 45}ms` }, children: piece.text })
-    ] }, i);
-  }) });
-}
-function Enter({ children, delayMs }) {
-  return /* @__PURE__ */ jsx("div", { className: "ill-assistant-turn--enter", style: delayMs ? { animationDelay: `${delayMs}ms` } : void 0, children });
-}
-function Thinking$1({ t, id }) {
-  const status = t.status(id);
-  return status ? /* @__PURE__ */ jsx(AiStatus, { label: status.label, visible: status.visible }) : null;
-}
-function AssistantText({ text }) {
-  return /* @__PURE__ */ jsx(ChatMessage, { role: "assistant", children: /* @__PURE__ */ jsx(RichStagger, { text }) });
-}
-const frameBg = "/images/support/v3/assets/frame-bg-DlNDmdDr.webp";
-const connector = "/images/support/v3/assets/guardrails-connector-mar6qdCu.svg";
-const beats$3 = [
-  { id: "panel", type: "appear", ms: 420 },
-  { id: "line", type: "appear", ms: 320 },
-  { id: "shell", type: "appear", ms: 280 },
-  { id: "ask", type: "compose", text: guardrails.userMessage, leadMs: 400 },
-  { id: "think", type: "think", labels: ["Thinking", "Checking your guardrails"] },
-  { id: "reply", type: "text", text: guardrails.assistantMessage },
-  { id: "chip", type: "appear", ms: 500 }
-];
-const CHECKED_RULE = 0;
-function stage(t, id, played) {
-  return t.reached(id) ? played : "ill-guardrails-motion--pending";
-}
-function GuardrailsPanel({ t }) {
-  const checking = t.reached("think") && !t.reached("chip");
-  return /* @__PURE__ */ jsxs("div", { className: `ill-guardrails-panel ${stage(t, "panel", "ill-guardrails-motion--enter")}`, children: [
-    /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-panel__title", children: [
-      /* @__PURE__ */ jsx(Icon, { name: "sparkle" }),
-      /* @__PURE__ */ jsx("p", { children: guardrails.heading })
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "ill-guardrails-panel__rules", children: guardrails.rules.map((rule, i) => /* @__PURE__ */ jsxs(
-      "div",
-      {
-        className: `ill-guardrails-rule${checking && i === CHECKED_RULE ? " ill-guardrails-rule--checking" : ""}`,
-        children: [
-          /* @__PURE__ */ jsx("div", { className: "ill-guardrails-rule__leading-icon", children: /* @__PURE__ */ jsx(Icon, { name: rule.icon }) }),
-          /* @__PURE__ */ jsx("div", { className: "ill-guardrails-rule__text", children: /* @__PURE__ */ jsx("p", { className: "ill-guardrails-rule__title", children: rule.title }) }),
-          /* @__PURE__ */ jsx("div", { className: "ill-guardrails-rule__icon", children: /* @__PURE__ */ jsx(Icon, { name: "caretRight" }) })
-        ]
-      },
-      i
-    )) })
-  ] });
-}
-function FlowLayer({ t }) {
-  return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(GuardrailsPanel, { t }),
-    /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-connector-wrap", children: [
-      /* @__PURE__ */ jsx(
-        "img",
-        {
-          className: `ill-guardrails-frame__connector ${stage(t, "line", "ill-guardrails-motion--draw")}`,
-          src: connector,
-          alt: "",
-          "aria-hidden": "true"
-        }
-      ),
-      t.reached("think") && !t.passed("think") && /* @__PURE__ */ jsx("span", { className: "ill-guardrails-pulse", "aria-hidden": "true" })
-    ] })
-  ] });
-}
-function Conversation(t) {
-  return t.passed("ask") && /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(UserTurn, { animateIn: true, children: /* @__PURE__ */ jsx(ChatMessage, { role: "user", text: guardrails.userMessage }) }),
-    /* @__PURE__ */ jsxs(AssistantTurn, { animateIn: true, children: [
-      /* @__PURE__ */ jsx(Thinking$1, { t, id: "think" }),
-      t.reached("reply") && /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-reply", children: [
-        /* @__PURE__ */ jsx(AssistantText, { text: guardrails.assistantMessage }),
-        t.reached("chip") && /* @__PURE__ */ jsx(Enter, { children: /* @__PURE__ */ jsx(Chip, { children: /* @__PURE__ */ jsxs("span", { className: "ill-guardrails-policy-chip", children: [
-          guardrails.policyChip,
-          /* @__PURE__ */ jsx(Icon, { name: "shieldCheck" })
-        ] }) }) })
-      ] })
-    ] })
-  ] });
-}
-// Site: Guardrails plays on a loop. Once its script has played out it holds this long, then replays from the top.
-const GUARDRAILS_LOOP_HOLD_MS = 3000;
-function LoopWhenDone({ t, onLoop }) {
-  useEffect(() => {
-    if (!t.done || t.reducedMotion) return;
-    const id = window.setTimeout(onLoop, GUARDRAILS_LOOP_HOLD_MS);
-    return () => window.clearTimeout(id);
-  }, [t.done, t.reducedMotion, onLoop]);
-  return null;
-}
-function GuardrailsMotion({ mweb = false } = {}) {
-  const [flowSlot, setFlowSlot] = useState(null);
-  // Site: bumped to replay the scene (keys the row, so the panel, connector and chat all start again).
-  const [loop, setLoop] = useState(0);
-  const replay = useCallback(() => setLoop((n) => n + 1), []);
-  return /* @__PURE__ */ jsx("div", { className: mweb ? "ill-guardrails-scale ill-guardrails--mweb" : "ill-guardrails-scale", children: /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-frame", children: [
-    /* @__PURE__ */ jsx("img", { className: "ill-guardrails-frame__bg", src: frameBg, alt: "", "aria-hidden": "true" }),
-    /* @__PURE__ */ jsxs("div", { className: "ill-guardrails-row", children: [
-      /* @__PURE__ */ jsx("div", { className: "ill-guardrails-panel-slot", ref: setFlowSlot }),
-      /* @__PURE__ */ jsx("div", { className: "ill-guardrails-card-wrap", children: /* @__PURE__ */ jsx("div", { className: "ill-guardrails-shell-crop", children: /* @__PURE__ */ jsx("div", { className: "ill-guardrails-shell-inner", children: /* @__PURE__ */ jsx(
-        ChatMotionScene,
-        {
-          brand,
-          beats: beats$3,
-          width: mweb ? 321 : 550,
-          height: mweb ? 360 : 520,
-          className: (t) => `ill-shell--standard ${stage(t, "shell", "ill-guardrails-motion--shell-enter")}`,
-          children: (t) => /* @__PURE__ */ jsxs(Fragment, { children: [
-            flowSlot && createPortal(/* @__PURE__ */ jsx(FlowLayer, { t }), flowSlot),
-            Conversation(t),
-            /* @__PURE__ */ jsx(LoopWhenDone, { t, onLoop: replay })
-          ] })
-        },
-        loop
-      ) }) }) })
-    ] })
-  ] }) });
-}
-function GuardrailsMwebMotion() {
-  return /* @__PURE__ */ jsx(GuardrailsMotion, { mweb: true });
-}
-const mwebBg = "/images/support/v3/assets/mweb-bg-green-C8jt4i4X.webp";
-const ME = { name: "Priya Raman", face: me };
-const P = {
-  sparkle: "M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144Z",
-  info: "M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z",
-  check: "M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z",
-  checks: "M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z",
-  x: "M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z",
-  scales: "M239.43,133l-32-80h0a8,8,0,0,0-9.16-4.84L136,62V40a8,8,0,0,0-16,0V65.58L54.26,80.19A8,8,0,0,0,48.57,85h0v.06L16.57,165a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32a7.92,7.92,0,0,0-.57-3L66.92,93.77,120,82V208H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16H136V78.42L187,67.1,160.57,133a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32A7.92,7.92,0,0,0,239.43,133ZM56,184c-7.53,0-22.76-3.61-23.93-14.64L56,109.54l23.93,59.82C78.76,180.39,63.53,184,56,184Zm144-32c-7.53,0-22.76-3.61-23.93-14.64L200,77.54l23.93,59.82C222.76,148.39,207.53,152,200,152Z",
-  list: "M224,128a8,8,0,0,1-8,8H104a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM104,72H216a8,8,0,0,0,0-16H104a8,8,0,0,0,0,16ZM216,184H104a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM64,52H48a8,8,0,0,0,0,16H64a8,8,0,0,0,0-16Zm0,64H48a8,8,0,0,0,0,16H64a8,8,0,0,0,0-16Zm0,64H48a8,8,0,0,0,0,16H64a8,8,0,0,0,0-16Z",
-  person: "M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z",
-  globe: "M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm87.62,96H175.79C174,83.49,159.94,57.67,148.41,42.4A88.19,88.19,0,0,1,215.62,120ZM96.23,136h63.54c-2.31,41.61-22.23,67.11-31.77,77C118.45,203.1,98.54,177.6,96.23,136Zm0-16C98.54,78.39,118.46,52.89,128,43c9.55,9.93,29.46,35.43,31.77,77Zm11.36-77.6C96.06,57.67,82,83.49,80.21,120H40.37A88.19,88.19,0,0,1,107.59,42.4ZM40.37,136H80.21c1.82,36.51,15.85,62.33,27.38,77.6A88.19,88.19,0,0,1,40.37,136Zm108,77.6c11.53-15.27,25.56-41.09,27.38-77.6h39.84A88.19,88.19,0,0,1,148.41,213.6Z",
-  sort: "M119.39,172.94a8,8,0,0,1-1.73,8.72l-32,32a8,8,0,0,1-11.32,0l-32-32A8,8,0,0,1,48,168H72V48a8,8,0,0,1,16,0V168h24A8,8,0,0,1,119.39,172.94Zm94.27-98.6-32-32a8,8,0,0,0-11.32,0l-32,32A8,8,0,0,0,144,88h24V208a8,8,0,0,0,16,0V88h24a8,8,0,0,0,5.66-13.66Z",
-  arrowUp: "M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z",
-  caretDown: "M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z",
-  caretUp: "M213.66,165.66a8,8,0,0,1-11.32,0L128,91.31,53.66,165.66a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,213.66,165.66Z",
-  checkCircle: "M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"
-};
-function I({ d }) {
-  return /* @__PURE__ */ jsx("svg", { className: "dk-icon", viewBox: "0 0 256 256", fill: "currentColor", "aria-hidden": true, children: /* @__PURE__ */ jsx("path", { d: P[d] }) });
-}
-function useFollowLatest(animate, runKey) {
-  const threadRef = useRef(null);
-  const contentRef = useRef(null);
-  useLayoutEffect(() => {
-    const thread = threadRef.current;
-    const content = contentRef.current;
-    if (!thread || !content) return;
-    const follow = () => thread.scrollTo({ top: thread.scrollHeight, behavior: animate ? "smooth" : "instant" });
-    follow();
-    const observer = new ResizeObserver(follow);
-    observer.observe(content);
-    return () => observer.disconnect();
-  }, [animate, runKey]);
-  return { threadRef, contentRef };
-}
-function Customer({ face, text, time, enter }) {
-  return /* @__PURE__ */ jsxs("div", { className: `wd-msg wd-msg--customer${enter ?? ""}`, children: [
-    /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: face, alt: "" }),
-    /* @__PURE__ */ jsxs("div", { className: "wd-bubble", children: [
-      /* @__PURE__ */ jsx("p", { className: "wd-bubble__text", children: text }),
-      /* @__PURE__ */ jsxs("p", { className: "wd-bubble__foot", children: [
-        /* @__PURE__ */ jsx(I, { d: "globe" }),
-        " · ",
-        time
-      ] })
-    ] })
-  ] });
-}
-function Ai({
-  children,
-  agent = "Shopping Assistant",
-  time,
-  status,
-  enter
-}) {
-  return /* @__PURE__ */ jsxs("div", { className: `wd-msg wd-msg--ai${enter ?? ""}`, children: [
-    /* @__PURE__ */ jsxs("div", { className: "wd-bubble", children: [
-      /* @__PURE__ */ jsx("div", { className: "wd-bubble__text", children }),
-      time && /* @__PURE__ */ jsxs("p", { className: "wd-bubble__foot", children: [
-        agent,
-        " · ",
-        time,
-        " · ",
-        /* @__PURE__ */ jsx(I, { d: "checks" }),
-        " ",
-        status
-      ] })
-    ] }),
-    /* @__PURE__ */ jsx("span", { className: "wd-ai-mark", children: /* @__PURE__ */ jsx(I, { d: "sparkle" }) })
-  ] });
-}
-function Human({ children, time, status, enter }) {
-  return /* @__PURE__ */ jsxs("div", { className: `wd-msg wd-msg--ai${enter ?? ""}`, children: [
-    /* @__PURE__ */ jsxs("div", { className: "wd-bubble", children: [
-      /* @__PURE__ */ jsx("div", { className: "wd-bubble__text", children }),
-      time && /* @__PURE__ */ jsxs("p", { className: "wd-bubble__foot", children: [
-        ME.name,
-        " · Human agent · ",
-        time,
-        " · ",
-        /* @__PURE__ */ jsx(I, { d: "checks" }),
-        " ",
-        status
-      ] })
-    ] }),
-    /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: ME.face, alt: "" })
-  ] });
-}
-function Event({ children, time, enter }) {
-  return /* @__PURE__ */ jsxs("p", { className: `wd-event${enter ?? ""}`, children: [
-    /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: ME.face, alt: "" }),
-    /* @__PURE__ */ jsx("span", { children }),
-    /* @__PURE__ */ jsx("span", { children: "·" }),
-    /* @__PURE__ */ jsx("span", { children: time })
-  ] });
-}
-function EventCard({
-  icon,
-  title,
-  time,
-  tone,
-  children,
-  enter
-}) {
-  return /* @__PURE__ */ jsxs("div", { className: `wd-card${tone === "note" ? " wd-card--note" : ""}${enter ?? ""}`, children: [
-    /* @__PURE__ */ jsx("div", { className: "wd-card__text", children }),
-    /* @__PURE__ */ jsxs("p", { className: "wd-card__foot", children: [
-      /* @__PURE__ */ jsx(I, { d: icon }),
-      " ",
-      title,
-      " · ",
-      time
-    ] })
-  ] });
-}
-const InboxMweb = createContext(false);
-function Inbox({
-  title,
-  count,
-  rows,
-  activeIndex = 0,
-  ping,
-  customer,
-  topic,
-  headAction,
-  thread,
-  foot,
-  details,
-  overlay,
-  toast,
-  threadRef,
-  contentRef,
-  stageRef,
-  runKey,
-  rowIcon = "sparkle"
-}) {
-  const mweb = useContext(InboxMweb);
-  const dash = /* @__PURE__ */ jsxs("div", { className: mweb ? "dk wd dk--mweb" : "dk wd", children: [
-    /* @__PURE__ */ jsxs("nav", { className: "dk-rail", children: [
-      /* @__PURE__ */ jsx("img", { className: "dk-rail__logo", src: crosswordMark, alt: "" }),
-      ["house", "cube", "headset", "chartBar"].map((n) => /* @__PURE__ */ jsx("span", { className: n === "headset" ? "dk-rail__item dk-rail__item--on" : "dk-rail__item", children: /* @__PURE__ */ jsx(Ph, { name: n }) }, n)),
-      /* @__PURE__ */ jsx("span", { className: "dk-rail__item dk-rail__item--end", children: /* @__PURE__ */ jsx(Ph, { name: "gear" }) }),
-      /* @__PURE__ */ jsx("span", { className: "dk-rail__me", "aria-hidden": true, children: "A" })
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "wd-list", children: [
-      /* @__PURE__ */ jsxs("div", { className: "wd-list__head", children: [
-        /* @__PURE__ */ jsx("h2", { className: "wd-serif", children: title }),
-        /* @__PURE__ */ jsx("span", { className: "wd-count", children: count })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "wd-search", children: [
-        /* @__PURE__ */ jsx(Ph, { name: "search" }),
-        /* @__PURE__ */ jsx("span", { children: "Search name or message…" })
-      ] }),
-      /* @__PURE__ */ jsxs("span", { className: "wd-sort", children: [
-        /* @__PURE__ */ jsx(I, { d: "sort" }),
-        " Last activity ",
-        /* @__PURE__ */ jsx(I, { d: "caretDown" })
-      ] }),
-      rows.map((r, i) => /* @__PURE__ */ jsxs(
-        "div",
-        {
-          className: ["wd-row", i === activeIndex && "wd-row--on", i === activeIndex && ping && "wd-row--ping"].filter(Boolean).join(" "),
-          children: [
-            /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: r.face, alt: "" }),
-            /* @__PURE__ */ jsxs("span", { className: "wd-row__body", children: [
-              /* @__PURE__ */ jsxs("span", { className: "wd-row__top", children: [
-                /* @__PURE__ */ jsx("span", { className: "wd-row__name", children: r.name }),
-                rowIcon && /* @__PURE__ */ jsx(I, { d: rowIcon })
-              ] }),
-              /* @__PURE__ */ jsxs("span", { className: "wd-row__bottom", children: [
-                /* @__PURE__ */ jsx("span", { className: "wd-row__text", children: r.text }),
-                /* @__PURE__ */ jsxs("span", { className: "wd-row__age", children: [
-                  r.age,
-                  r.dot && /* @__PURE__ */ jsx("span", { className: "wd-dot" })
-                ] })
-              ] })
-            ] })
-          ]
-        },
-        r.name
-      ))
-    ] }),
-    /* @__PURE__ */ jsxs("section", { className: "dk-main", children: [
-      /* @__PURE__ */ jsxs("header", { className: "dk-head", children: [
-        /* @__PURE__ */ jsx("span", { className: "dk-head__name", children: customer.name }),
-        /* @__PURE__ */ jsx("span", { className: "dk-head__actions", children: headAction })
-      ] }),
-      /* @__PURE__ */ jsxs("p", { className: "dk-banner", children: [
-        /* @__PURE__ */ jsx(I, { d: "info" }),
-        " ",
-        topic
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "wd-thread", ref: threadRef, children: /* @__PURE__ */ jsx("div", { className: "wd-thread__content", ref: contentRef, children: thread }) }),
-      foot
-    ] }),
-    /* @__PURE__ */ jsxs("aside", { className: "dk-details wd-details", children: [
-      /* @__PURE__ */ jsxs("p", { className: "dk-details__head", children: [
-        /* @__PURE__ */ jsx(I, { d: "list" }),
-        " Details"
-      ] }),
-      details
-    ] }),
-    overlay,
-    toast
-  ] }, runKey);
-  if (mweb)
-    return /* @__PURE__ */ jsx("div", { className: "dkm-frame", ref: stageRef, style: { backgroundImage: `url(${mwebBg})` }, children: dash });
-  return /* @__PURE__ */ jsx("div", { className: "la-stage wd-stage", ref: stageRef, children: /* @__PURE__ */ jsx(LandscapeCanvas, { backdrop: "green", bleed: true, scene: dash }) });
-}
-function HeadActions({ mine = false, pressed = false }) {
-  return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx("span", { className: "dk-iconbtn", children: /* @__PURE__ */ jsx(I, { d: "check" }) }),
-    mine ? /* @__PURE__ */ jsxs("span", { className: "dk-takeover wd-enter-soft", children: [
-      /* @__PURE__ */ jsx(I, { d: "sparkle" }),
-      " Hand back to AI"
-    ] }) : /* @__PURE__ */ jsxs("span", { className: `dk-takeover${pressed ? " wd-pressed" : ""}`, children: [
-      /* @__PURE__ */ jsx(Ph, { name: "headset" }),
-      " Take over"
-    ] })
-  ] });
-}
-function Contact({ name, face, email, extra }) {
-  return /* @__PURE__ */ jsxs("div", { className: "dk-section", children: [
-    /* @__PURE__ */ jsxs("p", { className: "dk-section__title", children: [
-      /* @__PURE__ */ jsx(I, { d: "person" }),
-      " Contact",
-      " ",
-      /* @__PURE__ */ jsx("span", { className: "wd-caret", children: /* @__PURE__ */ jsx(I, { d: "caretUp" }) })
-    ] }),
-    /* @__PURE__ */ jsxs("p", { className: "dk-contact", children: [
-      /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: face, alt: "" }),
-      name
-    ] }),
-    /* @__PURE__ */ jsxs("p", { className: "dk-row", children: [
-      /* @__PURE__ */ jsx("span", { children: "Channel" }),
-      /* @__PURE__ */ jsxs("span", { className: "wd-inline", children: [
-        /* @__PURE__ */ jsx(I, { d: "globe" }),
-        " Web"
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("p", { className: "dk-row", children: [
-      /* @__PURE__ */ jsx("span", { children: "Email" }),
-      /* @__PURE__ */ jsx("span", { children: email })
-    ] }),
-    extra == null ? void 0 : extra.map(([k, val]) => /* @__PURE__ */ jsxs("p", { className: "dk-row", children: [
-      /* @__PURE__ */ jsx("span", { children: k }),
-      /* @__PURE__ */ jsx("span", { children: val })
-    ] }, k)),
-    /* @__PURE__ */ jsx("p", { className: "dk-link", children: "View contact" })
-  ] });
-}
-function Summary({ text }) {
-  return /* @__PURE__ */ jsxs("div", { className: "dk-section dk-summary", children: [
-    /* @__PURE__ */ jsxs("p", { className: "dk-section__title", children: [
-      /* @__PURE__ */ jsx(I, { d: "sparkle" }),
-      " Summary",
-      " ",
-      /* @__PURE__ */ jsx("span", { className: "wd-caret", children: /* @__PURE__ */ jsx(I, { d: "caretUp" }) })
-    ] }),
-    /* @__PURE__ */ jsx("div", { className: "dk-summary__box", children: text }),
-    /* @__PURE__ */ jsx("p", { className: "dk-link", children: "Refresh summary" })
-  ] });
-}
-function Composer({
-  mode,
-  text,
-  typing,
-  placeholder,
-  steers,
-  bump,
-  enter
-}) {
-  const instruct = mode === "instruct";
-  return /* @__PURE__ */ jsxs("div", { className: `dk-composer wd-composer${instruct ? "" : " wd-composer--reply"}${enter ? " wd-enter-soft" : ""}`, children: [
-    /* @__PURE__ */ jsxs("p", { className: "dk-composer__top", children: [
-      instruct ? /* @__PURE__ */ jsx(I, { d: "sparkle" }) : /* @__PURE__ */ jsx(Ph, { name: "headset" }),
-      " ",
-      instruct ? "AI is replying" : "You’re replying",
-      /* @__PURE__ */ jsxs("span", { className: `wd-steers${bump ? " wd-steers--bump" : ""}`, children: [
-        /* @__PURE__ */ jsx(I, { d: "sparkle" }),
-        " ",
-        steers === 1 ? "1 instruction" : `${steers} instructions`
-      ] }, steers)
-    ] }),
-    /* @__PURE__ */ jsxs("p", { className: `dk-composer__text${text ? " dk-composer__text--filled" : ""}`, children: [
-      text || placeholder,
-      typing && /* @__PURE__ */ jsx("span", { className: "ib-caret" })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "dk-composer__foot", children: [
-      /* @__PURE__ */ jsxs("span", { className: "wd-pickers", children: [
-        /* @__PURE__ */ jsxs("span", { className: "dk-mode", children: [
-          instruct ? /* @__PURE__ */ jsx(I, { d: "sparkle" }) : /* @__PURE__ */ jsx(Ph, { name: "send" }),
-          " ",
-          instruct ? "Instruct the AI" : "Public reply",
-          " ",
-          /* @__PURE__ */ jsx(I, { d: "caretDown" })
-        ] }),
-        instruct && /* @__PURE__ */ jsxs("span", { className: "dk-mode wd-scope", children: [
-          "This chat ",
-          /* @__PURE__ */ jsx(I, { d: "caretDown" })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxs("span", { className: `dk-send${text ? " dk-send--ready" : ""}`, children: [
-        instruct ? "Add" : "Send",
-        " ",
-        /* @__PURE__ */ jsx(I, { d: "arrowUp" })
-      ] })
-    ] })
-  ] }, mode);
-}
-function Confirm({
-  title,
-  body,
-  action,
-  pressed,
-  leaving
-}) {
-  return /* @__PURE__ */ jsx("div", { className: `wd-scrim${leaving ? " wd-scrim--out" : ""}`, children: /* @__PURE__ */ jsxs("div", { className: "wd-dialog", children: [
-    /* @__PURE__ */ jsx("p", { className: "wd-dialog__title", children: title }),
-    /* @__PURE__ */ jsx("p", { className: "wd-dialog__body", children: body }),
-    /* @__PURE__ */ jsxs("div", { className: "wd-dialog__actions", children: [
-      /* @__PURE__ */ jsx("span", { className: "wd-btn wd-btn--outline", children: "Cancel" }),
-      /* @__PURE__ */ jsx("span", { className: `wd-btn wd-btn--primary${pressed ? " wd-pressed" : ""}`, children: action })
-    ] })
-  ] }) });
-}
-function Toast({ children }) {
-  return /* @__PURE__ */ jsxs("p", { className: "wd-toast", children: [
-    /* @__PURE__ */ jsx(I, { d: "checkCircle" }),
-    " ",
-    children
-  ] });
-}
-const CUSTOMER$2 = { name: "Maya Collins", face: emma };
-const OTHERS$1 = [
-  { name: "Omar Haddad", face: omar, text: "Can I change the delivery address?", age: "4m" },
-  { name: "Sofia Marino", face: shopper, text: "Thanks, that worked!", age: "12m" },
-  { name: "Kenji Watanabe", face: kenji, text: "Great choice! It's in stock and ships today.", age: "26m" }
-];
-const beats$2 = [
-  { id: "rest", type: "pause", ms: 900 },
-  { id: "ask", type: "appear", ms: 1100 },
-  { id: "think", type: "think", labels: ["Thinking", "Bringing in the team"] },
-  { id: "reply", type: "text", text: humanTakeover.assistantMessage },
-  { id: "handoff", type: "appear", ms: 1300 },
-  { id: "press", type: "appear", ms: 450 },
-  { id: "confirm", type: "appear", ms: 1500 },
-  { id: "confirmPress", type: "appear", ms: 350 },
-  { id: "joined", type: "appear", ms: 1100 },
-  { id: "type", type: "compose", text: humanTakeover.humanMessage, msPerChar: 36 },
-  { id: "sent", type: "appear", ms: 2800 }
-];
-function Dashboard$2({ v, stageRef, runKey }) {
-  const enter = v.animate ? " ib-enter" : "";
-  const { threadRef, contentRef } = useFollowLatest(v.animate, runKey);
-  const first = CUSTOMER$2.name.split(" ")[0];
-  const preview = v.sent ? humanTakeover.humanMessage : v.reply ? humanTakeover.assistantMessage : humanTakeover.userMessage;
-  return /* @__PURE__ */ jsx(
-    Inbox,
-    {
-      title: v.joined ? "My Chats" : "AI agents",
-      count: v.joined ? 1 : 4,
-      rows: [{ ...CUSTOMER$2, text: preview, age: v.asked ? "now" : "2m", dot: v.handoff && !v.joined }, ...v.joined ? [] : OTHERS$1],
-      rowIcon: v.joined ? null : "sparkle",
-      ping: v.asked && v.animate && !v.joined,
-      customer: CUSTOMER$2,
-      topic: "Wants a person to help her decide",
-      headAction: /* @__PURE__ */ jsx(HeadActions, { mine: v.joined, pressed: v.pressed && !v.confirm }),
-      threadRef,
-      contentRef,
-      stageRef,
-      runKey,
-      thread: /* @__PURE__ */ jsxs(Fragment, { children: [
-        v.asked && /* @__PURE__ */ jsx(Customer, { face: CUSTOMER$2.face, text: humanTakeover.userMessage, time: "01:20", enter }),
-        (v.thinking || v.reply) && /* @__PURE__ */ jsx(Ai, { enter, time: v.reply ? "01:20" : void 0, status: "Seen", children: v.thinking ? /* @__PURE__ */ jsx(
-          "span",
-          {
-            className: ["la-thinking", v.animate && "la-thinking--live", !v.thinking.visible && "la-thinking--out"].filter(Boolean).join(" "),
-            children: v.thinking.label
-          },
-          v.thinking.label
-        ) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: humanTakeover.assistantMessage }) : humanTakeover.assistantMessage }) }),
-        v.handoff && /* @__PURE__ */ jsxs(EventCard, { icon: "sparkle", title: "Handed to the team · Shopping Assistant", time: "01:20", enter, children: [
-          /* @__PURE__ */ jsx("span", { className: "wd-card__label", children: "Question" }),
-          humanTakeover.userMessage
-        ] }),
-        v.joined && /* @__PURE__ */ jsxs(Event, { time: "01:21", enter, children: [
-          /* @__PURE__ */ jsx("b", { children: ME.name }),
-          " has joined the chat"
-        ] }),
-        v.sent && /* @__PURE__ */ jsx(Human, { time: "01:21", status: "Delivered", enter, children: /* @__PURE__ */ jsx("p", { children: humanTakeover.humanMessage }) })
-      ] }),
-      foot: v.joined ? /* @__PURE__ */ jsx(Composer, { mode: "reply", text: v.composer, typing: v.typing, placeholder: `Reply to ${first}…`, steers: 0, enter: v.animate }) : /* @__PURE__ */ jsx(Composer, { mode: "instruct", text: "", typing: false, placeholder: "Tell the AI what to do in this chat…", steers: 0 }),
-      details: /* @__PURE__ */ jsxs(Fragment, { children: [
-        /* @__PURE__ */ jsx(Contact, { ...CUSTOMER$2, email: "maya.c@example.net" }),
-        /* @__PURE__ */ jsx(Summary, { text: "Maya has been going back and forth and asked for a person. The AI has handed the chat to the team with everything discussed so far." })
-      ] }),
-      overlay: v.confirm && /* @__PURE__ */ jsx(
-        Confirm,
-        {
-          title: "Take over this conversation?",
-          body: `The AI will stop replying — ${CUSTOMER$2.name}’s messages come to you until you hand it back.`,
-          action: "Take over",
-          pressed: v.confirmPressed
-        }
-      ),
-      toast: v.toast && /* @__PURE__ */ jsx(Toast, { children: "You're now handling this conversation." })
-    }
-  );
-}
-function TakeoverDashboardMotion() {
-  var _a;
-  const stageRef = useRef(null);
-  const t = useChatTimeline(beats$2, useLandedOnScreen(stageRef));
-  const joined = t.reached("joined");
-  const v = {
-    asked: t.reached("ask"),
-    thinking: t.status("think"),
-    reply: t.reached("reply"),
-    handoff: t.reached("handoff"),
-    pressed: t.reached("press"),
-    confirm: t.reached("confirm") && !joined,
-    confirmPressed: t.reached("confirmPress"),
-    joined,
-    composer: ((_a = t.composer) == null ? void 0 : _a.value) ?? "",
-    typing: !!t.composer,
-    sent: t.reached("sent"),
-    toast: joined && !t.passed("type"),
-    animate: !t.reducedMotion
-  };
-  return /* @__PURE__ */ jsx(Dashboard$2, { v, stageRef, runKey: t.runKey });
-}
-function TakeoverDashboardMwebMotion() {
-  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(TakeoverDashboardMotion, {}) });
-}
-const CUSTOMER$1 = { name: "Omar Haddad", face: omar };
-const OTHER = { name: "Kenji Watanabe", face: kenji, text: "Refund $78.00 on order SM-10429?", age: "2h", dot: true };
-const beats$1 = [
-  { id: "rest", type: "pause", ms: 900 },
-  { id: "ask", type: "appear", ms: 1100 },
-  { id: "think", type: "think", labels: ["Thinking", "Checking with the team"] },
-  { id: "checking", type: "text", text: merchantApproval.checkingMessage },
-  { id: "decision", type: "appear", ms: 2600 },
-  { id: "press", type: "appear", ms: 450 },
-  { id: "decided", type: "appear", ms: 1300 },
-  { id: "think2", type: "think", labels: ["Thinking"] },
-  { id: "offer", type: "text", text: merchantApproval.offerMessage },
-  { id: "read", type: "pause", ms: 2600 }
-];
-function Thinking({ s, animate }) {
-  return /* @__PURE__ */ jsx("span", { className: ["la-thinking", animate && "la-thinking--live", !s.visible && "la-thinking--out"].filter(Boolean).join(" "), children: s.label }, s.label);
-}
-function DecisionCard({ pressed, enter }) {
-  return /* @__PURE__ */ jsxs("div", { className: `wd-decision${enter ? " ib-enter" : ""}`, children: [
-    /* @__PURE__ */ jsxs("p", { className: "wd-decision__head", children: [
-      /* @__PURE__ */ jsx(I, { d: "scales" }),
-      " Decision needed"
-    ] }),
-    /* @__PURE__ */ jsx("p", { className: "wd-decision__text", children: merchantApproval.requestMessage }),
-    /* @__PURE__ */ jsxs("div", { className: "wd-decision__actions", children: [
-      /* @__PURE__ */ jsx("span", { className: "wd-note-field", children: "Note (optional)" }),
-      /* @__PURE__ */ jsxs("span", { className: "wd-btn wd-btn--deny", children: [
-        /* @__PURE__ */ jsx(I, { d: "x" }),
-        " Deny"
-      ] }),
-      /* @__PURE__ */ jsxs("span", { className: `wd-btn wd-btn--primary${pressed ? " wd-pressed" : ""}`, children: [
-        /* @__PURE__ */ jsx(I, { d: "check" }),
-        " ",
-        merchantApproval.decision
-      ] })
-    ] })
-  ] });
-}
-function Dashboard$1({ v, stageRef, runKey }) {
-  const enter = v.animate ? " ib-enter" : "";
-  const { threadRef, contentRef } = useFollowLatest(v.animate, runKey);
-  const awaiting = v.decision && !v.decided;
-  const preview = v.offer ? merchantApproval.offerMessage : awaiting ? merchantApproval.requestMessage : v.checking ? merchantApproval.checkingMessage : merchantApproval.userMessage;
-  return /* @__PURE__ */ jsx(
-    Inbox,
-    {
-      title: "Decisions",
-      count: awaiting ? 2 : 1,
-      rows: [{ ...CUSTOMER$1, text: preview, age: "now", dot: awaiting }, OTHER],
-      rowIcon: null,
-      ping: v.decision && v.animate && !v.decided,
-      customer: CUSTOMER$1,
-      topic: "Asking for 20% off the set",
-      headAction: /* @__PURE__ */ jsx(HeadActions, {}),
-      threadRef,
-      contentRef,
-      stageRef,
-      runKey,
-      thread: /* @__PURE__ */ jsxs(Fragment, { children: [
-        v.asked && /* @__PURE__ */ jsx(Customer, { face: CUSTOMER$1.face, text: merchantApproval.userMessage, time: "00:47", enter }),
-        (v.thinking || v.checking) && /* @__PURE__ */ jsx(Ai, { enter, time: v.checking ? "00:47" : void 0, status: "Delivered", children: v.thinking ? /* @__PURE__ */ jsx(Thinking, { s: v.thinking, animate: v.animate }) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: merchantApproval.checkingMessage }) : merchantApproval.checkingMessage }) }),
-        v.decided && /* @__PURE__ */ jsx(EventCard, { icon: "scales", title: `Decision · ${ME.name}`, time: "00:48", tone: "note", enter, children: merchantApproval.decision }),
-        (v.thinking2 || v.offer) && /* @__PURE__ */ jsx(Ai, { enter, time: v.offer ? "00:48" : void 0, status: "Delivered", children: v.thinking2 ? /* @__PURE__ */ jsx(Thinking, { s: v.thinking2, animate: v.animate }) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: merchantApproval.offerMessage }) : merchantApproval.offerMessage }) })
-      ] }),
-      foot: awaiting ? /* @__PURE__ */ jsx(DecisionCard, { pressed: v.pressed, enter: v.animate }) : /* @__PURE__ */ jsx(Composer, { mode: "instruct", text: "", typing: false, placeholder: "Tell the AI what to do in this chat…", steers: 0, enter: v.decided && v.animate }),
-      details: /* @__PURE__ */ jsxs(Fragment, { children: [
-        /* @__PURE__ */ jsx(Contact, { ...CUSTOMER$1, email: "omar.h@example.net", extra: [["Orders", "4"]] }),
-        /* @__PURE__ */ jsx(Summary, { text: "Omar loves the set and asked for 20% off. He’s a repeat customer with 4 previous orders, so the AI asked the team to approve." })
-      ] }),
-      toast: v.toast && /* @__PURE__ */ jsx(Toast, { children: "Approved — the AI will tell the visitor." })
-    }
-  );
-}
-function DecisionDashboardMotion() {
-  const stageRef = useRef(null);
-  const t = useChatTimeline(beats$1, useLandedOnScreen(stageRef));
-  const decided = t.reached("decided");
-  const v = {
-    asked: t.reached("ask"),
-    thinking: t.status("think"),
-    checking: t.reached("checking"),
-    decision: t.reached("decision"),
-    pressed: t.reached("press"),
-    decided,
-    thinking2: t.status("think2"),
-    offer: t.reached("offer"),
-    toast: decided && !t.passed("offer"),
-    animate: !t.reducedMotion
-  };
-  return /* @__PURE__ */ jsx(Dashboard$1, { v, stageRef, runKey: t.runKey });
-}
-function DecisionDashboardMwebMotion() {
-  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(DecisionDashboardMotion, {}) });
-}
-const CUSTOMER = { name: "Sofia Marino", face: shopper };
-const OTHERS = [
-  { name: "Omar Haddad", face: omar, text: "Can I change the delivery address?", age: "4m" },
-  { name: "Emma Lindqvist", face: emma, text: "Thanks, that worked!", age: "12m" },
-  { name: "Kenji Watanabe", face: kenji, text: "Great choice! It's in stock and ships today.", age: "26m" }
-];
-const EARLIER = {
-  customer: "Hi, my serum arrived with the pump broken.",
-  ai: "I’m sorry to hear that, Sofia. Could you send a photo of the pump so I can sort it out?"
-};
-const beats = [
-  { id: "rest", type: "pause", ms: 900 },
-  { id: "arrive", type: "appear", ms: 1200 },
-  { id: "whisper", type: "compose", text: whisperToAgent.whisperMessage, msPerChar: 34 },
-  { id: "steer", type: "appear", ms: 900 },
-  { id: "think", type: "think", labels: ["Thinking", "Keeping it warm"] },
-  { id: "reply", type: "text", text: whisperToAgent.assistantMessage },
-  { id: "read", type: "pause", ms: 2600 }
-];
-function Dashboard({ v, stageRef, runKey }) {
-  const enter = v.animate ? " ib-enter" : "";
-  const { threadRef, contentRef } = useFollowLatest(v.animate, runKey);
-  const preview = v.reply ? whisperToAgent.assistantMessage : v.arrived ? whisperToAgent.userMessage : EARLIER.ai;
-  return /* @__PURE__ */ jsx(
-    Inbox,
-    {
-      title: "AI agents",
-      count: 4,
-      rows: [{ ...CUSTOMER, text: preview, age: v.arrived ? "now" : "6m" }, ...OTHERS],
-      ping: v.arrived && v.animate,
-      customer: CUSTOMER,
-      topic: "Serum arrived with a broken pump",
-      headAction: /* @__PURE__ */ jsx(HeadActions, {}),
-      threadRef,
-      contentRef,
-      stageRef,
-      runKey,
-      thread: /* @__PURE__ */ jsxs(Fragment, { children: [
-        /* @__PURE__ */ jsx(Customer, { face: CUSTOMER.face, text: EARLIER.customer, time: "01:14" }),
-        /* @__PURE__ */ jsx(Ai, { time: "01:14", status: "Seen", children: /* @__PURE__ */ jsx("p", { children: EARLIER.ai }) }),
-        v.arrived && /* @__PURE__ */ jsx(Customer, { face: CUSTOMER.face, text: whisperToAgent.userMessage, time: "01:22", enter }),
-        v.steer && /* @__PURE__ */ jsxs("div", { className: `wd-steer${enter}`, children: [
-          /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: ME.face, alt: "" }),
-          /* @__PURE__ */ jsxs("div", { className: "wd-steer__body", children: [
-            /* @__PURE__ */ jsxs("p", { className: "wd-steer__meta", children: [
-              /* @__PURE__ */ jsxs("span", { children: [
-                /* @__PURE__ */ jsx("b", { children: whisperToAgent.whisperSender }),
-                " told the AI"
-              ] }),
-              /* @__PURE__ */ jsx("span", { children: "·" }),
-              /* @__PURE__ */ jsx("span", { children: "This chat" }),
-              /* @__PURE__ */ jsx("span", { children: "·" }),
-              /* @__PURE__ */ jsx("span", { children: "01:22" })
-            ] }),
-            /* @__PURE__ */ jsx("p", { className: "wd-steer__text", children: whisperToAgent.whisperMessage })
-          ] })
-        ] }),
-        (v.thinking || v.reply) && /* @__PURE__ */ jsx(Ai, { enter, time: v.reply ? "01:23" : void 0, status: "Delivered", children: v.thinking ? /* @__PURE__ */ jsx(
-          "span",
-          {
-            className: ["la-thinking", v.animate && "la-thinking--live", !v.thinking.visible && "la-thinking--out"].filter(Boolean).join(" "),
-            children: v.thinking.label
-          },
-          v.thinking.label
-        ) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: whisperToAgent.assistantMessage }) : whisperToAgent.assistantMessage }) })
-      ] }),
-      foot: /* @__PURE__ */ jsx(
-        Composer,
-        {
-          mode: "instruct",
-          text: v.composer,
-          typing: v.typing,
-          placeholder: "Tell the AI what to do in this chat…",
-          steers: v.steer ? 1 : 0,
-          bump: v.steer && v.animate
-        }
-      ),
-      details: /* @__PURE__ */ jsxs(Fragment, { children: [
-        /* @__PURE__ */ jsx(Contact, { ...CUSTOMER, email: "sofia.m@example.net", extra: [["Orders", "14"]] }),
-        /* @__PURE__ */ jsx(Summary, { text: "Sofia’s serum arrived with a broken pump. The AI asked for a photo; she’s now frustrated with the wait." })
-      ] })
-    }
-  );
-}
-function WhisperDashboardMotion() {
-  var _a;
-  const stageRef = useRef(null);
-  const t = useChatTimeline(beats, useLandedOnScreen(stageRef));
-  const v = {
-    arrived: t.reached("arrive"),
-    composer: ((_a = t.composer) == null ? void 0 : _a.value) ?? "",
-    typing: !!t.composer,
-    steer: t.passed("whisper"),
-    thinking: t.status("think"),
-    reply: t.reached("reply"),
-    animate: !t.reducedMotion
-  };
-  return /* @__PURE__ */ jsx(Dashboard, { v, stageRef, runKey: t.runKey });
-}
-function WhisperDashboardMwebMotion() {
-  return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(WhisperDashboardMotion, {}) });
-}
+const slug = (name, C) => () => createElement("div", { "data-slug": name, style: { display: "contents" } }, createElement(C));
+const OrderTrackingMotion = slug("order-tracking", OrderTrackingMotion$1);
+const ProductUsageMotion = slug("product-usage", ProductUsageMotion$1);
+const SizeExchangeMotion = slug("size-exchange", SizeExchangeMotion$1);
+const ShadeChangeMotion = slug("shade-change", ShadeChangeMotion$1);
+const RefundStatusMotion = slug("refund-status", RefundStatusMotion$1);
+const ReturnEligibilityMotion = slug("return-eligibility", ReturnEligibilityMotion$1);
 export {
   DecisionDashboardMotion,
   DecisionDashboardMwebMotion,
-  GuardrailsMotion,
-  GuardrailsMwebMotion,
+  GuardrailsAllMotion as GuardrailsMotion,
+  GuardrailsAllMwebMotion as GuardrailsMwebMotion,
+  HelpDeskDashboardMotion,
+  HelpDeskDashboardMwebMotion,
   HelpdeskInsightsDashboardMotion,
   MerchantInsightDeskMotion,
   MerchantInsightMotion,

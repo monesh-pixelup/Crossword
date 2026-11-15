@@ -38,7 +38,7 @@ function CasePanel({ item, scene, play, replay }: { item: Case; scene: boolean; 
     <>
       {/*
         The framed panel art (821 × 611, a maroon damask in 16px of studded lattice inside a 1px #d2cdc0 border) fills
-        the column. The case's motion visual (738 × 680) is fitted whole inside the damask, 16px in, and centred in it,
+        the column. The case's motion visual (788 × 579) fills the damask, 16px in, and is centred in it,
         without its own notched frame and texture (`.sup-bare`), so only the panel's frame shows around the chat.
       */}
       <div className="relative w-full">

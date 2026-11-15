@@ -26,60 +26,60 @@ const tag =
   "border-[0.5px] border-black/40 bg-[#ffeec2] p-1.5 font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] text-ink-muted uppercase [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]";
 /** Crimson Light 32 at -1.6px (-5%). */
 const title = "font-serif text-(length:--h5-size) leading-[1.09375] font-light tracking-[-0.05em] text-ink";
-const body = "max-w-[462.865px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted";
 
 /**
- * Figma "Library · Numbered panel (Helpdesk)" (3257:34848): the eyebrow and headline, then the two options
- * 120px apart. Row 1 is the copy (a tag, a 32px title, a line of copy and a text link) beside the Crossword
- * inbox scene in its maroon frame; row 2 is the helpdesk integration as a centred sand panel over four help
- * desk tiles. The page sets Figma's 75px divider band above it. A 208.94px gold tick sits on the left rail, 16.51px
- * above the eyebrow (Figma 3257:34931).
+ * Figma 4158:24677 (the wide-panel layout): the eyebrow over a two-line headline ("A free help desk, with unlimited
+ * seats.") with its line of copy bottom-aligned on the right, then 80px below them the help desk on Figma's
+ * "Background/Panel/Forest · Wide" stage (1280 × 599: the forest damask in its gold notched frame, a stud in each
+ * corner). 120px below that, row 2 is the helpdesk integration as a centred sand panel over four help desk tiles
+ * (Figma 3799:16878). The page sets Figma's 75px divider band above it. A 208.94px gold tick sits on the left rail,
+ * 16.51px above the eyebrow (Figma 3257:34931).
+ *
+ * On the stage plays Support V3's 11, the Crossword helpdesk dashboard, which draws the forest panel itself; below
+ * 768px, 11m, the same scenario at a phone's size (353 × 440).
  */
 export function HelpdeskOptions() {
   return (
     <section aria-labelledby="helpdesk-title" className="relative section-pad">
       <RailAccent className="absolute top-[calc(var(--section-pad)-16.51px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.94px] w-px max-lg:hidden" />
 
-      <div className="flex content-width flex-col gap-section">
-        <div className="flex flex-col items-start gap-6">
-          <Eyebrow>Crossword helpdesk</Eyebrow>
-          <SectionTitle
-            id="helpdesk-title"
-            initial="C"
-            firstLine="rossword helpdesk"
-            secondLine="and helpdesk integration"
-            width={760}
-            variant="dynamic"
-            weight="light"
-          />
-        </div>
-
-        <div className="flex w-full flex-col gap-16 lg:gap-[120px]">
-          {/*
-            Row 1: the copy is centred in the top 595px of the 680px row, as in Figma, which centres it with a 24px
-            placeholder 32px under the link (so the copy starts 155.5px down; the bottom padding stands in for it). From
-            992px a grid keeps the copy at least 320px wide; the panel takes the rest, up to its 738px.
-          */}
-          <div className="flex w-full flex-col gap-10 lg:grid lg:grid-cols-[minmax(320px,1fr)_minmax(0,738px)] lg:items-start lg:gap-8">
-            {/* Below 768px the link sits 24px under the copy (64px from 768px up, as Figma). */}
-            <div className="flex flex-col items-start justify-center gap-16 max-md:gap-6 lg:h-[595px] lg:pb-14">
-              <div className="flex flex-col items-start gap-4">
-                <p className={tag}>Crossword helpdesk</p>
-                <h3 className={title}>A free help desk, with unlimited seats.</h3>
-                <p className={body}>Give your team one place to see, assign and resolve customer conversations.</p>
-              </div>
-              <TextLink href={ctaLinks.bookDemo}>LEARN MORE</TextLink>
+      {/* The two rows 120px apart from 992px (64px below), as before. */}
+      <div className="flex content-width flex-col gap-16 lg:gap-[120px]">
+        <div className="flex w-full flex-col gap-10 md:gap-section">
+          {/* The headline and its copy side by side from 1280px, the copy bottom-aligned; below that the copy goes under. */}
+          <div className="flex w-full flex-col items-start gap-8 xl:flex-row xl:items-end xl:justify-between xl:gap-10">
+            <div className="flex min-w-0 flex-col items-start gap-6">
+              <Eyebrow>Crossword helpdesk</Eyebrow>
+              <SectionTitle
+                id="helpdesk-title"
+                initial="A"
+                firstLine=" free help desk,"
+                secondLine="with unlimited seats."
+                width={519}
+                variant="dynamic"
+                weight="light"
+              />
             </div>
-
-            {/*
-              The Crossword inbox as a motion scene: a chat in its maroon notched frame (738 × 680). Up to 1.2× its size,
-              as Customer support's cards, so stacked (below 992px) the two sections' cards match.
-            */}
-            <div className="relative aspect-[738/680] w-full">
-              <SupportScenePanel slug="merchant-helpdesk-inbox" maxScale={1.2} />
-            </div>
+            <p className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px]">
+              Give your team one place to see, assign and resolve customer conversations.
+            </p>
           </div>
 
+          {/*
+            From 768px: 11, the Crossword helpdesk as a dashboard (1280 × 599), which draws Figma's forest wide panel
+            itself (the damask, gold notched frame and studs) with the helpdesk window on it. It fills the content
+            width, scaled with a transform: zoomed down its text would hit the browser's minimum font size.
+          */}
+          <div className="relative aspect-[1280/599] w-full overflow-clip bg-forest max-md:hidden">
+            <SupportScenePanel slug="help-desk-dashboard" fill transform />
+          </div>
+          {/* Below 768px: 11m, the same scenario laid out for a phone (353 × 440). */}
+          <div className="relative aspect-[353/440] w-full md:hidden">
+            <SupportScenePanel slug="help-desk-mweb" fill transform />
+          </div>
+        </div>
+
+        <div className="flex w-full flex-col">
           {/*
             Row 2 (Figma 3799:16878, "Helpdesk integration · centred"): a sand panel (1px black/12 line, 80px in) with the
             tag, title, copy and link centred and 16px apart, then 48px below the four help desks as tiles, 188 × 128 and

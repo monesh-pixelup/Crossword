@@ -8,6 +8,8 @@ import {
   DecisionDashboardMwebMotion,
   GuardrailsMotion,
   GuardrailsMwebMotion,
+  HelpDeskDashboardMotion,
+  HelpDeskDashboardMwebMotion,
   HelpdeskInsightsDashboardMotion,
   MerchantInsightDeskMotion,
   MerchantInsightMotion,
@@ -61,12 +63,20 @@ export function SupportMotionRoot({ children }: { children: ReactNode }) {
  *
  * | Slugs | Size | Used in |
  * | --- | --- | --- |
- * | 01–06 `order-tracking` … `return-eligibility` | 738 × 680 | resolve/resolve-tabs.tsx |
- * | 07 `merchant-helpdesk-inbox` | 738 × 680 | helpdesk/helpdesk-options.tsx (row 1) |
+ * | 01–06 `order-tracking` … `return-eligibility` | 788 × 579 | resolve/resolve-tabs.tsx |
+ * | 11 `help-desk-dashboard` (and 11m `help-desk-mweb`, 353 × 440) | 1280 × 599 | helpdesk/helpdesk-options.tsx |
+ * | `merchant-helpdesk-inbox` (the source's archived 07, no longer on the page) | 738 × 680 | — |
  * | 08 `merchant-insight` (the source's archived 08, kept on this page) | 687 × 586 | control/take-control.tsx |
  * | 08 `merchant-insight-inbox` (the source's current 08, not used yet) | 687 × 586 | — |
  * | 09 `guardrails` | 1280 × 498 | guardrails/guardrails.tsx |
  * | 10–12 `human-takeover-dashboard`, `merchant-approval-dashboard`, `whisper-to-agent-dashboard` | 1280 × 599 | handoff/handoff-scene.tsx |
+ *
+ * The 15 November 2026 update (the source renumbers: 07–09 human-in-the-loop, 10 take control, 11 the helpdesk, 12
+ * guardrails; the site's slugs are unchanged): 01–06 draw a 788 × 579 damask canvas with a 676 × 467 window, keyed in
+ * the source page's SupportV3.css on a `data-slug` wrapper, which the build adds (box-less); `guardrails` and
+ * `guardrails-mweb` are now the all-rules version (the three guardrails in turn, GuardrailsAllMotion), which the site
+ * loops as it did the single rule; 11 and 11m, the Crossword helpdesk dashboard, are new; and the dashboards' rail
+ * carries the source's own workspace tile, replacing the site's hand edit of the avatar.
  */
 /**
  * 09 at its desktop layout. Since the 11 November 2026 update GuardrailsMotion takes an optional `mweb` flag (09m is it
@@ -81,48 +91,48 @@ export const supportScenes = {
     Component: OrderTrackingMotion,
     label:
       "A shopper asks where their week-old order is. The assistant says it shipped Tuesday and is in transit through Chicago, expected by Friday, with a shipped, in transit, out for delivery tracker.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 4400,
   },
   "product-usage": {
     Component: ProductUsageMotion,
     label:
       "A shopper asks how much vitamin C serum to use. The assistant recommends 2–3 drops after cleansing and before moisturizer, shown as a three-step routine.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 4750,
   },
   "size-exchange": {
     Component: SizeExchangeMotion,
     label:
       "A shopper wants to exchange an item for a size up. The assistant starts the exchange: a prepaid return label is in their email and the new size ships once the return is scanned.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 5300,
   },
   "shade-change": {
     Component: ShadeChangeMotion,
     label:
       "A shopper ordered the wrong foundation shade. The order hasn't shipped, so the assistant offers to switch it from Shade 3 Fair to Shade 4 Buff, with buttons to make the change or keep it.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 5100,
   },
   "refund-status": {
     Component: RefundStatusMotion,
     label:
       "A shopper asks about the refund for a returned serum. The assistant confirms the return arrived and the $48.25 refund is processed, back on the original payment method in 3–5 business days.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 4500,
   },
   "return-eligibility": {
     Component: ReturnEligibilityMotion,
     label:
       "A shopper asks whether opened protein powder can be returned. The assistant says yes: within 30 days and with less than 25% used, with a Start return button.",
-    width: 738,
-    height: 680,
+    width: 788,
+    height: 579,
     duration: 5550,
   },
   "merchant-helpdesk-inbox": {
@@ -132,6 +142,24 @@ export const supportScenes = {
     width: 738,
     height: 680,
     duration: 10200,
+  },
+  // 11, the Crossword helpdesk as a dashboard on the forest wide panel (the 15 November 2026 update), and 11m, the same
+  // scenario for phones (353 × 440).
+  "help-desk-dashboard": {
+    Component: HelpDeskDashboardMotion,
+    label:
+      "In the Crossword helpdesk, a customer charged twice asks for help. The assistant hands the conversation to the billing team with its context, a team member joins, refunds the duplicate charge, cancels the subscription at the customer's request and resolves the conversation.",
+    width: 1280,
+    height: 599,
+    duration: 16000,
+  },
+  "help-desk-mweb": {
+    Component: HelpDeskDashboardMwebMotion,
+    label:
+      "In the Crossword helpdesk on a phone, a customer charged twice asks for help. The assistant hands the conversation to the billing team, a team member joins, refunds the duplicate charge and resolves the conversation.",
+    width: 353,
+    height: 440,
+    duration: 16000,
   },
   "merchant-insight": {
     Component: MerchantInsightMotion,
@@ -152,7 +180,7 @@ export const supportScenes = {
   guardrails: {
     Component: GuardrailsDesktopMotion,
     label:
-      "The merchant's guardrails (refund policy, tone of voice, escalation) connect to the assistant's chat. Checking the refund policy, the assistant declines to override the return window, offers to flag a specialist, and marks the policy as respected.",
+      "The merchant's guardrails (refund policy, tone of voice, escalation) connect to the helpdesk inbox. Each rule takes its turn: a shopper's message arrives, the assistant checks the guardrails and replies within the rule, with a note to the team on what it did.",
     width: 1280,
     height: 498,
     duration: 5900,
@@ -187,7 +215,7 @@ export const supportScenes = {
   "guardrails-mweb": {
     Component: GuardrailsMwebMotion,
     label:
-      "The merchant's guardrails (refund policy, tone of voice, escalation) connect to the assistant's chat. Checking the refund policy, the assistant declines to override the return window, offers to flag a specialist, and marks the policy as respected.",
+      "The merchant's guardrails (refund policy, tone of voice, escalation) connect to the helpdesk inbox. Each rule takes its turn: a shopper's message arrives, the assistant checks the guardrails and replies within the rule, with a note to the team on what it did.",
     width: 353,
     height: 440,
     duration: 5900,
