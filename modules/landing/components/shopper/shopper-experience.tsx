@@ -1,17 +1,17 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "../../assets/shared/rail-accent.svg";
 import { ShopperPanel } from "../motion/panels";
-import { DividerBand } from "../shared/divider-band";
+import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
 
 export function ShopperExperience() {
   return (
     <section aria-labelledby="shopper-title" className="relative section-pad-band">
-      <DividerBand glyph="chart" />
+      <BandDivider glyph="chart" />
       <RailAccent
         src={railAccent}
-        className="pointer-events-none absolute top-[calc(122px+var(--section-shift,0px))] left-[calc(var(--frame-inset)-0.5px)]"
+        className="pointer-events-none absolute top-[calc(173px+var(--section-shift,0px))] max-md:top-[154px] left-[calc(var(--frame-inset)-0.5px)]"
       />
 
       <div className="flex content-width flex-col items-start gap-section">

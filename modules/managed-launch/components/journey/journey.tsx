@@ -15,7 +15,7 @@ export function Journey() {
   return (
     <section aria-labelledby="journey-title" className="relative section-pad">
       {/* The left rail's 232px gold accent, 98px down. */}
-      <RailAccent src={railAccent} className="absolute top-[98px] left-[calc(var(--frame-inset)-0.5px)]" />
+      <RailAccent src={railAccent} className="absolute top-[calc(98px+var(--section-shift,0px))] left-[calc(var(--frame-inset)-0.5px)]" />
 
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex w-full flex-col items-start gap-8 xl:flex-row xl:items-end xl:justify-between xl:gap-10">

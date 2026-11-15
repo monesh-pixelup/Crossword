@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import quoteMark from "../../assets/launch/quote-mark.svg";
 import arrowRight from "../../assets/lifecycle/arrow-right.svg";
-import { DividerBand } from "../shared/divider-band";
+import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import { SectionTitle } from "../shared/section-title";
 import { LaunchWheel } from "./launch-wheel";
 
@@ -27,7 +27,7 @@ function Quote() {
 export function ManagedLaunch() {
   return (
     <section aria-labelledby="launch-title" className="relative section-pad-band">
-      <DividerBand glyph="gear" />
+      <BandDivider glyph="gear" />
 
       {/* Figma 3073:21775: 44px from the quote down to the 360px row (the header still 80px above the quote). */}
       <div className="flex content-width flex-col items-center gap-section lg:gap-11">

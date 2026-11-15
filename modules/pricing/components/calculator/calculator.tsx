@@ -26,7 +26,7 @@ export function Calculator() {
     <section
       id="calculator"
       aria-labelledby="calculator-title"
-      className="relative scroll-mt-[72.5px] pt-[calc(var(--section-pad)+75px)] pb-(--section-pad) max-md:pt-[calc(var(--section-pad)+56px)]"
+      className="relative scroll-mt-[72.5px] pt-[calc(var(--section-pad)+75px)] pb-(--section-pad-bottom) max-md:pt-[calc(var(--section-pad)+56px)]"
     >
       <BandDivider glyph="chart" />
       <RailAccent className="absolute top-[calc(var(--section-pad)+75px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[214px] w-px max-lg:hidden" />

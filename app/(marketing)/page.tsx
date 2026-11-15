@@ -15,8 +15,7 @@ import { DividerBand } from "@/modules/landing/components/shared/divider-band";
 
 export default function HomePage() {
   return (
-    // The home page's sections start 88px down (not 120px) from 992px: see `section-top-88` in globals.css.
-    <main className="section-top-88">
+    <main>
       <Hero />
       <Lifecycle />
       <ShopperExperience />

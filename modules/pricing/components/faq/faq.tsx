@@ -15,7 +15,7 @@ export function Faq() {
   return (
     <section
       aria-labelledby="faq-title"
-      className="relative pt-[calc(var(--section-pad)+75px)] pb-(--section-pad) max-md:pt-[calc(var(--section-pad)+56px)]"
+      className="relative pt-[calc(var(--section-pad)+75px)] pb-(--section-pad-bottom) max-md:pt-[calc(var(--section-pad)+56px)]"
     >
       <BandDivider glyph="chat" />
       <RailAccent className="absolute top-[calc(var(--section-pad)+75px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[210px] w-px max-lg:hidden" />

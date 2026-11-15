@@ -43,7 +43,7 @@ export function Credits() {
   return (
     <section
       aria-labelledby="credits-title"
-      className="relative pt-[calc(var(--section-pad)+75px)] pb-(--section-pad) max-md:pt-[calc(var(--section-pad)+56px)]"
+      className="relative pt-[calc(var(--section-pad)+75px)] pb-(--section-pad-bottom) max-md:pt-[calc(var(--section-pad)+56px)]"
     >
       <BandDivider glyph="book" />
       <RailAccent className="absolute top-[calc(var(--section-pad)+75px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[251px] w-px max-lg:hidden" />

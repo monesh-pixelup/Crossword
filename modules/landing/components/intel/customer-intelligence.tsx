@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/cn";
 import { stats } from "../../config/intel";
-import { DividerBand } from "../shared/divider-band";
+import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
 import { MemoryGraph } from "./memory-graph";
@@ -51,10 +51,10 @@ function Stats() {
 export function CustomerIntelligence() {
   return (
     <section aria-labelledby="intel-title" className="relative section-pad-band">
-      <DividerBand glyph="book" />
+      <BandDivider glyph="book" />
       <div aria-hidden>
-        <RailAccent className={cn(frameAccent, "top-[calc(124px+var(--section-shift,0px))] left-(--frame-inset) h-[325px] -translate-x-1/2")} />
-        <RailAccent className={cn(frameAccent, "top-[calc(124px+var(--section-shift,0px))] right-(--frame-inset) h-[325px] translate-x-1/2")} />
+        <RailAccent className={cn(frameAccent, "top-[calc(175px+var(--section-shift,0px))] max-md:top-[156px] left-(--frame-inset) h-[325px] -translate-x-1/2")} />
+        <RailAccent className={cn(frameAccent, "top-[calc(175px+var(--section-shift,0px))] max-md:top-[156px] right-(--frame-inset) h-[325px] translate-x-1/2")} />
       </div>
 
       <div className="flex content-width flex-col items-stretch">

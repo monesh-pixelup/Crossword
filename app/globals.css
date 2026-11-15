@@ -62,8 +62,15 @@
 :root {
   /* Side padding of the content column. */
   --page-pad: 80px;
-  /* Section top/bottom padding (padding-section-large). */
-  --section-pad: 120px;
+  /*
+   * Section padding. `--section-pad` is the top (88px from 992px), which sections' rail accents and band offsets are
+   * placed from; `--section-pad-bottom` is the bottom (padding-section-large, 120px). `--section-shift` is the 32px
+   * the top came up by from its original 120px, for rail accents placed with fixed numbers drawn for 120px. Below
+   * 992px top and bottom are equal and nothing is shifted.
+   */
+  --section-pad: 88px;
+  --section-pad-bottom: 120px;
+  --section-shift: -32px;
   /* Page-frame rails: distance from the page edge. */
   --frame-inset: 24px;
   /* Gap between a section's header and its content (space xxlarge). */
@@ -83,6 +90,8 @@
   @media (width < 992px) {
     --page-pad: 48px;
     --section-pad: 96px;
+    --section-pad-bottom: 96px;
+    --section-shift: 0px;
     --space-xxlarge: 64px;
     --h2-scale: 0.8;
     --h1-size: 56px;
@@ -95,6 +104,7 @@
   @media (width < 768px) {
     --page-pad: 24px;
     --section-pad: 72px;
+    --section-pad-bottom: 72px;
     --frame-inset: 12px;
     --space-xxlarge: 48px;
     --h2-scale: 0.6667;
@@ -108,6 +118,7 @@
   @media (width < 480px) {
     --page-pad: 20px;
     --section-pad: 64px;
+    --section-pad-bottom: 64px;
     --frame-inset: 8px;
     --h2-scale: 0.6;
     --h1-size: 40px;
@@ -163,21 +174,19 @@
 }
 
 /*
- * Section padding; sections opening with a divider band add its 24px on top. `--section-shift` moves a section's top
- * padding (and the rail accents placed from it) without touching its bottom: 0 everywhere but the home page, whose
- * sections start 88px down from 992px (`section-top-88` on its <main>), 32px less than the 120px `--section-pad`.
+ * Section padding (88px top and 120px bottom from 992px, see :root). A section opening with a stamped divider band
+ * (BandDivider) adds the band's 75px block on top (56px below 768px): the 24px strip centred in it under its 75px
+ * stamp, so the section's own padding starts below the stamp, as on the inner pages.
  */
 @utility section-pad {
-  padding-top: calc(var(--section-pad) + var(--section-shift, 0px));
-  padding-bottom: var(--section-pad);
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad-bottom);
 }
 @utility section-pad-band {
-  padding-top: calc(var(--section-pad) + 24px + var(--section-shift, 0px));
-  padding-bottom: var(--section-pad);
-}
-@utility section-top-88 {
-  @media (width >= 992px) {
-    --section-shift: -32px;
+  padding-top: calc(var(--section-pad) + 75px);
+  padding-bottom: var(--section-pad-bottom);
+  @media (width < 768px) {
+    padding-top: calc(var(--section-pad) + 56px);
   }
 }
 
