@@ -10,13 +10,13 @@ import featureFrame from "../../assets/blog/feature-frame.webp";
 import stamp from "../../assets/blog/stamp.webp";
 import arrowRight from "../../assets/insights/arrow-right.svg";
 import railAccent from "../../assets/shared/rail-accent.svg";
-import { featuredPost, recentPosts } from "../../config/blog";
+import { type BlogPost, type FeaturedPost, getHomeBlog } from "../../config/blog";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import { RailAccent } from "../shared/rail-accent";
 import { SectionTitle } from "../shared/section-title";
 
 /** Maroon damask cover art of the featured post (761 × 296 in Figma; zoomed to the card width). */
-function FeaturedCover() {
+function FeaturedCover({ featuredPost }: { featuredPost: FeaturedPost }) {
   const [initial, firstLine, secondLine] = featuredPost.coverTitle;
 
   return (
@@ -77,11 +77,11 @@ function FeaturedCover() {
   );
 }
 
-function FeaturedPost() {
+function FeaturedPostCard({ featuredPost }: { featuredPost: FeaturedPost }) {
   return (
     <article className="relative flex flex-col gap-5 overflow-clip border border-[#ddd] bg-sand pb-6 xs:pb-8 md:gap-6 lg:flex-[0_0_59.4531%] lg:gap-8">
       <div className="@container w-full">
-        <FeaturedCover />
+        <FeaturedCover featuredPost={featuredPost} />
       </div>
       <div className="flex w-full items-end justify-between gap-4 px-5 xs:gap-6 xs:px-8">
         <div className="flex max-w-[503.059px] flex-col items-start gap-3">
@@ -104,7 +104,7 @@ function FeaturedPost() {
   );
 }
 
-function RecentPosts() {
+function RecentPosts({ recentPosts }: { recentPosts: BlogPost[] }) {
   return (
     // From 992px the list fills the height beside the featured post, its rows sharing it equally.
     <ul className="flex w-full min-w-0 flex-col lg:flex-1 lg:pl-5">
@@ -131,7 +131,11 @@ function RecentPosts() {
   );
 }
 
-export function Blog() {
+/** The journal's posts come from Sanity (see getHomeBlog); with none published yet, the section is left out. */
+export async function Blog() {
+  const blog = await getHomeBlog();
+  if (!blog) return null;
+
   return (
     <section aria-labelledby="blog-title" className="relative section-pad-band">
       {/* The feather (quill) divider band across the top, under the testimonials. */}
@@ -165,8 +169,8 @@ export function Blog() {
         </div>
 
         <div className="flex w-full flex-col lg:flex-row lg:items-stretch">
-          <FeaturedPost />
-          <RecentPosts />
+          <FeaturedPostCard featuredPost={blog.featuredPost} />
+          <RecentPosts recentPosts={blog.recentPosts} />
         </div>
       </div>
     </section>

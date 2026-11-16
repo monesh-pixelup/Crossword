@@ -1,22 +1,29 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { PostBody } from "@/modules/blog/components/post-body";
 import { PostHero } from "@/modules/blog/components/post-hero";
-import { blogPosts, getPost } from "@/modules/blog/config/posts";
+import { getPost, getPosts } from "@/modules/blog/lib/posts";
 import { PilotCta } from "@/modules/managed-launch/components/pilot/pilot-cta";
 
 /**
- * Every post is prerendered. (`dynamicParams` isn't allowed with Cache Components; any other slug is a 404 through
- * `notFound()` below.)
+ * The posts in Sanity at build time are prerendered. A post published later is rendered on its first visit and then
+ * kept like the rest. (Cache Components need at least one param here, hence the placeholder while there are no posts:
+ * it 404s like any unknown slug.)
  */
-export function generateStaticParams() {
-  return blogPosts.map(({ slug }) => ({ slug }));
+export async function generateStaticParams() {
+  const posts = await getPosts();
+  return posts.length ? posts.map(({ slug }) => ({ slug })) : [{ slug: "__placeholder__" }];
 }
 
 export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): Promise<Metadata> {
-  const post = getPost((await params).slug);
+  const post = await getPost((await params).slug);
   if (!post) return {};
-  return { title: post.title, description: post.summary };
+  return {
+    title: post.title,
+    description: post.summary,
+    openGraph: { title: post.title, description: post.summary, type: "article", ...(post.cover && { images: [post.cover.src] }) },
+  };
 }
 
 /**
@@ -24,15 +31,26 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
  * the article beside its Index, then the maroon CTA banner (Managed launch's "You're getting a team"). Like the journal, it
  * has no hero curtain: the article scrolls in below the header instead of sliding over it.
  */
-export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">) {
-  const post = getPost((await params).slug);
+export default function BlogPostPage({ params }: PageProps<"/blog/[slug]">) {
+  return (
+    <main data-no-curtain>
+      {/* The slug is read inside the boundary, so a post published after the build still gets the page's shell at once. */}
+      <Suspense fallback={<div className="min-h-svh bg-cream" />}>
+        <Post params={params} />
+      </Suspense>
+      <PilotCta />
+    </main>
+  );
+}
+
+async function Post({ params }: Pick<PageProps<"/blog/[slug]">, "params">) {
+  const post = await getPost((await params).slug);
   if (!post) notFound();
 
   return (
-    <main data-no-curtain>
+    <>
       <PostHero post={post} />
       <PostBody post={post} />
-      <PilotCta />
-    </main>
+    </>
   );
 }

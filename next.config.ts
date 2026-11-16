@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    // Blog cover images uploaded in Sanity.
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/**" }],
   },
   partialPrefetching: true,
   turbopack: {

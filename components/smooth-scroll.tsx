@@ -20,7 +20,11 @@ export function SmoothScroll() {
   const lenis = useRef<Lenis | null>(null);
   const pathname = usePathname();
 
+  // Not in the Sanity Studio (/studio): it scrolls its own panes.
+  const studio = pathname.startsWith("/studio");
+
   useEffect(() => {
+    if (studio) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const start = () => {
       lenis.current?.destroy();
@@ -42,7 +46,7 @@ export function SmoothScroll() {
       lenis.current?.destroy();
       lenis.current = null;
     };
-  }, []);
+  }, [studio]);
 
   // On a route change, drop any glide still running from the last page so it doesn't carry over and fight the new
   // page's scroll position (Next sets it: the top, or where the page was on back and forward).

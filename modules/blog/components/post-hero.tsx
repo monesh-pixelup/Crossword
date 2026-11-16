@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
 import { Rails } from "@/modules/marketing/components/rails";
-import type { BlogPost } from "../config/posts";
+import type { BlogPost } from "../lib/posts";
 
 /**
  * A post's header, after the Limelight "Blog Slug" layout (Figma 1655:2486) in the site's own design: under the cream

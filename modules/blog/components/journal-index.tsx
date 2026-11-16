@@ -6,7 +6,7 @@ import { useState } from "react";
 import { cn } from "@/lib/cn";
 import cover from "../assets/post-cover.webp";
 import paper from "../assets/paper-tile.webp";
-import { type BlogCategory, type BlogPost, blogCategories, blogPosts } from "../config/posts";
+import type { BlogPostSummary } from "../lib/posts";
 
 /** The cards' paper: cream under Figma's paper tile at 432.6px, multiplied in at 11%. */
 function Paper() {
@@ -26,16 +26,19 @@ function Paper() {
  * 184.6, exported from Figma at 3x), then 16px under it a 98px block with the title (Crimson 20 at 1.1) at its top and
  * the details (Geist Mono Medium 10, caps, 60%) at its foot.
  */
-function PostCard({ post }: { post: BlogPost }) {
+function PostCard({ post }: { post: BlogPostSummary }) {
+  const sizes = "(min-width: 1440px) 372px, (min-width: 768px) 33vw, 100vw";
   const body = (
     <>
       <Paper />
-      <Image
-        src={cover}
-        alt=""
-        sizes="(min-width: 1440px) 372px, (min-width: 768px) 33vw, 100vw"
-        className="relative aspect-[371.668/184.587] h-auto w-full"
-      />
+      {post.cover ? (
+        // The editor's cover from Sanity, cropped to the card's frame around its hotspot.
+        <div className="relative aspect-[371.668/184.587] w-full overflow-hidden">
+          <Image src={post.cover.src} alt="" fill sizes={sizes} className="object-cover" style={{ objectPosition: post.cover.position }} />
+        </div>
+      ) : (
+        <Image src={cover} alt="" sizes={sizes} className="relative aspect-[371.668/184.587] h-auto w-full" />
+      )}
       <div className="relative flex min-h-[98px] w-full flex-col items-start justify-between gap-4 leading-[1.1] text-black [word-break:break-word]">
         <h3 className="font-serif text-[20px] font-normal tracking-[-0.2px]">{post.title}</h3>
         <p className="font-mono text-[10px] font-medium tracking-[0.8px] uppercase opacity-60">
@@ -58,14 +61,14 @@ function PostCard({ post }: { post: BlogPost }) {
  * Figma "Journal index" (1660:935): 124px under the hero (Figma's 44px index header and its 80px gap), the filters,
  * one equal-width row of nine (Crimson 16, 12 × 24px padding, #ccc lines), the chosen one in black with light text;
  * 20px under them the posts, three columns 20px apart (two below 992px, one below 640px); 80px under the last row.
- * Choosing an industry shows only its posts.
+ * Choosing an industry shows only its posts. The posts and the filters (in their set order) come from Sanity.
  */
-export function JournalIndex() {
-  const [filter, setFilter] = useState<BlogCategory | null>(null);
-  const posts = filter ? blogPosts.filter((p) => p.category === filter) : blogPosts;
-  const tabs: { label: string; value: BlogCategory | null }[] = [
-    { label: `All (${blogPosts.length})`, value: null },
-    ...blogCategories.map((c) => ({ label: c, value: c })),
+export function JournalIndex({ posts: allPosts, categories }: { posts: BlogPostSummary[]; categories: string[] }) {
+  const [filter, setFilter] = useState<string | null>(null);
+  const posts = filter ? allPosts.filter((p) => p.category === filter) : allPosts;
+  const tabs: { label: string; value: string | null }[] = [
+    { label: `All (${allPosts.length})`, value: null },
+    ...categories.map((c) => ({ label: c, value: c })),
   ];
 
   return (
@@ -100,7 +103,7 @@ export function JournalIndex() {
           </div>
         ) : (
           <p className="border border-black/15 px-6 py-16 text-center font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
-            No posts in {filter} yet.
+            {filter ? `No posts in ${filter} yet.` : "No posts yet."}
           </p>
         )}
       </div>

@@ -1,4 +1,4 @@
-import { blogPosts } from "@/modules/blog/config/posts";
+import { getPosts } from "@/modules/blog/lib/posts";
 
 export type BlogPost = {
   title: string;
@@ -6,23 +6,30 @@ export type BlogPost = {
   href: string;
 };
 
-const featured = blogPosts[3];
+export type FeaturedPost = BlogPost & { category: string; coverTitle: [string, string, string] };
 
 /**
- * The featured card: the journal's fourth post (the three newest fill the list beside it). Its maroon cover keeps the
- * Figma headline, in the cover's swash style: the capital, the rest of line 1, then line 2.
+ * The home page's Blog section, from the journal in Sanity. The featured card is the post marked "Feature on the home
+ * page" (else the fourth newest, as before, or the newest there is); its maroon cover keeps the Figma headline, in the
+ * cover's swash style: the capital, the rest of line 1, then line 2. The list beside it is the three newest others.
  */
-export const featuredPost: BlogPost & { category: string; coverTitle: [string, string, string] } = {
-  title: featured.title,
-  excerpt: featured.summary,
-  href: `/blog/${featured.slug}`,
-  category: featured.category.toUpperCase(),
-  coverTitle: ["T", "urning Interest ", "into Action."],
-};
+export async function getHomeBlog(): Promise<{ featuredPost: FeaturedPost; recentPosts: BlogPost[] } | null> {
+  const posts = await getPosts();
+  const featured = posts.find((p) => p.featured) ?? posts[3] ?? posts[0];
+  if (!featured) return null;
 
-/** The list beside the featured post: the journal's three newest posts, each linking to its page. */
-export const recentPosts: BlogPost[] = blogPosts.slice(0, 3).map((post) => ({
-  title: post.title,
-  excerpt: post.summary,
-  href: `/blog/${post.slug}`,
-}));
+  const toCard = (post: (typeof posts)[number]): BlogPost => ({
+    title: post.title,
+    excerpt: post.summary,
+    href: `/blog/${post.slug}`,
+  });
+
+  return {
+    featuredPost: {
+      ...toCard(featured),
+      category: featured.category.toUpperCase(),
+      coverTitle: ["T", "urning Interest ", "into Action."],
+    },
+    recentPosts: posts.filter((p) => p !== featured).slice(0, 3).map(toCard),
+  };
+}
