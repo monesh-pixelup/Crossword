@@ -1,4 +1,4 @@
-import { ThListIcon } from "@sanity/icons";
+import { ThListIcon } from "@sanity/icons/ThList";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 /** A table in a post's body. The first row is the header; each row's first cell is its label. */
