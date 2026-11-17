@@ -187,13 +187,32 @@ export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run:
   );
 }
 
+/** How long a tab change keeps the last visual drawn under the new one: the fade's 0.15s delay and 0.7s run. */
+const INSIGHT_FADE_MS = 900;
+
 /**
  * The Insights mock-up: the open tab's visual, which draws its own 738 × 640 arched-hallway frame. Zoomed to cover
  * its panel (the panel keeps 738:640 but stretches to the tabs' height beside them). `run` restarts the script, as does coming back into view.
+ *
+ * Changing tabs fades the new visual in as Lifecycle's do (`lifecycle-visual-enter`: opacity, blur and a slight scale).
+ * Each visual draws its own frame, so the last one stays drawn underneath until the fade is done, and the new one
+ * eases in over it instead of over the page.
  */
 export function InsightPanel({ visual, run }: { visual: InsightVisual; run: number }) {
-  const { Component, label } = insightVisuals[visual];
+  const { label } = insightVisuals[visual];
   const [ref, replay] = useReplayOnReturn();
+  const [layers, setLayers] = useState([{ visual, run }]);
+  const top = layers[layers.length - 1];
+  if (top.visual !== visual || top.run !== run) {
+    // A new tab fades in over the last; the same visual restarting just replaces itself.
+    setLayers(top.visual === visual ? [{ visual, run }] : [top, { visual, run }]);
+  }
+  useEffect(() => {
+    if (layers.length < 2) return;
+    const timer = window.setTimeout(() => setLayers((current) => current.slice(-1)), INSIGHT_FADE_MS);
+    return () => window.clearTimeout(timer);
+  }, [layers]);
+
   return (
     <div
       ref={ref}
@@ -202,9 +221,16 @@ export function InsightPanel({ visual, run }: { visual: InsightVisual; run: numb
       className="absolute top-1/2 left-1/2 h-[640px] w-[738px] -translate-x-1/2 -translate-y-1/2 overflow-clip [zoom:max(tan(atan2(100cqw,738px)),tan(atan2(100cqh,640px)))]"
     >
       <div inert className="contents">
-        <HomeMotion>
-          <Component key={`${visual}-${run}-${replay}`} />
-        </HomeMotion>
+        {layers.map((layer, i) => {
+          const { Component } = insightVisuals[layer.visual];
+          return (
+            <div key={layer.visual} className={i > 0 ? "lifecycle-visual-enter absolute inset-0" : "absolute inset-0"}>
+              <HomeMotion>
+                <Component key={`${layer.visual}-${layer.run}-${replay}`} />
+              </HomeMotion>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
