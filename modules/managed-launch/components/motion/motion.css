@@ -9121,6 +9121,170 @@
   .ml-motion .jd-stage--c .jd-card__top, .ml-motion .jd-stage--c .jd-card__title, .ml-motion .jd-stage--c .jd-card__line, .ml-motion .jd-stage--c .jd-doc__body > * { animation-name: mlm-jd-fade; animation-duration: 240ms; }
 }
 
+/* 353px "Thread" variant. Explanatory motion: thread segments draw in
+   700ms (ease-in-out, it's moving on screen); the reached row opens in
+   450ms ease-out and its deliverable unfolds top-down via clip-path;
+   rows that close or a thread that retracts do so faster (240ms). */
+.ml-motion .jd-stage--t {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --thread: #e0be60;
+  width: 353px; height: auto; min-height: 0; padding: 24px 16px 20px;
+  justify-content: flex-start; gap: 14px;
+}
+.ml-motion .jd-thread { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.ml-motion .jd-t-row { position: relative; display: grid; grid-template-columns: 22px 1fr; column-gap: 10px; }
+
+/* Thread: faint track + gold fill per segment, from this dot to the next. */
+.ml-motion .jd-t-row:not(:last-child)::before,
+.ml-motion .jd-t-row:not(:last-child)::after {
+  content: ""; position: absolute; left: 10px; top: 30px; bottom: -14px; width: 2px; border-radius: 2px;
+}
+.ml-motion .jd-t-row:not(:last-child)::before { background: rgba(255, 255, 255, 0.16); }
+.ml-motion .jd-t-row:not(:last-child)::after {
+  background: repeating-linear-gradient(to bottom, var(--thread) 0 4px, transparent 4px 7px);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform 240ms ease-out;
+}
+.ml-motion .jd-t-row.is-done::after { transform: scaleY(1); transition: transform 700ms var(--ease-in-out); }
+
+.ml-motion .jd-t-dot {
+  position: relative; z-index: 1; margin-top: 8px; width: 22px; height: 22px; border-radius: 999px;
+  display: grid; place-items: center; font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums;
+  background: #0b3f25; color: rgba(255, 255, 255, 0.6); box-shadow: inset 0 0 0 1px rgba(224, 190, 96, 0.35);
+  transition: background-color 240ms ease, color 240ms ease, transform 240ms ease-out;
+}
+.ml-motion .jd-t-row.is-done .jd-t-dot, .ml-motion .jd-t-row.is-active .jd-t-dot { background: var(--thread); color: #06301c; box-shadow: none; }
+.ml-motion .jd-t-row.is-active .jd-t-dot { animation: mlm-jd-arrive 600ms var(--ease-out) both; }
+@keyframes mlm-jd-arrive { 0% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(224, 190, 96, 0.5); } 100% { transform: none; box-shadow: 0 0 0 6px rgba(224, 190, 96, 0); } }
+
+.ml-motion .jd-t-card {
+  min-width: 0; padding: 10px 12px; border-radius: 12px; background: #004c27;
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.22);
+  opacity: 0.62; transition: opacity 240ms ease;
+}
+.ml-motion .jd-t-row.is-active .jd-t-card, .ml-motion .jd-t-row.is-done .jd-t-card { opacity: 1; }
+.ml-motion .jd-t-row.is-done:not(.is-active) .jd-t-card { opacity: 0.82; }
+.ml-motion .jd-t-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 24px; }
+.ml-motion .jd-t-title { font-size: 14px; line-height: 20px; font-weight: 500; color: #fff; white-space: nowrap; }
+.ml-motion .jd-t-head .jd-who { font-size: 11px; height: 18px; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+/* Open/close: grid rows 0fr → 1fr. Close fast, open on ease-out. */
+.ml-motion .jd-t-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 240ms ease-out; }
+.ml-motion .jd-t-row.is-active .jd-t-body { grid-template-rows: 1fr; transition: grid-template-rows 450ms var(--ease-out) 80ms; }
+.ml-motion .jd-t-inner { min-height: 0; overflow: hidden; }
+.ml-motion .jd-t-line { margin: 6px 0 12px !important; font-size: 13px; line-height: 18px; color: rgba(255, 255, 255, 0.72); }
+.ml-motion .jd-stage--t .jd-doc { clip-path: inset(0 0 100% 0 round 10px); opacity: 0; transition: clip-path 200ms ease-out, opacity 200ms ease-out; }
+.ml-motion .jd-t-row.is-active .jd-doc { clip-path: inset(0 0 0 0 round 10px); opacity: 1; transition: clip-path 520ms var(--ease-out) 220ms, opacity 200ms ease-out 220ms; }
+.ml-motion .jd-t-row.is-active .jd-t-line,
+.ml-motion .jd-t-row.is-active .jd-doc__body > * { animation: mlm-jd-rise 420ms var(--ease-out) both; }
+.ml-motion .jd-t-row.is-active .jd-t-line { animation-delay: 140ms; }
+.ml-motion .jd-t-row.is-active .jd-doc__body > :nth-child(1) { animation-delay: 380ms; }
+.ml-motion .jd-t-row.is-active .jd-doc__body > :nth-child(2) { animation-delay: 430ms; }
+.ml-motion .jd-t-row.is-active .jd-doc__body > :nth-child(3) { animation-delay: 480ms; }
+
+/* Loop caption: gold while the thread is pulled back to step 2. */
+.ml-motion .jd-t-loop { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; font-weight: 500; color: rgba(255, 255, 255, 0.72); transition: color 240ms ease; }
+.ml-motion .jd-t-loop__icon { display: inline-block; transition: transform 700ms var(--ease-in-out); }
+.ml-motion .jd-stage--t.is-refining .jd-t-loop { color: #f1d891; }
+.ml-motion .jd-stage--t.is-refining .jd-t-loop__icon { transform: rotate(-360deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ml-motion .jd-stage--t *, .ml-motion .jd-stage--t *::after { animation: none !important; }
+  .ml-motion .jd-t-row::after, .ml-motion .jd-t-body, .ml-motion .jd-t-row.is-active .jd-t-body, .ml-motion .jd-t-loop__icon { transition-duration: 0ms !important; }
+  .ml-motion .jd-stage--t .jd-doc { clip-path: none; }
+}
+
+/* Fixed frame: the stage never resizes. Tallest state (a two-line step
+   line + 212px artifact) is ~548px, so 560 holds every step. Open and
+   close share one duration and curve, so rows trade height in lockstep
+   instead of the list dipping mid-swap. */
+.ml-motion .jd-stage--t { height: 560px; overflow: hidden; }
+.ml-motion .jd-t-loop { margin-top: auto !important; }
+.ml-motion .jd-t-body,
+.ml-motion .jd-t-row.is-active .jd-t-body { transition: grid-template-rows 450ms var(--ease-out); }
+
+/* One tag style everywhere: the step 1/2 tag (Figma 4209:7498) — dark
+   green fill, pale ink, no border — on every .jd-who, merchant ones too. */
+.ml-motion .jd-stage .jd-who,
+.ml-motion .jd-stage .jd-who.is-you { background: #00311a; color: #dfe3d2; box-shadow: none; }
+
+/* Tags never truncate: the tag drops below the title when the row is too
+   narrow, and the badge rows can wrap. */
+.ml-motion .jd-t-head, .ml-motion .jd-card__top { flex-wrap: wrap; row-gap: 6px; }
+.ml-motion .jd-stage .jd-who { overflow: visible; text-overflow: clip; white-space: nowrap; flex: none; max-width: none; }
+.ml-motion .jd-stage--t { height: 580px; }
+
+/* Thread head: tag stays on the right; the title wraps to two lines
+   instead of pushing the tag down. */
+.ml-motion .jd-t-head { flex-wrap: nowrap; align-items: flex-start; }
+.ml-motion .jd-t-title { white-space: normal; flex: 1 1 auto; min-width: 0; }
+.ml-motion .jd-t-head .jd-who { margin-top: 1px; }
+
+/* Standard tag + title pairing. One tag spec everywhere (20px, 0 8px,
+   12/20 medium, radius 4) so tags read as one family; in the Thread rows
+   the tag's 20px line box matches the 14/20 title, so a one-line head is
+   centred and a two-line title balances its break and keeps the tag on
+   its first line. Thread tags use short labels — the step line already
+   says who approves. */
+.ml-motion .jd-stage .jd-who { height: 20px; padding: 0 8px; border-radius: 4px; font-size: 12px; line-height: 20px; font-weight: 500; letter-spacing: 0; }
+.ml-motion .jd-t-head { align-items: flex-start; gap: 12px; min-height: 20px; }
+.ml-motion .jd-t-title { text-wrap: balance; }
+.ml-motion .jd-t-head .jd-who { margin-top: 0; }
+.ml-motion .jd-stage--t { height: 560px; }
+
+/* Thread backdrop. */
+.ml-motion .jd-stage--t { background: #0f3a26 url("../../assets/motion/managed-launch/managed-launch-bg.webp") center / cover no-repeat; }
+
+/* Centre the thread vertically; the caption stays pinned to the bottom. */
+.ml-motion .jd-thread { margin-block: auto; }
+.ml-motion .jd-t-loop { margin-top: 0 !important; }
+
+/* Caption is static: no colour change, no icon spin. */
+.ml-motion .jd-t-loop, .ml-motion .jd-stage--t.is-refining .jd-t-loop { color: rgba(255, 255, 255, 0.72); transition: none; }
+.ml-motion .jd-t-loop__icon, .ml-motion .jd-stage--t.is-refining .jd-t-loop__icon { transform: none; transition: none; }
+
+/* Entry stagger (once, on load): the four rows rise in 60ms apart, then
+   the caption fades in. Strong ease-out, 480ms — explanatory, so a touch
+   longer than UI. Transform + opacity only. */
+.ml-motion .jd-stage--t .jd-t-row { animation: mlm-jd-rise 480ms var(--ease-out) both; }
+.ml-motion .jd-stage--t .jd-t-row:nth-child(1) { animation-delay: 80ms; }
+.ml-motion .jd-stage--t .jd-t-row:nth-child(2) { animation-delay: 140ms; }
+.ml-motion .jd-stage--t .jd-t-row:nth-child(3) { animation-delay: 200ms; }
+.ml-motion .jd-stage--t .jd-t-row:nth-child(4) { animation-delay: 260ms; }
+.ml-motion .jd-stage--t .jd-t-loop { animation: mlm-jd-fade 400ms ease-out 420ms both; }
+@media (prefers-reduced-motion: reduce) {
+  .ml-motion .jd-stage--t .jd-t-row { animation: mlm-jd-fade 240ms ease-out both !important; }
+}
+
+/* Window insides stagger: once the window unfolds, its head, each body
+   item (down to single kv rows, picks and checks), then the foot rise in
+   60ms apart. Strong ease-out, 420ms, 6px rise. Re-runs each time a step
+   opens. */
+@keyframes mlm-jd-in { from { opacity: 0; transform: translateY(6px); } }
+.ml-motion .jd-t-row.is-active .jd-doc__head,
+.ml-motion .jd-t-row.is-active .jd-doc__foot,
+.ml-motion .jd-t-row.is-active .jd-doc__body > *,
+.ml-motion .jd-t-row.is-active .jd-kv > div,
+.ml-motion .jd-t-row.is-active .jd-pick,
+.ml-motion .jd-t-row.is-active .jd-totals > div { animation: mlm-jd-in 420ms var(--ease-out) both; }
+.ml-motion .jd-t-row.is-active .jd-kv, .ml-motion .jd-t-row.is-active .jd-picks, .ml-motion .jd-t-row.is-active .jd-totals { animation: none; }
+.ml-motion .jd-t-row.is-active .jd-doc__head { animation-delay: 300ms; }
+.ml-motion .jd-t-row.is-active .jd-doc__body > :nth-child(1) { animation-delay: 360ms; }
+.ml-motion .jd-t-row.is-active .jd-kv > div:nth-child(1),
+.ml-motion .jd-t-row.is-active .jd-pick:nth-child(1),
+.ml-motion .jd-t-row.is-active .jd-totals > div:nth-child(1) { animation-delay: 420ms; }
+.ml-motion .jd-t-row.is-active .jd-doc__body > :nth-child(2) { animation-delay: 420ms; }
+.ml-motion .jd-t-row.is-active .jd-kv > div:nth-child(2),
+.ml-motion .jd-t-row.is-active .jd-pick:nth-child(2),
+.ml-motion .jd-t-row.is-active .jd-totals > div:nth-child(2) { animation-delay: 480ms; }
+.ml-motion .jd-t-row.is-active .jd-pick:nth-child(3) { animation-delay: 540ms; }
+.ml-motion .jd-t-row.is-active .jd-doc__body > :nth-child(3) { animation-delay: 540ms; }
+.ml-motion .jd-t-row.is-active .jd-doc__foot { animation-delay: 620ms; }
+@media (prefers-reduced-motion: reduce) {
+  .ml-motion .jd-t-row.is-active .jd-doc * { animation: none !important; }
+}
+
 /*
  * Site: the diagram's landing motion plays "once on load" in the source, where it is the first thing on its page. Here
  * it sits a few sections down, so it waits (every animation paused on its first frame) until the diagram is on screen

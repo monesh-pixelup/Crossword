@@ -62,3 +62,15 @@ From the "Crossword — Managed Launch · Diagram" handoff, whose one visual is 
   its column and reflows by its own width; journey/journey.tsx shows it at every screen width, in place of 01 and 01m.
   `ManagedLaunchPanel` and `ManagedLaunchMwebPanel` (01 and 01m) are still here but no longer used on the page.
 
+
+## 17 November 2026 update: the diagram's phone version
+
+From the "Crossword — Managed Launch · Diagram (V2)" handoff:
+
+- `JourneyDiagram.tsx` merged with the new source: `DeliverableStepsNarrow` ("C — Deliverable per step · 353 Thread",
+  353 × 560) and the steps' `short` tag labels. The image imports stay as above.
+- **motion.css**: the JourneyDiagram segment regenerated from the new `JourneyDiagram.css` (the Thread's styles, and
+  the one tag style on every `.jd-who`, which the 1280 diagram picks up too). Its backdrop, `managed-launch-bg.webp`,
+  is in `assets/motion/managed-launch/`.
+- `ManagedLaunchDiagramNarrowPanel` in ml-motion.tsx draws it scaled to fit its panel, starting once it is on screen;
+  journey/journey.tsx shows it below 768px in place of the 1280 diagram.

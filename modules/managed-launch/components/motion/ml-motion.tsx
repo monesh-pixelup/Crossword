@@ -2,7 +2,7 @@
 
 import { type ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { type SceneEntry, ScenePanel } from "@/modules/sell/components/motion/scene-panel";
-import { DeliverableSteps } from "./visuals/ManagedLaunch/JourneyDiagram";
+import { DeliverableSteps, DeliverableStepsNarrow } from "./visuals/ManagedLaunch/JourneyDiagram";
 import { ManagedLaunchMotion, ManagedLaunchMwebStatic } from "./visuals/ManagedLaunch/ManagedLaunch";
 import "./motion.css";
 
@@ -100,4 +100,34 @@ export function ManagedLaunchDiagram() {
       <DeliverableSteps />
     </div>
   );
+}
+
+/**
+ * The Thread starts once it first comes on screen: its rows' entry stagger runs on mount and its timer begins stepping
+ * through the four steps. Until then the stage shows empty, on its backdrop. Once started it keeps looping.
+ */
+function DeliverableStepsNarrowOnView({ play }: { play?: boolean }) {
+  const [started, setStarted] = useState(false);
+  useEffect(() => {
+    if (play) setStarted(true);
+  }, [play]);
+  return started ? <DeliverableStepsNarrow /> : <div className="jd-stage jd-stage--t" aria-hidden />;
+}
+
+const managedLaunchDiagramNarrowScene: SceneEntry = {
+  Component: DeliverableStepsNarrowOnView,
+  label:
+    "The four steps of a managed launch: kickoff call, we design and build, you review and we launch, weekly check-ins. A gold thread runs down from step to step, each opening to show its deliverable: the goal summary, the journey preview, the launch sign-off and the weekly report. After launch, steps 2 to 4 repeat every week.",
+  width: 353,
+  height: 560,
+  duration: 0,
+};
+
+/**
+ * Managed Launch · Diagram for phones, "C — Deliverable per step · 353 Thread" (the 17 November 2026 handoff,
+ * 353 × 560): the same four steps as compact rows down a gold thread; the step it reaches opens to show its line and
+ * deliverable. It fills the panel it sits in, scaled with a transform.
+ */
+export function ManagedLaunchDiagramNarrowPanel() {
+  return <ScenePanel scene={managedLaunchDiagramNarrowScene} root={MlMotionRoot} maxScale={Infinity} transform />;
 }

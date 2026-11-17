@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import iconPencilImage from "@/modules/managed-launch/assets/motion/managed-launch/icon-pencil.svg";
 import iconLayoutImage from "@/modules/managed-launch/assets/motion/managed-launch/icon-layout.svg";
 import iconRocketImage from "@/modules/managed-launch/assets/motion/managed-launch/icon-rocket.svg";
@@ -14,10 +15,10 @@ const refineConnector = refineConnectorImage.src;
 // Managed Launch · how it works. A hands-on service: the Crossword team
 // does the work, the merchant joins at kickoff and sign-off.
 type Owner = "you" | "team" | "both";
-const steps: { n: number; title: string; line: string; owner: Owner; who: string }[] = [
+const steps: { n: number; title: string; line: string; owner: Owner; who: string; short?: string }[] = [
   { n: 1, title: "Kickoff call", line: "You share your goal and catalog. Together we agree what success looks like.", owner: "both", who: "You + Crossword" },
   { n: 2, title: "We design & build", line: "Our team designs the journey and sets it up with your products, brand and policies.", owner: "team", who: "Crossword" },
-  { n: 3, title: "You review, we launch", line: "You approve the preview. Our team tests it and takes it live.", owner: "both", who: "You approve · Crossword launches" },
+  { n: 3, title: "You review, we launch", line: "You approve the preview. Our team tests it and takes it live.", owner: "both", who: "You approve · Crossword launches", short: "You + Crossword" },
   { n: 4, title: "Weekly check-ins", line: "Our team reviews conversations, reports results and makes improvements.", owner: "team", who: "Crossword" },
 ];
 
@@ -158,6 +159,52 @@ export function DeliverableSteps() {
           <span className="jd-repeat__label">↺ Refine & repeat</span>
         </div>
       </div>
+    </div>
+  );
+}
+
+/* C at 353px — "Thread". A gold thread draws down the left from step to
+   step; the step it reaches opens to show its line and deliverable while the
+   others stay as compact rows. After step 4 the thread pulls back to step 2
+   ("Refine & repeat") and runs 2 → 4 once more, then the story restarts. */
+const SEQUENCE = [0, 1, 2, 3];
+const HOLD_MS = 3200;
+export function DeliverableStepsNarrow() {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const t = window.setTimeout(() => setTick((k) => (k + 1) % SEQUENCE.length), HOLD_MS);
+    return () => window.clearTimeout(t);
+  }, [tick]);
+  const active = SEQUENCE[tick];
+  return (
+    <div className="jd-stage jd-stage--t">
+      <ol className="jd-thread">
+        {steps.map((s, i) => (
+          <li
+            key={s.n}
+            className={`jd-t-row${i === active ? " is-active" : ""}${i < active ? " is-done" : ""}`}
+            aria-current={i === active ? "step" : undefined}
+          >
+            <span className="jd-t-dot">{s.n}</span>
+            <div className="jd-t-card">
+              <div className="jd-t-head">
+                <p className="jd-t-title">{s.title}</p>
+                <span className={`jd-who${s.owner !== "team" ? " is-you" : ""}`}>{s.short ?? s.who}</span>
+              </div>
+              <div className="jd-t-body">
+                <div className="jd-t-inner">
+                  <p className="jd-t-line">{s.line}</p>
+                  <Deliverable n={s.n} />
+                </div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p className="jd-t-loop">
+        <span className="jd-t-loop__icon" aria-hidden>↺</span>
+        After launch, steps 2–4 repeat every week
+      </p>
     </div>
   );
 }
