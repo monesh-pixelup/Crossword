@@ -24,6 +24,10 @@ export default function SupportPage() {
     <main>
       <SupportHero />
       <CustomerSupport />
+      {/* Figma "Divider band" between sections: the 75px band (56px below 768px), under Customer support. */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="chat" />
+      </div>
       <HumanHandoff />
       <TakeControl />
       {/* Figma "Divider band" between sections: the 75px band (56px below 768px), its stamp naming the next section. */}
