@@ -46,33 +46,27 @@ export const howSteps: { title: string; lines: string[] }[] = [
 ];
 
 /**
- * Figma 3295:53 "Section · Journey library (4x4)": the five journeys on the punched notes. `lead` opens the copy in
- * Geist Medium, `body` follows it.
+ * Figma 4233:12689 "Section · Journey library (4x4)": the nine journeys on their cards, five over four. `initial` is
+ * the title's swash capital, `title` the rest of it; `accent` is the card's bottom bar (aubergine, maroon or green).
  */
-export const libraryJourneys: { title: string; lead: string; body: string }[] = [
+export const libraryJourneys: {
+  initial: string;
+  title: string;
+  description: string;
+  accent: "aubergine" | "maroon" | "green";
+}[] = [
+  { initial: "G", title: "ift finder", description: "Help for finding something meaningful and tailored", accent: "aubergine" },
+  { initial: "S", title: "tyle match", description: "A shortlist after a few questions", accent: "maroon" },
+  { initial: "S", title: "ize and fit", description: "The correct size before they hesitate", accent: "green" },
+  { initial: "R", title: "eturns and exchanges", description: "Answers in chat without a ticket", accent: "maroon" },
+  { initial: "O", title: "rder tracking", description: "Live status without contacting support", accent: "aubergine" },
+  { initial: "C", title: "are guide", description: "Upkeep tips after delivery", accent: "maroon" },
   {
-    title: "Gift finder:",
-    lead: "Help for finding something meaningful and tailored.",
-    body: "Starts when someone lands on a gift page or asks what to get for a person. It asks about the person they’re shopping for, then narrows to a few options they can feel good about.",
+    initial: "P",
+    title: "roduct deep dive",
+    description: "Details beyond the spec sheet to answer questions specific to the customer",
+    accent: "aubergine",
   },
-  {
-    title: "Style match:",
-    lead: "A shortlist after a few questions.",
-    body: "Picks up when a shopper has been moving between product pages without settling on one. It learns taste, budget, and occasion, then builds a shortlist that looks chosen, not generated.",
-  },
-  {
-    title: "Size and fit:",
-    lead: "The right size before they hesitate.",
-    body: "Steps in when a shopper opens the size chart or keeps going back to the size selector. It recommends a size from their measurements and past orders, and explains the fit.",
-  },
-  {
-    title: "Support and exchanges:",
-    lead: "Answers in chat without a ticket.",
-    body: "Starts from an order lookup or a return request. It finds the answer or processes the change in the conversation. If it needs a person, it hands it over with the full context.",
-  },
-  {
-    title: "Order tracking:",
-    lead: "Live status without contacting support.",
-    body: "Starts when a customer enters an order ID or asks where their order is. It pulls live courier data and shows each milestone with a tracking link.",
-  },
+  { initial: "B", title: "undle builder", description: "Thoughtful pairings to increase AOV", accent: "maroon" },
+  { initial: "B", title: "rand FAQ", description: "Your brand story in your voice", accent: "green" },
 ];

@@ -8,7 +8,8 @@ import { cn } from "@/lib/cn";
  * A gold accent on a page rail. It grows from the top, 0 → 100% of its
  * height, as the line itself scrolls into view (like the hero's, which grow
  * on load); with reduced motion it is simply there. `className` places and
- * sizes it; without `src` it is a plain 1px gold line filling that box.
+ * sizes it; without `src` it is a plain 1px gold line filling that box. Hidden below 768px: phones show
+ * the side rails without their gold accents.
  */
 export function RailAccent({ src, className }: { src?: StaticImageData; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -36,7 +37,7 @@ export function RailAccent({ src, className }: { src?: StaticImageData; classNam
   );
 
   return (
-    <span ref={ref} aria-hidden className={cn("pointer-events-none", className)}>
+    <span ref={ref} aria-hidden className={cn("pointer-events-none max-md:hidden", className)}>
       {src ? (
         <Image src={src} alt="" className={grow} />
       ) : (

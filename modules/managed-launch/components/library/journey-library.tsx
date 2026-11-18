@@ -1,140 +1,94 @@
 import Image, { type StaticImageData } from "next/image";
-import type { CSSProperties } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import noteAubergine from "../../assets/library/note-aubergine.webp";
-import noteGreen from "../../assets/library/note-green.webp";
-import noteMaroon from "../../assets/library/note-maroon.webp";
-import noteParchment from "../../assets/library/note-parchment.webp";
-import ribbon1 from "../../assets/library/ribbon-1.svg";
-import ribbon2 from "../../assets/library/ribbon-2.svg";
-import ribbon3 from "../../assets/library/ribbon-3.svg";
-import ribbon4 from "../../assets/library/ribbon-4.svg";
-import ribbon5 from "../../assets/library/ribbon-5.svg";
-import ribbon6 from "../../assets/library/ribbon-6.svg";
-import ribbon7 from "../../assets/library/ribbon-7.svg";
+import cardDamask from "../../assets/library/card-damask.png";
+import cardPaper from "../../assets/library/card-paper.png";
+import stampGiftFinder from "../../assets/library/stamps/1-gift-finder.png";
+import stampStyleMatch from "../../assets/library/stamps/2-style-match.png";
+import stampSizeAndFit from "../../assets/library/stamps/3-size-and-fit.png";
+import stampReturns from "../../assets/library/stamps/4-returns.png";
+import stampOrderTracking from "../../assets/library/stamps/5-order-tracking.png";
+import stampCareGuide from "../../assets/library/stamps/6-care-guide.png";
+import stampProductDeepDive from "../../assets/library/stamps/7-product-deep-dive.png";
+import stampBundleBuilder from "../../assets/library/stamps/8-bundle-builder.png";
+import stampBrandFaq from "../../assets/library/stamps/9-brand-faq.png";
 import { libraryJourneys } from "../../config/launch";
-import { ScatterStrip } from "./scatter-strip";
-
-/** Figma's punched note (its "Subtract"), 299.117 × 303.674, exported at 2x, one per livery. */
-const NOTE_W = 299.117;
-const NOTE_H = 303.674;
-
-/** The ink on each livery: cream on the dark notes, near-black on the parchment one. */
-const light = "text-[#fff9ea]";
-const dark = "text-[#070707]";
-
-type Card = {
-  /** libraryJourneys index: the five journeys, then Gift finder and Style match again to fill the strip. */
-  journey: number;
-  note: StaticImageData;
-  /** The note's copy colour. */
-  ink: string;
-  /** The title ribbon (Figma "Rectangle 2095589201" and on), 0.12px in, `top` down its note, and its title colour. */
-  ribbon: { src: StaticImageData; w: number; h: number; top: number };
-  title: string;
-  /** Top-left corner on the strip (356px down the panel) and turn about its centre. */
-  at: [number, number];
-  angle: number;
-  /** How far it moves when the strip scatters (Figma 4060:25451), from `at`; its turn stays. */
-  scatter: [number, number];
-};
 
 /**
- * Figma 4060:25055: seven notes on the 1392px panel, four across then three below, each its own livery (green,
- * parchment, aubergine, maroon), ribbon colour and turn.
+ * Each journey's embossed stamp, in libraryJourneys order. Their leather and guilloché looks are Figma WebGPU shaders,
+ * so they ship as 3x exports (their shadow included), as the blog's stamp does.
  */
-const cards: Card[] = [
-  { journey: 0, note: noteGreen, ink: light, ribbon: { src: ribbon1, w: 136.626, h: 41.731, top: 31.85 }, title: "text-black", at: [104.74, 20.61], angle: -3.2, scatter: [-83.66, 19.37] },
-  { journey: 1, note: noteParchment, ink: dark, ribbon: { src: ribbon2, w: 144.93, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [413.06, 6.76], angle: 3.15, scatter: [-7.07, 2.8] },
-  { journey: 2, note: noteAubergine, ink: light, ribbon: { src: ribbon3, w: 137.023, h: 42.65, top: 30.93 }, title: "text-black", at: [707.11, 21.03], angle: -2.16, scatter: [29.06, -10] },
-  { journey: 3, note: noteParchment, ink: dark, ribbon: { src: ribbon4, w: 136.223, h: 42.727, top: 31.85 }, title: "text-[#faedd4]", at: [1011.87, 39.98], angle: 9.21, scatter: [70.67, 0] },
-  { journey: 4, note: noteMaroon, ink: light, ribbon: { src: ribbon5, w: 132.397, h: 41.731, top: 31.85 }, title: "text-black", at: [234.99, 316.19], angle: 7.04, scatter: [-96.16, 96.94] },
-  { journey: 0, note: noteParchment, ink: dark, ribbon: { src: ribbon6, w: 138.212, h: 42.158, top: 31.42 }, title: "text-[#faedd4]", at: [569.06, 328.26], angle: -7.07, scatter: [-3.56, 160.23] },
-  { journey: 1, note: noteGreen, ink: light, ribbon: { src: ribbon7, w: 133.29, h: 41.731, top: 31.85 }, title: "text-[#faedd4]", at: [905.74, 335.61], angle: -3.2, scatter: [81, 98.21] },
+const stamps: StaticImageData[] = [
+  stampGiftFinder,
+  stampStyleMatch,
+  stampSizeAndFit,
+  stampReturns,
+  stampOrderTracking,
+  stampCareGuide,
+  stampProductDeepDive,
+  stampBundleBuilder,
+  stampBrandFaq,
 ];
 
-/** Below 1200px, each journey once (the strip's first five notes). */
-const compactCards = cards.slice(0, 5);
-
-
-/**
- * A note in the scattering strip: still at first, then, once the strip is `data-scattered` (ScatterStrip), it glides
- * out by its `--dx` / `--dy` over 1.4s on a soft ease-out, each a little after the last.
- */
-const SCATTER =
-  "transition-[translate] duration-[1400ms] ease-[cubic-bezier(0.65,0,0.35,1)] motion-reduce:transition-none group-data-[scattered]/strip:[translate:var(--dx)_var(--dy)]";
-
-/** The cards' strip: the panel's 1392px width, from 356px down to the panel's foot at 1171px. */
-const STRIP_W = 1392;
-const STRIP_H = 1171 - 356;
+/** The card's 5px bottom bar, by accent. */
+const accentBar = {
+  aubergine: "shadow-[inset_0_-5px_0_0_#462160]",
+  maroon: "shadow-[inset_0_-5px_0_0_#7d0034]",
+  green: "shadow-[inset_0_-5px_0_0_#004926]",
+} as const;
 
 /**
- * A journey's note: the ribbon with its Crimson 22 title, and 93.08px down, 18px in, the 270px line of Geist 16 (its
- * lead in Medium) in the livery's ink, turned `angle`.
+ * Figma's journey card (4233:12710): 244 × 329 on cream paper (white under a multiplied paper grain, tinted #fff9ea),
+ * a damask band along its foot and a 5px bar in its accent, lifted on a soft shadow. 26px in: the title (a Parisienne
+ * 45 capital, then Crimson ExtraLight 29, aubergine), 19.56px over a hairline and 19.56px more over the Geist 16
+ * line, all 191.84px wide. The stamp sits 239px down, 26px in, turned -6.78°, wherever the copy ends.
  */
-function JourneyNote({
-  card,
-  order,
-  style,
-  className = "",
-}: {
-  card: Card;
-  /** Where it falls in the strip's scatter (its stagger); left out, it doesn't scatter (the compact grid). */
-  order?: number;
-  style?: CSSProperties;
-  className?: string;
-}) {
-  const scatter =
-    order === undefined
-      ? undefined
-      : ({
-          "--dx": `${card.scatter[0]}px`,
-          "--dy": `${card.scatter[1]}px`,
-          transitionDelay: `${order * 70}ms`,
-        } as CSSProperties);
-  const journey = libraryJourneys[card.journey];
-  const { ribbon } = card;
+function JourneyCard({ index }: { index: number }) {
+  const journey = libraryJourneys[index];
   return (
-    <div
-      role="listitem"
-      className={`absolute ${order === undefined ? "" : SCATTER} ${className}`}
-      style={{ width: NOTE_W, height: NOTE_H, rotate: `${card.angle}deg`, ...scatter, ...style }}
-    >
-      <Image src={card.note} alt="" aria-hidden sizes="300px" className="pointer-events-none absolute inset-0 size-full max-w-none select-none" />
-      {/* The ribbon is Figma's width at least, stretched (its flag shape scales) when a longer title needs more room. */}
-      <div
-        className="absolute left-[0.12px] pr-6 pl-[19.81px]"
-        style={{ top: ribbon.top, minWidth: ribbon.w, height: ribbon.h, paddingTop: 38.94 - ribbon.top }}
-      >
-        <Image src={ribbon.src} alt="" aria-hidden className="absolute inset-0 size-full max-w-none" />
-        <h3 className={`relative font-serif text-[22px] leading-[1.0909] font-normal tracking-[-0.88px] whitespace-nowrap ${card.title}`}>
+    <li className="relative isolate h-[329px] w-[244px] shrink-0 overflow-clip px-[26.081px] pt-[26.081px] shadow-[0_4.075px_6.276px_rgba(0,0,0,0.08)]">
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-white">
+        <Image src={cardPaper} alt="" sizes="244px" className="absolute inset-0 size-full max-w-none mix-blend-multiply" />
+        <div className="absolute inset-0 bg-[#fff9ea] mix-blend-color" />
+        {/* A 3x export of the damask band, its 51px above the 5px bar. */}
+        <Image src={cardDamask} alt="" sizes="244px" className="absolute bottom-[5px] left-0 h-[51px] w-full max-w-none" />
+      </div>
+
+      <div className="flex w-[191.837px] flex-col items-start gap-[19.561px]">
+        <h3 className="w-full font-serif text-[29px] leading-[1.1] font-extralight tracking-[-1.45px] text-[#462160] mix-blend-multiply">
+          <span className="font-script text-[45px] leading-[1.18] font-normal">{journey.initial}</span>
           {journey.title}
         </h3>
+        <span aria-hidden className="h-[0.859px] w-full bg-black/10" />
+        <p className="w-full font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">{journey.description}</p>
       </div>
-      <p className={`absolute top-[93.08px] left-[18.01px] w-[270.031px] font-sans text-base leading-6 tracking-[-0.32px] ${card.ink}`}>
-        <span className="font-medium">{journey.lead}</span> {journey.body}
-      </p>
-    </div>
+
+      {/* Figma's 65 × 62 stamp box at (26.08, 239); the export carries its shadow, 10.5px out (7.3px above). */}
+      <Image
+        src={stamps[index]}
+        alt=""
+        aria-hidden
+        sizes="87px"
+        className="pointer-events-none absolute top-[231.7px] left-[15.58px] h-[84px] w-[87px] max-w-none select-none"
+      />
+
+      <span aria-hidden className={`pointer-events-none absolute inset-0 ${accentBar[journey.accent]}`} />
+    </li>
   );
 }
 
 /**
- * Figma "Section · Journey library (4x4)" (node 4060:25055): a 1171px sand panel between the page rails (a 0.5px
- * black/25 hairline), the centred cream eyebrow 70px down, 24px over the two-line swash headline (1000px box) and 24px
- * under it an 820px line of Geist in ink muted. 29px below that, seven punched notes in four liveries (green,
- * parchment, aubergine, maroon), each with its own coloured ribbon: Gift finder, Style match, Size and fit, Support and
- * exchanges across, then Order tracking, Gift finder and Style match below, each turned its own way, all inside the
- * panel.
- *
- * From 1200px the notes are Figma's 1392px strip, scaled with the panel. Below that they'd shrink past reading, so
- * the five journeys sit in a grid at full size instead (two across from 768px, one on phones), each still turned.
+ * Figma "Section · Journey library (4x4)" (node 4233:12689): a sand panel between the page rails (a 0.5px black/25
+ * hairline), the centred cream eyebrow 70px down, 24px over the two-line swash headline (1000px box) and 24px under
+ * it an 820px line of Geist in ink muted. 55px below that, the nine journey cards: five across, then four centred
+ * under them, 24px apart either way, 106px clear of the panel's foot. Narrower, the cards wrap to fewer per row,
+ * still centred.
  */
 export function JourneyLibrary() {
   return (
     <section aria-labelledby="journey-library-title" className="relative px-(--frame-inset)">
       <div className="overflow-clip bg-sand shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)]">
-        {/* Figma 3295:56: the eyebrow, headline and copy centred, 24px apart, 70px down the panel. */}
+        {/* Figma 4233:12691: the eyebrow, headline and copy centred, 24px apart, 70px down the panel. */}
         <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col items-center gap-6 pt-16 text-center md:pt-[70px]">
           <Eyebrow>A few of the many</Eyebrow>
           <SectionTitle
@@ -160,31 +114,15 @@ export function JourneyLibrary() {
           </p>
         </div>
 
-        {/* From 1200px: Figma's strip, 29px under the copy, scaled to the panel's width, down to the panel's foot. */}
-        <div className="@container mt-[29px] max-[1199px]:hidden">
-          {/* Laid out as before at first; once in view, the notes scatter to Figma's spread (4060:25451). */}
-          <ScatterStrip
-            className="group/strip relative scale-to-container"
-            style={{ "--fit-width": `${STRIP_W}px`, width: STRIP_W, height: STRIP_H } as CSSProperties}
-          >
-            {cards.map((card, i) => (
-              <JourneyNote key={i} card={card} order={i} style={{ left: card.at[0], top: card.at[1] }} />
-            ))}
-          </ScatterStrip>
-        </div>
-
-        {/* Below 1200px: the five journeys once each, in its own cell at full size, turned as in Figma. */}
-        <div
-          role="list"
+        {/* 1316px (plus its 16px sides) holds five cards (5 × 244 + 4 × 24), so the last four wrap to a centred row. */}
+        <ul
           aria-label="Journeys"
-          className="mx-auto grid w-fit grid-cols-1 justify-items-center gap-x-6 gap-y-10 px-4 pt-12 pb-16 md:grid-cols-2 min-[1200px]:hidden"
+          className="mx-auto mt-10 flex max-w-[calc(1316px+2rem)] flex-wrap justify-center gap-6 px-4 pb-16 md:mt-[55px] md:pb-[106px]"
         >
-          {compactCards.map((card) => (
-            <div key={card.journey} className="relative h-[340px] w-[330px] max-w-[calc(100vw-2*var(--frame-inset)-32px)]">
-              <JourneyNote card={card} className="top-1/2 left-1/2" style={{ translate: "-50% -50%" }} />
-            </div>
+          {libraryJourneys.map((journey, i) => (
+            <JourneyCard key={journey.initial + journey.title} index={i} />
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

@@ -21,7 +21,7 @@ export function StorefrontPresence() {
           src={railAccent}
           alt=""
           aria-hidden
-          className="pointer-events-none absolute top-[calc(107.26px+var(--section-shift,0px))] left-[calc(var(--frame-inset)-0.5px)]"
+          className="pointer-events-none absolute max-md:hidden top-[calc(107.26px+var(--section-shift,0px))] left-[calc(var(--frame-inset)-0.5px)]"
         />
 
         <div className="flex content-width flex-col items-start gap-section">
