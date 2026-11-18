@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/cn";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
@@ -95,21 +94,20 @@ function CampaignPanel({
 }
 
 /**
- * Figma "Library · Vertical tabs" (as Customer support on Support): the 280px list of campaigns on the
- * left from 992px (above the panel below that), and the active campaign in the right column (its
- * title, line of copy and a text link over its 821 × 611 Retain motion visual, maroon, aubergine and
- * forest green in turn), laid out as AI Assistants' Shopper asks: each label 24px in (12 / 20px padding), the
- * active one ink on cream with a 2px gold bar down its left edge, the rest ink/40, and the visual playing
- * inside the framed 821 × 611 damask panel's lattice window.
+ * Vertical tabs laid out as Dynamic landing pages' Dedicated landing pages (Figma 3991:201196): the list of campaigns
+ * on the left from 992px (above the panel below that), each label in ink in a 48px row, the active one with a rule
+ * under it that a gold loader fills over its turn; and the active campaign in the right column (its title, line of
+ * copy and a text link over its 821 × 611 Retain motion visual, maroon, aubergine and forest green in turn), the visual
+ * playing inside the framed 821 × 611 damask panel's lattice window.
  *
- * They play on their own (see `useAutoplayTabs`): after each campaign's turn the next takes over. Choosing a
+ * They play on their own (see `useAutoplayTabs`): after each campaign's turn (shown by the gold loader) the next takes over. Choosing a
  * campaign shows it, starting its turn afresh.
  *
  * Below 992px there are no tabs: the campaigns stack one under another, each its copy over its panel (48px apart),
  * each visual starting as it comes on screen (as Customer support on Support).
  */
 export function CampaignTabs() {
-  const { active, previous, plays, root, open } = useAutoplayTabs(turns, { axis: "y" });
+  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns);
   // Which layout is showing (null until known), so only its visuals are drawn and play.
   const [wide, setWide] = useState<boolean | null>(null);
 
@@ -134,32 +132,37 @@ export function CampaignTabs() {
       </ul>
 
       <div ref={root} className="flex w-full flex-row items-start justify-between gap-8 max-lg:hidden">
-        <nav aria-label="Campaigns and outbound" className="shrink-0">
+        {/*
+          As Dynamic landing pages' Dedicated landing pages (Figma 3991:201196): the labels flush left in ink, 48px rows,
+          the column as wide as its longest label; under the active one a 1px rule across the column, its 2px gold loader
+          filling left to right over the campaign's turn.
+        */}
+        <nav aria-label="Campaigns and outbound" className="w-max shrink-0">
           <ul className="flex flex-col">
             {campaigns.map((campaign, i) => {
               const on = i === active;
               return (
-                <li key={campaign.title}>
+                <li key={campaign.title} className="relative">
                   <button
                     type="button"
                     aria-current={on ? "true" : undefined}
                     onClick={() => open(i)}
-                    className={cn(
-                      // Figma 3257:38421: 39.44px rows, a 24px line 7.72px from top and bottom.
-                      "relative flex w-full cursor-pointer items-center py-[7.72px] pr-5 pl-6 text-left font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
-                      on ? "bg-cream text-ink" : "text-ink/40 hover:text-ink",
-                    )}
+                    className="flex w-full cursor-pointer items-center py-3 text-left font-sans text-base leading-6 tracking-[-0.32px] text-ink transition-opacity duration-300 lg:whitespace-nowrap hover:opacity-70 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon"
                   >
-                    {/* Figma's 2px gold inset bar down the active label's left edge. */}
-                    <span
-                      aria-hidden
-                      className={cn(
-                        "pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-gold transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-                        on ? "opacity-100" : "opacity-0",
-                      )}
-                    />
                     {campaign.title}
                   </button>
+                  {on && (
+                    <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[#d2cdc0]">
+                      {/* The loader, grown across the rule by useAutoplayTabs (its `scale`), paused off screen. */}
+                      <span
+                        ref={(el) => {
+                          fills.current[i] = el;
+                        }}
+                        className="absolute bottom-0 left-0 h-[2px] w-full origin-left bg-gold"
+                        style={{ scale: "0 1" }}
+                      />
+                    </span>
+                  )}
                 </li>
               );
             })}

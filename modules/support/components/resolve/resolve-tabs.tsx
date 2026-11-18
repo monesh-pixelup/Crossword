@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/cn";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
@@ -61,21 +60,20 @@ function CasePanel({ item, scene, play, replay }: { item: Case; scene: boolean; 
 }
 
 /**
- * Figma "Library · Vertical tabs" (3257:34284), as Retain's Campaigns & outbound and AI Assistants' Shopper asks: the
- * 280px list of question types on the left from 992px (above the case below that), each label 24px in (7.72px tall
- * padding around its 24px line, so 39.44px rows; 20px after), the active one ink on cream with a 2px gold bar down its
- * left edge, the rest ink/40; and the active type's case in the 820px right column (its title, line of copy and a text
+ * Vertical tabs laid out as Dynamic landing pages' Dedicated landing pages (Figma 3991:201196): the list of question
+ * types on the left from 992px (above the case below that), each label in ink in a 48px row, the active one with a rule
+ * under it that a gold loader fills over its turn; and the active type's case in the 820px right column (its title, line of copy and a text
  * link, 24px over the framed 821 × 611 maroon damask panel, its Support v4 motion visual playing inside the lattice).
  *
- * They play on their own (see `useAutoplayTabs`): each case stays up for its turn (its scene's run plus a short hold),
- * then the next takes over, its gold bar showing at full height while the old one fades away. Choosing a type shows its
+ * They play on their own (see `useAutoplayTabs`): each case stays up for its turn (its scene's run plus a short hold,
+ * shown by the gold loader), then the next takes over. Choosing a type shows its
  * case, starting its turn afresh.
  *
  * Below 992px there are no tabs: the cases stack one under another, each its copy over its panel (48px apart), every
  * visual playing as it comes on screen (as Product discovery on Sell).
  */
 export function ResolveTabs() {
-  const { active, previous, plays, root, open } = useAutoplayTabs(turns, { axis: "y" });
+  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns);
   // Which layout is showing (null until known), so only its visuals are drawn and play.
   const [wide, setWide] = useState<boolean | null>(null);
 
@@ -100,32 +98,37 @@ export function ResolveTabs() {
       </ul>
 
       <div ref={root} className="flex w-full flex-row items-start justify-between gap-8 max-lg:hidden">
-        <nav aria-label="Support questions Crossword handles" className="shrink-0 lg:w-[280px]">
+        {/*
+          As Dynamic landing pages' Dedicated landing pages (Figma 3991:201196): the labels flush left in ink, 48px rows,
+          the column as wide as its longest label; under the active one a 1px rule across the column, its 2px gold loader
+          filling left to right over the case's turn.
+        */}
+        <nav aria-label="Support questions Crossword handles" className="w-max shrink-0">
           <ul className="flex flex-col">
             {resolveCases.map((c, i) => {
               const on = i === active;
               return (
-                <li key={c.label}>
+                <li key={c.label} className="relative">
                   <button
                     type="button"
                     aria-current={on ? "true" : undefined}
                     onClick={() => open(i)}
-                    className={cn(
-                      // Figma 3257:34288: 39.44px rows, a 24px line 7.72px from top and bottom, 24px in and 20px after; inactive labels at ink/40.
-                      "relative flex w-full cursor-pointer items-center py-[7.72px] pr-5 pl-6 text-left font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] transition-colors lg:whitespace-nowrap duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
-                      on ? "bg-cream text-ink" : "text-ink/40 hover:text-ink",
-                    )}
+                    className="flex w-full cursor-pointer items-center py-3 text-left font-sans text-base leading-6 tracking-[-0.32px] text-ink transition-opacity duration-300 lg:whitespace-nowrap hover:opacity-70 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon"
                   >
                     {c.label}
-                    {/* The active label's 2px gold bar, at its full height; it fades away once the next case takes over. */}
-                    <span
-                      aria-hidden
-                      className={cn(
-                        "pointer-events-none absolute inset-y-0 left-0 w-[2px] bg-gold transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
-                        on ? "opacity-100" : "opacity-0",
-                      )}
-                    />
                   </button>
+                  {on && (
+                    <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-[#d2cdc0]">
+                      {/* The loader, grown across the rule by useAutoplayTabs (its `scale`), paused off screen. */}
+                      <span
+                        ref={(el) => {
+                          fills.current[i] = el;
+                        }}
+                        className="absolute bottom-0 left-0 h-[2px] w-full origin-left bg-gold"
+                        style={{ scale: "0 1" }}
+                      />
+                    </span>
+                  )}
                 </li>
               );
             })}
