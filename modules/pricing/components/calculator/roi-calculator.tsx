@@ -85,8 +85,8 @@ const num = (v: string, fallback = 0) => {
  * The ROI form (Figma 3156:13836): a sand card on a 1px engraved line with studs 7px in, 48px
  * padding and 24px between rows: monthly site traffic and chat engagement rate, average replies per
  * conversation, AOV and conversion rate, then Calculate now and, over a 0.5px rule, the two
- * results (dashes until calculated), the wine ROI panel and a caption (Figma 3564:23117). The engagement rate and replies show the doc's
- * defaults (2% and 5) as placeholders and use them while empty. As the Crossword team gives them:
+ * results (dashes until calculated), the wine ROI panel and a caption (Figma 3564:23117). Every field shows a sample value (calculatorDefaults) as its
+ * placeholder and uses it while empty, so the results open on a worked example. As the Crossword team gives them:
  *
  * - cost = monthly site traffic × engagement rate × replies per conversation (5) × $0.10
  * - revenue generated = monthly site traffic × AOV × conversion rate × the 3% lift
@@ -98,15 +98,16 @@ export function RoiCalculator() {
   const [replies, setReplies] = useState("");
   const [aov, setAov] = useState("");
   const [conversion, setConversion] = useState("");
-  const [shown, setShown] = useState(false);
+  // The results show from the start, worked out from the placeholder values until fields are filled in.
+  const [shown, setShown] = useState(true);
 
-  const monthlyTraffic = num(traffic);
+  const monthlyTraffic = num(traffic, calculatorDefaults.monthlyTraffic);
   const cost =
     monthlyTraffic *
     (num(rate, calculatorDefaults.engagementRate) / 100) *
     num(replies, calculatorDefaults.repliesPerConversation) *
     calculatorDefaults.replyPrice;
-  const revenue = monthlyTraffic * num(aov) * (num(conversion) / 100) * calculatorDefaults.revenueLift;
+  const revenue = monthlyTraffic * num(aov, calculatorDefaults.aov) * (num(conversion, calculatorDefaults.conversionRate) / 100) * calculatorDefaults.revenueLift;
   // Revenue over cost, once both are there to divide.
   const roi = cost > 0 && revenue > 0 ? `${multiple.format(revenue / cost)}x` : "—";
 
@@ -115,7 +116,7 @@ export function RoiCalculator() {
       <Studs inset={7} />
 
       <div className="relative grid gap-4 sm:grid-cols-2">
-        <Field name="Monthly site traffic" unit={{ suffix: "Visitors" }} value={traffic} onChange={setTraffic} placeholder="Add your monthly site traffic" />
+        <Field name="Monthly site traffic" unit={{ suffix: "Visitors" }} value={traffic} onChange={setTraffic} placeholder={String(calculatorDefaults.monthlyTraffic)} />
         <Field name="Chat engagement rate" unit={{ suffix: "%" }} value={rate} onChange={setRate} placeholder={String(calculatorDefaults.engagementRate)} />
       </div>
       <Field
@@ -127,8 +128,8 @@ export function RoiCalculator() {
         className="relative"
       />
       <div className="relative grid gap-4 sm:grid-cols-2">
-        <Field name="AOV" unit={{ prefix: "$", label: "USD" }} value={aov} onChange={setAov} placeholder="Add your AOV" />
-        <Field name="Conversion rate" unit={{ suffix: "%" }} value={conversion} onChange={setConversion} placeholder="Add your conversion rate" />
+        <Field name="AOV" unit={{ prefix: "$", label: "USD" }} value={aov} onChange={setAov} placeholder={String(calculatorDefaults.aov)} />
+        <Field name="Conversion rate" unit={{ suffix: "%" }} value={conversion} onChange={setConversion} placeholder={String(calculatorDefaults.conversionRate)} />
       </div>
 
       <StampAction onClick={() => setShown(true)} className="gap-3 self-start">

@@ -76,7 +76,19 @@ export const outcomes = [
  * Calculator defaults (content doc: prepopulate 2% and 5, but allow override), and the figures the estimates run on:
  * each reply costs $0.10 (`replyPrice`), and Crossword lifts revenue by 3% (`revenueLift`).
  */
-export const calculatorDefaults = { engagementRate: 2, repliesPerConversation: 5, replyPrice: 0.1, revenueLift: 0.03 };
+/**
+ * The ROI calculator's sample store: shown as each field's placeholder and used while that field is empty, so the
+ * results read as a realistic example before anyone types (traffic, AOV and conversion rate are illustrative).
+ */
+export const calculatorDefaults = {
+  monthlyTraffic: 50000,
+  engagementRate: 2,
+  repliesPerConversation: 5,
+  aov: 120,
+  conversionRate: 2.5,
+  replyPrice: 0.1,
+  revenueLift: 0.03,
+};
 
 /**
  * FAQs (Figma 3156:13890). The doc gives no answers; these restate what the page already says.
