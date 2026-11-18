@@ -114,9 +114,10 @@ function RecentPosts({ recentPosts }: { recentPosts: BlogPost[] }) {
           <li key={post.href + i} className={cn("flex flex-col lg:flex-1", !last && "border-b border-[#ddd]")}>
             <Link
               href={post.href}
-              className="group flex flex-auto items-end justify-between gap-4 px-5 py-6 xs:gap-6 xs:pt-8 xs:pr-8 xs:pb-8 xs:pl-8 md:items-start lg:pr-0 lg:pb-2"
+              className="group flex flex-auto items-end justify-between gap-4 px-5 py-6 xs:gap-6 xs:pt-8 xs:pr-8 xs:pb-8 xs:pl-8 md:items-start lg:items-center lg:py-[25px] lg:pr-0"
             >
-              <div className="flex flex-col items-start gap-3">
+              {/* From 992px (Figma): each row's text block sits centred in its third of the height, 8px between title and excerpt. */}
+              <div className="flex flex-col items-start gap-3 lg:gap-2">
                 {/* Hover / keyboard focus nudges the title and excerpt right together (ease-out-quart). */}
                 <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px] text-ink motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
                   {post.title}

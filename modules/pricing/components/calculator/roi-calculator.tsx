@@ -26,7 +26,10 @@ function Field({
   className,
 }: {
   name: string;
-  /** The value's unit: `{ prefix: "$" }` or `{ suffix: "%" }` and the like; `label` overrides the bracketed name ("" for none). */
+  /**
+   * The value's unit: `{ prefix: "$" }` or `{ suffix: "%" }` and the like; `label` overrides the bracketed name ("" for none).
+   * A prefix is also shown inside the field; a suffix only names the unit in the label.
+   */
   unit: { prefix?: string; suffix?: string; label?: string };
   value: string;
   onChange: (v: string) => void;
@@ -45,7 +48,6 @@ function Field({
       </span>
       <span className="relative block">
         {unit.prefix && <span aria-hidden className={cn(adornment, "left-[17px]")}>{unit.prefix}</span>}
-        {unit.suffix && <span aria-hidden className={cn(adornment, "right-[17px]")}>{unit.suffix}</span>}
       <input
         id={id}
         type="number"
@@ -57,7 +59,6 @@ function Field({
         className={cn(
           "h-12 w-full min-w-0 bg-cream px-[17px] font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink shadow-[inset_0_0_0_1px_var(--color-engraved)] outline-none placeholder:text-ink-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
           unit.prefix && "pl-[33px]",
-          unit.suffix && (unit.suffix.length > 2 ? "pr-[88px]" : "pr-[40px]"),
         )}
       />
       </span>
@@ -114,7 +115,7 @@ export function RoiCalculator() {
       <Studs inset={7} />
 
       <div className="relative grid gap-4 sm:grid-cols-2">
-        <Field name="Monthly site traffic" unit={{ suffix: "visitors" }} value={traffic} onChange={setTraffic} placeholder="Add your monthly site traffic" />
+        <Field name="Monthly site traffic" unit={{ suffix: "Visitors" }} value={traffic} onChange={setTraffic} placeholder="Add your monthly site traffic" />
         <Field name="Chat engagement rate" unit={{ suffix: "%" }} value={rate} onChange={setRate} placeholder={String(calculatorDefaults.engagementRate)} />
       </div>
       <Field
