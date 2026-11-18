@@ -184,8 +184,11 @@ export function CtaEnvelope() {
             sizes="(min-width: 1440px) 1390px, 100vw"
             className={`${layer} ${flap} top-[4.9406%] z-2 h-[38.587%] origin-[50%_99.7237%]`}
           />
-          {/* Below 768px the card is taller (by 18.4% of the envelope): its top 8.4% higher than on desktop, and 10% more of it below, hidden in the pocket. */}
-          <div data-cta="letter-hover" className="absolute top-[28.412%] left-[3.8129%] z-3 h-[40.163%] w-[68.8129%] max-md:top-[20%] max-md:h-[58.575%]">
+          {/*
+            Below 768px the card is taller (by 18.4% of the envelope): its top 8.4% higher than on desktop, and 10% more of it below, hidden in the pocket.
+            It is also wider there (85% of the envelope, its right edge tucked behind the photo) so the note reads larger.
+          */}
+          <div data-cta="letter-hover" className="absolute top-[28.412%] left-[3.8129%] z-3 h-[40.163%] w-[68.8129%] max-md:top-[20%] max-md:h-[58.575%] max-md:w-[85%]">
             {/*
               The note is live text over the blank card, placed in card units (cqw of the card,
               1913px in the export) so it scales with the envelope: Caveat 31px at the 1440px frame
@@ -194,7 +197,7 @@ export function CtaEnvelope() {
             */}
             <div data-cta="letter" className={`${card} @container`}>
               <Image src={letter} alt="" sizes="(min-width: 1440px) 957px, 69vw" className="absolute inset-0 block size-full max-w-none" />
-              <p className="absolute top-[6.6388cqw] left-[4.8353cqw] m-0 origin-[0_0.958em] rotate-[0.1deg] font-hand text-[min(31px,3.241cqw)] leading-[1.2556] font-normal whitespace-nowrap text-[#625f57]">
+              <p className="absolute top-[6.6388cqw] left-[4.8353cqw] m-0 origin-[0_0.958em] rotate-[0.1deg] font-hand text-[min(31px,3.241cqw)] leading-[1.2556] max-md:text-[4cqw] font-normal whitespace-nowrap text-[#625f57]">
                 <span className="block tracking-[0.007em]">The rose gold pendant caught</span>
                 <span className="block">your eye. It’s still here if you’d like</span>
                 <span className="block">another look.</span>

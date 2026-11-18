@@ -114,15 +114,24 @@ function RecentPosts({ recentPosts }: { recentPosts: BlogPost[] }) {
           <li key={post.href + i} className={cn("flex flex-col lg:flex-1", !last && "border-b border-[#ddd]")}>
             <Link
               href={post.href}
-              className="group flex flex-auto flex-col items-start gap-3 px-5 py-6 xs:pt-8 xs:pr-8 xs:pb-8 xs:pl-8 lg:pr-0 lg:pb-2"
+              className="group flex flex-auto items-end justify-between gap-4 px-5 py-6 xs:gap-6 xs:pt-8 xs:pr-8 xs:pb-8 xs:pl-8 md:items-start lg:pr-0 lg:pb-2"
             >
-              {/* Hover / keyboard focus nudges the title and excerpt right together (ease-out-quart). */}
-              <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px] text-ink motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
-                {post.title}
-              </h3>
-              <p className="font-sans text-[14px] leading-5 font-normal tracking-[-0.28px] text-ink-soft motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
-                {post.excerpt}
-              </p>
+              <div className="flex flex-col items-start gap-3">
+                {/* Hover / keyboard focus nudges the title and excerpt right together (ease-out-quart). */}
+                <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px] text-ink motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
+                  {post.title}
+                </h3>
+                <p className="font-sans text-[14px] leading-5 font-normal tracking-[-0.28px] text-ink-soft motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
+                  {post.excerpt}
+                </p>
+              </div>
+              {/* On mobile (no hover) the boxed arrow, as on the featured post, marks each row as a link. */}
+              <span
+                aria-hidden
+                className="flex shrink-0 items-center border border-[rgba(40,40,40,0.3)] px-2 py-1 md:hidden"
+              >
+                <Image src={arrowRight} alt="" className="size-4" />
+              </span>
             </Link>
           </li>
         );
