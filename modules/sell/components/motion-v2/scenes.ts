@@ -86,7 +86,7 @@ export const discoveryScenes = {
   "visual-discovery": {
     Component: VisualDiscoveryMotion,
     label:
-      "A shopper uploads a photo of a lamp and asks for something like it. The assistant shows three matching lamps: an aged brass triple-dome, an asymmetric two-dome and a copper four-dome.",
+      "A shopper uploads a photo of a lamp and asks for something like it. The assistant shows three matching lamps: a brass three-arm lamp with bell shades, a bronze two-arm lamp with cone shades and a copper lamp with ribbed amber glass.",
     width: 788,
     height: 579,
     duration: 5100,

@@ -3,7 +3,8 @@
 // Built from the "Crossword — Sell: Conversational interface v2 (motion)" source (the package with the camera
 // versions of Upsell 17b–20b, Conversion assist 28b–33b and Human mode 34b; the 11 November 2026 update with the window
 // standard, 34m and 21m–23m; the 15 November 2026 update with 09–16 on the 788 × 579 damask canvas and 21–23 on the
-// polished storefront) with Vite, unminified, React external. The few site changes are marked "Site".
+// polished storefront; the 18 November 2026 handoff of 02 Try it on and 06 Visual discovery, with the matched try-on
+// photo and the three new lamps) with Vite, unminified, React external. The few site changes are marked "Site".
 // See ./index.tsx for the mechanical changes.
 
 import { createContext, useContext, useState, useEffect, useRef, useMemo, useLayoutEffect, Fragment as Fragment$1, useCallback, createElement } from "react";
@@ -2979,7 +2980,7 @@ const discovery = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePro
   script: script$h
 }, Symbol.toStringTag, { value: "Module" }));
 const shopperUpload = "/images/sell/motion-v2/assets/shopper-selfie-CyjDEIkL.webp";
-const tryonResult = "/images/sell/motion-v2/assets/tryon-consistent-DrlZLkTv.webp";
+const tryonResult = "/images/sell/motion-v2/assets/tryon-matched-selfie-CJ9Nh1Ye.webp";
 const script$g = {
   brand: catalog.maraisBalloonDress.brand,
   userMessage: "Would this dress work on me?",
@@ -2987,7 +2988,8 @@ const script$g = {
   assistantResult: "Since you usually prefer a relaxed fit, I've kept the styling true to that."
 };
 const referencedProduct = {
-  ...catalog.maraisBalloonDress
+  ...catalog.maraisBalloonDress,
+  alt: "Referenced dress"
 };
 const media = {
   dressReference: catalog.maraisBalloonDress.image,
@@ -3054,9 +3056,9 @@ const finder = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProper
   product: product$4,
   script: script$d
 }, Symbol.toStringTag, { value: "Module" }));
-const agedBrassLamp = "/images/sell/motion-v2/assets/aged-brass-triple-dome-CEyMDDyc.webp";
-const twoDomeLamp = "/images/sell/motion-v2/assets/asymmetric-two-dome-brass-DYjTPIwN.webp";
-const fourDomeLamp = "/images/sell/motion-v2/assets/four-dome-copper-fan-CtwlxkAa.webp";
+const brassBellLamp = "/images/sell/motion-v2/assets/brass-three-arm-bell-DAtyFovM.webp";
+const bronzeConeLamp = "/images/sell/motion-v2/assets/bronze-two-arm-cone-29A7AZcB.webp";
+const copperGlassLamp = "/images/sell/motion-v2/assets/copper-three-arm-glass-DVZV9m2-.webp";
 const script$c = {
   brand: catalog.amberTripod.brand,
   userMessage: "I want something like this.",
@@ -3067,9 +3069,9 @@ const uploadedImage = {
   alt: "Lamp photo uploaded by the shopper"
 };
 const matches = [
-  { id: "aged-brass-triple-dome", name: "Aged Brass Triple-Dome Lamp", image: agedBrassLamp },
-  { id: "asymmetric-two-dome-brass", name: "Asymmetric Two-Dome Lamp", image: twoDomeLamp },
-  { id: "four-dome-copper-fan", name: "Copper Four-Dome Lamp", image: fourDomeLamp }
+  { id: "brass-three-arm-bell", name: "Brass Three-Arm Bell Lamp", image: brassBellLamp },
+  { id: "bronze-two-arm-cone", name: "Bronze Two-Arm Cone Lamp", image: bronzeConeLamp },
+  { id: "copper-three-arm-glass", name: "Copper Ribbed-Glass Lamp", image: copperGlassLamp }
 ];
 const visual = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
