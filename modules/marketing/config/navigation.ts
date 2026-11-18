@@ -18,17 +18,16 @@ export type NavItem = {
 };
 
 // TODO: point these at real routes as the pages get built.
-/** Figma "Platform menu · v2" (3572:53): the Website column, the AI channels and the Insight card. */
+/** Figma "Platform menu · v2" (3572:53): the website products, the AI channels and the Insight card. */
 export const platformMenu = {
-  website: { title: "Website", description: "Your brand’s agent, on your storefront." },
   sell: {
     label: "Sell",
     links: [
-      { label: "Conversational interface", href: "/conversational-interface", description: "Help shoppers find the right products." },
+      { label: "Conversational shopping", href: "/conversational-interface", description: "Help shoppers find the right products." },
       { label: "Dynamic landing pages", href: "/dynamic-landing-pages", description: "Match each visit to a relevant experience." },
     ],
   },
-  /** The Website column's products after Sell. */
+  /** The first column's products after Sell. */
   more: [
     { label: "Customer support", href: "/support", description: "Resolve questions and hand off with context." },
     { label: "Retention", href: "/retain", description: "Bring customers back with timely outreach." },
@@ -51,7 +50,6 @@ export const platformMenu = {
   ],
   feature: { href: "/blog", alt: "Insight: Turning Interest into Action.", cta: "Read more" },
 } satisfies {
-  website: { title: string; description: string };
   sell: { label: string; links: PlatformLink[] };
   more: PlatformLink[];
   channels: PlatformChannel[];

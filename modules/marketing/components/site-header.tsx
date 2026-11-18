@@ -274,9 +274,9 @@ function PlatformItem({
  * down to its three columns and 32px under them, in a deeper translucent dark (the bar's
  * rgba(9, 9, 9, .71) laid twice) or cream over a 1px rail rule. Rules (white/10, or the rail at 50%)
  * run down between the columns, about 61px either side:
- * - Website, 311px plus 48px after: its Crimson 18 heading over a Geist 12 line, then 28px apart the
- *   Sell group (its label 14px over its two products, 20px apart, 24px in from a gold/15 or rail/40
- *   rule), Customer support and Retention.
+ * - The website products, 311px plus 48px after, 28px apart: the Sell group (its faded label 14px
+ *   over its two products, 20px apart, 24px in from a gold/15 or rail/40 rule), Customer support and
+ *   Retention.
  * - The AI channels, 276px and 48px in either side: AI Assistants and Personal Agents (Crimson 18)
  *   32px either side of a 0.681px rule, each with its chips 8px
  *   down.
@@ -284,7 +284,6 @@ function PlatformItem({
  * Below 1440px the gaps and columns close up.
  */
 function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; fullBleed: boolean; open: boolean; onChoose: () => void }) {
-  const muted = light ? "text-cream/40" : "text-ink/60";
   const rule = light ? "bg-white/10" : "bg-rail/50";
   return (
     <div className={cn("absolute inset-x-0 top-full isolate", reveal(open))}>
@@ -298,15 +297,9 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
       />
       <div className="flex content-width items-stretch justify-between gap-6 py-8">
         <div className="flex w-[359px] min-w-0 shrink flex-col items-start gap-7 pr-12">
-          <div className="flex flex-col items-start gap-1 whitespace-nowrap">
-            <p className={cn("font-serif text-[18px] leading-[1.1] tracking-[-0.36px]", light ? "text-cream" : "text-ink")}>
-              {platformMenu.website.title}
-            </p>
-            <p className={cn("font-sans text-[12px] leading-5 tracking-[-0.48px]", muted)}>{platformMenu.website.description}</p>
-          </div>
-
           <div className="flex w-full flex-col items-start gap-3.5">
-            <p className={cn("font-serif text-base leading-[1.1] tracking-[-0.32px]", light ? "text-cream" : "text-ink")}>
+            {/* The Sell group's label, faded (cream at 50%) as a heading over its products. */}
+            <p className={cn("font-serif text-base leading-[1.1] tracking-[-0.32px]", light ? "text-cream/50" : "text-ink/50")}>
               {platformMenu.sell.label}
             </p>
             <ul className={cn("flex w-full flex-col gap-5 border-l pl-6", light ? "border-[rgba(224,190,96,0.15)]" : "border-rail/40")}>
