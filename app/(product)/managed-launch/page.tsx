@@ -28,13 +28,13 @@ export default function ManagedLaunchPage() {
           <DividerBand glyph="chat" badge={false} />
         </div>
       </div>
-      <Journey />
-      <JourneyLibrary />
       <HowItWorks />
-      {/* Figma "Divider band" (3262:510): the 75px band (56px below 768px) above Your part. */}
+      {/* Figma "Divider band" (3262:510): the 75px band (56px below 768px) between How it works and the journey. */}
       <div className="relative h-[75px] max-md:h-[56px]">
         <BandDivider glyph="gear" />
       </div>
+      <Journey />
+      <JourneyLibrary />
       <YourPart />
       <PilotCta />
     </main>
