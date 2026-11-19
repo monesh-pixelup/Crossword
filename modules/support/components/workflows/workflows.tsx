@@ -32,9 +32,9 @@ export function Workflows() {
           </div>
 
           {/*
-            Figma 4139:5972 (the Storybook layout): the review-request flow (start, wait, check, the "OK to ask?" condition
+            Figma 4350:25149 (the Storybook layout, with the 19 November 2026 type sizes): the review-request flow (start, wait, check, the "OK to ask?" condition
             branching to write and email the ask or skip, then end), exported as one vector at 1280 × 370 and drawn across
-            the content width. Below 768px, Figma 4143:5972's vertical version instead (353 × 765), the steps stacked and
+            the content width. Below 768px, Figma 4350:25276's vertical version instead (353 × 765), the steps stacked and
             the two branches side by side, at the content width. Figma's SVG export leaves out each card's header rule (a
             bottom-only border), so both files carry it as a 1px rect ("Header rule") placed from Figma's measurements.
           */}

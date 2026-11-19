@@ -104,7 +104,7 @@ function pageList(count: number, current: number): (number | "gap")[] {
 }
 
 /**
- * Previous, the page numbers and Next, in the filters' style: square cells on #ccc lines in Crimson 16, the current page
+ * Previous, the page numbers and Next: square cells on #ccc lines in Crimson 16, the current page
  * in black with light text.
  */
 function Pagination({ page, count, onPage }: { page: number; count: number; onPage: (page: number) => void }) {
@@ -147,35 +147,22 @@ function Pagination({ page, count, onPage }: { page: number; count: number; onPa
 const PER_PAGE = 9;
 
 /**
- * Figma "Journal index" (1660:935), led as reducto.ai/blog is: the page has no hero, so 64px under the header, the filters, one equal-width row
- * (Crimson 16, 12 × 24px padding, #ccc lines), the chosen one in black with light text. 20px under them the newest post
- * as the wide lead story, then the rest in three columns 20px apart (two below 992px, one below 640px), nine to a page,
- * with the pagination 48px under the grid (always, even with one page); 80px under that. Choosing an industry shows only its posts (its newest
- * leading) and goes back to page 1; changing page scrolls back up to the filters. The lead story shows on page 1 only.
- * The posts and the filters (in their set order) come from Sanity.
+ * Figma "Journal index" (1660:935), led as reducto.ai/blog is: the page has no hero, so 64px under the header the
+ * newest post as the wide lead story, then the rest in three columns 20px apart (two below 992px, one below 640px),
+ * nine to a page, with the pagination 48px under the grid (always, even with one page); 80px under that. Changing
+ * page scrolls back up to the top of the list. The lead story shows on page 1 only. The posts come from Sanity.
  */
-export function JournalIndex({ posts: allPosts, categories }: { posts: BlogPostSummary[]; categories: string[] }) {
-  const [filter, setFilter] = useState<string | null>(null);
+export function JournalIndex({ posts }: { posts: BlogPostSummary[] }) {
   const [page, setPage] = useState(1);
   const top = useRef<HTMLDivElement>(null);
 
-  const posts = filter ? allPosts.filter((p) => p.category === filter) : allPosts;
   const [lead, ...rest] = posts;
   const pageCount = Math.max(1, Math.ceil(rest.length / PER_PAGE));
   const shown = rest.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  const tabs: { label: string; value: string | null }[] = [
-    { label: `All (${allPosts.length})`, value: null },
-    ...categories.map((c) => ({ label: c, value: c })),
-  ];
-
-  const choose = (value: string | null) => {
-    setFilter(value);
-    setPage(1);
-  };
   const turnTo = (n: number) => {
     setPage(n);
-    // Back up to the filters, clear of the fixed 72.5px header.
+    // Back up to the top of the list, clear of the fixed 72.5px header.
     const el = top.current;
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 96, behavior: "smooth" });
   };
@@ -183,27 +170,6 @@ export function JournalIndex({ posts: allPosts, categories }: { posts: BlogPostS
   return (
     <section aria-label="Journal" className="relative bg-cream pt-16 pb-20 max-md:pt-10">
       <div ref={top} className="flex content-width max-w-[1254px] flex-col gap-5">
-        <div role="group" aria-label="Filter by industry" className="-mx-1 flex overflow-x-auto px-1 [scrollbar-width:none]">
-          {tabs.map((tab, i) => {
-            const on = tab.value === filter;
-            return (
-              <button
-                key={tab.label}
-                type="button"
-                aria-pressed={on}
-                onClick={() => choose(tab.value)}
-                className={cn(
-                  "relative flex min-w-max flex-[1_0_0] items-center justify-center overflow-clip border-y border-r border-[#ccc] px-6 py-3 font-serif text-base leading-none tracking-[-0.64px] whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon",
-                  i === 0 && "border-l",
-                  on ? "bg-black text-[#f2f2f2]" : "cursor-pointer text-[#010101] hover:bg-black/4",
-                )}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-
         {lead ? (
           <>
             {page === 1 && <LeadPost post={lead} />}
@@ -223,7 +189,7 @@ export function JournalIndex({ posts: allPosts, categories }: { posts: BlogPostS
           </>
         ) : (
           <p className="border border-black/15 px-6 py-16 text-center font-sans text-base leading-6 font-light tracking-[-0.32px] text-black/60">
-            {filter ? `No posts in ${filter} yet.` : "No posts yet."}
+            No posts yet.
           </p>
         )}
       </div>

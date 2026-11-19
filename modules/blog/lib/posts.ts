@@ -74,7 +74,6 @@ const postsQuery = defineQuery(
   `*[_type == "post" && defined(slug.current)] | order(publishedAt desc, _createdAt desc) { ${fields} }`,
 );
 const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug][0] { ${fields}, body }`);
-const categoriesQuery = defineQuery(`*[_type == "category" && defined(title)] | order(coalesce(order, 999) asc, title asc).title`);
 
 const dateFormat = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
@@ -152,14 +151,6 @@ export async function getPost(slug: string): Promise<BlogPost | null> {
   const body = post.body ?? [];
   const words = body.reduce((n, block) => n + plainText(block).split(/\s+/).filter(Boolean).length, 0);
   return { ...summarize(post, coverIndex), ...splitBody(body), readingMinutes: Math.max(1, Math.round(words / 230)) };
-}
-
-/** The journal's filters, in their set order. */
-export async function getCategories(): Promise<string[]> {
-  "use cache";
-  cacheTag(BLOG_TAG);
-  cacheLife("hours");
-  return client.fetch<string[]>(categoriesQuery);
 }
 
 /**

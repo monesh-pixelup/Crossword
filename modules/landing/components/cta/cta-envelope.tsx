@@ -188,7 +188,7 @@ export function CtaEnvelope() {
             Below 768px the card is taller (by 18.4% of the envelope): its top 8.4% higher than on desktop, and 10% more of it below, hidden in the pocket.
             It is also wider there (85% of the envelope, its right edge tucked behind the photo) so the note reads larger.
           */}
-          <div data-cta="letter-hover" className="absolute top-[28.412%] left-[3.8129%] z-3 h-[40.163%] w-[68.8129%] max-md:top-[20%] max-md:h-[58.575%] max-md:w-[85%]">
+          <div data-cta="letter-hover" className="absolute top-[28.412%] left-[3.8129%] z-3 h-[40.163%] w-[68.8129%] max-md:top-[20%] max-md:h-[58.575%] max-md:w-[89%]">
             {/*
               The note is live text over the blank card, placed in card units (cqw of the card,
               1913px in the export) so it scales with the envelope: Caveat 31px at the 1440px frame
