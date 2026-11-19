@@ -172,8 +172,16 @@
   --person-lift: 230px;
   /* How far the conversation is raised to overlap the concierge (see .conversation-slot). */
   --chat-lift: 170px;
+  /*
+   * The stack's settled height, held from the start: a screen at least, or its content (the header's 88.5px, the
+   * cards, the concierge's row and the conversation: 904.1px with the photo at its 600px, measured). Without it the
+   * frame is one screen tall until the cards and conversation render, then grows, and anything placed from its foot
+   * jumps. The copy is placed from the top against this height (HeroParallax), so it also stays put as a longer
+   * conversation grows the frame.
+   */
+  --hero-stack-h: max(100svh, calc(646.47px + .42938 * var(--photo-h)));
   width: 100%;
-  min-height: 100svh;
+  min-height: var(--hero-stack-h);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(calc(.42938 * var(--photo-h) + 32px), 1fr) auto;
@@ -238,9 +246,10 @@
 
 @media (max-width: 759px) {
   .hero-scene--pending .hero-scene__frame {
+    --hero-stack-h: max(100svh, calc(646.47px + .42938 * min(600px, 154vw)));
     width: 100% !important;
     aspect-ratio: auto !important;
-    min-height: max(100svh, calc(646.47px + .42938 * min(600px, 154vw)));
+    min-height: var(--hero-stack-h);
   }
 
   .hero-scene--pending .hero-scene__photo {
