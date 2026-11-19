@@ -21,7 +21,7 @@ import grokLight from "../assets/nav/glyphs/light-grok.svg";
 import instinctLight from "../assets/nav/glyphs/light-instinct.svg";
 import museLight from "../assets/nav/glyphs/light-muse.svg";
 import perplexityLight from "../assets/nav/glyphs/light-perplexity.svg";
-import featureCardLight from "@/modules/shared/assets/nav/card-dark.webp";
+import featureCardBlank from "@/modules/shared/assets/nav/card-dark-blank.webp";
 import { ctaLinks, type NavItem, type NavLink, type PlatformLink, platformMenu, primaryNav } from "../config/navigation";
 import { MobileMenu } from "./mobile-menu";
 
@@ -278,11 +278,47 @@ function PlatformItem({
  * - The 304 × 111 Insight card, 10px over a READ MORE link.
  * Below 1440px the gaps and columns close up.
  */
-/** The newest blog post's page (from SiteShell, newest in Sanity), which the Platform menu's READ MORE opens. */
-const LatestPostHref = createContext("/blog");
+/** The newest blog post (from SiteShell, newest in Sanity): the Platform menu's card shows its title and, with READ MORE, opens it. */
+const LatestPost = createContext<{ href: string; title: string } | null>(null);
+
+/** The card title's size for longer titles, so it always fits the gold box (design px on the 304px card). */
+function cardTitleSize(title: string) {
+  if (title.length <= 24) return 23.963;
+  if (title.length <= 40) return 18;
+  return 14.5;
+}
+
+/**
+ * Figma 3570:24543, the Platform menu's insight card (304 × 111): the forest card art with its mark, INSIGHT tag and
+ * gold box (exported without its title), and the newest post's title set in the box as Figma sets it: a Parisienne
+ * capital, then Crimson ExtraLight at 0.9, white, 14.3px in, centred in the box below the tag. Laid out at the card's
+ * 304px and zoomed to its width. Longer titles step down a size so they always fit. With no post, Figma's own card.
+ */
+function FeatureCard({ post, alt }: { post: { href: string; title: string } | null; alt: string }) {
+  if (!post) return <Image src={featureCardDark} alt={alt} sizes="305px" className="h-auto w-full" />;
+  const size = cardTitleSize(post.title);
+  return (
+    <span className="@container relative block aspect-[913/333] w-full overflow-hidden">
+      <Image src={featureCardBlank} alt="" sizes="305px" className="absolute inset-0 size-full" />
+      <span aria-hidden className="absolute top-0 left-0 h-[111px] w-[304.172px] select-none scale-to-container [--fit-width:304.172px]">
+        <span className="absolute top-10 left-[14.31px] flex h-16 items-center" style={{ width: size === 23.963 ? 153.355 : 172 }}>
+          <span className="line-clamp-4 font-serif leading-[0] font-light text-white [word-break:break-word]" style={{ letterSpacing: `${-0.05 * size}px` }}>
+            <span className="font-script leading-[0.9] font-normal" style={{ fontSize: size * 1.2038, letterSpacing: `${-0.05 * size * 1.2038}px` }}>
+              {post.title.slice(0, 1)}
+            </span>
+            <span className="leading-[0.9] font-extralight" style={{ fontSize: size }}>
+              {post.title.slice(1)}
+            </span>
+          </span>
+        </span>
+      </span>
+    </span>
+  );
+}
 
 function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; fullBleed: boolean; open: boolean; onChoose: () => void }) {
-  const latestPostHref = useContext(LatestPostHref);
+  const latestPost = useContext(LatestPost);
+  const latestPostHref = latestPost?.href ?? "/blog";
   const rule = light ? "bg-white/10" : "bg-rail/50";
   return (
     <div className={cn("absolute inset-x-0 top-full isolate", reveal(open))}>
@@ -338,8 +374,13 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
         <span aria-hidden className={cn("w-px shrink-0", rule)} />
 
         <div className="flex w-[304.172px] min-w-0 shrink flex-col items-start gap-2.5">
-          <Link href={platformMenu.feature.href} onClick={onChoose} className="block w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon">
-            <Image src={light ? featureCardDark : featureCardLight} alt={platformMenu.feature.alt} sizes="305px" className="h-auto w-full" />
+          <Link
+            href={latestPostHref}
+            onClick={onChoose}
+            aria-label={latestPost ? `Read: ${latestPost.title}` : platformMenu.feature.alt}
+            className="block w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
+          >
+            <FeatureCard post={latestPost} alt={platformMenu.feature.alt} />
           </Link>
           <Link
             href={latestPostHref}
@@ -547,14 +588,14 @@ function Contents({
  *   behind them over 300ms. On HERO_ONLY_ROUTES that lasts while the hero is under the header;
  *   past it the header is the cream bar (still with no spacer).
  *
- * Both bars carry the Platform menu (full width) and the Resources list. The Platform menu's READ MORE opens
- * `latestPostHref`, the newest blog post (the journal when there's none).
+ * Both bars carry the Platform menu (full width) and the Resources list. The Platform menu's card shows the newest
+ * blog post's title and, like its READ MORE, opens that post (`latestPost`; the journal when there's none).
  */
-export function SiteHeader({ latestPostHref = "/blog" }: { latestPostHref?: string }) {
+export function SiteHeader({ latestPost = null }: { latestPost?: { href: string; title: string } | null }) {
   return (
-    <LatestPostHref value={latestPostHref}>
+    <LatestPost value={latestPost}>
       <HeaderBar />
-    </LatestPostHref>
+    </LatestPost>
   );
 }
 

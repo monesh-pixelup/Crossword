@@ -153,15 +153,19 @@ export async function getPost(slug: string): Promise<BlogPost | null> {
   return { ...summarize(post, coverIndex), ...splitBody(body), readingMinutes: Math.max(1, Math.round(words / 230)) };
 }
 
+/** The newest post, for the header's Platform menu: its page and title. */
+export type LatestPost = { href: string; title: string };
+
 /**
- * The newest post's page, for the header's READ MORE (getPosts is newest first, cached and refreshed when a post is
- * published). With no posts, or Sanity out of reach, the journal.
+ * The newest post's page and title, for the header's Platform menu card and READ MORE (getPosts is newest first, cached
+ * and refreshed when a post is published). With no posts, or Sanity out of reach, null: the menu then shows its own card
+ * and links to the journal.
  */
-export async function getLatestPostHref(): Promise<string> {
+export async function getLatestPost(): Promise<LatestPost | null> {
   try {
     const [latest] = await getPosts();
-    return latest ? `/blog/${latest.slug}` : "/blog";
+    return latest ? { href: `/blog/${latest.slug}`, title: latest.title } : null;
   } catch {
-    return "/blog";
+    return null;
   }
 }

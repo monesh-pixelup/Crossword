@@ -5007,9 +5007,9 @@ function AiAssistantsMotion() {
   const t = useChatTimeline(beats$2, landed && fontsReady);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Scene$1, { t }, t.runKey) });
 }
-// Site: Figma 3073:21692's own backdrop (the green hallway with its gold arches, cover-fitted to 738 × 640), where the
-// source drew a brown arched hallway.
-const insightsBackground = "/images/landing/home-v2/assets/insights-background-green.webp";
+// Site: Figma 3991:208694's own backdrop (the hotel front desk, its key cabinet and bell, cover-fitted to 738 × 640),
+// where the source drew a brown arched hallway.
+const insightsBackground = "/images/landing/home-v2/assets/insights-background-desk.webp";
 function InsightFrame({ children, background = insightsBackground }) {
   return /* @__PURE__ */ jsx("div", { className: "hm-ill-insight-frame-scale", children: /* @__PURE__ */ jsxs("div", { className: "hm-ill-insight-frame", children: [
     /* @__PURE__ */ jsx("img", { className: "hm-ill-insight-frame__background", src: background, alt: "", "aria-hidden": "true" }),
