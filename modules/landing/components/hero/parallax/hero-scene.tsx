@@ -15,7 +15,7 @@ export type SceneLayer = {
 };
 
 /**
- * A scene photo layer through the image optimizer (as the other pages' HeroBanner), not its full-size source: the 9000px
+ * A scene photo layer through the image optimizer (as the inner pages' photo heroes were), not its full-size source: the 9000px
  * home banner is several MB, so loaded raw it arrived well after the rest of the hero (the concierge's own cutout first,
  * the photo popping in behind him on every reload). The photo is the largest paint, so the first layer is fetched eagerly
  * at high priority.

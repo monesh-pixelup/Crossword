@@ -1,80 +1,14 @@
-import { Eyebrow } from "@/components/ui/eyebrow";
-import { StampButton } from "@/components/ui/stamp-button";
-import { HeroBanner } from "@/modules/marketing/components/hero-banner";
-import { ctaLinks } from "@/modules/marketing";
-// Figma 3262:56 (image 10027): this page's own photo, the stone and branch vase on a marble shelf against the slatted wall.
-import bannerDesktop from "../../assets/hero/banner-desktop.webp";
-import bannerMobile from "../../assets/hero/banner-mobile.webp";
+import { InnerHero } from "@/modules/marketing/components/inner-hero";
 
-/**
- * Three-line display headline, set like the Sell hero's (70 / 56 / 48 / 44px, Crimson ExtraLight at
- * 1.1 and -5%) after a 100px swash "A" (1.4286em) at -1%, the last two lines picked out in gold, which
- * the guidelines allow on dark grounds only. Figma's box is 252px tall, three 77px lines with the swash
- * pushing line 1 21px (0.3em) taller, which line 1 carries as top padding. Below 768px the lines may wrap.
- */
-function Headline() {
-  return (
-    <h1
-      id="launch-hero-title"
-      className="font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] text-cream md:whitespace-nowrap"
-    >
-      <span className="block pt-[0.3em]">
-        <span className="font-script text-[1.4286em] leading-0 font-normal tracking-[-0.01em]">A</span>I shouldn&rsquo;t
-        become
-      </span>
-      <span className="block text-gold">another thing on</span>
-      <span className="block text-gold">your to-do list</span>
-    </h1>
-  );
-}
-
-/**
- * Layout/Hero, Photo variant (as on Sell): the full-bleed photo (the whole viewport width, not capped
- * at the site's 1440px) with the copy pinned to the bottom,
- * the overlay header floating over its top. From 1200px the headline and the CTA column sit side
- * by side, bottom-aligned; below that they stack.
- */
+/** The Managed launch hero: the inner pages' cream hero (Figma "Hero Option B", 4297:34317) with this page's copy. */
 export function LaunchHero() {
   return (
-    <section aria-labelledby="launch-hero-title" className="relative bg-night">
-      {/* The dark ground runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
-      <div className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-night">
-        {/*
-          The hero banner, full-bleed (see HeroBanner): from 760px the 3000px banner, its whole width showing on wide
-          screens and its sides cropped as the screen narrows; below that the phone banner.
-        */}
-        <HeroBanner desktop={bannerDesktop} mobile={bannerMobile} />
-      </div>
-
-      {/*
-        The screen below 760px, then Figma's 1440 x 788 hero (3262:54) at full width, capped at the screen and at 1200px.
-        From 760px the copy's last line sits 38px (scaled) above the frame's foot, as in Figma, or above the screen's when
-        the frame runs past it. Its sides keep the page's own padding, level with the header's logo and the
-        sections below. The top padding keeps the copy clear of the fixed 72.5px header (48px, rounded up to a whole
-        121px so the eyebrow's frame stays on whole pixels): where the stacked copy is taller than the frame leaves room
-        for (760–1199px), the hero grows rather than running it under the header.
-      */}
-      <div className="relative flex min-h-svh content-width flex-col justify-end pt-[121px] pb-16 min-[760px]:min-h-[min(calc(1440px*788/1440),100svh,1200px)] min-[760px]:pb-[max(min(38px,1440px*38/1440),calc(min(1440px*788/1440,100svh,1200px)_-_1440px*750/1440))]">
-        <div className="flex w-full flex-col items-start gap-8 min-[1200px]:flex-row min-[1200px]:items-end min-[1200px]:justify-between">
-          {/* Figma 3262:157: the headline's box 12px under the eyebrow. */}
-          <div className="flex flex-col items-start gap-3">
-            <Eyebrow surface="green" className="h-8">
-              Managed launch
-            </Eyebrow>
-            <Headline />
-          </div>
-
-          {/* Figma 3262:161: the column ends 8.35px short of the content edge (its row is 1271.65px wide). */}
-          <div className="flex w-[453.402px] max-w-full flex-col items-start gap-4 min-[1200px]:mr-[8.35px]">
-            <StampButton href={ctaLinks.bookDemo} variant="wine">
-              TALK TO SALES
-            </StampButton>
-            <p className="font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-cream">
-              Crossword builds and manages a personal concierge for your customers.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <InnerHero
+      id="launch-hero-title"
+      initial="A"
+      lines={["I shouldn’t become", "another thing on", "your to-do list"]}
+      copy="Crossword builds and manages a personal concierge for your customers."
+      cta="TALK TO SALES"
+    />
   );
 }
