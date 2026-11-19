@@ -20,12 +20,17 @@ export function SupportChannels() {
     <>
       <section aria-labelledby="channels-title" className="relative section-pad">
         <div className="flex content-width flex-col items-center gap-12 min-[1033px]:gap-20">
-          <div className="flex w-[520px] max-w-full flex-col items-center gap-6 text-center">
+          <div className="flex w-[680px] max-w-full flex-col items-center gap-6 text-center">
             <Eyebrow>Channels</Eyebrow>
-            <SectionTitle id="channels-title" initial="S" firstLine="upport" secondLine="channels" width={218} variant="dynamicCentered" weight="light" />
-            <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted max-md:mt-4">
-              Wherever your customers reach out, someone answers.
-            </p>
+            <SectionTitle
+              id="channels-title"
+              initial="W"
+              firstLine="herever your customers"
+              secondLine="reach out, someone answers"
+              width={660}
+              variant="dynamicCentered"
+              weight="light"
+            />
           </div>
 
           <ul className="grid w-full min-w-0 grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 min-[1033px]:flex min-[1033px]:flex-wrap min-[1033px]:items-end min-[1033px]:justify-center">

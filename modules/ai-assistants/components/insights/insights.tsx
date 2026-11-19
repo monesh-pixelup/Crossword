@@ -23,6 +23,7 @@ export function Insights({
   mobileScene,
   layout = "inlineBottom",
   replayAfter,
+  swashTracking,
 }: {
   id?: string;
   initial?: string;
@@ -36,6 +37,8 @@ export function Insights({
   layout?: "inline" | "inlineBottom";
   /** Play the visual over again, this long (ms) after it ends (see useReplay); left out, it plays once. */
   replayAfter?: number;
+  /** The swash capital's tracking in em, where Figma sets its own (see SectionTitle). */
+  swashTracking?: number;
 }) {
   return (
     <WidePanelSection
@@ -46,6 +49,7 @@ export function Insights({
       variant="oneLine"
       layout={layout}
       copyWidth={477.244}
+      swashTracking={swashTracking}
       copy={<p>{copy}</p>}
       mobilePanel={mobileScene ? <AiaScenePanel slug={mobileScene} fill transform replayAfter={replayAfter} /> : undefined}
     >

@@ -21,6 +21,14 @@ const variants = {
     line: "leading-[0.9] tracking-[-3px]",
     second: "",
   },
+  /** As dynamic, with the swash pulled in to Figma's -4% (-3.28px) instead of +4.1px (Support: Workflows, Figma 4035:24063). */
+  dynamicTightSwash: {
+    firstLineHeight: 75,
+    tracking: "tracking-[-3.5538px]",
+    swash: "font-script text-[82px] leading-[1.18] tracking-[-3.28px]",
+    line: "leading-[0.9] tracking-[-3px]",
+    second: "",
+  },
   /** As dynamic, centred (Retain: Loyalty, Figma 3257:38819). */
   dynamicCentered: {
     firstLineHeight: 75,
@@ -218,6 +226,8 @@ type SectionTitleProps = {
   mobileWidth?: number;
   /** The heading level: h2 (a section's headline), or h1 for a page whose first section's headline is its title. */
   as?: "h1" | "h2";
+  /** The swash capital's tracking in em, where Figma sets its own (e.g. -0.06 for -6%); otherwise the variant's. */
+  swashTracking?: number;
 };
 
 /**
@@ -240,6 +250,7 @@ export function SectionTitle({
   weight = "extralight",
   mobileWidth,
   as: Heading = "h2",
+  swashTracking,
 }: SectionTitleProps) {
   const v = variants[variant];
   // Line size in px at desktop (60 unless the variant says otherwise).
@@ -269,7 +280,9 @@ export function SectionTitle({
         style={{ width: mobileWidth !== undefined ? "var(--title-w)" : width, zoom: "var(--h2-scale)" }}
       >
         <span className="block" style={{ height: v.firstLineHeight, paddingTop: "firstLinePad" in v ? v.firstLinePad : undefined }}>
-          <span className={`font-normal ${v.swash}`}>{initial}</span>
+          <span className={`font-normal ${v.swash}`} style={swashTracking !== undefined ? { letterSpacing: `${swashTracking}em` } : undefined}>
+            {initial}
+          </span>
           <span className={v.line} style={{ fontSize: size }}>
             {firstLine}
           </span>

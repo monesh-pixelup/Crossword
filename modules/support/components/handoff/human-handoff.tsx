@@ -12,7 +12,7 @@ export function HumanHandoff() {
     <section aria-labelledby="handoff-title" className="relative section-pad">
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex flex-col items-start gap-6">
-          <Eyebrow>Human-in-the-loop handoff</Eyebrow>
+          <Eyebrow>Human Handoff</Eyebrow>
           <SectionTitle
             id="handoff-title"
             initial="H"

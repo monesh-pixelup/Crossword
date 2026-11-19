@@ -94,6 +94,7 @@ export default function PersonalAgentsPage() {
         quotes={agentQuotes}
         layout="accordion"
         copyWidth={539.027}
+        swashTracking={-0.04}
       />
       <Promotions
         id="agent-promotions-title"
@@ -110,6 +111,7 @@ export default function PersonalAgentsPage() {
         id="agent-insights-title"
         initial="Y"
         firstLine="ou gain visibility"
+        swashTracking={-0.06}
         copy="You’ll see what personal agents request, their actions, and the outcomes."
         scene="pa-insights-motion"
         mobileScene="pa-insights-mweb-motion"
@@ -119,7 +121,7 @@ export default function PersonalAgentsPage() {
       <div className="relative h-[75px] max-md:h-[56px]">
         <BandDivider glyph="chat" />
       </div>
-      <AssistantsFaq id="agent-faq-title" items={agentFaqs} />
+      <AssistantsFaq id="agent-faq-title" items={agentFaqs} swashTracking={-0.05} />
       <AssistantsCta
         id="agent-cta-title"
         initial="T"

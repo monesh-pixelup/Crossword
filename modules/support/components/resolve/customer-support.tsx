@@ -15,7 +15,7 @@ export function CustomerSupport() {
 
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex flex-col items-start gap-6">
-          <Eyebrow>Customer support</Eyebrow>
+          <Eyebrow>Ticket Deflection</Eyebrow>
           <SectionTitle
             id="resolve-title"
             initial="C"

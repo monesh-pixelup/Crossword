@@ -11,9 +11,15 @@ import { assistantFaqs } from "../../config/faq";
 export function AssistantsFaq({
   id = "assistants-faq-title",
   items = assistantFaqs,
+  swashTracking,
 }: {
   id?: string;
   items?: readonly { q: string; a: string }[];
+  /**
+   * The H's tracking in em, where Figma sets its own (AI Assistants 3991:205446: -6%, a 399px box; Personal agents
+   * 3991:206643: -5%, 400px); +5% otherwise. The box narrows with the tighter capital.
+   */
+  swashTracking?: number;
 }) {
   return (
     <section aria-labelledby={id} className="section-pad">
@@ -25,9 +31,10 @@ export function AssistantsFaq({
             initial="H"
             firstLine="ave a question?"
             secondLine="Ask Crossword"
-            width={408}
+            width={swashTracking === undefined ? 408 : Math.round(408 - (0.05 - swashTracking) * 82)}
             variant="dynamic"
             weight="light"
+            swashTracking={swashTracking}
           />
         </div>
 

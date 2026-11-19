@@ -25,8 +25,8 @@ export function Workflows() {
               initial="W"
               firstLine={<span className="font-light">orkflows with room</span>}
               secondLine="for human judgment"
-              width={529}
-              variant="dynamic"
+              width={522}
+              variant="dynamicTightSwash"
               weight="light"
             />
           </div>

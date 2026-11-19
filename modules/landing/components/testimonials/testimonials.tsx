@@ -28,7 +28,7 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
   },
   /** The blog (Figma 1660:312): the home page's section under its own eyebrow. */
   blog: {
-    eyebrow: "What our customers say",
+    eyebrow: "Testimonials",
     title: (
       <SectionTitle
         id="testimonials-title"

@@ -16,14 +16,14 @@ export function DedicatedTabs() {
 
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex flex-col items-start gap-6">
-          <Eyebrow>Dedicated landing pages</Eyebrow>
+          <Eyebrow>Improve ROAS</Eyebrow>
           <SectionTitle
             id="dedicated-tabs-title"
             initial="D"
             firstLine="edicated"
             secondLine="landing pages"
             width={293}
-            variant="dynamic"
+            variant="dynamicTightSwash"
             weight="light"
           />
           <p className="max-w-[560px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted max-md:mt-[3px]">

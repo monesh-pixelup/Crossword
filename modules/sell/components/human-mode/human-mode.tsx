@@ -25,7 +25,7 @@ export function HumanMode() {
         */}
         <div className="flex w-full flex-col items-start gap-[26px] min-[1440px]:flex-row min-[1440px]:items-end min-[1440px]:justify-between min-[1440px]:gap-0">
           <div className="flex shrink-0 flex-col items-start gap-6 min-[1440px]:-mr-[57.848px]">
-            <Eyebrow>Human mode</Eyebrow>
+            <Eyebrow>Guided Selling</Eyebrow>
             <SectionTitle
               id="human-mode-title"
               initial="A"
@@ -42,11 +42,8 @@ export function HumanMode() {
               Most AI shopping assistants wait for the customer to ask, but Crossword does more. It notices when someone
               is exploring a product, offers a useful answer, goes deeper when they have questions, suggests something
               that completes the purchase, and steps in when they seem stuck. It knows when to help, and when to stay out
-              of the way. For instance: A shopper spends time looking at a serum. Crossword surfaces the key details:
-              &ldquo;Want to know if this works for sensitive skin?&rdquo; If they&rsquo;re comparing two serums, it helps
-              them choose. If they&rsquo;re ready, it adds the right one to their cart.
+              of the way.
             </p>
-            <p>We call this being polite and helpful.</p>
           </div>
         </div>
 

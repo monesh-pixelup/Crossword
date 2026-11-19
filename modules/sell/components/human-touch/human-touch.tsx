@@ -1,4 +1,3 @@
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { RailAccent } from "@/components/ui/rail-accent";
 import { ScrollHighlight } from "@/modules/support/components/intro/scroll-highlight";
 
@@ -15,8 +14,8 @@ export function HumanTouch() {
       <section aria-label="Your website, with a human touch" className="relative section-pad">
         <RailAccent className="absolute top-[calc(var(--section-pad)-22px)] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[232px] w-px max-lg:hidden" />
 
-        <div className="flex content-width flex-col items-start gap-8 lg:flex-row lg:justify-between">
-          <Eyebrow>Human touch</Eyebrow>
+        {/* No eyebrow: the statement alone, on the right from 1024px as before. */}
+        <div className="flex content-width flex-col items-start gap-8 lg:flex-row lg:justify-end">
           <div className="relative pl-[32.5px]">
             <span aria-hidden className="absolute inset-y-0 left-0 w-[0.5px] bg-rail" />
             <RailAccent className="absolute top-0 left-0 h-[71.69px] w-px" />

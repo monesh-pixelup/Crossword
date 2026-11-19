@@ -49,7 +49,7 @@ export function HelpdeskOptions() {
           {/* The headline and its copy side by side from 1280px, the copy bottom-aligned; below that the copy goes under. */}
           <div className="flex w-full flex-col items-start gap-8 xl:flex-row xl:items-end xl:justify-between xl:gap-10">
             <div className="flex min-w-0 flex-col items-start gap-6">
-              <Eyebrow>Crossword helpdesk</Eyebrow>
+              <Eyebrow>Helpdesk</Eyebrow>
               <SectionTitle
                 id="helpdesk-title"
                 initial="A"

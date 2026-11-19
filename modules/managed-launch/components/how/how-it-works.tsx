@@ -19,7 +19,7 @@ export function HowItWorks() {
 
       <div className="flex content-width flex-col items-start gap-14">
         <div className="flex flex-col items-start gap-6">
-          <Eyebrow>Managed launch</Eyebrow>
+          <Eyebrow>Process</Eyebrow>
           <div className="flex flex-col items-start gap-2">
             <SectionTitle id="how-title" initial="H" firstLine="ow it works" width={707.715} variant="oneLine" weight="light" />
             <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">{cycle}</p>

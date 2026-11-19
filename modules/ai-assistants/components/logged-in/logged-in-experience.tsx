@@ -32,6 +32,7 @@ export function LoggedInExperience({
   quotes = loggedInQuotes,
   layout = "scroll",
   copyWidth,
+  swashTracking,
 }: {
   id?: string;
   eyebrow?: ReactNode;
@@ -43,11 +44,13 @@ export function LoggedInExperience({
   layout?: "scroll" | "accordion";
   /** The copy's max width in px where Figma sets its own (Personal Agents: 539.027). */
   copyWidth?: number;
+  /** The swash capital's tracking in em, where Figma sets its own (see SectionTitle). */
+  swashTracking?: number;
 }) {
   const heading = (
     <div className="flex flex-col items-start gap-[18px]">
       <Eyebrow>{eyebrow}</Eyebrow>
-      <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={553.133} variant="dynamic" weight="light" />
+      <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={553.133} variant="dynamic" weight="light" swashTracking={swashTracking} />
       {/* Figma 3305:909: the accordion layout's copy runs the heading's full 725px column. */}
       <p
         className={cn("font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted max-md:mt-2", layout === "accordion" ? "max-w-[725px]" : "max-w-[520px]")}

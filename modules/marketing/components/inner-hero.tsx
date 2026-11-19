@@ -18,6 +18,8 @@ type InnerHeroProps = {
   copy: ReactNode;
   /** The button's label (BOOK A DEMO unless the page says otherwise). */
   cta?: string;
+  /** The capital's tracking in em, where Figma sets its own (e.g. -0.04 for -4%); +5% otherwise. */
+  initialTracking?: number;
 };
 
 /**
@@ -32,7 +34,7 @@ type InnerHeroProps = {
  * page. The page's rails are drawn by the hero itself, as on the journal's heroes, since the page's own rails start
  * at its foot.
  */
-export function InnerHero({ id, initial, lines, copy, cta = "BOOK A DEMO" }: InnerHeroProps) {
+export function InnerHero({ id, initial, lines, copy, cta = "BOOK A DEMO", initialTracking = 0.05 }: InnerHeroProps) {
   return (
     <section aria-labelledby={id} className="relative isolate overflow-clip bg-cream">
       {/* The cream runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
@@ -77,7 +79,9 @@ export function InnerHero({ id, initial, lines, copy, cta = "BOOK A DEMO" }: Inn
               As the photo heroes set it: the swash takes no line height of its own (leading 0), so every line keeps the
               headline's 1.1, and the first line carries 0.3em of top padding for the capital's rise.
             */}
-            <span className="font-script text-[1.3667em] leading-0 font-normal tracking-[0.05em]">{initial}</span>
+            <span className="font-script text-[1.3667em] leading-0 font-normal" style={{ letterSpacing: `${initialTracking}em` }}>
+              {initial}
+            </span>
             {lines.map((line, i) => (
               <Fragment key={i}>
                 {i > 0 && (

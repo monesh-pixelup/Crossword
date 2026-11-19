@@ -20,7 +20,7 @@ export function TwoWays() {
           {/* Below 992px the options sit 24px under the headline, as the other sections' copy does. */}
           <div className="flex min-w-0 flex-col items-start gap-7 lg:gap-[84px]">
             <div className="flex flex-col items-start gap-[18px]">
-              <Eyebrow>Options</Eyebrow>
+              <Eyebrow>Formats</Eyebrow>
               <SectionTitle id="two-ways-title" initial="T" firstLine="wo ways" secondLine="to go dynamic" width={553.133} variant="dynamic" weight="light" />
             </div>
             <div className="w-full lg:pl-1.5">

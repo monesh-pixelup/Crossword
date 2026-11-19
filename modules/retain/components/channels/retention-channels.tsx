@@ -30,9 +30,10 @@ export function RetentionChannels() {
                 </>
               }
               secondLine="every channel"
-              width={757}
+              width={754}
               variant="dynamic"
               weight="light"
+              swashTracking={0.01}
             />
           </div>
 

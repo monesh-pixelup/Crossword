@@ -11,12 +11,15 @@ export function AiAssistantsHero({
   firstLine = "our customers are already",
   secondLine = "asking ChatGPT about you.",
   aside = "Crossword helps you own the experience",
+  initialTracking,
 }: {
   id?: string;
   initial?: string;
   firstLine?: ReactNode;
   secondLine?: ReactNode;
   aside?: ReactNode;
+  /** The capital's tracking in em, where Figma sets its own (see InnerHero). */
+  initialTracking?: number;
 }) {
-  return <InnerHero id={id} initial={initial} lines={[firstLine, secondLine]} copy={aside} />;
+  return <InnerHero id={id} initial={initial} lines={[firstLine, secondLine]} copy={aside} initialTracking={initialTracking} />;
 }

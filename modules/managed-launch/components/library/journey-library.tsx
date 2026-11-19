@@ -90,7 +90,7 @@ export function JourneyLibrary() {
       <div className="overflow-clip bg-sand shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)]">
         {/* The eyebrow, headline and copy left-aligned (by request, Figma 4233:12691 centres them), 24px apart, 70px down the panel. */}
         <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col items-start gap-6 pt-16 text-left md:pt-[70px]">
-          <Eyebrow>A few of the many</Eyebrow>
+          <Eyebrow>Journeys</Eyebrow>
           <SectionTitle
             id="journey-library-title"
             initial="E"

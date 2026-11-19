@@ -51,6 +51,8 @@ type WidePanelSectionProps = {
    * place of the wide panel.
    */
   mobilePanel?: ReactNode;
+  /** The swash capital's tracking in em, where Figma sets its own (see SectionTitle). */
+  swashTracking?: number;
 };
 
 /**
@@ -71,6 +73,7 @@ export function WidePanelSection({
   layout,
   children,
   mobilePanel,
+  swashTracking,
 }: WidePanelSectionProps) {
   const l = layouts[layout];
   return (
@@ -81,7 +84,7 @@ export function WidePanelSection({
         <div className={cn("flex w-full flex-col items-start gap-[26px]", l.row)}>
           <div className={cn("flex shrink-0 flex-col items-start gap-6", l.heading)}>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={614.744} variant={variant === "default" ? "dynamic" : variant} weight="light" />
+            <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={614.744} variant={variant === "default" ? "dynamic" : variant} weight="light" swashTracking={swashTracking} />
           </div>
 
           <div

@@ -24,6 +24,7 @@ export function ShopperAsks({
     </>
   ),
   questions = shopperQuestions,
+  eyebrow = "Brand Presence",
 }: {
   id?: string;
   initial?: string;
@@ -34,6 +35,8 @@ export function ShopperAsks({
   /** The line under the headline; null for none. */
   copy?: ReactNode;
   questions?: ShopperQuestion[];
+  /** The eyebrow over the headline. */
+  eyebrow?: ReactNode;
 }) {
   return (
     <section aria-labelledby={id} className="relative section-pad">
@@ -41,7 +44,7 @@ export function ShopperAsks({
 
       <div className="flex content-width flex-col items-start gap-section">
         <div className="flex flex-col items-start gap-6">
-          <Eyebrow>Possibilities</Eyebrow>
+          <Eyebrow>{eyebrow}</Eyebrow>
           <SectionTitle id={id} initial={initial} firstLine={firstLine} secondLine={secondLine} width={width} variant="dynamic" weight="light" />
           {copy && (
             <p className="font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted" style={{ maxWidth: width }}>
