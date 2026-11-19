@@ -151,7 +151,7 @@ export function AubergineSteps({
                 <div className={`absolute flex items-center justify-center ${v.card}`}>
                   <Image src={cardArt} alt="" fill className="max-w-none" />
                   {/*
-                    A step's own stamp (Retain's Loyalty) is Figma's 3x export (the 19 November 2026 stamps), lossless, and served as it is
+                    A step's own stamp (Retain's Loyalty) is Figma's 3x export ("Stamps · Retain" 4322:8731, cut out with its perforations), lossless, and served as it is
                     (`unoptimized`): resized and re-encoded by the image optimiser, its fine print and dashed rule blurred.
                   */}
                   <Image

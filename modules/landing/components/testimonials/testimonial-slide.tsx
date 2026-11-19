@@ -102,14 +102,15 @@ export function TestimonialSlide({ testimonial, active, index, total, largeName 
 
           {/*
             The stamp's guilloché pattern is a Figma WebGPU shader, so it ships as
-            a 3x export, cut out of its background. The export's box includes the
+            an export (Figma "Stamps · Home Page" 4374:8537, the Shopify stamp at 14.4°, 3.9x), cut out of its
+            background, perforations and shadow included. The export's box includes the
             drop shadow, offset (-13.772, -10.467) from the stamp's own box.
           */}
           <Image
             src={stamp}
             alt=""
             sizes="131px"
-            className={`absolute top-[256.533px] left-[1.678px] h-[127.667px] w-[130.667px] max-w-none lg:left-(--l) lg:top-(--t) ${move}`}
+            className={`absolute top-[256.533px] left-[1.678px] h-[127.358px] w-[130.484px] max-w-none lg:left-(--l) lg:top-(--t) ${move}`}
             style={at(l.stamp)}
           />
         </div>

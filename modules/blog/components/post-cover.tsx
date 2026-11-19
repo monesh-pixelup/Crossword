@@ -25,6 +25,11 @@ function titleSize(layout: "a" | "b", title: string) {
  */
 function CoverTitle({ title, layout }: { title: string; layout: "a" | "b" }) {
   const size = titleSize(layout, title);
+  // The lines are set tight (0.9), so ascenders, descenders and the swash capital reach past the line boxes (the swash
+  // past the left edge too), and the line clamp's clipping would cut them off. The paragraph gets this much room on
+  // every side inside its clip, taken back with an equal negative margin (or offset and width), so the title sits and
+  // wraps exactly as it did.
+  const bleed = Math.round(size * 0.35);
   const initial = title.slice(0, 1);
   const rest = title.slice(1);
   return (
@@ -34,7 +39,7 @@ function CoverTitle({ title, layout }: { title: string; layout: "a" | "b" }) {
         <div className="absolute top-[139.01px] left-8 flex h-[143.162px] w-[314.238px] items-center">
           <p
             className="line-clamp-4 font-serif leading-[0] font-light text-white [word-break:break-word]"
-            style={{ letterSpacing: `${-0.05 * size}px` }}
+            style={{ letterSpacing: `${-0.05 * size}px`, padding: bleed, margin: -bleed }}
           >
             <span className="font-script leading-[0.9] font-normal" style={{ fontSize: size * 1.2038, letterSpacing: `${-0.05 * size * 1.2038}px` }}>
               {initial}
@@ -46,8 +51,8 @@ function CoverTitle({ title, layout }: { title: string; layout: "a" | "b" }) {
         </div>
       ) : (
         <p
-          className="absolute bottom-[21.6px] left-[29px] line-clamp-5 w-[248.398px] font-serif leading-[0] font-light text-[#040404] [word-break:break-word]"
-          style={{ letterSpacing: `${-0.04 * size}px` }}
+          className="absolute line-clamp-5 font-serif leading-[0] font-light text-[#040404] [word-break:break-word]"
+          style={{ letterSpacing: `${-0.04 * size}px`, padding: bleed, bottom: 21.6 - bleed, left: 29 - bleed, width: 248.398 + 2 * bleed }}
         >
           <span className="font-script leading-[0.9] font-normal text-[#141414]" style={{ fontSize: size * 1.5768, letterSpacing: `${-0.05 * size * 1.5768}px` }}>
             {initial}

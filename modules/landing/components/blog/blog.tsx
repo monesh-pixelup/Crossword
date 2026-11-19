@@ -53,14 +53,15 @@ function FeaturedCover({ featuredPost }: { featuredPost: FeaturedPost }) {
 
       {/*
         Embossed stamp: its leather and guilloché looks are Figma WebGPU shaders,
-        so it ships as a 3x export cut out along its rotated outline. The image
+        so it ships as an export (Figma "Stamps · Home Page" 4374:6418, the quill at -19.8°, 3.9x) cut out
+        along its rotated outline, perforations and shadow included. The image
         box starts (-13.079, -8.985) from the stamp's own box (shadow bleed).
       */}
       <Image
         src={stamp}
         alt=""
         sizes="121px"
-        className="absolute top-[178.118px] left-[611.924px] h-[118px] w-[120.333px] max-w-none"
+        className="absolute top-[178.118px] left-[611.924px] h-[117.76px] w-[120.079px] max-w-none"
       />
 
       <div className="absolute top-[26.1px] left-[31px] h-[15.167px] w-[107.721px]">

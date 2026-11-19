@@ -127,8 +127,9 @@ export function Personalization() {
             </div>
 
             {/*
-              The postage stamp, tilted 14.68° (Figma 3602:30899, its leather-emboss and guilloché shaders baked into a 3x
-              export, cut out of the card), its render box 46.42px in and 12.39px up from the card's corner. The 175px
+              The postage stamp, tilted 14.68° (Figma 3991:200961, from "Stamps · Sell — Dynamic landing pages" 4374:6514:
+              the olive quill, its leather-emboss and guilloché shaders baked into a 3.9x export, cut out with its
+              perforations and shadow), its render box 46.42px in and 12.39px up from the card's corner. The 175px
               bottom padding keeps the copy clear of it.
             */}
             <Image

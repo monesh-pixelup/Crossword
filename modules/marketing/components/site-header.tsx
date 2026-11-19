@@ -302,7 +302,11 @@ function FeatureCard({ post, alt }: { post: { href: string; title: string } | nu
       <Image src={featureCardBlank} alt="" sizes="305px" className="absolute inset-0 size-full" />
       <span aria-hidden className="absolute top-0 left-0 h-[111px] w-[304.172px] select-none scale-to-container [--fit-width:304.172px]">
         <span className="absolute top-10 left-[14.31px] flex h-16 items-center" style={{ width: size === 23.963 ? 153.355 : 172 }}>
-          <span className="line-clamp-4 font-serif leading-[0] font-light text-white [word-break:break-word]" style={{ letterSpacing: `${-0.05 * size}px` }}>
+          {/* Room on every side inside the line clamp's clip for the tight lines' ascenders, descenders and swash (see PostCover), taken back by the margin. */}
+          <span
+            className="line-clamp-4 font-serif leading-[0] font-light text-white [word-break:break-word]"
+            style={{ letterSpacing: `${-0.05 * size}px`, padding: Math.round(size * 0.35), margin: -Math.round(size * 0.35) }}
+          >
             <span className="font-script leading-[0.9] font-normal" style={{ fontSize: size * 1.2038, letterSpacing: `${-0.05 * size * 1.2038}px` }}>
               {post.title.slice(0, 1)}
             </span>

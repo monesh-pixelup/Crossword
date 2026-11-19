@@ -9,7 +9,7 @@ import { TwillPanel } from "@/modules/pricing/components/shared/twill-panel";
 /**
  * Figma "Section · CTA" (node 3305:1697), the site's CTA banner layout: the maroon twill panel with its gold hairline
  * frame 14px in, 96px of padding inside and around it, and 28px between the cream swash headline and the Primary
- * stamp button, with the tilted green postage stamp in the top right corner. No eyebrow or corner studs.
+ * stamp button, with the tilted quill postage stamp (Managed launch's Commitment stamp) in the top right corner. No eyebrow or corner studs.
  *
  * The default headline sets two lines across 1032.586px, re-broken onto three shorter ones (860px) below 768px so it
  * stays legible. Personal agents passes its own two-line headline (724px).

@@ -16,7 +16,7 @@ import { libraryJourneys } from "../../config/launch";
 
 /**
  * Each journey's embossed stamp, in libraryJourneys order. Their leather and guilloché looks are Figma WebGPU shaders,
- * so they ship as 3x exports (their shadow included), as the blog's stamp does.
+ * so they ship as 3x exports cut out with their perforations and shadow, as the blog's stamp does.
  */
 const stamps: StaticImageData[] = [
   stampGiftFinder,
@@ -63,13 +63,13 @@ function JourneyCard({ index }: { index: number }) {
         <p className="w-full font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted">{journey.description}</p>
       </div>
 
-      {/* Figma's 65 × 62 stamp box at (26.08, 239); the export carries its shadow, 10.5px out (7.3px above). */}
+      {/* Figma's 65 × 62 stamp box at (26.08, 239); the export ("Stamps · Managed Launch" 4322:9921) carries its shadow, 10.5px out (7.27px above). */}
       <Image
         src={stamps[index]}
         alt=""
         aria-hidden
         sizes="87px"
-        className="pointer-events-none absolute top-[231.7px] left-[15.58px] h-[84px] w-[87px] max-w-none select-none"
+        className="pointer-events-none absolute top-[231.728px] left-[15.575px] h-[83.404px] w-[86.079px] max-w-none select-none"
       />
 
       <span aria-hidden className={`pointer-events-none absolute inset-0 ${accentBar[journey.accent]}`} />

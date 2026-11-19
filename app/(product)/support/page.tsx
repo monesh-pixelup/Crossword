@@ -29,6 +29,10 @@ export default function SupportPage() {
         <BandDivider glyph="chat" />
       </div>
       <HumanHandoff />
+      {/* The divider band between Human-in-the-loop support and Take control, the gear stamp naming the next section. */}
+      <div className="relative h-[75px] max-md:h-[56px]">
+        <BandDivider glyph="gear" />
+      </div>
       <TakeControl />
       {/* Figma "Divider band" between sections: the 75px band (56px below 768px), its stamp naming the next section. */}
       <div className="relative h-[75px] max-md:h-[56px]">

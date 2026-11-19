@@ -69,8 +69,11 @@ function Note() {
 
       {/* Wax seal (120.387px, turned -14.23°) over the note's left edge. */}
       <Image src={seal} alt="" sizes="241px" className="absolute top-[347px] left-[366px] size-[120.387px] max-w-none" />
-      {/* Postage stamp (turned 20.85°) over the note's right edge. */}
-      <Image src={stamp} alt="" sizes="195px" className="absolute top-[175.9px] left-[873.66px] h-[95.068px] w-[97.367px] max-w-none" />
+      {/*
+        Postage stamp (the quill, turned 20.85°) over the note's right edge: Figma's 97.37 × 95.07 box at (873.66, 175.9),
+        the export ("Stamps · Managed Launch" 4374:6802, 3x) carrying its shadow, 13.66px out and 9.45px above.
+      */}
+      <Image src={stamp} alt="" sizes="250px" className="absolute top-[166.447px] left-[860.005px] h-[122.378px] w-[124.677px] max-w-none" />
     </>
   );
 }
