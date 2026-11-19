@@ -79,17 +79,17 @@ function JourneyCard({ index }: { index: number }) {
 
 /**
  * Figma "Section · Journey library (4x4)" (node 4233:12689): a sand panel between the page rails (a 0.5px black/25
- * hairline), the centred cream eyebrow 70px down, 24px over the two-line swash headline (1000px box) and 24px under
- * it an 820px line of Geist in ink muted. 55px below that, the nine journey cards: five across, then four centred
- * under them, 24px apart either way, 106px clear of the panel's foot. Narrower, the cards wrap to fewer per row,
- * still centred.
+ * hairline), everything left-aligned (Figma centres it): the cream eyebrow 70px down, 24px over the two-line swash
+ * headline (1000px box) and 24px under it an 820px line of Geist in ink muted. 55px below that, the nine journey
+ * cards from the same left edge: five across, then four, 24px apart either way, 106px clear of the panel's foot.
+ * Narrower, the cards wrap to fewer per row, still from the left.
  */
 export function JourneyLibrary() {
   return (
     <section aria-labelledby="journey-library-title" className="relative px-(--frame-inset)">
       <div className="overflow-clip bg-sand shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.25)]">
-        {/* Figma 4233:12691: the eyebrow, headline and copy centred, 24px apart, 70px down the panel. */}
-        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col items-center gap-6 pt-16 text-center md:pt-[70px]">
+        {/* The eyebrow, headline and copy left-aligned (by request, Figma 4233:12691 centres them), 24px apart, 70px down the panel. */}
+        <div className="mx-auto flex w-[calc(100%-2*(var(--page-pad)-var(--frame-inset)))] flex-col items-start gap-6 pt-16 text-left md:pt-[70px]">
           <Eyebrow>A few of the many</Eyebrow>
           <SectionTitle
             id="journey-library-title"
@@ -105,7 +105,7 @@ export function JourneyLibrary() {
             }
             width={1000}
             mobileWidth={700}
-            variant="dynamicCentered"
+            variant="dynamic"
             weight="light"
           />
           <p className="max-w-[820px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted">
@@ -114,10 +114,13 @@ export function JourneyLibrary() {
           </p>
         </div>
 
-        {/* 1316px (plus its 16px sides) holds five cards (5 × 244 + 4 × 24), so the last four wrap to a centred row. */}
+        {/*
+          The cards from the copy's left edge, wrapping left-aligned: up to 1316px (5 × 244 + 4 × 24), so five across and
+          then four where the panel has room (the row may run past the copy's right edge, within the panel).
+        */}
         <ul
           aria-label="Journeys"
-          className="mx-auto mt-10 flex max-w-[calc(1316px+2rem)] flex-wrap justify-center gap-6 px-4 pb-16 md:mt-[55px] md:pb-[106px]"
+          className="mt-10 mr-4 ml-[calc(var(--page-pad)-var(--frame-inset))] flex max-w-[1316px] flex-wrap justify-start gap-6 pb-16 md:mt-[55px] md:pb-[106px]"
         >
           {libraryJourneys.map((journey, i) => (
             <JourneyCard key={journey.initial + journey.title} index={i} />
