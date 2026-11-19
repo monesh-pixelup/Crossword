@@ -1,6 +1,6 @@
 "use client";
 
-import { CrossfadePanel } from "@/components/ui/crossfade";
+import { CrossfadePanel, SwapFade } from "@/components/ui/crossfade";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
@@ -72,7 +72,7 @@ function TabPanel({ tab, scene, play, replay }: { tab: Tab; scene: boolean; play
  * every visual playing as it comes on screen (as Product discovery on Sell).
  */
 export function DedicatedTabList() {
-  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns);
+  const { active, plays, root, fills, open } = useAutoplayTabs(turns);
   // Which layout is showing (null until known), so only its visuals are drawn and play.
   const [wide, setWide] = useState<boolean | null>(null);
 
@@ -134,18 +134,33 @@ export function DedicatedTabList() {
         </nav>
 
         {/*
-          Every component shares one cell and they crossfade (CrossfadePanel); a visual is drawn while its component shows or
-          fades out, keyed to replay from the start. The cell is two rows, shared through subgrid: the copy row is as tall as
-          the tallest component's copy, so each one's copy starts at the same top and its panel at the same place below,
-          whichever is showing.
+
+          The open item: its copy over the framed panel. Every item's copy shares the first row (as tall as the tallest, so
+
+          each starts at the same top); they crossfade as the tab changes (CrossfadePanel). The frame stays put; only the
+
+          visual inside it crossfades (CrossfadePanel), drawn while its item shows or fades out, keyed to replay from the start.
+
         */}
         <div className="grid w-full min-w-0 grid-rows-[auto_auto] lg:flex-[0_1_820px]">
-          {dedicatedTabs.map((tab, i) => (
-            <CrossfadePanel key={tab.label} active={i === active} className="grid w-full grid-rows-subgrid items-start" style={{ gridArea: "1 / 1 / 3 / 2" }}>
-              <TabCopy tab={tab} />
-              <TabPanel tab={tab} scene={wide !== false && (i === active || i === previous)} play={i === active} replay={plays[i]} />
+          {dedicatedTabs.map((item, i) => (
+            <CrossfadePanel key={item.label} active={i === active} className="w-full" style={{ gridArea: "1 / 1 / 2 / 2" }}>
+              <TabCopy tab={item} />
             </CrossfadePanel>
           ))}
+          {/* The frame stays put under the visual. */}
+          <div className="relative w-full" style={{ gridArea: "2 / 1 / 3 / 2" }}>
+            <Image src={panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
+            {wide !== false && (
+              // The open item's visual, keyed to replay from the start, crossfading over the last one (SwapFade, as
+              // Conversion assistance's accordion does) on the frame, which stays put.
+              <div className="dlp-bare absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
+                <SwapFade swapKey={`${active}-${plays[active]}`}>
+                  <ScenePanel key={`${active}-${plays[active]}`} scene={dlpScenes[dedicatedTabs[active].scene]} active root={DlpMotionRoot} maxScale={Infinity} transform />
+                </SwapFade>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

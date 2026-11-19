@@ -46,7 +46,7 @@ export function crossfadeStyle(active: boolean, reducedMotion: boolean): CSSProp
     : { opacity: 0, pointerEvents: "none", transition: `opacity ${CROSSFADE.outMs}ms ${CROSSFADE.outEasing}` };
 }
 
-/** One layer of a SwapFade: fades in when it arrives after the first, fades out (then goes) when it's replaced. */
+/** One layer of a SwapFade: fades in over the last when it arrives after the first; when replaced, it stays put underneath until covered, then goes. */
 function Layer({ entering, leaving, onGone, children }: { entering: boolean; leaving: boolean; onGone: () => void; children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
@@ -69,12 +69,16 @@ function Layer({ entering, leaving, onGone, children }: { entering: boolean; lea
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Replaced: it stays fully drawn underneath while the new layer fades in over it, and goes once it's covered. Fading
+  // both at once let what sits behind them show through mid-fade (the window or phone the two visuals share washing
+  // out over the panel); this way what's the same in both never dims, and only what changes crossfades.
+  // Where the two don't overlap exactly, what's left of the old one then eases away (0.3s) rather than vanishing.
   useEffect(() => {
     const el = ref.current;
     if (!leaving || !el) return;
-    const fade = el.animate([{ opacity: 1 }, { opacity: 0 }], {
-      duration: reducedMotion ? CROSSFADE.reducedMs : CROSSFADE.outMs,
-      easing: reducedMotion ? "linear" : CROSSFADE.outEasing,
+    const fade = el.animate([{ opacity: 1 }, { opacity: 1, offset: reducedMotion ? 0 : 0.8 }, { opacity: 0 }], {
+      duration: reducedMotion ? CROSSFADE.reducedMs : CROSSFADE.inDelayMs + CROSSFADE.inMs + 300,
+      easing: "linear",
       fill: "forwards",
     });
     fade.onfinish = () => gone.current();
@@ -89,9 +93,10 @@ function Layer({ entering, leaving, onGone, children }: { entering: boolean; lea
 }
 
 /**
- * For a panel that shows one thing at a time and swaps it outright (a tab's visual, keyed to replay): the outgoing
- * content fades out as the incoming fades in, with the site's crossfade, instead of cutting. `swapKey` names what's
- * shown; when it changes, the last content stays drawn, fading, until it's gone. Fills its (positioned) parent.
+ * For a panel that shows one thing at a time and swaps it outright (a tab's visual, keyed to replay): the incoming
+ * content fades in over the outgoing (1.1s, a beat in), which stays fully drawn underneath until it's covered, instead
+ * of cutting. So what both share (a chat window, a phone, a frame) holds steady and only what changes crossfades.
+ * `swapKey` names what's shown. Fills its (positioned) parent.
  */
 export function SwapFade({ swapKey, children }: { swapKey: string | number; children: ReactNode }) {
   const [layers, setLayers] = useState<{ key: string | number; node: ReactNode; entering: boolean }[]>([

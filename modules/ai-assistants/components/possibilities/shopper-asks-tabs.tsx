@@ -1,6 +1,6 @@
 "use client";
 
-import { CrossfadePanel } from "@/components/ui/crossfade";
+import { CrossfadePanel, SwapFade } from "@/components/ui/crossfade";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
@@ -64,7 +64,7 @@ function QuestionPanel({ question, scene, play, replay }: { question: ShopperQue
 export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] }) {
   // Each question's turn: its answer's run (the default run for a still panel) plus the hold.
   const turns = questions.map((question) => tabTurn(question.scene && motionScene(question.scene).scene.duration));
-  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns);
+  const { active, plays, root, fills, open } = useAutoplayTabs(turns);
   // Which layout is showing (null until known), so only its visuals are drawn and play.
   const [wide, setWide] = useState<boolean | null>(null);
 
@@ -127,18 +127,34 @@ export function ShopperAsksTabs({ questions }: { questions: ShopperQuestion[] })
         </nav>
 
         {/*
-          Every question shares one cell and they crossfade (CrossfadePanel); a visual is drawn while its question shows or
-          fades out, keyed to replay from the start. The cell is two rows, shared through subgrid: the copy row is as tall
-          as the tallest question's copy, so each one's copy starts at the same top and its panel at the same place below,
-          whichever is showing.
+
+          The open item: its copy over the framed panel. Every item's copy shares the first row (as tall as the tallest, so
+
+          each starts at the same top); they crossfade as the tab changes (CrossfadePanel). The frame stays put; only the
+
+          visual inside it crossfades (CrossfadePanel), drawn while its item shows or fades out, keyed to replay from the start.
+
         */}
         <div className="grid w-full min-w-0 grid-rows-[auto_auto] lg:flex-[0_1_820px]">
-          {questions.map((question, i) => (
-            <CrossfadePanel key={question.label} active={i === active} className="grid w-full grid-rows-subgrid items-start" style={{ gridArea: "1 / 1 / 3 / 2" }}>
-              <QuestionCopy question={question} />
-              <QuestionPanel question={question} scene={wide !== false && (i === active || i === previous)} play={i === active} replay={plays[i]} />
+          {questions.map((item, i) => (
+            <CrossfadePanel key={item.label} active={i === active} className="w-full" style={{ gridArea: "1 / 1 / 2 / 2" }}>
+              <QuestionCopy question={item} />
             </CrossfadePanel>
           ))}
+          {/* The frame stays put under the visual. */}
+          <div className="relative w-full" style={{ gridArea: "2 / 1 / 3 / 2" }}>
+            {/* The open question's frame (each has its livery), switching straight over; the visual over it crossfades. */}
+            <Image src={questions[active].panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
+            {wide !== false && (
+              // The open item's visual, keyed to replay from the start, crossfading over the last one (SwapFade, as
+              // Conversion assistance's accordion does) on the frame, which stays put.
+              <div className="absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
+                <SwapFade swapKey={`${active}-${plays[active]}`}>
+                  {questions[active].scene && <ScenePanel key={`${active}-${plays[active]}`} {...motionScene(questions[active].scene)} active maxScale={Infinity} />}
+                </SwapFade>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
