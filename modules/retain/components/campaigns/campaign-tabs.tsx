@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
-import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
+import { TextLink } from "@/components/ui/text-link";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
 import { campaigns } from "../../config/campaigns";
-import panelMaroon from "@/modules/sell/assets/discovery/panel-conversational.webp";
-import panelAubergine from "@/modules/sell/assets/discovery/panel-conversational-aubergine.webp";
-import panelForest from "@/modules/sell/assets/discovery/panel-conversational-forest.webp";
+import panelMaroon from "@/modules/shared/assets/panels/panel-conversational.webp";
+import panelAubergine from "@/modules/shared/assets/panels/panel-conversational-aubergine.webp";
+import panelForest from "@/modules/shared/assets/panels/panel-conversational-forest.webp";
 import { CampaignMotion, campaignTones } from "../motion/retain-motion";
 
 /** Each campaign's framed damask panel (Sell's Product discovery art, as AI Assistants' Shopper asks), in its livery. */

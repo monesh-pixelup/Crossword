@@ -8,7 +8,7 @@ import { StampButton } from "@/components/ui/stamp-button";
 import { cn } from "@/lib/cn";
 import crosswordMarkLight from "../assets/crossword-mark-light.svg";
 import crosswordMark from "../assets/crossword-mark.svg";
-import featureCardDark from "../assets/nav/card-dark.webp";
+import featureCardDark from "@/modules/shared/assets/nav/card-dark.webp";
 import chatgptDark from "../assets/nav/glyphs/dark-chatgpt.svg";
 import claudeDark from "../assets/nav/glyphs/dark-claude.svg";
 import grokDark from "../assets/nav/glyphs/dark-grok.svg";
@@ -21,7 +21,7 @@ import grokLight from "../assets/nav/glyphs/light-grok.svg";
 import instinctLight from "../assets/nav/glyphs/light-instinct.svg";
 import museLight from "../assets/nav/glyphs/light-muse.svg";
 import perplexityLight from "../assets/nav/glyphs/light-perplexity.svg";
-import featureCardLight from "../assets/nav/card-light.webp";
+import featureCardLight from "@/modules/shared/assets/nav/card-dark.webp";
 import { ctaLinks, type NavItem, type NavLink, type PlatformLink, platformMenu, primaryNav } from "../config/navigation";
 import { MobileMenu } from "./mobile-menu";
 

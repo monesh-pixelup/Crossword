@@ -1,7 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Studs } from "@/modules/dynamic-landing-pages/components/shared/livery";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import { cycle, howSteps } from "../../config/launch";
 
 /**

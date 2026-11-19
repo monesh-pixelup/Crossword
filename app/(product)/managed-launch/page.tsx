@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
+import { DividerBand } from "@/components/ui/divider-band";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import {
   Commitment,

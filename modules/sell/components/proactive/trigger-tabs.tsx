@@ -3,7 +3,7 @@
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { proactiveTriggerScenes, proactiveTriggers } from "../../config/proactive";
-import { ScenePanel } from "../motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
 import { proactiveMwebScenes, proactiveScenes } from "../motion-v2/scenes";
 

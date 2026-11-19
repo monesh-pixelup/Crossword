@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
+import { RailAccent } from "@/components/ui/rail-accent";
 import flourishBottom from "../../assets/commitment/flourish-bottom.webp";
 import flourishTop from "../../assets/commitment/flourish-top.webp";
 import paper from "../../assets/commitment/paper-note.webp";

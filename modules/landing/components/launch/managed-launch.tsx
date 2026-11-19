@@ -4,7 +4,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import quoteMark from "../../assets/launch/quote-mark.svg";
 import arrowRight from "../../assets/lifecycle/arrow-right.svg";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
-import { SectionTitle } from "../shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import { LaunchWheel } from "./launch-wheel";
 
 /**

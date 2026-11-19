@@ -1,4 +1,4 @@
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 
 /** The meeting rhythm, as Figma's partnership timeline: each step's tag and rhythm. */
 const rhythm = [

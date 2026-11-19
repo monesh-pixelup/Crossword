@@ -1,7 +1,7 @@
 import { demandDiscovery } from "../WidgetLandscape/data";
-import margotCutoutImage from "../../../../assets/motion/scenarios/retain/handbag-viewed-cutout.png";
-import islaCutoutImage from "../../../../assets/motion/scenarios/retain/handbag-alt-1-cutout.png";
-import noorCutoutImage from "../../../../assets/motion/scenarios/retain/handbag-alt-2-cutout.png";
+import margotCutoutImage from "@/modules/shared/assets/motion/scenarios/retain/handbag-viewed-cutout.png";
+import islaCutoutImage from "@/modules/shared/assets/motion/scenarios/retain/handbag-alt-1-cutout.png";
+import noorCutoutImage from "@/modules/shared/assets/motion/scenarios/retain/handbag-alt-2-cutout.png";
 
 const margotCutout = margotCutoutImage.src;
 const islaCutout = islaCutoutImage.src;

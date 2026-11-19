@@ -1,7 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { DividerBand } from "../shared/divider-band";
-import { RailAccent } from "../shared/rail-accent";
-import { SectionTitle } from "../shared/section-title";
+import { DividerBand } from "@/components/ui/divider-band";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import { LifecycleTabs } from "./lifecycle-tabs";
 
 /** Figma 3073:20862: the heading, then the stage tabs over the open feature and its mock-up. */

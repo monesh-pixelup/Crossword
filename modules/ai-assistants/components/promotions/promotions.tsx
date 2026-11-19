@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import frame from "@/modules/dynamic-landing-pages/assets/options/frame.svg";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import ground from "@/modules/support/assets/handoff/ground.webp";
 import { AubergineSteps } from "@/modules/support/components/handoff/aubergine-steps";
 import card from "../../assets/promotions/card.svg";

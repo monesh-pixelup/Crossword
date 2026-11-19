@@ -1,9 +1,9 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import railAccent from "../../assets/shared/rail-accent.svg";
+import railAccent from "@/components/ui/rail-accent/assets/rail-accent.svg";
 import { ShopperPanel } from "../motion/panels";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
-import { RailAccent } from "../shared/rail-accent";
-import { SectionTitle } from "../shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 
 export function ShopperExperience() {
   return (

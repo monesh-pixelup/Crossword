@@ -1,7 +1,7 @@
 import type { StaticImageData } from "next/image";
-import panelMaroon from "@/modules/sell/assets/discovery/panel-conversational.webp";
-import panelAubergine from "@/modules/sell/assets/discovery/panel-conversational-aubergine.webp";
-import panelForest from "@/modules/sell/assets/discovery/panel-conversational-forest.webp";
+import panelMaroon from "@/modules/shared/assets/panels/panel-conversational.webp";
+import panelAubergine from "@/modules/shared/assets/panels/panel-conversational-aubergine.webp";
+import panelForest from "@/modules/shared/assets/panels/panel-conversational-forest.webp";
 import type { MotionSlug } from "../components/motion/motion-scenes";
 
 /*

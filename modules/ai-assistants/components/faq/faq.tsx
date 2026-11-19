@@ -1,5 +1,5 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import { FaqList } from "@/modules/pricing/components/faq/faq-list";
 import { assistantFaqs } from "../../config/faq";
 

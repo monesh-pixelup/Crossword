@@ -1,6 +1,6 @@
 import { ContentFade } from "../../components/ill/ContentFade";
-import audiencesBgImage from "@/modules/managed-launch/assets/motion/ill-frame/retain/audiences_bg_3x.webp";
-import returnReductionBgImage from "@/modules/managed-launch/assets/motion/ill-frame/retain/return_reduction_bg_3x.webp";
+import audiencesBgImage from "@/modules/shared/assets/motion/ill-frame/retain/audiences_bg_3x.webp";
+import returnReductionBgImage from "@/modules/shared/assets/motion/ill-frame/retain/return_reduction_bg_3x.webp";
 
 const audiencesBg = audiencesBgImage.src;
 const returnReductionBg = returnReductionBgImage.src;

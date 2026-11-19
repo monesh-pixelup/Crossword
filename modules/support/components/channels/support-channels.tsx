@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { DividerBand } from "@/components/ui/divider-band";
+import { SectionTitle } from "@/components/ui/section-title";
 import { channels } from "../../config/channels";
 
 /** Four 3px gold studs, 5px into each corner of a tile. */

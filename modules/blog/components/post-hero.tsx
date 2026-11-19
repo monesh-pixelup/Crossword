@@ -2,7 +2,7 @@ import { CaretLeftIcon } from "@phosphor-icons/react/ssr";
 import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
+import { RailAccent } from "@/components/ui/rail-accent";
 import { Rails } from "@/modules/marketing/components/rails";
 import type { BlogPost } from "../lib/posts";
 

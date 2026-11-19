@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import panelArt from "@/modules/sell/assets/upsell/panel-aubergine.webp";
 import type { LoggedInQuote } from "../../config/logged-in";
 import { motionScene } from "../motion/motion-scenes";
@@ -69,7 +69,7 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
     };
-  }, []);
+  }, [quotes.length]);
 
   /*
    * The last quote stays put once it reaches the cover: everything then scrolls
@@ -108,7 +108,7 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
       observer.disconnect();
       window.removeEventListener("resize", sync);
     };
-  }, []);
+  }, [quotes.length]);
 
   /** Scrolls quote `i` up to just below the cover, which opens it. */
   const open = (i: number) => {

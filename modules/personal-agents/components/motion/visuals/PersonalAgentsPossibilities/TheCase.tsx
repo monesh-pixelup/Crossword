@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import mwebBgImage from "@/modules/personal-agents/assets/motion/ill-frame/mweb_440px_green.webp";
+import mwebBgImage from "@/modules/shared/assets/motion/ill-frame/mweb_440px_green.webp";
 import { useLandedOnScreen } from "../../components/ill/useLandedOnScreen";
 import { useChatTimeline, type Beat } from "../../illustrations/SellMotion/useChatTimeline";
 import { RichStagger } from "../../illustrations/SellMotion/RichStagger";

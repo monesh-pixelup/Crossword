@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import railAccent from "@/modules/landing/assets/hero/decor/rail-accent.svg";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import railAccent from "@/components/ui/rail-accent/assets/rail-accent-long.svg";
+import { DividerBand } from "@/components/ui/divider-band";
+import { SectionTitle } from "@/components/ui/section-title";
 import { storefrontCards } from "../../config/storefront";
-import { ScenePanel } from "../motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
 import { storefrontScenes } from "../motion-v2/scenes";
 

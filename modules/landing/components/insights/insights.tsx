@@ -4,8 +4,8 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
 import arrowRight from "../../assets/insights/arrow-right.svg";
 import railAccent from "../../assets/insights/rail-accent.svg";
-import sharedRailAccent from "../../assets/shared/rail-accent.svg";
-import { RailAccent } from "../shared/rail-accent";
+import sharedRailAccent from "@/components/ui/rail-accent/assets/rail-accent.svg";
+import { RailAccent } from "@/components/ui/rail-accent";
 import { InsightTabs } from "./insight-tabs";
 
 export function Insights() {

@@ -1,7 +1,7 @@
 "use client";
 
 import { type ReactNode, useSyncExternalStore } from "react";
-import type { SceneEntry } from "@/modules/sell/components/motion/scene-panel";
+import type { SceneEntry } from "@/modules/shared/motion/scene-panel";
 import "./motion.css";
 import {
   V3AppDetailMotion,

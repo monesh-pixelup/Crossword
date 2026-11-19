@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import { type ShopperQuestion, shopperQuestions } from "../../config/possibilities";
 import { ShopperAsksTabs } from "./shopper-asks-tabs";
 

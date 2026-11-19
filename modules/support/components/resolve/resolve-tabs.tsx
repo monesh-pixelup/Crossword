@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
-import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
+import { TextLink } from "@/components/ui/text-link";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
-import panel from "@/modules/sell/assets/discovery/panel-conversational.webp";
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import panel from "@/modules/shared/assets/panels/panel-conversational.webp";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { resolveCases } from "../../config/resolve";
 import { SupportMotionRoot, supportScenes } from "../motion-v3/support-motion";
 

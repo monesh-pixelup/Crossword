@@ -2,8 +2,8 @@ import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/cn";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import panelAubergine from "@/modules/sell/assets/human-mode/panel-aubergine.webp";
 
 /** How the copy column sits beside the headline. */

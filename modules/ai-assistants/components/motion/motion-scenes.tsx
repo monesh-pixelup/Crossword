@@ -2,7 +2,7 @@
 
 import type { ComponentType, ReactNode } from "react";
 import { type PaSceneSlug, PaMotionRoot, paScenes } from "@/modules/personal-agents/components/motion/pa-motion";
-import type { SceneEntry } from "@/modules/sell/components/motion/scene-panel";
+import type { SceneEntry } from "@/modules/shared/motion/scene-panel";
 import { type AiaSceneSlug, AiaMotionRoot, aiaScenes } from "./aia-motion";
 
 /**

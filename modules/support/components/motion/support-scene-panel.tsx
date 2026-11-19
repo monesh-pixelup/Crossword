@@ -1,6 +1,6 @@
 "use client";
 
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { SupportMotionRoot, type SupportSceneSlug, supportScenes } from "../motion-v3/support-motion";
 
 export type { SupportSceneSlug };

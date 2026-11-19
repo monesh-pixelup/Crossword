@@ -1,8 +1,8 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import { cn } from "@/lib/cn";
-import markClose from "../../assets/testimonials/mark-close.svg";
-import markOpen from "../../assets/testimonials/mark-open.svg";
+import markClose from "@/modules/shared/assets/testimonials/mark-close.svg";
+import markOpen from "@/modules/shared/assets/testimonials/mark-close.svg";
 import ornament from "../../assets/testimonials/ornament.webp";
 import stamp from "../../assets/testimonials/stamp.webp";
 import type { Testimonial } from "../../config/testimonials";

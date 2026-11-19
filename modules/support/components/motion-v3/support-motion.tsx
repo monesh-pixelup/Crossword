@@ -1,7 +1,7 @@
 "use client";
 
 import { type ReactNode, useSyncExternalStore } from "react";
-import type { SceneEntry } from "@/modules/sell/components/motion/scene-panel";
+import type { SceneEntry } from "@/modules/shared/motion/scene-panel";
 import "./motion.css";
 import {
   DecisionDashboardMotion,
@@ -54,7 +54,7 @@ export function SupportMotionRoot({ children }: { children: ReactNode }) {
 }
 
 /*
- * Support V3 motion visuals 01–12, by the source's slugs, drawn by ScenePanel (modules/sell/components/motion/scene-panel.tsx).
+ * Support V3 motion visuals 01–12, by the source's slugs, drawn by ScenePanel (modules/shared/motion/scene-panel.tsx).
  * Each draws at its design size and plays itself, as in the source: it starts once it is 30% on screen with the tab
  * focused, restarts when the viewer comes back, stops at its end, and shows its final state with
  * `prefers-reduced-motion`. The `play` prop ScenePanel passes is ignored. `duration` is how long (ms) a visual takes to

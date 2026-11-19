@@ -1,8 +1,8 @@
 import { ContentFade } from "../../components/ill/ContentFade";
-import audiencesBgImage from "../../../../assets/motion/ill-frame/retain/audiences_bg_3x.webp";
-import returnReductionBgImage from "../../../../assets/motion/ill-frame/retain/return_reduction_bg_3x.webp";
+import audiencesBgImage from "@/modules/shared/assets/motion/ill-frame/retain/audiences_bg_3x.webp";
+import returnReductionBgImage from "@/modules/shared/assets/motion/ill-frame/retain/return_reduction_bg_3x.webp";
 import returnReductionBgMaroonImage from "../../../../assets/motion/ill-frame/retain/return_reduction_bg_3x-maroon.webp";
-import forestBgImage from "../../../../assets/motion/ill-frame/forest_wide_bg_3x.webp";
+import forestBgImage from "@/modules/shared/assets/motion/ill-frame/forest_wide_bg_3x.webp";
 
 const audiencesBg = audiencesBgImage.src;
 const returnReductionBg = returnReductionBgImage.src;

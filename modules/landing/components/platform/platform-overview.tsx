@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import divider from "../../assets/platform/divider.svg";
 import { platformCards } from "../../config/platform";
-import { SectionTitle } from "../shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import { AgentDiagram } from "./agent-diagram";
 import { CardCarousel } from "./card-carousel";
 

@@ -1,7 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
-import { ScenePanel } from "../motion/scene-panel";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
 import { humanModeMwebScene, humanModeScene } from "../motion-v2/scenes";
 

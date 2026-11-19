@@ -1,6 +1,6 @@
 "use client";
 
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import integrationLines from "../../assets/helpdesk/integration-lines.svg";
 import integrationTiles from "../../assets/helpdesk/integration-tiles.svg";
 import { SceneFrame } from "./parts-a";

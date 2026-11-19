@@ -1,9 +1,9 @@
 "use client";
 
 import { tabTurn } from "@/lib/use-autoplay-tabs";
-import { AccordionMedia } from "@/modules/landing/components/shared/accordion-media";
+import { AccordionMedia } from "@/components/ui/accordion-media";
 import { assistFeatures } from "../../config/assist";
-import { ScenePanel } from "../motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
 import { assistScenes } from "../motion-v2/scenes";
 

@@ -1,5 +1,5 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import { TriggerTabs } from "./trigger-tabs";
 
 /** Opens with the patterned divider band under Conversion assistance (24px more top padding). */

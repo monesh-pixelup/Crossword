@@ -1,5 +1,5 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import ornament from "@/modules/support/assets/workflows/ornament.webp";
 import flowDiagramMobile from "../../assets/channels/flow-diagram-mobile.svg";
 import flowDiagram from "../../assets/channels/flow-diagram.svg";

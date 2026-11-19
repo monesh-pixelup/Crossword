@@ -9,7 +9,7 @@ import { BrandStorefront } from "../../storefronts/BrandStorefront";
 import { ColorContext } from "../../brands/ColorContext";
 import { JacketPdpScene } from "../../illustrations/WidgetLandscape/SizeConfidence";
 // The store's "Ask AI" pill (12b); its other rules are scoped to .scd.
-import crosswordLogoImage from "@/modules/managed-launch/assets/motion/ill-icons/crossword-logo.svg";
+import crosswordLogoImage from "@/modules/shared/assets/motion/ill-icons/crossword-logo.svg";
 import { Ph } from "../../illustrations/LaunchAudience/LaunchAudience";
 import { ProductRow } from "../../illustrations/GiftJourneyV2/StorybookParts";
 import * as d from "./data";

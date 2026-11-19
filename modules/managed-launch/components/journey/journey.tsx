@@ -1,7 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import railAccent from "@/modules/landing/assets/shared/rail-accent.svg";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import railAccent from "@/components/ui/rail-accent/assets/rail-accent.svg";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import { ManagedLaunchDiagram, ManagedLaunchDiagramNarrowPanel } from "../motion/ml-motion";
 
 /**

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { StampButton } from "@/components/ui/stamp-button";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import { ctaLinks } from "@/modules/marketing";
 // The CTA banner's surface as Figma renders it (3991:207347): see TwillPanel's `surface`.
 import surfaceTile from "../../assets/cta/surface-tile.webp";

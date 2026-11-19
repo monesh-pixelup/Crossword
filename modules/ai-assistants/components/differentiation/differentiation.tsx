@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { cn } from "@/lib/cn";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import { ctaLinks } from "@/modules/marketing";
 import { LatticeFrame } from "@/modules/pricing/components/shared/lattice-frame";
 import { type DifferentiationRow, differentiationRows } from "../../config/differentiation";

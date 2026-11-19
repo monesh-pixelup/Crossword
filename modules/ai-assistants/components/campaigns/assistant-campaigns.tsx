@@ -4,8 +4,8 @@ import { cn } from "@/lib/cn";
 import { AiaScenePanel } from "../motion/aia-scene-panel";
 import type { MotionSlug } from "../motion/motion-scenes";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import panelForest from "@/modules/retain/assets/audience/panel-forest.webp";
 
 /**

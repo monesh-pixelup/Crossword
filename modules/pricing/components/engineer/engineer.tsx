@@ -1,6 +1,6 @@
 import { StampButton } from "@/components/ui/stamp-button";
 import { CtaBannerPanel, CtaBannerTitle } from "@/modules/ai-assistants/components/cta/cta";
-import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
+import { TextLink } from "@/components/ui/text-link";
 import { ctaLinks } from "@/modules/marketing";
 
 /**

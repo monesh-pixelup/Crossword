@@ -1,4 +1,4 @@
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
+import { DividerBand } from "@/components/ui/divider-band";
 
 /**
  * Figma's 75px Divider Band instance between sections (the 24px damask strip centred in it, under

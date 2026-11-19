@@ -11,8 +11,8 @@ import {
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import twillTile from "@/modules/landing/assets/blog/damask-tile.webp";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import damaskScroll from "../../assets/personalization/damask-scroll.webp";
 import stamp from "../../assets/personalization/stamp.webp";
 

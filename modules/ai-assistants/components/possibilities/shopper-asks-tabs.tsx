@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
-import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
+import { TextLink } from "@/components/ui/text-link";
 import { ctaLinks } from "@/modules/marketing";
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import type { ShopperQuestion } from "../../config/possibilities";
 import { motionScene } from "../motion/motion-scenes";
 

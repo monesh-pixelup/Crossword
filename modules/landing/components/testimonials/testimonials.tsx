@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import railAccent from "../../assets/shared/rail-accent.svg";
+import railAccent from "@/components/ui/rail-accent/assets/rail-accent.svg";
 import { retainTestimonials, sellTestimonials, supportTestimonials, type Testimonial } from "../../config/testimonials";
-import { RailAccent } from "../shared/rail-accent";
-import { SectionTitle } from "../shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import { TestimonialCarousel } from "./testimonial-carousel";
 
 type Variant = "home" | "blog" | "sell" | "support" | "retain";

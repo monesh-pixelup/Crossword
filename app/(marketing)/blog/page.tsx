@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JournalIndex } from "@/modules/blog/components/journal-index";
 import { getCategories, getPosts } from "@/modules/blog/lib/posts";
 import { CtaEnvelope, Testimonials } from "@/modules/landing";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
+import { DividerBand } from "@/components/ui/divider-band";
 
 export const metadata: Metadata = {
   title: "Blog",

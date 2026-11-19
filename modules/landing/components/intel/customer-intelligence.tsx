@@ -3,8 +3,8 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/cn";
 import { stats } from "../../config/intel";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
-import { RailAccent } from "../shared/rail-accent";
-import { SectionTitle } from "../shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import { MemoryGraph } from "./memory-graph";
 
 /** Gold rail accent on the page frame, centred on the 24px rail line; it grows in as it scrolls into view. */

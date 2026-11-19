@@ -572,7 +572,7 @@
 }
 
 .rtn-motion .sbl .ais .ill-chat-header__brand::before {
-  background: #65513d url("../../assets/motion/brands/supplied/amber-and-oak-mark.svg") center / 28px no-repeat;
+  background: #65513d url("../../../shared/assets/motion/brands/supplied/amber-and-oak-mark.svg") center / 28px no-repeat;
 }
 
 .rtn-motion .sbl .ill-chat-header [aria-label="Expand"] > * {
@@ -1085,7 +1085,7 @@
 /* Identity: Crossword's logo disc, the name in sentence case (the data
    says "CROSSWORD"; the capsule re-says it rather than shouting). */
 .rtn-motion .sbl .ill-insight-frame .ill-chat-header__brand::before {
-  background: url("../../assets/motion/ill-icons/crossword-logo.svg") center / cover no-repeat;
+  background: url("../../../shared/assets/motion/ill-icons/crossword-logo.svg") center / cover no-repeat;
 }
 
 .rtn-motion .sbl .ill-insight-frame .ill-chat-header__brand {
@@ -4686,7 +4686,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("../../assets/motion/ill-frame/conversion-assistance-bg.webp") center / cover no-repeat;
+  background: url("../../../shared/assets/motion/ill-frame/conversion-assistance-bg.webp") center / cover no-repeat;
   flex-shrink: 0;
   /* Clips the chat camera's close shots (28b–33b) to the frame. */
   overflow: hidden;
@@ -7247,7 +7247,7 @@
    folded (compact), and under 360px the rail folds and the card restacks. */
 .rtn-motion .la-fit-figure { margin: 0; }
 .rtn-motion .la-fit-canvas { width: 353px; height: 440px; display: grid; place-items: center; overflow: hidden;
-  background: #1d3a2a url("../../assets/motion/ill-frame/mweb_440px_green.webp") center / cover no-repeat; }
+  background: #1d3a2a url("../../../shared/assets/motion/ill-frame/mweb_440px_green.webp") center / cover no-repeat; }
 .rtn-motion .la-fit { container-type: inline-size; width: 313px; height: 400px; overflow: hidden; border-radius: 16px; background: #fff;
   box-shadow: 0 0 0 1px rgba(22, 23, 27, .08), 0 2px 8px rgba(10, 10, 14, .08), 0 24px 56px rgba(10, 10, 14, .18); }
 .rtn-motion .la-fit .la-stage, .rtn-motion .la-fit .la-dash { width: 100%; height: 100%; }
@@ -7368,7 +7368,7 @@
   align-items: flex-start;
   padding-top: 56px;
   box-sizing: border-box;
-  background: url("../../assets/motion/ill-frame/damask_bg.jpg") center / 788px 579px no-repeat;
+  background: url("../../../shared/assets/motion/ill-frame/damask_bg.jpg") center / 788px 579px no-repeat;
 }
 .rtn-motion.rv2m .rv2-wide .ill-outbound { width: 676px; height: 467px; }
 .rtn-motion.rv2m .rv2-wide .ill-outbound__shell,

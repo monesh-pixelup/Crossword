@@ -9,11 +9,11 @@ import dot from "../../assets/blog/dot.svg";
 import featureFrame from "../../assets/blog/feature-frame.webp";
 import stamp from "../../assets/blog/stamp.webp";
 import arrowRight from "../../assets/insights/arrow-right.svg";
-import railAccent from "../../assets/shared/rail-accent.svg";
+import railAccent from "@/components/ui/rail-accent/assets/rail-accent.svg";
 import { type BlogPost, type FeaturedPost, getHomeBlog } from "../../config/blog";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
-import { RailAccent } from "../shared/rail-accent";
-import { SectionTitle } from "../shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 
 /** Maroon damask cover art of the featured post (761 × 296 in Figma; zoomed to the card width). */
 function FeaturedCover({ featuredPost }: { featuredPost: FeaturedPost }) {

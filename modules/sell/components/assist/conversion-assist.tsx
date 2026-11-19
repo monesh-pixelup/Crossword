@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import railAccent from "@/modules/landing/assets/hero/decor/rail-accent.svg";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import railAccent from "@/components/ui/rail-accent/assets/rail-accent-long.svg";
+import { SectionTitle } from "@/components/ui/section-title";
 import { AssistList } from "./assist-list";
 
 /**

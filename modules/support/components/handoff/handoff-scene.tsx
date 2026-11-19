@@ -1,6 +1,6 @@
 "use client";
 
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { SupportMotionRoot, supportScenes } from "../motion-v3/support-motion";
 
 /** The human-in-the-loop dashboards, one per handoff mode, in order (Support V3 10–12, each 1280 × 599). */

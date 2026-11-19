@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import frame from "@/modules/dynamic-landing-pages/assets/options/frame.svg";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import ground from "@/modules/support/assets/handoff/ground.webp";
 import { AubergineSteps } from "@/modules/support/components/handoff/aubergine-steps";
 import stampLoyalty from "../../assets/loyalty/stamp-loyalty.webp";

@@ -10,7 +10,7 @@ import { UserTurn } from "../../components/ill/UserTurn";
 import { AssistantTurn } from "../../components/ill/AssistantTurn";
 import { ChatMessage } from "../../components/ill/ChatMessage";
 import { Chip } from "../../components/ill/Chip";
-import cartIconImage from "@/modules/managed-launch/assets/motion/ill-icons/cart.svg";
+import cartIconImage from "@/modules/shared/assets/motion/ill-icons/cart.svg";
 import { LandscapeCanvas } from "./LandscapeCanvas";
 import { sizeConfidence as s } from "./data";
 

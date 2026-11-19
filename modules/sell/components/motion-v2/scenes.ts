@@ -1,4 +1,4 @@
-import type { SceneEntry } from "../motion/scene-panel";
+import type { SceneEntry } from "@/modules/shared/motion/scene-panel";
 import {
   BrandedWidgetMotion,
   BrowseUpsellMotion,

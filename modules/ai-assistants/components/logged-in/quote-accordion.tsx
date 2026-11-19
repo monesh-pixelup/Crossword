@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { tabTurn } from "@/lib/use-autoplay-tabs";
-import { AccordionMedia } from "@/modules/landing/components/shared/accordion-media";
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { AccordionMedia } from "@/components/ui/accordion-media";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import panelArt from "@/modules/sell/assets/upsell/panel-aubergine.webp";
 import type { LoggedInQuote } from "../../config/logged-in";
 import { motionScene } from "../motion/motion-scenes";

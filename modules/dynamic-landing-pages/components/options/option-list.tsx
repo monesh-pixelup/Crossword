@@ -3,7 +3,7 @@
 import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { tabTurn } from "@/lib/use-autoplay-tabs";
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { dynamicOptions } from "../../config/options";
 import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
 

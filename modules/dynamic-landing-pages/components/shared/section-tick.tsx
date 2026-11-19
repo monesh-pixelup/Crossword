@@ -1,4 +1,4 @@
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
+import { RailAccent } from "@/components/ui/rail-accent";
 
 /**
  * The gold section tick (brand guidelines 7.4 and 7.5; web kit `.wk-tick`): a 1px × 180px gold

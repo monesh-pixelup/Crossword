@@ -1,8 +1,8 @@
 import type { ImgHTMLAttributes } from "react";
 import { catalog } from "../../brands/catalog";
-import goldHoopSetImage from "@/modules/managed-launch/assets/motion/scenarios/retention-growth/look-1-gold-hoop-set.webp";
-import pearlDropSetImage from "@/modules/managed-launch/assets/motion/scenarios/retention-growth/look-2-pearl-drop-set.webp";
-import citrineStudSetImage from "@/modules/managed-launch/assets/motion/scenarios/retention-growth/look-3-citrine-stud-set.webp";
+import goldHoopSetImage from "@/modules/shared/assets/motion/scenarios/retention-growth/look-1-gold-hoop-set.webp";
+import pearlDropSetImage from "@/modules/shared/assets/motion/scenarios/retention-growth/look-2-pearl-drop-set.webp";
+import citrineStudSetImage from "@/modules/shared/assets/motion/scenarios/retention-growth/look-3-citrine-stud-set.webp";
 
 const goldHoopSet = goldHoopSetImage.src;
 const pearlDropSet = pearlDropSetImage.src;

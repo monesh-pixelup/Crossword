@@ -1,9 +1,9 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import scrollDamask from "@/modules/landing/assets/motion/background-texture.webp";
-import damaskTile from "../../assets/shared/damask-tile.webp";
-import forestTile from "../../assets/shared/forest-tile.webp";
+import scrollDamask from "@/modules/shared/assets/motion/ill-frame/background-texture.webp";
+import damaskTile from "@/modules/shared/assets/shared/damask-tile.webp";
+import forestTile from "@/modules/shared/assets/shared/damask-tile.webp";
 import stud from "../../assets/shared/stud.svg";
 
 /** Livery grounds from the Figma layouts: colour plus its 23.35px damask tile and blend. */

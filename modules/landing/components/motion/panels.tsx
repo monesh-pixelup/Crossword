@@ -18,7 +18,7 @@ import {
   SponsoredComparisonMobileMotion,
   SponsoredComparisonMotion,
 } from "./home-v2";
-import frameTexture from "./home-v2/assets/background-texture.webp";
+import frameTexture from "@/modules/shared/assets/motion/ill-frame/background-texture.webp";
 import frameBackground from "./home-v2/assets/icons/scene-frame-background.svg";
 
 /**

@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
-import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
+import { TextLink } from "@/components/ui/text-link";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
-import panel from "../../assets/discovery/panel-conversational.webp";
+import panel from "@/modules/shared/assets/panels/panel-conversational.webp";
 import { discoveryFeatures } from "../../config/discovery";
-import { ScenePanel, type SceneEntry } from "../motion/scene-panel";
+import { ScenePanel, type SceneEntry } from "@/modules/shared/motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
 import { discoveryScenes as scenes } from "../motion-v2/scenes";
 

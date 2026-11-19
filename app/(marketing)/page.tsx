@@ -11,7 +11,7 @@ import {
   Testimonials,
   Trust,
 } from "@/modules/landing";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
+import { DividerBand } from "@/components/ui/divider-band";
 
 export default function HomePage() {
   return (

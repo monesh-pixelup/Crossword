@@ -1,7 +1,7 @@
 "use client";
 
 import { type ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { type SceneEntry, ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { type SceneEntry, ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { DeliverableSteps, DeliverableStepsNarrow } from "./visuals/ManagedLaunch/JourneyDiagram";
 import { ManagedLaunchMotion, ManagedLaunchMwebStatic } from "./visuals/ManagedLaunch/ManagedLaunch";
 import "./motion.css";
@@ -107,10 +107,9 @@ export function ManagedLaunchDiagram() {
  * through the four steps. Until then the stage shows empty, on its backdrop. Once started it keeps looping.
  */
 function DeliverableStepsNarrowOnView({ play }: { play?: boolean }) {
+  // Latches on the first render that sees `play` (state adjusted during render, so no extra effect pass).
   const [started, setStarted] = useState(false);
-  useEffect(() => {
-    if (play) setStarted(true);
-  }, [play]);
+  if (play && !started) setStarted(true);
   return started ? <DeliverableStepsNarrow /> : <div className="jd-stage jd-stage--t" aria-hidden />;
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { type DlpSceneSlug, DlpMotionRoot, dlpScenes } from "./dlp-motion";
 
 /**

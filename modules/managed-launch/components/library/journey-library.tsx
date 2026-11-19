@@ -1,6 +1,6 @@
 import Image, { type StaticImageData } from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { SectionTitle } from "@/components/ui/section-title";
 import cardDamask from "../../assets/library/card-damask.png";
 import cardPaper from "../../assets/library/card-paper.png";
 import stampGiftFinder from "../../assets/library/stamps/1-gift-finder.png";

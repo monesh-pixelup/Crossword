@@ -5,8 +5,8 @@
 
 import { useRef, useState, useLayoutEffect, forwardRef, useEffect, Fragment as Fragment$1, useMemo, createContext, useContext, useCallback, createElement } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-const frameBackground = "/images/support/v3/assets/background-GiCSjLb9.svg";
-const frameTexture = "/images/support/v3/assets/background-texture-C4nqYl4R.webp";
+const frameBackground = "/images/shared/background-GiCSjLb9.svg";
+const frameTexture = "/images/shared/background-texture-C4nqYl4R.webp";
 function SceneFrame({
   children,
   hideBackground,
@@ -55,51 +55,51 @@ function SceneFrame({
     }
   );
 }
-const __vite_glob_0_0 = "/images/support/v3/assets/amber-and-oak-mark-fxg20Grc.svg";
-const __vite_glob_0_1 = "/images/support/v3/assets/aura-mark-DpXI8V8Q.svg";
-const __vite_glob_0_2 = "/images/support/v3/assets/aurelia-mark-Bh18_Lw6.svg";
-const __vite_glob_0_3 = "/images/support/v3/assets/aurelle-mark-BUbtN7nf.svg";
-const __vite_glob_0_4 = "/images/support/v3/assets/brewhaus-mark-C30bIvyV.svg";
-const __vite_glob_0_5 = "/images/support/v3/assets/crestline-mark-BYdfHI0-.svg";
-const __vite_glob_0_6 = "/images/support/v3/assets/dusklight-mark-e281Q9el.svg";
-const __vite_glob_0_7 = "/images/support/v3/assets/goodwell-mark-B8uogM9l.svg";
-const __vite_glob_0_8 = "/images/support/v3/assets/marais-mark-Dtz5V4-o.svg";
-const __vite_glob_0_9 = "/images/support/v3/assets/moonrest-mark-CqubK1ze.svg";
-const __vite_glob_0_10 = "/images/support/v3/assets/proteinmax-mark-CAjpFhM5.svg";
-const __vite_glob_0_11 = "/images/support/v3/assets/sorelle-labs-mark-CQBfsdpQ.svg";
-const __vite_glob_0_12 = "/images/support/v3/assets/stride-mark-BhAcSYrg.svg";
-const __vite_glob_0_13 = "/images/support/v3/assets/trailwell-mark-DWHfUX1B.svg";
-const __vite_glob_1_0 = "/images/support/v3/assets/aeria-YYq39Tmj.webp";
-const __vite_glob_1_1 = "/images/support/v3/assets/amber-and-oak-B_E1LHFp.webp";
-const __vite_glob_1_2 = "/images/support/v3/assets/auden-D6bviGYb.webp";
-const __vite_glob_1_3 = "/images/support/v3/assets/aura-9M4MUBrO.webp";
-const __vite_glob_1_4 = "/images/support/v3/assets/aurelia-DIkgKc6E.webp";
-const __vite_glob_1_5 = "/images/support/v3/assets/aurelle-D4MmoaJI.webp";
-const __vite_glob_1_6 = "/images/support/v3/assets/brewhaus-nqvL_9rd.webp";
-const __vite_glob_1_7 = "/images/support/v3/assets/crestline-10BYG1fb.webp";
-const __vite_glob_1_8 = "/images/support/v3/assets/dusklight-D4BTEpTH.webp";
-const __vite_glob_1_9 = "/images/support/v3/assets/echo-and-co-v-USWRkm.webp";
-const __vite_glob_1_10 = "/images/support/v3/assets/formwork-D1yGSW-s.webp";
-const __vite_glob_1_11 = "/images/support/v3/assets/goodwell-D-tqaLX2.webp";
-const __vite_glob_1_12 = "/images/support/v3/assets/hearthware-BV2ZsyEY.webp";
-const __vite_glob_1_13 = "/images/support/v3/assets/holt-and-co-CNH9FNcC.webp";
-const __vite_glob_1_14 = "/images/support/v3/assets/lumen-BKTnlTLa.webp";
-const __vite_glob_1_15 = "/images/support/v3/assets/marais-vhL6aN8y.webp";
-const __vite_glob_1_16 = "/images/support/v3/assets/moonrest-jpQQ4DyZ.webp";
-const __vite_glob_1_17 = "/images/support/v3/assets/proteinmax-CfxeVd4u.webp";
-const __vite_glob_1_18 = "/images/support/v3/assets/sorelle-labs-CQqgbOme.webp";
-const __vite_glob_1_19 = "/images/support/v3/assets/stride-BjAZUFR_.webp";
-const __vite_glob_1_20 = "/images/support/v3/assets/trailwell-vb-FA88_.webp";
-const __vite_glob_1_21 = "/images/support/v3/assets/vela-qtSHjO_9.webp";
-const __vite_glob_1_22 = "/images/support/v3/assets/waveline-BNXG9I4L.webp";
-const __vite_glob_2_0 = "/images/support/v3/assets/amber-and-oak-mark-DyBTEnHG.svg";
-const __vite_glob_2_1 = "/images/support/v3/assets/aurelia-mark-WAhMDRAF.svg";
-const __vite_glob_2_2 = "/images/support/v3/assets/aurelle-mark-CkALuNbG.svg";
-const __vite_glob_2_3 = "/images/support/v3/assets/brewhaus-mark-CPBhNKZi.svg";
-const __vite_glob_2_4 = "/images/support/v3/assets/crestline-mark-x07nlP5x.svg";
-const __vite_glob_2_5 = "/images/support/v3/assets/dusklight-mark-BxLi6ckI.svg";
-const __vite_glob_2_6 = "/images/support/v3/assets/moonrest-mark-C1S3y54t.svg";
-const __vite_glob_2_7 = "/images/support/v3/assets/sorelle-labs-mark-DwV8-BRm.svg";
+const __vite_glob_0_0 = "/images/shared/amber-and-oak-mark-fxg20Grc.svg";
+const __vite_glob_0_1 = "/images/shared/aura-mark-DpXI8V8Q.svg";
+const __vite_glob_0_2 = "/images/shared/aurelia-mark-Bh18_Lw6.svg";
+const __vite_glob_0_3 = "/images/shared/aurelle-mark-BUbtN7nf.svg";
+const __vite_glob_0_4 = "/images/shared/brewhaus-mark-C30bIvyV.svg";
+const __vite_glob_0_5 = "/images/shared/crestline-mark-BYdfHI0-.svg";
+const __vite_glob_0_6 = "/images/shared/dusklight-mark-e281Q9el.svg";
+const __vite_glob_0_7 = "/images/shared/goodwell-mark-B8uogM9l.svg";
+const __vite_glob_0_8 = "/images/shared/marais-mark-Dtz5V4-o.svg";
+const __vite_glob_0_9 = "/images/shared/moonrest-mark-CqubK1ze.svg";
+const __vite_glob_0_10 = "/images/shared/proteinmax-mark-CAjpFhM5.svg";
+const __vite_glob_0_11 = "/images/shared/sorelle-labs-mark-CQBfsdpQ.svg";
+const __vite_glob_0_12 = "/images/shared/stride-mark-BhAcSYrg.svg";
+const __vite_glob_0_13 = "/images/shared/trailwell-mark-DWHfUX1B.svg";
+const __vite_glob_1_0 = "/images/shared/aeria-YYq39Tmj.webp";
+const __vite_glob_1_1 = "/images/shared/amber-and-oak-B_E1LHFp.webp";
+const __vite_glob_1_2 = "/images/shared/auden-D6bviGYb.webp";
+const __vite_glob_1_3 = "/images/shared/aura-9M4MUBrO.webp";
+const __vite_glob_1_4 = "/images/shared/aurelia-DIkgKc6E.webp";
+const __vite_glob_1_5 = "/images/shared/aurelle-D4MmoaJI.webp";
+const __vite_glob_1_6 = "/images/shared/brewhaus-nqvL_9rd.webp";
+const __vite_glob_1_7 = "/images/shared/crestline-10BYG1fb.webp";
+const __vite_glob_1_8 = "/images/shared/dusklight-D4BTEpTH.webp";
+const __vite_glob_1_9 = "/images/shared/echo-and-co-v-USWRkm.webp";
+const __vite_glob_1_10 = "/images/shared/formwork-D1yGSW-s.webp";
+const __vite_glob_1_11 = "/images/shared/goodwell-D-tqaLX2.webp";
+const __vite_glob_1_12 = "/images/shared/hearthware-BV2ZsyEY.webp";
+const __vite_glob_1_13 = "/images/shared/holt-and-co-CNH9FNcC.webp";
+const __vite_glob_1_14 = "/images/shared/lumen-BKTnlTLa.webp";
+const __vite_glob_1_15 = "/images/shared/marais-vhL6aN8y.webp";
+const __vite_glob_1_16 = "/images/shared/moonrest-jpQQ4DyZ.webp";
+const __vite_glob_1_17 = "/images/shared/proteinmax-CfxeVd4u.webp";
+const __vite_glob_1_18 = "/images/shared/sorelle-labs-CQqgbOme.webp";
+const __vite_glob_1_19 = "/images/shared/stride-BjAZUFR_.webp";
+const __vite_glob_1_20 = "/images/shared/trailwell-vb-FA88_.webp";
+const __vite_glob_1_21 = "/images/shared/vela-qtSHjO_9.webp";
+const __vite_glob_1_22 = "/images/shared/waveline-BNXG9I4L.webp";
+const __vite_glob_2_0 = "/images/shared/amber-and-oak-mark-DyBTEnHG.svg";
+const __vite_glob_2_1 = "/images/shared/aurelia-mark-WAhMDRAF.svg";
+const __vite_glob_2_2 = "/images/shared/aurelle-mark-CkALuNbG.svg";
+const __vite_glob_2_3 = "/images/shared/brewhaus-mark-CPBhNKZi.svg";
+const __vite_glob_2_4 = "/images/shared/crestline-mark-x07nlP5x.svg";
+const __vite_glob_2_5 = "/images/shared/dusklight-mark-BxLi6ckI.svg";
+const __vite_glob_2_6 = "/images/shared/moonrest-mark-C1S3y54t.svg";
+const __vite_glob_2_7 = "/images/shared/sorelle-labs-mark-DwV8-BRm.svg";
 const aurelia = {
   name: "Aurelia",
   category: "Merchant workspace",
@@ -490,7 +490,7 @@ const registry = {
   aeria,
   aurelle
 };
-const goodwellMark = "/images/support/v3/assets/goodwell-mark-D2M8-7dz.svg";
+const goodwellMark = "/images/shared/goodwell-mark-D2M8-7dz.svg";
 const normalise = (name) => name.toLowerCase().replace(/[^a-z0-9]/g, "");
 function getBrand(name) {
   const entry = Object.entries(registry).find(
@@ -615,38 +615,38 @@ function BrandWordmark({
     /* @__PURE__ */ jsx(BrandName, { brand: brand2 })
   ] });
 }
-const history = "/images/support/v3/assets/history-BevL6311.svg";
-const add = "/images/support/v3/assets/add-Cbob5SpL.svg";
-const expand = "/images/support/v3/assets/expand-DCmbcy1L.svg";
-const close = "/images/support/v3/assets/close-DsdKJYzC.svg";
-const send = "/images/support/v3/assets/send-ciTszH9F.svg";
-const favorite = "/images/support/v3/assets/favorite-CUi59LNH.svg";
-const insight = "/images/support/v3/assets/insight-uAQ9aztG.svg";
-const caretDown = "/images/support/v3/assets/caret-down-SLWfN0GR.svg";
-const aiStatus = "/images/support/v3/assets/ai-status-BrMkXQfp.svg";
-const historyGold = "/images/support/v3/assets/history-gold-BJyNNDvb.svg";
-const addGold = "/images/support/v3/assets/add-gold-BsVrGX-2.svg";
-const expandGold = "/images/support/v3/assets/expand-gold-DMlB4LYO.svg";
-const closeGold = "/images/support/v3/assets/close-gold-C4NzsZzj.svg";
-const sendGold = "/images/support/v3/assets/send-gold-Vhul_k2n.svg";
-const addMuted = "/images/support/v3/assets/add-muted-BR3d4Eat.svg";
-const sparkle = "/images/support/v3/assets/sparkle-DD7f07RS.svg";
-const lock = "/images/support/v3/assets/lock-Ct-i8Zkt.svg";
-const shieldCheck = "/images/support/v3/assets/shield-check-ButlZpGU.svg";
-const checks = "/images/support/v3/assets/checks-Cn5ndNQt.svg";
-const union = "/images/support/v3/assets/union-DvakWNG_.svg";
-const sourceDot = "/images/support/v3/assets/source-dot-FmkgXLjm.svg";
-const money = "/images/support/v3/assets/money-BRnIy4Hf.svg";
-const userSound = "/images/support/v3/assets/user-sound-B1mWE2AQ.svg";
-const warning = "/images/support/v3/assets/warning-B_MVWxpy.svg";
-const caretRight = "/images/support/v3/assets/caret-right-N4DMqoC_.svg";
-const search = "/images/support/v3/assets/search-6aT0QOjO.svg";
-const address = "/images/support/v3/assets/address-QPOEXXur.svg";
-const spark = "/images/support/v3/assets/spark-CL1SvstU.svg";
-const usersThree = "/images/support/v3/assets/users-three-CNldQr4E.svg";
-const shoppingCart = "/images/support/v3/assets/shopping-cart-9S1-ijDB.svg";
-const funnel = "/images/support/v3/assets/funnel-DtM1xN-e.svg";
-const bell = "/images/support/v3/assets/bell-hYUBIbcW.svg";
+const history = "/images/shared/history-BevL6311.svg";
+const add = "/images/shared/add-Cbob5SpL.svg";
+const expand = "/images/shared/expand-DCmbcy1L.svg";
+const close = "/images/shared/close-DsdKJYzC.svg";
+const send = "/images/shared/send-ciTszH9F.svg";
+const favorite = "/images/shared/favorite-CUi59LNH.svg";
+const insight = "/images/shared/insight-uAQ9aztG.svg";
+const caretDown = "/images/shared/caret-down-SLWfN0GR.svg";
+const aiStatus = "/images/shared/ai-status-BrMkXQfp.svg";
+const historyGold = "/images/shared/history-gold-BJyNNDvb.svg";
+const addGold = "/images/shared/add-gold-BsVrGX-2.svg";
+const expandGold = "/images/shared/expand-gold-DMlB4LYO.svg";
+const closeGold = "/images/shared/close-gold-C4NzsZzj.svg";
+const sendGold = "/images/shared/send-gold-Vhul_k2n.svg";
+const addMuted = "/images/shared/add-muted-BR3d4Eat.svg";
+const sparkle = "/images/shared/sparkle-DD7f07RS.svg";
+const lock = "/images/shared/lock-Ct-i8Zkt.svg";
+const shieldCheck = "/images/shared/shield-check-ButlZpGU.svg";
+const checks = "/images/shared/checks-Cn5ndNQt.svg";
+const union = "/images/shared/union-DvakWNG_.svg";
+const sourceDot = "/images/shared/source-dot-FmkgXLjm.svg";
+const money = "/images/shared/money-BRnIy4Hf.svg";
+const userSound = "/images/shared/user-sound-B1mWE2AQ.svg";
+const warning = "/images/shared/warning-B_MVWxpy.svg";
+const caretRight = "/images/shared/caret-right-N4DMqoC_.svg";
+const search = "/images/shared/search-6aT0QOjO.svg";
+const address = "/images/shared/address-QPOEXXur.svg";
+const spark = "/images/shared/spark-CL1SvstU.svg";
+const usersThree = "/images/shared/users-three-CNldQr4E.svg";
+const shoppingCart = "/images/shared/shopping-cart-9S1-ijDB.svg";
+const funnel = "/images/shared/funnel-DtM1xN-e.svg";
+const bell = "/images/shared/bell-hYUBIbcW.svg";
 const glyphs = {
   history,
   add,
@@ -1147,7 +1147,7 @@ function StatusSteps({
     ] })
   ] }, step.label)) });
 }
-const vitaminCSerum = "/images/support/v3/assets/vitamin-c-serum-vnf_1nLn.webp";
+const vitaminCSerum = "/images/shared/vitamin-c-serum-vnf_1nLn.webp";
 const brand = "Sorelle Labs";
 const orderTracking = {
   userMessage: "Where is my order? It's been a week.",
@@ -1476,34 +1476,34 @@ function OrderTrackingMotion$1() {
     }
   ) });
 }
-const espressoMachine = "/images/support/v3/assets/01-brewhaus-pro-espresso-machine-CnXtbuBY.webp";
-const accessoryBundle = "/images/support/v3/assets/02-brewhaus-coffee-accessory-bundle-C2tDu5VG.webp";
-const leatherFrameCase = "/images/support/v3/assets/marais-eyewear-case-JN3ZsUf8.webp";
-const silkScarf = "/images/support/v3/assets/04-marais-gold-tone-silk-scarf-CNixvkq3.webp";
-const smartSpeaker = "/images/support/v3/assets/05-waveline-compact-smart-speaker-Bnwh8J7N.webp";
-const wirelessEarbuds = "/images/support/v3/assets/06-aura-wireless-earbuds-D4tIAj5K.webp";
-const leatherWallet = "/images/support/v3/assets/07-holt-and-co-leather-bifold-wallet-Djl5CNb1.webp";
-const auden = "/images/support/v3/assets/08-auden-wave-pro-black-DBohKiBG.webp";
-const audenIvory = "/images/support/v3/assets/09-auden-viewed-headphones-ivory-DJtMgVTi.webp";
-const audenOlive = "/images/support/v3/assets/10-auden-viewed-headphones-olive-CXNlTcjR.webp";
-const audenMustard = "/images/support/v3/assets/11-auden-viewed-headphones-mustard-gold-Bfg04pgZ.webp";
-const familyAirFryer = "/images/support/v3/assets/12-family-air-fryer-CWIb1OmL.webp";
-const compactAirFryer = "/images/support/v3/assets/13-compact-air-fryer-BxJsr6WI.webp";
-const referenceLamp = "/images/support/v3/assets/14-shopper-reference-triple-dome-lamp-aevpNtcM.webp";
-const tripodLamp = "/images/support/v3/assets/15-warm-tripod-table-lamp-DHLSJYdp.webp";
-const domeLamp = "/images/support/v3/assets/16-mod-dome-table-lamp-EjQrNJOK.webp";
-const bedsideLamp = "/images/support/v3/assets/17-copper-rim-bedside-lamp-CpO5i7WX.webp";
-const foundation = "/images/support/v3/assets/lumen-second-skin-dewy-wWlLR3Lx.webp";
-const cottonShirt = "/images/support/v3/assets/19-marais-relaxed-cotton-shirt-7PfMJYiW.webp";
-const tailoredTrousers = "/images/support/v3/assets/20-straight-leg-tailored-trousers-hCDbFo78.webp";
-const leatherSneakers = "/images/support/v3/assets/21-minimal-leather-sneakers-BEbJimwc.webp";
-const aeriaCycloneProVacuum = "/images/support/v3/assets/22-aeria-cyclone-pro-vacuum-CinSe7Rh.webp";
-const aeriaCycloneMaxVacuum = "/images/support/v3/assets/aeria-cyclone-max-CqZad4Xk.webp";
-const oliveCottonShirt = "/images/support/v3/assets/marais-shirt-olive-Bh1w4gzh.webp";
-const blackLeatherSneakers = "/images/support/v3/assets/stride-sneakers-black-CuBmUkDb.webp";
-const skinVeilFoundation = "/images/support/v3/assets/lumen-skin-veil-p5bk1wp6.webp";
-const trueMatchFoundation = "/images/support/v3/assets/lumen-true-match-BhSYv85P.webp";
-const leatherCardholder = "/images/support/v3/assets/holt-cardholder-Cu4HiyUC.webp";
+const espressoMachine = "/images/shared/01-brewhaus-pro-espresso-machine-CnXtbuBY.webp";
+const accessoryBundle = "/images/shared/02-brewhaus-coffee-accessory-bundle-C2tDu5VG.webp";
+const leatherFrameCase = "/images/shared/marais-eyewear-case-JN3ZsUf8.webp";
+const silkScarf = "/images/shared/04-marais-gold-tone-silk-scarf-CNixvkq3.webp";
+const smartSpeaker = "/images/shared/05-waveline-compact-smart-speaker-Bnwh8J7N.webp";
+const wirelessEarbuds = "/images/shared/06-aura-wireless-earbuds-D4tIAj5K.webp";
+const leatherWallet = "/images/shared/07-holt-and-co-leather-bifold-wallet-Djl5CNb1.webp";
+const auden = "/images/shared/08-auden-wave-pro-black-DBohKiBG.webp";
+const audenIvory = "/images/shared/09-auden-viewed-headphones-ivory-DJtMgVTi.webp";
+const audenOlive = "/images/shared/10-auden-viewed-headphones-olive-CXNlTcjR.webp";
+const audenMustard = "/images/shared/11-auden-viewed-headphones-mustard-gold-Bfg04pgZ.webp";
+const familyAirFryer = "/images/shared/12-family-air-fryer-CWIb1OmL.webp";
+const compactAirFryer = "/images/shared/13-compact-air-fryer-BxJsr6WI.webp";
+const referenceLamp = "/images/shared/14-shopper-reference-triple-dome-lamp-aevpNtcM.webp";
+const tripodLamp = "/images/shared/15-warm-tripod-table-lamp-DHLSJYdp.webp";
+const domeLamp = "/images/shared/16-mod-dome-table-lamp-EjQrNJOK.webp";
+const bedsideLamp = "/images/shared/17-copper-rim-bedside-lamp-CpO5i7WX.webp";
+const foundation = "/images/shared/lumen-second-skin-dewy-wWlLR3Lx.webp";
+const cottonShirt = "/images/shared/19-marais-relaxed-cotton-shirt-7PfMJYiW.webp";
+const tailoredTrousers = "/images/shared/20-straight-leg-tailored-trousers-hCDbFo78.webp";
+const leatherSneakers = "/images/shared/21-minimal-leather-sneakers-BEbJimwc.webp";
+const aeriaCycloneProVacuum = "/images/shared/22-aeria-cyclone-pro-vacuum-CinSe7Rh.webp";
+const aeriaCycloneMaxVacuum = "/images/shared/aeria-cyclone-max-CqZad4Xk.webp";
+const oliveCottonShirt = "/images/shared/marais-shirt-olive-Bh1w4gzh.webp";
+const blackLeatherSneakers = "/images/shared/stride-sneakers-black-CuBmUkDb.webp";
+const skinVeilFoundation = "/images/shared/lumen-skin-veil-p5bk1wp6.webp";
+const trueMatchFoundation = "/images/shared/lumen-true-match-BhSYv85P.webp";
+const leatherCardholder = "/images/shared/holt-cardholder-Cu4HiyUC.webp";
 const cutouts = {
   espressoMachine,
   accessoryBundle,
@@ -1535,49 +1535,49 @@ const cutouts = {
   leatherCardholder
 };
 const cutoutSrcs = new Set(Object.values(cutouts));
-const amberChairImage = "/images/support/v3/assets/amber-oak-lounge-chair-Dc-4UdBJ.webp";
-const amberOpalLampImage = "/images/support/v3/assets/amber-oak-opal-glass-lamp-CSWTBSbc.webp";
-const amberPleatedLampImage = "/images/support/v3/assets/amber-oak-pleated-linen-lamp-DU9AZH7n.webp";
-const trailwellWeekenderImage = "/images/support/v3/assets/trailwell-weekender-FcXfEIMe.webp";
-const trailwellRoamImage = "/images/support/v3/assets/trailwell-roam-E1xpy3ga.webp";
-const trailwellOvernightImage = "/images/support/v3/assets/trailwell-overnight-Bh3WrqOg.webp";
-const strideCourt = "/images/support/v3/assets/court-01-CdgB4UN7.webp";
-const strideRunner = "/images/support/v3/assets/suede-runner-CgZl6zbH.webp";
-const strideLoafer = "/images/support/v3/assets/penny-loafer-B2im49V5.webp";
-const sorelleSetImage = "/images/support/v3/assets/sorelle-hydration-set-9Ig4QSA_.webp";
-const sorelleGelImage = "/images/support/v3/assets/sorelle-cloud-gel-BMJMi5HN.webp";
-const sorelleLotionImage = "/images/support/v3/assets/sorelle-barrier-lotion-ZlOVOOrp.webp";
-const sorelleCreamImage = "/images/support/v3/assets/sorelle-hydration-cream-DnCPkHXM.webp";
-const goodwell_sleep_60 = "/images/support/v3/assets/goodwell-sleep-60-CC2pkEiH.webp";
-const goodwell_sleep_28 = "/images/support/v3/assets/goodwell-sleep-28-CDykoAsw.webp";
-const goodwell_energy = "/images/support/v3/assets/goodwell-energy-DTBla5fb.webp";
-const goodwell_focus = "/images/support/v3/assets/goodwell-focus-Bg4PysvQ.webp";
-const goodwell_calm = "/images/support/v3/assets/goodwell-calm-BFGrK6_s.webp";
-const goodwell_immunity = "/images/support/v3/assets/goodwell-immunity-MpMIo6Dd.webp";
-const moonrest_sleep = "/images/support/v3/assets/moonrest-sleep-Cn_bYWCE.webp";
-const dusklight_arc = "/images/support/v3/assets/dusklight-arc-BLtDyKob.svg";
-const dusklight_linear = "/images/support/v3/assets/dusklight-linear-CNxIsC3B.svg";
-const crestlineHelmet = "/images/support/v3/assets/crestline-helmet-ByadbiwR.webp";
-const aurelleAnkletImage = "/images/support/v3/assets/beaded-gold-anklet-BD5cJanU.webp";
-const aurellePendantImage = "/images/support/v3/assets/teardrop-pendant-necklace-D-dhIf6_.webp";
-const aurelleBraceletImage = "/images/support/v3/assets/chain-link-bracelet-GsLwly7K.webp";
-const aurelleRosePendantImage = "/images/support/v3/assets/rose-gold-teardrop-pendant-D6EiuVDi.webp";
-const aurelleHaloImage = "/images/support/v3/assets/rose-gold-halo-pendant-D9hm3seh.webp";
-const aurelleBarImage = "/images/support/v3/assets/rose-gold-bar-pendant-BLV_GvgY.webp";
-const aurelleBoxChainImage = "/images/support/v3/assets/rose-gold-fine-box-chain-xCJee_59.webp";
-const aurelleSnakeChainImage = "/images/support/v3/assets/rose-gold-snake-chain-CAeWdfsC.webp";
-const aurelleCurbChainImage = "/images/support/v3/assets/rose-gold-curb-chain-JMoFIQPj.webp";
-const hydratingSerum = "/images/support/v3/assets/hydrating-serum-DkP_er3F.webp";
-const calmingSerum = "/images/support/v3/assets/calming-serum-mWPB8Rzq.webp";
-const proteinTub = "/images/support/v3/assets/gallery-main-Ct7UQJr8.webp";
-const officeChair = "/images/support/v3/assets/gallery-main-Cz-eqPt1.webp";
-const linenMidiDress = "/images/support/v3/assets/linen-midi-dress-BF9Sk3Jd.webp";
-const linenShirtDress = "/images/support/v3/assets/linen-shirt-dress-DbEpAh-k.webp";
-const linenTrousers = "/images/support/v3/assets/linen-trousers-BOqijRPF.webp";
-const balloonSleeveDress = "/images/support/v3/assets/dress-reference-OSo4OmDP.webp";
-const wavelineLaptop = "/images/support/v3/assets/laptop-bHYKckDQ.webp";
-const formworkTaskChair = "/images/support/v3/assets/also-viewed-1-B6DEocae.webp";
-const formworkExecutiveChair = "/images/support/v3/assets/also-viewed-2-DWB9-93Z.webp";
+const amberChairImage = "/images/shared/amber-oak-lounge-chair-Dc-4UdBJ.webp";
+const amberOpalLampImage = "/images/shared/amber-oak-opal-glass-lamp-CSWTBSbc.webp";
+const amberPleatedLampImage = "/images/shared/amber-oak-pleated-linen-lamp-DU9AZH7n.webp";
+const trailwellWeekenderImage = "/images/shared/trailwell-weekender-FcXfEIMe.webp";
+const trailwellRoamImage = "/images/shared/trailwell-roam-E1xpy3ga.webp";
+const trailwellOvernightImage = "/images/shared/trailwell-overnight-Bh3WrqOg.webp";
+const strideCourt = "/images/shared/court-01-CdgB4UN7.webp";
+const strideRunner = "/images/shared/suede-runner-CgZl6zbH.webp";
+const strideLoafer = "/images/shared/penny-loafer-B2im49V5.webp";
+const sorelleSetImage = "/images/shared/sorelle-hydration-set-9Ig4QSA_.webp";
+const sorelleGelImage = "/images/shared/sorelle-cloud-gel-BMJMi5HN.webp";
+const sorelleLotionImage = "/images/shared/sorelle-barrier-lotion-ZlOVOOrp.webp";
+const sorelleCreamImage = "/images/shared/sorelle-hydration-cream-DnCPkHXM.webp";
+const goodwell_sleep_60 = "/images/shared/goodwell-sleep-60-CC2pkEiH.webp";
+const goodwell_sleep_28 = "/images/shared/goodwell-sleep-28-CDykoAsw.webp";
+const goodwell_energy = "/images/shared/goodwell-energy-DTBla5fb.webp";
+const goodwell_focus = "/images/shared/goodwell-focus-Bg4PysvQ.webp";
+const goodwell_calm = "/images/shared/goodwell-calm-BFGrK6_s.webp";
+const goodwell_immunity = "/images/shared/goodwell-immunity-MpMIo6Dd.webp";
+const moonrest_sleep = "/images/shared/moonrest-sleep-Cn_bYWCE.webp";
+const dusklight_arc = "/images/shared/dusklight-arc-BLtDyKob.svg";
+const dusklight_linear = "/images/shared/dusklight-linear-CNxIsC3B.svg";
+const crestlineHelmet = "/images/shared/crestline-helmet-ByadbiwR.webp";
+const aurelleAnkletImage = "/images/shared/beaded-gold-anklet-BD5cJanU.webp";
+const aurellePendantImage = "/images/shared/teardrop-pendant-necklace-D-dhIf6_.webp";
+const aurelleBraceletImage = "/images/shared/chain-link-bracelet-GsLwly7K.webp";
+const aurelleRosePendantImage = "/images/shared/rose-gold-teardrop-pendant-D6EiuVDi.webp";
+const aurelleHaloImage = "/images/shared/rose-gold-halo-pendant-D9hm3seh.webp";
+const aurelleBarImage = "/images/shared/rose-gold-bar-pendant-BLV_GvgY.webp";
+const aurelleBoxChainImage = "/images/shared/rose-gold-fine-box-chain-xCJee_59.webp";
+const aurelleSnakeChainImage = "/images/shared/rose-gold-snake-chain-CAeWdfsC.webp";
+const aurelleCurbChainImage = "/images/shared/rose-gold-curb-chain-JMoFIQPj.webp";
+const hydratingSerum = "/images/shared/hydrating-serum-DkP_er3F.webp";
+const calmingSerum = "/images/shared/calming-serum-mWPB8Rzq.webp";
+const proteinTub = "/images/shared/gallery-main-Ct7UQJr8.webp";
+const officeChair = "/images/shared/gallery-main-Cz-eqPt1.webp";
+const linenMidiDress = "/images/shared/linen-midi-dress-BF9Sk3Jd.webp";
+const linenShirtDress = "/images/shared/linen-shirt-dress-DbEpAh-k.webp";
+const linenTrousers = "/images/shared/linen-trousers-BOqijRPF.webp";
+const balloonSleeveDress = "/images/shared/dress-reference-OSo4OmDP.webp";
+const wavelineLaptop = "/images/shared/laptop-bHYKckDQ.webp";
+const formworkTaskChair = "/images/shared/also-viewed-1-B6DEocae.webp";
+const formworkExecutiveChair = "/images/shared/also-viewed-2-DWB9-93Z.webp";
 const catalog = {
   amberLoungeChair: {
     id: "amber-oak-lounge-chair",
@@ -2161,9 +2161,9 @@ const catalog = {
     color: "Graphite"
   }
 };
-const goldHoopSet = "/images/support/v3/assets/look-1-gold-hoop-set-Qtc-fI41.webp";
-const pearlDropSet = "/images/support/v3/assets/look-2-pearl-drop-set-FKAYJEcj.webp";
-const citrineStudSet = "/images/support/v3/assets/look-3-citrine-stud-set-CKfNqm2y.webp";
+const goldHoopSet = "/images/shared/look-1-gold-hoop-set-Qtc-fI41.webp";
+const pearlDropSet = "/images/shared/look-2-pearl-drop-set-FKAYJEcj.webp";
+const citrineStudSet = "/images/shared/look-3-citrine-stud-set-CKfNqm2y.webp";
 const paperImages = /* @__PURE__ */ new Set([
   ...Object.values(catalog).filter((p) => p.brandId === "aurelle" || p.brandId === "sorelle-labs").map((p) => p.image),
   goldHoopSet,
@@ -2602,10 +2602,10 @@ function useChatTimeline(beats2, active) {
     };
   }, [beats2, index, typed, thinkStage, exitingIndex, reducedMotion, runKey]);
 }
-const mwebBg = "/images/support/v3/assets/mweb-bg-green-C8jt4i4X.webp";
-const audiencesBg = "/images/support/v3/assets/audiences_bg_3x-CeMPiv1g.webp";
-const returnReductionBg = "/images/support/v3/assets/return_reduction_bg_3x-PTzwbPCJ.webp";
-const forestBg = "/images/support/v3/assets/forest_wide_bg_3x-D-Dz7kSE.webp";
+const mwebBg = "/images/shared/mweb_440px_green-C8jt4i4X.webp";
+const audiencesBg = "/images/shared/audiences_bg_3x-CeMPiv1g.webp";
+const returnReductionBg = "/images/shared/return_reduction_bg_3x-PTzwbPCJ.webp";
+const forestBg = "/images/shared/forest_wide_bg_3x-D-Dz7kSE.webp";
 const backdrops = { green: audiencesBg, purple: returnReductionBg, forest: forestBg };
 function LandscapeCanvas({
   scene,
@@ -2621,12 +2621,12 @@ function LandscapeCanvas({
     widget && /* @__PURE__ */ jsx("div", { className: "ill-landscape-canvas__widget", children: widget })
   ] });
 }
-const priyaNair = "/images/support/v3/assets/priya-nair-BCkMHgBr.svg";
-const omarHaddad = "/images/support/v3/assets/omar-haddad-DhZ90vGZ.svg";
-const sofiaMarino = "/images/support/v3/assets/sofia-marino-DQ9d7XfE.svg";
-const emma = "/images/support/v3/assets/emma-lindqvist-BfFwzYUz.svg";
-const kenji = "/images/support/v3/assets/kenji-watanabe-DWnXW3nN.svg";
-const crosswordMark$1 = "/images/support/v3/assets/crossword-logo-C5ShBt7d.svg";
+const priyaNair = "/images/shared/priya-nair-BCkMHgBr.svg";
+const omarHaddad = "/images/shared/omar-haddad-DhZ90vGZ.svg";
+const sofiaMarino = "/images/shared/sofia-marino-DQ9d7XfE.svg";
+const emma = "/images/shared/emma-lindqvist-BfFwzYUz.svg";
+const kenji = "/images/shared/kenji-watanabe-DWnXW3nN.svg";
+const crosswordMark$1 = "/images/shared/crossword-logo-C5ShBt7d.svg";
 function RailTile({ className, initial = "A" }) {
   return /* @__PURE__ */ jsx("span", { className: className ? `rail-tile ${className}` : "rail-tile", "aria-hidden": "true", children: initial });
 }

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { DividerBand } from "@/modules/landing/components/shared/divider-band";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
+import { DividerBand } from "@/components/ui/divider-band";
+import { RailAccent } from "@/components/ui/rail-accent";
 import { Rails } from "@/modules/marketing/components/rails";
 import damask from "../assets/privacy-damask.webp";
 

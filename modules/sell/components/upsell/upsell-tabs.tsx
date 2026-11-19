@@ -5,7 +5,7 @@ import type { Icon } from "@phosphor-icons/react";
 import { PlusLines } from "@/components/ui/plus-lines";
 import { cn } from "@/lib/cn";
 import { upsellFeatures } from "../../config/upsell";
-import { ScenePanel } from "../motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
 import { upsellScenes } from "../motion-v2/scenes";
 

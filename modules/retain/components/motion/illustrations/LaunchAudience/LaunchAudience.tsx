@@ -4,12 +4,12 @@ import { StaggerText } from "../../components/ill/StaggerText";
 import { useLandedOnScreen } from "../../components/ill/useLandedOnScreen";
 import { useChatTimeline, type Beat } from "../SellMotion/useChatTimeline";
 import { launchAudience as s } from "./data";
-import priyaNairImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/priya-nair.svg";
-import omarHaddadImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/omar-haddad.svg";
-import sofiaMarinoImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/sofia-marino.svg";
-import emmaLindqvistImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/emma-lindqvist.svg";
-import kenjiWatanabeImage from "../../../../assets/motion/illustrations/LaunchAudience/avatars/kenji-watanabe.svg";
-import orgMarkImage from "../../../../assets/motion/ill-icons/crossword-logo.svg";
+import priyaNairImage from "@/modules/shared/assets/motion/illustrations/LaunchAudience/avatars/priya-nair.svg";
+import omarHaddadImage from "@/modules/shared/assets/motion/illustrations/LaunchAudience/avatars/omar-haddad.svg";
+import sofiaMarinoImage from "@/modules/shared/assets/motion/illustrations/LaunchAudience/avatars/sofia-marino.svg";
+import emmaLindqvistImage from "@/modules/shared/assets/motion/illustrations/LaunchAudience/avatars/emma-lindqvist.svg";
+import kenjiWatanabeImage from "@/modules/shared/assets/motion/illustrations/LaunchAudience/avatars/kenji-watanabe.svg";
+import orgMarkImage from "@/modules/shared/assets/motion/ill-icons/crossword-logo.svg";
 import { RailTile } from "../SupportV3/RailTile";
 
 const priyaNair = priyaNairImage.src;

@@ -1,9 +1,9 @@
 "use client";
 
 import { createContext, type ReactNode, type RefObject, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { typeText, usePrefersReducedMotion } from "@/modules/sell/components/motion/motion";
-import { ChatShell, Chip, IconButton, Skeleton, Thread } from "@/modules/sell/components/motion/primitives";
-import backgroundTexture from "../../assets/motion/background-texture.webp";
+import { typeText, usePrefersReducedMotion } from "@/modules/shared/motion/motion";
+import { ChatShell, Chip, IconButton, Skeleton, Thread } from "@/modules/shared/motion/primitives";
+import backgroundTexture from "@/modules/shared/assets/motion/ill-frame/background-texture.webp";
 import backgroundTextureAubergine from "../../assets/motion/background-texture-aubergine.webp";
 import backgroundTextureForest from "../../assets/motion/background-texture-forest.webp";
 
@@ -330,8 +330,9 @@ export function useSupportScript({
     const clear = () => timers.forEach(window.clearTimeout);
 
     if (phase === "composing") {
-      setComposerTyping(true);
-      setComposerValue("");
+      // The composer is already empty on entering this phase (cleared at the restart and at the send); it starts
+      // typing on the next tick, from a timer like every other step, rather than synchronously in the effect.
+      after(0, () => setComposerTyping(true));
       const cancelTyping = typeText(userMessage, {
         msPerStep: typeMsPerStep,
         onTick: setComposerValue,

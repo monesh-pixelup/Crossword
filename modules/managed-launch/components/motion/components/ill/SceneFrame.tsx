@@ -1,5 +1,5 @@
 import frameBackgroundImage from "@/modules/managed-launch/assets/motion/ill-frame/background.svg";
-import frameTextureImage from "@/modules/managed-launch/assets/motion/ill-frame/background-texture.webp";
+import frameTextureImage from "@/modules/shared/assets/motion/ill-frame/background-texture.webp";
 
 const frameBackground = frameBackgroundImage.src;
 const frameTexture = frameTextureImage.src;

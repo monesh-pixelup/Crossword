@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { TextLink } from "@/modules/dynamic-landing-pages/components/shared/text-link";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { TextLink } from "@/components/ui/text-link";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
 import freshdesk from "../../assets/helpdesk/freshdesk.svg";
 import gorgias from "../../assets/helpdesk/gorgias.svg";

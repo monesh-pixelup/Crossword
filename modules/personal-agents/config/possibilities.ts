@@ -1,7 +1,7 @@
 import type { ShopperQuestion } from "@/modules/ai-assistants/config/possibilities";
-import panelMaroon from "@/modules/sell/assets/discovery/panel-conversational.webp";
-import panelAubergine from "@/modules/sell/assets/discovery/panel-conversational-aubergine.webp";
-import panelForest from "@/modules/sell/assets/discovery/panel-conversational-forest.webp";
+import panelMaroon from "@/modules/shared/assets/panels/panel-conversational.webp";
+import panelAubergine from "@/modules/shared/assets/panels/panel-conversational-aubergine.webp";
+import panelForest from "@/modules/shared/assets/panels/panel-conversational-forest.webp";
 
 /** When a customer's agent shows up (Figma 3308:312): the three visible questions, each on the next damask panel. */
 export const agentQuestions: ShopperQuestion[] = [

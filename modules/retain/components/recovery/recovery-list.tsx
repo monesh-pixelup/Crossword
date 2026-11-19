@@ -1,7 +1,7 @@
 "use client";
 
 import { tabTurn } from "@/lib/use-autoplay-tabs";
-import { AccordionMedia } from "@/modules/landing/components/shared/accordion-media";
+import { AccordionMedia } from "@/components/ui/accordion-media";
 import { recoveryItems } from "../../config/recovery";
 import { RecoveryMotion } from "../motion/retain-motion";
 

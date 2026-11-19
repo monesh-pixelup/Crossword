@@ -1,9 +1,9 @@
-import jacketImage from "../../../../assets/motion/scenarios/retain/jacket.jpg";
+import jacketImage from "@/modules/shared/assets/motion/scenarios/retain/jacket.jpg";
 // 3:1 share image (the jacket shot with its own backdrop extended) — the
 // landscape og:image Messages crops a link preview to.
 import jacketShareImage from "../../../../assets/motion/scenarios/retain/jacket-share.jpg";
-import handbagAlt1Image from "../../../../assets/motion/scenarios/retain/handbag-alt-1.jpg";
-import handbagAlt2Image from "../../../../assets/motion/scenarios/retain/handbag-alt-2.jpg";
+import handbagAlt1Image from "@/modules/shared/assets/motion/scenarios/retain/handbag-alt-1.jpg";
+import handbagAlt2Image from "@/modules/shared/assets/motion/scenarios/retain/handbag-alt-2.jpg";
 import margotPreviewImage from "../../../../assets/motion/scenarios/retain-v2/marais-margot-preview.png";
 import dusklightShareImage from "../../../../assets/motion/scenarios/retain-v2/dusklight-arc-share.png";
 import aurelleOfferImage from "../../../../assets/motion/scenarios/retain-v2/aurelle-pendant-offer.png";

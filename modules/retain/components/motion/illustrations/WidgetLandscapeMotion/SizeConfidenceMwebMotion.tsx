@@ -11,7 +11,7 @@ import { LoadingFrame } from "../SellMotion/LoadingFrame";
 import { LoopWhenDone } from "../SellMotion/LoopWhenDone";
 import { AssistantText, Thinking } from "../SellMotion/parts";
 import type { Beat, Timeline } from "../SellMotion/useChatTimeline";
-import cartIconImage from "../../../../assets/motion/ill-icons/cart.svg";
+import cartIconImage from "@/modules/shared/assets/motion/ill-icons/cart.svg";
 
 const cartIcon = cartIconImage.src;
 

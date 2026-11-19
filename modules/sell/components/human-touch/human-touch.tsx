@@ -1,5 +1,5 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
+import { RailAccent } from "@/components/ui/rail-accent";
 import { ScrollHighlight } from "@/modules/support/components/intro/scroll-highlight";
 
 /**

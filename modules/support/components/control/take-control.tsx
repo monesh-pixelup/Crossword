@@ -1,8 +1,8 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import frameBackground from "../../assets/control/scene-frame-background-forest.svg";
 import frameTexture from "../../assets/control/background-texture-forest.webp";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import { SupportScenePanel } from "../motion/support-scene-panel";
 
 /**

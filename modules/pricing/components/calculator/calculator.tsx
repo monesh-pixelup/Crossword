@@ -1,6 +1,6 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { RailAccent } from "@/modules/landing/components/shared/rail-accent";
-import { SectionTitle } from "@/modules/landing/components/shared/section-title";
+import { RailAccent } from "@/components/ui/rail-accent";
+import { SectionTitle } from "@/components/ui/section-title";
 import { outcomes } from "../../config/pricing";
 import { BandDivider } from "../shared/band-divider";
 import { RoiCalculator } from "./roi-calculator";

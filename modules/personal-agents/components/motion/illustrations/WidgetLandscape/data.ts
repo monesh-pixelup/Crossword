@@ -1,9 +1,9 @@
-import jacketImage from "@/modules/personal-agents/assets/motion/scenarios/retain/jacket.jpg";
-import jacketModelImage from "@/modules/personal-agents/assets/motion/scenarios/retain/jacket-model.png";
-import jacketDetailImage from "@/modules/personal-agents/assets/motion/scenarios/retain/jacket-detail.jpg";
-import handbagViewedImage from "@/modules/personal-agents/assets/motion/scenarios/retain/handbag-viewed.jpg";
-import handbagAlt1Image from "@/modules/personal-agents/assets/motion/scenarios/retain/handbag-alt-1.jpg";
-import handbagAlt2Image from "@/modules/personal-agents/assets/motion/scenarios/retain/handbag-alt-2.jpg";
+import jacketImage from "@/modules/shared/assets/motion/scenarios/retain/jacket.jpg";
+import jacketModelImage from "@/modules/shared/assets/motion/scenarios/retain/jacket-model.png";
+import jacketDetailImage from "@/modules/shared/assets/motion/scenarios/retain/jacket-detail.jpg";
+import handbagViewedImage from "@/modules/shared/assets/motion/scenarios/retain/handbag-viewed.jpg";
+import handbagAlt1Image from "@/modules/shared/assets/motion/scenarios/retain/handbag-alt-1.jpg";
+import handbagAlt2Image from "@/modules/shared/assets/motion/scenarios/retain/handbag-alt-2.jpg";
 
 const jacket = jacketImage.src;
 const jacketModel = jacketModelImage.src;

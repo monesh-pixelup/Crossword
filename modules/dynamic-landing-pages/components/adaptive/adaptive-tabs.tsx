@@ -7,7 +7,7 @@ import { ArticleIcon, ChatCircleDotsIcon, QuestionIcon, TrendUpIcon } from "@pho
 import { PlusLines } from "@/components/ui/plus-lines";
 import { cn } from "@/lib/cn";
 import { tabTurn } from "@/lib/use-autoplay-tabs";
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import stagePhoto from "../../assets/adaptive/stage-photo.webp";
 import { type AdaptiveId, adaptiveFeatures } from "../../config/adaptive";
 import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";

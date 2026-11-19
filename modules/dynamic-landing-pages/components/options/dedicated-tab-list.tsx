@@ -2,14 +2,13 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/cn";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
-import panel from "@/modules/sell/assets/discovery/panel-conversational.webp";
-import { ScenePanel } from "@/modules/sell/components/motion/scene-panel";
+import panel from "@/modules/shared/assets/panels/panel-conversational.webp";
+import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { dedicatedTabs } from "../../config/options";
 import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
-import { TextLink } from "../shared/text-link";
+import { TextLink } from "@/components/ui/text-link";
 
 /** Each component's turn: its motion visual's run plus the hold. */
 const turns = dedicatedTabs.map((tab) => tabTurn(dlpScenes[tab.scene].duration));

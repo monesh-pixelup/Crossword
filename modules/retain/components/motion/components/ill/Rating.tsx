@@ -1,5 +1,5 @@
-import starFilledImage from "../../../../assets/motion/ill-icons/star-filled.svg";
-import starEmptyImage from "../../../../assets/motion/ill-icons/star-empty.svg";
+import starFilledImage from "@/modules/shared/assets/motion/ill-icons/star-filled.svg";
+import starEmptyImage from "@/modules/shared/assets/motion/ill-icons/star-empty.svg";
 
 const starFilled = starFilledImage.src;
 const starEmpty = starEmptyImage.src;

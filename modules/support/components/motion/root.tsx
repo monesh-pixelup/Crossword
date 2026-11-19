@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { MotionRoot } from "@/modules/sell/components/motion/primitives";
+import { MotionRoot } from "@/modules/shared/motion/primitives";
 
 import "./scenes.css";
 
