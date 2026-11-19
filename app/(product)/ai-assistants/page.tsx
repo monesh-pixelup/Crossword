@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function AiAssistantsPage() {
   return (
-    <main>
+    <main data-no-curtain>
       <AiAssistantsHero />
       <ShopperAsks />
       {/* Figma "Divider band" between sections: the 75px band (56px below 768px), its glyph naming the next section. */}

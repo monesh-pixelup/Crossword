@@ -66,11 +66,11 @@ function Field({
   );
 }
 
-function Result({ title, value }: { title: string; value: string }) {
+function Result({ title, value, sample }: { title: string; value: string; sample: boolean }) {
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-2 overflow-clip">
       <p className={label}>{title}</p>
-      <p className="font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] max-md:text-[28px] max-md:leading-[31px] max-md:tracking-[-1.4px] whitespace-nowrap text-ink">{value}</p>
+      <p className={cn("font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] max-md:text-[28px] max-md:leading-[31px] max-md:tracking-[-1.4px] whitespace-nowrap text-ink transition-opacity duration-300", sample && "opacity-50")}>{value}</p>
     </div>
   );
 }
@@ -108,6 +108,8 @@ export function RoiCalculator() {
     num(replies, calculatorDefaults.repliesPerConversation) *
     calculatorDefaults.replyPrice;
   const revenue = monthlyTraffic * num(aov, calculatorDefaults.aov) * (num(conversion, calculatorDefaults.conversionRate) / 100) * calculatorDefaults.revenueLift;
+  // While every field is empty the results are the placeholders' worked example, so they show at half strength.
+  const sample = [traffic, rate, replies, aov, conversion].every((v) => v.trim() === "");
   // Revenue over cost, once both are there to divide.
   const roi = cost > 0 && revenue > 0 ? `${multiple.format(revenue / cost)}x` : "—";
 
@@ -140,8 +142,8 @@ export function RoiCalculator() {
       </StampAction>
 
       <div aria-live="polite" className="relative flex flex-col gap-4 pt-6 shadow-[inset_0_0.5px_0_var(--color-engraved)] sm:flex-row">
-        <Result title="Estimated monthly cost" value={shown ? money.format(cost) : "—"} />
-        <Result title="Estimated revenue generated" value={shown ? money.format(revenue) : "—"} />
+        <Result title="Estimated monthly cost" value={shown ? money.format(cost) : "—"} sample={sample} />
+        <Result title="Estimated revenue generated" value={shown ? money.format(revenue) : "—"} sample={sample} />
       </div>
 
       <div className="relative flex items-center justify-between gap-4 bg-[#7d0034] px-5 py-4">
@@ -149,7 +151,7 @@ export function RoiCalculator() {
           <p className="font-open-sans leading-[1.1667] font-semibold tracking-[1.44px] text-amber uppercase">Return on investment</p>
           <p className="font-sans leading-normal text-cream">Estimated revenue &divide; estimated monthly cost, e.g. 3x</p>
         </div>
-        <p className="shrink-0 font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] max-md:text-[28px] max-md:leading-[31px] max-md:tracking-[-1.4px] whitespace-nowrap text-gold">
+        <p className={cn("shrink-0 font-serif text-[40px] leading-[1.1] font-extralight tracking-[-0.05em] max-md:text-[28px] max-md:leading-[31px] max-md:tracking-[-1.4px] whitespace-nowrap text-gold transition-opacity duration-300", sample && "opacity-50")}>
           {shown ? roi : "—"}
         </p>
       </div>

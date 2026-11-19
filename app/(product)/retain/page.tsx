@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RetainPage() {
   return (
-    <main>
+    <main data-no-curtain>
       <RetainHero />
       <ProactiveRecovery />
       {/* Figma "Divider band" between sections: the 75px band (56px below 768px), its stamp naming the next section. */}

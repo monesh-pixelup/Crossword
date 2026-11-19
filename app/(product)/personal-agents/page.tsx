@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 /** Figma "Page · Personal Agents" (3308:53): the AI Assistants page's sections with this page's copy. */
 export default function PersonalAgentsPage() {
   return (
-    <main>
+    <main data-no-curtain>
       <AiAssistantsHero
         id="personal-agents-hero-title"
         initial="Y"

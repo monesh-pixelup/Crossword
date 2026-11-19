@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function SupportPage() {
   return (
-    <main>
+    <main data-no-curtain>
       <SupportHero />
       <CustomerSupport />
       {/* Figma "Divider band" between sections: the 75px band (56px below 768px), under Customer support. */}

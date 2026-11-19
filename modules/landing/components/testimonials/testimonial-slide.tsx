@@ -45,7 +45,7 @@ type TestimonialSlideProps = {
   active: boolean;
   index: number;
   total: number;
-  /** The author's name at 38px (home), not 28px. */
+  /** The author's name at 38px (home), not 28px; on phones (below 768px) a little smaller, 30px and 24px. */
   largeName?: boolean;
 };
 
@@ -130,7 +130,7 @@ export function TestimonialSlide({ testimonial, active, index, total, largeName 
           style={at(l.author)}
         >
           <span
-            className={`font-calligraphy leading-[1.13] font-bold whitespace-nowrap text-[#121212] ${largeName ? "text-[38px] tracking-[-1.14px]" : "text-[28px] tracking-[-0.84px]"}`}
+            className={`font-calligraphy leading-[1.13] font-bold whitespace-nowrap text-[#121212] ${largeName ? "text-[38px] tracking-[-1.14px] max-md:text-[30px] max-md:tracking-[-0.9px]" : "text-[28px] tracking-[-0.84px] max-md:text-[24px] max-md:tracking-[-0.72px]"}`}
           >
             {testimonial.name}
           </span>

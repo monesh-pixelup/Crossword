@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function SellPage() {
   return (
-    <main>
+    <main data-no-curtain>
       <SellHero />
       <ProductDiscovery />
       {/* Figma "Divider band" between each section: the 75px band (56px below 768px), its stamp naming the next section. */}

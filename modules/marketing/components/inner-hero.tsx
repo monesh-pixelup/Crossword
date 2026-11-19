@@ -28,8 +28,9 @@ type InnerHeroProps = {
  * in luminosity) and the soft-light flourish; a 209px gold tick on each page rail, 111px down. 1440 × 571 at full
  * size; the ornaments scale with the width below that, from the foot.
  *
- * The page's rails are drawn by the hero itself, as the cream heroes do, since the sections slide up over it (the hero
- * curtain) and the page's own rails start at its foot.
+ * The inner pages opt out of the hero curtain (`data-no-curtain` on their <main>), so the hero scrolls away with the
+ * page. The page's rails are drawn by the hero itself, as on the journal's heroes, since the page's own rails start
+ * at its foot.
  */
 export function InnerHero({ id, initial, lines, copy, cta = "BOOK A DEMO" }: InnerHeroProps) {
   return (

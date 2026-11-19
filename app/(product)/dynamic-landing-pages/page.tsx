@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function DynamicLandingPagesPage() {
   return (
-    <main>
+    <main data-no-curtain>
       <DynamicHero />
       <RoasGap />
       {/* Figma "Divider band" between each section from here on: the 75px band (56px below 768px), its glyph naming the next section. */}

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function ManagedLaunchPage() {
   return (
-    <main>
+    <main data-no-curtain>
       <LaunchHero />
       <Commitment />
       {/* Figma 3810:34470: a plain 75px divider band (no badge) under Managed launch and progress. */}

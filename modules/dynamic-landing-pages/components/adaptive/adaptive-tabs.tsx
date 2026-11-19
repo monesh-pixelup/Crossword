@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { SwapFade } from "@/components/ui/crossfade";
 import type { Icon } from "@phosphor-icons/react";
@@ -9,7 +8,6 @@ import { PlusLines } from "@/components/ui/plus-lines";
 import { cn } from "@/lib/cn";
 import { tabTurn } from "@/lib/use-autoplay-tabs";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
-import stagePhoto from "../../assets/adaptive/stage-photo.webp";
 import { type AdaptiveId, adaptiveFeatures } from "../../config/adaptive";
 import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
 
@@ -140,8 +138,6 @@ export function AdaptiveTabs() {
         aria-labelledby={`${id}-tab-${active}`}
         className="relative w-full overflow-hidden max-[1259px]:hidden min-[1260px]:w-[min(738px,60%)] min-[1260px]:shrink-0"
       >
-        {/* The bare stage under the visual, until it draws (the visual sits on the same photo). */}
-        <Image src={stagePhoto} alt="" fill sizes="(min-width: 1260px) 738px, 100vw" className="object-cover" />
         {/*
           The chosen feature's visual, keyed to play from the start each time it is chosen. It covers the stage: beside
           the tabs, the stage takes the tab column's height, so the visual's photo margins give way rather than leave a band.
@@ -246,10 +242,7 @@ export function AdaptiveTabs() {
                   <div className="px-6 pb-6 md:px-10 md:pb-10">
                     <div className="relative aspect-[738/760] w-full overflow-hidden">
                       {wide !== true && (selected || i === closing) && (
-                        <>
-                          <Image src={stagePhoto} alt="" fill sizes="100vw" className="object-cover" />
-                          <ScenePanel key={`${i}-${run}`} scene={dlpScenes[feature.scene]} root={DlpMotionRoot} cover />
-                        </>
+                        <ScenePanel key={`${i}-${run}`} scene={dlpScenes[feature.scene]} root={DlpMotionRoot} cover />
                       )}
                     </div>
                   </div>
