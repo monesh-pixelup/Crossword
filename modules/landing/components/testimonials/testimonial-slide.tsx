@@ -20,18 +20,13 @@ const layouts = {
     card: "lg:top-0 lg:h-[408px]",
     quote: { left: 41, top: 29 },
     author: { left: 41, top: 324 },
-    // The damask ornament is one export, shown 1.1844x larger on side slides.
+    // The damask ornament: the same on every slide (it used to be drawn 1.1844x larger on side slides).
     ornament: { clipLeft: 201, left: 0, top: 0.21, width: 193, height: 269 },
-    portrait: { left: 73.17, top: 99.32 },
-    stamp: { left: 1.678, top: 256.533 },
   },
   inactive: {
     card: "lg:top-6 lg:h-[360px]",
     quote: { left: 40.55, top: 18.71 },
     author: { left: 40.55, top: 287 },
-    ornament: { clipLeft: 200.55, left: -43.96, top: -44, width: 228.58, height: 318.59 },
-    portrait: { left: 72.72, top: 75.32 },
-    stamp: { left: -10.062, top: 229.353 },
   },
 } as const;
 
@@ -76,28 +71,29 @@ export function TestimonialSlide({ testimonial, active, index, total, largeName 
             "absolute right-0 bottom-0 h-[389px] w-[394px] [zoom:0.6497] max-xs:[zoom:0.5685] md:[zoom:0.8122] lg:right-auto lg:bottom-auto lg:left-[450px] lg:top-[19px] lg:[zoom:1]",
           )}
         >
-          <div
-            className={`absolute -top-[19px] right-0 bottom-0 overflow-clip lg:left-(--l) ${move}`}
-            style={{ "--l": `${l.ornament.clipLeft}px`, left: layouts.active.ornament.clipLeft } as CSSProperties}
-          >
+          {/*
+            The art (damask, portrait, stamp) is fixed in its card (by request): the same size and the same place from
+            the card's top-right on every slide, the centre slide's, with no transition of its own. A side slide's
+            card is 48px shorter from 992px, so there its foot simply crops a little more of the portrait and stamp.
+          */}
+          <div className="absolute -top-[19px] right-0 bottom-0 overflow-clip" style={{ left: layouts.active.ornament.clipLeft }}>
             <Image
               src={ornament}
               alt=""
-              sizes="229px"
-              className="absolute max-w-none transition-[left,top,width,height] duration-500 ease-out motion-reduce:transition-none"
+              sizes="193px"
+              className="absolute max-w-none"
               style={{
-                left: l.ornament.left,
-                top: l.ornament.top + 19,
-                width: l.ornament.width,
-                height: l.ornament.height,
+                left: layouts.active.ornament.left,
+                top: layouts.active.ornament.top + 19,
+                width: layouts.active.ornament.width,
+                height: layouts.active.ornament.height,
               }}
             />
           </div>
 
           <PortraitCard
             color={testimonial.cardColor}
-            className={`absolute left-[73.17px] top-[99.32px] lg:left-(--l) lg:top-(--t) ${move}`}
-            style={at(l.portrait)}
+            className="absolute top-[99.32px] left-[73.17px]"
           />
 
           {/*
@@ -110,8 +106,7 @@ export function TestimonialSlide({ testimonial, active, index, total, largeName 
             src={stamp}
             alt=""
             sizes="131px"
-            className={`absolute top-[256.533px] left-[1.678px] h-[127.358px] w-[130.484px] max-w-none lg:left-(--l) lg:top-(--t) ${move}`}
-            style={at(l.stamp)}
+            className="absolute top-[256.533px] left-[1.678px] h-[127.358px] w-[130.484px] max-w-none"
           />
         </div>
 
