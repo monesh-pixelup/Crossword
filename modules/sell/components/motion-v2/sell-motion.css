@@ -98,3 +98,13 @@
    wherever drop the caption under their panel (the brand name / placement line), as the third card has none; each is
    then just its 413 × 402 panel. */
 .sf-nocap .cw-sell-v2 :is(.bwc-caption, .piw2c-captions) { display: none; }
+
+/*
+ * Site addition: Human mode's chapters (34b, and 34m's tabs on phones) set in the same type as the Upsell tabs beside
+ * it on the page (upsell-tabs.tsx): the title in Crimson 22px at 1.0909 (20px on phones), the description in Geist
+ * 16/24 (15/22 on phones), both at regular weight (400), as there; the description at 80% opacity over its own cream (as the home page blog list's excerpts). On phones the title may wrap, as the Upsell titles do, rather than stay on one line.
+ */
+.cw-sell-v2 .hm2-step__title { font-family: var(--font-crimson-pro), Georgia, serif; font-weight: 400; font-size: 22px; line-height: 1.0909; letter-spacing: -0.88px; }
+.cw-sell-v2 .hm2-step__body { font-family: var(--font-geist), sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; letter-spacing: -0.32px; opacity: 0.8; }
+.cw-sell-v2 .hm2-chapters--mweb .hm2-step__title { font-size: 20px; line-height: 1.0909; letter-spacing: -0.8px; white-space: normal; }
+.cw-sell-v2 .hm2-chapters--mweb .hm2-step__body { font-weight: 400; font-size: 15px; line-height: 22px; letter-spacing: -0.3px; opacity: 0.8; }
