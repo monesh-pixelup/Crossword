@@ -37,11 +37,6 @@ const TRANSPARENT_ROUTES = ["/"]; // The inner pages' cream heroes (InnerHero) s
  */
 const HERO_ONLY_ROUTES = ["/"];
 
-/**
- * Of those, pages whose bar fills (dark and cream) run the full viewport width like their hero,
- * past the 1440px cap; the contents and the rails keep to the cap.
- */
-const FULL_BLEED_ROUTES = ["/", "/dynamic-landing-pages", "/conversational-interface", "/support", "/retain", "/managed-launch", "/pricing", "/ai-assistants", "/personal-agents"];
 
 /** Scrolled past this many pixels, the transparent header takes on its dark bar. */
 const THRESHOLD = 10;
@@ -487,13 +482,13 @@ function MenuItem({
 }
 
 /**
- * The links and buttons, shared by both headers; `light` sets them cream for dark grounds and
- * `fullBleed` runs the Platform panel's fill the full viewport width. `onMenuChange` hears when the
+ * The links and buttons, shared by both headers; `light` sets them cream for dark grounds. The Platform panel's fill
+ * runs the full viewport width on every page (`fullBleed`, on unless a caller says otherwise). `onMenuChange` hears when the
  * mobile menu opens or closes, `onDropdownChange` when a desktop menu does.
  */
 function Contents({
   light,
-  fullBleed = false,
+  fullBleed = true,
   onMenuChange,
   onDropdownChange,
 }: {
@@ -566,7 +561,6 @@ export function SiteHeader({ latestPostHref = "/blog" }: { latestPostHref?: stri
 function HeaderBar() {
   const pathname = usePathname();
   const transparent = TRANSPARENT_ROUTES.includes(pathname);
-  const fullBleed = FULL_BLEED_ROUTES.includes(pathname);
   const { scrolled, pastHero } = useScrolled(transparent, HERO_ONLY_ROUTES.includes(pathname));
   // Whether the overlay bar's mobile menu or a desktop menu is open: the bar takes on the dark fill even unscrolled.
   const [menuOpen, setMenuOpen] = useState(false);
@@ -576,7 +570,8 @@ function HeaderBar() {
     // Past the hero (HERO_ONLY_ROUTES) the cream bar crossfades in over the dark one, fill, rule and contents together.
     const dark = (scrolled || menuOpen || dropdownOpen) && !pastHero;
     const fade = "transition-opacity duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
-    const fill = fullBleed ? "inset-y-0 left-1/2 w-screen -translate-x-1/2" : "inset-0";
+    // The bar's fills run the full viewport width, past the 1440px cap (the contents and the rails keep to the cap).
+    const fill = "inset-y-0 left-1/2 w-screen -translate-x-1/2";
     return (
       <header className="fixed inset-x-0 top-0 z-50">
         {/* The hairlines run the full viewport width, past the 1440px cap. */}
@@ -593,11 +588,11 @@ function HeaderBar() {
           */}
           <div className="grid">
             <div inert={pastHero} className={cn("col-start-1 row-start-1 flex content-width items-center justify-between py-4", fade, pastHero ? "opacity-0" : "opacity-100")}>
-              <Contents light fullBleed={fullBleed} onMenuChange={setMenuOpen} onDropdownChange={setDropdownOpen} />
+              <Contents light onMenuChange={setMenuOpen} onDropdownChange={setDropdownOpen} />
             </div>
             {HERO_ONLY_ROUTES.includes(pathname) && (
               <div inert={!pastHero} className={cn("col-start-1 row-start-1 flex content-width items-center justify-between py-4", fade, pastHero ? "opacity-100" : "opacity-0")}>
-                <Contents light={false} fullBleed={fullBleed} />
+                <Contents light={false} />
               </div>
             )}
           </div>
