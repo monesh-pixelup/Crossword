@@ -51,7 +51,7 @@ export const post = defineType({
     defineField({
       name: "cover",
       title: "Cover image",
-      description: "Optional. Without one, the post uses the journal's maroon cover art. Best at 2:1 (e.g. 1600 × 800).",
+      description: "Optional. Without one, the post uses one of the journal's six cover designs, in turn. Best at 761 × 296 (about 2.6:1, e.g. 2283 × 888).",
       type: "image",
       options: { hotspot: true },
     }),

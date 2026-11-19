@@ -34,6 +34,11 @@ export type BlogPostSummary = {
   cover: { src: string; position: string } | null;
   /** Who wrote it (null: none chosen, shown as the Crossword team), with their photo cropped square if they have one. */
   author: { name: string; role: string; photo: string | null } | null;
+  /**
+   * The post's place in the journal counted from the oldest (0), which picks its cover art when it has no cover of its
+   * own (see cover-art.ts). Counted from the oldest so a new post doesn't change the others' covers.
+   */
+  coverIndex: number;
 };
 
 export type BlogPost = BlogPostSummary & {
@@ -46,7 +51,7 @@ export type BlogPost = BlogPostSummary & {
 
 type RawCover = (SanityImageSource & { asset?: unknown; hotspot?: { x: number; y: number } }) | null;
 type RawAuthor = { name: string | null; role: string | null; photo: RawCover } | null;
-type RawPost = Omit<BlogPostSummary, "date" | "cover" | "author"> & {
+type RawPost = Omit<BlogPostSummary, "date" | "cover" | "author" | "coverIndex"> & {
   publishedAt: string | null;
   cover: RawCover;
   author: RawAuthor;
@@ -73,9 +78,10 @@ const categoriesQuery = defineQuery(`*[_type == "category" && defined(title)] | 
 
 const dateFormat = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
-function summarize({ publishedAt, cover, author, body: _body, ...post }: RawPost): BlogPostSummary {
+function summarize({ publishedAt, cover, author, body: _body, ...post }: RawPost, coverIndex: number): BlogPostSummary {
   return {
     ...post,
+    coverIndex,
     author: author?.name
       ? {
           name: author.name,
@@ -131,7 +137,7 @@ export async function getPosts(): Promise<BlogPostSummary[]> {
   cacheTag(BLOG_TAG);
   cacheLife("hours");
   const posts = await client.fetch<RawPost[]>(postsQuery);
-  return posts.map(summarize);
+  return posts.map((post, i) => summarize(post, posts.length - 1 - i));
 }
 
 /** The post at `slug`, with its article, if there is one. */
@@ -141,9 +147,11 @@ export async function getPost(slug: string): Promise<BlogPost | null> {
   cacheLife("hours");
   const post = await client.fetch<RawPost | null>(postQuery, { slug });
   if (!post) return null;
+  // Its cover art follows its place in the journal, as on the journal's card.
+  const coverIndex = (await getPosts()).find((p) => p.slug === slug)?.coverIndex ?? 0;
   const body = post.body ?? [];
   const words = body.reduce((n, block) => n + plainText(block).split(/\s+/).filter(Boolean).length, 0);
-  return { ...summarize(post), ...splitBody(body), readingMinutes: Math.max(1, Math.round(words / 230)) };
+  return { ...summarize(post, coverIndex), ...splitBody(body), readingMinutes: Math.max(1, Math.round(words / 230)) };
 }
 
 /** The journal's filters, in their set order. */

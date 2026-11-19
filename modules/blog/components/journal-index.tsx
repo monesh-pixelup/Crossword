@@ -1,12 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/cn";
-import cover from "../assets/post-cover.webp";
 import paper from "../assets/paper-tile.webp";
 import type { BlogPostSummary } from "../lib/posts";
+import { PostCover } from "./post-cover";
 
 /** The cards' paper: cream under Figma's paper tile at 432.6px, multiplied in at 11%. */
 function Paper() {
@@ -22,8 +21,8 @@ function Paper() {
 }
 
 /**
- * A post card (Figma "A", 1660:976 and on): a black/15 line around the paper, 16px in: the maroon cover (371.7 ×
- * 184.6, exported from Figma at 3x), then 16px under it a 98px block with the title (Crimson 20 at 1.1) at its top and
+ * A post card (Figma "A", 1660:976 and on): a black/15 line around the paper, 16px in: the cover (at the Figma blog
+ * templates' 761 × 296 shape with the post's title on it, see PostCover), then 16px under it a 98px block with the title (Crimson 20 at 1.1) at its top and
  * the details (Geist Mono Medium 10, caps, 60%) at its foot.
  */
 function PostCard({ post }: { post: BlogPostSummary }) {
@@ -31,7 +30,7 @@ function PostCard({ post }: { post: BlogPostSummary }) {
   const body = (
     <>
       <Paper />
-      <Cover post={post} sizes={sizes} className="aspect-[371.668/184.587]" />
+      <PostCover post={post} sizes={sizes} />
       <div className="relative flex min-h-[98px] w-full flex-col items-start justify-between gap-4 leading-[1.1] text-black [word-break:break-word]">
         <h3 className="font-serif text-[20px] font-normal tracking-[-0.2px]">{post.title}</h3>
         <p className="font-mono text-[10px] font-medium tracking-[0.8px] uppercase opacity-60">
@@ -50,19 +49,6 @@ function PostCard({ post }: { post: BlogPostSummary }) {
   );
 }
 
-/** The cover art for a post: the editor's cover from Sanity (cropped around its hotspot), else the journal's own. */
-function Cover({ post, sizes, className }: { post: BlogPostSummary; sizes: string; className?: string }) {
-  return (
-    <div className={cn("relative w-full overflow-hidden", className)}>
-      {post.cover ? (
-        <Image src={post.cover.src} alt="" fill sizes={sizes} className="object-cover" style={{ objectPosition: post.cover.position }} />
-      ) : (
-        <Image src={cover} alt="" fill sizes={sizes} className="object-cover" />
-      )}
-    </div>
-  );
-}
-
 /** A small right arrow, in the current colour (the text links' and the pagination's). */
 function Arrow({ className }: { className?: string }) {
   return (
@@ -74,7 +60,7 @@ function Arrow({ className }: { className?: string }) {
 
 /**
  * The lead story at the top of the journal (as reducto.ai/blog leads with its newest post): one wide card on the same
- * paper and black/15 line as the others, its cover (at its own 2:1 frame, as the cards', so nothing is cut off) across the
+ * paper and black/15 line as the others, its cover (at its own 761 × 296 shape, as the cards', so nothing is cut off) across the
  * left 58% and, beside it, the details in Geist Mono caps,
  * the title in Crimson Light 40, its summary in Geist 16 and READ ARTICLE over a hairline. Stacked below 992px.
  */
@@ -85,11 +71,7 @@ function LeadPost({ post }: { post: BlogPostSummary }) {
       className="group relative grid overflow-clip border border-black/15 p-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon lg:grid-cols-[58fr_42fr] lg:gap-10"
     >
       <Paper />
-      <Cover
-        post={post}
-        sizes="(min-width: 1440px) 716px, (min-width: 992px) 55vw, 100vw"
-        className="aspect-[371.668/184.587] lg:self-center"
-      />
+      <PostCover post={post} sizes="(min-width: 1440px) 716px, (min-width: 992px) 55vw, 100vw" className="lg:self-center" />
       <div className="relative flex flex-col items-start justify-between gap-8 pt-6 pb-2 lg:py-4 lg:pr-6">
         <div className="flex flex-col items-start gap-5">
           <p className="font-mono text-[10px] leading-[1.1] font-medium tracking-[0.8px] text-black/60 uppercase">

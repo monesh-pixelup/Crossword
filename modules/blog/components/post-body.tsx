@@ -1,6 +1,5 @@
-import Image from "next/image";
 import { PortableText, type PortableTextComponents } from "next-sanity";
-import cover from "../assets/post-cover.webp";
+import { PostCover } from "./post-cover";
 import type { BlogPost, BodyBlock, PostTableBlock } from "../lib/posts";
 import { PostIndex } from "./post-index";
 
@@ -50,7 +49,7 @@ function RichText({ value }: { value: BodyBlock[] }) {
 /**
  * A post's body, after the Limelight "Blog Slug" layout (Figma 1655:2499) in the site's design: the article and, 40px
  * beside it, the 367px Index, which stays in view under the header as the article scrolls. The article is the cover
- * (793 × 354 in Figma, the journal's cover art or the post's own image, in a black/15 line), the intro, then each part
+ * (at the covers' 761 × 296 shape: the post's own image, or the journal's cover art in turn, in a black/15 line), the intro, then each part
  * 40px apart: its heading (Crimson Light 32/35, Headings/S) 24px over its paragraphs. Below 1024px the Index sits above
  * the article; on phones (below 768px) it is left out.
  */
@@ -66,13 +65,7 @@ export function PostBody({ post }: { post: BlogPost }) {
         </div>
 
         <article className="flex min-w-0 flex-col gap-10 lg:order-1">
-          <div className="relative aspect-[793/354] w-full overflow-hidden border border-black/15">
-            {post.cover ? (
-              <Image src={post.cover.src} alt="" priority sizes={sizes} className="object-cover" style={{ objectPosition: post.cover.position }} fill />
-            ) : (
-              <Image src={cover} alt="" priority sizes={sizes} className="object-cover" fill />
-            )}
-          </div>
+          <PostCover post={post} sizes={sizes} priority className="border border-black/15" />
 
           <div id="introduction" className="flex scroll-mt-[112px] flex-col gap-4 pb-6">
             <RichText value={post.intro} />
