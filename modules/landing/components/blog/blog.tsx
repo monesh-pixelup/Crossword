@@ -122,7 +122,7 @@ function RecentPosts({ recentPosts }: { recentPosts: BlogPost[] }) {
                 <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] font-normal tracking-[-0.88px] text-ink motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
                   {post.title}
                 </h3>
-                <p className="font-sans text-[14px] leading-5 font-normal tracking-[-0.28px] text-ink-soft motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
+                <p className="font-sans text-[14px] leading-5 font-normal tracking-[-0.28px] text-ink-soft opacity-80 motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-[cubic-bezier(0.25,1,0.5,1)] motion-safe:group-hover:translate-x-2 motion-safe:group-focus-visible:translate-x-2">
                   {post.excerpt}
                 </p>
               </div>

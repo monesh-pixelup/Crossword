@@ -92,7 +92,6 @@ export const footerCompanyLinks: FooterLink[] = [
   { label: "Blog", href: "/blog" },
   { label: "Book a Demo", href: ctaLinks.bookDemo },
   { label: "Privacy", href: "/privacy" },
-  { label: "Terms of Service", href: "#terms" },
 ];
 
 /** Platform links in two groups; Figma fades only the "Sell" label. */
