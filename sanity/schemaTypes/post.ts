@@ -25,6 +25,13 @@ export const post = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "author",
+      title: "Author",
+      description: "Who wrote it: shown under the title with their role and photo. Without one, the post is by “Crossword team”.",
+      type: "reference",
+      to: [{ type: "author" }],
+    }),
+    defineField({
       name: "publishedAt",
       title: "Publication date",
       description: "Shown on the post. The journal lists the newest first.",
@@ -110,7 +117,11 @@ export const post = defineType({
   ],
   orderings: [{ title: "Newest first", name: "newest", by: [{ field: "publishedAt", direction: "desc" }] }],
   preview: {
-    select: { title: "title", category: "category.title", date: "publishedAt", media: "cover" },
-    prepare: ({ title, category, date, media }) => ({ title, subtitle: [category, date].filter(Boolean).join(" · "), media }),
+    select: { title: "title", category: "category.title", author: "author.name", date: "publishedAt", media: "cover" },
+    prepare: ({ title, category, author, date, media }) => ({
+      title,
+      subtitle: [category, author, date].filter(Boolean).join(" · "),
+      media,
+    }),
   },
 });

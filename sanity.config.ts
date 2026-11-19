@@ -25,11 +25,12 @@ export default defineConfig({
           .items([
             S.documentTypeListItem("post").title("Blog posts"),
             S.documentTypeListItem("category").title("Categories"),
+            S.documentTypeListItem("author").title("Authors"),
           ]),
     }),
   ],
-  // Only the post and category documents can be created from the Studio's "+" menu (a table lives inside a post).
+  // Only the post, category and author documents can be created from the Studio's "+" menu (a table lives inside a post).
   document: {
-    newDocumentOptions: (prev) => prev.filter(({ templateId }) => templateId === "post" || templateId === "category"),
+    newDocumentOptions: (prev) => prev.filter(({ templateId }) => ["post", "category", "author"].includes(templateId)),
   },
 });

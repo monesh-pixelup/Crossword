@@ -3,7 +3,7 @@
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { StampButton } from "@/components/ui/stamp-button";
 import { cn } from "@/lib/cn";
 import crosswordMarkLight from "../assets/crossword-mark-light.svg";
@@ -283,7 +283,11 @@ function PlatformItem({
  * - The 304 × 111 Insight card, 10px over a READ MORE link.
  * Below 1440px the gaps and columns close up.
  */
+/** The newest blog post's page (from SiteShell, newest in Sanity), which the Platform menu's READ MORE opens. */
+const LatestPostHref = createContext("/blog");
+
 function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; fullBleed: boolean; open: boolean; onChoose: () => void }) {
+  const latestPostHref = useContext(LatestPostHref);
   const rule = light ? "bg-white/10" : "bg-rail/50";
   return (
     <div className={cn("absolute inset-x-0 top-full isolate", reveal(open))}>
@@ -343,7 +347,7 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
             <Image src={light ? featureCardDark : featureCardLight} alt={platformMenu.feature.alt} sizes="305px" className="h-auto w-full" />
           </Link>
           <Link
-            href={platformMenu.feature.href}
+            href={latestPostHref}
             onClick={onChoose}
             className={cn(
               "flex items-center gap-2 border-b p-[2px] font-serif text-[14px] leading-[22px] tracking-[-0.42px] whitespace-nowrap uppercase transition-opacity duration-150 hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon",
@@ -548,9 +552,18 @@ function Contents({
  *   behind them over 300ms. On HERO_ONLY_ROUTES that lasts while the hero is under the header;
  *   past it the header is the cream bar (still with no spacer).
  *
- * Both bars carry the Platform menu (full width) and the Resources list.
+ * Both bars carry the Platform menu (full width) and the Resources list. The Platform menu's READ MORE opens
+ * `latestPostHref`, the newest blog post (the journal when there's none).
  */
-export function SiteHeader() {
+export function SiteHeader({ latestPostHref = "/blog" }: { latestPostHref?: string }) {
+  return (
+    <LatestPostHref value={latestPostHref}>
+      <HeaderBar />
+    </LatestPostHref>
+  );
+}
+
+function HeaderBar() {
   const pathname = usePathname();
   const transparent = TRANSPARENT_ROUTES.includes(pathname);
   const fullBleed = FULL_BLEED_ROUTES.includes(pathname);

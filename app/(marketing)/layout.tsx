@@ -1,5 +1,6 @@
+import { getLatestPostHref } from "@/modules/blog/lib/posts";
 import { SiteShell } from "@/modules/marketing";
 
-export default function MarketingLayout({ children }: LayoutProps<"/">) {
-  return <SiteShell>{children}</SiteShell>;
+export default async function MarketingLayout({ children }: LayoutProps<"/">) {
+  return <SiteShell latestPostHref={await getLatestPostHref()}>{children}</SiteShell>;
 }

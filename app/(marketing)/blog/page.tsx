@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { BlogHero } from "@/modules/blog/components/blog-hero";
 import { JournalIndex } from "@/modules/blog/components/journal-index";
 import { getCategories, getPosts } from "@/modules/blog/lib/posts";
 import { CtaEnvelope, Testimonials } from "@/modules/landing";
@@ -11,16 +10,16 @@ export const metadata: Metadata = {
 };
 
 /**
- * Page · Blog (Figma 1660:312): the hero, the journal's filters and posts, the testimonials, then the envelope CTA.
+ * Page · Blog (Figma 1660:312), without its hero: the journal's filters and posts (its heading for screen readers only), the testimonials, then the envelope CTA.
  * The posts and filters come from Sanity (see modules/blog/lib/posts.ts).
  */
 export default async function BlogPage() {
   const [posts, categories] = await Promise.all([getPosts(), getCategories()]);
 
   return (
-    // No hero curtain here: the journal scrolls in below the hero instead of sliding up over its headline.
+    // No hero, so no hero curtain: the page simply scrolls.
     <main data-no-curtain>
-      <BlogHero />
+      <h1 className="sr-only">Blog</h1>
       <JournalIndex posts={posts} categories={categories} />
       <Testimonials variant="blog" />
       {/* The patterned divider band across the top of the envelope section, between the page rails (as on the home page). */}

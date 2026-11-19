@@ -20,11 +20,15 @@ import { SiteHeader } from "./site-header";
  * So the rails are drawn after the page, over the sections' cream, and start at the hero's foot (`--rails-top`), so
  * they ride up with the sections without drawing over the hero; with no hero they start 72.5px up, as before.
  */
-export function SiteShell({ children }: { children: ReactNode }) {
+/**
+ * `latestPostHref` is the newest blog post's page, for the header's READ MORE (the layouts look it up with
+ * getLatestPostHref, so this file stays clear of the server-only blog data: the marketing barrel reaches client code).
+ */
+export function SiteShell({ children, latestPostHref }: { children: ReactNode; latestPostHref?: string }) {
   return (
     <div className="overflow-x-clip">
       <div className="relative mx-auto max-w-[1440px]">
-        <SiteHeader />
+        <SiteHeader latestPostHref={latestPostHref} />
         <div className="site-rails-host @container relative">
           {children}
           <div aria-hidden className="site-rails pointer-events-none absolute inset-x-0 bottom-0 top-(--rails-top,-72.5px)">
@@ -38,3 +42,4 @@ export function SiteShell({ children }: { children: ReactNode }) {
     </div>
   );
 }
+

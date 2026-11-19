@@ -32,16 +32,26 @@ export type BlogPostSummary = {
   featured: boolean;
   /** The editor's cover image (null: the journal's own cover art), and where its hotspot sits for object-position. */
   cover: { src: string; position: string } | null;
+  /** Who wrote it (null: none chosen, shown as the Crossword team), with their photo cropped square if they have one. */
+  author: { name: string; role: string; photo: string | null } | null;
 };
 
 export type BlogPost = BlogPostSummary & {
   /** What comes before the first section heading (the Index's "Introduction"). */
   intro: BodyBlock[];
   sections: BlogSection[];
+  /** Reading time in minutes, from the article's length (at 230 words a minute, at least 1). */
+  readingMinutes: number;
 };
 
 type RawCover = (SanityImageSource & { asset?: unknown; hotspot?: { x: number; y: number } }) | null;
-type RawPost = Omit<BlogPostSummary, "date" | "cover"> & { publishedAt: string | null; cover: RawCover; body?: BodyBlock[] };
+type RawAuthor = { name: string | null; role: string | null; photo: RawCover } | null;
+type RawPost = Omit<BlogPostSummary, "date" | "cover" | "author"> & {
+  publishedAt: string | null;
+  cover: RawCover;
+  author: RawAuthor;
+  body?: BodyBlock[];
+};
 
 const fields = `
   "slug": slug.current,
@@ -51,7 +61,8 @@ const fields = `
   publishedAt,
   "summary": coalesce(summary, ""),
   "featured": coalesce(featured, false),
-  cover
+  cover,
+  "author": author->{ name, role, photo }
 `;
 
 const postsQuery = defineQuery(
@@ -62,9 +73,16 @@ const categoriesQuery = defineQuery(`*[_type == "category" && defined(title)] | 
 
 const dateFormat = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
-function summarize({ publishedAt, cover, body: _body, ...post }: RawPost): BlogPostSummary {
+function summarize({ publishedAt, cover, author, body: _body, ...post }: RawPost): BlogPostSummary {
   return {
     ...post,
+    author: author?.name
+      ? {
+          name: author.name,
+          role: author.role ?? "",
+          photo: author.photo?.asset ? urlFor(author.photo).width(160).height(160).fit("crop").url() : null,
+        }
+      : null,
     date: publishedAt ? dateFormat.format(new Date(`${publishedAt}T00:00:00Z`)) : "",
     cover: cover?.asset
       ? {
@@ -123,7 +141,9 @@ export async function getPost(slug: string): Promise<BlogPost | null> {
   cacheLife("hours");
   const post = await client.fetch<RawPost | null>(postQuery, { slug });
   if (!post) return null;
-  return { ...summarize(post), ...splitBody(post.body ?? []) };
+  const body = post.body ?? [];
+  const words = body.reduce((n, block) => n + plainText(block).split(/\s+/).filter(Boolean).length, 0);
+  return { ...summarize(post), ...splitBody(body), readingMinutes: Math.max(1, Math.round(words / 230)) };
 }
 
 /** The journal's filters, in their set order. */
@@ -132,4 +152,17 @@ export async function getCategories(): Promise<string[]> {
   cacheTag(BLOG_TAG);
   cacheLife("hours");
   return client.fetch<string[]>(categoriesQuery);
+}
+
+/**
+ * The newest post's page, for the header's READ MORE (getPosts is newest first, cached and refreshed when a post is
+ * published). With no posts, or Sanity out of reach, the journal.
+ */
+export async function getLatestPostHref(): Promise<string> {
+  try {
+    const [latest] = await getPosts();
+    return latest ? `/blog/${latest.slug}` : "/blog";
+  } catch {
+    return "/blog";
+  }
 }
