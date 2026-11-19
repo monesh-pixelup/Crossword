@@ -66,8 +66,8 @@ export function SupportMotionRoot({ children }: { children: ReactNode }) {
  * | 01–06 `order-tracking` … `return-eligibility` | 788 × 579 | resolve/resolve-tabs.tsx |
  * | 11 `help-desk-dashboard` (and 11m `help-desk-mweb`, 353 × 440) | 1280 × 599 | helpdesk/helpdesk-options.tsx |
  * | `merchant-helpdesk-inbox` (the source's archived 07, no longer on the page) | 738 × 680 | — |
- * | 08 `merchant-insight` (the source's archived 08, kept on this page) | 687 × 586 | control/take-control.tsx |
- * | 08 `merchant-insight-inbox` (the source's current 08, not used yet) | 687 × 586 | — |
+ * | 08 `merchant-insight` (the source's archived 08, no longer on the page) | 687 × 586 | — |
+ * | 10 `merchant-insight-inbox` ("You keep control", the 19 November 2026 handoff) | 687 × 586 | control/take-control.tsx |
  * | 09 `guardrails` | 1280 × 498 | guardrails/guardrails.tsx |
  * | 10–12 `human-takeover-dashboard`, `merchant-approval-dashboard`, `whisper-to-agent-dashboard` | 1280 × 599 | handoff/handoff-scene.tsx |
  *

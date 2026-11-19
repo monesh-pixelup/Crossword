@@ -85,7 +85,12 @@
 .sup-bare .sup-motion [data-slug] .ill-scene-frame { background: none; }
 
 
-/* Site addition: "Take control" plays the merchant-insight chat in the home page Lifecycle cards' frame (in green), so
-   there the visual drops its own green card (fill, gilt line, hue and corner rings), leaving the chat on that frame. */
+/* Site addition: "Take control" plays 10 "You keep control" in the home page Lifecycle cards' frame (in green), so
+   there the visual drops its own green card (fill, gilt line, hue and corner rings), leaving the inbox on that frame. */
 .sup-plain .sup-motion :is(.ill-insight-card__hue, .ill-insight-card__border, .ill-insight-card__dots) { display: none; }
 .sup-plain .sup-motion .ill-insight-card { background: none; border: 0; }
+
+/* Site addition: 10 "You keep control" (the inbox desk, `.dk`) is a 687 × 586 card, as its own handoff (19 November 2026)
+   draws it. In this combined build a later rule for the archived 738 × 640 insight frame overrides the card's frame box;
+   the handoff, built alone, has only the 687 × 586 one, so put that back for the desk. */
+.sup-motion .ill-insight-frame-scale:has(.dk) { max-width: 687px; aspect-ratio: 687 / 586; }
