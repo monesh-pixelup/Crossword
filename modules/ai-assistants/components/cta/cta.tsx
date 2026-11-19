@@ -80,7 +80,10 @@ export function CtaBannerPanel({ children }: { children: ReactNode }) {
       frameInset={14}
       stamp
       surface={surfaceTile}
-      className="flex flex-col items-center gap-7 px-6 pt-24 pb-16 text-center md:px-20 md:py-24"
+      // Its own compositing layer (translateZ(0)): where a section above runs compositor animations (Dynamic landing
+      // pages' tab crossfades), the button's hover fades otherwise re-layer the panel as they start and end, and
+      // Chrome re-rasterises the whole panel each time, which shows as a flicker.
+      className="flex transform-gpu flex-col items-center gap-7 px-6 pt-24 pb-16 text-center md:px-20 md:py-24"
     >
       {children}
     </TwillPanel>
