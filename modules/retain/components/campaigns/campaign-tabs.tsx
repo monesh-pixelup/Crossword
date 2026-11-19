@@ -1,6 +1,6 @@
 "use client";
 
-import { CrossfadePanel, SwapFade } from "@/components/ui/crossfade";
+import { CrossfadePanel } from "@/components/ui/crossfade";
 import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
@@ -108,7 +108,7 @@ function CampaignPanel({
  * each visual starting as it comes on screen (as Customer support on Support).
  */
 export function CampaignTabs() {
-  const { active, plays, root, fills, open } = useAutoplayTabs(turns);
+  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns);
   // Which layout is showing (null until known), so only its visuals are drawn and play.
   const [wide, setWide] = useState<boolean | null>(null);
 
@@ -170,37 +170,14 @@ export function CampaignTabs() {
           </ul>
         </nav>
 
-        {/*
-          The open campaign: its copy (every campaign's in one shared first row, as tall as the tallest; they
-          crossfade as the tab changes (CrossfadePanel)) over its framed panel, in the open campaign's livery. The
-          visual inside it crossfades (SwapFade), keyed to replay from the start.
-        */}
-        <div className="grid w-full min-w-0 grid-rows-[auto_auto] lg:flex-[0_1_820px]">
+        {/* Every campaign shares one cell and they crossfade (CrossfadePanel); a scene is drawn while its campaign shows or fades out, keyed to replay from the start. */}
+        <div className="grid w-full min-w-0 lg:flex-[0_1_820px]">
           {campaigns.map((campaign, i) => (
-            <CrossfadePanel key={campaign.title} active={i === active} className="w-full" style={{ gridArea: "1 / 1 / 2 / 2" }}>
+            <CrossfadePanel key={campaign.title} active={i === active} className="flex w-full flex-col items-start" style={{ gridArea: "1 / 1" }}>
               <CampaignCopy campaign={campaign} />
+              <CampaignPanel campaign={campaign} index={i} scene={wide !== false && (i === active || i === previous)} replay={plays[i]} />
             </CrossfadePanel>
           ))}
-          <div className="relative w-full" style={{ gridArea: "2 / 1 / 3 / 2" }}>
-            <Image
-              src={panels[campaignTones[active % campaignTones.length]]}
-              alt=""
-              sizes="(min-width: 992px) 821px, 100vw"
-              className="h-auto w-full"
-            />
-            {wide !== false && (
-              // The open item's visual, keyed to replay from the start, crossfading over the last one (SwapFade, as
-              // Conversion assistance's accordion does) on the frame, which stays put.
-              <div className="rtn-bare absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)] overflow-clip">
-                <SwapFade swapKey={`${active}-${plays[active]}`}>
-                  <>
-                  <p className="sr-only">{campaigns[active].message.text}</p>
-                  <CampaignMotion key={`${active}-${plays[active]}`} index={active} />
-                </>
-                </SwapFade>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </>

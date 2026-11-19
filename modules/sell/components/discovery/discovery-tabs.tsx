@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { CrossfadePanel, SwapFade } from "@/components/ui/crossfade";
+import { CrossfadePanel } from "@/components/ui/crossfade";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import { TextLink } from "@/components/ui/text-link";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
@@ -79,7 +79,7 @@ function FeaturePanel({ feature, scene, play, replay }: { feature: Feature; scen
  * every visual playing as it comes on screen.
  */
 export function DiscoveryTabs() {
-  const { active, plays, root, fills, open } = useAutoplayTabs(turns);
+  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns);
   // Which layout is showing (null until known), so only its visuals are drawn and play.
   const [wide, setWide] = useState<boolean | null>(null);
 
@@ -142,35 +142,18 @@ export function DiscoveryTabs() {
         </nav>
 
         {/*
-
-          The open item: its copy over the framed panel. Every item's copy shares the first row (as tall as the tallest, so
-
-          each starts at the same top); they crossfade as the tab changes (CrossfadePanel). The frame stays put; only the
-
-          visual inside it crossfades (CrossfadePanel), drawn while its item shows or fades out, keyed to replay from the start.
-
+          Every feature shares one cell and they crossfade (CrossfadePanel, the site's tab crossfade); a scene is drawn while its feature shows or
+          fades out, keyed to replay from the start. The cell is two
+          rows, shared through subgrid: the copy row is as tall as the tallest feature's copy, so each feature's copy
+          starts at the same top and its visual at the same place below, whichever is showing.
         */}
         <div className="grid w-full min-w-0 grid-rows-[auto_auto] lg:flex-[0_1_820px]">
-          {discoveryFeatures.map((item, i) => (
-            <CrossfadePanel key={item.label} active={i === active} className="w-full" style={{ gridArea: "1 / 1 / 2 / 2" }}>
-              <FeatureCopy feature={item} />
+          {discoveryFeatures.map((feature, i) => (
+            <CrossfadePanel key={feature.label} active={i === active} className="grid w-full grid-rows-subgrid items-start" style={{ gridArea: "1 / 1 / 3 / 2" }}>
+              <FeatureCopy feature={feature} />
+              <FeaturePanel feature={feature} scene={wide !== false && (i === active || i === previous)} play={i === active} replay={plays[i]} />
             </CrossfadePanel>
           ))}
-          {/* The frame stays put under the visual. */}
-          <div className="relative w-full" style={{ gridArea: "2 / 1 / 3 / 2" }}>
-            <Image src={panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
-            {wide !== false && (
-              // The open item's visual, keyed to replay from the start, crossfading over the last one (SwapFade, as
-              // Conversion assistance's accordion does) on the frame, which stays put.
-              <div className="sell-bare absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
-                <SwapFade swapKey={`${active}-${plays[active]}`}>
-                  {discoveryScenes[discoveryFeatures[active].scene] && (
-                    <ScenePanel key={`${active}-${plays[active]}`} scene={discoveryScenes[discoveryFeatures[active].scene]} active root={SellMotionRoot} maxScale={Infinity} transform />
-                  )}
-                </SwapFade>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </>

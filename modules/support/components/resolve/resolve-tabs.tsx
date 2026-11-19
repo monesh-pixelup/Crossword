@@ -1,6 +1,6 @@
 "use client";
 
-import { CrossfadePanel, SwapFade } from "@/components/ui/crossfade";
+import { CrossfadePanel } from "@/components/ui/crossfade";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
@@ -74,7 +74,7 @@ function CasePanel({ item, scene, play, replay }: { item: Case; scene: boolean; 
  * visual playing as it comes on screen (as Product discovery on Sell).
  */
 export function ResolveTabs() {
-  const { active, plays, root, fills, open } = useAutoplayTabs(turns);
+  const { active, previous, plays, root, fills, open } = useAutoplayTabs(turns);
   // Which layout is showing (null until known), so only its visuals are drawn and play.
   const [wide, setWide] = useState<boolean | null>(null);
 
@@ -137,33 +137,18 @@ export function ResolveTabs() {
         </nav>
 
         {/*
-
-          The open item: its copy over the framed panel. Every item's copy shares the first row (as tall as the tallest, so
-
-          each starts at the same top); they crossfade as the tab changes (CrossfadePanel). The frame stays put; only the
-
-          visual inside it crossfades (CrossfadePanel), drawn while its item shows or fades out, keyed to replay from the start.
-
+          Every case shares one cell and they crossfade (CrossfadePanel); a scene is drawn while its case shows or fades out,
+          keyed to replay from the start. The cell is two rows, shared through subgrid: the copy row is as tall as the
+          tallest case's copy, so each case's copy starts at the same top and its panel at the same place below, whichever
+          is showing.
         */}
         <div className="grid w-full min-w-0 grid-rows-[auto_auto] lg:flex-[0_1_820px]">
-          {resolveCases.map((item, i) => (
-            <CrossfadePanel key={item.label} active={i === active} className="w-full" style={{ gridArea: "1 / 1 / 2 / 2" }}>
-              <CaseCopy item={item} />
+          {resolveCases.map((c, i) => (
+            <CrossfadePanel key={c.label} active={i === active} className="grid w-full grid-rows-subgrid items-start" style={{ gridArea: "1 / 1 / 3 / 2" }}>
+              <CaseCopy item={c} />
+              <CasePanel item={c} scene={wide !== false && (i === active || i === previous)} play={i === active} replay={plays[i]} />
             </CrossfadePanel>
           ))}
-          {/* The frame stays put under the visual. */}
-          <div className="relative w-full" style={{ gridArea: "2 / 1 / 3 / 2" }}>
-            <Image src={panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
-            {wide !== false && (
-              // The open item's visual, keyed to replay from the start, crossfading over the last one (SwapFade, as
-              // Conversion assistance's accordion does) on the frame, which stays put.
-              <div className="sup-bare absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
-                <SwapFade swapKey={`${active}-${plays[active]}`}>
-                  <ScenePanel key={`${active}-${plays[active]}`} scene={supportScenes[resolveCases[active].scene]} active root={SupportMotionRoot} maxScale={Infinity} transform />
-                </SwapFade>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </>
