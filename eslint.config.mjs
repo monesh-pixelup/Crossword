@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Design handoff source (a separate Vite project), ported into modules/sell.
-    "crossword-motion-sell conversational interface/**",
   ]),
   {
     // Built as is from the "Crossword — Home page motion visuals (v2)" source (a separate Vite project): it reads

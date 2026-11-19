@@ -13,8 +13,8 @@ import photo from "../../assets/cta/photo.webp";
 import seal from "../../assets/cta/seal.webp";
 
 /*
- * Motion values (seconds) from the envelope prototype's defaults
- * (crossword-cta-envelope-demo). Two flaps make one swing: the closed flap
+ * Motion values (seconds) from the envelope prototype's defaults (a standalone
+ * demo, since removed from the repo). Two flaps make one swing: the closed flap
  * lifts until it is edge-on (90°), then the open flap takes over from edge-on
  * and lands. Edge-on, both are a line with no height, so the handover can't be
  * seen and no layer reorders.
