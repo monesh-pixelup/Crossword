@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
+import { SwapFade } from "@/components/ui/crossfade";
 import type { Icon } from "@phosphor-icons/react";
 import { ArticleIcon, ChatCircleDotsIcon, QuestionIcon, TrendUpIcon } from "@phosphor-icons/react/ssr";
 import { PlusLines } from "@/components/ui/plus-lines";
@@ -145,7 +146,12 @@ export function AdaptiveTabs() {
           The chosen feature's visual, keyed to play from the start each time it is chosen. It covers the stage: beside
           the tabs, the stage takes the tab column's height, so the visual's photo margins give way rather than leave a band.
         */}
-        {wide !== false && <ScenePanel key={run} scene={dlpScenes[adaptiveFeatures[active].scene]} root={DlpMotionRoot} cover />}
+        {wide !== false && (
+          // A newly chosen feature's visual crossfades in over the last one (SwapFade, the site's tab crossfade).
+          <SwapFade swapKey={run}>
+            <ScenePanel key={run} scene={dlpScenes[adaptiveFeatures[active].scene]} root={DlpMotionRoot} cover />
+          </SwapFade>
+        )}
       </div>
 
       <div

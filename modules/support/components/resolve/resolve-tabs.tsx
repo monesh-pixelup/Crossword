@@ -1,5 +1,6 @@
 "use client";
 
+import { CrossfadePanel } from "@/components/ui/crossfade";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
@@ -136,22 +137,17 @@ export function ResolveTabs() {
         </nav>
 
         {/*
-          Every case shares one cell and they crossfade (`.tab-panel`); a scene is drawn while its case shows or fades out,
+          Every case shares one cell and they crossfade (CrossfadePanel); a scene is drawn while its case shows or fades out,
           keyed to replay from the start. The cell is two rows, shared through subgrid: the copy row is as tall as the
           tallest case's copy, so each case's copy starts at the same top and its panel at the same place below, whichever
           is showing.
         */}
         <div className="grid w-full min-w-0 grid-rows-[auto_auto] lg:flex-[0_1_820px]">
           {resolveCases.map((c, i) => (
-            <div
-              key={c.label}
-              inert={i !== active}
-              className="tab-panel grid w-full grid-rows-subgrid items-start"
-              style={{ gridArea: "1 / 1 / 3 / 2" }}
-            >
+            <CrossfadePanel key={c.label} active={i === active} className="grid w-full grid-rows-subgrid items-start" style={{ gridArea: "1 / 1 / 3 / 2" }}>
               <CaseCopy item={c} />
               <CasePanel item={c} scene={wide !== false && (i === active || i === previous)} play={i === active} replay={plays[i]} />
-            </div>
+            </CrossfadePanel>
           ))}
         </div>
       </div>

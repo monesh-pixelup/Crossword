@@ -1,5 +1,6 @@
 "use client";
 
+import { CrossfadePanel } from "@/components/ui/crossfade";
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import type { Icon } from "@phosphor-icons/react";
 import { PlusLines } from "@/components/ui/plus-lines";
@@ -62,7 +63,7 @@ export function UpsellTabs() {
   const [wide, setWide] = useState<boolean | null>(null);
   // The accordion item closing as another opens, kept drawn until it has eased shut.
   const [closing, setClosing] = useState<number | null>(null);
-  // Side by side: the feature whose visual is fading out as the open one fades in (`.tab-panel--soft`), and how many
+  // Side by side: the feature whose visual is fading out as the open one fades in (CrossfadePanel), and how many
   // times each feature has opened, to key its scene so it plays from the start each time without redrawing the one
   // fading out.
   const [previous, setPrevious] = useState<number | null>(null);
@@ -276,12 +277,12 @@ export function UpsellTabs() {
       >
         {/*
           Every feature's layer is stacked in the panel and they crossfade as the Product discovery tabs do
-          (`.tab-panel--soft`): the outgoing visual fades and softly blurs away while the chosen one eases in after it. A
+          (CrossfadePanel): the outgoing visual fades and softly blurs away while the chosen one eases in after it. A
           scene is drawn only while its feature is open or fading out.
         */}
         {wide !== false &&
           upsellFeatures.map((feature, i) => (
-            <div key={feature.title} inert={i !== active} className="tab-panel tab-panel--soft absolute inset-0">
+            <CrossfadePanel key={feature.title} active={i === active} className="absolute inset-0">
               {(i === active || i === previous) && (
                 <ScenePanel
                   key={plays[i]}
@@ -292,7 +293,7 @@ export function UpsellTabs() {
                   transform
                 />
               )}
-            </div>
+            </CrossfadePanel>
           ))}
       </div>
     </div>

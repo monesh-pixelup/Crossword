@@ -1,5 +1,6 @@
 "use client";
 
+import { CrossfadePanel } from "@/components/ui/crossfade";
 import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
@@ -23,7 +24,7 @@ const HANDOFF = 40;
  * open. The panel is Figma's 687 × 586 aubergine damask (the Upsell art), playing the open quote's motion visual
  * where the quote has one (AI Assistants: 687 × 586, ChatGPT on a phone; Personal Agents: 679 × 579, the agent's
  * window), each in its own aubergine frame. The visuals crossfade
- * (`.tab-panel`); one is drawn while its quote is open or fading out, keyed to replay from the start.
+ * (CrossfadePanel); one is drawn while its quote is open or fading out, keyed to replay from the start.
  */
 export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: LoggedInQuote[] }) {
   const [active, setActive] = useState(0);
@@ -193,11 +194,11 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
           <div className="absolute inset-0 grid">
             {quotes.map((quote, i) =>
               quote.scene ? (
-                <div key={quote.quote} inert={i !== active} className="tab-panel relative">
+                <CrossfadePanel key={quote.quote} active={i === active} className="relative" style={{ gridArea: "1 / 1" }}>
                   {(i === active || i === previous) && (
                     <ScenePanel key={plays[i]} {...motionScene(quote.scene)} active={i === active} maxScale={Infinity} />
                   )}
-                </div>
+                </CrossfadePanel>
               ) : null,
             )}
           </div>

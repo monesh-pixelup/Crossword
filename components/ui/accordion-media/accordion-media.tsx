@@ -4,6 +4,7 @@ import { type KeyboardEvent, type ReactNode, useEffect, useId, useRef, useState 
 import { PlusLines } from "@/components/ui/plus-lines";
 import { cn } from "@/lib/cn";
 import { useAutoplayTabs } from "@/lib/use-autoplay-tabs";
+import { SwapFade } from "@/components/ui/crossfade";
 
 export type AccordionMediaItem = { title: string; description?: string };
 
@@ -257,12 +258,11 @@ export function AccordionMedia({
         {!(stackedAccordion && wide === false) && (
           <>
             {panelBackground}
-            <div
-              key={`${active}-${plays[active]}`}
-              className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0"
-            >
-              {renderPanel(active, plays[active])}
-            </div>
+            {/*
+              The open item's media, keyed to replay from the start each turn, crossfading over the last one with the
+              site's tab crossfade (SwapFade): the outgoing media eases out as the new one eases in.
+            */}
+            <SwapFade swapKey={`${active}-${plays[active]}`}>{renderPanel(active, plays[active])}</SwapFade>
           </>
         )}
       </div>

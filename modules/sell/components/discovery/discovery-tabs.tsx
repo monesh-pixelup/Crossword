@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { CrossfadePanel } from "@/components/ui/crossfade";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
 import { TextLink } from "@/components/ui/text-link";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
@@ -141,22 +142,17 @@ export function DiscoveryTabs() {
         </nav>
 
         {/*
-          Every feature shares one cell and they crossfade (`.tab-panel`); a scene is drawn while its feature shows or fades
-          out, keyed to replay from the start. The cell is two rows, shared through subgrid: the copy row is as tall as the
-          tallest feature's copy, so each feature's copy starts at the same top and its visual at the same place below,
-          whichever is showing.
+          Every feature shares one cell and they crossfade (CrossfadePanel, the site's tab crossfade); a scene is drawn while its feature shows or
+          fades out, keyed to replay from the start. The cell is two
+          rows, shared through subgrid: the copy row is as tall as the tallest feature's copy, so each feature's copy
+          starts at the same top and its visual at the same place below, whichever is showing.
         */}
         <div className="grid w-full min-w-0 grid-rows-[auto_auto] lg:flex-[0_1_820px]">
           {discoveryFeatures.map((feature, i) => (
-            <div
-              key={feature.label}
-              inert={i !== active}
-              className="tab-panel grid w-full grid-rows-subgrid items-start"
-              style={{ gridArea: "1 / 1 / 3 / 2" }}
-            >
+            <CrossfadePanel key={feature.label} active={i === active} className="grid w-full grid-rows-subgrid items-start" style={{ gridArea: "1 / 1 / 3 / 2" }}>
               <FeatureCopy feature={feature} />
               <FeaturePanel feature={feature} scene={wide !== false && (i === active || i === previous)} play={i === active} replay={plays[i]} />
-            </div>
+            </CrossfadePanel>
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { CrossfadePanel } from "@/components/ui/crossfade";
 import Image from "next/image";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { tabTurn, useAutoplayTabs } from "@/lib/use-autoplay-tabs";
@@ -169,13 +170,13 @@ export function CampaignTabs() {
           </ul>
         </nav>
 
-        {/* Every campaign shares one cell and they crossfade (`.tab-panel`); a scene is drawn while its campaign shows or fades out, keyed to replay from the start. */}
+        {/* Every campaign shares one cell and they crossfade (CrossfadePanel); a scene is drawn while its campaign shows or fades out, keyed to replay from the start. */}
         <div className="grid w-full min-w-0 lg:flex-[0_1_820px]">
           {campaigns.map((campaign, i) => (
-            <div key={campaign.title} inert={i !== active} className="tab-panel flex w-full flex-col items-start">
+            <CrossfadePanel key={campaign.title} active={i === active} className="flex w-full flex-col items-start" style={{ gridArea: "1 / 1" }}>
               <CampaignCopy campaign={campaign} />
               <CampaignPanel campaign={campaign} index={i} scene={wide !== false && (i === active || i === previous)} replay={plays[i]} />
-            </div>
+            </CrossfadePanel>
           ))}
         </div>
       </div>

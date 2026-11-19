@@ -1,6 +1,7 @@
 "use client";
 
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
+import { SwapFade } from "@/components/ui/crossfade";
 import { cn } from "@/lib/cn";
 import { proactiveTriggerScenes, proactiveTriggers } from "../../config/proactive";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
@@ -87,14 +88,23 @@ export function TriggerTabs() {
           edge to edge. Scaled with a transform: zoomed down to a small screen's width, its text would hit the browser's
           minimum font size and overflow.
         */}
-        {scene && <ScenePanel key={`${active}-${run}`} scene={scene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />}
+        {scene && (
+          // A newly chosen trigger's scene crossfades in over the last one (SwapFade, the site's tab crossfade).
+          <SwapFade swapKey={`${active}-${run}`}>
+            <ScenePanel key={`${active}-${run}`} scene={scene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />
+          </SwapFade>
+        )}
       </div>
       {/* Below 768px: the trigger's phone layout (352 × 340) in place of the wide stage; only the shown one mounts. */}
       <div
         aria-hidden
         className={cn("relative aspect-[352/340] w-full md:hidden", !mwebScene && "border-x border-t border-black/25 bg-sand")}
       >
-        {mwebScene && <ScenePanel key={`m-${active}-${run}`} scene={mwebScene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />}
+        {mwebScene && (
+          <SwapFade swapKey={`m-${active}-${run}`}>
+            <ScenePanel key={`m-${active}-${run}`} scene={mwebScene} active={visible} root={SellMotionRoot} maxScale={Infinity} transform />
+          </SwapFade>
+        )}
       </div>
 
       <div role="tablist" aria-label="Proactive message triggers" onKeyDown={onKeyDown} className="flex w-full flex-col md:flex-row">

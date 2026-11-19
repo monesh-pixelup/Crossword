@@ -5,6 +5,7 @@ import { PlusLines } from "@/components/ui/plus-lines";
 import { cn } from "@/lib/cn";
 import { handoffModes } from "../../config/handoff";
 import { HandoffScene, handoffDuration } from "./handoff-scene";
+import { SwapFade } from "@/components/ui/crossfade";
 
 /** How long each mode stays up before the next one takes over, at least. */
 const DURATION_MS = 6000;
@@ -95,9 +96,10 @@ export function HandoffTabs() {
       >
         {/* The mode's helpdesk dashboard (Support V3, 1280 × 599), filling the stage, fading in as it takes over. */}
         {wide !== false && (
-          <div key={`${active}-${run}`} className="absolute inset-0 transition-opacity duration-300 ease-out starting:opacity-0">
+          // The chosen mode's dashboard crossfades over the last one (SwapFade, the site's tab crossfade).
+          <SwapFade swapKey={`${active}-${run}`}>
             <HandoffScene index={active} active={visible} />
-          </div>
+          </SwapFade>
         )}
       </div>
 

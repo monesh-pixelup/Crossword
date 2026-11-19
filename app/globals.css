@@ -240,79 +240,16 @@
   animation: lifecycle-stage-in 0.75s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both;
 }
 
-/* Home lifecycle: the open feature's mock-up fading in over the shared frame as it changes. */
-@keyframes lifecycle-visual-in {
-  from {
-    opacity: 0;
-    filter: blur(4px);
-    scale: 0.985;
-  }
-}
-
-.lifecycle-visual-enter {
-  animation: lifecycle-visual-in 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.15s both;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .lifecycle-stage-enter,
-  .lifecycle-visual-enter {
+  .lifecycle-stage-enter {
     animation: none;
   }
 }
 
 /*
- * Vertical tabs (Sell, Support, Retain, …): every tab's panel shares one grid cell (so the column keeps
- * the tallest one's height) and they crossfade, the outgoing panel fading out as the chosen one
- * softly comes into focus. Inactive panels are `inert`.
+ * Tab panels crossfade with components/ui/crossfade.tsx (CrossfadePanel, SwapFade): set inline, so the fade is the
+ * same everywhere and never waits on this stylesheet.
  */
-.tab-panel {
-  grid-area: 1 / 1;
-  /* Coming in: a slow, soft settle, a beat after the outgoing panel starts to go. */
-  transition:
-    opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.08s,
-    filter 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.08s;
-}
-
-.tab-panel[inert] {
-  opacity: 0;
-  filter: blur(2px);
-  pointer-events: none;
-  /* Going out: a quicker, gentle fade. */
-  transition:
-    opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1),
-    filter 0.4s cubic-bezier(0.33, 1, 0.68, 1);
-}
-
-/*
- * A slower, softer crossfade (Conversational interface, Product discovery): the outgoing card fades and blurs away over
- * longer, and the chosen one eases in after it with only the lightest blur, so the swap reads as one smooth dissolve.
- */
-.tab-panel--soft {
-  transition:
-    opacity 1s cubic-bezier(0.22, 1, 0.36, 1) 0.18s,
-    filter 1s cubic-bezier(0.22, 1, 0.36, 1) 0.18s;
-}
-
-.tab-panel--soft[inert] {
-  filter: blur(1px);
-  transition:
-    opacity 0.7s cubic-bezier(0.45, 0, 0.55, 1),
-    filter 0.7s cubic-bezier(0.45, 0, 0.55, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tab-panel,
-  .tab-panel[inert],
-  .tab-panel--soft,
-  .tab-panel--soft[inert] {
-    transition: opacity 0.2s linear;
-  }
-
-  .tab-panel[inert],
-  .tab-panel--soft[inert] {
-    filter: none;
-  }
-}
 
 /* Customer intelligence card labels: a soft gold highlight sweeps through the text, like a model at work. */
 @keyframes intel-label-shimmer {

@@ -1,5 +1,6 @@
 "use client";
 
+import { CrossfadePanel } from "@/components/ui/crossfade";
 import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { tabTurn } from "@/lib/use-autoplay-tabs";
@@ -191,7 +192,7 @@ export function OptionList() {
 
 /**
  * The 687 × 586 panel beside the options: the focused option's motion visual (Sell: Dynamic v2 02, Dedicated landing
- * pages, or 09, Adaptive product pages), in its own framed panel. The two share one cell and crossfade (`.tab-panel`);
+ * pages, or 09, Adaptive product pages), in its own framed panel. The two share one cell and crossfade (CrossfadePanel);
  * a visual is drawn while its option is in focus or fading out, keyed to replay from the start. Render inside
  * OptionsProvider.
  */
@@ -202,11 +203,11 @@ export function OptionPanel() {
   return (
     <div className="grid h-full w-full">
       {dynamicOptions.map((option, i) => (
-        <div key={option.title} inert={i !== active} className="tab-panel relative h-full w-full">
+        <CrossfadePanel key={option.title} active={i === active} className="relative h-full w-full" style={{ gridArea: "1 / 1" }}>
           {(i === active || i === previous) && (
             <ScenePanel key={plays[i]} scene={dlpScenes[option.scene]} active={i === active} root={DlpMotionRoot} />
           )}
-        </div>
+        </CrossfadePanel>
       ))}
     </div>
   );
