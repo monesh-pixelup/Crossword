@@ -163,8 +163,18 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
                 <div className="pointer-events-none absolute inset-x-0 bottom-[min(calc(100%_-_100svh_+_24px),54px)] z-10">{copy}</div>
               </>
             );
+          // Not yet measured (the server render and first paint): on a phone the copy and its shade already sit where
+          // the stacked layout puts them (HeroScene's pending frame is that layout's height), so nothing moves as
+          // the measured layout takes over.
+          const pending = scene.width === null;
           return (
             <>
+              {pending && (
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 bottom-[min(calc(100%_-_100svh),30px)] z-10 h-[45svh] bg-linear-to-b from-black/0 via-black/70 via-40% to-black/90 min-[760px]:hidden"
+                />
+              )}
               {/*
                 Shade behind the copy, under the UI: Figma's 1644 × 353 multiply band, black from 29.75% up, blurred
                 17px, 49px below the frame, and 86px past each side of the banner (which runs past the frame on wide
@@ -173,7 +183,7 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
               */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute bottom-[calc(-5.69%_+_max(0px,100%_-_min(100svh,1200px)_/_var(--scene-scale,1)))] -left-[60.607%] h-[40.91%] w-[220.13%] bg-linear-to-t from-black from-[29.752%] to-transparent mix-blend-multiply blur-[17px]"
+                className={`pointer-events-none absolute bottom-[calc(-5.69%_+_max(0px,100%_-_min(100svh,1200px)_/_var(--scene-scale,1)))] -left-[60.607%] h-[40.91%] w-[220.13%] bg-linear-to-t from-black from-[29.752%] to-transparent mix-blend-multiply blur-[17px] ${pending ? "max-[759px]:hidden" : ""}`}
               />
               {/*
                 The copy's last line sits where Figma's row ends: 88.5px above the 863px frame's bottom, or 88.5px above
@@ -181,7 +191,11 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
                 page's width (not the frame's, which can be narrower), so its content column lines up with the other
                 sections' headings.
               */}
-              <div className="pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_min(100svh,1200px)_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),1440px)] -translate-x-1/2">
+              <div
+                className={`pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_min(100svh,1200px)_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),1440px)] -translate-x-1/2 ${
+                  pending ? "max-[759px]:bottom-[min(calc(100%_-_100svh_+_24px),54px)] max-[759px]:left-0 max-[759px]:w-full max-[759px]:translate-x-0" : ""
+                }`}
+              >
                 {copy}
               </div>
             </>

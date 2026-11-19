@@ -20,7 +20,19 @@ export type SceneLayer = {
  * the photo popping in behind him on every reload). The photo is the largest paint, so the first layer is fetched eagerly
  * at high priority.
  */
-function SceneImage({ src, style, sizes, first }: { src: StaticImageData; style: CSSProperties; sizes: string; first: boolean }) {
+function SceneImage({
+  src,
+  style,
+  sizes,
+  first,
+  className = "hero-scene__crop",
+}: {
+  src: StaticImageData;
+  style?: CSSProperties;
+  sizes: string;
+  first: boolean;
+  className?: string;
+}) {
   const { props } = getImageProps({
     src,
     alt: "",
@@ -31,7 +43,7 @@ function SceneImage({ src, style, sizes, first }: { src: StaticImageData; style:
   // The layer is placed by hand (`style`), so drop the intrinsic size and the optimizer's inline style.
   const { width: _w, height: _h, style: _s, ...img } = props;
   // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text -- scene layer placed by hand; alt="" from getImageProps
-  return <img {...img} className="hero-scene__crop" style={style} decoding="async" />;
+  return <img {...img} className={className} style={style} decoding="async" />;
 }
 
 /**
@@ -225,7 +237,10 @@ export function HeroScene({
   return (
     <div
       ref={root}
-      className={["hero-scene", compact && "hero-scene--compact", className].filter(Boolean).join(" ")}
+      // Pending: not yet measured (the server render and first paint). On a phone, CSS alone then gives the hero the
+      // compact layout's size and banner (hero-parallax.css, "Pending"), so the page doesn't open on a short strip of
+      // the desktop frame, the next section showing under it, and jump to the phone layout as the script starts.
+      className={["hero-scene", compact && "hero-scene--compact", width === null && "hero-scene--pending", className].filter(Boolean).join(" ")}
       style={rootStyle}
     >
       {aboveFrame?.(state)}
@@ -263,6 +278,13 @@ export function HeroScene({
           {/* eslint-disable-next-line @next/next/no-img-element -- full-frame multiply vignette */}
           <img className="hero-scene__layer hero-scene__overlay" src={overlay.src} alt="" />
         </div>
+        {/*
+          Pending, on a phone: the phone banner where the compact layout draws it, from the same optimizer URL (so it's
+          already loaded when the measured layout takes over). Hidden from 760px (lazy, so never fetched there).
+        */}
+        {width === null && compactLayers && (
+          <SceneImage src={compactLayers[0].src} sizes={layerSizes(1, true)} first={false} className="hero-scene__pending-banner" />
+        )}
         {overlayContent?.(state)}
         <div
           className="hero-scene__ui"

@@ -226,6 +226,42 @@
 }
 
 /*
+ * Pending (HeroScene, before it has measured: the server render and the first paint), on a phone: the frame already
+ * takes the compact layout's height and shows the phone banner where that layout draws it, so the hero opens a full
+ * screen tall with its copy in place instead of as a short strip of the desktop frame that jumps once the script
+ * runs. The height is the compact stack's: a screen at least, or its content (the header's 88.5px, the cards, the
+ * concierge's row at 42.938% of --photo-h and the conversation: 904.1px with the photo at its 600px, measured).
+ */
+.hero-scene__pending-banner {
+  display: none;
+}
+
+@media (max-width: 759px) {
+  .hero-scene--pending .hero-scene__frame {
+    width: 100% !important;
+    aspect-ratio: auto !important;
+    min-height: max(100svh, calc(646.47px + .42938 * min(600px, 154vw)));
+  }
+
+  .hero-scene--pending .hero-scene__photo {
+    display: none;
+  }
+
+  .hero-scene--pending .hero-scene__pending-banner {
+    display: block;
+    position: absolute;
+    top: calc(72.5px + 16px);
+    left: 50%;
+    width: min(100%, 520px);
+    height: auto;
+    aspect-ratio: 780 / 1688;
+    transform: translateX(-50%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%);
+    mask-image: linear-gradient(to bottom, transparent, #000 14%);
+  }
+}
+
+/*
  * Desktop: the cards and the conversation are drawn --ui-zoom up (the cards from their anchor, the conversation
  * from its centre) and pulled --ui-spread further apart either side of the concierge.
  */
