@@ -55,7 +55,7 @@ export function UseCaseCampaigns() {
             <li key={useCase.label} className="flex min-w-0 flex-col items-start">
               {/* The use case's motion visual, filling the column (past its drawn 620px where the column is wider). */}
               <div className="relative aspect-[620/420] w-full">
-                <AiaScenePanel slug={useCase.scene} fill />
+                <AiaScenePanel slug={useCase.scene} fill replayAfter={3000} />
               </div>
               <h3 className="mt-10 flex flex-col items-start gap-4">
                 <span className="font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] text-wine uppercase">{useCase.label}</span>

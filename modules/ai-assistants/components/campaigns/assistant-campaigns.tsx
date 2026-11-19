@@ -26,6 +26,7 @@ export function AssistantCampaigns({
   copy,
   scene,
   mobileScene,
+  replayAfter,
 }: {
   id?: string;
   eyebrow?: ReactNode;
@@ -42,6 +43,8 @@ export function AssistantCampaigns({
   scene?: MotionSlug;
   /** Below 768px, the visual's phone layout (353 × 440) in its place (Personal Agents 00m). */
   mobileScene?: MotionSlug;
+  /** Play the visual over again, this long (ms) after it ends (see useReplay); left out, it plays once. */
+  replayAfter?: number;
 }) {
   return (
     <section aria-labelledby={id} className="relative section-pad pb-0!">
@@ -61,7 +64,7 @@ export function AssistantCampaigns({
         <div className={cn("relative aspect-[1280/599] w-full overflow-clip bg-forest", mobileScene && "max-md:hidden")}>
           {scene ? (
             // Fills the content width (past its drawn 1280px on wide screens); a transform, so it shrinks cleanly on phones.
-            <AiaScenePanel slug={scene} fill transform />
+            <AiaScenePanel slug={scene} fill transform replayAfter={replayAfter} />
           ) : (
             <Image src={panelForest} alt="" fill sizes="(min-width: 1440px) 1280px, 100vw" className="object-cover" />
           )}
@@ -69,7 +72,7 @@ export function AssistantCampaigns({
         {/* Phones: the phone layout at its 353:440 shape (the wide one hidden, so only one plays). */}
         {mobileScene && (
           <div className="relative aspect-[353/440] w-full overflow-clip md:hidden">
-            <AiaScenePanel slug={mobileScene} fill transform />
+            <AiaScenePanel slug={mobileScene} fill transform replayAfter={replayAfter} />
           </div>
         )}
       </div>

@@ -151,7 +151,9 @@ export const supportScenes = {
       "In the Crossword helpdesk, a customer charged twice asks for help. The assistant hands the conversation to the billing team with its context, a team member joins, refunds the duplicate charge, cancels the subscription at the customer's request and resolves the conversation.",
     width: 1280,
     height: 599,
-    duration: 16000,
+    // The script's last change, the conversation marked resolved, lands at 20.5s and settles by 21s (its own
+    // 3.2s hold after that is left out, so a replay comes 3s after the visual visibly completes).
+    duration: 21000,
   },
   "help-desk-mweb": {
     Component: HelpDeskDashboardMwebMotion,
@@ -159,7 +161,8 @@ export const supportScenes = {
       "In the Crossword helpdesk on a phone, a customer charged twice asks for help. The assistant hands the conversation to the billing team, a team member joins, refunds the duplicate charge and resolves the conversation.",
     width: 353,
     height: 440,
-    duration: 16000,
+    // The same script as 11 (see there).
+    duration: 21000,
   },
   "merchant-insight": {
     Component: MerchantInsightMotion,
@@ -175,7 +178,8 @@ export const supportScenes = {
       "In the helpdesk inbox, Crossword summarises a customer's delayed refund. Asked for anything else, it explains the refund is approved but hasn't reached the payment processor yet, and drafts the reply.",
     width: 687,
     height: 586,
-    duration: 16400,
+    // The script settles at 16.4s; the camera's pull back to the wide shot then runs 760ms.
+    duration: 17200,
   },
   guardrails: {
     Component: GuardrailsDesktopMotion,

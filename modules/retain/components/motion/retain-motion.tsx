@@ -16,6 +16,7 @@ import {
   SizeConfidenceMwebV2Motion,
   WinBackIMessageV2,
 } from "./visuals/RetainV2/RetainV2";
+import { useReplay } from "@/modules/shared/motion/use-replay";
 import { LaunchAudienceFit } from "./illustrations/LaunchAudience/LaunchAudience";
 import "./motion.css";
 
@@ -62,13 +63,17 @@ function MotionStage({
   width,
   height,
   tone,
+  replay,
 }: {
   scene: ComponentType;
   width: number;
   height: number;
   /** A livery other than the source's (motion.css's `.rtn-tone-*`). */
   tone?: "aubergine" | "forest";
+  /** Play a visual that runs once over again: its run (ms) and the hold after it before it replays (see useReplay). */
+  replay?: { run: number; after: number };
 }) {
+  const { ref, take } = useReplay(replay?.run ?? 0, replay?.after);
   const client = useSyncExternalStore(
     subscribe,
     () => true,
@@ -76,12 +81,12 @@ function MotionStage({
   );
 
   return (
-    <div aria-hidden className="@container w-full">
+    <div ref={ref} aria-hidden className="@container w-full">
       <div inert className="scale-to-container" style={{ width, height, "--fit-width": `${width}px` } as CSSProperties}>
         {client && (
           // `rv2m`: the class the source page sets on <body> for its window standard (motion.css's `.rtn-motion.rv2m …`).
           <div className={tone ? `rtn-motion rv2m rtn-tone-${tone}` : "rtn-motion rv2m"}>
-            <Scene />
+            <Scene key={take} />
           </div>
         )}
       </div>
@@ -103,9 +108,15 @@ export function CampaignMotion({ index }: { index: number }) {
   return <MotionStage scene={campaignScenes[index]} width={788} height={579} tone={tone === "maroon" ? undefined : tone} />;
 }
 
-/** Audiences' 1280 × 599 panel: turning customer patterns into an audience, on the Insights dashboard. */
+/**
+ * Audiences' script: the brand's request typed (0.9s lead, 205 characters at 26ms), the two-stage thinking, the
+ * audience card loading and its products, the 17-word reply streamed, then "Yes!" sent: 11.36s, settled by 11.8s.
+ */
+const AUDIENCE_RUN = 11800;
+
+/** Audiences' 1280 × 599 panel: turning customer patterns into an audience, on the Insights dashboard. Replays 3s after it ends. */
 export function AudienceMotion() {
-  return <MotionStage scene={LaunchAudienceV2Motion} width={1280} height={599} />;
+  return <MotionStage scene={LaunchAudienceV2Motion} width={1280} height={599} replay={{ run: AUDIENCE_RUN, after: 3000 }} />;
 }
 
 /** Return reduction's 1280 × 599 panel: Ask AI opens a drawer with a confident size, then it's in the cart. */
@@ -115,10 +126,10 @@ export function ReturnMotion() {
 
 /**
  * Audiences on a phone (11m, 353 × 440): the same Insights dashboard laid out at the small window's size (container
- * queries fold the rail and restack the card). Plays once.
+ * queries fold the rail and restack the card). Replays 3s after it ends, as the wide one does.
  */
 export function AudienceMwebMotion() {
-  return <MotionStage scene={LaunchAudienceFit} width={353} height={440} />;
+  return <MotionStage scene={LaunchAudienceFit} width={353} height={440} replay={{ run: AUDIENCE_RUN, after: 3000 }} />;
 }
 
 /** Return reduction on a phone (12m, 353 × 440): a phone-size product page where Ask AI opens the chat as a bottom sheet. Plays once. */

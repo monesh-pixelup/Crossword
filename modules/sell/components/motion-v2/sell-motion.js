@@ -2118,18 +2118,25 @@ function BrandedWidgetCycle() {
     if (!playing) return;
     setState((s) => ({ at: 0, prev: -1, take: s.take + 1, turn: 0 }));
     const ids = [];
-    BRANDS.slice(1).forEach((_, i) => {
-      const at2 = FIRST_HOLD_MS + HOLD_MS$1 * i;
-      ids.push(
-        window.setTimeout(() => {
-          setState((s) => ({ ...s, prev: s.at, at: i + 1, turn: s.turn + 1 }));
-          setSwapping(true);
-        }, at2),
-        // will-change only for the wipe itself.
-        window.setTimeout(() => setSwapping(false), at2 + SWAP_MS$1)
-      );
-    });
-    return () => ids.forEach((id) => window.clearTimeout(id));
+    let loop = 0;
+    // Site: the brands keep cycling (Brewhaus wipes back to Sorelle Labs and on), as the card's two neighbours loop,
+    // instead of stopping on the last brand. Same timings: the first brand held FIRST_HOLD_MS, then each HOLD_MS.
+    const swap = () => {
+      setState((s) => ({ ...s, prev: s.at, at: (s.at + 1) % BRANDS.length, turn: s.turn + 1 }));
+      setSwapping(true);
+      // will-change only for the wipe itself.
+      ids.push(window.setTimeout(() => setSwapping(false), SWAP_MS$1));
+    };
+    ids.push(
+      window.setTimeout(() => {
+        swap();
+        loop = window.setInterval(swap, HOLD_MS$1);
+      }, FIRST_HOLD_MS)
+    );
+    return () => {
+      ids.forEach((id) => window.clearTimeout(id));
+      window.clearInterval(loop);
+    };
   }, [playing]);
   const { at, prev, take, turn } = state;
   const brand2 = BRANDS[at];

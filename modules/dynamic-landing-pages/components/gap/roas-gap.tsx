@@ -54,11 +54,11 @@ export function RoasGap() {
             Fills the content width (past its drawn 1289px on wide screens). Scaled with a transform: zoomed down to a
             phone's width its text would hit the browser's minimum font size and overflow.
           */}
-          <DlpScenePanel slug="roas-gap-motion" fill transform />
+          <DlpScenePanel slug="roas-gap-motion" fill transform replayAfter={3000} />
         </div>
         {/* Below 768px: 01m, the journey as a strip a camera follows (352 × 300), in place of the wide visual. */}
         <div className="relative aspect-[352/300] w-full md:hidden">
-          <DlpScenePanel slug="roas-gap-mweb-motion" fill transform />
+          <DlpScenePanel slug="roas-gap-mweb-motion" fill transform replayAfter={3000} />
         </div>
       </div>
     </section>

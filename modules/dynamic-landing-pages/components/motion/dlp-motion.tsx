@@ -87,7 +87,8 @@ export const dlpScenes = {
     // panel's inner border, were cropped, leaving that border closer to the right edge than the left.
     width: 1289,
     height: 600,
-    duration: 4000,
+    // Its last beat (the store's last line, 3340ms in, over 700ms) settles at 4040ms.
+    duration: 4100,
   },
   // 01m, for phones: 01 as a strip at half scale, a camera following each beat (ad, Context lost, store, Drop-off).
   "roas-gap-mweb-motion": {
@@ -96,7 +97,8 @@ export const dlpScenes = {
       "A Goodwell ad leads to a generic store page: the ad's context is lost along the way, and the shopper drops off.",
     width: 352,
     height: 300,
-    duration: 4000,
+    // The camera's 6s pan, then the Drop-off line drawn from 6s over 900ms.
+    duration: 6900,
   },
   "dedicated-landing-pages-motion": {
     Component: DedicatedLandingPagesV2Motion,

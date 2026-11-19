@@ -22,6 +22,7 @@ export function Insights({
   scene,
   mobileScene,
   layout = "inlineBottom",
+  replayAfter,
 }: {
   id?: string;
   initial?: string;
@@ -33,6 +34,8 @@ export function Insights({
   mobileScene?: MotionSlug;
   /** How the copy sits beside the headline: bottom-aligned with it, as Figma (3392:200), or centred on it. */
   layout?: "inline" | "inlineBottom";
+  /** Play the visual over again, this long (ms) after it ends (see useReplay); left out, it plays once. */
+  replayAfter?: number;
 }) {
   return (
     <WidePanelSection
@@ -44,10 +47,10 @@ export function Insights({
       layout={layout}
       copyWidth={477.244}
       copy={<p>{copy}</p>}
-      mobilePanel={mobileScene ? <AiaScenePanel slug={mobileScene} fill transform /> : undefined}
+      mobilePanel={mobileScene ? <AiaScenePanel slug={mobileScene} fill transform replayAfter={replayAfter} /> : undefined}
     >
       {/* Fills the content width (past its drawn 1280px on wide screens); a transform, so it shrinks cleanly on phones. */}
-      {scene && <AiaScenePanel slug={scene} fill transform />}
+      {scene && <AiaScenePanel slug={scene} fill transform replayAfter={replayAfter} />}
     </WidePanelSection>
   );
 }

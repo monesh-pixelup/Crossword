@@ -56,6 +56,7 @@ export default function PersonalAgentsPage() {
         mobileWidth={760}
         scene="pa-the-case-motion"
         mobileScene="pa-the-case-mweb-motion"
+        replayAfter={3000}
       />
       <ShopperAsks
         id="agent-possibilities-title"
@@ -112,6 +113,7 @@ export default function PersonalAgentsPage() {
         copy="You’ll see what personal agents request, their actions, and the outcomes."
         scene="pa-insights-motion"
         mobileScene="pa-insights-mweb-motion"
+        replayAfter={3000}
       />
       {/* Figma "Divider band": the 75px chat band (56px below 768px). */}
       <div className="relative h-[75px] max-md:h-[56px]">

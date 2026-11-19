@@ -71,11 +71,11 @@ export function HelpdeskOptions() {
             width, scaled with a transform: zoomed down its text would hit the browser's minimum font size.
           */}
           <div className="relative aspect-[1280/599] w-full overflow-clip bg-forest max-md:hidden">
-            <SupportScenePanel slug="help-desk-dashboard" fill transform />
+            <SupportScenePanel slug="help-desk-dashboard" fill transform replayAfter={3000} />
           </div>
           {/* Below 768px: 11m, the same scenario laid out for a phone (353 × 440). */}
           <div className="relative aspect-[353/440] w-full md:hidden">
-            <SupportScenePanel slug="help-desk-mweb" fill transform />
+            <SupportScenePanel slug="help-desk-mweb" fill transform replayAfter={3000} />
           </div>
         </div>
 

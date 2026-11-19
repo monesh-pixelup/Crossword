@@ -42,7 +42,7 @@ export default function AiAssistantsPage() {
       </div>
       <BrandAesthetics />
       <Promotions />
-      <Insights scene="insights-motion" mobileScene="insights-mweb-motion" />
+      <Insights scene="insights-motion" mobileScene="insights-mweb-motion" replayAfter={3000} />
       <div className="relative h-[75px] max-md:h-[56px]">
         <BandDivider glyph="chat" />
       </div>

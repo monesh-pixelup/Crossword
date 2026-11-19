@@ -47,7 +47,7 @@ export function TakeControl() {
             className="absolute top-[calc(100%*15.98/680)] left-[calc(100%*13.16/738)] h-[calc(100%*648.036/680)] w-[calc(100%*711.68/738)]"
           />
           <div className="sup-plain absolute inset-0">
-            <SupportScenePanel slug="merchant-insight-inbox" />
+            <SupportScenePanel slug="merchant-insight-inbox" replayAfter={3000} />
           </div>
         </div>
       </div>

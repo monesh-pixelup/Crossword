@@ -48,7 +48,9 @@ export const paScenes = {
       "A shopper's agent, Grok Bot, shops a brand's store on its own and finishes the purchase, while the brand's own story never reaches the shopper.",
     width: 1280,
     height: 599,
-    duration: 9600,
+    // Its script (the ask typed, the store opened, searched and picked from, the answer streamed, a 1.7s hold,
+    // then the 1.6s reveal) runs 10.5s.
+    duration: 10500,
   },
   "pa-whats-new-motion": {
     Component: PaWhatsNewMotion,
@@ -106,7 +108,9 @@ export const paScenes = {
       "On a phone, a shopper's agent, Grok Bot, shops a brand's store on its own and finishes the purchase, while the brand's own story never reaches the shopper.",
     width: 353,
     height: 440,
-    duration: 9600,
+    // Its script (the ask typed, the store opened, searched and picked from, the answer streamed, a 1.7s hold,
+    // then the 1.6s reveal) runs 10.5s.
+    duration: 10500,
   },
   "pa-insights-mweb-motion": {
     Component: PersonalAgentInsightsFit,
