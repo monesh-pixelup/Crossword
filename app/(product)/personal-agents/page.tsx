@@ -97,10 +97,10 @@ export default function PersonalAgentsPage() {
       />
       <Promotions
         id="agent-promotions-title"
-        initial="P"
-        firstLine=" oint agents to"
-        secondLine="what you want sold"
-        width={413}
+        initial="E"
+        firstLine="nsure your priorities"
+        secondLine="are shared"
+        width={500}
         copy="Tell Crossword which products or bundles to recommend, and it will bring them up when it fits the request. You stay in control of the offer, even when a personal agent is doing the shopping."
         steps={agentPromotionSteps}
         // Kept at its earlier spacing on this page, by request.
@@ -109,7 +109,7 @@ export default function PersonalAgentsPage() {
       <Insights
         id="agent-insights-title"
         initial="Y"
-        firstLine="ou know what happened"
+        firstLine="ou gain visibility"
         copy="You’ll see what personal agents request, their actions, and the outcomes."
         scene="pa-insights-motion"
         mobileScene="pa-insights-mweb-motion"

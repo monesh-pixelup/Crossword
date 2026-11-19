@@ -29,12 +29,12 @@ export function HowItWorks() {
         <ol className="grid w-full gap-6 md:grid-cols-2 lg:grid-cols-3">
           {howSteps.map((step, i) => (
             /*
-              Figma's cards are 307px tall at their 410px width; the longest copy (#2) runs into the bottom padding there,
-              as in Figma. Narrower, they grow to fit.
+              Figma's cards are 307px tall at their 410px width; on the site a little taller, 330px, so the longest copy (#2)
+              clears the bottom padding. Narrower, they grow to fit.
             */
             <li
               key={step.title}
-              className="relative flex flex-col gap-8 border border-engraved/40 bg-cream p-10 lg:min-h-[307px] min-[1440px]:h-[307px]"
+              className="relative flex flex-col gap-8 border border-engraved/40 bg-cream p-10 lg:min-h-[330px] min-[1440px]:h-[330px]"
             >
               {/* The 400 × 296 light panel, centred (Figma nudges it 0.36px up). */}
               <span aria-hidden className="pointer-events-none absolute inset-x-1 top-[4.14px] bottom-[4.86px] bg-[#fff7e4]" />

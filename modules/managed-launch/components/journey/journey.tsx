@@ -23,11 +23,10 @@ export function Journey() {
             <Eyebrow>Journey</Eyebrow>
             <SectionTitle
               id="journey-title"
-              initial="M"
-              firstLine="ost projects reach completion."
-              secondLine="Crossword grows with every step"
-              width={732.406}
-              variant="dynamic"
+              initial="C"
+              firstLine="rossword grows with every step"
+              width={760}
+              variant="oneLine"
               weight="light"
             />
           </div>

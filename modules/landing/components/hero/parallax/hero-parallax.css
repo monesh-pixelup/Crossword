@@ -406,7 +406,8 @@
   top: auto;
   width: 100%;
   height: 180px;
-  scale: .9;
+  /* Site: on phones the cards larger than the export's 0.9, by request. */
+  scale: 1.18;
 }
 
 .hero-scene--compact .entry-card {

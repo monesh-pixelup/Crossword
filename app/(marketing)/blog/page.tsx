@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { JournalIndex } from "@/modules/blog/components/journal-index";
 import { getPosts } from "@/modules/blog/lib/posts";
-import { CtaEnvelope, Testimonials } from "@/modules/landing";
-import { DividerBand } from "@/components/ui/divider-band";
+import { Testimonials } from "@/modules/landing";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Page · Blog (Figma 1660:312), without its hero: the journal's posts (its heading for screen readers only), the testimonials, then the envelope CTA.
+ * Page · Blog (Figma 1660:312), without its hero: the journal's posts (its heading for screen readers only), then the testimonials.
  * The posts come from Sanity (see modules/blog/lib/posts.ts).
  */
 export default async function BlogPage() {
@@ -22,11 +21,6 @@ export default async function BlogPage() {
       <h1 className="sr-only">Blog</h1>
       <JournalIndex posts={posts} />
       <Testimonials variant="blog" />
-      {/* The patterned divider band across the top of the envelope section, between the page rails (as on the home page). */}
-      <div className="relative h-6 max-md:h-[18px]">
-        <DividerBand glyph="chat" />
-      </div>
-      <CtaEnvelope />
     </main>
   );
 }
