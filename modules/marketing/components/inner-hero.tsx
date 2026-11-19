@@ -24,7 +24,7 @@ type InnerHeroProps = {
 
 /**
  * Figma "Hero Option B" (4297:34317), the inner pages' hero: on the page's cream (#fff9ea), under the cream header, the
- * copy centred 73px down: the headline (Crimson ExtraLight 69 at 1.1 and -5%, after a 94.3px Parisienne capital at
+ * copy centred 73px down: the headline (Crimson ExtraLight 69 at 0.9, the section headings' leading, and -5%, after a 94.3px Parisienne capital at
  * 1.18 and +5%), 12px over a 480px line of Geist 16/24 at black/45, and 17px under that the wine BOOK A DEMO. Behind
  * it, from the foot up, the embossed roses (Figma's "Decorative Background Design 2": 1393 × 409, turned 180°, at 30%
  * in luminosity) and the soft-light flourish; a 209px gold tick on each page rail, 111px down. 1440 × 571 at full
@@ -73,11 +73,12 @@ export function InnerHero({ id, initial, lines, copy, cta = "BOOK A DEMO", initi
         <div className="flex w-full max-w-[740px] flex-col items-center gap-3">
           <h1
             id={id}
-            className="pt-[0.3em] font-serif text-(length:--display-size) leading-[1.1] font-extralight tracking-[-0.05em] text-balance text-ink lg:text-[69px]"
+            className="pt-[0.3em] font-serif text-(length:--display-size) leading-[0.9] font-extralight tracking-[-0.05em] text-balance text-ink lg:text-[69px]"
           >
             {/*
-              As the photo heroes set it: the swash takes no line height of its own (leading 0), so every line keeps the
-              headline's 1.1, and the first line carries 0.3em of top padding for the capital's rise.
+              The swash takes no line height of its own (leading 0), so every line keeps the headline's 0.9, the
+              section headings' leading (SectionTitle: 60px lines at 54px), and the first line carries 0.3em of top
+              padding for the capital's rise.
             */}
             <span className="font-script text-[1.3667em] leading-0 font-normal" style={{ letterSpacing: `${initialTracking}em` }}>
               {initial}
