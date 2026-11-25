@@ -1,4 +1,5 @@
 import { cutoutSrcs } from "../../assets/products/cutouts";
+import { sceneImage } from "../../scene-image";
 
 // ILL/Primitive/Media (node 1954:334). "Layout variants represent
 // recurring crop structures only; imagery remains data." Renders a real
@@ -12,7 +13,8 @@ interface MediaProps {
 
 export function Media({ src, alt }: MediaProps) {
   if (src) {
-    return <img className={`ill-media${cutoutSrcs.has(src) ? " ill-media--cutout" : ""}`} src={src} alt={alt} />;
+    // Through the image optimizer (see sceneImage): the source PNGs are megabytes each.
+    return <img className={`ill-media${cutoutSrcs.has(src) ? " ill-media--cutout" : ""}`} {...sceneImage(src)} alt={alt} />;
   }
 
   return <div className="ill-media ill-media--placeholder" role="img" aria-label={alt} />;

@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import registry from "./registry.json";
+import { MARK_SIZES, sceneImage } from "../scene-image";
 import goodwellMarkImage from "@/modules/shared/assets/motion/brands/goodwell-mark.svg";
 import suppliedAmberAndOakMarkImage from "@/modules/shared/assets/motion/brands/supplied/amber-and-oak-mark.svg";
 import suppliedAuraMarkImage from "@/modules/shared/assets/motion/brands/supplied/aura-mark.svg";
@@ -184,7 +185,7 @@ export function BrandMark({
       aria-hidden="true"
     >
       {raster || supplied ? (
-        <img className="demo-brand-mark__supplied" src={raster ?? supplied} alt="" />
+        <img className="demo-brand-mark__supplied" {...sceneImage(raster ?? supplied, MARK_SIZES)} alt="" />
       ) : brand.id === "aurelle" || brand.id === "goodwell" ? (
         <img
           src={

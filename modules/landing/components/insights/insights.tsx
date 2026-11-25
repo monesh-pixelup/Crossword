@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { SectionTitle } from "@/components/ui/section-title";
 import { ctaLinks } from "@/modules/marketing/config/navigation";
 import arrowRight from "../../assets/insights/arrow-right.svg";
 import railAccent from "../../assets/insights/rail-accent.svg";
@@ -25,17 +26,8 @@ export function Insights() {
         <div className="flex w-full flex-col items-start gap-8 md:flex-row md:items-end md:justify-between md:gap-[120px]">
           <div className="flex flex-col items-start gap-6">
             <Eyebrow>Insights</Eyebrow>
-            {/* Drawn at 60px and zoomed to the breakpoint's h2 size, like SectionTitle. */}
-            <div className="fit-to-container [--fit-width:calc(543px*var(--h2-scale))]">
-              <h2
-                id="insights-title"
-                className="h-[97px] w-[543px] font-serif text-[0px] leading-[0] font-extralight whitespace-nowrap text-ink [zoom:var(--h2-scale)]"
-              >
-                {/* Figma: the swash at -5% (-4.1px), the line ExtraLight at 1.18 and -5% (-3px). */}
-                <span className="font-script text-[82px] leading-[1.18] font-normal tracking-[-4.1px]">A</span>
-                <span className="text-[60px] leading-[1.18] tracking-[-3px]">sk your store anything</span>
-              </h2>
-            </div>
+            {/* Figma: the swash at -5% (-4.1px), the line ExtraLight at 1.18 and -5% (-3px): SectionTitle's `compact`. */}
+            <SectionTitle id="insights-title" initial="A" firstLine="sk your store anything" width={543} variant="compact" swashTracking={-0.05} />
           </div>
           <Link
             href={ctaLinks.bookDemo}

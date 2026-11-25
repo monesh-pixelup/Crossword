@@ -10,7 +10,7 @@ import { campaigns } from "../../config/campaigns";
 import panelMaroon from "@/modules/shared/assets/panels/panel-conversational.webp";
 import panelAubergine from "@/modules/shared/assets/panels/panel-conversational-aubergine.webp";
 import panelForest from "@/modules/shared/assets/panels/panel-conversational-forest.webp";
-import { CampaignMotion, campaignTones } from "../motion/retain-motion";
+import { CampaignMotion, campaignTones, preloadCampaignImages } from "../motion/retain-motion";
 
 /** Each campaign's framed damask panel (Sell's Product discovery art, as AI Assistants' Shopper asks), in its livery. */
 const panels = { maroon: panelMaroon, aubergine: panelAubergine, forest: panelForest } as const;
@@ -120,8 +120,27 @@ export function CampaignTabs() {
     return () => query.removeEventListener("change", update);
   }, []);
 
+  // The visuals' pictures are fetched once the section is within about two screens, ahead of the visuals themselves.
+  const sentinel = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = sentinel.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        preloadCampaignImages();
+        observer.disconnect();
+      },
+      { rootMargin: "200% 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
+      {/* Out of the flow (so it adds no gap) but still laid out, which an observer needs. */}
+      <span ref={sentinel} aria-hidden className="pointer-events-none absolute size-px" />
       {/* Below 992px: every campaign stacked, no tabs, a thin rule halfway between each (48px either side). */}
       <ul className="flex w-full flex-col gap-12 lg:hidden [&>li+li]:border-t [&>li+li]:border-black/10 [&>li+li]:pt-12">
         {campaigns.map((campaign, i) => (

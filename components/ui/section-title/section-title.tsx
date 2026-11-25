@@ -208,7 +208,7 @@ type SectionTitleProps = {
   firstLine: ReactNode;
   /** Omit for a one-line headline. */
   secondLine?: ReactNode;
-  /** Figma text-box width at 60px; the title scales with the breakpoint and to fit narrower screens. */
+  /** Figma text-box width at 60px; the title scales with the breakpoint and, from 768px, to fit narrower screens. */
   width: number;
   variant?: keyof typeof variants;
   /** Horizontal space to leave free when scaling down (default: the page side padding). */
@@ -220,8 +220,8 @@ type SectionTitleProps = {
   /** Weight of the lines (the swash keeps its own): Crimson ExtraLight, or Light as the home page sets them. */
   weight?: keyof typeof weights;
   /**
-   * The text-box width below 768px, for a headline whose lines are re-broken shorter there (with `md:hidden` /
-   * `max-md:hidden` pieces in its lines), so it keeps the other headlines' size on phones.
+   * No longer needed: below 768px every headline keeps the h2 size and wraps to its container (see phoneMetrics), so
+   * a re-broken headline needs no width of its own. Still accepted so its callers read as before.
    */
   mobileWidth?: number;
   /** The heading level: h2 (a section's headline), or h1 for a page whose first section's headline is its title. */
@@ -229,6 +229,29 @@ type SectionTitleProps = {
   /** The swash capital's tracking in em, where Figma sets its own (e.g. -0.06 for -6%); otherwise the variant's. */
   swashTracking?: number;
 };
+
+/**
+ * Below 768px a headline is never shrunk to fit: every section's is drawn at the breakpoint's h2 size (40px, 36px
+ * below 480px), and a line too long for the screen wraps instead (balanced), so headlines are the same size in every
+ * section and on every page. Shrunk to fit, as from 768px up, a long line came out smaller than a short one's.
+ *
+ * A wrapping line can't sit in the fixed-height block the desktop layout gives line 1 (its swash would push the
+ * wrapped lines apart), so there the swash takes no height of its own (leading 0) and the block is as tall as its
+ * lines, with room above for the swash: `pad` puts line 1's baseline exactly where the fixed block had it, and the
+ * margin under the block lands line 2 where it was. A headline that fits is drawn exactly as before.
+ *
+ * `pad` is where the swash's own line box put the baseline, less the line's half-leading: measured in the browser
+ * for the two swash settings (Parisienne 82px at 1.18, Tangerine 82px at 1.1) over Crimson Pro lines.
+ */
+const SWASH_BASE = { script: 47.14, calligraphy: 45.14 } as const;
+
+function phoneMetrics(v: (typeof variants)[keyof typeof variants], size: number) {
+  const lineHeight = size * Number(/leading-\[([\d.]+)\]/.exec(v.line)?.[1] ?? 1.1);
+  // displaySmall's swash already takes no height: its own padding is the room above.
+  const pad =
+    "firstLinePad" in v ? v.firstLinePad : SWASH_BASE[v.swash.includes("font-calligraphy") ? "calligraphy" : "script"] - lineHeight / 2;
+  return { pad, after: v.firstLineHeight - pad - lineHeight };
+}
 
 /**
  * Section headline (two lines, or one without `secondLine`) that opens with a calligraphic capital.
@@ -248,7 +271,6 @@ export function SectionTitle({
   tone = "ink",
   lineGap,
   weight = "extralight",
-  mobileWidth,
   as: Heading = "h2",
   swashTracking,
 }: SectionTitleProps) {
@@ -256,31 +278,42 @@ export function SectionTitle({
   // Line size in px at desktop (60 unless the variant says otherwise).
   const size = "size" in v ? v.size : 60;
 
+  const phone = phoneMetrics(v, size);
+
   return (
     // The headline is drawn at its 60px desktop size and zoomed to the breakpoint's h2 size
-    // (--h2-scale: 60 / 48 / 40 / 36px); if that still doesn't fit, fit-to-container shrinks it.
+    // (--h2-scale: 60 / 48 / 40 / 36px). From 768px, if that still doesn't fit, fit-to-container shrinks it; below,
+    // its lines wrap at that size instead (see phoneMetrics).
     <div
-      className={mobileWidth !== undefined ? "fit-to-container [--title-w:var(--title-w-lg)] max-md:[--title-w:var(--title-w-sm)]" : "fit-to-container"}
+      className="max-w-full md:fit-to-container"
       style={
         {
-          ...(mobileWidth !== undefined
-            ? {
-                "--title-w-lg": `${width}px`,
-                "--title-w-sm": `${mobileWidth}px`,
-                "--fit-width": "calc(var(--title-w) * var(--h2-scale))",
-              }
-            : { "--fit-width": `calc(${Math.ceil(width)}px * var(--h2-scale))` }),
+          "--title-w": `${width}px`,
+          "--fit-width": `calc(${Math.ceil(width)}px * var(--h2-scale))`,
           ...(gutter !== undefined && { "--fit-gutter": `${gutter}px` }),
         } as CSSProperties
       }
     >
       <Heading
         id={id}
-        className={`font-serif text-[0px] leading-[0] whitespace-nowrap ${weights[weight]} ${tones[tone]} ${v.tracking}`}
-        style={{ width: mobileWidth !== undefined ? "var(--title-w)" : width, zoom: "var(--h2-scale)" }}
+        className={`font-serif text-[0px] leading-[0] max-md:text-balance md:w-(--title-w) md:whitespace-nowrap ${weights[weight]} ${tones[tone]} ${v.tracking}`}
+        style={{ zoom: "var(--h2-scale)" }}
       >
-        <span className="block" style={{ height: v.firstLineHeight, paddingTop: "firstLinePad" in v ? v.firstLinePad : undefined }}>
-          <span className={`font-normal ${v.swash}`} style={swashTracking !== undefined ? { letterSpacing: `${swashTracking}em` } : undefined}>
+        <span
+          className="block pt-(--line-pad) max-md:mb-(--line-after) max-md:pt-(--line-pad-phone) md:h-(--line-h)"
+          style={
+            {
+              "--line-h": `${v.firstLineHeight}px`,
+              "--line-pad": `${"firstLinePad" in v ? v.firstLinePad : 0}px`,
+              "--line-pad-phone": `${phone.pad}px`,
+              "--line-after": `${phone.after}px`,
+            } as CSSProperties
+          }
+        >
+          <span
+            className={`font-normal ${v.swash} max-md:leading-[0]`}
+            style={swashTracking !== undefined ? { letterSpacing: `${swashTracking}em` } : undefined}
+          >
             {initial}
           </span>
           <span className={v.line} style={{ fontSize: size }}>

@@ -18,6 +18,13 @@ import {
 } from "./visuals/RetainV2/RetainV2";
 import { useReplay } from "@/modules/shared/motion/use-replay";
 import { LaunchAudienceFit } from "./illustrations/LaunchAudience/LaunchAudience";
+import * as outbound from "./illustrations/OutboundCampaign/data";
+import * as segmented from "./illustrations/SegmentedCampaign/data";
+import * as postPurchase from "./illustrations/PostPurchaseFollowUp/data";
+import * as winBack from "./illustrations/WinBackCampaign/data";
+import * as review from "./illustrations/ReviewSolicitation/data";
+import wallpaperImage from "../../assets/motion/scenarios/channel-deployment/wa/wallpaper.png";
+import { BACKDROP_SIZES, preloadSceneImages, sceneImage } from "./scene-image";
 import "./motion.css";
 
 /**
@@ -48,6 +55,23 @@ const campaignScenes: ComponentType[] = [
   WinBackIMessageV2,
   ReviewWhatsAppV2,
 ];
+
+/**
+ * The pictures the campaign visuals show in their messages, in the campaigns' order. A visual only draws a picture as
+ * its message appears, so left to themselves they'd each start loading mid-conversation; the section fetches them all
+ * as it nears the screen instead (CampaignTabs), so every one is there when its bubble lands.
+ */
+export function preloadCampaignImages() {
+  const photos = [
+    ...outbound.arrivals.map((product) => product.image),
+    ...segmented.shortlist.map((product) => product.image),
+    postPurchase.purchase.image,
+    winBack.previous.image,
+    winBack.next.image,
+    review.purchase.image,
+  ].filter((src): src is string => !!src);
+  preloadSceneImages([sceneImage(wallpaperImage.src, BACKDROP_SIZES), ...photos.map((src) => sceneImage(src))]);
+}
 
 const subscribe = () => () => {};
 

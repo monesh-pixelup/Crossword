@@ -8,6 +8,7 @@ import { BrandMark, BrandName } from "../../brands/BrandIdentity";
 import { LoadingFrame } from "../SellMotion/LoadingFrame";
 import { useChatTimeline, type Beat, type Timeline } from "../SellMotion/useChatTimeline";
 import { useRunFlip } from "./useRunFlip";
+import { BACKDROP_SIZES, sceneImage } from "../../scene-image";
 
 const wallpaper = wallpaperImage.src;
 const camera = cameraImage.src;
@@ -38,7 +39,7 @@ export function WhatsAppChat({
     <ConversionAssistanceFrame>
       <div className="ill-outbound ill-wa2" ref={rootRef}>
         <div className="ill-channel-shell ill-wa2__shell ill-outbound__shell">
-          <img className="ill-wa2__wallpaper" src={wallpaper} alt="" aria-hidden="true" />
+          <img className="ill-wa2__wallpaper" {...sceneImage(wallpaper, BACKDROP_SIZES)} alt="" aria-hidden="true" />
           <header className="ill-wa2__header">
             <span className="ill-wa2__back" aria-hidden="true">
               <svg viewBox="0 0 12 20" width="12" height="20">
