@@ -33,7 +33,7 @@ function CoverTitle({ title, layout }: { title: string; layout: "a" | "b" }) {
   const initial = title.slice(0, 1);
   const rest = title.slice(1);
   return (
-    <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-[296px] w-[761px] select-none scale-to-container [--fit-width:761px]">
+    <div aria-hidden className="pointer-events-none absolute top-0 left-0 h-[296px] w-[761px] select-none scale-to-container [--fit-height:296px] [--fit-width:761px]">
       {layout === "a" ? (
         // The gilt box: 139px down, 143.16px tall; the title centred in it.
         <div className="absolute top-[139.01px] left-8 flex h-[143.162px] w-[314.238px] items-center">

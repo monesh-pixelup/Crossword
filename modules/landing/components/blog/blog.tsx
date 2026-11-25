@@ -20,7 +20,7 @@ function FeaturedCover({ featuredPost }: { featuredPost: FeaturedPost }) {
   const [initial, firstLine, secondLine] = featuredPost.coverTitle;
 
   return (
-    <div aria-hidden className="relative h-[296px] w-[761px] shrink-0 overflow-clip select-none scale-to-container [--fit-width:761px]">
+    <div aria-hidden className="relative h-[296px] w-[761px] shrink-0 overflow-clip select-none scale-to-container [--fit-height:296px] [--fit-width:761px]">
       <div className="absolute inset-0 bg-maroon" />
       {/* Twill, toned to the dim grey Figma renders it as, so darkening the maroon lands on its colours. */}
       <div

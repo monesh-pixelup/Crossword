@@ -155,7 +155,7 @@ export function Commitment() {
       <div className="py-16 md:py-24 lg:hidden">
         <div className="content-width">
           <div className="mx-auto @container w-full max-w-[606px]">
-            <div className="relative h-[494px] w-[606px] scale-to-container [--fit-width:606px]">
+            <div className="relative h-[494px] w-[606px] scale-to-container [--fit-height:494px] [--fit-width:606px]">
               <div className="absolute top-[-75px] left-[-366px]">
                 <Note />
               </div>

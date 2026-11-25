@@ -35,6 +35,17 @@
   position: relative;
 }
 
+/*
+ * The concierge layer (GlitchFigure) is a scene layer like the photo: placed absolutely on the stack. Left relative
+ * (the rule above outranks .hero-scene__crop), its percentage `top` was resolved against the stack's height, which
+ * comes from an aspect-ratio: Safari 18 doesn't count that as a height to take a percentage of, so there the cutout
+ * sat at the stack's top, a second concierge above the photo's own. Absolute, it's placed the same in every browser
+ * (and still holds its canvas).
+ */
+.hero-scene .hero-scene__crop.holo-mosaic {
+  position: absolute;
+}
+
 .hero-scene .holo-mosaic__img {
   display: block;
   width: 100%;

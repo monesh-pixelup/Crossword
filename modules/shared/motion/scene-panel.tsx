@@ -1,6 +1,6 @@
 "use client";
 
-import { type ComponentType, type ReactNode, useEffect, useRef, useState } from "react";
+import { type ComponentType, type ReactNode, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { MotionRoot } from "./primitives";
 
 export type SceneEntry = {
@@ -74,6 +74,16 @@ function useNarrow(width: number | undefined) {
 }
 
 /**
+ * Safari 18 and earlier (iOS 18 included) won't draw zoomed text under 9px (Chrome's floor is 6px), so a scene zoomed
+ * to a phone or tablet's width kept its small text far too big for its shrunken frames. The root layout's inline
+ * script measures for that floor and marks <html data-zoom-clamps>; there, below 992px, every panel scales with the
+ * transform, which leaves font sizes alone.
+ */
+const CLAMP_TRANSFORM_BELOW = 992;
+const noSubscription = () => () => {};
+const zoomClamps = () => document.documentElement.hasAttribute("data-zoom-clamps");
+
+/**
  * A motion scene drawn at its fixed size and zoomed to fit (contain) the panel it fills,
  * centred. The scene plays while `active` and at least 30% on screen, as the source build
  * did; leaving and coming back restarts it.
@@ -92,7 +102,9 @@ export function ScenePanel({
   className,
 }: ScenePanelProps) {
   const narrow = useNarrow(transformProp ? transformBelow : undefined);
-  const transform = transformProp && narrow;
+  const clamps = useSyncExternalStore(noSubscription, zoomClamps, () => false);
+  const clampNarrow = useNarrow(clamps ? CLAMP_TRANSFORM_BELOW : undefined);
+  const transform = (transformProp && narrow) || (clamps && clampNarrow);
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
   const [inView, setInView] = useState(false);

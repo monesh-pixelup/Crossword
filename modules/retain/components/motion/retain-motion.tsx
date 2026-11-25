@@ -82,7 +82,7 @@ function MotionStage({
 
   return (
     <div ref={ref} aria-hidden className="@container w-full">
-      <div inert className="scale-to-container" style={{ width, height, "--fit-width": `${width}px` } as CSSProperties}>
+      <div inert className="scale-to-container" style={{ width, height, "--fit-width": `${width}px`, "--fit-height": `${height}px` } as CSSProperties}>
         {client && (
           // `rv2m`: the class the source page sets on <body> for its window standard (motion.css's `.rtn-motion.rv2m …`).
           <div className={tone ? `rtn-motion rv2m rtn-tone-${tone}` : "rtn-motion rv2m"}>

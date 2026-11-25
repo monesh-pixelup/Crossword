@@ -200,10 +200,18 @@
  * `@container`, never up. Set --fit-width to the design width and
  * --fit-gutter to the horizontal space to leave free (by default the page's
  * side padding, so it fits the content column).
- * tan(atan2(a, b)) yields the unitless ratio a / b.
+ *
+ * The zoom is the unitless ratio of two lengths, written twice. tan(atan2(a, b)) yields a / b in every browser with
+ * trigonometric functions, except Safari 18 (iOS 18 included): there, with a container unit inside, it takes the
+ * angle's degrees for radians, so a ratio of 1 came out as 1.62 and 0.77 as 0.27: every fitted headline, mock-up and
+ * illustration frame on the site the wrong size. Where a length can be divided by a length directly (Safari 18 and
+ * later, current Chrome), that plain division is used instead, which Safari 18 gets right.
  */
 @utility fit-to-container {
   zoom: min(1, tan(atan2(100cqw - var(--fit-gutter, 2 * var(--page-pad)), var(--fit-width))));
+  @supports (zoom: calc(1px / 1px)) {
+    zoom: min(1, calc((100cqw - var(--fit-gutter, 2 * var(--page-pad))) / var(--fit-width)));
+  }
 }
 
 /*
@@ -212,6 +220,48 @@
  */
 @utility scale-to-container {
   zoom: tan(atan2(100cqw, var(--fit-width)));
+  @supports (zoom: calc(1px / 1px)) {
+    zoom: calc(100cqw / var(--fit-width));
+  }
+}
+
+/*
+ * Scales a fixed-size composition to cover the nearest size container (the larger of the two ratios), its overflow
+ * cropped by the container. Set --fit-width and --fit-height to the design size.
+ */
+@utility cover-container {
+  zoom: max(tan(atan2(100cqw, var(--fit-width))), tan(atan2(100cqh, var(--fit-height))));
+  @supports (zoom: calc(1px / 1px)) {
+    zoom: max(calc(100cqw / var(--fit-width)), calc(100cqh / var(--fit-height)));
+  }
+}
+
+/*
+ * Safari 18 and earlier (iOS 18 included) never draw zoomed text under 9px: a mock-up zoomed to a phone's width (to
+ * 45%, say) kept its 14px labels at 9px instead of 6.6px, so the text came out half as big again as its frame allows:
+ * wrapping, overflowing its cards and pushing them apart. Chrome's floor is 6px and newer Safari has none. Those
+ * browsers are found by measuring (the inline script in app/layout.tsx, which marks <html data-zoom-clamps> before the
+ * first paint); below 992px the compositions with small text are then scaled with a transform instead, which leaves
+ * font sizes alone. A transform doesn't shrink the box it lays out, so negative margins take back the difference (the
+ * element then occupies its scaled size, as when zoomed), which needs the design height too: only a
+ * `scale-to-container` given a --fit-height switches. ScenePanel does the same for its scenes.
+ */
+@supports (zoom: calc(1px / 1px)) {
+  @media (width < 992px) {
+    html[data-zoom-clamps] .scale-to-container:is([class*="--fit-height"], [style*="--fit-height"]) {
+      zoom: 1;
+      scale: calc(100cqw / var(--fit-width));
+      transform-origin: 0 0;
+      margin-right: calc(100cqw - var(--fit-width));
+      margin-bottom: calc(var(--fit-height) * (100cqw / var(--fit-width) - 1));
+    }
+
+    /* Centred on its container by its own translate, so the scale (about its centre) needs no margins. */
+    html[data-zoom-clamps] .cover-container {
+      zoom: 1;
+      scale: max(calc(100cqw / var(--fit-width)), calc(100cqh / var(--fit-height)));
+    }
+  }
 }
 
 /*
@@ -220,7 +270,7 @@
  * alone and drops the zoom: the boxes shrink but the text in them doesn't, so headlines (drawn at 60px and zoomed to
  * the breakpoint's size), mock-ups and motion scenes come out with text too large for their frames, overflowing,
  * overlapping, or refitted to something tiny. Only `auto` keeps the zoom, so every element that sets `zoom` takes it
- * (inherited by its content): the two fit utilities, arbitrary `[zoom:…]` classes, inline `zoom` styles (SectionTitle,
+ * (inherited by its content): the fit utilities, arbitrary `[zoom:…]` classes, inline `zoom` styles (SectionTitle,
  * the hero title, ScenePanel) and the motion stylesheets' zoomed windows.
  *
  * `auto` also lets iPhone's text autosizer in, but it only enlarges text in blocks wider than the screen, and skips
@@ -232,6 +282,7 @@
   :where(
     [class*="fit-to-container"],
     [class*="scale-to-container"],
+    [class*="cover-container"],
     [class*="zoom:"],
     [style*="zoom"],
     .aiv3w,

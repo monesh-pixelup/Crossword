@@ -19,7 +19,7 @@ export function HeroShowcase() {
     <div
       role="img"
       aria-label="The Crossword assistant recommending a bracelet to a shopper, next to the store's product page"
-      className="fit-to-container relative h-[663px] w-[1390px] shrink-0 select-none [contain:strict] [--fit-gutter:0px] [--fit-width:1440px] max-md:[zoom:tan(atan2(1.8*100cqw,1440px))] max-xs:[zoom:tan(atan2(2.6*100cqw,1440px))]"
+      className="fit-to-container relative h-[663px] w-[1390px] shrink-0 select-none [contain:strict] [--fit-gutter:0px] [--fit-width:1440px] max-md:scale-to-container max-md:[--fit-width:calc(1440px/1.8)] max-xs:[--fit-width:calc(1440px/2.6)]"
     >
       <div
         className="absolute top-[-24px] left-[-3px] h-[712px] w-[1397px] mask-alpha mask-no-repeat mask-position-[-101.292px_-63.292px] mask-size-[1598.584px_871.584px]"

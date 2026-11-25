@@ -154,7 +154,7 @@ export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run:
       ref={ref}
       {...(entry ? { role: "img", "aria-label": entry.label } : { "aria-hidden": true })}
       className={[
-        "relative h-[680px] w-[738px] shrink-0 overflow-clip [--fit-gutter:0px] [--fit-width:738px] scale-to-container xl:ml-auto xl:fit-to-container",
+        "relative h-[680px] w-[738px] shrink-0 overflow-clip [--fit-gutter:0px] [--fit-height:680px] [--fit-width:738px] scale-to-container xl:ml-auto xl:fit-to-container",
         // Every backdrop a visual can draw (the chat scenes' frame and its sized variant, the sponsored and insight frames,
         // the others' crimson and stage photos) is stripped: only the one card below (the first tab's) ever shows, and
         // switching tabs changes the visual alone. Both are `!important`: home-motion.css is outside any @layer, so it
@@ -199,7 +199,7 @@ export function InsightPanel({ visual, run }: { visual: InsightVisual; run: numb
       ref={ref}
       role="img"
       aria-label={label}
-      className="absolute top-1/2 left-1/2 h-[640px] w-[738px] -translate-x-1/2 -translate-y-1/2 overflow-clip [zoom:max(tan(atan2(100cqw,738px)),tan(atan2(100cqh,640px)))]"
+      className="absolute top-1/2 left-1/2 h-[640px] w-[738px] -translate-x-1/2 -translate-y-1/2 overflow-clip cover-container [--fit-height:640px] [--fit-width:738px]"
     >
       <div inert className="contents">
         {/* A new tab crossfades over the last; the same visual restarting (`run`) just replays in place. */}
