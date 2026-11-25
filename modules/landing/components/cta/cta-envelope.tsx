@@ -289,12 +289,19 @@ export function CtaEnvelope() {
           {/* Crimson 40px in Figma's 389.68px box at the 1440px frame (the envelope 1390px wide), never larger, scaling down with the envelope below that. */}
           <h2 id="cta-title" className="m-0 pt-[0.2656em] text-center font-serif text-[min(40px,2.8777cqw)] leading-[1.1] font-normal tracking-[-0.06em] text-[#b4ab9b] [filter:url(#cta-deboss)] max-md:max-w-[11em] max-md:text-[1.375rem] max-[480px]:text-[1.125rem]">
             <span className="font-script text-[1.5em] leading-0 tracking-[-0.05em]">E</span>xplore a no strings attached{" "}
-            {/* The call to action, underlined with the site's text-link hairline (ink 30%), fading on hover like the other links. */}
+            {/*
+              The call to action, underlined with the site's text-link hairline (ink 30%), fading to half on hover like
+              the other links. Faded through its colours, not its opacity: an opacity transition is run by the
+              compositor, which lifts the link onto a layer of its own for those 150ms and drops it after, and each time
+              the layers around it (the heading's deboss filter, the envelope's flaps and cards, all on layers of their
+              own) were re-sorted and redrawn: the envelope flickered as the pointer went on and off the link. A colour
+              change is just a repaint of the text.
+            */}
             <Link
               href={ctaLinks.bookDemo}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline decoration-[rgba(40,40,40,0.3)] decoration-1 underline-offset-[0.12em] transition-opacity duration-150 hover:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
+              className="text-[#b4ab9b] underline decoration-[rgba(40,40,40,0.3)] decoration-1 underline-offset-[0.12em] transition-colors duration-150 hover:text-[rgb(180_171_155/0.5)] hover:decoration-[rgba(40,40,40,0.15)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon"
             >
               pilot with us today
             </Link>

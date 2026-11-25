@@ -9,7 +9,7 @@ import whatsapp from "../assets/channels/whatsapp.svg";
 
 /** Support channels, in Figma's integrations row order: each name with its 30.9 × 29.1 gold-and-maroon mark. */
 export const channels: { name: string; icon: StaticImageData }[] = [
-  { name: "Web chat / widget", icon: webChat },
+  { name: "Website", icon: webChat },
   { name: "TikTok", icon: tiktok },
   { name: "SMS", icon: sms },
   { name: "Instagram", icon: instagram },

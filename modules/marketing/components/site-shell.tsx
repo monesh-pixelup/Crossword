@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { EagerImages } from "./eager-images";
 import { HeroCurtain } from "./hero-curtain";
+import { NoImageDrag } from "./no-image-drag";
 import { Rails } from "./rails";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
@@ -27,7 +28,8 @@ import { SiteHeader } from "./site-header";
  */
 export function SiteShell({ children, latestPost = null }: { children: ReactNode; latestPost?: { href: string; title: string } | null }) {
   return (
-    <div className="overflow-x-clip">
+    // `site-shell`: scopes the site-wide rules that must not reach the Sanity Studio (globals.css).
+    <div className="site-shell overflow-x-clip">
       <div className="relative mx-auto max-w-[1440px]">
         <SiteHeader latestPost={latestPost} />
         <div className="site-rails-host @container relative">
@@ -38,6 +40,7 @@ export function SiteShell({ children, latestPost = null }: { children: ReactNode
         </div>
         <HeroCurtain />
         <EagerImages />
+        <NoImageDrag />
       </div>
       <SiteFooter />
     </div>

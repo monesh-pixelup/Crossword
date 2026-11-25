@@ -212,7 +212,7 @@ export const initialJourneyState: JourneyState = {
 
 const advance = (s: JourneyState): JourneyState => ({ ...s, phase: "travel", cursor: s.cursor + 1, move: "final", highlighted: true });
 
-/** The next step from a state: after how long, whether it leaves the conversation (paused while hovered), and what it does. */
+/** The next step from a state: after how long, whether it leaves the conversation (held while a card has keyboard focus), and what it does. */
 export function nextStep(s: JourneyState): {
   delay: number;
   kind: "auto" | "leave";

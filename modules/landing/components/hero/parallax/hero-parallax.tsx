@@ -74,7 +74,11 @@ function usePlaying(ref: RefObject<HTMLElement | null>) {
 
 /**
  * Runs the journeys on timers: each step waits its delay, pausing (and keeping what's left) while
- * off screen, and holding a finished conversation while `hold` (hovered or keyboard-focused).
+ * off screen, and holding a finished conversation while `hold` (a card is keyboard-focused).
+ *
+ * Not while the mouse is over it, as it once did: the cards and the conversation cover most of the hero, where the
+ * pointer usually rests, so the conversation finished and then sat there for as long as the mouse stayed (and for
+ * longer still when the bubble under it was removed, which sends no leave event): it read as stuck.
  */
 function useJourneys(ref: RefObject<HTMLElement | null>, hold: boolean) {
   const [state, setState] = useState(initialJourneyState);
@@ -122,9 +126,8 @@ function copyPlacement({ width, compact }: SceneState): "foot" | "above" | "stac
  */
 export function HeroParallax({ copy }: { copy: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
-  const { state, select } = useJourneys(root, hovered || focused);
+  const { state, select } = useJourneys(root, focused);
   const conversations = [state.outgoing, state.current].filter((c) => c !== null);
 
   return (
@@ -208,8 +211,6 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
         {({ compact }) => (
           <div
             className="hero-journeys__zone"
-            onPointerEnter={(e) => e.pointerType === "mouse" && setHovered(true)}
-            onPointerLeave={() => setHovered(false)}
             onFocus={(e) => setFocused(e.target.matches(":focus-visible"))}
             onBlur={() => setFocused(false)}
           >

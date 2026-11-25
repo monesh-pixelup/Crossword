@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { externalLinkProps } from "@/lib/external-link";
-import complianceBadges from "../assets/footer/compliance-badges.webp";
+import badgeCcpa from "../assets/footer/badge-ccpa.webp";
+import badgeGdpr from "../assets/footer/badge-gdpr.webp";
+import badgeHipaa from "../assets/footer/badge-hipaa.webp";
+import badgeIso from "../assets/footer/badge-iso.webp";
+import badgeSoc2 from "../assets/footer/badge-soc2.webp";
 import monogramFrame from "../assets/footer/monogram-frame.svg";
 import stamp from "../assets/footer/stamp.webp";
 import textureTile from "../assets/footer/texture-tile.webp";
@@ -28,6 +32,19 @@ function FooterLinkItem({ link }: { link: FooterLink }) {
     </li>
   );
 }
+
+/**
+ * The compliance marks, each its own image (Figma 3991:200785: a 351px row of five 55.2px marks, SOC 2 at 54.48px,
+ * 18.93px apart), cut at 3x with a clear ground from the single export the row used to be, so each sits on the
+ * footer's weave as before. Widths are shares of the row, so on a screen narrower than 351px the row shrinks as one.
+ */
+const complianceBadges = [
+  { src: badgeIso, alt: "ISO 27001 compliant", width: 55.2037 },
+  { src: badgeSoc2, alt: "AICPA SOC 2", width: 54.4774 },
+  { src: badgeHipaa, alt: "HIPAA", width: 55.2037 },
+  { src: badgeGdpr, alt: "GDPR", width: 55.2037 },
+  { src: badgeCcpa, alt: "CCPA compliant", width: 55.2037 },
+];
 
 /** Company + platform link columns. */
 function FooterNav() {
@@ -144,13 +161,13 @@ export function SiteFooter() {
               </div>
             </div>
             <div className="flex flex-col items-start gap-6 lg:items-end max-[960px]:contents">
-              {/* ISO 27001, SOC 2, HIPAA, GDPR and CCPA marks: one 3x export of Figma's 351px row. */}
-              <Image
-                src={complianceBadges}
-                alt="ISO 27001 compliant, AICPA SOC 2, HIPAA, GDPR and CCPA compliant"
-                sizes="351px"
-                className="h-auto w-[351px] max-w-full max-[960px]:order-1"
-              />
+              <ul aria-label="Compliance" className="flex w-[351px] max-w-full items-center justify-between max-[960px]:order-1">
+                {complianceBadges.map((badge) => (
+                  <li key={badge.alt} className="shrink-0" style={{ width: `${(badge.width / 351) * 100}%` }}>
+                    <Image src={badge.src} alt={badge.alt} sizes="56px" className="h-auto w-full" />
+                  </li>
+                ))}
+              </ul>
               <p className="flex flex-wrap items-center gap-x-3.5 gap-y-1 font-sans text-[14px] leading-[1.3] tracking-[-0.42px] whitespace-nowrap text-[rgba(223,227,210,0.6)] xs:flex-nowrap max-[960px]:order-3">
                 <span>Crossword</span>
                 {/* The divider stays 12px, as in Figma. */}

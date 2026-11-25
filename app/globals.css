@@ -380,6 +380,18 @@
 }
 
 /*
+ * No dragging or selecting pictures: an image, logo, illustration or icon can't be picked up and dragged off the page
+ * (the ghost copy that follows the pointer), nor highlighted when a selection is swept across it. Text selects as
+ * before. Scoped to the site's shell, so the Sanity Studio, which moves images by dragging, keeps its own behaviour.
+ * Firefox has no style for dragging: NoImageDrag cancels the drag there.
+ */
+.site-shell :is(img, svg, picture, canvas, video) {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/*
  * Selected text: the brand maroon instead of the browser's blue, with cream text on it. Outside any @layer, so no
  * layered rule can outrank it, and on every element (`*::selection`), which highlight inheritance needs.
  */
