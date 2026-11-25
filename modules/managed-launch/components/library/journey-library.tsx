@@ -12,6 +12,8 @@ import stampCareGuide from "../../assets/library/stamps/6-care-guide.png";
 import stampProductDeepDive from "../../assets/library/stamps/7-product-deep-dive.png";
 import stampBundleBuilder from "../../assets/library/stamps/8-bundle-builder.png";
 import stampBrandFaq from "../../assets/library/stamps/9-brand-faq.png";
+// The closing "More" card reuses the Retain page's Loyalty program integration stamp.
+import stampMore from "@/modules/retain/assets/loyalty/stamp-loyalty.webp";
 import { libraryJourneys } from "../../config/launch";
 
 /**
@@ -28,7 +30,14 @@ const stamps: StaticImageData[] = [
   stampProductDeepDive,
   stampBundleBuilder,
   stampBrandFaq,
+  stampMore,
 ];
+
+/**
+ * Stamps exported flat, without the cards' tilt and shadow (the Retain page's): set in Figma's 65 × 62 stamp box at
+ * (26.08, 239), turned -6.78° with a soft shadow so they sit like the others.
+ */
+const flatStamps = new Set<StaticImageData>([stampMore]);
 
 /** The card's 5px bottom bar, by accent. */
 const accentBar = {
@@ -72,13 +81,23 @@ function JourneyCard({ index }: { index: number }) {
       </div>
 
       {/* Figma's 65 × 62 stamp box at (26.08, 239); the export ("Stamps · Managed Launch" 4322:9921) carries its shadow, 10.5px out (7.27px above). */}
-      <Image
-        src={stamps[index]}
-        alt=""
-        aria-hidden
-        sizes="87px"
-        className="pointer-events-none absolute top-[231.728px] left-[15.575px] h-[83.404px] w-[86.079px] max-w-none select-none"
-      />
+      {flatStamps.has(stamps[index]) ? (
+        <Image
+          src={stamps[index]}
+          alt=""
+          aria-hidden
+          sizes="65px"
+          className="pointer-events-none absolute top-[239px] left-[26.081px] h-[62px] w-[65.5px] max-w-none -rotate-[6.78deg] select-none drop-shadow-[0_2px_3px_rgba(0,0,0,0.18)]"
+        />
+      ) : (
+        <Image
+          src={stamps[index]}
+          alt=""
+          aria-hidden
+          sizes="87px"
+          className="pointer-events-none absolute top-[231.728px] left-[15.575px] h-[83.404px] w-[86.079px] max-w-none select-none"
+        />
+      )}
 
       <span aria-hidden className={`pointer-events-none absolute inset-0 ${accentBar[journey.accent]}`} />
     </li>
@@ -88,8 +107,8 @@ function JourneyCard({ index }: { index: number }) {
 /**
  * Figma "Section · Journey library (4x4)" (node 4233:12689): a sand panel between the page rails (a 0.5px black/25
  * hairline), everything left-aligned (Figma centres it): the cream eyebrow 70px down, 24px over the two-line swash
- * headline (1000px box) and 24px under it an 820px line of Geist in ink muted. 55px below that, the nine journey
- * cards from the same left edge: five across, then four, 24px apart either way, 106px clear of the panel's foot.
+ * headline (1000px box) and 24px under it an 820px line of Geist in ink muted. 55px below that, the ten journey
+ * cards (the last, "More") from the same left edge: five across, then five, 24px apart either way, 106px clear of the panel's foot.
  * Narrower, the cards wrap to fewer per row, still from the left.
  */
 export function JourneyLibrary() {

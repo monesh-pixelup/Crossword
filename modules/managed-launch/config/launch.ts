@@ -46,7 +46,7 @@ export const howSteps: { title: string; lines: string[] }[] = [
 ];
 
 /**
- * Figma 4233:12689 "Section · Journey library (4x4)": the nine journeys on their cards, five over four. `initial` is
+ * Figma 4233:12689 "Section · Journey library (4x4)": the nine journeys on their cards, then a closing "More" card, five over five. `initial` is
  * the title's swash capital, `title` the rest of it; `accent` is the card's bottom bar (aubergine, maroon or green).
  */
 export const libraryJourneys: {
@@ -69,4 +69,5 @@ export const libraryJourneys: {
   },
   { initial: "B", title: "undle builder", description: "Thoughtful pairings to increase AOV", accent: "maroon" },
   { initial: "B", title: "rand FAQ", description: "Your brand story in your voice", accent: "green" },
+  { initial: "M", title: "ore", description: "Custom journeys designed for your brand and your experience", accent: "aubergine" },
 ];

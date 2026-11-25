@@ -7,6 +7,7 @@ import {
   HumanTouch,
   ProactiveMessages,
   ProductDiscovery,
+  SellCta,
   SellHero,
   StorefrontPresence,
   Upsell,
@@ -49,6 +50,7 @@ export default function SellPage() {
       </div>
       <StorefrontPresence />
       <Testimonials variant="sell" />
+      <SellCta />
     </main>
   );
 }
