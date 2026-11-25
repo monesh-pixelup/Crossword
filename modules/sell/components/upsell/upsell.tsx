@@ -18,8 +18,17 @@ export function Upsell() {
           <SectionTitle
             id="upsell-title"
             initial="A"
-            firstLine=" bigger cart, because it makes"
-            secondLine="sense, not because it was pushed"
+            /*
+              Below 768px the headline is one flowing sentence (all of it in the first line, the second line empty), so
+              it wraps to the screen like running text rather than breaking again after each desktop line.
+            */
+            firstLine={
+              <>
+                {" bigger cart, because it makes"}
+                <span className="md:hidden"> sense, not because it was pushed</span>
+              </>
+            }
+            secondLine={<span className="max-md:hidden">sense, not because it was pushed</span>}
             width={760}
             variant="dynamic"
             weight="light"

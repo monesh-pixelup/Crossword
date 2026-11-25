@@ -91,8 +91,14 @@
  * overlay's vertical gradient (a cream tint, black at the foot) runs the banner's width with it.
  */
 .hero-scene:not(.hero-scene--compact) .hero-scene__frame {
-  overflow-x: visible;
-  overflow-y: clip;
+  /*
+   * Cut top and bottom with a clip-path, not `overflow-x: visible; overflow-y: clip`. Safari on a Mac sized the
+   * frame's layer by that one-axis clip on both axes: the banner and the black behind it stopped at the 1440px frame,
+   * while the overlay (a layer of its own) ran on, its raw cream-to-black gradient showing down both sides of the
+   * hero on screens wider than 1440px. The inset reaches far past either side, so nothing is cut across.
+   */
+  overflow: visible;
+  clip-path: inset(0 -100vmax);
 }
 
 .hero-scene:not(.hero-scene--compact) .hero-scene__overlay {

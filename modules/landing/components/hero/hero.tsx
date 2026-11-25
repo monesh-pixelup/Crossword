@@ -68,9 +68,10 @@ export function Hero() {
         */}
         {/*
           Clipped top and bottom only: the hero banner runs past the 1440px scene either side, out to the screen's
-          edges on wide screens (SiteShell clips the overrun at the screen).
+          edges on wide screens (SiteShell clips the overrun at the screen). With a clip-path rather than a one-axis
+          overflow clip, which Safari on a Mac applied across as well (see .hero-scene__frame in hero-parallax.css).
         */}
-        <div className="relative mx-auto max-h-[min(100svh,1200px)] w-full max-w-[1440px] overflow-x-visible overflow-y-clip max-[760px]:max-h-none">
+        <div className="relative mx-auto max-h-[min(100svh,1200px)] w-full max-w-[1440px] [clip-path:inset(0_-100vmax)] max-[760px]:max-h-none">
           <HeroParallax copy={<HeroCopy />} />
         </div>
       </section>

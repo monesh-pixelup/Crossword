@@ -39,21 +39,17 @@ export default function PersonalAgentsPage() {
         id="the-case-title"
         eyebrow="The case"
         initial="Y"
-        /* Below 768px the two long lines re-break into three shorter ones, so the headline keeps the other sections' size. */
+        /*
+          Below 768px the headline is one flowing sentence (all of it in the first line, the second line empty), so it
+          wraps to the screen like running text rather than breaking after each of the two desktop lines' halves.
+        */
         firstLine={
           <>
-            ou designed a shopping journey.<span className="max-md:hidden"> Your</span>
+            ou designed a shopping journey. Your<span className="md:hidden"> customer’s personal agent may skip it.</span>
           </>
         }
-        secondLine={
-          <>
-            <span className="md:hidden">Your </span>customer’s personal agent
-            <br className="md:hidden" />
-            <span className="max-md:hidden"> </span>may skip it.
-          </>
-        }
+        secondLine={<span className="max-md:hidden">customer’s personal agent may skip it.</span>}
         width={1030}
-        mobileWidth={760}
         scene="pa-the-case-motion"
         mobileScene="pa-the-case-mweb-motion"
         replayAfter={3000}

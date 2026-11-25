@@ -20,8 +20,16 @@ export function ProductDiscovery() {
           <SectionTitle
             id="discovery-title"
             initial="C"
-            firstLine="rossword helps your customers"
-            secondLine="find it however they describe it."
+            /*
+              Below 768px the headline is one flowing sentence (all of it in the first line, the second line empty), so
+              it wraps to the screen like running text rather than breaking again after each desktop line.
+            */
+            firstLine={
+              <>
+                rossword helps your customers<span className="md:hidden"> find it however they describe it.</span>
+              </>
+            }
+            secondLine={<span className="max-md:hidden">find it however they describe it.</span>}
             width={707.715}
             variant="dynamic"
             weight="light"
