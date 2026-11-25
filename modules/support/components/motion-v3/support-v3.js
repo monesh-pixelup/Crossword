@@ -2550,7 +2550,7 @@ function useChatTimeline(beats2, active) {
         const text = beat.text;
         after(beat.leadMs ?? (index === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS), () => {
           cancelReveal = revealText(text, {
-            msPerStep: (beat.msPerChar ?? CHAR_INTERVAL_MS) * pace$1,
+            msPerStep: (beat.msPerChar ?? CHAR_INTERVAL_MS$1) * pace,
             onTick: (value) => setTyped({ index, value }),
             onDone: () => after(SENT_SETTLE_MS, next)
           });
@@ -3355,6 +3355,130 @@ function WhisperDashboardMotion() {
 }
 function WhisperDashboardMwebMotion() {
   return /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(WhisperDashboardMotion, {}) });
+}
+// Site: Support V3 10b, "You keep control" on the full dashboard (the Crossword-Support-V3-10b-You-Keep-Control-
+// Dashboard-Motion handoff: illustrations/SupportV3/MerchantInsightDashboard.tsx), added to this build by hand as the
+// source compiles it: 10's story (the Details Summary writes itself in, the merchant asks the AI in the "Instruct
+// Crossword" composer, the AI answers in a private note with "Draft the reply", the composer flips to a public reply
+// and the draft types in) on 09's 1280px Inbox shell, with no zoom camera. Its shell, parts, copy, classes and
+// timings are the source's own; the customer and the other conversations are the Whisper dashboard's.
+const DRAFT_10B = "Hi Sofia, your refund for #4821 is approved and on its way. We’ll email you the moment it reaches your bank.";
+const OPENING_10B = "My refund for order #4821 still hasn’t come through.";
+const SUMMARY_MS_10B = 2050;
+const beats10b = [
+  { id: "rest", type: "pause", ms: 1200 },
+  { id: "summary", type: "appear", ms: SUMMARY_MS_10B },
+  { id: "ask", type: "compose", text: merchantInsight.followUpMessage, msPerChar: 42 },
+  { id: "steer", type: "appear", ms: 700 },
+  { id: "think", type: "think", labels: ["Checking the refund"] },
+  { id: "note", type: "text", text: merchantInsight.resolution },
+  { id: "draft", type: "appear", ms: 900 },
+  { id: "press", type: "appear", ms: 300 },
+  { id: "reply", type: "compose", text: DRAFT_10B, msPerChar: 22 },
+  { id: "read", type: "pause", ms: 2600 }
+];
+function LiveSummary10b({ show, animate }) {
+  return /* @__PURE__ */ jsxs("div", { className: "dk-section dk-summary", children: [
+    /* @__PURE__ */ jsxs("p", { className: "dk-section__title", children: [
+      /* @__PURE__ */ jsx(I$1, { d: "sparkle" }),
+      " Summary",
+      " ",
+      /* @__PURE__ */ jsx("span", { className: "wd-caret", children: /* @__PURE__ */ jsx(I$1, { d: "caretUp" }) })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "dk-summary__box", children: [
+      /* @__PURE__ */ jsx("span", { className: show ? void 0 : "dk-summary__text--pending", children: animate ? /* @__PURE__ */ jsx(LineStagger, { text: merchantInsight.context, play: show }) : merchantInsight.context }),
+      /* @__PURE__ */ jsx("span", { className: `dk-summary__empty${show ? " dk-summary__empty--out" : ""}`, "aria-hidden": show, children: "Summarising this conversation…" })
+    ] }),
+    /* @__PURE__ */ jsx("p", { className: "dk-link", children: "Refresh summary" })
+  ] });
+}
+function Dashboard10b({ v, stageRef, runKey }) {
+  const enter = v.animate ? " ib-enter" : "";
+  const { threadRef, contentRef } = useFollowLatest$1(v.animate, runKey);
+  const instruct = v.mode === "instruct";
+  return /* @__PURE__ */ jsx(
+    Inbox,
+    {
+      title: "AI agents",
+      count: 4,
+      rows: [{ ...CUSTOMER$2, text: OPENING_10B, age: "2m" }, ...OTHERS$1],
+      customer: CUSTOMER$2,
+      topic: "Refund for order #4821",
+      headAction: /* @__PURE__ */ jsx(HeadActions, {}),
+      threadRef,
+      contentRef,
+      stageRef,
+      runKey,
+      thread: /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx(Customer, { face: CUSTOMER$2.face, text: OPENING_10B, time: "17:12" }),
+        v.steer && /* @__PURE__ */ jsxs("div", { className: `wd-steer${enter}`, children: [
+          /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: ME.face, alt: "" }),
+          /* @__PURE__ */ jsxs("div", { className: "wd-steer__body", children: [
+            /* @__PURE__ */ jsxs("p", { className: "wd-steer__meta", children: [
+              /* @__PURE__ */ jsxs("span", { children: [
+                /* @__PURE__ */ jsx("b", { children: ME.name.split(" ")[0] }),
+                " asked the AI"
+              ] }),
+              /* @__PURE__ */ jsx("span", { children: "·" }),
+              /* @__PURE__ */ jsx("span", { children: "Only you can see this" }),
+              /* @__PURE__ */ jsx("span", { children: "·" }),
+              /* @__PURE__ */ jsx("span", { children: "17:14" })
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "wd-steer__text", children: merchantInsight.followUpMessage })
+          ] })
+        ] }),
+        (v.thinking || v.answer) && /* @__PURE__ */ jsx(EventCard, { icon: "sparkle", title: "AI · only you can see this", time: "17:14", tone: "note", enter, children: v.thinking ? /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: ["la-thinking", v.animate && "la-thinking--live", !v.thinking.visible && "la-thinking--out"].filter(Boolean).join(" "),
+            children: v.thinking.label
+          },
+          v.thinking.label
+        ) : /* @__PURE__ */ jsxs(Fragment, { children: [
+          /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: merchantInsight.resolution }) : merchantInsight.resolution }),
+          v.draft && /* @__PURE__ */ jsxs("span", { className: `dk-draft${enter}${v.pressed ? " ib-draft--pressed" : ""}`, style: { marginTop: 8 }, children: [
+            /* @__PURE__ */ jsx(Ph, { name: "pencil" }),
+            " Draft the reply"
+          ] })
+        ] }) })
+      ] }),
+      foot: /* @__PURE__ */ jsx(
+        Composer$1,
+        {
+          mode: v.mode,
+          text: v.text,
+          typing: v.typing,
+          placeholder: instruct ? "Tell the AI what to do in this chat…" : `Reply to ${CUSTOMER$2.name.split(" ")[0]}…`,
+          steers: v.steer ? 1 : 0,
+          bump: v.steer && v.animate && instruct,
+          enter: !instruct && v.animate
+        }
+      ),
+      details: /* @__PURE__ */ jsxs(Fragment, { children: [
+        /* @__PURE__ */ jsx(Contact, { ...CUSTOMER$2, email: "sofia.m@example.net", extra: [["Orders", "6"]] }),
+        /* @__PURE__ */ jsx(LiveSummary10b, { show: v.summary, animate: v.animate })
+      ] })
+    }
+  );
+}
+function MerchantInsightDashboardMotion() {
+  var _a;
+  const stageRef = useRef(null);
+  const t = useChatTimeline(beats10b, useLandedOnScreen(stageRef));
+  const replying = t.reached("press");
+  const v = {
+    summary: t.reached("summary"),
+    text: ((_a = t.composer) == null ? void 0 : _a.value) ?? (t.passed("reply") ? DRAFT_10B : ""),
+    typing: !!t.composer,
+    mode: replying ? "reply" : "instruct",
+    steer: t.passed("ask"),
+    thinking: t.status("think"),
+    answer: t.reached("note"),
+    draft: t.reached("draft"),
+    pressed: replying,
+    animate: !t.reducedMotion
+  };
+  return /* @__PURE__ */ jsx(Dashboard10b, { v, stageRef, runKey: t.runKey });
 }
 function HelpdeskHeader({ brand: brand2, tone = "default" }) {
   const gold = tone === "gold";
@@ -4849,6 +4973,7 @@ export {
   HelpDeskDashboardMotion,
   HelpDeskDashboardMwebMotion,
   HelpdeskInsightsDashboardMotion,
+  MerchantInsightDashboardMotion,
   MerchantInsightDeskMotion,
   MerchantInsightMotion,
   OrderTrackingMotion,

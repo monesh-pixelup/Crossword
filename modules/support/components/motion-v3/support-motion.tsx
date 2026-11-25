@@ -11,6 +11,7 @@ import {
   HelpDeskDashboardMotion,
   HelpDeskDashboardMwebMotion,
   HelpdeskInsightsDashboardMotion,
+  MerchantInsightDashboardMotion,
   MerchantInsightDeskMotion,
   MerchantInsightMotion,
   OrderTrackingMotion,
@@ -67,7 +68,8 @@ export function SupportMotionRoot({ children }: { children: ReactNode }) {
  * | 11 `help-desk-dashboard` (and 11m `help-desk-mweb`, 353 × 440) | 1280 × 599 | helpdesk/helpdesk-options.tsx |
  * | `merchant-helpdesk-inbox` (the source's archived 07, no longer on the page) | 738 × 680 | — |
  * | 08 `merchant-insight` (the source's archived 08, no longer on the page) | 687 × 586 | — |
- * | 10 `merchant-insight-inbox` ("You keep control", the 19 November 2026 handoff) | 687 × 586 | control/take-control.tsx |
+ * | 10 `merchant-insight-inbox` ("You keep control", the 19 November 2026 handoff) | 687 × 586 | control/take-control.tsx (below 768px) |
+ * | 10b `merchant-insight-dashboard` ("You keep control" on the dashboard) | 1280 × 599 | control/take-control.tsx (from 768px) |
  * | 09 `guardrails` | 1280 × 498 | guardrails/guardrails.tsx |
  * | 10–12 `human-takeover-dashboard`, `merchant-approval-dashboard`, `whisper-to-agent-dashboard` | 1280 × 599 | handoff/handoff-scene.tsx |
  *
@@ -180,6 +182,18 @@ export const supportScenes = {
     height: 586,
     // The script settles at 16.4s; the camera's pull back to the wide shot then runs 760ms.
     duration: 17200,
+  },
+  // 10b (the Crossword-Support-V3-10b-You-Keep-Control-Dashboard-Motion handoff): 10's story on the full 1280px
+  // helpdesk dashboard, with no camera. Take control plays it from 768px; below that, 10 above.
+  "merchant-insight-dashboard": {
+    Component: MerchantInsightDashboardMotion,
+    label:
+      "In the helpdesk dashboard, Crossword summarises a customer's delayed refund in the Details panel. Asked for anything else, it explains privately that the refund is approved but hasn't reached the payment processor yet, and drafts the reply, which the team member sends as their own.",
+    width: 1280,
+    height: 599,
+    // The script: a 1.2s rest, the summary (2.05s), the question typed, the AI's note, the draft typed, then its own
+    // 2.6s read, left out here, so a replay comes 3s after the visual visibly completes.
+    duration: 13600,
   },
   guardrails: {
     Component: GuardrailsDesktopMotion,

@@ -2846,7 +2846,7 @@ function useChatTimeline(beats2, active) {
         const text = beat.text;
         after(beat.leadMs ?? (index === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS), () => {
           cancelReveal = revealText(text, {
-            msPerStep: (beat.msPerChar ?? CHAR_INTERVAL_MS) * pace$2,
+            msPerStep: (beat.msPerChar ?? CHAR_INTERVAL_MS$2) * pace,
             onTick: (value) => setTyped({ index, value }),
             onDone: () => after(SENT_SETTLE_MS, next)
           });
