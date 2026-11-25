@@ -43,8 +43,9 @@ export function RoasGap() {
           <p className="max-w-[477.244px] font-sans text-base leading-6 tracking-[-0.32px] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-ink-muted min-[1300px]:mt-[47px]">
             A specific product, a specific offer, a specific audience, all carefully built into the ad. Then the click lands
             on the same generic page everyone sees. The result? You spend to win the click, but lose the opportunity to
-            convert it. Crossword closes the gap. Instead of sending every ad to the same landing page, Crossword builds the
-            page around the ad, the headline, the product, the offer, so the experience after the click feels like a
+            convert it. Crossword closes the gap.
+            <br />
+            Instead of sending every ad to the same landing page, Crossword builds the page around the ad, the headline, the product, the offer, so the experience after the click feels like a
             continuation of the ad, not a disconnected destination.
           </p>
         </div>

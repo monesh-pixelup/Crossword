@@ -128,7 +128,7 @@ export function TriggerTabs() {
                 // Stacked below 768px, each draws its top and sides instead and the last its bottom.
                 "relative flex flex-1 cursor-pointer items-start border-black/25 px-6 py-8 text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:self-stretch md:border-y md:border-l md:p-10 md:last:border-r",
                 "max-md:border-x max-md:border-t max-md:last:border-b",
-                selected ? "bg-cream md:pb-8" : "hover:bg-cream/60",
+                selected ? "bg-linen md:pb-8" : "hover:bg-linen/60",
               )}
             >
               <span
@@ -144,7 +144,7 @@ export function TriggerTabs() {
                   key={run}
                   aria-hidden
                   onAnimationEnd={() => select(active === proactiveTriggers.length - 1 ? 0 : active + 1)}
-                  className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-maroon motion-reduce:w-full motion-reduce:animate-none"
+                  className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold motion-reduce:w-full motion-reduce:animate-none"
                   style={{ animationDuration: `${duration}ms`, animationPlayState: visible ? "running" : "paused" }}
                 />
               )}

@@ -20,7 +20,7 @@ const ACCORDION_MS = 500;
  * Figma "Stage + triggers" (3836:17091), as Proactive messages on Sell: a 1280 × 599 sand stage (#f3e7d3, a 1px
  * black/25 line on its top and sides) playing the open mode's helpdesk dashboard (Support V3 10–12, the stage's own
  * 1280 × 599), over the three modes as tabs. Each tab is 40px in on a 1px black/25 line, its Crimson 22 title 16px over
- * a line of Geist 16 at black/59; the open one is cream with 32px under its copy, the others at 50%. A 2px gold bar
+ * a line of Geist 16 at black/59; the open one is linen with 32px under its copy, the others at 50%. A 2px gold bar
  * fills across the open tab's top edge (Figma shows it part-way, at 156.95px) while its scene plays and holds, then
  * the next takes over. Choosing a tab restarts its turn; the turn only runs while the section is on screen, and not
  * at all with reduced motion (the bar then sits full).
@@ -124,7 +124,7 @@ export function HandoffTabs() {
                   // Stacked below 768px, each draws its top and sides instead and the list closes the bottom.
                   "relative flex flex-1 cursor-pointer items-start border-black/25 px-6 py-8 text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-maroon md:border-y md:border-l md:p-10",
                   "max-md:border-x max-md:border-t",
-                  selected ? "bg-cream md:pb-8" : "hover:bg-cream/60",
+                  selected ? "bg-linen md:pb-8" : "hover:bg-linen/60",
                 )}
               >
                 <span className={cn("flex min-w-0 flex-1 flex-col items-start gap-4 transition-opacity duration-300", !selected && "opacity-50")}>
@@ -150,7 +150,7 @@ export function HandoffTabs() {
                     key={run}
                     aria-hidden
                     onAnimationEnd={() => select(active === last ? 0 : active + 1)}
-                    className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-maroon motion-reduce:w-full motion-reduce:animate-none"
+                    className="pointer-events-none absolute -top-[1.01px] -left-[1.01px] z-1 h-0.5 w-0 animate-[insights-progress_linear_forwards] bg-gold motion-reduce:w-full motion-reduce:animate-none"
                     style={{ animationDuration: `${duration}ms`, animationPlayState: visible ? "running" : "paused" }}
                   />
                 )}
@@ -162,7 +162,7 @@ export function HandoffTabs() {
               <div
                 aria-hidden={!selected}
                 className={cn(
-                  "grid border-x border-black/25 bg-cream transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:hidden",
+                  "grid border-x border-black/25 bg-linen transition-[grid-template-rows,opacity] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:hidden",
                   selected ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
                 )}
                 style={{ transitionDuration: `${ACCORDION_MS}ms` }}

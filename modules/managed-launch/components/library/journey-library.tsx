@@ -59,7 +59,11 @@ function JourneyCard({ index }: { index: number }) {
       </div>
 
       <div className="flex w-[191.837px] flex-col items-start gap-[19.561px] max-md:w-full">
-        <h3 className="w-full font-serif text-[29px] leading-[1.1] font-extralight tracking-[-1.45px] text-[#462160] mix-blend-multiply">
+        {/*
+          16px of room on the left, taken back by the margin: the swash capital (Parisienne) reaches left of its box, and a
+          blended element (mix-blend-multiply) is drawn as a layer the size of its box, which cut that overhang off.
+        */}
+        <h3 className="-ml-4 w-[calc(100%+16px)] pl-4 font-serif text-[29px] leading-[1.1] font-extralight tracking-[-1.45px] text-[#462160] mix-blend-multiply">
           <span className="font-script text-[45px] leading-[1.18] font-normal">{journey.initial}</span>
           {journey.title}
         </h3>
