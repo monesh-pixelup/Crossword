@@ -1,15 +1,15 @@
 import type { ReactNode } from "react";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import railAccent from "@/components/ui/rail-accent/assets/rail-accent.svg";
-import { retainTestimonials, sellTestimonials, supportTestimonials, type Testimonial } from "../../config/testimonials";
+import { getTestimonials, type TestimonialPage } from "../../lib/testimonials";
 import { RailAccent } from "@/components/ui/rail-accent";
 import { SectionTitle } from "@/components/ui/section-title";
 import { TestimonialCarousel } from "./testimonial-carousel";
 
 type Variant = "home" | "blog" | "sell" | "support" | "retain";
 
-/** Each page's eyebrow, headline (and the header width it needs) and slides. */
-const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth: string; slides?: Testimonial[]; largeName?: boolean }> = {
+/** Each page's eyebrow, headline (and the header width it needs) and whose testimonials it shows (the blog shows the home page's). */
+const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth: string; slides: TestimonialPage; largeName?: boolean }> = {
   home: {
     eyebrow: "Customer Testimonials",
     title: (
@@ -24,6 +24,7 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
       />
     ),
     headerWidth: "max-w-[650px]",
+    slides: "home",
     largeName: true,
   },
   /** The blog (Figma 1660:312): the home page's section under its own eyebrow. */
@@ -41,6 +42,7 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
       />
     ),
     headerWidth: "max-w-[650px]",
+    slides: "home",
     largeName: true,
   },
   sell: {
@@ -57,7 +59,7 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
       />
     ),
     headerWidth: "max-w-[650px]",
-    slides: sellTestimonials,
+    slides: "sell",
     // Figma 3257:36676: the signature at Tangerine Bold 38.
     largeName: true,
   },
@@ -75,7 +77,7 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
       />
     ),
     headerWidth: "max-w-[1041.406px]",
-    slides: supportTestimonials,
+    slides: "support",
     // Figma 3257:35143: the signature at Tangerine Bold 38, as on the home page.
     largeName: true,
   },
@@ -93,7 +95,7 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
       />
     ),
     headerWidth: "max-w-[1000px]",
-    slides: retainTestimonials,
+    slides: "retain",
     // Figma 3257:38912: the signature at Tangerine Bold 38.
     largeName: true,
   },
@@ -103,10 +105,12 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
  * The testimonial carousel under a centred eyebrow and headline (`blog` is the home page's, under its own eyebrow).
  * `sell`, `support` and `retain`
  * are Figma's Client testimonial on those pages: their own headline (two Light 60px lines at 0.9 after a
- * Tangerine swash) and quote.
+ * Tangerine swash) and quote. The slides are each page's testimonials from Sanity (getTestimonials).
  */
-export function Testimonials({ variant = "home" }: { variant?: Variant }) {
+export async function Testimonials({ variant = "home" }: { variant?: Variant }) {
   const v = variants[variant];
+  // From Sanity (Testimonials in the Studio), or the page's built-in ones while it has none there.
+  const slides = await getTestimonials(v.slides);
 
   return (
     <section aria-labelledby="testimonials-title" className="relative section-pad">
@@ -122,7 +126,7 @@ export function Testimonials({ variant = "home" }: { variant?: Variant }) {
         </div>
 
         {/* The carousel spans the page rails, not the content column. */}
-        <TestimonialCarousel testimonials={v.slides} largeName={v.largeName} />
+        <TestimonialCarousel testimonials={slides} largeName={v.largeName} />
       </div>
     </section>
   );

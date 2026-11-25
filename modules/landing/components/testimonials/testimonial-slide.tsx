@@ -93,6 +93,7 @@ export function TestimonialSlide({ testimonial, active, index, total, largeName 
 
           <PortraitCard
             color={testimonial.cardColor}
+            photo={testimonial.photo ?? undefined}
             className="absolute top-[99.32px] left-[73.17px]"
           />
 
@@ -131,9 +132,10 @@ export function TestimonialSlide({ testimonial, active, index, total, largeName 
             {testimonial.name}
           </span>
           <span className="font-inter text-[12px] leading-[1.13] tracking-[-0.36px] text-[rgba(18,18,18,0.8)]">
-            <span className="text-[#121212]">{testimonial.role}</span>
-            {" at "}
-            <span className="text-[#121212]">{testimonial.company}</span>
+            {/* "Role at Company", or whichever of the two the testimonial has. */}
+            {testimonial.role && <span className="text-[#121212]">{testimonial.role}</span>}
+            {testimonial.role && testimonial.company && " at "}
+            {testimonial.company && <span className="text-[#121212]">{testimonial.company}</span>}
           </span>
         </figcaption>
       </figure>

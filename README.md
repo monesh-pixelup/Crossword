@@ -5,7 +5,7 @@ product pages, pricing, the blog and the privacy policy. Built with Next.js (App
 Sanity for the blog.
 
 - **Deployed site:** https://crossword-orcin.vercel.app
-- **Blog editing (Sanity Studio):** `/studio` on the site, or https://crossword-website.sanity.studio
+- **Blog and testimonial editing (Sanity Studio):** `/studio` on the site, or https://crossword-website.sanity.studio
 - **Design language and tokens:** [DESIGN.md](DESIGN.md)
 - **Blog content and Sanity setup:** [sanity/README.md](sanity/README.md)
 
@@ -119,9 +119,11 @@ per page:
   Personal Agents) and, for the compiled bundles, in `public/images/shared/` under the bundle's hashed file names. When
   a logo changes, replace it in both places. The editable SVG sources are in `logomarks/abstract/`.
 
-## Blog (Sanity)
+## Blog and testimonials (Sanity)
 
-Posts, categories and authors are edited in the Sanity Studio and read by `modules/blog/lib/posts.ts`. Blog pages are
+Posts, categories and authors are edited in the Sanity Studio and read by `modules/blog/lib/posts.ts`. The testimonial
+carousels are edited there too (Testimonials), read by `modules/landing/lib/testimonials.ts`; a page with none in
+Sanity shows the built-in placeholders. Blog pages are
 cached and refresh when Sanity's webhook calls `/api/revalidate`; without the webhook they refresh about an hour after
 a change.
 
@@ -130,9 +132,9 @@ Setting up a fresh Sanity project needs, in sanity.io/manage:
 1. **CORS origins** (API → CORS origins), each with "Allow credentials": `http://localhost:3000` and the live site's
    address. The Studio at `/studio` cannot sign in without them.
 2. **Webhook** (API → Webhooks): POST to `https://<live site>/api/revalidate`, dataset `production`, on create, update
-   and delete, filter `_type in ["post", "category"]`, with a secret equal to `SANITY_REVALIDATE_SECRET`.
+   and delete, filter `_type in ["post", "category", "author", "testimonial"]`, with a secret equal to `SANITY_REVALIDATE_SECRET`.
 3. **Content:** `npx sanity dataset import sanity/seed/blog.ndjson --dataset production` loads the original four posts
-   and their categories.
+   and their categories; `sanity/seed/testimonials.ndjson` the testimonials.
 
 Full details, including how to write a post, are in [sanity/README.md](sanity/README.md).
 
