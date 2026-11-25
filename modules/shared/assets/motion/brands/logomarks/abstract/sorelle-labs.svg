@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Sorelle Labs symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M13 40c0-17 11-29 27-31v62C24 69 13 57 13 40Zm54 0c0 17-11 29-27 31V9c16 2 27 14 27 31Z" fill="currentColor"/>
+      <path d="M40 17c-7 10-10 17-10 23s3 13 10 23c7-10 10-17 10-23s-3-13-10-23Z" fill="black"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

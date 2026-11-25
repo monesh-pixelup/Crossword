@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Amber &amp; Oak symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M10 17h31v12H22v22h19v12H10V17Zm60 46H39V51h19V29H39V17h31v46Z" fill="currentColor"/>
+      <path d="M31 32h18v16H31z" fill="currentColor"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

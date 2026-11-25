@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Aura symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M9 9h30v11H20v19H9V9Zm62 0v30H60V20H41V9h30ZM9 41h11v19h19v11H9V41Zm62 0v30H41V60h19V41h11Z" fill="currentColor"/>
+      <path d="M33 33h14v14H33z" fill="currentColor"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

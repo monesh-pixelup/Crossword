@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Lumen symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M40 7 47 33 72 40 47 47 40 73 33 47 8 40l25-7 7-26Z" fill="currentColor"/>
+      <path d="M40 19 44 36 61 40 44 44 40 61 36 44 19 40l17-4 4-17Z" fill="black"/>
+      <path d="M40 29 43 37 51 40 43 43 40 51 37 43 29 40l8-3 3-8Z" fill="currentColor"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

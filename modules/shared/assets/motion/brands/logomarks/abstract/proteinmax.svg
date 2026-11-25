@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Proteinmax symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M10 13h60v11H10zM16 29h54v10H16zM10 44h54v10H10zM16 59h54v11H16z" fill="currentColor"/>
+      <path d="M30 13h8v57h-8zM48 24h8v35h-8z" fill="black"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

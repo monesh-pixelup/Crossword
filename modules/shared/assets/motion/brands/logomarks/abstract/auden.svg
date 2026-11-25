@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Auden symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M40 9a31 31 0 0 1 31 31H60a20 20 0 0 0-20-20V9Zm0 62A31 31 0 0 1 9 40h11a20 20 0 0 0 20 20v11Z" fill="currentColor"/>
+      <path d="M40 24a16 16 0 0 1 16 16H45a5 5 0 0 0-5-5V24Zm0 32a16 16 0 0 1-16-16h11a5 5 0 0 0 5 5v11Z" fill="currentColor"/>
+      <path d="M9 25h11m40 30h11" stroke="currentColor" stroke-width="8"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

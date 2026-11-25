@@ -2557,8 +2557,14 @@ function wordCount(text) {
 function replyRevealMs(text) {
   return wordCount(text) * REPLY_STAGGER_MS$1 + REPLY_WORD_ANIM_MS + REPLY_SETTLE_MS;
 }
+// Site: on phones (below 768px) a visual's script runs a little quicker: every wait between its beats (the lead-in
+// before a message is typed, the thinking, the pauses and holds) and the typing itself take 80% of their time, so the
+// conversation gets going sooner and lingers less between steps. One factor for the whole script, also applied to the
+// durations worked out from it (beatsDurationMs), so anything timed against the script (a progress bar) stays in step.
+const phonePace = () => typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches ? 0.8 : 1;
 function useChatTimeline(beats2, active) {
   const reducedMotion = useRef(prefersReducedMotion()).current;
+  const pace = useRef(phonePace()).current;
   const [index, setIndex] = useState(reducedMotion ? beats2.length : 0);
   const [typed, setTyped] = useState({ index: -1, value: "" });
   const [thinkStage, setThinkStage] = useState({ index: -1, stage: 0 });
@@ -2581,7 +2587,7 @@ function useChatTimeline(beats2, active) {
     const timeouts = [];
     let cancelReveal;
     const after = (ms, fn) => {
-      timeouts.push(window.setTimeout(fn, ms));
+      timeouts.push(window.setTimeout(fn, ms * pace));
     };
     const next = () => setIndex((i) => i + 1);
     const cleanup = () => {
@@ -2597,7 +2603,7 @@ function useChatTimeline(beats2, active) {
         const text = beat.text;
         after(beat.leadMs ?? (index === 0 ? FIRST_COMPOSE_LEAD_MS : NEXT_COMPOSE_LEAD_MS), () => {
           cancelReveal = revealText(text, {
-            msPerStep: beat.msPerChar ?? CHAR_INTERVAL_MS,
+            msPerStep: (beat.msPerChar ?? CHAR_INTERVAL_MS) * pace,
             onTick: (value) => setTyped({ index, value }),
             onDone: () => after(SENT_SETTLE_MS, next)
           });

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Holt &amp; Co symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M13 15h16v50H13zM51 15h16v50H51z" fill="currentColor"/>
+      <path d="M13 23h54v12H13zM13 45h54v12H13z" fill="currentColor"/>
+      <path d="M29 23h22v12H29zM29 45h22v12H29z" fill="black"/>
+      <path d="M35 23h10v34H35z" fill="currentColor"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

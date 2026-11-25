@@ -9,10 +9,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Merchant workflow modules; no retail product imagery.",
-    "logomarkPath": "src/assets/brands/supplied/aurelia-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/aurelia.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/aurelia.png",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/supplied/aurelia-badge.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/aurelia.svg",
     "wordmarkTreatment": "plain-text"
   },
   "marais": {
@@ -25,10 +25,10 @@
     "wordmarkCase": "uppercase",
     "tracking": "0.12em",
     "imageDirection": "Natural fibres, neutral apparel and cognac leather. Preserve exact garment and colourway.",
-    "logomarkPath": "src/assets/brands/supplied/marais-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/marais.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/marais.png",
-    "identitySourcePath": "src/assets/brands/supplied/marais-badge.svg",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/marais.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
   },
   "sorelle-labs": {
@@ -41,10 +41,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Ivory bottles, quiet botanical details, warm paper with sand and sage plates.",
-    "logomarkPath": "src/assets/brands/supplied/sorelle-labs-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/sorelle-labs.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/sorelle-labs.png",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/supplied/sorelle-labs-badge.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/sorelle-labs.svg",
     "wordmarkTreatment": "plain-text"
   },
   "goodwell": {
@@ -57,10 +57,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Plum-labelled jars on soft lavender backgrounds.",
-    "logomarkPath": "src/assets/brands/supplied/goodwell-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/goodwell.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/goodwell.png",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/supplied/goodwell-badge.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/goodwell.svg",
     "wordmarkTreatment": "plain-text"
   },
   "moonrest": {
@@ -73,10 +73,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Midnight blue sleep-wellness packaging.",
-    "logomarkPath": "src/assets/brands/supplied/moonrest-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/moonrest.svg",
     "wordmarkPath": "src/assets/brands/placeholders/moonrest-wordmark.svg",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/supplied/moonrest-badge.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/moonrest.svg",
     "wordmarkTreatment": "plain-text",
     "logomarkRasterPath": "src/assets/brands/logomarks/moonrest.png"
   },
@@ -90,10 +90,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Warm lighting, oak, linen and brass. Keep the supplied shopper reference distinct.",
-    "logomarkPath": "src/assets/brands/supplied/amber-and-oak-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/amber-and-oak.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/amber-and-oak.png",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/supplied/amber-and-oak-badge.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/amber-and-oak.svg",
     "wordmarkTreatment": "plain-text"
   },
   "dusklight": {
@@ -106,10 +106,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Sculptural lighting in muted dusk neutrals.",
-    "logomarkPath": "src/assets/brands/supplied/dusklight-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/dusklight.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/dusklight.png",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/supplied/dusklight-badge.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/dusklight.svg",
     "wordmarkTreatment": "plain-text"
   },
   "crestline": {
@@ -122,10 +122,10 @@
     "wordmarkCase": "uppercase",
     "tracking": "0.12em",
     "imageDirection": "Graphite and ivory outdoor equipment on neutral studio backgrounds.",
-    "logomarkPath": "src/assets/brands/supplied/crestline-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/crestline.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/crestline.png",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/supplied/crestline-badge.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/crestline.svg",
     "wordmarkTreatment": "plain-text"
   },
   "brewhaus": {
@@ -138,10 +138,10 @@
     "wordmarkCase": "uppercase",
     "tracking": "0.12em",
     "imageDirection": "Brushed steel machines and cream coffee packaging; warm studio light.",
-    "logomarkPath": "src/assets/brands/supplied/brewhaus-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/brewhaus.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/brewhaus.png",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/supplied/brewhaus-badge.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/brewhaus.svg",
     "wordmarkTreatment": "plain-text"
   },
   "waveline": {
@@ -154,10 +154,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Clean silver and charcoal electronics, restrained blue-green accents.",
-    "logomarkPath": "src/assets/brands/logomarks/source/waveline.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/waveline.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/waveline.png",
-    "identityStatus": "Project logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/logomarks/source/waveline.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/waveline.svg",
     "wordmarkTreatment": "plain-text"
   },
   "aura": {
@@ -170,10 +170,10 @@
     "wordmarkCase": "uppercase",
     "tracking": "0.12em",
     "imageDirection": "Ivory earbud shells with small uppercase branding.",
-    "logomarkPath": "src/assets/brands/supplied/aura-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/aura.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/aura.png",
-    "identitySourcePath": "src/assets/brands/supplied/aura-badge.svg",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/aura.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
   },
   "holt-and-co": {
@@ -186,10 +186,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Cognac leather, subtle debossed wordmarks, warm sand surfaces.",
-    "logomarkPath": "src/assets/brands/logomarks/source/holt-and-co.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/holt-and-co.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/holt-and-co.png",
-    "identityStatus": "Project logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/logomarks/source/holt-and-co.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/holt-and-co.svg",
     "wordmarkTreatment": "plain-text"
   },
   "auden": {
@@ -202,10 +202,10 @@
     "wordmarkCase": "uppercase",
     "tracking": "0.12em",
     "imageDirection": "Same headphone geometry across black, ivory, olive and mustard variants.",
-    "logomarkPath": "src/assets/brands/logomarks/source/auden.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/auden.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/auden.png",
-    "identityStatus": "Project logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/logomarks/source/auden.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/auden.svg",
     "wordmarkTreatment": "plain-text"
   },
   "lumen": {
@@ -218,10 +218,10 @@
     "wordmarkCase": "uppercase",
     "tracking": "0.12em",
     "imageDirection": "Pale champagne caps, frosted glass and widely tracked uppercase LUMEN packaging.",
-    "logomarkPath": "src/assets/brands/logomarks/source/lumen.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/lumen.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/lumen.png",
-    "identityStatus": "Project logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/logomarks/source/lumen.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/lumen.svg",
     "wordmarkTreatment": "plain-text"
   },
   "trailwell": {
@@ -234,10 +234,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Outdoor utility, olive fabric and durable metal bottles.",
-    "logomarkPath": "src/assets/brands/supplied/trailwell-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/trailwell.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/trailwell.png",
-    "identitySourcePath": "src/assets/brands/supplied/trailwell-badge.svg",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/trailwell.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
   },
   "stride": {
@@ -250,10 +250,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Minimal footwear; black, tan and white are separate image assets, never CSS colour filters.",
-    "logomarkPath": "src/assets/brands/supplied/stride-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/stride.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/stride.png",
-    "identitySourcePath": "src/assets/brands/supplied/stride-badge.svg",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/stride.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
   },
   "vela": {
@@ -266,10 +266,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Muted rose and charcoal styling tools.",
-    "logomarkPath": "src/assets/brands/logomarks/source/vela.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/vela.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/vela.png",
-    "identityStatus": "Project logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/logomarks/source/vela.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/vela.svg",
     "wordmarkTreatment": "plain-text"
   },
   "formwork": {
@@ -282,10 +282,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Graphite mesh seating; every gallery angle must be of the same chair.",
-    "logomarkPath": "src/assets/brands/logomarks/source/formwork.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/formwork.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/formwork.png",
-    "identityStatus": "Project logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/logomarks/source/formwork.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/formwork.svg",
     "wordmarkTreatment": "plain-text"
   },
   "proteinmax": {
@@ -298,10 +298,10 @@
     "wordmarkCase": "uppercase",
     "tracking": "0.12em",
     "imageDirection": "Black protein tubs, red accents and consistent PROTEINMAX labels.",
-    "logomarkPath": "src/assets/brands/supplied/proteinmax-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/proteinmax.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/proteinmax.png",
-    "identitySourcePath": "src/assets/brands/supplied/proteinmax-badge.svg",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/proteinmax.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
     "wordmarkTreatment": "plain-text"
   },
   "echo-and-co": {
@@ -314,10 +314,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Retailer identity stays in chrome; individual products retain Waveline, Aura and Holt & Co branding.",
-    "logomarkPath": "src/assets/brands/logomarks/source/echo-and-co.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/echo-and-co.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/echo-and-co.png",
-    "identityStatus": "Project logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/logomarks/source/echo-and-co.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/echo-and-co.svg",
     "wordmarkTreatment": "plain-text"
   },
   "hearthware": {
@@ -330,10 +330,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Matte charcoal kitchen appliances with warm neutral studio lighting.",
-    "logomarkPath": "src/assets/brands/logomarks/source/hearthware.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/hearthware.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/hearthware.png",
-    "identityStatus": "Project logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/logomarks/source/hearthware.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/hearthware.svg",
     "wordmarkTreatment": "plain-text"
   },
   "aeria": {
@@ -346,10 +346,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Original charcoal or ivory vacuum designs with restrained teal details; no real brand marks.",
-    "logomarkPath": "src/assets/brands/logomarks/source/aeria.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/aeria.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/aeria.png",
-    "identityStatus": "Project logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/logomarks/source/aeria.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/aeria.svg",
     "wordmarkTreatment": "plain-text"
   },
   "aurelle": {
@@ -362,10 +362,10 @@
     "wordmarkCase": "none",
     "tracking": "-0.025em",
     "imageDirection": "Gold and rose-gold jewellery; warm ivory silk and pale stone.",
-    "logomarkPath": "src/assets/brands/supplied/aurelle-mark.svg",
+    "logomarkPath": "src/assets/brands/logomarks/abstract/aurelle.svg",
     "logomarkRasterPath": "src/assets/brands/logomarks/aurelle.png",
-    "identityStatus": "Supplied logomark; plain-text wordmark",
-    "identitySourcePath": "src/assets/brands/supplied/aurelle-badge.svg",
+    "identityStatus": "Project-authored abstract mark; plain-text wordmark",
+    "identitySourcePath": "src/assets/brands/logomarks/abstract/aurelle.svg",
     "wordmarkTreatment": "plain-text"
   }
 }

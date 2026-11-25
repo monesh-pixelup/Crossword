@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Aurelle symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M27 12h10l-8 17H12l15-17ZM43 12h10l15 17H51l-8-17ZM40 13l8 16H32l8-16Z" fill="currentColor"/>
+      <path d="M12 34h18l9 35-27-35ZM34 34h12l-6 35-6-35ZM50 34h18L41 69l9-35Z" fill="currentColor"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

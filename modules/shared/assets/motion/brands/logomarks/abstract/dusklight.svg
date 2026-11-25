@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Dusklight symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M12 10h16L16 70H8l4-60Zm23 0h13l-8 60H28l7-60Zm22 0h15l2 60H61L57 10Z" fill="currentColor"/>
+      <path d="M8 43h64" stroke="black" stroke-width="5"/>
+      <path d="M8 52h64" stroke="currentColor" stroke-width="3"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Brewhaus symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M40 8c17 0 30 13 30 30H57c0-10-7-17-17-17-5 0-9 1-12 4l-9-9C25 11 32 8 40 8Z" fill="currentColor"/>
+      <path d="M40 72C23 72 10 59 10 42h13c0 10 7 17 17 17 5 0 9-1 12-4l9 9c-6 5-13 8-21 8Z" fill="currentColor"/>
+      <path d="M19 16 61 64M23 42h34" stroke="currentColor" stroke-width="8"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

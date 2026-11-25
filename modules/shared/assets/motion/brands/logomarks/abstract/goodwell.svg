@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Goodwell symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <rect x="12" y="17" width="27" height="19" rx="9.5" fill="currentColor" transform="rotate(-25 25 26)"/>
+      <rect x="43" y="13" width="27" height="19" rx="9.5" fill="currentColor" transform="rotate(31 56 22)"/>
+      <rect x="24" y="46" width="32" height="21" rx="10.5" fill="currentColor" transform="rotate(12 40 56)"/>
+      <circle cx="42" cy="38" r="5" fill="currentColor"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>

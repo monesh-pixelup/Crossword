@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 80 80" role="img" aria-label="Moonrest symbol" color="#fffaf2">
+      <defs><mask id="mark" maskUnits="userSpaceOnUse" x="0" y="0" width="80" height="80">
+        <rect width="80" height="80" fill="black"/>
+        <g transform="translate(8 8) scale(.8)">
+      <path d="M41 9a31 31 0 1 0 0 62V59a19 19 0 1 1 0-38V9Z" fill="currentColor"/>
+      <path d="M45 21a19 19 0 0 1 0 38V48a8 8 0 0 0 0-16V21Z" fill="currentColor"/>
+      <circle cx="61" cy="13" r="5" fill="currentColor"/>
+    </g>
+      </mask></defs>
+      <rect width="80" height="80" fill="#FFFAF2" mask="url(#mark)"/>
+    </svg>
