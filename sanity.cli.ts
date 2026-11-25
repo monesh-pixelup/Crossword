@@ -4,6 +4,6 @@ import { dataset, projectId } from "./sanity/env";
 
 export default defineCliConfig({
   api: { projectId, dataset },
-  // The Studio hosted at crossword.sanity.studio (`npm run studio:deploy`).
-  deployment: { appId: "b3ewxlg9xqveebdd7exd9p0w" },
+  // The Studio hosted at crossword-website.sanity.studio (`npm run studio:deploy`).
+  deployment: { appId: "ngxaqh2s44hvnt2d7sypr24p" },
 });

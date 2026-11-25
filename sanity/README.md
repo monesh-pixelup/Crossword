@@ -1,6 +1,6 @@
 # Blog content (Sanity)
 
-The blog's posts and categories live in Sanity (project `mxq2kdxw`, dataset `production`) and are edited in the
+The blog's posts and categories live in Sanity (project `mb4vhjft`, "Crossword Website", dataset `production`) and are edited in the
 Sanity Studio the site serves at **/studio** (`app/studio/[[...tool]]/page.tsx`, configured in `sanity.config.ts`).
 
 | What | Where |

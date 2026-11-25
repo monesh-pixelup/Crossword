@@ -2,7 +2,7 @@
 
 /**
  * The Sanity Studio the blog is edited in. It is served by the site at /studio (app/studio/[[...tool]]/page.tsx) and
- * also hosted by Sanity at crossword.sanity.studio (`npm run studio:deploy`), which builds it with
+ * also hosted by Sanity at crossword-website.sanity.studio (`npm run studio:deploy`), which builds it with
  * SANITY_STUDIO_BASE_PATH=/ so it lives at the root of that domain.
  */
 import { defineConfig } from "sanity";
