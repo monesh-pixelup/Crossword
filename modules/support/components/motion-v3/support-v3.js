@@ -3002,7 +3002,7 @@ function Composer$1({
     /* @__PURE__ */ jsxs("p", { className: "dk-composer__top", children: [
       instruct ? /* @__PURE__ */ jsx(I$1, { d: "sparkle" }) : /* @__PURE__ */ jsx(Ph, { name: "headset" }),
       " ",
-      instruct ? "AI is replying" : "You’re replying",
+      instruct ? "Crossword is replying" : "You’re replying",
       /* @__PURE__ */ jsxs("span", { className: `wd-steers${bump ? " wd-steers--bump" : ""}`, children: [
         /* @__PURE__ */ jsx(I$1, { d: "sparkle" }),
         " ",
@@ -3117,7 +3117,7 @@ function Dashboard$4({ v, stageRef, runKey }) {
         ] }),
         v.sent && /* @__PURE__ */ jsx(Human, { time: "01:21", status: "Delivered", enter, children: /* @__PURE__ */ jsx("p", { children: humanTakeover.humanMessage }) })
       ] }),
-      foot: v.joined ? /* @__PURE__ */ jsx(Composer$1, { mode: "reply", text: v.composer, typing: v.typing, placeholder: `Reply to ${first}…`, steers: 0, enter: v.animate }) : /* @__PURE__ */ jsx(Composer$1, { mode: "instruct", text: "", typing: false, placeholder: "Tell the AI what to do in this chat…", steers: 0 }),
+      foot: v.joined ? /* @__PURE__ */ jsx(Composer$1, { mode: "reply", text: v.composer, typing: v.typing, placeholder: `Reply to ${first}…`, steers: 0, enter: v.animate }) : /* @__PURE__ */ jsx(Composer$1, { mode: "instruct", text: "", typing: false, placeholder: "Tell Crossword what to do in this chat…", steers: 0 }),
       details: /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx(Contact, { ...CUSTOMER$4, email: "maya.c@example.net" }),
         /* @__PURE__ */ jsx(Summary, { text: "Maya has been going back and forth and asked for a person. The AI has handed the chat to the team with everything discussed so far." })
@@ -3224,7 +3224,7 @@ function Dashboard$3({ v, stageRef, runKey }) {
         v.decided && /* @__PURE__ */ jsx(EventCard, { icon: "scales", title: `Decision · ${ME.name}`, time: "00:48", tone: "note", enter, children: merchantApproval.decision }),
         (v.thinking2 || v.offer) && /* @__PURE__ */ jsx(Ai, { enter, time: v.offer ? "00:48" : void 0, status: "Delivered", children: v.thinking2 ? /* @__PURE__ */ jsx(Thinking, { s: v.thinking2, animate: v.animate }) : /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(StaggerText, { text: merchantApproval.offerMessage }) : merchantApproval.offerMessage }) })
       ] }),
-      foot: awaiting ? /* @__PURE__ */ jsx(DecisionCard, { pressed: v.pressed, enter: v.animate }) : /* @__PURE__ */ jsx(Composer$1, { mode: "instruct", text: "", typing: false, placeholder: "Tell the AI what to do in this chat…", steers: 0, enter: v.decided && v.animate }),
+      foot: awaiting ? /* @__PURE__ */ jsx(DecisionCard, { pressed: v.pressed, enter: v.animate }) : /* @__PURE__ */ jsx(Composer$1, { mode: "instruct", text: "", typing: false, placeholder: "Tell Crossword what to do in this chat…", steers: 0, enter: v.decided && v.animate }),
       details: /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx(Contact, { ...CUSTOMER$3, email: "omar.h@example.net", extra: [["Orders", "4"]] }),
         /* @__PURE__ */ jsx(Summary, { text: "Omar loves the set and asked for 20% off. He’s a repeat customer with 4 previous orders, so the AI asked the team to approve." })
@@ -3301,7 +3301,7 @@ function Dashboard$2({ v, stageRef, runKey }) {
             /* @__PURE__ */ jsxs("p", { className: "wd-steer__meta", children: [
               /* @__PURE__ */ jsxs("span", { children: [
                 /* @__PURE__ */ jsx("b", { children: whisperToAgent.whisperSender }),
-                " told the AI"
+                " told Crossword"
               ] }),
               /* @__PURE__ */ jsx("span", { children: "·" }),
               /* @__PURE__ */ jsx("span", { children: "This chat" }),
@@ -3326,7 +3326,7 @@ function Dashboard$2({ v, stageRef, runKey }) {
           mode: "instruct",
           text: v.composer,
           typing: v.typing,
-          placeholder: "Tell the AI what to do in this chat…",
+          placeholder: "Tell Crossword what to do in this chat…",
           steers: v.steer ? 1 : 0,
           bump: v.steer && v.animate
         }
@@ -3417,7 +3417,7 @@ function Dashboard10b({ v, stageRef, runKey }) {
             /* @__PURE__ */ jsxs("p", { className: "wd-steer__meta", children: [
               /* @__PURE__ */ jsxs("span", { children: [
                 /* @__PURE__ */ jsx("b", { children: ME.name.split(" ")[0] }),
-                " asked the AI"
+                " asked Crossword"
               ] }),
               /* @__PURE__ */ jsx("span", { children: "·" }),
               /* @__PURE__ */ jsx("span", { children: "Only you can see this" }),
@@ -3448,7 +3448,7 @@ function Dashboard10b({ v, stageRef, runKey }) {
           mode: v.mode,
           text: v.text,
           typing: v.typing,
-          placeholder: instruct ? "Tell the AI what to do in this chat…" : `Reply to ${CUSTOMER$2.name.split(" ")[0]}…`,
+          placeholder: instruct ? "Tell Crossword what to do in this chat…" : `Reply to ${CUSTOMER$2.name.split(" ")[0]}…`,
           steers: v.steer ? 1 : 0,
           bump: v.steer && v.animate && instruct,
           enter: !instruct && v.animate
@@ -3778,13 +3778,13 @@ function Desk({ v }) {
       /* @__PURE__ */ jsxs("div", { className: `dk-composer${instruct ? "" : " dk-composer--reply"}`, children: [
         /* @__PURE__ */ jsx("p", { className: "dk-composer__top", children: instruct ? /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsx(I, { d: "sparkle" }),
-          " AI is replying"
+          " Crossword is replying"
         ] }) : /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsx(I, { d: "person" }),
           " You’re replying"
         ] }) }),
         /* @__PURE__ */ jsxs("p", { className: `dk-composer__text${v.text ? " dk-composer__text--filled" : ""}`, children: [
-          v.text || (instruct ? "Tell the AI what to do in this chat…" : `Reply to ${CUSTOMER$1.split(" ")[0]}…`),
+          v.text || (instruct ? "Tell Crossword what to do in this chat…" : `Reply to ${CUSTOMER$1.split(" ")[0]}…`),
           v.typing && /* @__PURE__ */ jsx("span", { className: "ib-caret" })
         ] }),
         /* @__PURE__ */ jsxs("div", { className: "dk-composer__foot", children: [
