@@ -69,7 +69,13 @@ export function InnerHero({ id, initial, lines, copy, cta = "BOOK A DEMO", initi
       <RailAccent className="absolute top-[111px] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.938px] w-px max-lg:hidden" />
       <RailAccent className="absolute top-[111px] right-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.938px] w-px max-lg:hidden" />
 
-      <div className="relative flex content-width flex-col items-center gap-[17px] pt-14 pb-[clamp(150px,40vw,212px)] text-center md:pt-[73px] lg:min-h-[571px] lg:pb-16">
+      {/*
+        Below 768px the copy is centred in the hero's height, which stays as it was: the hero's padding (--hero-pad, its
+        56px above the copy plus the space kept below it) is shared equally above and below the copy, but at least the
+        ornaments' height from the foot (the roses, 319.58px of the 1440px composition: 22.19vw) plus 16px stays below
+        it, so the copy never sits over the pattern, and what's left goes above. From 768px it is as Figma sets it.
+      */}
+      <div className="relative flex content-width flex-col items-center gap-[17px] pt-14 pb-[clamp(150px,40vw,212px)] text-center max-md:[--hero-pad:calc(56px+clamp(150px,40vw,212px))] max-md:[--hero-pb:max(calc(var(--hero-pad)/2),calc(22.19vw+16px))] max-md:pt-[calc(var(--hero-pad)-var(--hero-pb))] max-md:pb-(--hero-pb) md:pt-[73px] lg:min-h-[571px] lg:pb-16">
         <div className="flex w-full max-w-[740px] flex-col items-center gap-3">
           <h1
             id={id}
