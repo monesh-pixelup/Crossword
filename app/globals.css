@@ -214,6 +214,38 @@
   zoom: tan(atan2(100cqw, var(--fit-width)));
 }
 
+/*
+ * iPhone Safari: text inside a zoomed element must follow the zoom. With `-webkit-text-size-adjust` set to a percentage
+ * (100% on <html>, here and in Tailwind's reset), WebKit on iPhone computes every font size from its specified size
+ * alone and drops the zoom: the boxes shrink but the text in them doesn't, so headlines (drawn at 60px and zoomed to
+ * the breakpoint's size), mock-ups and motion scenes come out with text too large for their frames, overflowing,
+ * overlapping, or refitted to something tiny. Only `auto` keeps the zoom, so every element that sets `zoom` takes it
+ * (inherited by its content): the two fit utilities, arbitrary `[zoom:…]` classes, inline `zoom` styles (SectionTitle,
+ * the hero title, ScenePanel) and the motion stylesheets' zoomed windows.
+ *
+ * `auto` also lets iPhone's text autosizer in, but it only enlarges text in blocks wider than the screen, and skips
+ * fixed-height boxes: a zoomed composition is laid out at its zoomed (fitted) width, so nothing in it qualifies.
+ * Everything else keeps 100% (the transform-scaled scenes are laid out wider than the screen and must stay out of it).
+ * `-webkit-touch-callout` only exists on iOS, so no other browser sees this.
+ */
+@supports (-webkit-touch-callout: none) {
+  :where(
+    [class*="fit-to-container"],
+    [class*="scale-to-container"],
+    [class*="zoom:"],
+    [style*="zoom"],
+    .aiv3w,
+    .gj2-win--standard,
+    .ill-shell--standard,
+    .ais-store,
+    .adj-store,
+    .adjm-plate,
+    .adj-ig
+  ) {
+    -webkit-text-size-adjust: auto;
+  }
+}
+
 /* Dynamic landing pages: a mock-up component settling in as its tab is chosen. */
 @keyframes dlp-fade {
   from {
