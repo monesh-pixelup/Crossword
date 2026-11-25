@@ -226,8 +226,8 @@
  */
 .hero-scene--compact .hero-scene__frame,
 .hero-scene--pending .hero-scene__frame {
-  --banner-w: min(84%, 437px);
-  --banner-top: 64px;
+  --banner-w: min(74%, 385px);
+  --banner-top: 168px;
   --banner-fade: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent),
     linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
 }
