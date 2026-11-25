@@ -108,3 +108,16 @@
 .cw-sell-v2 .hm2-step__body { font-family: var(--font-geist), sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; letter-spacing: -0.32px; opacity: 0.8; }
 .cw-sell-v2 .hm2-chapters--mweb .hm2-step__title { font-size: 20px; line-height: 1.0909; letter-spacing: -0.8px; white-space: normal; }
 .cw-sell-v2 .hm2-chapters--mweb .hm2-step__body { font-weight: 400; font-size: 15px; line-height: 22px; letter-spacing: -0.3px; opacity: 0.8; }
+
+/*
+ * Site: on phones the chapter tabs can be swiped (see HumanModeV2ChaptersMotion). The row follows the finger by
+ * --hm2-drag with no transition, so it stays under the finger, and eases to its chapter as it's let go
+ * ([data-settling], for that moment only: the tabs otherwise change without a slide, as before). `pan-y`: a touch
+ * moving down the page still scrolls it.
+ */
+.cw-sell-v2 .hm2-chapters--mweb .hm2-steps { touch-action: pan-y; }
+.cw-sell-v2 .hm2-chapters--mweb .hm2-step { transform: translate(calc(var(--hm2-i, 0) * -178px + var(--hm2-drag, 0px))); }
+.cw-sell-v2 .hm2-chapters--mweb .hm2-steps[data-settling] .hm2-step { transition: transform .35s cubic-bezier(.22, 1, .36, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .cw-sell-v2 .hm2-chapters--mweb .hm2-steps[data-settling] .hm2-step { transition: none; }
+}

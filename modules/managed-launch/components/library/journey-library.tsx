@@ -42,19 +42,23 @@ const accentBar = {
  * a damask band along its foot and a 5px bar in its accent, lifted on a soft shadow. 26px in: the title (a Parisienne
  * 45 capital, then Crimson ExtraLight 29, aubergine), 19.56px over a hairline and 19.56px more over the Geist 16
  * line, all 191.84px wide. The stamp sits 239px down, 26px in, turned -6.78°, wherever the copy ends.
+ *
+ * Below 768px a card runs the full width of the content column (500px at most), as wide as the copy above the cards, and its paper,
+ * damask band, bar, title, rule and line all fill that width (the band covering it at its own proportions, not
+ * stretched); the stamp keeps its place at the lower left.
  */
 function JourneyCard({ index }: { index: number }) {
   const journey = libraryJourneys[index];
   return (
-    <li className="relative isolate h-[329px] w-[244px] shrink-0 overflow-clip px-[26.081px] pt-[26.081px] shadow-[0_4.075px_6.276px_rgba(0,0,0,0.08)]">
+    <li className="relative isolate h-[329px] w-[244px] shrink-0 overflow-clip max-md:w-full max-md:max-w-[500px] px-[26.081px] pt-[26.081px] shadow-[0_4.075px_6.276px_rgba(0,0,0,0.08)]">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-white">
-        <Image src={cardPaper} alt="" sizes="244px" className="absolute inset-0 size-full max-w-none mix-blend-multiply" />
+        <Image src={cardPaper} alt="" sizes="(max-width: 767px) 100vw, 244px" className="absolute inset-0 size-full max-w-none mix-blend-multiply" />
         <div className="absolute inset-0 bg-[#fff9ea] mix-blend-color" />
         {/* A 3x export of the damask band, its 51px above the 5px bar. */}
-        <Image src={cardDamask} alt="" sizes="244px" className="absolute bottom-[5px] left-0 h-[51px] w-full max-w-none" />
+        <Image src={cardDamask} alt="" sizes="(max-width: 767px) 100vw, 244px" className="absolute bottom-[5px] left-0 h-[51px] w-full max-w-none max-md:object-cover" />
       </div>
 
-      <div className="flex w-[191.837px] flex-col items-start gap-[19.561px]">
+      <div className="flex w-[191.837px] flex-col items-start gap-[19.561px] max-md:w-full">
         <h3 className="w-full font-serif text-[29px] leading-[1.1] font-extralight tracking-[-1.45px] text-[#462160] mix-blend-multiply">
           <span className="font-script text-[45px] leading-[1.18] font-normal">{journey.initial}</span>
           {journey.title}
@@ -117,10 +121,11 @@ export function JourneyLibrary() {
         {/*
           The cards from the copy's left edge, wrapping left-aligned: up to 1316px (5 × 244 + 4 × 24), so five across and
           then four where the panel has room (the row may run past the copy's right edge, within the panel).
+          Below 768px the list keeps the copy's side padding on the right too, so each full-width card ends where the copy does.
         */}
         <ul
           aria-label="Journeys"
-          className="mt-10 mr-4 ml-[calc(var(--page-pad)-var(--frame-inset))] flex max-w-[1316px] flex-wrap justify-start gap-6 pb-16 md:mt-[55px] md:pb-[106px]"
+          className="mt-10 mr-4 ml-[calc(var(--page-pad)-var(--frame-inset))] flex max-md:mr-[calc(var(--page-pad)-var(--frame-inset))] max-w-[1316px] flex-wrap justify-start gap-6 pb-16 md:mt-[55px] md:pb-[106px]"
         >
           {libraryJourneys.map((journey, i) => (
             <JourneyCard key={journey.initial + journey.title} index={i} />

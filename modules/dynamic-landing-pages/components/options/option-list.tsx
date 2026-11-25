@@ -68,6 +68,9 @@ export function OptionsProvider({ children }: { children: ReactNode }) {
  *
  * Below 1260px (stacked) the options are an accordion, as Insights on the home page: the focused option's visual opens
  * out under its copy, easing open as the other's closes, and they change only when tapped (with no progress bar).
+ *
+ * Below 768px (phones) both are open at once: each option at full strength with its visual under its copy, one after
+ * the other, each playing as it comes on screen (ScenePanel); there is nothing to tap open.
  */
 export function OptionList() {
   const { active, plays, focus, wide } = useContext(OptionsContext);
@@ -81,6 +84,15 @@ export function OptionList() {
     const timer = window.setTimeout(() => setClosing(null), ACCORDION_MS);
     return () => window.clearTimeout(timer);
   }, [active]);
+  // Phones (below 768px): every option is open (false until known, so the server render and first paint are the accordion's).
+  const [phone, setPhone] = useState(false);
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const update = () => setPhone(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
   const [visible, setVisible] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const bars = useRef<(HTMLSpanElement | null)[]>([]);
@@ -131,11 +143,12 @@ export function OptionList() {
     <div ref={rootRef} className="w-full lg:w-[520px] lg:shrink-0">
       <ul className="flex flex-col gap-8">
         {dynamicOptions.map((option, i) => {
-          const on = i === active;
+          // On a phone every option is open, so each is drawn as the one in focus.
+          const on = phone || i === active;
           return (
             <li
               key={option.title}
-              tabIndex={0}
+              tabIndex={phone ? undefined : 0}
               // Chosen by click or keyboard focus, never by hover.
               onClick={() => !on && focus(i)}
               onFocus={() => !on && focus(i)}
@@ -160,6 +173,7 @@ export function OptionList() {
                 <div className="min-h-0 overflow-hidden">
                   <div className="relative mt-8 aspect-[687/586] w-full">
                     {wide !== true && (on || i === closing) && (
+                      // (On a phone both visuals are drawn; each plays only while it's on screen.)
                       <ScenePanel key={`${i}-${plays[i]}`} scene={dlpScenes[option.scene]} active={on} root={DlpMotionRoot} />
                     )}
                   </div>

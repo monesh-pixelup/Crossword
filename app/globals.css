@@ -392,6 +392,24 @@
 }
 
 /*
+ * Dark top (the home page: <html data-dark-top>, set by the root layout's inline script and kept by SiteHeader): black
+ * across the first screen, under the page's content, so before the black hero has arrived and painted the top of the
+ * page is already black rather than the cream ground. Once the hero is there it covers this exactly; the sections
+ * after it carry their own cream. No taller than the desktop hero (863px), so it never shows under a shorter hero.
+ */
+html[data-dark-top] body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  height: min(100svh, 863px);
+  background: #000;
+  pointer-events: none;
+}
+
+/*
  * Selected text: the brand maroon instead of the browser's blue, with cream text on it. Outside any @layer, so no
  * layered rule can outrank it, and on every element (`*::selection`), which highlight inheritance needs.
  */

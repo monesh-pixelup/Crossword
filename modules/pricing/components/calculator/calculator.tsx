@@ -5,10 +5,14 @@ import { outcomes } from "../../config/pricing";
 import { BandDivider } from "../shared/band-divider";
 import { RoiCalculator } from "./roi-calculator";
 
-/** Pricing / Note: a Crimson 22 title over a line of Geist 14. */
-function Note({ title, body }: { title: string; body: string }) {
+/**
+ * Pricing / Note: a Crimson 22 title over a line of Geist 14. `ruled`: below 480px, where a row's two notes stack, the
+ * second carries the row's 0.5px rule over it too (24px either side), so there is a line between every note, not
+ * only between the rows.
+ */
+function Note({ title, body, ruled = false }: { title: string; body: string; ruled?: boolean }) {
   return (
-    <div className="flex min-w-0 flex-1 flex-col gap-2">
+    <div className={`flex min-w-0 flex-1 flex-col gap-2 ${ruled ? "max-xs:pt-6 max-xs:shadow-[inset_0_0.5px_0_#c8c3b8]" : ""}`}>
       <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.04em] text-ink">{title}</h3>
       <p className="font-sans text-[14px] leading-[1.43] tracking-[-0.02em] text-pretty text-ink-muted">{body}</p>
     </div>
@@ -49,8 +53,8 @@ export function Calculator() {
                 key={start}
                 className="flex flex-col gap-6 py-6 shadow-[inset_0_0.5px_0_#c8c3b8] xs:flex-row xs:gap-10"
               >
-                {outcomes.slice(start, start + 2).map((o) => (
-                  <Note key={o.title} title={o.title} body={o.body} />
+                {outcomes.slice(start, start + 2).map((o, i) => (
+                  <Note key={o.title} title={o.title} body={o.body} ruled={i > 0} />
                 ))}
               </div>
             ))}

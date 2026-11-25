@@ -22,7 +22,7 @@ type Feature = (typeof discoveryFeatures)[number];
 /** A feature's title, description and LEARN MORE, 24px over its panel. */
 function FeatureCopy({ feature }: { feature: Feature }) {
   return (
-    <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 pl-4 md:flex-row md:pr-[21px] md:items-start md:justify-between md:gap-8">
+    <div className="flex w-full flex-col items-start gap-5 bg-cream pr-4 pb-6 md:pl-4 md:flex-row md:pr-[21px] md:items-start md:justify-between md:gap-8">
       <div className="flex flex-col items-start gap-3">
         <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{feature.label}</h3>
         {feature.description && (

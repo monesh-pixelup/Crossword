@@ -3795,11 +3795,58 @@ function HumanModeV2ChaptersMotion({ mweb = false } = {}) {
     document.addEventListener("visibilitychange", onShow);
     return () => document.removeEventListener("visibilitychange", onShow);
   }, []);
+  // Site: on phones the chapter tabs can be swiped. The row follows the finger (--hm2-drag, in the scene's own pixels:
+  // the scene is drawn scaled, so the finger's travel is divided by that scale), and letting go 40px or more across
+  // opens the next or previous chapter; less, and it settles back. A touch that starts down the page scrolls it as usual.
+  const stepsRef = useRef(null);
+  const swipe = useRef(null);
+  const swipeHandlers = mweb ? {
+    onTouchStart: (e) => {
+      if (e.touches.length !== 1) return;
+      swipe.current = { x: e.touches[0].clientX, y: e.touches[0].clientY, across: null, dx: 0 };
+    },
+    onTouchMove: (e) => {
+      const start = swipe.current;
+      const row = stepsRef.current;
+      if (!start || !row) return;
+      const dx = e.touches[0].clientX - start.x;
+      const dy = e.touches[0].clientY - start.y;
+      if (start.across === null) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        start.across = Math.abs(dx) > Math.abs(dy);
+      }
+      if (!start.across) return;
+      start.dx = dx;
+      const scale = row.offsetWidth ? row.getBoundingClientRect().width / row.offsetWidth : 1;
+      // Past the first or last chapter there is nothing to show, so the row gives only a third of the way.
+      const pastEnd = chapterRef.current === 0 && dx > 0 || chapterRef.current === CHAPTERS.length - 1 && dx < 0;
+      row.style.setProperty("--hm2-drag", `${(pastEnd ? dx / 3 : dx) / (scale || 1)}px`);
+      row.dataset.dragging = "true";
+    },
+    onTouchEnd: () => {
+      const start = swipe.current;
+      const row = stepsRef.current;
+      swipe.current = null;
+      if (row) {
+        row.style.removeProperty("--hm2-drag");
+        delete row.dataset.dragging;
+      }
+      if (!(start == null ? void 0 : start.across)) return;
+      // Let go, the row eases to its chapter (only then: the tabs otherwise change without a slide, as before).
+      if (row) {
+        row.dataset.settling = "true";
+        window.setTimeout(() => delete row.dataset.settling, 400);
+      }
+      const to = chapterRef.current + (start.dx <= -40 ? 1 : start.dx >= 40 ? -1 : 0);
+      if (to !== chapterRef.current && to >= 0 && to < CHAPTERS.length) pickRef.current(to);
+    }
+  } : {};
+  if (mweb) swipeHandlers.onTouchCancel = swipeHandlers.onTouchEnd;
   const cam = useStageCamera(focus);
   const rig = { report };
   const fill = (i) => i === chapter && (timers[i] || reduced) ? { transform: "scaleX(1)", transition: reduced ? "none" : `transform ${timers[i]}ms linear` } : { transform: "scaleX(0)", transition: "none" };
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsxs("div", { className: mweb ? "sv-ill-human-mode-frame hm2-chapters hm2-chapters--mweb" : "sv-ill-human-mode-frame hm2-chapters", children: [
-    /* @__PURE__ */ jsx("ol", { className: "hm2-steps", style: mweb ? { "--hm2-i": chapter } : void 0, children: CHAPTERS.map((c, i) => /* @__PURE__ */ jsxs(
+    /* @__PURE__ */ jsx("ol", { ref: stepsRef, ...swipeHandlers, className: "hm2-steps", style: mweb ? { "--hm2-i": chapter } : void 0, children: CHAPTERS.map((c, i) => /* @__PURE__ */ jsxs(
       "li",
       {
         className: i === chapter ? "hm2-step hm2-step--active" : "hm2-step",

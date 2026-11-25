@@ -101,6 +101,7 @@ export function AubergineSteps({
   media,
   cardArt = card,
   stamps,
+  numeralByTitleOnPhones = false,
 }: {
   steps: { title: string; description: string }[];
   variant?: keyof typeof variants;
@@ -110,6 +111,11 @@ export function AubergineSteps({
   cardArt?: StaticImageData;
   /** Each step's own stamp, in order (Loyalty on Retain); otherwise every step shows the quill stamp. */
   stamps?: StaticImageData[];
+  /**
+   * Below 768px, set each step's numeral to the left of its title, under the cell, instead of over the cell
+   * (Personal agents' Promotions & upselling). From 768px it stays over the cell, as everywhere else.
+   */
+  numeralByTitleOnPhones?: boolean;
 }) {
   const v = variants[variant];
   return (
@@ -123,7 +129,7 @@ export function AubergineSteps({
             {last && <span aria-hidden className={`pointer-events-none absolute right-0 bottom-0 hidden md:block ${v.ruleTop} ${dashedV}`} />}
 
             {variant === "handoff" || variant === "promotions" ? (
-              <div className="relative ml-[17px] h-[27px]">
+              <div className={`relative ml-[17px] h-[27px] ${numeralByTitleOnPhones ? "max-md:hidden" : ""}`}>
                 <p
                   className="absolute top-[3.5px] font-script text-[24px] leading-[1.0833] tracking-[-1.2px] max-md:text-[20px] max-md:leading-[22px] max-md:tracking-[-1px] whitespace-nowrap text-[#b4a5bd] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]"
                   style={{ left: numeralOffsets[i] ?? numeralOffsets[0] }}
@@ -139,7 +145,7 @@ export function AubergineSteps({
 
             {/* Figma's pattern fill: a 49.67px tile of faint white motifs (11% at most) over the cell's black/15, from its outer corner. */}
             <div
-              className={`relative ${media ? "aspect-[355/402]" : "cellHeight" in v ? v.cellHeight : "h-[232px]"} ${"cellBorder" in v ? v.cellBorder : "border border-white/3"} bg-black/15 bg-size-[49.667px_49.667px] bg-origin-border bg-repeat ${v.cell}`}
+              className={`relative ${media ? "aspect-[355/402]" : "cellHeight" in v ? v.cellHeight : "h-[232px]"} ${"cellBorder" in v ? v.cellBorder : "border border-white/3"} bg-black/15 bg-size-[49.667px_49.667px] bg-origin-border bg-repeat ${v.cell} ${numeralByTitleOnPhones ? "max-md:mt-0" : ""}`}
               style={{ backgroundImage: `url(${cellPattern.src})` }}
             >
               <span aria-hidden className={`pointer-events-none absolute hidden md:block ${v.lineTop} ${dashedH} ${first ? "left-[calc(-1*var(--steps-overshoot,57px))]" : "left-0"} ${last ? "right-[calc(-1*var(--steps-overshoot,57px))]" : "right-0"}`} />
@@ -167,7 +173,14 @@ export function AubergineSteps({
 
             {/* Kept 17px off both rules while the columns are narrow (768–1279px); at 1062px the right inset is Figma's 11px (354 − 17 − 326). */}
             <div className={`${v.copy} flex flex-col items-start gap-3 pr-[17px] pl-[17px] xl:pr-[11px]`}>
-              <h3 className={`text-pretty break-words ${"titleColor" in v ? v.titleColor : "text-white/85"} ${v.stepTitle}`}>{step.title}</h3>
+              <h3 className={`text-pretty break-words ${"titleColor" in v ? v.titleColor : "text-white/85"} ${v.stepTitle} ${numeralByTitleOnPhones ? "max-md:flex max-md:items-baseline max-md:gap-3" : ""}`}>
+                {numeralByTitleOnPhones && (
+                  <span aria-hidden className="shrink-0 font-script text-[20px] leading-[22px] font-normal tracking-[-1px] whitespace-nowrap text-[#b4a5bd] md:hidden">
+                    0{i + 1}
+                  </span>
+                )}
+                {numeralByTitleOnPhones ? <span>{step.title}</span> : step.title}
+              </h3>
               <p className={`max-w-[326px] font-sans text-pretty break-words ${"bodyColor" in v ? v.bodyColor : "text-white/60"} ${v.stepBody}`}>{step.description}</p>
             </div>
           </li>

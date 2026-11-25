@@ -32,6 +32,7 @@ export function Promotions({
   ),
   steps = promotionSteps,
   titleVariant = "dynamicCentered",
+  numeralByTitleOnPhones = false,
 }: {
   id?: string;
   initial?: string;
@@ -43,6 +44,8 @@ export function Promotions({
   steps?: PromotionStep[];
   /** The headline's line spacing: Figma's 0.9 (AI Assistants), or the earlier 1.1 (`loyalty`, kept on Personal agents). */
   titleVariant?: "dynamicCentered" | "loyalty";
+  /** Below 768px, each step's numeral sits to the left of its title rather than over its visual (Personal agents). */
+  numeralByTitleOnPhones?: boolean;
 }) {
   const scenes = steps.map((step) => step.scene);
   return (
@@ -92,6 +95,7 @@ export function Promotions({
               steps={steps}
               variant="promotions"
               cardArt={card}
+              numeralByTitleOnPhones={numeralByTitleOnPhones}
               media={
                 scenes.every(Boolean)
                   ? (i) => {

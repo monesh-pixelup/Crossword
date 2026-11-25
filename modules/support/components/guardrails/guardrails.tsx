@@ -37,9 +37,12 @@ export function Guardrails() {
           */}
           <SupportScenePanel slug="guardrails" fill transform />
         </div>
-        {/* Below 768px: 09m, the guardrails stacked over the chat (353 × 440), in place of the wide visual. */}
+        {/*
+          Below 768px: 09m, the guardrails stacked over the chat (353 × 440), in place of the wide visual. Interactive
+          there: tapping a rule (refund policy, tone of voice, escalation) plays its conversation from that rule.
+        */}
         <div className="relative aspect-[353/440] w-full md:hidden">
-          <SupportScenePanel slug="guardrails-mweb" fill transform />
+          <SupportScenePanel slug="guardrails-mweb" fill transform interactive />
         </div>
       </div>
     </section>

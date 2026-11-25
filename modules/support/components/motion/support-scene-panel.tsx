@@ -13,6 +13,7 @@ export type { SupportSceneSlug };
  * it always spans the panel's full width (the panel then matching the scene's shape). `transform`
  * scales it with a transform rather than zoom (see ScenePanel), for a wide scene that shrinks far
  * on phones. `replayAfter` (ms) plays a visual that runs once over again, that long after it ends (see useReplay).
+ * `interactive` leaves the visual able to be tapped and clicked (the guardrails' rules); otherwise it's decorative and inert.
  */
 export function SupportScenePanel({
   slug,
@@ -20,6 +21,7 @@ export function SupportScenePanel({
   maxScale,
   transform = false,
   replayAfter,
+  interactive = false,
 }: {
   slug: SupportSceneSlug;
   fill?: boolean;
@@ -27,10 +29,11 @@ export function SupportScenePanel({
   maxScale?: number;
   transform?: boolean;
   replayAfter?: number;
+  interactive?: boolean;
 }) {
   const scene = supportScenes[slug];
   const { ref, take } = useReplay(scene.duration, replayAfter);
-  const panel = <ScenePanel key={take} scene={scene} root={SupportMotionRoot} maxScale={fill ? Infinity : maxScale} transform={transform} />;
+  const panel = <ScenePanel key={take} scene={scene} root={SupportMotionRoot} maxScale={fill ? Infinity : maxScale} transform={transform} interactive={interactive} />;
   if (replayAfter === undefined) return panel;
   return (
     <div ref={ref} className="absolute inset-0">

@@ -611,6 +611,12 @@ function HeaderBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  // The black laid under the first screen of a page whose header starts transparent over a dark hero (globals.css,
+  // "Dark top"): the root layout's inline script sets it on a full load; this keeps it right as pages change.
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-dark-top", transparent);
+  }, [transparent]);
+
   if (transparent) {
     // Past the hero (HERO_ONLY_ROUTES) the cream bar crossfades in over the dark one, fill, rule and contents together.
     const dark = (scrolled || menuOpen || dropdownOpen) && !pastHero;
