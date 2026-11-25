@@ -416,8 +416,11 @@ export function LaunchWheel({
   return (
     <>
       {/* Aubergine damask tile; stamps drop onto it as the steps advance. */}
-      {/* Drawn at 316 × 310 and zoomed to its box: the grid's middle column, or up to 316px when stacked. */}
-      <div className="@container order-1 w-[316px] max-w-full lg:order-none lg:mt-[7.695%] lg:w-full">
+      {/*
+        Drawn at 316 × 310 and zoomed to its box: the grid's middle column, or up to 316px when stacked. Below 768px it
+        runs the full width of the content column, as wide as the quote box above it.
+      */}
+      <div className="@container order-2 w-[316px] max-w-full max-md:w-full lg:order-none lg:mt-[7.695%] lg:w-full">
       <div
         aria-hidden
         className="relative h-[310px] w-[316px] overflow-clip bg-aubergine scale-to-container [--fit-width:316px]"
@@ -456,7 +459,7 @@ export function LaunchWheel({
         ref={listRef}
         aria-label={label}
         style={{ "--wheel-scale": textScale } as CSSProperties}
-        className="group/wheel order-2 flex flex-col items-center gap-[0.1462em] text-center font-serif text-[length:calc(var(--h4-size)*var(--wheel-scale,1))] leading-[1.1] lg:order-none lg:mt-[11.954%] lg:ml-[14.315%] lg:items-start lg:text-left lg:text-[length:calc(min(2.5rem,3.125vw_-_0.3125rem)*var(--wheel-scale,1))] data-[wheel]:[mask-image:linear-gradient(to_bottom,transparent_0,rgba(0,0,0,0.667)_1.1em,#000_1.2462em,#000_calc(100%_-_1.2462em),rgba(0,0,0,0.667)_calc(100%_-_1.1em),transparent_100%)]"
+        className="group/wheel order-1 flex flex-col items-center gap-[0.1462em] text-center font-serif text-[length:calc(var(--h4-size)*var(--wheel-scale,1))] leading-[1.1] lg:order-none lg:mt-[11.954%] lg:ml-[14.315%] lg:items-start lg:text-left lg:text-[length:calc(min(2.5rem,3.125vw_-_0.3125rem)*var(--wheel-scale,1))] data-[wheel]:[mask-image:linear-gradient(to_bottom,transparent_0,rgba(0,0,0,0.667)_1.1em,#000_1.2462em,#000_calc(100%_-_1.2462em),rgba(0,0,0,0.667)_calc(100%_-_1.1em),transparent_100%)]"
       >
         {steps.map((step, i) => (
           <li

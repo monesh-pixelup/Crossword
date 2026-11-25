@@ -175,33 +175,26 @@
 }
 
 /*
- * Compact (phones): a stack at least a screen tall, below the fixed 72.5px header (+16px): the
- * cards (row 1), the concierge (row 2) and the conversation (row 3); the copy is pinned over it at
- * the first screen's foot (see HeroParallax). The UI layer
- * dissolves into the grid so its cards and conversation take their rows. The photo is drawn
- * --photo-h tall and placed in row 2 with the concierge centred in it: on its canvas the concierge
- * is 42.938% of the photo's height, centred 43.339% down and 49.641% across, then raised
- * --person-lift so it reads centred between the cards and the conversation. Its top and bottom
- * fade into the black, so it ends softly behind the cards and the conversation.
+ * Compact (phones): the fixed 72.5px header (+16px), the cards under it, the concierge behind them and the copy
+ * (the headline, the button and the intro) at the foot of the first screen (placed by HeroParallax). The UI layer
+ * dissolves into the grid so its cards take their row; the conversation isn't drawn on phones.
+ *
+ * The hero is one screen plus --hero-below tall: the copy ends 24px above the first screen's bottom, so the headline,
+ * button and intro are all on screen when the page opens, whatever the phone's height (100svh, the height with the
+ * browser's bars showing), and the black runs on a little below the fold before the cream page starts. On a very short
+ * screen it never goes under --hero-min, so the copy can't climb over the cards.
+ * (It used to be 904px tall whatever the screen, the copy near its foot: on most phones only the headline, or none of
+ * it, made the first screen.)
  */
 .hero-scene--compact .hero-scene__frame {
-  --photo-h: min(600px, 154vw);
-  --person-lift: 230px;
-  /* How far the conversation is raised to overlap the concierge (see .conversation-slot). */
-  --chat-lift: 170px;
-  /*
-   * The stack's settled height, held from the start: a screen at least, or its content (the header's 88.5px, the
-   * cards, the concierge's row and the conversation: 904.1px with the photo at its 600px, measured). Without it the
-   * frame is one screen tall until the cards and conversation render, then grows, and anything placed from its foot
-   * jumps. The copy is placed from the top against this height (HeroParallax), so it also stays put as a longer
-   * conversation grows the frame.
-   */
-  --hero-stack-h: max(100svh, calc(646.47px + .42938 * var(--photo-h)));
+  --hero-below: 32px;
+  --hero-min: 612px;
+  --hero-stack-h: max(calc(100svh + var(--hero-below)), var(--hero-min));
   width: 100%;
   min-height: var(--hero-stack-h);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto minmax(calc(.42938 * var(--photo-h) + 32px), 1fr) auto;
+  grid-template-rows: auto 1fr;
   padding-top: calc(72.5px + 16px);
 }
 
@@ -225,21 +218,46 @@
 }
 
 /*
- * Phones with the phone banner (390 × 844 at 1:1 on a phone, capped at 520px wide and centred): from under the header,
- * just below where the entry cards sit, so the concierge stands clear of them, its top fading into the black behind
- * the cards. Its own dark foot carries the copy, so the multiply overlay is left off.
+ * Phones with the phone banner (780 × 1688): drawn at --banner-w of the screen's width (zoomed out from the full
+ * width it used to fill, so the concierge is smaller and more of him shows between the cards and the copy), centred,
+ * from --banner-top: his cap just under the cards, his shoulders above the headline on a short screen. Narrower than
+ * the screen, its top, sides and foot fade into the black around it, so it has no edges. Its own dark foot carries
+ * the copy, so the multiply overlay is left off.
  */
+.hero-scene--compact .hero-scene__frame,
+.hero-scene--pending .hero-scene__frame {
+  --banner-w: min(84%, 437px);
+  --banner-top: 64px;
+  --banner-fade: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent),
+    linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/*
+ * A short screen (an iPhone SE with the browser's bars showing: under 620px tall): the copy reaches up to just under
+ * the cards, so the banner is drawn smaller and a little lower, the concierge's face in the gap between the cards and
+ * the headline instead of behind the headline.
+ */
+@media (max-height: 619px) {
+  .hero-scene--compact .hero-scene__frame,
+  .hero-scene--pending .hero-scene__frame {
+    --banner-w: min(64%, 300px);
+    --banner-top: 100px;
+  }
+}
+
 .hero-scene--compact .hero-scene__photo.hero-scene__photo--mweb {
   grid-row: auto;
   grid-column: auto;
-  top: calc(72.5px + 16px);
+  top: var(--banner-top);
   left: 50%;
-  width: min(100%, 520px);
+  width: var(--banner-w);
   height: auto;
   aspect-ratio: 780 / 1688;
   transform: translateX(-50%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%);
-  mask-image: linear-gradient(to bottom, transparent, #000 14%);
+  -webkit-mask-image: var(--banner-fade);
+  mask-image: var(--banner-fade);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .hero-scene--compact .hero-scene__photo--mweb .hero-scene__overlay {
@@ -263,7 +281,7 @@
 
 @media (max-width: 759px) {
   .hero-scene--pending .hero-scene__frame {
-    --hero-stack-h: max(100svh, calc(646.47px + .42938 * min(600px, 154vw)));
+    --hero-stack-h: max(calc(100svh + 32px), 612px);
     width: 100% !important;
     aspect-ratio: auto !important;
     min-height: var(--hero-stack-h);
@@ -276,14 +294,16 @@
   .hero-scene--pending .hero-scene__pending-banner {
     display: block;
     position: absolute;
-    top: calc(72.5px + 16px);
+    top: var(--banner-top);
     left: 50%;
-    width: min(100%, 520px);
+    width: var(--banner-w);
     height: auto;
     aspect-ratio: 780 / 1688;
     transform: translateX(-50%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%);
-    mask-image: linear-gradient(to bottom, transparent, #000 14%);
+    -webkit-mask-image: var(--banner-fade);
+    mask-image: var(--banner-fade);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
   }
 }
 
@@ -854,12 +874,9 @@
   max-width: 361px;
 }
 
-/*
- * On phones only the cards above the concierge show: the conversation below it is hidden. It keeps its place in
- * the layout (visibility, not display), so the concierge and the copy stay exactly where they were.
- */
+/* On phones only the cards above the concierge show: the conversation isn't drawn, and takes no room. */
 .hero-scene--compact .conversation-slot {
-  visibility: hidden;
+  display: none;
 }
 
 .hero-scene--compact .conversation {

@@ -10,24 +10,28 @@ import { MemoryGraph } from "./memory-graph";
 /** Gold rail accent on the page frame, centred on the 24px rail line; it grows in as it scrolls into view. */
 const frameAccent = "absolute w-px";
 
+/**
+ * The three stats. Below 768px the 01–03 index over each is left out and the stack is tighter: 32px between stats
+ * either side of their rule (48px above that width) and 20px between a stat's logo and its figure (32px).
+ */
 function Stats() {
   return (
-    <div className="relative mt-[51px]">
+    <div className="relative mt-[51px] max-md:mt-8">
       {/* Frame accents on both rails (56px out from the content), level with the dividers' accents. */}
       <RailAccent className={cn(frameAccent, "top-[149px] -left-14 hidden h-[83px] -translate-x-1/2 min-[992px]:block")} />
       <RailAccent className={cn(frameAccent, "top-[149px] -right-14 hidden h-[83px] translate-x-1/2 min-[992px]:block")} />
-      <ul className="flex flex-col gap-12 min-[992px]:flex-row min-[992px]:gap-5 min-[992px]:px-10">
+      <ul className="flex flex-col gap-12 max-md:gap-8 min-[992px]:flex-row min-[992px]:gap-5 min-[992px]:px-10">
         {stats.map((stat, i) => (
           <li
             key={stat.label}
             className={cn(
-              "relative flex flex-col items-start gap-8 min-[992px]:flex-1 min-[992px]:gap-[50px]",
+              "relative flex flex-col items-start gap-8 max-md:gap-5 min-[992px]:flex-1 min-[992px]:gap-[50px]",
               i > 0 &&
-                "border-t-[0.5px] border-rail pt-12 min-[992px]:border-t-0 min-[992px]:border-l-[0.5px] min-[992px]:pt-0 min-[992px]:pl-16",
+                "border-t-[0.5px] border-rail pt-12 max-md:pt-8 min-[992px]:border-t-0 min-[992px]:border-l-[0.5px] min-[992px]:pt-0 min-[992px]:pl-16",
             )}
           >
             {i > 0 && <RailAccent className={cn(frameAccent, "top-[149px] left-0 hidden h-[83px] -translate-x-1/2 min-[992px]:block")} />}
-            <span className="font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] text-ink-muted">
+            <span className="font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] text-ink-muted max-md:hidden">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span className="flex h-10 items-center">

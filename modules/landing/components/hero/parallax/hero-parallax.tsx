@@ -155,18 +155,19 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
           // Placed from the top against the stack's settled height (--hero-stack-h, hero-parallax.css), not from the
           // frame's foot: the frame grows as the cards and conversation render and as a conversation runs long, and
           // the copy must not move with it.
-          // Phones: the copy is pinned 24px above the first screen's bottom so it shows on load, over the stack (see
-          // .hero-scene--compact), with a fade to black behind it so it reads over the conversation. On a short screen
-          // (an iPhone SE) that would pull it up over the concierge, so it never sits higher than 54px above the
-          // scene's foot, where it lands on a tall phone (an iPhone 16 Pro): under the desk, as there.
+          // Phones: the copy ends 24px above the first screen's bottom, so the headline, the button and the intro all
+          // show on load: 56px above the hero's foot, which is 32px below the fold (--hero-stack-h, --hero-below in
+          // hero-parallax.css). A fade to black behind it, 45% of the screen tall, reaching solid black at the fold and
+          // staying black to the hero's foot, so the copy reads over the concierge and none of the photo's desk shows
+          // in the strip under the fold.
           if (placement === "stacked")
             return (
               <>
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 top-[calc(max(100svh,var(--hero-stack-h)_-_30px)_-_45svh)] z-10 h-[45svh] bg-linear-to-b from-black/0 via-black/70 via-40% to-black/90"
+                  className="pointer-events-none absolute inset-x-0 top-[calc(var(--hero-stack-h)_-_32px_-_45svh)] bottom-0 z-10 bg-[linear-gradient(to_bottom,rgb(0_0_0/0),rgb(0_0_0/0.7)_calc(0.4*45svh),#000_45svh)]"
                 />
-                <div className="pointer-events-none absolute inset-x-0 top-[max(calc(100svh_-_24px),calc(var(--hero-stack-h)_-_54px))] z-10 -translate-y-full">{copy}</div>
+                <div className="pointer-events-none absolute inset-x-0 top-[calc(var(--hero-stack-h)_-_56px)] z-10 -translate-y-full">{copy}</div>
               </>
             );
           // Not yet measured (the server render and first paint): on a phone the copy and its shade already sit where
@@ -178,7 +179,7 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
               {pending && (
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 top-[calc(max(100svh,var(--hero-stack-h)_-_30px)_-_45svh)] z-10 h-[45svh] bg-linear-to-b from-black/0 via-black/70 via-40% to-black/90 min-[760px]:hidden"
+                  className="pointer-events-none absolute inset-x-0 top-[calc(var(--hero-stack-h)_-_32px_-_45svh)] bottom-0 z-10 bg-[linear-gradient(to_bottom,rgb(0_0_0/0),rgb(0_0_0/0.7)_calc(0.4*45svh),#000_45svh)] min-[760px]:hidden"
                 />
               )}
               {/*
@@ -199,7 +200,7 @@ export function HeroParallax({ copy }: { copy: ReactNode }) {
               */}
               <div
                 className={`pointer-events-none absolute z-10 bottom-[max(10.25%,calc(100%_-_min(100svh,1200px)_/_var(--scene-scale,1)_+_88.5px))] left-1/2 w-[min(var(--scene-page-w),1440px)] -translate-x-1/2 ${
-                  pending ? "max-[759px]:top-[max(calc(100svh_-_24px),calc(var(--hero-stack-h)_-_54px))] max-[759px]:bottom-auto max-[759px]:left-0 max-[759px]:w-full max-[759px]:translate-x-0 max-[759px]:-translate-y-full" : ""
+                  pending ? "max-[759px]:top-[calc(var(--hero-stack-h)_-_56px)] max-[759px]:bottom-auto max-[759px]:left-0 max-[759px]:w-full max-[759px]:translate-x-0 max-[759px]:-translate-y-full" : ""
                 }`}
               >
                 {copy}

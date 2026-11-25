@@ -152,13 +152,17 @@ export function LifecycleTabs() {
     };
   }, []);
 
-  // When the tabs scroll sideways (below 1280px), bring the open one into view.
+  // When the tabs scroll sideways (below 1280px), bring the open one into view: on phones (below 768px) snapped to the
+  // row's left edge, so the open tab always leads the row with the next ones following it; wider, centred in the row.
+  // (The last tab rests at the row's end instead: there is nothing after it to scroll, and no blank space is added for it.)
   useEffect(() => {
     const list = listRef.current;
     const tab = tabs.current[position.stage];
     if (!list || !tab || list.scrollWidth <= list.clientWidth) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    list.scrollTo({ left: tab.offsetLeft - (list.clientWidth - tab.offsetWidth) / 2, behavior: reduce ? "auto" : "smooth" });
+    const phone = window.matchMedia("(max-width: 767px)").matches;
+    const left = phone ? tab.offsetLeft : tab.offsetLeft - (list.clientWidth - tab.offsetWidth) / 2;
+    list.scrollTo({ left, behavior: reduce ? "auto" : "smooth" });
   }, [position.stage]);
 
   // Arrow keys move between tabs (roving tabindex), as Insights does.

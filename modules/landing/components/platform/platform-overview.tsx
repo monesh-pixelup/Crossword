@@ -33,9 +33,14 @@ export function PlatformOverview() {
               />
             </div>
 
-            {/* The diagram is drawn at 699px and zoomed to its box (full width, up to 699px, when stacked). */}
+            {/*
+              The diagram is drawn at 699px and zoomed to its box (full width, up to 699px, when stacked).
+              Below 768px it's drawn a fifth larger (as if its box were 580px of the 699px), centred, so the hub and the
+              channel tiles read at a phone's width: its outer wires run out to the panel's edges, which crop their ends.
+              (The -59.5px is half the 119px it overruns its box by, in its own zoomed pixels.)
+            */}
             <div className="@container w-full max-w-[699px] min-[1280px]:mt-[16.5px] min-[1280px]:mr-[20.5px] min-[1280px]:min-w-0 min-[1280px]:flex-[0_1_auto]">
-              <div className="h-[285.33px] w-[699px] scale-to-container [--fit-width:699px]">
+              <div className="h-[285.33px] w-[699px] scale-to-container [--fit-width:699px] max-md:-ml-[59.5px] max-md:[--fit-width:580px]">
                 <AgentDiagram />
               </div>
             </div>

@@ -49,7 +49,7 @@ export function ManagedLaunch() {
 
         {/*
           From 992px a 1280:360 row in three columns (call to action | stamp panel | steps), placed with
-          the Webflow build's percentages; below that a centred stack: panel, steps, call to action.
+          the Webflow build's percentages; below that a centred stack: steps, panel, call to action.
         */}
         <div className="relative flex w-full flex-col items-center gap-12 lg:grid lg:aspect-[1280/360] lg:grid-cols-[1fr_24.6875%_1fr] lg:items-start lg:gap-0">
           {/*
