@@ -42,7 +42,7 @@ export default function AiAssistantsPage() {
         <BandDivider glyph="quill" />
       </div>
       <BrandAesthetics />
-      <Promotions />
+      <Promotions numeralByTitleOnPhones />
       <Insights initial="S" firstLine="ee what happened" swashTracking={-0.05} scene="insights-motion" mobileScene="insights-mweb-motion" replayAfter={3000} />
       <div className="relative h-[75px] max-md:h-[56px]">
         <BandDivider glyph="chat" />

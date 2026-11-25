@@ -113,7 +113,7 @@ export function AubergineSteps({
   stamps?: StaticImageData[];
   /**
    * Below 768px, set each step's numeral to the left of its title, under the cell, instead of over the cell
-   * (Personal agents' Promotions & upselling). From 768px it stays over the cell, as everywhere else.
+   * (Personal agents', AI Assistants' Promotions & upselling and Retain's Loyalty). From 768px it stays over the cell, as everywhere else.
    */
   numeralByTitleOnPhones?: boolean;
 }) {
@@ -138,7 +138,7 @@ export function AubergineSteps({
                 </p>
               </div>
             ) : (
-              <p className="pl-[17px] font-script text-[24px] leading-[1.0833] tracking-[-1.2px] max-md:text-[20px] max-md:leading-[22px] max-md:tracking-[-1px] text-[#b4a5bd] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]">
+              <p className={`pl-[17px] ${numeralByTitleOnPhones ? "max-md:hidden" : ""} font-script text-[24px] leading-[1.0833] tracking-[-1.2px] max-md:text-[20px] max-md:leading-[22px] max-md:tracking-[-1px] text-[#b4a5bd] [text-box-edge:cap_alphabetic] [text-box-trim:trim-both]`}>
                 0{i + 1}
               </p>
             )}

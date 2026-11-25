@@ -48,6 +48,7 @@ export function Loyalty() {
             steps={loyaltyCards}
             variant="retainLoyalty"
             stamps={[stampRecommendations, stampLoyalty, stampSubscription]}
+            numeralByTitleOnPhones
           />
         </div>
       </div>
