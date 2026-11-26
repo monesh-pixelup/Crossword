@@ -63,6 +63,7 @@ used in canonical links, the sitemap and structured data.
 | `/pricing` | Pricing and the ROI calculator | `modules/pricing` |
 | `/blog`, `/blog/[slug]` | The journal and its posts | `modules/blog` |
 | `/privacy` | Privacy policy | `modules/legal` |
+| `/waitlist` | Waitlist signup (Pricing's "Join the waitlist"); `POST /api/waitlist` saves each signup to D1 and emails it | `modules/waitlist`, `app/api/waitlist/route.ts` |
 | `/media/...` | Blog and testimonial images from the R2 bucket `crossword-website-media` | `app/media/[...path]/route.ts` |
 | `/sitemap.xml` | Sitemap (pages and posts not hidden from search) | `app/sitemap.ts` |
 
@@ -164,6 +165,7 @@ The site runs on Cloudflare Workers through the OpenNext adapter. `wrangler.json
 | `NEXT_TAG_CACHE_D1` | D1 database `crossword-website-tag-cache` | Cache tags |
 | `MEDIA` | R2 bucket `crossword-website-media` | Blog and testimonial images, served at `/media/...` |
 | `IMAGES` | Cloudflare Images | `next/image` resizing |
+| `EMAIL` | Cloudflare Email Service | Sends each waitlist signup to anant@crossword.ai (signups are also kept in the D1 table `waitlist_signups`) |
 
 The R2 buckets and the D1 database live in the Inscripts Cloudflare account (`wrangler.jsonc` holds the D1 ID). The
 deploy workflows create the media bucket if it is missing.

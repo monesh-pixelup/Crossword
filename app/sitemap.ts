@@ -11,6 +11,7 @@ const pages = [
   "/blog",
   "/pricing",
   "/privacy",
+  "/waitlist",
   "/ai-assistants",
   "/conversational-interface",
   "/dynamic-landing-pages",

@@ -17,5 +17,8 @@
     { "binding": "MEDIA", "bucket_name": "crossword-website-media" }
   ],
   "d1_databases": [{ "binding": "NEXT_TAG_CACHE_D1", "database_name": "crossword-website-tag-cache", "database_id": "df17d660-0526-4ed8-841f-cb5b53bba07b" }],
-  "images": { "binding": "IMAGES" }
+  "images": { "binding": "IMAGES" },
+  // EMAIL: Cloudflare Email Service, used by /api/waitlist to email each signup (modules/waitlist/config/waitlist.ts
+  // names the sender and recipient). The sender's domain must be set up for sending in Cloudflare.
+  "send_email": [{ "name": "EMAIL" }]
 }
