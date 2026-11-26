@@ -9,7 +9,5 @@
   "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "crossword-website" }],
   "r2_buckets": [{ "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "crossword-website-opennext-cache" }],
   "d1_databases": [{ "binding": "NEXT_TAG_CACHE_D1", "database_name": "crossword-website-tag-cache", "database_id": "df17d660-0526-4ed8-841f-cb5b53bba07b" }],
-  "durable_objects": { "bindings": [{ "name": "NEXT_CACHE_DO_QUEUE", "class_name": "DOQueueHandler" }] },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DOQueueHandler"] }],
   "images": { "binding": "IMAGES" }
 }
