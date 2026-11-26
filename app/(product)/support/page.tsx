@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Testimonials } from "@/modules/landing";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import {
   CustomerSupport,
@@ -46,7 +45,7 @@ export default function SupportPage() {
         <BandDivider glyph="chat" />
       </div>
       <SupportChannels />
-      <Testimonials variant="support" />
+      {/* Testimonials hidden for now (issue #4). To bring them back, render <Testimonials variant="support" /> here. */}
       <SupportCta />
     </main>
   );

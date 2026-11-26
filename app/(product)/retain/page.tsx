@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Testimonials } from "@/modules/landing";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import {
   AudienceBuilder,
@@ -36,7 +35,7 @@ export default function RetainPage() {
       <Loyalty />
       <ReturnReduction />
       <RetentionChannels />
-      <Testimonials variant="retain" />
+      {/* Testimonials hidden for now (issue #4). To bring them back, render <Testimonials variant="retain" /> here. */}
       <RetainCta />
     </main>
   );
