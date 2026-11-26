@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write
   actions: read
 
 jobs:
@@ -66,6 +66,14 @@ jobs:
           node scripts/wrangler-target.mjs --name crossword-website-production --cache-prefix production \
             "${route_args[@]}" > wrangler.target.jsonc
           npx opennextjs-cloudflare deploy --config wrangler.target.jsonc
+      - name: Mark the shipped commit (tag "production")
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ steps.run.outputs.sha }}
+        run: |
+          # "ship it" reads this tag to work out which issues are on staging but not yet live.
+          gh api -X PATCH "repos/$GITHUB_REPOSITORY/git/refs/tags/production" -f sha="$SHA" -F force=true >/dev/null 2>&1 \
+            || gh api -X POST "repos/$GITHUB_REPOSITORY/git/refs" -f ref=refs/tags/production -f sha="$SHA" >/dev/null
       - name: Summary
         env:
           PRODUCTION_ROUTES: ${{ vars.PRODUCTION_ROUTES }}
