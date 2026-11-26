@@ -1,7 +1,10 @@
 # Commands typed as a comment on an issue whose fix lives on branch ai/issue-<n>:
 #   approved  -> merge the branch into main and deploy main to https://staging.crossword.ai
 #   ship it   -> promote the staging build that contains that merge to production, then close every issue it shipped.
+#                On an issue not yet on staging it merges, builds and ships in one go, but only if staging holds
+#                nothing else that is not live; otherwise it refuses and asks for "approved" first.
 #                If staging holds other unshipped issues too, it lists them first and needs a second "ship it" within 30 min.
+#   Replies that wait on a person add the label needs-you; starting a command removes it.
 # The comment must be just the command (case and a trailing "." or "!" don't matter). Anyone with write access to
 # the repository may use them. If a merge cannot happen (conflicts, a failed preview build), the issue gets the label
 # ai-merge-blocked and the issue watcher fixes the branch and runs this workflow again by hand (workflow_dispatch).
@@ -70,133 +73,185 @@ jobs:
       group: issue-commands-${{ github.event.issue.number || inputs.issue }}
       cancel-in-progress: false
     steps:
-      - name: approved (merge and deploy staging)
-        if: needs.parse.outputs.cmd == 'approved'
+      - name: Run the command
+        env:
+          CMD: ${{ needs.parse.outputs.cmd }}
+          ROUTES: ${{ vars.PRODUCTION_ROUTES }}
         run: |
-          say() { gh issue comment "$N" -R "$REPO" --body "$(printf "%s$FOOTER" "$1")"; }
-          block() { gh issue edit "$N" -R "$REPO" --add-label ai-merge-blocked >/dev/null; say "$1"; exit 0; }
+          say() { gh issue comment "$N" -R "$REPO" --body "$(printf "%s$FOOTER" "$1")" >/dev/null; }
+          # needs-you: the issue is waiting on a person. Every reply that hands back to people adds it.
+          wait_on_people() { gh issue edit "$N" -R "$REPO" --add-label needs-you >/dev/null 2>&1 || true; }
+          working() { gh issue edit "$N" -R "$REPO" --remove-label needs-you >/dev/null 2>&1 || true; }
+          handback() { wait_on_people; say "$1"; exit 0; }
+          block() { gh issue edit "$N" -R "$REPO" --add-label ai-merge-blocked >/dev/null 2>&1 || true; say "$1"; exit 0; }
           branch="ai/issue-$N"
-          gh api "repos/$REPO/branches/$branch" >/dev/null 2>&1 || { say "There's no branch \`$branch\`, so there's nothing to merge yet."; exit 0; }
-          say "Got \`approved\` from @$ACTOR. Merging \`$branch\` and deploying staging now. This takes about 5 minutes; I'll reply here when it's done."
+          # Before the first promote there is no "production" tag; count from the merge of the Cloudflare setup (#2).
+          first_prod=f7e7d28cbafae69d267414309eb32784d3c28fd7
 
-          # The fix must have passed its preview build.
-          head=$(gh api "repos/$REPO/branches/$branch" --jq .commit.sha)
-          for i in $(seq 1 40); do
-            read -r status conclusion < <(gh api "repos/$REPO/actions/workflows/preview.yml/runs?head_sha=$head&per_page=1" --jq '.workflow_runs[0] | [.status // "none", .conclusion // "none"] | @tsv')
-            [ "$status" = completed ] || [ "$status" = none ] && break
-            sleep 30
-          done
-          [ "$conclusion" = success ] || block "The preview build for ${head::7} did not pass ($status/$conclusion), so I haven't merged. The watcher will look at it."
+          # The newest commit on main for this issue: its first line ends in "(#N)", as "approved" merges do.
+          merged_sha() {
+            gh api "repos/$REPO/commits?sha=main&per_page=100" \
+              --jq "[.[] | select(.commit.message | split(\"\\n\")[0] | endswith(\"(#$N)\"))][0].sha // empty"
+          }
 
-          # Merge the branch into main with a merge commit. (The organization doesn't let workflows open pull
-          # requests, so the merge commit is the record: it names the issue and who approved it.)
-          title=$(gh issue view "$N" -R "$REPO" --json title --jq .title)
-          msg=$(printf 'Merge %s: %s (#%s)\n\nApproved on issue #%s by @%s.' "$branch" "$title" "$N" "$N" "$ACTOR")
-          code=$(gh api -X POST "repos/$REPO/merges" -f base=main -f head="$branch" -f commit_message="$msg" \
-            -i 2>/dev/null | head -1 | awk '{print $2}')
-          case "$code" in
-            201) ;;
-            204) say "\`$branch\` is already in main; deploying staging anyway." ;;
-            409) block "\`$branch\` conflicts with main, so I haven't merged. The watcher will fix the branch and try again." ;;
-            *) block "Merging \`$branch\` failed (HTTP $code). The watcher will look at it." ;;
-          esac
-          sha=$(gh api "repos/$REPO/commits/main" --jq .sha)
-          gh issue edit "$N" -R "$REPO" --remove-label ai-merge-blocked >/dev/null 2>&1 || true
+          # Open issues that commit $1 has and production doesn't: commits between the "production" tag and $1
+          # whose first line ends in "(#N)". Writes them, one per line, to the file $2. Closed issues (for example
+          # a blog post that Blog ship already sent) are left out.
+          unshipped() {
+            local prod list i
+            prod=$(gh api "repos/$REPO/git/ref/tags/production" --jq .object.sha 2>/dev/null) || prod=$first_prod
+            [[ "$prod" =~ ^[0-9a-f]{40}$ ]] || prod=$first_prod
+            list=$(gh api "repos/$REPO/compare/$prod...$1" \
+              --jq '.commits[].commit.message | split("\n")[0] | (capture("\\(#(?<n>[0-9]+)\\)$") | .n)') \
+              || { say "I couldn't compare production (${prod::7}) with ${1::7}, so nothing went to production."; exit 1; }
+            : > "$2"
+            for i in $(sort -un <<<"$list"); do
+              [ "$(gh api "repos/$REPO/issues/$i" --jq .state)" = open ] && echo "$i" >> "$2"
+            done
+            return 0
+          }
 
-          # A merge made with this workflow's token doesn't start other workflows, so start the staging deploy here.
-          since=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          gh workflow run deploy.yml -R "$REPO" --ref main
-          run=""
-          for i in $(seq 1 20); do
-            sleep 6
-            run=$(gh api "repos/$REPO/actions/workflows/deploy.yml/runs?event=workflow_dispatch&created=>=$since&per_page=1" --jq '.workflow_runs[0].id // empty')
-            [ -n "$run" ] && break
-          done
-          [ -n "$run" ] || block "Merged \`$branch\` into main (${sha::7}), but the staging deploy didn't start."
-          gh run watch "$run" -R "$REPO" --exit-status --interval 20 >/dev/null \
-            || block "Merged \`$branch\` into main (${sha::7}), but the staging deploy failed: $GITHUB_SERVER_URL/$REPO/actions/runs/$run"
-          say "Live on staging: https://staging.crossword.ai (main at ${sha::7}, which includes \`$branch\`).
+          listing() {
+            local i
+            while read -r i; do
+              [ -n "$i" ] && printf -- '- #%s %s\n' "$i" "$(gh issue view "$i" -R "$REPO" --json title --jq .title)"
+            done < "$1"
+          }
 
-          **Next step:** check it there, then comment \`ship it\` on this issue to send this exact build to production."
+          # Merge ai/issue-N into main and deploy staging. Leaves the merge in $sha.
+          do_approve() {
+            gh api "repos/$REPO/branches/$branch" >/dev/null 2>&1 \
+              || handback "There's no branch \`$branch\`, so there's nothing to merge yet."
 
-      - name: ship it (promote to production)
-        if: needs.parse.outputs.cmd == 'ship it'
-        run: |
-          say() { gh issue comment "$N" -R "$REPO" --body "$(printf "%s$FOOTER" "$1")"; }
-          # The newest commit on main for this issue: its first line ends in "(#N)", as "approved" merges do (and the
-          # blog sync's merges).
-          sha=$(gh api "repos/$REPO/commits?sha=main&per_page=100" \
-            --jq "[.[] | select(.commit.message | split(\"\\n\")[0] | endswith(\"(#$N)\"))][0].sha // empty")
-          [ -n "$sha" ] || { say "This fix hasn't merged yet. Comment \`approved\` first."; exit 0; }
-          say "Got \`ship it\` from @$ACTOR. Checking what's on staging; I'll reply here in a few minutes."
+            # The fix must have passed its preview build.
+            head=$(gh api "repos/$REPO/branches/$branch" --jq .commit.sha)
+            for i in $(seq 1 40); do
+              read -r status conclusion < <(gh api "repos/$REPO/actions/workflows/preview.yml/runs?head_sha=$head&per_page=1" --jq '.workflow_runs[0] | [.status // "none", .conclusion // "none"] | @tsv')
+              [ "$status" = completed ] || [ "$status" = none ] && break
+              sleep 30
+            done
+            [ "$conclusion" = success ] || block "The preview build for ${head::7} did not pass ($status/$conclusion), so I haven't merged. The watcher will look at it."
 
-          # The newest successful staging deploy that contains the merge.
-          run=""
-          for i in $(seq 1 40); do
-            read -r cand cand_sha < <(gh api "repos/$REPO/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0] | "\(.id) \(.head_sha)"')
-            st=$(gh api "repos/$REPO/compare/$sha...$cand_sha" --jq .status 2>/dev/null || echo none)
-            if [ "$st" = ahead ] || [ "$st" = identical ]; then run=$cand; break; fi
-            sleep 30
-          done
-          [ -n "$run" ] || { say "I couldn't find a staging deploy that includes ${sha::7}, so nothing went to production."; exit 1; }
+            # Merge with a merge commit. (The organization doesn't let workflows open pull requests, so the merge
+            # commit is the record: it names the issue and who approved it.)
+            title=$(gh issue view "$N" -R "$REPO" --json title --jq .title)
+            msg=$(printf 'Merge %s: %s (#%s)\n\nApproved on issue #%s by @%s (%s).' "$branch" "$title" "$N" "$N" "$ACTOR" "$CMD")
+            code=$(gh api -X POST "repos/$REPO/merges" -f base=main -f head="$branch" -f commit_message="$msg" \
+              -i 2>/dev/null | head -1 | awk '{print $2}')
+            case "$code" in
+              201) ;;
+              204) say "\`$branch\` is already in main; deploying staging anyway." ;;
+              409) block "\`$branch\` conflicts with main, so I haven't merged. The watcher will fix the branch and try again." ;;
+              *) block "Merging \`$branch\` failed (HTTP $code). The watcher will look at it." ;;
+            esac
+            sha=$(gh api "repos/$REPO/commits/main" --jq .sha)
+            gh issue edit "$N" -R "$REPO" --remove-label ai-merge-blocked >/dev/null 2>&1 || true
 
-          # Every issue on staging that production doesn't have yet: commits between the production build (tag
-          # "production", moved by Promote to production) and this staging build whose first line ends in "(#N)".
-          # Before the first promote, count from the merge of the Cloudflare setup (#2).
-          prod=$(gh api "repos/$REPO/git/ref/tags/production" --jq .object.sha 2>/dev/null || echo f7e7d28cbafae69d267414309eb32784d3c28fd7)
-          issues=$(gh api "repos/$REPO/compare/$prod...$cand_sha" \
-            --jq '.commits[].commit.message | split("\n")[0] | (capture("\\(#(?<n>[0-9]+)\\)$") | .n)' 2>/dev/null | sort -un)
-          if ! grep -qx "$N" <<<"$issues"; then
-            say "Production already has this fix (${sha::7}), so there's nothing to ship. Closing the issue."
-            gh issue close "$N" -R "$REPO" --reason completed
-            exit 0
-          fi
-          others=$(grep -vx "$N" <<<"$issues" || true)
+            # A merge made with this workflow's token doesn't start other workflows, so start the staging deploy.
+            since=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            gh workflow run deploy.yml -R "$REPO" --ref main
+            run=""
+            for i in $(seq 1 20); do
+              sleep 6
+              run=$(gh api "repos/$REPO/actions/workflows/deploy.yml/runs?event=workflow_dispatch&created=>=$since&per_page=1" --jq '.workflow_runs[0].id // empty')
+              [ -n "$run" ] && break
+            done
+            [ -n "$run" ] || block "Merged \`$branch\` into main (${sha::7}), but the staging deploy didn't start."
+            gh run watch "$run" -R "$REPO" --exit-status --interval 20 >/dev/null \
+              || block "Merged \`$branch\` into main (${sha::7}), but the staging deploy failed: $GITHUB_SERVER_URL/$REPO/actions/runs/$run"
+          }
 
-          # More than this issue on staging: list them and wait for a second "ship it" on this issue within 30
-          # minutes, against the same staging build.
-          marker="<!-- ship-confirm:$cand_sha -->"
-          if [ -n "$others" ]; then
-            since=$(date -u -d '30 minutes ago' +%Y-%m-%dT%H:%M:%SZ)
-            asked=$(gh api "repos/$REPO/issues/$N/comments?since=$since&per_page=100" \
-              --jq "[.[] | select(.user.login == \"github-actions[bot]\" and .created_at >= \"$since\" and (.body | contains(\"$marker\")))] | length")
-            if [ "${asked:-0}" = 0 ]; then
-              list=""
-              for i in $issues; do
-                t=$(gh issue view "$i" -R "$REPO" --json title --jq .title)
-                list+="- #$i $t"$'\n'
-              done
-              say "$marker
-          Production ships everything on staging at once, and staging has $(wc -l <<<"$issues") issues that aren't live yet:
+          # Send the newest staging build that contains $sha to production and close every issue it ships.
+          do_ship() {
+            run=""
+            for i in $(seq 1 40); do
+              read -r cand cand_sha < <(gh api "repos/$REPO/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0] | "\(.id) \(.head_sha)"')
+              st=$(gh api "repos/$REPO/compare/$sha...$cand_sha" --jq .status 2>/dev/null || echo none)
+              if [ "$st" = ahead ] || [ "$st" = identical ]; then run=$cand; break; fi
+              sleep 30
+            done
+            [ -n "$run" ] || { say "I couldn't find a staging deploy that includes ${sha::7}, so nothing went to production."; exit 1; }
 
-          $list
-          **Next step:** comment \`ship it\` again on this issue within 30 minutes to send all of them to production. I'll close each one once it's live. If staging changes or the 30 minutes pass, I'll list them again first."
+            unshipped "$cand_sha" issues.txt
+            if ! grep -qx "$N" issues.txt; then
+              say "Production already has this fix (${sha::7}), so there's nothing to ship. Closing the issue."
+              gh issue close "$N" -R "$REPO" --reason completed
               exit 0
             fi
-          fi
+            grep -vx "$N" issues.txt > others.txt || true
 
-          since=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          gh workflow run promote.yml -R "$REPO" --ref main -f run_id="$run"
-          prun=""
-          for i in $(seq 1 20); do
-            sleep 6
-            prun=$(gh api "repos/$REPO/actions/workflows/promote.yml/runs?created=>=$since&per_page=1" --jq '.workflow_runs[0].id // empty')
-            [ -n "$prun" ] && break
-          done
-          [ -n "$prun" ] || { say "The production deploy didn't start, so nothing changed on production."; exit 1; }
-          gh run watch "$prun" -R "$REPO" --exit-status --interval 20 >/dev/null \
-            || { say "The production deploy failed, so production still serves the previous build: $GITHUB_SERVER_URL/$REPO/actions/runs/$prun"; exit 1; }
-          if [ -z "${{ vars.PRODUCTION_ROUTES }}" ]; then
-            where="Production isn't attached to crossword.ai yet, so the live site hasn't changed."
-          else
-            where="It's live on https://crossword.ai."
-          fi
-          shipped=$(for i in $issues; do printf '#%s ' "$i"; done)
-          for i in $others; do
-            gh issue comment "$i" -R "$REPO" --body "$(printf "Shipped to production together with #%s (staging deploy %s, main at %s). %s$FOOTER" "$N" "$run" "${cand_sha::7}" "$where")"
-            gh issue close "$i" -R "$REPO" --reason completed
-          done
-          say "Shipped to production: the build from staging deploy $run (main at ${cand_sha::7}), with ${shipped% }. $where
+            # Staging holds other issues too: list them and wait for a second "ship it" on this issue within 30
+            # minutes, against the same staging build.
+            marker="<!-- ship-confirm:$cand_sha -->"
+            if [ -s others.txt ]; then
+              since=$(date -u -d '30 minutes ago' +%Y-%m-%dT%H:%M:%SZ)
+              asked=$(gh api "repos/$REPO/issues/$N/comments?since=$since&per_page=100" \
+                --jq "[.[] | select(.user.login == \"github-actions[bot]\" and .created_at >= \"$since\" and (.body | contains(\"$marker\")))] | length")
+              if [ "${asked:-0}" = 0 ]; then
+                handback "$marker
+          Production ships everything on staging at once, and staging has $(wc -l < issues.txt) issues that aren't live yet:
+
+          $(listing issues.txt)
+
+          **Next step:** comment \`ship it\` again on this issue within 30 minutes to send all of them to production. I'll close each one once it's live. If staging changes or the 30 minutes pass, I'll list them again first."
+              fi
+            fi
+
+            since=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            gh workflow run promote.yml -R "$REPO" --ref main -f run_id="$run"
+            prun=""
+            for i in $(seq 1 20); do
+              sleep 6
+              prun=$(gh api "repos/$REPO/actions/workflows/promote.yml/runs?created=>=$since&per_page=1" --jq '.workflow_runs[0].id // empty')
+              [ -n "$prun" ] && break
+            done
+            [ -n "$prun" ] || { wait_on_people; say "The production deploy didn't start, so nothing changed on production."; exit 1; }
+            gh run watch "$prun" -R "$REPO" --exit-status --interval 20 >/dev/null \
+              || { wait_on_people; say "The production deploy failed, so production still serves the previous build: $GITHUB_SERVER_URL/$REPO/actions/runs/$prun"; exit 1; }
+            if [ -z "$ROUTES" ]; then
+              where="Production isn't attached to crossword.ai yet, so the live site hasn't changed."
+            else
+              where="It's live on https://crossword.ai."
+            fi
+            shipped=$(sed 's/^/#/' issues.txt | paste -sd' ')
+            while read -r i; do
+              [ -n "$i" ] || continue
+              gh issue comment "$i" -R "$REPO" --body "$(printf "Shipped to production together with #%s (staging deploy %s, main at %s). %s$FOOTER" "$N" "$run" "${cand_sha::7}" "$where")" >/dev/null
+              gh issue edit "$i" -R "$REPO" --remove-label needs-you >/dev/null 2>&1 || true
+              gh issue close "$i" -R "$REPO" --reason completed
+            done < others.txt
+            say "Shipped to production: the build from staging deploy $run (main at ${cand_sha::7}), with $shipped. $where
 
           Closing the shipped issues. To undo: Actions → Roll back production → Run workflow."
-          gh issue close "$N" -R "$REPO" --reason completed
+            gh issue close "$N" -R "$REPO" --reason completed
+          }
+
+          working
+          if [ "$CMD" = approved ]; then
+            say "Got \`approved\` from @$ACTOR. Merging \`$branch\` and deploying staging now. This takes about 5 minutes; I'll reply here when it's done."
+            do_approve
+            handback "Live on staging: https://staging.crossword.ai (main at ${sha::7}, which includes \`$branch\`).
+
+          **Next step:** check it there, then comment \`ship it\` on this issue to send this exact build to production."
+          fi
+
+          # ship it
+          sha=$(merged_sha)
+          if [ -z "$sha" ]; then
+            # Not on staging yet. Ship it straight through only when staging holds nothing else that isn't live.
+            gh api "repos/$REPO/branches/$branch" >/dev/null 2>&1 \
+              || handback "There's no branch \`$branch\`, so there's nothing to ship yet."
+            unshipped "$(gh api "repos/$REPO/commits/main" --jq .sha)" others.txt
+            if [ -s others.txt ]; then
+              handback "I can't send #$N straight to production, because staging has other issues that aren't live yet and they would go too:
+
+          $(listing others.txt)
+
+          **Next step:** comment \`approved\` to put this fix on staging first, then \`ship it\`. That ships all of them together."
+            fi
+            say "Got \`ship it\` from @$ACTOR. Nothing else is waiting on staging, so I'll merge \`$branch\`, build it and send it straight to production. This takes about 10 minutes; I'll reply here when it's done."
+            do_approve
+          else
+            say "Got \`ship it\` from @$ACTOR. Checking what's on staging; I'll reply here in a few minutes."
+          fi
+          do_ship
