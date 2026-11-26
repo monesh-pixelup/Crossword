@@ -1,7 +1,7 @@
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { StampButton } from "@/components/ui/stamp-button";
 import { cn } from "@/lib/cn";
-import { TextLink } from "@/components/ui/text-link";
+// import { TextLink } from "@/components/ui/text-link"; (hidden with the ROI calculator, issue #21)
 import { RailAccent } from "@/components/ui/rail-accent";
 import { SectionTitle } from "@/components/ui/section-title";
 import { ctaLinks } from "@/modules/marketing";
@@ -59,7 +59,7 @@ export function Credits() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             <StampButton href={ctaLinks.bookDemo}>START YOUR FREE PILOT</StampButton>
-            <TextLink href="#calculator">ESTIMATE YOUR USAGE</TextLink>
+            {/* Hidden with the ROI calculator (issue #21): <TextLink href="#calculator">ESTIMATE YOUR USAGE</TextLink> */}
           </div>
         </div>
 
