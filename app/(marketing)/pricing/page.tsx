@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Calculator, Credits, Engineer, Plans } from "@/modules/pricing";
+import { Calculator, Credits, Engineer, Faq, Plans } from "@/modules/pricing";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -15,7 +15,7 @@ export default function PricingPage() {
       <Plans />
       <Credits />
       <Calculator />
-      {/* The FAQs are hidden for now: their answers are drafts (issue #10). To bring them back, import Faq from "@/modules/pricing" and render <Faq /> here. */}
+      <Faq />
       <Engineer />
     </main>
   );
