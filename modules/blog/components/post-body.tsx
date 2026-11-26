@@ -1,6 +1,7 @@
-import { PortableText, type PortableTextComponents } from "next-sanity";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
+import Link from "next/link";
 import { PostCover } from "./post-cover";
-import type { BlogPost, BodyBlock, PostTableBlock } from "../lib/posts";
+import type { BlogPost, BodyBlock, PostImageBlock, PostTableBlock } from "../lib/posts";
 import { PostIndex } from "./post-index";
 
 /** The post's copy: Geist 16/24 in ink muted (15/22 on phones), paragraphs 16px apart. */
@@ -8,7 +9,7 @@ const copy = "font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted ma
 /** Crimson Light: the part headings at 32/35 (Headings/S), subheadings at 24. */
 const heading = "font-serif font-light text-ink";
 
-/** How the article's rich text from Sanity is drawn, in the post's styles. */
+/** How the article's rich text (Portable Text, built from the post's Markdown) is drawn, in the post's styles. */
 const components: PortableTextComponents = {
   block: {
     normal: ({ children }) => <p className={copy}>{children}</p>,
@@ -23,6 +24,8 @@ const components: PortableTextComponents = {
   },
   marks: {
     strong: ({ children }) => <strong className="font-medium text-ink">{children}</strong>,
+    em: ({ children }) => <em>{children}</em>,
+    code: ({ children }) => <code className="rounded-sm bg-sand px-1 font-mono text-[0.9em] text-ink">{children}</code>,
     link: ({ children, value }) => {
       const href: string = value?.href ?? "#";
       const external = /^https?:/.test(href);
@@ -39,6 +42,8 @@ const components: PortableTextComponents = {
   },
   types: {
     table: ({ value }: { value: PostTableBlock }) => <PostTable table={value} />,
+    image: ({ value }: { value: PostImageBlock }) => <PostImage image={value} />,
+    divider: () => <hr className="my-2 border-0 border-t-[0.5px] border-engraved" />,
   },
 };
 
@@ -83,6 +88,23 @@ export function PostBody({ post }: { post: BlogPost }) {
               )}
             </div>
           ))}
+
+          {post.related.length > 0 && (
+            <nav aria-labelledby="keep-reading" className="flex flex-col gap-4 border-t-[0.5px] border-engraved pt-8">
+              <h2 id="keep-reading" className="font-serif text-[24px] leading-[1.125] font-light tracking-[-1.2px] text-ink">
+                Keep reading
+              </h2>
+              <ul className={`${copy} flex flex-col gap-2`}>
+                {post.related.map((r) => (
+                  <li key={r.slug}>
+                    <Link href={`/blog/${r.slug}`} className="text-ink underline decoration-black/30 underline-offset-2 transition-colors hover:decoration-black">
+                      {r.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
         </article>
       </div>
     </section>
@@ -125,5 +147,27 @@ function PostTable({ table }: { table: PostTableBlock }) {
         </tbody>
       </table>
     </div>
+  );
+}
+
+/**
+ * An image in a post, at the article's width. The sync has already resized it and converted it to WebP, and it is
+ * served from R2 under /media with a long cache life, so it is drawn as is rather than through next/image.
+ */
+function PostImage({ image }: { image: PostImageBlock }) {
+  return (
+    <figure className="flex flex-col gap-2 py-2">
+      {/* eslint-disable-next-line @next/next/no-img-element -- already sized and converted at sync time */}
+      <img
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        loading="lazy"
+        decoding="async"
+        className="h-auto w-full border border-black/15"
+      />
+      {image.caption && <figcaption className="font-sans text-[14px] leading-5 text-ink-soft">{image.caption}</figcaption>}
+    </figure>
   );
 }

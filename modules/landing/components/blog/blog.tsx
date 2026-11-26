@@ -142,7 +142,7 @@ function RecentPosts({ recentPosts }: { recentPosts: BlogPost[] }) {
   );
 }
 
-/** The journal's posts come from Sanity (see getHomeBlog); with none published yet, the section is left out. */
+/** The journal's posts come from content/blog (see getHomeBlog); with none published yet, the section is left out. */
 export async function Blog() {
   const blog = await getHomeBlog();
   if (!blog) return null;

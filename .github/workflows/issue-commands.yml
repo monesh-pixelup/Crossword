@@ -5,6 +5,10 @@
 #                nothing else that is not live; otherwise it refuses and asks for "approved" first.
 #                If staging holds other unshipped issues too, it lists them first and needs a second "ship it" within 30 min.
 #   Replies that wait on a person add the label needs-you; starting a command removes it.
+# Blog posts (issues labelled blog-post, from the Notion sync): "approved" on a post whose publishAt is still in the
+# future doesn't merge; it adds the label blog-scheduled, and Blog publishing runs "approved" again at that time.
+# Merging early would let anyone's "ship it" publish it early. Once a blog-post issue merges, "approved" starts
+# Blog ship, which sends production only that issue's content files on top of what production already runs.
 # The comment must be just the command (case and a trailing "." or "!" don't matter). Anyone with write access to
 # the repository may use them. If a merge cannot happen (conflicts, a failed preview build), the issue gets the label
 # ai-merge-blocked and the issue watcher fixes the branch and runs this workflow again by hand (workflow_dispatch).
@@ -23,6 +27,10 @@ on:
         required: true
         type: choice
         options: [approved, ship it]
+      scheduled:
+        description: Set by Blog publishing when a scheduled post is due (skips the wait for its publish time)
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -76,6 +84,7 @@ jobs:
       - name: Run the command
         env:
           CMD: ${{ needs.parse.outputs.cmd }}
+          SCHEDULED: ${{ inputs.scheduled }}
           ROUTES: ${{ vars.PRODUCTION_ROUTES }}
         run: |
           say() { gh issue comment "$N" -R "$REPO" --body "$(printf "%s$FOOTER" "$1")" >/dev/null; }
@@ -116,6 +125,20 @@ jobs:
             while read -r i; do
               [ -n "$i" ] && printf -- '- #%s %s\n' "$i" "$(gh issue view "$i" -R "$REPO" --json title --jq .title)"
             done < "$1"
+          }
+
+          labelled() { gh issue view "$N" -R "$REPO" --json labels --jq '.labels[].name' | grep -qx "$1"; }
+
+          # The latest publishAt (epoch seconds) of the posts the branch adds or changes, if it is still in the future.
+          due_later() {
+            local f at t due=""
+            for f in $(gh api "repos/$REPO/compare/main...$branch" --jq '.files[] | select(.status != "removed") | .filename' 2>/dev/null | grep -E '^content/blog/posts/[^/]+\.md$' || true); do
+              at=$(gh api "repos/$REPO/contents/$f?ref=$branch" -H 'Accept: application/vnd.github.raw' | sed -n 's/^publishAt: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' | head -1)
+              [ -n "$at" ] || continue
+              t=$(date -u -d "$at" +%s 2>/dev/null) || continue
+              if [ "$t" -gt "$(date -u +%s)" ] && { [ -z "$due" ] || [ "$t" -gt "$due" ]; }; then due=$t; fi
+            done
+            echo "$due"
           }
 
           # Merge ai/issue-N into main and deploy staging. Leaves the merge in $sha.
@@ -227,6 +250,26 @@ jobs:
           }
 
           working
+          if [ "$CMD" = approved ] && labelled blog-post; then
+            # A blog post due later waits for its time (see the top of this file).
+            if [ "$SCHEDULED" != true ]; then
+              due=$(due_later)
+              if [ -n "$due" ]; then
+                gh issue edit "$N" -R "$REPO" --add-label blog-scheduled >/dev/null
+                when=$(TZ=America/Denver date -d "@$due" '+%A %-d %B %Y at %-I:%M %p MT')
+                say "Approved by @$ACTOR. This post is scheduled for **$when**. Then it merges, goes to staging, and goes to production on its own, without anything else on staging. Nothing is published before that time.
+
+          To publish it sooner, change its Publish date or time in Notion, or run Actions → Blog publishing with this issue number and \`now\` ticked."
+                exit 0
+              fi
+            fi
+            say "Got \`approved\` from @$ACTOR. Merging \`$branch\`, deploying staging, then sending only this post to production. This takes about 10 minutes; I'll reply here when it's live."
+            do_approve
+            gh issue edit "$N" -R "$REPO" --remove-label blog-scheduled >/dev/null 2>&1 || true
+            gh workflow run blog-ship.yml -R "$REPO" --ref main -f issue="$N"
+            say "Live on staging: https://staging.crossword.ai (main at ${sha::7}, which includes \`$branch\`). Now sending just this post to production (Actions → Blog ship), without anything else on staging."
+            exit 0
+          fi
           if [ "$CMD" = approved ]; then
             say "Got \`approved\` from @$ACTOR. Merging \`$branch\` and deploying staging now. This takes about 5 minutes; I'll reply here when it's done."
             do_approve
@@ -237,6 +280,10 @@ jobs:
 
           # ship it
           sha=$(merged_sha)
+          if [ -z "$sha" ] && labelled blog-scheduled; then
+            say "This post is scheduled: it goes to production on its own at its publish time, so there's nothing to ship yet."
+            exit 0
+          fi
           if [ -z "$sha" ]; then
             # Not on staging yet. Ship it straight through only when staging holds nothing else that isn't live.
             gh api "repos/$REPO/branches/$branch" >/dev/null 2>&1 \

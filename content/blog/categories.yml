@@ -1,0 +1,10 @@
+# The journal's filters, in order (after "All"). A post's `category` must be one of these.
+# The Notion sync maps the Articles "Category" field to these names.
+- Logistics
+- Fintech
+- Healthcare
+- Commerce
+- Industrial
+- Insurance
+- Software
+- Staffing
