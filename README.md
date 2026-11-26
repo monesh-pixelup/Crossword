@@ -4,8 +4,8 @@ The marketing site for Crossword, an AI shopper assistant ("the concierge desk f
 product pages, pricing, the blog and the privacy policy. Built with Next.js (App Router), React, Tailwind CSS v4 and
 Sanity for the blog.
 
-- **Deployed site:** https://crossword-orcin.vercel.app
-- **Blog and testimonial editing (Sanity Studio):** `/studio` on the site, or https://crossword-website.sanity.studio
+- **Deployed site:** moving from Vercel (https://crossword-orcin.vercel.app) to Cloudflare Workers at crossword.ai
+- **Blog and testimonial editing (Sanity Studio):** https://crossword-website.sanity.studio
 - **Design language and tokens:** [DESIGN.md](DESIGN.md)
 - **Blog content and Sanity setup:** [sanity/README.md](sanity/README.md)
 
@@ -18,7 +18,7 @@ Sanity for the blog.
 | Content | Sanity (project `mb4vhjft`, "Crossword Website", dataset `production`), read with `next-sanity` |
 | Motion | GSAP and Lenis (scroll), Three.js (the home hero's concierge), plus the ported motion visuals (see below) |
 | Icons | Phosphor |
-| Hosting | Vercel |
+| Hosting | Cloudflare Workers, through the OpenNext adapter (`@opennextjs/cloudflare`) |
 
 > This Next.js version differs from older ones in APIs and conventions. Before changing framework-level code, read
 > the relevant guide in `node_modules/next/dist/docs/` (see [AGENTS.md](AGENTS.md)).
@@ -38,11 +38,14 @@ npm run dev        # http://localhost:3000
 | `npm run build` | Production build |
 | `npm run start` | Serves the production build |
 | `npm run lint` | ESLint |
+| `npm run cf:preview` | Builds for Cloudflare and runs the Worker locally at http://localhost:8787 |
+| `npm run cf:deploy` | Builds and deploys the Worker to Cloudflare |
+| `npm run cf:upload` | Builds and uploads a new Worker version without sending traffic to it (preview) |
 | `npm run studio:deploy` | Builds and deploys the Sanity Studio to crossword-website.sanity.studio |
 
 ### Environment variables
 
-Set these in `.env.local` for local work and in Vercel (Project → Settings → Environment Variables). `.env*` files are
+Set these in `.env.local` for local work (`.dev.vars` for `npm run cf:preview`) and as Worker secrets in Cloudflare. `.env*` files are
 not committed.
 
 | Variable | Needed | Purpose |
@@ -66,7 +69,6 @@ not committed.
 | `/pricing` | Pricing and the ROI calculator | `modules/pricing` |
 | `/blog`, `/blog/[slug]` | The journal and its posts | `modules/blog` |
 | `/privacy` | Privacy policy | `modules/legal` |
-| `/studio` | Sanity Studio (blog editing) | `app/studio`, `sanity.config.ts` |
 | `/api/revalidate` | Sanity webhook endpoint | `app/api/revalidate/route.ts` |
 
 ## Project structure
@@ -75,7 +77,6 @@ not committed.
 app/                  Routes only: each page composes sections from its module
   (marketing)/        Home, pricing, blog, privacy (share the site shell)
   (product)/          The product pages (same shell)
-  studio/             The embedded Sanity Studio
   api/revalidate/     Webhook that refreshes the blog
   globals.css         Tailwind theme, responsive tokens, site-wide utilities and rules
   layout.tsx          Root layout: fonts, smooth scroll, two small inline checks (see Browser notes)
@@ -129,8 +130,8 @@ a change.
 
 Setting up a fresh Sanity project needs, in sanity.io/manage:
 
-1. **CORS origins** (API → CORS origins), each with "Allow credentials": `http://localhost:3000` and the live site's
-   address. The Studio at `/studio` cannot sign in without them.
+1. **CORS origins** (API → CORS origins), each with "Allow credentials": `http://localhost:3333` and
+   `https://crossword-website.sanity.studio`. The Studio cannot sign in without them.
 2. **Webhook** (API → Webhooks): POST to `https://<live site>/api/revalidate`, dataset `production`, on create, update
    and delete, filter `_type in ["post", "category", "author", "testimonial"]`, with a secret equal to `SANITY_REVALIDATE_SECRET`.
 3. **Content:** `npx sanity dataset import sanity/seed/blog.ndjson --dataset production` loads the original four posts
@@ -158,5 +159,20 @@ browser differences, and are easy to break without knowing why they are there:
 
 ## Deployment
 
-The site is hosted on Vercel. After changing the Sanity project or its environment variables, redeploy so the new
-values are picked up. The hosted Studio is deployed separately with `npm run studio:deploy`.
+The site runs on Cloudflare Workers through the OpenNext adapter. `wrangler.jsonc` names the Worker and its bindings;
+`open-next.config.ts` sets where Next's cache lives:
+
+| Binding | Cloudflare resource | Holds |
+| --- | --- | --- |
+| `NEXT_INC_CACHE_R2_BUCKET` | R2 bucket `crossword-website-opennext-cache` | Cached pages and Sanity data |
+| `NEXT_TAG_CACHE_D1` | D1 database `crossword-website-tag-cache` | Cache tags cleared by `/api/revalidate` |
+| `IMAGES` | Cloudflare Images | `next/image` resizing |
+
+The R2 bucket and the D1 database live in the Inscripts Cloudflare account (`wrangler.jsonc` holds the D1 ID). Set
+`SANITY_REVALIDATE_SECRET` as a Worker secret. Cloudflare's Git integration (Workers Builds) builds each push: the build
+command is `npx opennextjs-cloudflare build`, the deploy command for `main` is `npx opennextjs-cloudflare deploy`, and
+other branches use `npx opennextjs-cloudflare upload` to get a preview URL.
+
+The Worker must stay under Cloudflare's size limit (3 MiB compressed on the free plan, 10 MiB on paid). That is why the
+Sanity Studio is not embedded in the site: it more than doubled the Worker. Edit content at
+https://crossword-website.sanity.studio, deployed separately with `npm run studio:deploy`.
