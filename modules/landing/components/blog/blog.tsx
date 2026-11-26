@@ -11,7 +11,6 @@ import stamp from "../../assets/blog/stamp.webp";
 import arrowRight from "../../assets/insights/arrow-right.svg";
 import railAccent from "@/components/ui/rail-accent/assets/rail-accent.svg";
 import { type BlogPost, type FeaturedPost, getHomeBlog } from "../../config/blog";
-import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import { RailAccent } from "@/components/ui/rail-accent";
 import { SectionTitle } from "@/components/ui/section-title";
 
@@ -148,12 +147,15 @@ export async function Blog() {
   if (!blog) return null;
 
   return (
-    <section aria-labelledby="blog-title" className="relative section-pad-band">
-      {/* The feather (quill) divider band across the top, under the testimonials. */}
-      <BandDivider glyph="quill" />
+    <section aria-labelledby="blog-title" className="relative section-pad">
+      {/*
+        The feather (quill) divider band across the top is hidden for now (issue #24): it sat under the testimonials,
+        which are hidden too. To bring it back, render <BandDivider glyph="quill" /> here, switch the section to
+        `section-pad-band` and move the rail accent back to top-[calc(173px+var(--section-shift,0px))] max-md:top-[154px].
+      */}
       <RailAccent
         src={railAccent}
-        className="pointer-events-none absolute top-[calc(173px+var(--section-shift,0px))] max-md:top-[154px] left-[calc(var(--frame-inset)-0.5px)]"
+        className="pointer-events-none absolute top-[calc(98px+var(--section-shift,0px))] left-[calc(var(--frame-inset)-0.5px)]"
       />
 
       <div className="flex content-width flex-col items-start gap-section">
