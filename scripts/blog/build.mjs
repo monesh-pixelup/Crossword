@@ -164,6 +164,15 @@ if (errors.length) {
 }
 
 posts.sort((a, b) => b.publishAt.localeCompare(a.publishAt));
+// One starred post at most (the sync unstars the others; this guards a hand edit): the newest starred one wins.
+let starred = false;
+for (const p of posts) {
+  if (p.featured && starred) {
+    console.warn(`content/blog/posts/${p.slug}.md: warning: another post is starred too; the newer one leads`);
+    p.featured = false;
+  }
+  starred ||= p.featured;
+}
 if (!checkOnly) {
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, JSON.stringify({ categories, posts }, null, 1) + "\n");

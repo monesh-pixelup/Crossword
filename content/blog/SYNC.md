@@ -29,7 +29,7 @@ Several copies run about 15 minutes apart, so runs can overlap. Check cheaply fi
 
 ### 1. Quick check
 
-Query Articles (rows mode) for Channel = Website blog and Stage in SEO (AI), Final review, Changes (AI), Scheduled, Archived,
+Query Articles (rows mode) for Channel = Website blog and Stage in SEO (AI), Final review, Changes (AI), Scheduled, Archived, Published (for step 3c),
 and Testimonials for any row in Review or Approved (see step 7).
 Also list open GitHub issues labelled `blog-post` (`gh api`, REST only), and issues labelled `blog-post` closed in the
 last 2 hours. If there are no such cards and no such issues, stop: one line in your thread, then resolve it.
@@ -84,6 +84,8 @@ post file on its branch.
    `content/blog/posts/<slug>.md` and prints a report. On errors, comment them on the Notion page in plain words
    (e.g. "the SEO description is empty"), move the card back to its previous stage only if a person has to fix the
    page, and stop on this card. Warnings go into the issue comment.
+   If the report lists `unstarred` posts, untick **Starred** on those cards in Notion (one starred post at a time:
+   the newly starred one wins) and say so in the issue comment.
 6. **Media.** If the report lists media files: fetch the orphan branch `blog-media` (create it if missing, with
    `README.md` and a copy of `.github/workflows/blog-media.yml` from the base branch), copy the files in under the same
    paths, commit "Media for <slug>", push (fetch and retry on rejection). Wait for its "Blog media" run to succeed
@@ -121,6 +123,16 @@ The reviewer comments on the page, then moves the card here. For each card (at m
 5. If no discussion needs work, comment "🤖 Blog sync: no open comments to act on." and move the card to Final review.
 
 Comments on cards in other stages are for the writer: never act on or reply to them.
+
+### 3c. Star changes on live posts
+
+**Starred** picks the post that leads the journal (crossword.ai/blog) and fills the home page's large Blog card; with
+none starred, the newest post does. For a **Published** card whose Starred tick differs from `featured` in its post
+file on main (ticked, or unticked): run step 3 for it with the issue titled `Blog update: star <Title>` (or
+`unstar`). If the branch's diff against main changes nothing but `featured:` lines in post files, a star change needs
+no review: once the Preview passes, comment "Star changed in Notion" on the issue and run `approved` as in step 4.
+If the page has other edits too, don't approve: comment on the card that a live post's edits go live only after it
+moves back to Final review and Scheduled.
 
 ### 4. Cards in Scheduled
 

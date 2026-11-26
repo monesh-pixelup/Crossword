@@ -7,7 +7,7 @@
 //     "pageId": "424f90cd-…", "url": "https://app.notion.com/p/…", "lastEdited": "2026-11-26T10:00:47.249Z",
 //     "properties": { …the Articles row, as the connector returns it: "Title", "Stage", "Slug", "Category",
 //                     "SEO title", "SEO description", "Keywords", "date:Publish date:start", "Publish time (MT)",
-//                     "Owner", "Feature on home page", "Hide from search", "Canonical URL", "Schema type",
+//                     "Owner", "Starred", "Hide from search", "Canonical URL", "Schema type",
 //                     "Cover alt text", "Cover focus", "Card details", "Related posts" … },
 //     "markdown": "…the page body in Notion-flavored Markdown…",
 //     "files": { "<file reference or URL as it appears in the markdown>": "/local/downloaded/file" },
@@ -16,7 +16,8 @@
 //   }
 // It writes the post file (creating, updating, renaming it after a slug change, or marking it archived), writes each
 // image, resized and converted to WebP and named by its content, to <media-out>/blog/<slug>/, and prints a JSON report:
-//   { slug, file, status: "created" | "updated" | "unchanged" | "archived", media: [paths under media-out], warnings, errors }
+//   { slug, file, status: "created" | "updated" | "unchanged" | "archived", media: [paths under media-out],
+//     unstarred: [{ slug, pageId }] (posts this one's star took over from), warnings, errors }
 // Exit code 1 (with `errors`) when the page can't become a post, e.g. no slug or an unknown category.
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, writeFileSync } from "node:fs";
@@ -41,6 +42,7 @@ const props = snap.properties ?? {};
 const warnings = [];
 const errors = [];
 const media = [];
+const unstarred = [];
 
 const categories = YAML.parse(readFileSync(join(root, "content/blog/categories.yml"), "utf8"));
 const authors = YAML.parse(readFileSync(join(root, "content/blog/authors.yml"), "utf8")) ?? {};
@@ -311,7 +313,7 @@ const data = {
   publishedAt: date,
   publishAt,
   summary,
-  featured: yes(props["Feature on home page"]),
+  featured: yes(props.Starred ?? props["Feature on home page"]),
   ...(details.length && { details }),
   ...(cover && { cover }),
   seo: {
@@ -348,11 +350,20 @@ if (!errors.length) {
   if (changed || !prev) writeFileSync(join(postsDir, file), writePostFile(data, body));
   else if (snap.lastEdited && prev.data.notion?.lastEdited !== snap.lastEdited) writeFileSync(join(postsDir, file), writePostFile({ ...prev.data, notion: data.notion }, prev.body));
   if (authorsChanged) writeFileSync(join(root, "content/blog/authors.yml"), AUTHORS_HEADER + YAML.stringify(authors));
+  // One starred post at a time: starring this one unstars every other post file (the run unticks them in Notion).
+  if (data.featured && !data.archived) {
+    for (const [id, other] of existing) {
+      if (id === pageId || !other.data.featured) continue;
+      const { featured, ...rest } = other.data;
+      writeFileSync(join(postsDir, other.file), writePostFile(rest, other.body));
+      unstarred.push({ slug: other.data.slug, pageId: other.data.notion?.pageId });
+    }
+  }
 }
 done(!prev ? "created" : data.archived && !prev.data.archived ? "archived" : changed ? "updated" : "unchanged");
 
 function done(status) {
-  const report = { slug, file: `content/blog/posts/${slug}.md`, status: errors.length ? "error" : status, media, warnings, errors };
+  const report = { slug, file: `content/blog/posts/${slug}.md`, status: errors.length ? "error" : status, media, unstarred, warnings, errors };
   process.stdout.write(JSON.stringify(report, null, 2) + "\n");
   process.exit(errors.length ? 1 : 0);
 }
