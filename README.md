@@ -169,9 +169,23 @@ The site runs on Cloudflare Workers through the OpenNext adapter. `wrangler.json
 | `IMAGES` | Cloudflare Images | `next/image` resizing |
 
 The R2 bucket and the D1 database live in the Inscripts Cloudflare account (`wrangler.jsonc` holds the D1 ID). Set
-`SANITY_REVALIDATE_SECRET` as a Worker secret. Cloudflare's Git integration (Workers Builds) builds each push: the build
-command is `npx opennextjs-cloudflare build`, the deploy command for `main` is `npx opennextjs-cloudflare deploy`, and
-other branches use `npx opennextjs-cloudflare upload` to get a preview URL.
+`SANITY_REVALIDATE_SECRET` as a Worker secret.
+
+GitHub Actions does every deploy (`.github/workflows/`), with the repository secrets `CLOUDFLARE_API_TOKEN` and
+`CLOUDFLARE_ACCOUNT_ID`. Each target is its own Worker with its own cache prefix:
+
+| When | Workflow | Worker | Address |
+| --- | --- | --- | --- |
+| Push to `ai/issue-<n>` | Preview | `crossword-website-issue-<n>` | https://issue-&lt;n&gt;.preview.crossword.ai |
+| Issue closed | Preview cleanup | deletes that Worker | |
+| Comment `approved` on the issue | Issue commands, then Deploy | `crossword-website` | https://staging.crossword.ai |
+| Comment `ship it` on the issue | Issue commands, then Promote to production | `crossword-website-production` | routes in the `PRODUCTION_ROUTES` variable |
+| By hand | Rollback production | `crossword-website-production` | |
+
+`approved` merges `ai/issue-<n>` into `main` and deploys staging; `ship it` sends the staging build that contains that
+merge to production, without rebuilding, and closes the issue. The comment must be just the command, and only people
+with write access can use them. A push to `main` also deploys staging. While `PRODUCTION_ROUTES` is empty the production
+Worker has no address.
 
 The Worker must stay under Cloudflare's size limit (3 MiB compressed on the free plan, 10 MiB on paid). That is why the
 Sanity Studio is not embedded in the site: it more than doubled the Worker. Edit content at

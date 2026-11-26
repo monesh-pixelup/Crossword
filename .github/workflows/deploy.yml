@@ -1,5 +1,6 @@
 # Every push to main: build once, keep the build for 30 days, and deploy it to https://staging.crossword.ai.
-# Production never deploys from here: run "Promote to production" to ship a build that staging has already served.
+# Production never deploys from here: "ship it" on an issue (or running "Promote to production") ships a build that
+# staging has already served.
 name: Deploy
 
 on:
