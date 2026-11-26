@@ -1,8 +1,8 @@
 /** Copy for the waitlist page (/waitlist) and where its signups go. */
 export const waitlist = {
-  eyebrow: "Early-stage program",
-  intro:
-    "If you’re an early-stage ecommerce brand doing under $1M in annual online revenue, join the waitlist for free access to Crossword. We’ll be in touch.",
+  /** The line under the headline: who the waitlist is for. */
+  audience:
+    "For early-stage ecommerce brands doing under $1M in annual online revenue. Join for free access to Crossword, and we’ll be in touch.",
   fields: {
     name: { label: "Name", placeholder: "Jane Smith" },
     email: { label: "Work email", placeholder: "jane@yourstore.com" },

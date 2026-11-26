@@ -55,8 +55,8 @@ export function WaitlistForm() {
 
   return (
     <section aria-label="Join the waitlist" className="relative bg-cream">
-      <div className="content-width pt-10 pb-16 lg:pb-[86px]">
-        <div className="flex max-w-[640px] flex-col gap-8 bg-sand px-7 py-[33px] shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:px-[41px]">
+      <div className="content-width flex justify-center pt-10 pb-16 lg:pb-[86px]">
+        <div className="flex w-full max-w-[640px] flex-col gap-8 bg-sand px-7 py-[33px] shadow-[inset_0_0_0_1px_var(--color-engraved)] xs:px-[41px]">
           {status === "done" ? (
             <div role="status" className="flex flex-col gap-2">
               <h2 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.04em] text-ink">{waitlist.thanks.title}</h2>
@@ -64,12 +64,6 @@ export function WaitlistForm() {
             </div>
           ) : (
             <>
-              <div className="flex flex-col items-start gap-2">
-                <p className={label}>{waitlist.eyebrow}</p>
-                <p className="font-sans text-base leading-6 tracking-[-0.02em] max-md:text-[15px] max-md:leading-[22px] max-md:tracking-[-0.3px] text-pretty text-ink-muted">
-                  {waitlist.intro}
-                </p>
-              </div>
               <form onSubmit={submit} className="flex flex-col gap-5">
                 <Field name="name" type="text" autoComplete="name" />
                 <Field name="email" type="email" autoComplete="email" />
