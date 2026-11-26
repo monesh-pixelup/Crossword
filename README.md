@@ -186,7 +186,10 @@ merge to production, without rebuilding. Production gets everything on staging a
 issues that aren't live yet, `ship it` lists them all and waits for a second `ship it` on the same issue within 30
 minutes. Once the build is live it closes every issue it shipped. It finds those issues from the commits between the
 `production` tag (moved by Promote to production) and the staging build: each commit whose first line ends in `(#N)`.
-The comment must be just the command, and only people with write access can use them. A push to `main` also deploys
+`ship it` also works on an issue that is only in preview: it merges, builds and ships in one go, but only when staging
+holds nothing else that isn't live. Otherwise it names the other issues and asks for `approved` first. Any issue
+waiting on a person carries the label `needs-you`. The scheduled issue watcher follows
+[.github/ai-watcher.md](.github/ai-watcher.md). The comment must be just the command, and only people with write access can use them. A push to `main` also deploys
 staging. While `PRODUCTION_ROUTES` is empty the production
 Worker has no address.
 
