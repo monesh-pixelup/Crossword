@@ -169,7 +169,7 @@ The site runs on Cloudflare Workers through the OpenNext adapter. `wrangler.json
 | `NEXT_CACHE_DO_QUEUE` | Durable Object `DOQueueHandler` | Background refresh of stale pages |
 | `IMAGES` | Cloudflare Images | `next/image` resizing |
 
-Create the R2 bucket and the D1 database once, and put the D1 database's ID in `wrangler.jsonc`. Set
+The R2 bucket and the D1 database live in the Inscripts Cloudflare account (`wrangler.jsonc` holds the D1 ID). Set
 `SANITY_REVALIDATE_SECRET` as a Worker secret. Cloudflare's Git integration (Workers Builds) builds each push: the build
 command is `npx opennextjs-cloudflare build`, the deploy command for `main` is `npx opennextjs-cloudflare deploy`, and
 other branches use `npx opennextjs-cloudflare upload` to get a preview URL.
