@@ -154,5 +154,5 @@ jobs:
           fi
           say "Shipped to production: the build from staging deploy $run, which includes ${sha::7}. $where
 
-          To undo: Actions → Rollback production → Run workflow."
+          To undo: Actions → Roll back production → Run workflow."
           gh issue close "$N" -R "$REPO" --reason completed

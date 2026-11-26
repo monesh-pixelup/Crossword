@@ -180,7 +180,7 @@ GitHub Actions does every deploy (`.github/workflows/`), with the repository sec
 | Issue closed | Preview cleanup | deletes that Worker | |
 | Comment `approved` on the issue | Issue commands, then Deploy | `crossword-website` | https://staging.crossword.ai |
 | Comment `ship it` on the issue | Issue commands, then Promote to production | `crossword-website-production` | routes in the `PRODUCTION_ROUTES` variable |
-| By hand | Rollback production | `crossword-website-production` | |
+| By hand | Roll back production | `crossword-website-production` | |
 
 `approved` merges `ai/issue-<n>` into `main` and deploys staging; `ship it` sends the staging build that contains that
 merge to production, without rebuilding, and closes the issue. The comment must be just the command, and only people
