@@ -3,13 +3,14 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { PostBody } from "@/modules/blog/components/post-body";
 import { PostHero } from "@/modules/blog/components/post-hero";
+import { PostSchema } from "@/modules/blog/components/post-schema";
 import { getPost, getPosts } from "@/modules/blog/lib/posts";
+import { SITE_URL } from "@/modules/blog/lib/site";
 import { PilotCta } from "@/modules/managed-launch/components/pilot/pilot-cta";
 
 /**
- * The posts in Sanity at build time are prerendered. A post published later is rendered on its first visit and then
- * kept like the rest. (Cache Components need at least one param here, hence the placeholder while there are no posts:
- * it 404s like any unknown slug.)
+ * Every post is prerendered at build time (posts only change through a build). Cache Components need at least one
+ * param here, hence the placeholder while there are no posts: it 404s like any unknown slug.
  */
 export async function generateStaticParams() {
   const posts = await getPosts();
@@ -19,10 +20,28 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const post = await getPost((await params).slug);
   if (!post) return {};
+  const url = `${SITE_URL}/blog/${post.slug}`;
+  const image = post.seo.socialImage ?? post.cover?.src;
   return {
-    title: post.title,
-    description: post.summary,
-    openGraph: { title: post.title, description: post.summary, type: "article", ...(post.cover && { images: [post.cover.src] }) },
+    // The SEO title is the whole <title>, without the site's " · Crossword" suffix (it is written to fit in 60).
+    title: { absolute: post.seo.title },
+    description: post.seo.description,
+    ...(post.seo.keywords.length > 0 && { keywords: post.seo.keywords }),
+    alternates: { canonical: post.seo.canonical ?? url },
+    ...(post.seo.noindex && { robots: { index: false, follow: true } }),
+    authors: [{ name: post.author?.name ?? "Crossword team" }],
+    openGraph: {
+      title: post.seo.title,
+      description: post.seo.description,
+      type: "article",
+      url,
+      publishedTime: post.publishAt,
+      ...(post.updatedAt && { modifiedTime: post.updatedAt }),
+      section: post.category,
+      ...(post.seo.keywords.length > 0 && { tags: post.seo.keywords }),
+      ...(image && { images: [{ url: image, alt: post.cover?.alt ?? "" }] }),
+    },
+    twitter: { card: image ? "summary_large_image" : "summary", title: post.seo.title, description: post.seo.description },
   };
 }
 
@@ -49,6 +68,7 @@ async function Post({ params }: Pick<PageProps<"/blog/[slug]">, "params">) {
 
   return (
     <>
+      <PostSchema post={post} />
       <PostHero post={post} />
       <PostBody post={post} />
     </>

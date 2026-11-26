@@ -45,3 +45,7 @@ next-env.d.ts
 /.wrangler/
 .dev.vars*
 /wrangler.target.jsonc
+/modules/blog/content/posts.generated.json
+/modules/blog/content/slugs.generated.json
+/modules/blog/content/redirects.generated.json
+/modules/landing/content/testimonials.generated.json

@@ -1,19 +1,19 @@
-import { cacheLife, cacheTag } from "next/cache";
-import { defineQuery, type PortableTextBlock } from "next-sanity";
-import type { SanityImageSource } from "@sanity/image-url";
-import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
+import type { PortableTextBlock } from "@portabletext/react";
+import generated from "../content/posts.generated.json";
 
 /**
- * The journal's posts, read from Sanity (edited at /studio). Every read is cached under the "blog" tag until Sanity's
- * webhook (app/api/revalidate) reports a change, so pages stay static and update within seconds of a publish. Without
- * the webhook they still refresh on their own, about an hour after a change (the "hours" profile).
+ * The journal's posts. Each is a Markdown file in content/blog/posts, written by the Notion sync (or by hand), and
+ * turned into posts.generated.json by scripts/blog/build.mjs before every build. The site reads that JSON, never the
+ * files, since a Cloudflare Worker has no file system. A post changes only through a new build, so pages stay static.
  */
-export const BLOG_TAG = "blog";
 
 /** A table in a post: its first row is the header, each row's first cell its label. */
 export type PostTableBlock = { _type: "table"; _key: string; rows?: { _key: string; cells?: string[] }[] };
-export type BodyBlock = PortableTextBlock | PostTableBlock;
+/** An image in a post, on its own line: served from /media (R2), already resized and converted by the sync. */
+export type PostImageBlock = { _type: "image"; _key: string; src: string; alt: string; caption?: string; width?: number; height?: number };
+/** A --- rule between parts of the text. */
+export type PostDividerBlock = { _type: "divider"; _key: string };
+export type BodyBlock = PortableTextBlock | PostTableBlock | PostImageBlock | PostDividerBlock;
 
 /** One titled part of a post: its anchor (for the Index), its heading and what follows it. */
 export type BlogSection = { id: string; title: string; content: BodyBlock[] };
@@ -27,18 +27,25 @@ export type BlogPostSummary = {
   details: string[];
   /** Publication date, as shown ("11 November 2026"). */
   date: string;
+  /** Publication date as YYYY-MM-DD, and the exact moment (ISO), for structured data and the sitemap. */
+  publishedAt: string;
+  publishAt: string;
   /** One line for the home page, search results and link previews. */
   summary: string;
   featured: boolean;
-  /** The editor's cover image (null: the journal's own cover art), and where its hotspot sits for object-position. */
-  cover: { src: string; position: string } | null;
-  /** Who wrote it (null: none chosen, shown as the Crossword team), with their photo cropped square if they have one. */
+  /** The post's own cover image (null: the journal's cover art), and where its focus sits for object-position. */
+  cover: { src: string; alt: string; position: string } | null;
+  /** Who wrote it (null: none chosen, shown as the Crossword team). */
   author: { name: string; role: string; photo: string | null } | null;
   /**
    * The post's place in the journal counted from the oldest (0), which picks its cover art when it has no cover of its
    * own (see cover-art.ts). Counted from the oldest so a new post doesn't change the others' covers.
    */
   coverIndex: number;
+  /** "Hide from search": left out of the sitemap and marked noindex. */
+  noindex: boolean;
+  /** When the post last changed after it was first published (ISO), if it has. */
+  updatedAt: string | null;
 };
 
 export type BlogPost = BlogPostSummary & {
@@ -47,54 +54,55 @@ export type BlogPost = BlogPostSummary & {
   sections: BlogSection[];
   /** Reading time in minutes, from the article's length (at 230 words a minute, at least 1). */
   readingMinutes: number;
+  seo: { title: string; description: string; keywords: string[]; canonical: string | null; socialImage: string | null; noindex: boolean };
+  schemaType: "BlogPosting" | "Article" | "HowTo";
+  /** The questions of the article's "Frequently asked questions" part, for FAQ structured data. */
+  faq: { question: string; answer: string }[];
+  /** Up to three other posts to read next. */
+  related: BlogPostSummary[];
 };
 
-type RawCover = (SanityImageSource & { asset?: unknown; hotspot?: { x: number; y: number } }) | null;
-type RawAuthor = { name: string | null; role: string | null; photo: RawCover } | null;
-type RawPost = Omit<BlogPostSummary, "date" | "cover" | "author" | "coverIndex"> & {
-  publishedAt: string | null;
-  cover: RawCover;
-  author: RawAuthor;
-  body?: BodyBlock[];
+/** A post as build.mjs writes it. */
+type RawPost = {
+  slug: string;
+  title: string;
+  category: string;
+  details: string[];
+  publishedAt: string;
+  publishAt: string;
+  summary: string;
+  featured: boolean;
+  cover: { src: string; alt?: string; position?: string } | null;
+  author: { name: string; role: string; photo: string | null } | null;
+  seo: BlogPost["seo"];
+  faq: BlogPost["faq"];
+  schemaType: string;
+  related: string[];
+  updatedAt: string | null;
+  body: BodyBlock[];
 };
-
-const fields = `
-  "slug": slug.current,
-  title,
-  "category": coalesce(category->title, ""),
-  "details": coalesce(details, []),
-  publishedAt,
-  "summary": coalesce(summary, ""),
-  "featured": coalesce(featured, false),
-  cover,
-  "author": author->{ name, role, photo }
-`;
-
-const postsQuery = defineQuery(
-  `*[_type == "post" && defined(slug.current)] | order(publishedAt desc, _createdAt desc) { ${fields} }`,
-);
-const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug][0] { ${fields}, body }`);
+// The JSON's inferred types are too narrow (a field that is null in every post today), so it's read as RawPost.
+const content = generated as unknown as { categories: string[]; posts: RawPost[] };
 
 const dateFormat = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
-function summarize({ publishedAt, cover, author, body: _body, ...post }: RawPost, coverIndex: number): BlogPostSummary {
+function summarize(post: RawPost, coverIndex: number): BlogPostSummary {
+  const { cover } = post;
   return {
-    ...post,
+    slug: post.slug,
+    title: post.title,
+    category: post.category,
+    details: post.details,
+    date: dateFormat.format(new Date(`${post.publishedAt}T00:00:00Z`)),
+    publishedAt: post.publishedAt,
+    publishAt: post.publishAt,
+    summary: post.summary,
+    featured: post.featured,
+    cover: cover?.src ? { src: cover.src, alt: cover.alt ?? "", position: cover.position ?? "50% 50%" } : null,
+    author: post.author,
     coverIndex,
-    author: author?.name
-      ? {
-          name: author.name,
-          role: author.role ?? "",
-          photo: author.photo?.asset ? urlFor(author.photo).width(160).height(160).fit("crop").url() : null,
-        }
-      : null,
-    date: publishedAt ? dateFormat.format(new Date(`${publishedAt}T00:00:00Z`)) : "",
-    cover: cover?.asset
-      ? {
-          src: urlFor(cover).width(1800).fit("max").url(),
-          position: cover.hotspot ? `${cover.hotspot.x * 100}% ${cover.hotspot.y * 100}%` : "50% 50%",
-        }
-      : null,
+    noindex: post.seo.noindex,
+    updatedAt: post.updatedAt,
   };
 }
 
@@ -130,42 +138,38 @@ function splitBody(body: BodyBlock[]) {
   return { intro, sections };
 }
 
+/** The posts as built, newest first (build.mjs sorts them). */
+const raw = content.posts;
+const summaries = raw.map((post, i) => summarize(post, raw.length - 1 - i));
+
 /** Every post, newest first. */
 export async function getPosts(): Promise<BlogPostSummary[]> {
-  "use cache";
-  cacheTag(BLOG_TAG);
-  cacheLife("hours");
-  const posts = await client.fetch<RawPost[]>(postsQuery);
-  return posts.map((post, i) => summarize(post, posts.length - 1 - i));
+  return summaries;
 }
 
 /** The post at `slug`, with its article, if there is one. */
 export async function getPost(slug: string): Promise<BlogPost | null> {
-  "use cache";
-  cacheTag(BLOG_TAG);
-  cacheLife("hours");
-  const post = await client.fetch<RawPost | null>(postQuery, { slug });
-  if (!post) return null;
-  // Its cover art follows its place in the journal, as on the journal's card.
-  const coverIndex = (await getPosts()).find((p) => p.slug === slug)?.coverIndex ?? 0;
-  const body = post.body ?? [];
+  const i = raw.findIndex((p) => p.slug === slug);
+  if (i < 0) return null;
+  const post = raw[i];
+  const body = post.body;
   const words = body.reduce((n, block) => n + plainText(block).split(/\s+/).filter(Boolean).length, 0);
-  return { ...summarize(post, coverIndex), ...splitBody(body), readingMinutes: Math.max(1, Math.round(words / 230)) };
+  return {
+    ...summaries[i],
+    ...splitBody(body),
+    readingMinutes: Math.max(1, Math.round(words / 230)),
+    seo: post.seo,
+    schemaType: post.schemaType as BlogPost["schemaType"],
+    faq: post.faq,
+    related: post.related.flatMap((r) => summaries.filter((s) => s.slug === r)),
+  };
 }
 
 /** The newest post, for the header's Platform menu: its page and title. */
 export type LatestPost = { href: string; title: string };
 
-/**
- * The newest post's page and title, for the header's Platform menu card and READ MORE (getPosts is newest first, cached
- * and refreshed when a post is published). With no posts, or Sanity out of reach, null: the menu then shows its own card
- * and links to the journal.
- */
+/** The newest post's page and title, for the header's Platform menu card and READ MORE. With no posts, null. */
 export async function getLatestPost(): Promise<LatestPost | null> {
-  try {
-    const [latest] = await getPosts();
-    return latest ? { href: `/blog/${latest.slug}`, title: latest.title } : null;
-  } catch {
-    return null;
-  }
+  const [latest] = summaries;
+  return latest ? { href: `/blog/${latest.slug}`, title: latest.title } : null;
 }

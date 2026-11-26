@@ -15,6 +15,9 @@ const eslintConfig = defineConfig([
     // OpenNext build output and local wrangler state.
     ".open-next/**",
     ".wrangler/**",
+    // The frozen Sanity schema (the blog left Sanity on 2026-11-26; see sanity/README.md). Its packages are no longer
+    // installed, so it is neither linted nor type-checked.
+    "sanity/**",
   ]),
   {
     // Dropping fields by destructuring (`const { body: _body, ...post } = raw`) is how we omit them, so the named

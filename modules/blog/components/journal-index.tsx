@@ -150,7 +150,7 @@ const PER_PAGE = 9;
  * Figma "Journal index" (1660:935), led as reducto.ai/blog is: the page has no hero, so 64px under the header the
  * newest post as the wide lead story, then the rest in three columns 20px apart (two below 992px, one below 640px),
  * nine to a page, with the pagination 48px under the grid (always, even with one page); 80px under that. Changing
- * page scrolls back up to the top of the list. The lead story shows on page 1 only. The posts come from Sanity.
+ * page scrolls back up to the top of the list. The lead story shows on page 1 only. The posts come from content/blog.
  */
 export function JournalIndex({ posts }: { posts: BlogPostSummary[] }) {
   const [page, setPage] = useState(1);

@@ -1,0 +1,112 @@
+# The testimonial carousels' slides, copied from the Notion Testimonials database by the sync (edit them there).
+# pages: home (also the blog page), sell (Conversational Interface), support, retain. order: 1 is first on each page.
+# cardColor: the tilted portrait card (#7d0034 maroon, #00331a forest green, #004c27 green). photo: optional, under /media.
+# scripts/blog/build.mjs turns this into modules/landing/content/testimonials.generated.json for the site.
+- name: John Edward
+  quote: By the third visit, Crossword knew our customers better than our CRM did.
+  role: Senior Director of Global Support
+  company: Shopify
+  cardColor: "#7d0034"
+  pages:
+    - home
+  order: 1
+  notionPage: 424f90cd-e3fe-8171-9ada-e7cef18be2e7
+- name: John Edward
+  quote: By the third visit, Crossword knew our customers better than our CRM did.
+  role: Senior Director of Global Support
+  company: Shopify
+  cardColor: "#00331a"
+  pages:
+    - home
+  order: 2
+  notionPage: 424f90cd-e3fe-81ca-8cd7-e6f421146eed
+- name: John Edward
+  quote: By the third visit, Crossword knew our customers better than our CRM did.
+  role: Senior Director of Global Support
+  company: Shopify
+  cardColor: "#004c27"
+  pages:
+    - home
+  order: 3
+  notionPage: 424f90cd-e3fe-810f-b342-d5b993e4d930
+- name: Name
+  quote: We didn’t expect a chatbot to actually sell. Crossword doesn’t wait for questions, it answers the ones shoppers didn’t even know to ask.
+  role: Title
+  company: Company
+  cardColor: "#7d0034"
+  pages:
+    - sell
+  order: 1
+  notionPage: 424f90cd-e3fe-8152-869c-d2b27e37d893
+- name: Name
+  quote: We didn’t expect a chatbot to actually sell. Crossword doesn’t wait for questions, it answers the ones shoppers didn’t even know to ask.
+  role: Title
+  company: Company
+  cardColor: "#00331a"
+  pages:
+    - sell
+  order: 2
+  notionPage: 424f90cd-e3fe-81c3-9d92-eb5846afaa54
+- name: Name
+  quote: We didn’t expect a chatbot to actually sell. Crossword doesn’t wait for questions, it answers the ones shoppers didn’t even know to ask.
+  role: Title
+  company: Company
+  cardColor: "#004c27"
+  pages:
+    - sell
+  order: 3
+  notionPage: 424f90cd-e3fe-81fe-9c67-fb8ba1d8b767
+- name: Name
+  quote: We were worried an AI would make support feel colder. It’s done the opposite. Customers get answered instantly, and when it can’t solve something, it hands off to our team with full context.
+  role: Title
+  company: Company
+  cardColor: "#7d0034"
+  pages:
+    - support
+  order: 1
+  notionPage: 424f90cd-e3fe-810f-9093-fe5aa148ffda
+- name: Name
+  quote: We were worried an AI would make support feel colder. It’s done the opposite. Customers get answered instantly, and when it can’t solve something, it hands off to our team with full context.
+  role: Title
+  company: Company
+  cardColor: "#00331a"
+  pages:
+    - support
+  order: 2
+  notionPage: 424f90cd-e3fe-81df-ab05-c1fc4d5230bc
+- name: Name
+  quote: We were worried an AI would make support feel colder. It’s done the opposite. Customers get answered instantly, and when it can’t solve something, it hands off to our team with full context.
+  role: Title
+  company: Company
+  cardColor: "#004c27"
+  pages:
+    - support
+  order: 3
+  notionPage: 424f90cd-e3fe-8110-9165-f76d5819e5bb
+- name: Name
+  quote: Crossword helps customers make better decisions before they buy. It answers the questions they’d normally have to figure out themselves, recommends products based on what they’re looking for, and helps them feel confident about what they’re choosing. We started seeing fewer wrong-fit purchases almost immediately.
+  role: Title
+  company: Company
+  cardColor: "#7d0034"
+  pages:
+    - retain
+  order: 1
+  notionPage: 424f90cd-e3fe-8125-813c-ef1ef25500c1
+- name: Name
+  quote: Crossword helps customers make better decisions before they buy. It answers the questions they’d normally have to figure out themselves, recommends products based on what they’re looking for, and helps them feel confident about what they’re choosing. We started seeing fewer wrong-fit purchases almost immediately.
+  role: Title
+  company: Company
+  cardColor: "#00331a"
+  pages:
+    - retain
+  order: 2
+  notionPage: 424f90cd-e3fe-81ea-a934-ca710738fbcc
+- name: Name
+  quote: Crossword helps customers make better decisions before they buy. It answers the questions they’d normally have to figure out themselves, recommends products based on what they’re looking for, and helps them feel confident about what they’re choosing. We started seeing fewer wrong-fit purchases almost immediately.
+  role: Title
+  company: Company
+  cardColor: "#004c27"
+  pages:
+    - retain
+  order: 3
+  notionPage: 424f90cd-e3fe-8162-856f-d0e16b3b3d99

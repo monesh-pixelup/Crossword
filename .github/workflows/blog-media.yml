@@ -1,0 +1,68 @@
+# Copies blog images and files to the R2 bucket crossword-website-media, which the site serves at /media/<path>
+# (app/media). The Notion sync commits each file, already resized and converted, to the branch blog-media at the
+# path it will have under /media (blog/<slug>/<name>-<hash>.webp), and this workflow uploads whatever R2 doesn't have
+# yet. Files are named by their content, so an existing key is never overwritten, and nothing is ever deleted: old
+# builds and rollbacks keep their images. The branch doubles as a backup of every file.
+#
+# A push runs the workflow file on the pushed branch, so blog-media carries its own copy of this file (the sync keeps
+# it in step with main's).
+name: Blog media
+
+on:
+  push:
+    branches: [blog-media]
+  workflow_dispatch:
+
+concurrency:
+  group: blog-media
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      BUCKET: crossword-website-media
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: blog-media
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Make sure the bucket exists
+        run: |
+          if ! npx --yes wrangler@4 r2 bucket info "$BUCKET" >/dev/null 2>&1; then
+            npx --yes wrangler@4 r2 bucket create "$BUCKET"
+          fi
+
+      - name: Upload new files
+        run: |
+          # Every file except the branch's README and workflow. A push uploads the files it added; a manual run (or
+          # the branch's first push) re-checks them all, and `r2 object put` of an existing key rewrites the same bytes.
+          before="${{ github.event.before }}"
+          if [ "${{ github.event_name }}" = push ] && [ -n "$before" ] && ! [[ "$before" =~ ^0+$ ]] && git cat-file -e "$before" 2>/dev/null; then
+            git diff --name-only --diff-filter=A "$before" HEAD > files.txt
+          else
+            git ls-files > files.txt
+          fi
+          grep -v -E '^(README\.md|files\.txt|\.github/.*)$' files.txt > upload.txt || true
+          n=0
+          while IFS= read -r f; do
+            [ -f "$f" ] || continue
+            case "$f" in
+              *.webp) type=image/webp ;; *.avif) type=image/avif ;; *.png) type=image/png ;;
+              *.jpg|*.jpeg) type=image/jpeg ;; *.gif) type=image/gif ;; *.svg) type=image/svg+xml ;;
+              *.pdf) type=application/pdf ;; *.mp4) type=video/mp4 ;; *) type=application/octet-stream ;;
+            esac
+            npx --yes wrangler@4 r2 object put "$BUCKET/$f" --file "$f" --content-type "$type" --remote
+            n=$((n+1))
+          done < upload.txt
+          echo "Uploaded $n file(s) to $BUCKET" >> "$GITHUB_STEP_SUMMARY"

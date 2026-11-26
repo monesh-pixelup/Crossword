@@ -105,11 +105,11 @@ const variants: Record<Variant, { eyebrow: string; title: ReactNode; headerWidth
  * The testimonial carousel under a centred eyebrow and headline (`blog` is the home page's, under its own eyebrow).
  * `sell`, `support` and `retain`
  * are Figma's Client testimonial on those pages: their own headline (two Light 60px lines at 0.9 after a
- * Tangerine swash) and quote. The slides are each page's testimonials from Sanity (getTestimonials).
+ * Tangerine swash) and quote. The slides are each page's testimonials (getTestimonials, from config/testimonials.ts).
  */
 export async function Testimonials({ variant = "home" }: { variant?: Variant }) {
   const v = variants[variant];
-  // From Sanity (Testimonials in the Studio), or the page's built-in ones while it has none there.
+  // The page's testimonials, from config/testimonials.ts.
   const slides = await getTestimonials(v.slides);
 
   return (

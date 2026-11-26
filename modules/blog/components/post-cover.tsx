@@ -67,7 +67,7 @@ function CoverTitle({ title, layout }: { title: string; layout: "a" | "b" }) {
 }
 
 /**
- * A post's cover, at the Figma blog templates' 761 × 296 shape: the editor's own image from Sanity (cropped around its
+ * A post's cover, at the Figma blog templates' 761 × 296 shape: the post's own image (placed by its
  * hotspot), or else the journal's cover art in turn (cover-art.ts) with the post's title set on it.
  */
 export function PostCover({
@@ -84,7 +84,17 @@ export function PostCover({
   return (
     <div className={cn("@container relative aspect-[761/296] w-full overflow-hidden", className)}>
       {post.cover ? (
-        <Image src={post.cover.src} alt="" fill priority={priority} sizes={sizes} className="object-cover" style={{ objectPosition: post.cover.position }} />
+        <Image
+          src={post.cover.src}
+          alt={post.cover.alt}
+          fill
+          priority={priority}
+          sizes={sizes}
+          // Covers under /media are already resized and converted to WebP by the Notion sync.
+          unoptimized={post.cover.src.startsWith("/media/")}
+          className="object-cover"
+          style={{ objectPosition: post.cover.position }}
+        />
       ) : (
         <>
           <Image src={coverArtFor(post.coverIndex)} alt="" fill priority={priority} sizes={sizes} className="object-cover" />

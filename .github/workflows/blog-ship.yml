@@ -1,0 +1,128 @@
+# Ships one blog change to production on its own: the code production already runs (tag "production") plus only the
+# content files (posts, authors, testimonials) that the issue's merge changed. Nothing else on staging goes with it. Issue commands starts
+# it after it merges an approved blog-post issue whose time has come (and Blog publishing, through Issue commands, at a
+# scheduled post's time).
+#
+# It refuses, and says so on the issue, when the merge changed anything outside content/blog and content/testimonials.yml (that needs a normal
+# "ship it"), or when production doesn't have the blog code yet (the first ship of the Notion blog must be a normal
+# one). The commit it builds is "production" plus those files; the tag "production" moves to it, so "ship it" still
+# lists what staging has that production doesn't.
+name: Blog ship
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: The blog-post issue whose merged change to ship
+        required: true
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  REPO: ${{ github.repository }}
+  N: ${{ inputs.issue }}
+  FOOTER: "\n\n---\n_Posted by the Blog ship workflow_"
+
+jobs:
+  ship:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: production
+      url: https://crossword.ai
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Make the commit (production plus this post)
+        id: commit
+        run: |
+          # A refusal says why on the issue and skips the rest of the job (it isn't a failure).
+          say() { gh issue comment "$N" -R "$REPO" --body "$(printf "%s$FOOTER" "$1")"; }
+          # needs-you (as in Issue commands): a refusal waits on a person; starting work removes it.
+          refuse() { gh issue edit "$N" -R "$REPO" --add-label needs-you >/dev/null 2>&1 || true; say "$1"; echo "skip=true" >> "$GITHUB_OUTPUT"; exit 0; }
+          [[ "$N" =~ ^[0-9]+$ ]] || { echo "Bad issue number"; exit 1; }
+          gh issue edit "$N" -R "$REPO" --remove-label needs-you >/dev/null 2>&1 || true
+          git fetch -q origin 'refs/tags/production:refs/tags/production' || true
+          prod=$(git rev-parse -q --verify 'refs/tags/production^{commit}') \
+            || refuse "Production has no \`production\` tag yet, so I can't ship this post on its own. Comment \`ship it\` to ship staging as a whole."
+          git cat-file -e "$prod:scripts/blog/build.mjs" 2>/dev/null \
+            || refuse "Production doesn't have the Notion blog code yet, so this post can't go out on its own. The first time, comment \`ship it\` to ship staging as a whole; posts after that ship alone."
+          # The issue's merge into main: the newest commit whose first line ends in "(#N)".
+          merge=$(git log origin/main --format='%H %s' | awk -v n="(#$N)" 'substr($0, length($0) - length(n) + 1) == n { print $1; exit }')
+          [ -n "$merge" ] || refuse "I can't find this issue's merge on main, so nothing was shipped. Comment \`approved\` first."
+          changes=$(git diff --name-status --no-renames "$merge^1" "$merge")
+          other=$(cut -f2 <<<"$changes" | grep -vE '^content/(blog/(posts/[^/]+\.md|authors\.yml)|testimonials\.yml)$' || true)
+          if [ -n "$other" ]; then
+            refuse "This change also touches $(wc -l <<<"$other") file(s) outside the blog's content ($(head -3 <<<"$other" | tr '\n' ' ')), so it can't go to production on its own. Comment \`ship it\` to ship staging as a whole."
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -q --detach "$prod"
+          while IFS=$'\t' read -r status file; do
+            [ -n "$file" ] || continue
+            if [ "$status" = D ]; then git rm -q --ignore-unmatch -- "$file"; else git checkout "$merge" -- "$file"; fi
+          done <<<"$changes"
+          title=$(gh issue view "$N" -R "$REPO" --json title --jq .title)
+          if git diff --cached --quiet; then
+            echo "Production already has these files."
+            echo "sha=$prod" >> "$GITHUB_OUTPUT"
+          else
+            git commit -q -m "Blog ship: $title (#$N)" -m "Production ${prod::7} plus the blog files of ${merge::7}."
+            echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          fi
+          echo "prod=$prod" >> "$GITHUB_OUTPUT"
+          echo "merge=$merge" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v4
+        if: steps.commit.outputs.skip != 'true'
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+        if: steps.commit.outputs.skip != 'true'
+      - run: npm run lint
+        if: steps.commit.outputs.skip != 'true'
+      - run: npx opennextjs-cloudflare build
+        if: steps.commit.outputs.skip != 'true'
+      - name: Deploy crossword-website-production
+        if: steps.commit.outputs.skip != 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PRODUCTION_ROUTES: ${{ vars.PRODUCTION_ROUTES }}
+        run: |
+          route_args=()
+          for r in $PRODUCTION_ROUTES; do route_args+=(--route "$r"); done
+          node scripts/wrangler-target.mjs --name crossword-website-production --cache-prefix production \
+            "${route_args[@]}" > wrangler.target.jsonc
+          npx opennextjs-cloudflare deploy --config wrangler.target.jsonc
+      - name: Move the tag "production" and close the issue
+        if: steps.commit.outputs.skip != 'true'
+        env:
+          SHA: ${{ steps.commit.outputs.sha }}
+          PRODUCTION_ROUTES: ${{ vars.PRODUCTION_ROUTES }}
+        run: |
+          git push -q --force origin "$SHA:refs/tags/production"
+          if [ -z "$PRODUCTION_ROUTES" ]; then
+            where="Production isn't attached to crossword.ai yet, so the live site hasn't changed."
+          else
+            where="It's live on https://crossword.ai."
+          fi
+          gh issue comment "$N" -R "$REPO" --body "$(printf "Shipped to production on its own: the code production already ran (%s) plus only this post's files from %s. Nothing else on staging went with it. %s\n\nTo undo: Actions → Roll back production → Run workflow.$FOOTER" \
+            "${{ steps.commit.outputs.prod }}" "${{ steps.commit.outputs.merge }}" "$where")"
+          gh issue close "$N" -R "$REPO" --reason completed
+          echo "Production now serves ${SHA::7} (production ${{ steps.commit.outputs.prod }} plus the blog files of #$N)." >> "$GITHUB_STEP_SUMMARY"
+      - name: Say why it failed
+        if: failure()
+        run: |
+          gh issue edit "$N" -R "$REPO" --add-label needs-you >/dev/null 2>&1 || true
+          gh issue comment "$N" -R "$REPO" --body "$(printf "Shipping this post on its own failed, so production still serves the previous build: %s/%s/actions/runs/%s$FOOTER" \
+            "$GITHUB_SERVER_URL" "$REPO" "$GITHUB_RUN_ID")" || true

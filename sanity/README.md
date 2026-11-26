@@ -1,3 +1,7 @@
+> **Frozen (2026-11-26).** The site no longer reads Sanity. Posts, authors and testimonials are written in Notion and
+> copied into `content/` by the blog sync (see `content/blog/SYNC.md`). This folder keeps the old schema and seed data
+> for reference only; nothing here is built or deployed. Sanity's project `mb4vhjft` still holds the old content.
+
 # Site content (Sanity): the blog and the testimonials
 
 The blog's posts and categories live in Sanity (project `mb4vhjft`, "Crossword Website", dataset `production`) and are edited in the

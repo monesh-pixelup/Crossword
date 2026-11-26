@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 /**
  * Page · Blog (Figma 1660:312), without its hero: the journal's posts (its heading for screen readers only), then the testimonials (hidden for now, issue #4).
- * The posts come from Sanity (see modules/blog/lib/posts.ts).
+ * The posts come from content/blog (see modules/blog/lib/posts.ts).
  */
 export default async function BlogPage() {
   const posts = await getPosts();
