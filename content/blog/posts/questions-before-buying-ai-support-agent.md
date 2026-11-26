@@ -23,10 +23,11 @@ schemaType: BlogPosting
 related:
   - the-help-me-choose-problem
   - what-makes-an-e-commerce-brand-ai-discoverable
+archived: true
 notion:
   pageId: 424f90cd-e3fe-81bb-a7eb-ead8b6af7c7d
   url: https://app.notion.com/p/424f90cde3fe81bba7ebead8b6af7c7d
-  lastEdited: 2026-11-26T10:46:59.335Z
+  lastEdited: 2026-11-26T11:31:05.781Z
 ---
 
 Picking an AI support agent is easy to get wrong. Ask these five questions first.
