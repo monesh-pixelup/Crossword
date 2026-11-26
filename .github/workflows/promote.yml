@@ -1,0 +1,77 @@
+# Ships a build that staging has already served to production, without rebuilding it.
+# Run it by hand from the Actions tab. It deploys the Worker crossword-website-production and attaches the routes in
+# the repository variable PRODUCTION_ROUTES (space-separated, e.g. "crossword.ai/*"). While that variable is empty the
+# Worker deploys with no address, so nothing on crossword.ai changes.
+name: Promote to production
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: ID of the Deploy run whose build to ship (empty = the latest successful one on main)
+        required: false
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: production
+      url: https://crossword.ai
+    steps:
+      - name: Find the build
+        id: run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.run_id }}
+        run: |
+          if [ -z "$RUN_ID" ]; then
+            RUN_ID=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0].id')
+          fi
+          if ! [[ "$RUN_ID" =~ ^[0-9]+$ ]]; then echo "No successful Deploy run found"; exit 1; fi
+          read -r sha name conclusion < <(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" --jq '[.head_sha, .name, .conclusion] | @tsv')
+          if [ "$name" != Deploy ] || [ "$conclusion" != success ]; then echo "Run $RUN_ID is not a successful Deploy run"; exit 1; fi
+          echo "id=$RUN_ID" >> "$GITHUB_OUTPUT"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.run.outputs.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: open-next
+          path: .open-next
+          run-id: ${{ steps.run.outputs.id }}
+          github-token: ${{ github.token }}
+      - name: Deploy crossword-website-production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PRODUCTION_ROUTES: ${{ vars.PRODUCTION_ROUTES }}
+        run: |
+          route_args=()
+          for r in $PRODUCTION_ROUTES; do route_args+=(--route "$r"); done
+          node scripts/wrangler-target.mjs --name crossword-website-production --cache-prefix production \
+            "${route_args[@]}" > wrangler.target.jsonc
+          npx opennextjs-cloudflare deploy --config wrangler.target.jsonc
+      - name: Summary
+        env:
+          PRODUCTION_ROUTES: ${{ vars.PRODUCTION_ROUTES }}
+        run: |
+          sha=${{ steps.run.outputs.sha }}
+          {
+            echo "Production now serves ${sha::7}, the build from Deploy run ${{ steps.run.outputs.id }}."
+            if [ -z "$PRODUCTION_ROUTES" ]; then echo; echo "PRODUCTION_ROUTES is empty, so the Worker has no address yet."; fi
+          } >> "$GITHUB_STEP_SUMMARY"
