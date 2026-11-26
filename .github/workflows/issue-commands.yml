@@ -1,6 +1,9 @@
 # Commands typed as a comment on an issue whose fix lives on branch ai/issue-<n>:
 #   approved  -> merge the branch into main and deploy main to https://staging.crossword.ai
 #   ship it   -> promote the staging build that contains that merge to production, then close the issue
+# A blog post's issue (its branch adds or changes content/blog/posts/*.md) whose publishAt is still in the future is
+# not merged on "approved": it gets the label blog-scheduled, and the Blog publishing workflow merges it, deploys
+# staging and ships it to production at that time. Merging early would let anyone's "ship it" publish it early.
 # The comment must be just the command (case and a trailing "." or "!" don't matter). Anyone with write access to
 # the repository may use them. If a merge cannot happen (conflicts, a failed preview build), the issue gets the label
 # ai-merge-blocked and the issue watcher fixes the branch and runs this workflow again by hand (workflow_dispatch).
@@ -19,6 +22,10 @@ on:
         required: true
         type: choice
         options: [approved, ship it]
+      scheduled:
+        description: Set by Blog publishing when a scheduled post is due (skips the wait for its publish time)
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -86,6 +93,25 @@ jobs:
           done
           [ "$conclusion" = success ] || block "The preview build for ${head::7} did not pass ($status/$conclusion), so I haven't merged. The watcher will look at it."
 
+          # A blog post due later waits for its time (see the top of this file).
+          if [ "${{ inputs.scheduled }}" != true ]; then
+            due=""
+            for f in $(gh api "repos/$REPO/compare/main...$branch" --jq '.files[] | select(.status != "removed") | .filename' | grep -E '^content/blog/posts/[^/]+\.md$' || true); do
+              at=$(gh api "repos/$REPO/contents/$f?ref=$branch" -H 'Accept: application/vnd.github.raw' | sed -n 's/^publishAt: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' | head -1)
+              [ -n "$at" ] || continue
+              t=$(date -u -d "$at" +%s 2>/dev/null) || continue
+              if [ "$t" -gt "$(date -u +%s)" ] && { [ -z "$due" ] || [ "$t" -gt "$due" ]; }; then due=$t; fi
+            done
+            if [ -n "$due" ]; then
+              gh issue edit "$N" -R "$REPO" --add-label blog-scheduled >/dev/null
+              when=$(TZ=America/Denver date -d "@$due" '+%A %-d %B %Y at %-I:%M %p MT')
+              say "Approved by @$ACTOR. This post is scheduled for **$when**. It will merge, go to staging and go to production then, on its own. Nothing is published before that time.
+
+          To publish it sooner, change its Publish date or time in Notion, or run Actions → Blog publishing with this issue number and \`now\` ticked."
+              exit 0
+            fi
+          fi
+
           # Merge the branch into main with a merge commit. (The organization doesn't let workflows open pull
           # requests, so the merge commit is the record: it names the issue and who approved it.)
           title=$(gh issue view "$N" -R "$REPO" --json title --jq .title)
@@ -124,6 +150,9 @@ jobs:
           # The merge commit "approved" made (newest first).
           sha=$(gh api "repos/$REPO/commits?sha=main&per_page=100" \
             --jq "[.[] | select(.commit.message | startswith(\"Merge ai/issue-$N: \"))][0].sha // empty")
+          if [ -z "$sha" ] && gh issue view "$N" -R "$REPO" --json labels --jq '.labels[].name' | grep -qx blog-scheduled; then
+            say "This post is scheduled: it goes to production on its own at its publish time, so there's nothing to ship yet."; exit 0
+          fi
           [ -n "$sha" ] || { say "This fix hasn't merged yet. Reply \`approved\` first."; exit 0; }
 
           # The newest successful staging deploy that contains the merge.

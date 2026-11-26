@@ -1,0 +1,86 @@
+# Publishes scheduled blog posts at their time. An approved blog issue whose post is due later carries the label
+# blog-scheduled (see issue-commands.yml). Every 10 minutes this looks for those whose publishAt has passed and, for
+# each, runs Issue commands twice: "approved" (merge into main, deploy staging) and then "ship it" (promote that build
+# to production and close the issue). GitHub can start scheduled runs some minutes late, so a 9:00 AM post goes out
+# between about 9:00 and 9:20 AM MT.
+#
+# Note: "ship it" sends production the whole staging build, so anything else already merged into main goes out with
+# the post.
+name: Blog publishing
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Only this issue (empty = every scheduled post that is due)
+        required: false
+      now:
+        description: Publish it now, even before its time
+        type: boolean
+        default: false
+
+concurrency:
+  group: blog-publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+  actions: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  REPO: ${{ github.repository }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Publish what is due
+        env:
+          ONLY: ${{ inputs.issue }}
+          NOW: ${{ inputs.now }}
+        run: |
+          if [ -n "$ONLY" ]; then issues="$ONLY"; else
+            issues=$(gh issue list -R "$REPO" --label blog-scheduled --state open --json number --jq '.[].number')
+          fi
+          [ -n "$issues" ] || { echo "Nothing scheduled."; exit 0; }
+
+          # Run Issue commands for one issue and wait for it; fails if that run fails.
+          run_cmd() {
+            local n=$1 cmd=$2 since run=""
+            since=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            gh workflow run issue-commands.yml -R "$REPO" --ref main -f issue="$n" -f command="$cmd" -f scheduled=true
+            for i in $(seq 1 20); do
+              sleep 6
+              run=$(gh api "repos/$REPO/actions/workflows/issue-commands.yml/runs?event=workflow_dispatch&created=>=$since&per_page=1" --jq '.workflow_runs[0].id // empty')
+              [ -n "$run" ] && break
+            done
+            [ -n "$run" ] || return 1
+            gh run watch "$run" -R "$REPO" --exit-status --interval 20 >/dev/null
+          }
+
+          for n in $issues; do
+            branch="ai/issue-$n"
+            due=""
+            for f in $(gh api "repos/$REPO/compare/main...$branch" --jq '.files[] | select(.status != "removed") | .filename' 2>/dev/null | grep -E '^content/blog/posts/[^/]+\.md$' || true); do
+              at=$(gh api "repos/$REPO/contents/$f?ref=$branch" -H 'Accept: application/vnd.github.raw' | sed -n 's/^publishAt: *"\{0,1\}\([^"]*\)"\{0,1\} *$/\1/p' | head -1)
+              t=$(date -u -d "$at" +%s 2>/dev/null) || continue
+              if [ -z "$due" ] || [ "$t" -gt "$due" ]; then due=$t; fi
+            done
+            if [ -z "$due" ]; then echo "#$n: no post with a publishAt on $branch; skipping"; continue; fi
+            if [ "$NOW" != true ] && [ "$due" -gt "$(date -u +%s)" ]; then
+              echo "#$n: due $(TZ=America/Denver date -d "@$due" '+%F %H:%M MT'), not yet"; continue
+            fi
+            echo "#$n: publishing"
+            if run_cmd "$n" approved && gh api "repos/$REPO/commits?sha=main&per_page=100" --jq '.[].commit.message' | grep -q "^Merge ai/issue-$n: "; then
+              gh issue edit "$n" -R "$REPO" --remove-label blog-scheduled >/dev/null
+              run_cmd "$n" "ship it" || echo "#$n: ship it failed; see the issue"
+            else
+              # Issue commands has already said why on the issue (and labelled it ai-merge-blocked for the watcher).
+              echo "#$n: approved step did not merge"
+            fi
+          done

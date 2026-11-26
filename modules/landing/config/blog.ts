@@ -9,7 +9,7 @@ export type BlogPost = {
 export type FeaturedPost = BlogPost & { category: string; coverTitle: [string, string, string] };
 
 /**
- * The home page's Blog section, from the journal in Sanity. The featured card is the post marked "Feature on the home
+ * The home page's Blog section, from the journal (content/blog). The featured card is the post marked "Feature on the home
  * page" (else the fourth newest, as before, or the newest there is); its maroon cover keeps the Figma headline, in the
  * cover's swash style: the capital, the rest of line 1, then line 2. The list beside it is the three newest others.
  */

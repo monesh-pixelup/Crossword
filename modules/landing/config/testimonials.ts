@@ -5,13 +5,13 @@ export type Testimonial = {
   company: string;
   /** Background of the tilted portrait card. */
   cardColor: string;
-  /** Their portrait's URL, when the testimonial has one in Sanity; without it the card shows the site's own photograph. */
+  /** Their portrait's URL (e.g. under /media); without it the card shows the site's own photograph. */
   photo?: string | null;
 };
 
 /*
- * The testimonials are edited in Sanity (/studio → Testimonials; modules/landing/lib/testimonials.ts reads them).
- * The ones below are the site's built-in placeholders: a page shows its own only while Sanity has none for it.
+ * The testimonial carousels' slides, per page (modules/landing/lib/testimonials.ts reads them). For now they are
+ * placeholders from Figma.
  */
 
 // Figma uses the same placeholder testimonial on every slide.

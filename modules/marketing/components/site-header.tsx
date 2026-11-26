@@ -278,7 +278,7 @@ function PlatformItem({
  * - The 304 × 111 Insight card, 10px over a READ MORE link.
  * Below 1440px the gaps and columns close up.
  */
-/** The newest blog post (from SiteShell, newest in Sanity): the Platform menu's card shows its title and, with READ MORE, opens it. */
+/** The newest blog post (from SiteShell, newest in content/blog): the Platform menu's card shows its title and, with READ MORE, opens it. */
 const LatestPost = createContext<{ href: string; title: string } | null>(null);
 
 /** The card title's size for longer titles, so it always fits the gold box (design px on the 304px card). */

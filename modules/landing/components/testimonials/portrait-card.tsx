@@ -13,7 +13,7 @@ import panel from "../../assets/testimonials/portrait-panel.svg";
  */
 type PortraitCardProps = {
   color: string;
-  /** The person's own portrait (a testimonial's photo in Sanity), filling the panel in place of the site's photograph. */
+  /** The person's own portrait (a testimonial's photo), filling the panel in place of the site's photograph. */
   photo?: string;
   className?: string;
   style?: CSSProperties;
