@@ -17,7 +17,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ path
 
   const { env, ctx } = await getCloudflareContext({ async: true });
   const cache = (globalThis as unknown as { caches?: { default?: Cache } }).caches?.default;
-  const cached = await cache?.match(request);
+  // Key the edge cache by the URL string: the Request Next.js hands a route isn't the Workers runtime's own Request
+  // class, and the Cache API rejects it ("Invalid URL: [object Request]").
+  const cacheKey = new URL(request.url).toString();
+  const cached = await cache?.match(cacheKey);
   if (cached) return cached;
 
   const bucket = (env as { MEDIA?: MediaBucket }).MEDIA;
@@ -31,6 +34,6 @@ export async function GET(request: Request, { params }: { params: Promise<{ path
   headers.set("cache-control", "public, max-age=31536000, immutable");
   headers.set("x-content-type-options", "nosniff");
   const response = new Response(object.body, { headers });
-  if (cache) ctx.waitUntil(cache.put(request, response.clone()));
+  if (cache) ctx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
 }
