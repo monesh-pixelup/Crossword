@@ -117,8 +117,7 @@ export function Plans() {
                 waitlist for free access to Crossword.
               </p>
             </div>
-            {/* Books a call until there is a waitlist form (TODO: point at that form). */}
-            <StampButton href={ctaLinks.bookDemo} variant="outline">
+            <StampButton href="/waitlist" variant="outline">
               JOIN THE WAITLIST
             </StampButton>
           </div>
