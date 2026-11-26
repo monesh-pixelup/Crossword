@@ -1,4 +1,6 @@
-# Commands typed as a comment on an issue whose fix lives on branch ai/issue-<n>:
+# Commands typed as a comment on an issue. The issue's branch is ai/issue-<n> (the AI's) or a person's branch named
+# issue-<n>, issue-<n>-<words> or <name>/issue-<n>...; when there are several, the one pushed to last.
+#   preview   -> build that branch and deploy it to https://issue-<n>.preview.crossword.ai (Preview posts the link).
 #   approved  -> merge the branch into main and deploy main to https://staging.crossword.ai
 #   ship it   -> promote the staging build that contains that merge to production, then close every issue it shipped.
 #                On an issue not yet on staging it merges, builds and ships in one go, but only if staging holds
@@ -23,10 +25,10 @@ on:
         description: Issue number
         required: true
       command:
-        description: approved or ship it
+        description: preview, approved or ship it
         required: true
         type: choice
-        options: [approved, ship it]
+        options: [preview, approved, ship it]
       scheduled:
         description: Set by Blog publishing when a scheduled post is due (skips the wait for its publish time)
         required: false
@@ -62,7 +64,7 @@ jobs:
         run: |
           cmd=$(printf '%s' "$BODY" | tr -d '\r' | tr '[:upper:]' '[:lower:]' | sed -E 's/^[[:space:]]+|[[:space:]]+$//g; s/[.!]+$//')
           case "$cmd" in
-            approved|"ship it") ;;
+            preview|approved|"ship it") ;;
             *) echo "Not a command; nothing to do."; echo "cmd=" >> "$GITHUB_OUTPUT"; exit 0 ;;
           esac
           [[ "$N" =~ ^[0-9]+$ ]] || { echo "Bad issue number"; exit 1; }
@@ -97,8 +99,24 @@ jobs:
           wait_on_people() { gh issue edit "$N" -R "$REPO" --add-label needs-you >/dev/null 2>&1 || true; }
           working() { gh issue edit "$N" -R "$REPO" --remove-label needs-you >/dev/null 2>&1 || true; }
           handback() { wait_on_people; say "$1"; exit 0; }
-          block() { gh issue edit "$N" -R "$REPO" --add-label ai-merge-blocked >/dev/null 2>&1 || true; say "$1"; exit 0; }
+          # The watcher fixes blocked merges, except on ai-skip issues, where a person has to.
+          block() {
+            gh issue edit "$N" -R "$REPO" --add-label ai-merge-blocked >/dev/null 2>&1 || true
+            if labelled ai-skip; then
+              wait_on_people
+              say "${1%% The watcher*} This issue has \`ai-skip\`, so the AI won't touch it: fix \`$branch\` and comment the command again."
+            else
+              say "$1"
+            fi
+            exit 0
+          }
+          # The issue's branch: the newest of ai/issue-N and any person's issue-N, issue-N-<words> or <name>/issue-N...
           branch="ai/issue-$N"
+          best_at=""
+          for b in $(gh api "repos/$REPO/branches?per_page=100" --paginate --jq '.[].name' | grep -E "(^|/)issue-$N([-_/]|\$)" || true); do
+            at=$(gh api "repos/$REPO/commits/$b" --jq .commit.committer.date 2>/dev/null) || continue
+            if [[ "$at" > "$best_at" ]]; then branch=$b; best_at=$at; fi
+          done
           # Before the first promote there is no "production" tag; count from the merge of the Cloudflare setup (#2).
           first_prod=f7e7d28cbafae69d267414309eb32784d3c28fd7
 
@@ -146,7 +164,7 @@ jobs:
             echo "$due"
           }
 
-          # Merge ai/issue-N into main and deploy staging. Leaves the merge in $sha.
+          # Merge the issue's branch into main and deploy staging. Leaves the merge in $sha.
           do_approve() {
             gh api "repos/$REPO/branches/$branch" >/dev/null 2>&1 \
               || handback "There's no branch \`$branch\`, so there's nothing to merge yet."
@@ -255,6 +273,14 @@ jobs:
           }
 
           working
+          if [ "$CMD" = preview ]; then
+            gh api "repos/$REPO/branches/$branch" >/dev/null 2>&1 \
+              || handback "There's no branch for #$N yet. Push the fix to a branch named \`issue-$N\` (or \`issue-$N-short-name\`): every push builds a preview and posts the link here."
+            gh workflow run preview.yml -R "$REPO" --ref "$branch" \
+              || handback "I couldn't start the preview build for \`$branch\`."
+            say "Building a preview of \`$branch\`. It takes about 5 minutes; the link will appear here."
+            exit 0
+          fi
           if [ "$CMD" = approved ] && labelled blog-post; then
             # A blog post due later waits for its time (see the top of this file).
             if [ "$SCHEDULED" != true ]; then

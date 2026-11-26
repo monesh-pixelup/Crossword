@@ -1,0 +1,36 @@
+# When someone adds the label ai-skip to an issue, says once that the AI will stay out and how a person can still
+# get a preview and ship. The issue watcher skips ai-skip issues entirely.
+name: AI skip note
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  issues: write
+
+jobs:
+  note:
+    if: github.event.label.name == 'ai-skip' && github.event.issue.number != 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Post the note
+        env:
+          GH_TOKEN: ${{ github.token }}
+          N: ${{ github.event.issue.number }}
+          ACTOR: ${{ github.event.sender.login }}
+        run: |
+          gh issue comment "$N" -R "$GITHUB_REPOSITORY" --body "$(cat <<MSG
+          @$ACTOR added \`ai-skip\`, so the AI will stay out of this issue. Remove the label to bring it back.
+
+          Previews still work:
+          - Push your fix to a branch named \`issue-$N\` (or \`issue-$N-short-name\`, or \`yourname/issue-$N\`). Every push rebuilds https://issue-$N.preview.crossword.ai and posts the link here.
+          - Or comment \`preview\` to build the newest branch for this issue now.
+
+          \`approved\` and \`ship it\` work as usual. If the merge is blocked (for example a conflict with main), fix the branch yourself and comment the command again.
+
+          ---
+          _Posted by the AI skip note workflow_
+          MSG
+          )" >/dev/null

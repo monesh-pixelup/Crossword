@@ -173,7 +173,7 @@ GitHub Actions does every deploy (`.github/workflows/`), with the repository sec
 
 | When | Workflow | Worker | Address |
 | --- | --- | --- | --- |
-| Push to `ai/issue-<n>` | Preview | `crossword-website-issue-<n>` | https://issue-&lt;n&gt;.preview.crossword.ai |
+| Push to `ai/issue-<n>`, `issue-<n>`, `issue-<n>-<words>` or `<name>/issue-<n>...`, or comment `preview` on the issue | Preview | `crossword-website-issue-<n>` | https://issue-&lt;n&gt;.preview.crossword.ai |
 | Issue closed | Preview cleanup | deletes that Worker | |
 | Comment `approved` on the issue | Issue commands, then Deploy | `crossword-website` | https://staging.crossword.ai |
 | Comment `ship it` on the issue | Issue commands, then Promote to production | `crossword-website-production` | routes in the `PRODUCTION_ROUTES` variable |
@@ -181,7 +181,12 @@ GitHub Actions does every deploy (`.github/workflows/`), with the repository sec
 | Push to `blog-media` | Blog media | R2 bucket `crossword-website-media` | `/media/...` |
 | By hand | Roll back production | `crossword-website-production` | |
 
-`approved` merges `ai/issue-<n>` into `main` and deploys staging. `ship it` sends the staging build that contains that
+To fix an issue yourself, add the label `ai-skip` (the AI then stays out, and a bot comment explains the rest) and push
+to a branch named `issue-<n>` or `issue-<n>-<words>`. Every push rebuilds the issue's preview and posts the link on the
+issue; the comment `preview` builds the newest branch on demand. `approved` and `ship it` work the same for your branch
+as for the AI's: when an issue has several branches, they use the one pushed to last.
+
+`approved` merges the issue's branch into `main` and deploys staging. `ship it` sends the staging build that contains that
 merge to production, without rebuilding. Production gets everything on staging at once, so if staging also holds other
 issues that aren't live yet, `ship it` lists them all and waits for a second `ship it` on the same issue within 30
 minutes. Once the build is live it closes every issue it shipped. It finds those issues from the commits between the
