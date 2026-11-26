@@ -58,4 +58,8 @@ jobs:
 
       - name: Summary
         if: always()
-        run: echo "Preview for issue #${{ steps.target.outputs.n }}: ${{ steps.target.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
+        env:
+          N: ${{ steps.target.outputs.n }}
+          URL: ${{ steps.target.outputs.url }}
+        run: |
+          echo "Preview for issue #$N: $URL" >> "$GITHUB_STEP_SUMMARY"
