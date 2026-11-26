@@ -1,33 +1,57 @@
-# When an issue closes, deletes its preview Worker. Cloudflare removes the issue-<n>.preview.crossword.ai address,
-# its DNS record and its certificate along with the Worker.
+# Deletes the preview Worker (crossword-website-issue-<n>) of every closed issue, with any custom domain it still has;
+# Cloudflare removes that domain's DNS record and certificate with it.
+# Runs when a person closes an issue, every hour (issues that workflows close, such as "ship it", don't start other
+# workflows, so the hourly sweep catches those), and by hand (Actions → Preview cleanup, optionally with one issue).
+# Uses the Cloudflare API directly: "wrangler delete" also lists KV namespaces, which the token can't read.
 name: Preview cleanup
 
 on:
   issues:
     types: [closed]
+  schedule:
+    - cron: "23 * * * *"
   workflow_dispatch:
     inputs:
       issue:
-        description: Issue number whose preview to delete
-        required: true
+        description: Issue number whose preview to delete (leave empty to sweep every closed issue)
+        required: false
 
 permissions:
-  contents: read
+  issues: read
+
+concurrency:
+  group: preview-cleanup
+  cancel-in-progress: false
 
 jobs:
   cleanup:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Delete crossword-website-issue-${{ github.event.issue.number || inputs.issue }}
+      - name: Delete previews of closed issues
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          N: ${{ github.event.issue.number || inputs.issue }}
+          GH_TOKEN: ${{ github.token }}
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          ONLY: ${{ github.event.issue.number || inputs.issue }}
         run: |
-          if ! [[ "$N" =~ ^[0-9]+$ ]]; then echo "Not an issue number: $N"; exit 1; fi
-          out=$(npx --yes wrangler@4.168.0 delete --name "crossword-website-issue-$N" --force 2>&1) && { echo "$out"; exit 0; }
-          echo "$out"
-          # An issue that never had a preview has nothing to delete.
-          if grep -qiE "not found|does not exist|10007" <<<"$out"; then echo "No preview Worker for #$N"; exit 0; fi
-          exit 1
+          api() { curl -sS -H "Authorization: Bearer $CF_TOKEN" "$@"; }
+          base="https://api.cloudflare.com/client/v4/accounts/$ACCOUNT/workers"
+          if [ -n "$ONLY" ] && ! [[ "$ONLY" =~ ^[0-9]+$ ]]; then echo "Not an issue number: $ONLY"; exit 1; fi
+
+          scripts=$(api "$base/scripts" | jq -er '.result[].id') || { echo "Couldn't list Workers"; exit 1; }
+          domains=$(api "$base/domains?per_page=100" | jq -ec '.result') || { echo "Couldn't list custom domains"; exit 1; }
+          failed=0
+          for s in $(grep -E '^crossword-website-issue-[0-9]+$' <<<"$scripts" || true); do
+            n=${s#crossword-website-issue-}
+            [ -z "$ONLY" ] || [ "$n" = "$ONLY" ] || continue
+            state=$(gh api "repos/$GITHUB_REPOSITORY/issues/$n" --jq .state 2>/dev/null || echo unknown)
+            [ "$state" = closed ] || { echo "#$n is $state; keeping $s"; continue; }
+            for id in $(jq -r --arg s "$s" '.[] | select(.service == $s) | .id' <<<"$domains"); do
+              api -X DELETE "$base/domains/$id" | jq -e '.success' >/dev/null \
+                && echo "Removed custom domain $id from $s" || { echo "Couldn't remove custom domain $id from $s"; failed=1; }
+            done
+            api -X DELETE "$base/scripts/$s?force=true" | jq -e '.success' >/dev/null \
+              && echo "Deleted $s (#$n is closed)" || { echo "Couldn't delete $s"; failed=1; }
+          done
+          exit $failed
