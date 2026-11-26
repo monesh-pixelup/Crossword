@@ -48,3 +48,4 @@ next-env.d.ts
 /modules/blog/content/posts.generated.json
 /modules/blog/content/slugs.generated.json
 /modules/blog/content/redirects.generated.json
+/modules/landing/content/testimonials.generated.json

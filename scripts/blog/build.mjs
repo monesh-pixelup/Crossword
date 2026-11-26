@@ -1,4 +1,5 @@
-// Turns content/blog into the JSON the site reads (modules/blog/content/posts.generated.json, not committed).
+// Turns content/blog into the JSON the site reads (modules/blog/content/posts.generated.json, not committed), and
+// content/testimonials.yml into modules/landing/content/testimonials.generated.json.
 // Runs before `next dev`, `next build` and `npm run lint` (see package.json), so the site never reads files at run
 // time: a Cloudflare Worker has no file system. It fails the build, naming the file and the field, when a post is
 // incomplete, so a broken post can't reach a preview.
@@ -129,6 +130,34 @@ for (const post of posts) {
   post.related = post.related.filter((r) => live.has(r) && r !== post.slug).slice(0, 3);
 }
 
+// The testimonial carousels (content/testimonials.yml, from the Notion Testimonials database), grouped by page.
+const testimonialPages = ["home", "sell", "support", "retain"];
+const cardColors = ["#7d0034", "#00331a", "#004c27"];
+const testimonials = Object.fromEntries(testimonialPages.map((p) => [p, []]));
+const rawTestimonials = YAML.parse(readFileSync(join(root, "content/testimonials.yml"), "utf8")) ?? [];
+rawTestimonials.forEach((t, i) => {
+  const where = `content/testimonials.yml (entry ${i + 1}${t?.name ? `, ${t.name}` : ""})`;
+  if (!t?.quote || !t?.name) return errors.push(`${where}: needs a quote and a name`);
+  if (t.cardColor && !cardColors.includes(t.cardColor)) errors.push(`${where}: cardColor must be one of ${cardColors.join(", ")}`);
+  for (const p of t.pages ?? []) {
+    if (!testimonialPages.includes(p)) errors.push(`${where}: unknown page "${p}" (use ${testimonialPages.join(", ")})`);
+    else testimonials[p].push(t);
+  }
+});
+for (const p of testimonialPages) {
+  testimonials[p] = testimonials[p]
+    .map((t, i) => ({ t, i }))
+    .sort((a, b) => (a.t.order ?? 9999) - (b.t.order ?? 9999) || a.i - b.i)
+    .map(({ t }, i) => ({
+      quote: t.quote,
+      name: t.name,
+      role: t.role ?? "",
+      company: t.company ?? "",
+      cardColor: t.cardColor ?? cardColors[i % cardColors.length],
+      photo: t.photo ?? null,
+    }));
+}
+
 if (errors.length) {
   console.error(`The blog has ${errors.length} problem(s):\n  ${errors.join("\n  ")}`);
   process.exit(1);
@@ -142,5 +171,8 @@ if (!checkOnly) {
   writeFileSync(out.replace("posts.generated", "slugs.generated"), JSON.stringify(posts.map((p) => p.slug)) + "\n");
   // Read by next.config.ts.
   writeFileSync(out.replace("posts.generated", "redirects.generated"), JSON.stringify(redirects, null, 1) + "\n");
+  const tOut = join(root, "modules/landing/content/testimonials.generated.json");
+  mkdirSync(dirname(tOut), { recursive: true });
+  writeFileSync(tOut, JSON.stringify(testimonials, null, 1) + "\n");
 }
 console.log(`Blog: ${posts.length} posts${archived.length ? ` (${archived.length} archived)` : ""}${checkOnly ? " checked" : ` written to ${out.slice(root.length + 1)}`}`);

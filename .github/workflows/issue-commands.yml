@@ -3,8 +3,9 @@
 #   ship it   -> promote the staging build that contains that merge to production, then close every issue it shipped.
 #                If staging holds other unshipped issues too, it lists them first and needs a second "ship it" within 30 min.
 # A blog post's issue (its branch adds or changes content/blog/posts/*.md) whose publishAt is still in the future is
-# not merged on "approved": it gets the label blog-scheduled, and the Blog publishing workflow merges it, deploys
-# staging and ships it to production at that time. Merging early would let anyone's "ship it" publish it early.
+# not merged on "approved": it gets the label blog-scheduled, and the Blog publishing workflow runs "approved" again at
+# that time. Merging early would let anyone's "ship it" publish it early. Once a blog-post issue merges, "approved"
+# starts Blog ship, which sends production only that post's files on top of what production already runs.
 # The comment must be just the command (case and a trailing "." or "!" don't matter). Anyone with write access to
 # the repository may use them. If a merge cannot happen (conflicts, a failed preview build), the issue gets the label
 # ai-merge-blocked and the issue watcher fixes the branch and runs this workflow again by hand (workflow_dispatch).
@@ -141,6 +142,14 @@ jobs:
           [ -n "$run" ] || block "Merged \`$branch\` into main (${sha::7}), but the staging deploy didn't start."
           gh run watch "$run" -R "$REPO" --exit-status --interval 20 >/dev/null \
             || block "Merged \`$branch\` into main (${sha::7}), but the staging deploy failed: $GITHUB_SERVER_URL/$REPO/actions/runs/$run"
+          # A blog post (issue labelled blog-post) goes to production on its own, without the rest of staging.
+          if gh issue view "$N" -R "$REPO" --json labels --jq '.labels[].name' | grep -qx blog-post; then
+            gh workflow run blog-ship.yml -R "$REPO" --ref main -f issue="$N"
+            say "Live on staging: https://staging.crossword.ai (main at ${sha::7}, which includes \`$branch\`).
+
+          Now sending just this post to production (Actions → Blog ship), without anything else on staging. I'll say here when it's live."
+            exit 0
+          fi
           say "Live on staging: https://staging.crossword.ai (main at ${sha::7}, which includes \`$branch\`).
 
           **Next step:** check it there, then comment \`ship it\` on this issue to send this exact build to production."

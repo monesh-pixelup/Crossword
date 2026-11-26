@@ -1,11 +1,8 @@
 # Publishes scheduled blog posts at their time. An approved blog issue whose post is due later carries the label
 # blog-scheduled (see issue-commands.yml). Every 10 minutes this looks for those whose publishAt has passed and, for
-# each, runs Issue commands twice: "approved" (merge into main, deploy staging) and then "ship it" (promote that build
-# to production and close the issue). GitHub can start scheduled runs some minutes late, so a 9:00 AM post goes out
-# between about 9:00 and 9:20 AM MT.
-#
-# Note: "ship it" sends production the whole staging build, so anything else already merged into main goes out with
-# the post.
+# each, runs Issue commands' "approved" (merge into main, deploy staging), which then starts Blog ship: production gets
+# only this post, on top of what it already runs. GitHub can start scheduled runs some minutes late, and the build
+# takes a few minutes, so a 9:00 AM post goes out between about 9:05 and 9:30 AM MT.
 name: Blog publishing
 
 on:
@@ -76,9 +73,9 @@ jobs:
               echo "#$n: due $(TZ=America/Denver date -d "@$due" '+%F %H:%M MT'), not yet"; continue
             fi
             echo "#$n: publishing"
-            if run_cmd "$n" approved && gh api "repos/$REPO/commits?sha=main&per_page=100" --jq '.[].commit.message' | grep -q "^Merge ai/issue-$n: "; then
+            if run_cmd "$n" approved && gh api "repos/$REPO/commits?sha=main&per_page=100" --jq '.[].commit.message | split("\n")[0]' | grep -q "(#$n)\$"; then
+              # "approved" has merged it and started Blog ship, which comments and closes the issue when it's live.
               gh issue edit "$n" -R "$REPO" --remove-label blog-scheduled >/dev/null
-              run_cmd "$n" "ship it" || echo "#$n: ship it failed; see the issue"
             else
               # Issue commands has already said why on the issue (and labelled it ai-merge-blocked for the watcher).
               echo "#$n: approved step did not merge"

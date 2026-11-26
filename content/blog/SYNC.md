@@ -2,7 +2,10 @@
 
 The scheduled "Blog sync" tasks follow this file on every run. They connect the Notion **Articles** database
 (Content Hub, data source `collection://424f90cd-e3fe-812a-bc8f-000b812c9c5c`) to this repo's blog. Notion is the
-source of truth for every post and every SEO field; `content/blog/posts/<slug>.md` mirrors it.
+source of truth for every post and every SEO field; `content/blog/posts/<slug>.md` mirrors it. It also copies the
+**Authors** database (`collection://424f90cd-e3fe-814e-ae43-000ba9fd1eba`) into `content/blog/authors.yml`, and the
+**Testimonials** database (`collection://424f90cd-e3fe-81c9-be8f-000b679dd3a7`) into `content/testimonials.yml`
+(step 7).
 
 Only cards with **Channel = Website blog** are handled. Times are America/Denver; an empty "Publish time (MT)" means
 9:00 AM.
@@ -26,7 +29,8 @@ Several copies run about 15 minutes apart, so runs can overlap. Check cheaply fi
 
 ### 1. Quick check
 
-Query Articles (rows mode) for Channel = Website blog and Stage in SEO (AI), Final review, Changes (AI), Scheduled, Archived.
+Query Articles (rows mode) for Channel = Website blog and Stage in SEO (AI), Final review, Changes (AI), Scheduled, Archived,
+and Testimonials for any row in Review or Approved (see step 7).
 Also list open GitHub issues labelled `blog-post` (`gh api`, REST only), and issues labelled `blog-post` closed in the
 last 2 hours. If there are no such cards and no such issues, stop: one line in your thread, then resolve it.
 
@@ -73,7 +77,9 @@ post file on its branch.
    (the URLs expire in minutes) into a fresh directory outside the repo.
 4. **Snapshot.** Write a JSON file: `pageId`, `url`, `lastEdited`, `properties` (the row as rows mode returns it),
    `markdown` (the page content), `files` (each image reference exactly as it appears in the markdown, mapped to its
-   downloaded path), `cover`, `socialImage`.
+   downloaded path), `cover`, `socialImage`, and `author`: the Authors row for the byline (the card's **Author**;
+   if that is empty, the Authors row whose Person is the card's Owner; if none, leave `author` out) as
+   `{ pageId, name, role, person, photo }`, with `photo` the downloaded path of its Photo, or null.
 5. **Convert.** `node scripts/blog/notion-sync.mjs <snapshot.json> --media-out <dir>`. It writes
    `content/blog/posts/<slug>.md` and prints a report. On errors, comment them on the Notion page in plain words
    (e.g. "the SEO description is empty"), move the card back to its previous stage only if a person has to fix the
@@ -121,25 +127,50 @@ Comments on cards in other stages are for the writer: never act on or reply to t
 Approval. If the card's issue has no `blog-scheduled` label, isn't merged, its branch has the page's current
 `lastEdited`, and its latest Preview run passed: comment on the issue "Approved in Notion (card moved to Scheduled)",
 then run `gh workflow run issue-commands.yml -R crossword-ai/website --ref main -f issue=<n> -f command=approved`.
-Issue commands then either labels it `blog-scheduled` (Blog publishing merges and ships it at its time) or, if the
-time has passed, merges it and deploys staging; in that case also run the same command with `-f command="ship it"`
-after the approved run succeeds. If the card has no preview yet, run step 3 first and approve on a later run.
+Issue commands then either labels it `blog-scheduled` (Blog publishing approves it again at its time) or, if the
+time has passed, merges it, deploys staging and starts **Blog ship**, which sends production only this post's files
+on top of what production already runs. Never run `ship it` for a post: that ships all of staging. If Blog ship refuses
+(it says why on the issue, e.g. the change touches code), tell the writer in Notion that a person with GitHub access
+must reply `ship it` on the issue. If the card has no preview yet, run step 3 first and approve on a later run.
 
 ### 5. Archived cards
 
 If main has the post (a file with this page id) and it isn't marked `archived`: run step 3 for it (the script marks
 the file archived), with the issue titled `Blog removal: <Title>` and the comment saying the post will leave the
-journal, the home page and the sitemap, and its address will return "not found". Removal needs `approved` and then
-`ship it` on the issue from someone with write access; say so in the Notion comment too.
+journal, the home page and the sitemap, and its address will return "not found". Removal needs `approved` on the
+issue from someone with write access (then Blog ship takes only the removal to production); say so in the Notion
+comment too.
 
 ### 6. Live and shipped
 
-For each `blog-post` issue closed by Issue commands' "Shipped to production" comment: set the card to **Published**
+For each `blog-post` issue closed after a "Shipped to production" comment (from Blog ship, or Issue commands for a
+normal `ship it`): set the card to **Published**
 (unless it is Archived) and, if that comment says it is live on crossword.ai, set Published URL to
 `https://crossword.ai/blog/<slug>`. Comment on the page: "🤖 Blog sync: live." (or "on staging and production; not on
 crossword.ai yet" while production has no address).
 
-### 7. Deleted pages (once an hour: only in the run whose minute is under 15)
+### 7. Testimonials
+
+Query Testimonials (rows mode). Work only when a row is in Review or Approved, or a row's Status is Off site or Draft
+while `content/testimonials.yml` on main still has its `notionPage`. One issue at a time, titled `Testimonials update`,
+labelled `blog-post` (so the watchers leave it alone and approval ships it on its own), with the marker
+`<!-- notion-testimonials -->`; claim it with `ai-working` as for posts.
+
+1. Branch `ai/issue-<n>` from main (or merge main into it). Download each Review or Approved row's Photo right away.
+2. Snapshot `{ "rows": [ { pageId, properties, photo } ] }` with every row, then
+   `node scripts/blog/testimonials-sync.mjs <snapshot.json> --media-out <dir>`. Errors go on the row as a comment;
+   media goes to `blog-media` as in step 3.6. Lint, build, push and wait for the Preview, as in step 3.7.
+3. Screenshots of each changed page's carousel (home `/`, `/sell`, `/support`, `/retain`). Issue comment with the
+   preview links and what changed. Set **Preview URL** on each Review row (the page it shows on) and comment
+   "🤖 Blog sync: preview ready: <link>. Move it to Approved to publish."
+4. When the report says `inReview` is 0 (every changed row is Approved, Off site or Draft) and the latest Preview
+   passed with the current rows: comment "Approved in Notion" on the issue and run `approved` (step 4). Blog ship
+   sends only `content/testimonials.yml` to production. When the issue closes as shipped, set those Approved rows to
+   **Live** and clear their Preview URL.
+
+Edits to a Live row are ignored until a person moves it back to Review (the script keeps the shipped copy).
+
+### 8. Deleted pages (once an hour: only in the run whose minute is under 15)
 
 For each post file on main with a `notion.pageId`, fetch the page. If it is gone or in the trash and no open issue
 says so, open one: `Blog: Notion page deleted for <slug>`, label `blog-post`, saying the post is still live, and that
@@ -148,10 +179,12 @@ the page can be restored from Notion's Trash, or archived instead. Never remove 
 ## Files
 
 - `content/blog/posts/*.md`: posts. Front matter field names follow the old Sanity post type.
-- `content/blog/authors.yml`: authors, keyed by id, with their Notion user id. Add a person here when they first own
-  a post (ask on the issue for their role if you don't know it).
+- `content/blog/authors.yml`: authors, keyed by id, copied from the Notion Authors database by notion-sync.mjs. Never
+  edit it by hand; edit the Authors row.
+- `content/testimonials.yml`: the carousels' slides, copied from Notion Testimonials by `scripts/blog/testimonials-sync.mjs`.
 - `content/blog/categories.yml`: the journal's filters (the same 8 as the Notion Category options).
-- `scripts/blog/notion-sync.mjs`: one Notion page to one post file plus media. `scripts/blog/build.mjs`: posts to the
-  JSON the site reads (runs before dev, lint and build).
+- `scripts/blog/notion-sync.mjs`: one Notion page to one post file plus media. `scripts/blog/build.mjs`: posts and
+  testimonials to the JSON the site reads (runs before dev, lint and build).
+- `.github/workflows/blog-ship.yml`: sends production only an issue's content files, on top of what production runs.
 - Media: R2 bucket `crossword-website-media`, served at `/media/...`, uploaded from branch `blog-media` by the Blog media
   workflow. Never delete media.
