@@ -180,6 +180,9 @@ async function convertBody(md) {
     return [`| ${rows[0].join(" | ")} |`, `| ${rows[0].map(() => "---").join(" | ")} |`, ...rows.slice(1).map((r) => `| ${r.join(" | ")} |`)].join("\n");
   });
 
+  // Sub-pages (the channel drafts AI writes under an article, or any page a writer nests) are the team's, not the post's.
+  s = s.replace(/<page\b[^>]*>[\s\S]*?<\/page>|<page\b[^>]*\/>/g, "");
+
   // Images, in either form, each on its own line.
   const images = [];
   s = s.replace(/<image\b[^>]*source="([^"]+)"[^>]*>([\s\S]*?)<\/image>|<image\b[^>]*source="([^"]+)"[^>]*\/>/g, (_, src, caption, src2) => {

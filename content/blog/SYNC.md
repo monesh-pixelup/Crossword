@@ -134,6 +134,35 @@ no review: once the Preview passes, comment "Star changed in Notion" on the issu
 If the page has other edits too, don't approve: comment on the card that a live post's edits go live only after it
 moves back to Final review and Scheduled.
 
+### 3d. Channel drafts (Repurpose to)
+
+For each Website blog card in Final review, Changes (AI), Scheduled or Published whose **Repurpose to** has values
+(at most 3 cards per run, Final review first): fetch the page and list its sub-pages (`<page url="…">Title</page>` in
+the content). For each ticked channel with no sub-page titled exactly `<Channel> draft` (e.g. `LinkedIn - Anant draft`),
+create one under the article (create-pages with the article as `page_id` parent, icon ✍️). Never edit, rename,
+replace or delete a sub-page that already exists, even one AI wrote: once it exists it belongs to the team. A channel
+unticked later keeps its draft. Adding a sub-page doesn't change the article's "Last edited", so it needs no new
+preview.
+
+Each draft page: first a gray callout "🤖 AI draft from the article, for <channel>. Edit it freely: AI never changes
+this page again. Nothing is posted by itself. Copy the text below the line when it is ready.", then a divider, then
+the post exactly as it would be pasted. Write it from the article's text only: no facts, numbers, quotes or claims
+that aren't in the article. End with the post's link (its Published URL, or `crossword.ai/blog/<slug>`).
+
+| Channel | Format |
+| --- | --- |
+| LinkedIn - Anant | First person, as Anant (founder). A one-line hook, 120 to 220 words, short paragraphs or a short list, the link, then one question to readers. No hashtags beyond 3. |
+| LinkedIn - Company | "We" as Crossword. A one-line hook, 80 to 150 words, the main points as a short list, the link. Up to 3 hashtags. |
+| X - Anant | First person thread: 3 to 6 posts, each under 280 characters, numbered 1/, 2/ …, the link in the last post. |
+| X - Company | One post under 280 characters with the link, then an optional 2 to 3 post thread under it. |
+| Instagram | A caption of 80 to 150 words with the link noted as "link in bio", up to 5 hashtags, then "Carousel" with 5 to 7 slide texts of under 20 words each. |
+| Other social | A 40 to 80 word summary with the link, plain enough to post anywhere. |
+
+Voice for every channel: plain words, short sentences of mixed length, concrete over clever. No stock phrases ("in
+today's fast-paced world", "game-changer", "unlock", "dive in"), no hype, no emoji except Instagram, no em dashes.
+Say what the reader learns, not that the article is great. Then comment on the article in Notion: "🤖 Blog sync:
+wrote drafts for <channels>, as sub-pages of this page."
+
 ### 4. Cards in Scheduled
 
 Approval. If the card's issue has no `blog-scheduled` label, isn't merged, its branch has the page's current
