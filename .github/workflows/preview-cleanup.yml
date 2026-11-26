@@ -1,0 +1,33 @@
+# When an issue closes, deletes its preview Worker. Cloudflare removes the issue-<n>.preview.crossword.ai address,
+# its DNS record and its certificate along with the Worker.
+name: Preview cleanup
+
+on:
+  issues:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Issue number whose preview to delete
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Delete crossword-website-issue-${{ github.event.issue.number || inputs.issue }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          N: ${{ github.event.issue.number || inputs.issue }}
+        run: |
+          if ! [[ "$N" =~ ^[0-9]+$ ]]; then echo "Not an issue number: $N"; exit 1; fi
+          out=$(npx --yes wrangler@4.168.0 delete --name "crossword-website-issue-$N" --force 2>&1) && { echo "$out"; exit 0; }
+          echo "$out"
+          # An issue that never had a preview has nothing to delete.
+          if grep -qiE "not found|does not exist|10007" <<<"$out"; then echo "No preview Worker for #$N"; exit 0; fi
+          exit 1
