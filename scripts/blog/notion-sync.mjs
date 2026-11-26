@@ -248,7 +248,11 @@ let authorsChanged = false;
 if (snap.author?.name) {
   const row = snap.author;
   const rowId = normId(row.pageId);
-  authorId = Object.entries(authors).find(([, a]) => rowId && normId(a.notionPage) === rowId)?.[0];
+  const rowUser = String(list(row.person)[0] ?? "").replace(/^user:\/\//, "");
+  // The entry for this Authors row, else (for entries written before Authors existed) the one with its person.
+  authorId =
+    Object.entries(authors).find(([, a]) => rowId && normId(a.notionPage) === rowId)?.[0] ??
+    Object.entries(authors).find(([, a]) => rowUser && !a.notionPage && a.notionUser === rowUser)?.[0];
   if (!authorId) {
     const base = row.name.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "author";
     authorId = base;
