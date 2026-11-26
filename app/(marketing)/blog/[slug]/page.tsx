@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   const post = await getPost((await params).slug);
   if (!post) return {};
   const url = `${SITE_URL}/blog/${post.slug}`;
-  const image = post.seo.socialImage ?? post.cover?.src;
+  // Without a social or cover image of its own, the post shares the journal's (drawn by scripts/og/og-images.mjs).
+  const image = post.seo.socialImage ?? post.cover?.src ?? "/og/journal.png";
   return {
     // The SEO title is the whole <title>, without the site's " · Crossword" suffix (it is written to fit in 60).
     title: { absolute: post.seo.title },
@@ -39,9 +40,9 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
       ...(post.updatedAt && { modifiedTime: post.updatedAt }),
       section: post.category,
       ...(post.seo.keywords.length > 0 && { tags: post.seo.keywords }),
-      ...(image && { images: [{ url: image, alt: post.cover?.alt ?? "" }] }),
+      images: [{ url: image, alt: post.cover?.alt ?? "" }],
     },
-    twitter: { card: image ? "summary_large_image" : "summary", title: post.seo.title, description: post.seo.description },
+    twitter: { card: "summary_large_image", title: post.seo.title, description: post.seo.description, images: [image] },
   };
 }
 

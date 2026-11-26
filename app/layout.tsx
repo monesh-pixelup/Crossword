@@ -2,22 +2,25 @@ import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { fontVariables } from "@/lib/fonts";
+import { SITE_URL } from "@/modules/blog/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  // Makes the share images (each page's opengraph-image.png) absolute URLs on crossword.ai.
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Crossword — Your best hire, yet.",
     template: "%s · Crossword",
   },
   description:
     "Crossword is an AI shopper assistant that remembers, recommends, resolves, and reports - all within your guardrails.",
+  // No og:title or og:description here: set once for the whole site, they gave every page the home page's words.
+  // Without them, link previews use each page's own <title> and description.
   openGraph: {
-    title: "Crossword — Your best hire, yet.",
-    description:
-      "An AI shopper assistant that remembers, recommends, resolves, and reports - all within your guardrails.",
     type: "website",
     siteName: "Crossword",
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

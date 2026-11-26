@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import {
   AiAssistantsHero,
   AssistantsCta,
-  AssistantsFaq,
   BrandAesthetics,
   Differentiation,
   Insights,
@@ -44,10 +43,12 @@ export default function AiAssistantsPage() {
       <BrandAesthetics />
       <Promotions numeralByTitleOnPhones />
       <Insights initial="S" firstLine="ee what happened" swashTracking={-0.05} scene="insights-motion" mobileScene="insights-mweb-motion" replayAfter={3000} />
-      <div className="relative h-[75px] max-md:h-[56px]">
-        <BandDivider glyph="chat" />
-      </div>
-      <AssistantsFaq swashTracking={-0.06} />
+      {/*
+        The FAQs (and the chat band above them) are hidden for now: their answers are drafts (issue #10). To bring them
+        back, import AssistantsFaq and render, here:
+          <div className="relative h-[75px] max-md:h-[56px]"><BandDivider glyph="chat" /></div>
+          <AssistantsFaq swashTracking={-0.06} />
+      */}
       <AssistantsCta />
     </main>
   );
