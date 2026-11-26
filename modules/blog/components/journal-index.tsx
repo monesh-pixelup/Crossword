@@ -59,7 +59,7 @@ function Arrow({ className }: { className?: string }) {
 }
 
 /**
- * The lead story at the top of the journal (as reducto.ai/blog leads with its newest post): one wide card on the same
+ * The lead story at the top of the journal: the starred post, else the newest (as reducto.ai/blog leads with its newest): one wide card on the same
  * paper and black/15 line as the others, its cover (at its own 761 × 296 shape, as the cards', so nothing is cut off) across the
  * left 58% and, beside it, the details in Geist Mono caps,
  * the title in Crimson Light 40, its summary in Geist 16 and READ ARTICLE over a hairline. Stacked below 992px.
@@ -75,7 +75,7 @@ function LeadPost({ post }: { post: BlogPostSummary }) {
       <div className="relative flex flex-col items-start justify-between gap-8 pt-6 pb-2 lg:py-4 lg:pr-6">
         <div className="flex flex-col items-start gap-5">
           <p className="font-mono text-[10px] leading-[1.1] font-medium tracking-[0.8px] text-black/60 uppercase">
-            {["Latest", post.category, post.date].filter(Boolean).join(" / ")}
+            {[post.featured ? "Featured" : "Latest", post.category, post.date].filter(Boolean).join(" / ")}
           </p>
           <h2 className="font-serif text-[40px] leading-[1.05] font-light tracking-[-1.6px] text-ink [word-break:break-word] max-md:text-[30px] max-md:tracking-[-1.2px]">
             {post.title}
@@ -156,7 +156,9 @@ export function JournalIndex({ posts }: { posts: BlogPostSummary[] }) {
   const [page, setPage] = useState(1);
   const top = useRef<HTMLDivElement>(null);
 
-  const [lead, ...rest] = posts;
+  // The starred post leads (Starred in Notion, one at a time); with none starred, the newest.
+  const lead = posts.find((p) => p.featured) ?? posts[0];
+  const rest = posts.filter((p) => p !== lead);
   const pageCount = Math.max(1, Math.ceil(rest.length / PER_PAGE));
   const shown = rest.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
