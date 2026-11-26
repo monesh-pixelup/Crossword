@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Calculator, Credits, Engineer, Faq, Plans } from "@/modules/pricing";
+import { Credits, Engineer, Faq, Plans } from "@/modules/pricing";
 
 export const metadata: Metadata = {
   title: "Pricing",
@@ -14,7 +14,7 @@ export default function PricingPage() {
       {/* The hero is hidden for now (restore it with its import, and put "/pricing" back on the header's transparent and hero-only routes). */}
       <Plans />
       <Credits />
-      <Calculator />
+      {/* The ROI calculator is hidden for now (issue #21). To restore it, put <Calculator /> back here with its import, and the "ESTIMATE YOUR USAGE" link in Credits. */}
       <Faq />
       <Engineer />
     </main>
