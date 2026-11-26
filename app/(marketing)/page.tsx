@@ -8,7 +8,6 @@ import {
   ManagedLaunch,
   PlatformOverview,
   ShopperExperience,
-  Testimonials,
   Trust,
 } from "@/modules/landing";
 import { DividerBand } from "@/components/ui/divider-band";
@@ -24,7 +23,7 @@ export default function HomePage() {
       <Insights />
       <ManagedLaunch />
       <Trust />
-      <Testimonials />
+      {/* Testimonials hidden for now (issue #4). To bring them back, render <Testimonials /> here. */}
       <Blog />
       {/*
         The patterned divider band across the top of the envelope section, between the page rails. Raised over the
