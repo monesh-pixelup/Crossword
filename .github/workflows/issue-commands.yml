@@ -1,0 +1,158 @@
+# Commands typed as a comment on an issue whose fix lives on branch ai/issue-<n>:
+#   approved  -> merge the branch into main and deploy main to https://staging.crossword.ai
+#   ship it   -> promote the staging build that contains that merge to production, then close the issue
+# The comment must be just the command (case and a trailing "." or "!" don't matter). Anyone with write access to
+# the repository may use them. If a merge cannot happen (conflicts, a failed preview build), the issue gets the label
+# ai-merge-blocked and the issue watcher fixes the branch and runs this workflow again by hand (workflow_dispatch).
+name: Issue commands
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Issue number
+        required: true
+      command:
+        description: approved or ship it
+        required: true
+        type: choice
+        options: [approved, ship it]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  REPO: ${{ github.repository }}
+  N: ${{ github.event.issue.number || inputs.issue }}
+  ACTOR: ${{ github.event.comment.user.login || github.actor }}
+  BODY: ${{ github.event.comment.body || inputs.command }}
+  FOOTER: "\n\n---\n_Posted by the Issue commands workflow_"
+
+jobs:
+  # Quick check with no queue, so ordinary comments never hold up or replace a waiting command.
+  parse:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (!github.event.issue.pull_request && github.event.comment.user.type == 'User')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      cmd: ${{ steps.cmd.outputs.cmd }}
+    steps:
+      - name: Read the command
+        id: cmd
+        run: |
+          cmd=$(printf '%s' "$BODY" | tr -d '\r' | tr '[:upper:]' '[:lower:]' | sed -E 's/^[[:space:]]+|[[:space:]]+$//g; s/[.!]+$//')
+          case "$cmd" in
+            approved|"ship it") ;;
+            *) echo "Not a command; nothing to do."; echo "cmd=" >> "$GITHUB_OUTPUT"; exit 0 ;;
+          esac
+          [[ "$N" =~ ^[0-9]+$ ]] || { echo "Bad issue number"; exit 1; }
+          perm=$(gh api "repos/$REPO/collaborators/$ACTOR/permission" --jq .permission 2>/dev/null || echo none)
+          case "$perm" in
+            admin|maintain|write) ;;
+            *) gh issue comment "$N" -R "$REPO" --body "$(printf "@%s, only people with write access to this repository can use \`%s\`.$FOOTER" "$ACTOR" "$cmd")"; exit 0 ;;
+          esac
+          echo "cmd=$cmd" >> "$GITHUB_OUTPUT"
+
+  command:
+    needs: parse
+    if: needs.parse.outputs.cmd != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency:
+      group: issue-commands-${{ github.event.issue.number || inputs.issue }}
+      cancel-in-progress: false
+    steps:
+      - name: approved (merge and deploy staging)
+        if: needs.parse.outputs.cmd == 'approved'
+        run: |
+          say() { gh issue comment "$N" -R "$REPO" --body "$(printf "%s$FOOTER" "$1")"; }
+          block() { gh issue edit "$N" -R "$REPO" --add-label ai-merge-blocked >/dev/null; say "$1"; exit 0; }
+          branch="ai/issue-$N"
+          gh api "repos/$REPO/branches/$branch" >/dev/null 2>&1 || { say "There's no branch \`$branch\`, so there's nothing to merge yet."; exit 0; }
+
+          # The fix must have passed its preview build.
+          head=$(gh api "repos/$REPO/branches/$branch" --jq .commit.sha)
+          for i in $(seq 1 40); do
+            read -r status conclusion < <(gh api "repos/$REPO/actions/workflows/preview.yml/runs?head_sha=$head&per_page=1" --jq '.workflow_runs[0] | [.status // "none", .conclusion // "none"] | @tsv')
+            [ "$status" = completed ] || [ "$status" = none ] && break
+            sleep 30
+          done
+          [ "$conclusion" = success ] || block "The preview build for ${head::7} did not pass ($status/$conclusion), so I haven't merged. The watcher will look at it."
+
+          # Merge the branch into main with a merge commit. (The organization doesn't let workflows open pull
+          # requests, so the merge commit is the record: it names the issue and who approved it.)
+          title=$(gh issue view "$N" -R "$REPO" --json title --jq .title)
+          msg=$(printf 'Merge %s: %s (#%s)\n\nApproved on issue #%s by @%s.' "$branch" "$title" "$N" "$N" "$ACTOR")
+          code=$(gh api -X POST "repos/$REPO/merges" -f base=main -f head="$branch" -f commit_message="$msg" \
+            -i 2>/dev/null | head -1 | awk '{print $2}')
+          case "$code" in
+            201) ;;
+            204) say "\`$branch\` is already in main; deploying staging anyway." ;;
+            409) block "\`$branch\` conflicts with main, so I haven't merged. The watcher will fix the branch and try again." ;;
+            *) block "Merging \`$branch\` failed (HTTP $code). The watcher will look at it." ;;
+          esac
+          sha=$(gh api "repos/$REPO/commits/main" --jq .sha)
+          gh issue edit "$N" -R "$REPO" --remove-label ai-merge-blocked >/dev/null 2>&1 || true
+
+          # A merge made with this workflow's token doesn't start other workflows, so start the staging deploy here.
+          since=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          gh workflow run deploy.yml -R "$REPO" --ref main
+          run=""
+          for i in $(seq 1 20); do
+            sleep 6
+            run=$(gh api "repos/$REPO/actions/workflows/deploy.yml/runs?event=workflow_dispatch&created=>=$since&per_page=1" --jq '.workflow_runs[0].id // empty')
+            [ -n "$run" ] && break
+          done
+          [ -n "$run" ] || block "Merged \`$branch\` into main (${sha::7}), but the staging deploy didn't start."
+          gh run watch "$run" -R "$REPO" --exit-status --interval 20 >/dev/null \
+            || block "Merged \`$branch\` into main (${sha::7}), but the staging deploy failed: $GITHUB_SERVER_URL/$REPO/actions/runs/$run"
+          say "Merged \`$branch\` into main (${sha::7}) and deployed it to staging: https://staging.crossword.ai
+
+          Check it there. Reply \`ship it\` to send this build to production."
+
+      - name: ship it (promote to production)
+        if: needs.parse.outputs.cmd == 'ship it'
+        run: |
+          say() { gh issue comment "$N" -R "$REPO" --body "$(printf "%s$FOOTER" "$1")"; }
+          # The merge commit "approved" made (newest first).
+          sha=$(gh api "repos/$REPO/commits?sha=main&per_page=100" \
+            --jq "[.[] | select(.commit.message | startswith(\"Merge ai/issue-$N: \"))][0].sha // empty")
+          [ -n "$sha" ] || { say "This fix hasn't merged yet. Reply \`approved\` first."; exit 0; }
+
+          # The newest successful staging deploy that contains the merge.
+          run=""
+          for i in $(seq 1 40); do
+            read -r cand cand_sha < <(gh api "repos/$REPO/actions/workflows/deploy.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0] | "\(.id) \(.head_sha)"')
+            st=$(gh api "repos/$REPO/compare/$sha...$cand_sha" --jq .status 2>/dev/null || echo none)
+            if [ "$st" = ahead ] || [ "$st" = identical ]; then run=$cand; break; fi
+            sleep 30
+          done
+          [ -n "$run" ] || { say "I couldn't find a staging deploy that includes ${sha::7}, so nothing went to production."; exit 1; }
+
+          since=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          gh workflow run promote.yml -R "$REPO" --ref main -f run_id="$run"
+          prun=""
+          for i in $(seq 1 20); do
+            sleep 6
+            prun=$(gh api "repos/$REPO/actions/workflows/promote.yml/runs?created=>=$since&per_page=1" --jq '.workflow_runs[0].id // empty')
+            [ -n "$prun" ] && break
+          done
+          [ -n "$prun" ] || { say "The production deploy didn't start."; exit 1; }
+          gh run watch "$prun" -R "$REPO" --exit-status --interval 20 >/dev/null \
+            || { say "The production deploy failed: $GITHUB_SERVER_URL/$REPO/actions/runs/$prun"; exit 1; }
+          if [ -z "${{ vars.PRODUCTION_ROUTES }}" ]; then
+            where="Production isn't attached to crossword.ai yet, so the live site hasn't changed."
+          else
+            where="It's live on crossword.ai."
+          fi
+          say "Shipped to production: the build from staging deploy $run, which includes ${sha::7}. $where
+
+          To undo: Actions → Roll back production → Run workflow."
+          gh issue close "$N" -R "$REPO" --reason completed

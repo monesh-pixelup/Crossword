@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "crossword-website",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "observability": { "enabled": true },
+  // Previews get their own *-crossword-website.comet.workers.dev URL; the production workers.dev URL stays off.
+  "workers_dev": false,
+  "preview_urls": true,
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "crossword-website" }],
+  "r2_buckets": [{ "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "crossword-website-opennext-cache" }],
+  "d1_databases": [{ "binding": "NEXT_TAG_CACHE_D1", "database_name": "crossword-website-tag-cache", "database_id": "df17d660-0526-4ed8-841f-cb5b53bba07b" }],
+  "images": { "binding": "IMAGES" }
+}

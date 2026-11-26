@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // OpenNext build output and local wrangler state.
+    ".open-next/**",
+    ".wrangler/**",
   ]),
   {
     // Dropping fields by destructuring (`const { body: _body, ...post } = raw`) is how we omit them, so the named
