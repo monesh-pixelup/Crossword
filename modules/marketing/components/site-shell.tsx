@@ -22,8 +22,8 @@ import { SiteHeader } from "./site-header";
  * they ride up with the sections without drawing over the hero; with no hero they start 72.5px up, as before.
  */
 /**
- * `latestPost` is the newest blog post (its page and title), for the header's Platform menu card and READ MORE (the
- * layouts look it up with getLatestPost, so this file stays clear of the server-only blog data: the marketing barrel
+ * `latestPost` is the blog post for the header's Platform menu (the starred one, else the newest: its page and title),
+ * for the menu's card, title line and READ MORE (the layouts look it up with getMenuPost, so this file stays clear of the server-only blog data: the marketing barrel
  * reaches client code).
  */
 export function SiteShell({ children, latestPost = null }: { children: ReactNode; latestPost?: { href: string; title: string } | null }) {

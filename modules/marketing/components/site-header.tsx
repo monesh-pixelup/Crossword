@@ -275,10 +275,10 @@ function PlatformItem({
  * - The AI channels, 276px and 48px in either side: AI Assistants and Personal Agents (Crimson 18)
  *   32px either side of a 0.681px rule, each with its chips 8px
  *   down.
- * - The 304 × 111 Insight card, 10px over a READ MORE link.
+ * - The 304 × 111 Insight card, then the post's title and a READ MORE link, 10px apart.
  * Below 1440px the gaps and columns close up.
  */
-/** The newest blog post (from SiteShell, newest in content/blog): the Platform menu's card shows its title and, with READ MORE, opens it. */
+/** The starred blog post, else the newest (from SiteShell): the Platform menu's card shows its title, as does the line under it, and with READ MORE they open it. */
 const LatestPost = createContext<{ href: string; title: string } | null>(null);
 
 /** The card title's size for longer titles, so it always fits the gold box (design px on the 304px card). */
@@ -290,7 +290,7 @@ function cardTitleSize(title: string) {
 
 /**
  * Figma 3570:24543, the Platform menu's insight card (304 × 111): the forest card art with its mark, INSIGHT tag and
- * gold box (exported without its title), and the newest post's title set in the box as Figma sets it: a Parisienne
+ * gold box (exported without its title), and the post's title set in the box as Figma sets it: a Parisienne
  * capital, then Crimson ExtraLight at 0.9, white, 14.3px in, centred in the box below the tag. Laid out at the card's
  * 304px and zoomed to its width. Longer titles step down a size so they always fit. With no post, Figma's own card.
  */
@@ -386,6 +386,19 @@ function PlatformPanel({ light, fullBleed, open, onChoose }: { light: boolean; f
           >
             <FeatureCard post={latestPost} alt={platformMenu.feature.alt} />
           </Link>
+          {latestPost && (
+            <Link
+              href={latestPostHref}
+              onClick={onChoose}
+              tabIndex={-1}
+              className={cn(
+                "font-serif text-[18px] leading-[1.2] tracking-[-0.36px] transition-opacity duration-150 hover:opacity-70",
+                light ? "text-cream" : "text-ink",
+              )}
+            >
+              {latestPost.title}
+            </Link>
+          )}
           <Link
             href={latestPostHref}
             onClick={onChoose}
@@ -592,8 +605,9 @@ function Contents({
  *   behind them over 300ms. On HERO_ONLY_ROUTES that lasts while the hero is under the header;
  *   past it the header is the cream bar (still with no spacer).
  *
- * Both bars carry the Platform menu (full width) and the Resources list. The Platform menu's card shows the newest
- * blog post's title and, like its READ MORE, opens that post (`latestPost`; the journal when there's none).
+ * Both bars carry the Platform menu (full width) and the Resources list. The Platform menu's card shows the starred
+ * blog post (else the newest) with its title, and its title line under the card; all three open that post
+ * (`latestPost`; the journal when there's none).
  */
 export function SiteHeader({ latestPost = null }: { latestPost?: { href: string; title: string } | null }) {
   return (

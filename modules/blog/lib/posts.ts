@@ -165,11 +165,14 @@ export async function getPost(slug: string): Promise<BlogPost | null> {
   };
 }
 
-/** The newest post, for the header's Platform menu: its page and title. */
-export type LatestPost = { href: string; title: string };
+/** The post the header's Platform menu shows: its page and title. */
+export type MenuPost = { href: string; title: string };
 
-/** The newest post's page and title, for the header's Platform menu card and READ MORE. With no posts, null. */
-export async function getLatestPost(): Promise<LatestPost | null> {
-  const [latest] = summaries;
-  return latest ? { href: `/blog/${latest.slug}`, title: latest.title } : null;
+/**
+ * The post for the header's Platform menu card, its title line and READ MORE: the starred post (Starred in Notion, as
+ * on the home page's Blog section), else the newest. With no posts, null.
+ */
+export async function getMenuPost(): Promise<MenuPost | null> {
+  const post = summaries.find((p) => p.featured) ?? summaries[0];
+  return post ? { href: `/blog/${post.slug}`, title: post.title } : null;
 }
