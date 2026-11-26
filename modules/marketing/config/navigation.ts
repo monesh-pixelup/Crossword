@@ -90,6 +90,7 @@ export const footerCompanyLinks: FooterLink[] = [
   { label: "Blog", href: "/blog" },
   // The docs are a separate Worker on crossword.ai/docs, so the link is absolute (it also works from staging and previews).
   { label: "Docs", href: "https://crossword.ai/docs" },
+  { label: "Dashboard", href: "https://app.crossword.ai" },
   { label: "Book a Demo", href: ctaLinks.bookDemo },
   { label: "Privacy", href: "/privacy" },
 ];
