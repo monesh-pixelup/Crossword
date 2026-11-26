@@ -137,9 +137,10 @@ must reply `ship it` on the issue. If the card has no preview yet, run step 3 fi
 
 If main has the post (a file with this page id) and it isn't marked `archived`: run step 3 for it (the script marks
 the file archived), with the issue titled `Blog removal: <Title>` and the comment saying the post will leave the
-journal, the home page and the sitemap, and its address will return "not found". Removal needs `approved` on the
-issue from someone with write access (then Blog ship takes only the removal to production); say so in the Notion
-comment too.
+journal, the home page and the sitemap, and its address will return "not found". Moving the card to Archived is the
+approval (Anant, 2026-11-26): once its Preview passed, comment "Archived in Notion" on the issue and run `approved` as
+in step 4. Blog ship then takes only the removal to production. Say in the Notion comment that the post leaves the
+site within about 15 minutes.
 
 ### 6. Live and shipped
 
