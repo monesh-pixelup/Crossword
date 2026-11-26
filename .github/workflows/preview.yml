@@ -1,10 +1,12 @@
-# Builds an issue branch (ai/issue-<n>) and deploys it as its own Worker at https://issue-<n>.preview.crossword.ai.
-# The issue watcher waits for this run, then posts the link and screenshots on the issue.
+# Builds an issue's branch and deploys it as its own Worker at https://issue-<n>.preview.crossword.ai, on every push.
+# Branches: ai/issue-<n> (the AI's), or a person's issue-<n>, issue-<n>-<words> or <name>/issue-<n>...
+# The comment "preview" on the issue runs this by hand (Issue commands).
+# For the AI's branch the issue watcher posts the link with screenshots; for anything else this workflow posts it.
 name: Preview
 
 on:
   push:
-    branches: ["ai/issue-*"]
+    branches: ["ai/issue-*", "issue-*", "*/issue-*"]
   workflow_dispatch:
 
 concurrency:
@@ -15,15 +17,40 @@ permissions:
   contents: read
 
 jobs:
-  preview:
+  # Finds the issue number in the branch name. Branches without one, or whose issue is closed, get no preview.
+  target:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 5
+    permissions:
+      issues: read
+    outputs:
+      n: ${{ steps.target.outputs.n }}
     steps:
       - name: Work out the issue number
         id: target
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          n="${GITHUB_REF_NAME#ai/issue-}"
-          if ! [[ "$n" =~ ^[0-9]+$ ]]; then echo "Branch $GITHUB_REF_NAME is not ai/issue-<number>"; exit 1; fi
+          re='(^|/)issue-([0-9]+)([-_/]|$)'
+          if ! [[ "$GITHUB_REF_NAME" =~ $re ]]; then echo "Branch $GITHUB_REF_NAME names no issue; no preview."; exit 0; fi
+          n=${BASH_REMATCH[2]}
+          state=$(gh api "repos/$GITHUB_REPOSITORY/issues/$n" --jq 'if .pull_request then "pr" else .state end' 2>/dev/null || echo missing)
+          if [ "$state" != open ]; then echo "#$n is $state, not an open issue; no preview."; exit 0; fi
+          echo "n=$n" >> "$GITHUB_OUTPUT"
+
+  preview:
+    needs: target
+    if: needs.target.outputs.n != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Set the address
+        id: target
+        run: |
+          n=${{ needs.target.outputs.n }}
           echo "n=$n" >> "$GITHUB_OUTPUT"
           echo "url=https://issue-$n.preview.crossword.ai" >> "$GITHUB_OUTPUT"
 
@@ -68,3 +95,24 @@ jobs:
           URL: ${{ steps.target.outputs.url }}
         run: |
           echo "Preview for issue #$N: $URL" >> "$GITHUB_STEP_SUMMARY"
+
+      # The AI's pushes are announced by the watcher, with screenshots. Everything else is announced here.
+      - name: Post the link on the issue
+        if: (success() || failure()) && (github.event_name == 'workflow_dispatch' || !startsWith(github.ref_name, 'ai/'))
+        env:
+          GH_TOKEN: ${{ github.token }}
+          N: ${{ steps.target.outputs.n }}
+          URL: ${{ steps.target.outputs.url }}
+          OK: ${{ job.status == 'success' }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          sha=${GITHUB_SHA::7}
+          if [ "$OK" = true ]; then
+            body="Preview of \`$GITHUB_REF_NAME\` (commit $sha) is up: **$URL**
+
+          **Next step:** check it, then comment \`approved\` to put it on staging, or \`ship it\` to send it straight to production (that works only when nothing else is waiting on staging)."
+          else
+            body="The preview build of \`$GITHUB_REF_NAME\` (commit $sha) failed, so $URL still shows the last good build. Log: $RUN"
+          fi
+          gh issue comment "$N" -R "$GITHUB_REPOSITORY" --body "$(printf '%s\n\n---\n_Posted by the Preview workflow_' "$body")" >/dev/null
+          gh issue edit "$N" -R "$GITHUB_REPOSITORY" --add-label needs-you >/dev/null 2>&1 || true
