@@ -86,5 +86,6 @@ export async function POST(request: Request) {
   // Workers Logs keep this line too, so a signup is never lost even if both steps fail.
   console.log("waitlist signup", JSON.stringify({ at, host, name, email, storeUrl, saved, sent }));
   if (!saved && !sent) return Response.json({ error: "Could not record the signup" }, { status: 502 });
-  return Response.json({ ok: true });
+  // saved/sent say which step worked, so a test signup shows whether email is set up.
+  return Response.json({ ok: true, saved, sent });
 }
