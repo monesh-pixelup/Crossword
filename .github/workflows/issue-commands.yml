@@ -42,6 +42,7 @@ env:
   REPO: ${{ github.repository }}
   N: ${{ github.event.issue.number || inputs.issue }}
   ACTOR: ${{ github.event.comment.user.login || github.actor }}
+  EVENT: ${{ github.event_name }}
   BODY: ${{ github.event.comment.body || inputs.command }}
   FOOTER: "\n\n---\n_Posted by the Issue commands workflow_"
 
@@ -65,7 +66,11 @@ jobs:
             *) echo "Not a command; nothing to do."; echo "cmd=" >> "$GITHUB_OUTPUT"; exit 0 ;;
           esac
           [[ "$N" =~ ^[0-9]+$ ]] || { echo "Bad issue number"; exit 1; }
-          perm=$(gh api "repos/$REPO/collaborators/$ACTOR/permission" --jq .permission 2>/dev/null || echo none)
+          # Only people with write access can start a run by hand, and Blog publishing starts its runs as
+          # github-actions[bot], which has no collaborator permission; so a dispatched run needs no check.
+          if [ "$EVENT" = workflow_dispatch ]; then perm=write; else
+            perm=$(gh api "repos/$REPO/collaborators/$ACTOR/permission" --jq .permission 2>/dev/null || echo none)
+          fi
           case "$perm" in
             admin|maintain|write) ;;
             *) gh issue comment "$N" -R "$REPO" --body "$(printf "@%s, only people with write access to this repository can use \`%s\`.$FOOTER" "$ACTOR" "$cmd")"; exit 0 ;;
