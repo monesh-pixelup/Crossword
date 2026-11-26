@@ -95,7 +95,7 @@ export function Trust() {
             <div className="flex w-full max-w-[537.055px] min-w-0 flex-col items-start gap-4 lg:flex-[0_1_537px]">
               {/* Figma 3073:22066: one paragraph. */}
               <p className="font-sans text-[14px] leading-5 font-normal tracking-[-0.28px] text-white/50">
-                With a built-in watchtower every response is checked and Crossword improved continuously, so your agent
+                With a built-in watchtower every response is checked and Crossword is improved continuously, so your agent
                 gets better every day. It&rsquo;s designed to stay within your guardrails, resist prompt injection, know
                 its limitations, and catch gaps before they become problems. Crossword is built by the team behind
                 CometChat, a leading provider of user-to-user messaging. For more than a decade, we&rsquo;ve been

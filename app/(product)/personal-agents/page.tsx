@@ -3,7 +3,6 @@ import {
   AiAssistantsHero,
   AssistantCampaigns,
   AssistantsCta,
-  AssistantsFaq,
   Differentiation,
   Insights,
   LoggedInExperience,
@@ -11,7 +10,6 @@ import {
   ShopperAsks,
 } from "@/modules/ai-assistants";
 import { agentDifferentiationRows } from "@/modules/personal-agents/config/differentiation";
-import { agentFaqs } from "@/modules/personal-agents/config/faq";
 import { agentQuotes } from "@/modules/personal-agents/config/logged-in";
 import { agentQuestions } from "@/modules/personal-agents/config/possibilities";
 import { agentPromotionSteps } from "@/modules/personal-agents/config/promotions";
@@ -115,11 +113,12 @@ export default function PersonalAgentsPage() {
         mobileScene="pa-insights-mweb-motion"
         replayAfter={3000}
       />
-      {/* Figma "Divider band": the 75px chat band (56px below 768px). */}
-      <div className="relative h-[75px] max-md:h-[56px]">
-        <BandDivider glyph="chat" />
-      </div>
-      <AssistantsFaq id="agent-faq-title" items={agentFaqs} swashTracking={-0.05} />
+      {/*
+        The FAQs (and the chat band above them) are hidden for now: their answers are drafts (issue #10). To bring them
+        back, import AssistantsFaq and agentFaqs (@/modules/personal-agents/config/faq) and render, here:
+          <div className="relative h-[75px] max-md:h-[56px]"><BandDivider glyph="chat" /></div>
+          <AssistantsFaq id="agent-faq-title" items={agentFaqs} swashTracking={-0.05} />
+      */}
       <AssistantsCta
         id="agent-cta-title"
         initial="T"
