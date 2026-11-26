@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Testimonials } from "@/modules/landing";
 import { BandDivider } from "@/modules/pricing/components/shared/band-divider";
 import {
   ConversionAssist,
@@ -49,7 +48,7 @@ export default function SellPage() {
         <BandDivider glyph="book" />
       </div>
       <StorefrontPresence />
-      <Testimonials variant="sell" />
+      {/* Testimonials hidden for now (issue #4). To bring them back, render <Testimonials variant="sell" /> here. */}
       <SellCta />
     </main>
   );

@@ -1,7 +1,6 @@
 import { StampButton } from "@/components/ui/stamp-button";
 import { ctaLinks } from "@/modules/marketing";
 import { HeroParallax } from "./parallax/hero-parallax";
-import { TrustedBy } from "./trusted-by";
 
 /**
  * Laid out as the product-page heroes (SellHero): the swash title on the left (script "Y" at 100px,
@@ -47,7 +46,7 @@ function HeroCopy() {
 
 /**
  * The concierge scene on full-bleed black (the header floats over it), at most 1440px wide and centred, with the
- * copy over it; the trusted-by logos follow on the page ground.
+ * copy over it. (The trusted-by logos that followed it are hidden for now, issue #4.)
  */
 export function Hero() {
   return (
@@ -76,9 +75,8 @@ export function Hero() {
         </div>
       </section>
 
-      <div className="py-[88px]">
-        <TrustedBy />
-      </div>
+      {/* The trusted-by logos are hidden for now (issue #4). To bring them back, render this here (from ./trusted-by):
+          <div className="py-[88px]"><TrustedBy /></div> */}
     </>
   );
 }

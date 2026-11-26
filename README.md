@@ -182,9 +182,13 @@ GitHub Actions does every deploy (`.github/workflows/`), with the repository sec
 | Comment `ship it` on the issue | Issue commands, then Promote to production | `crossword-website-production` | routes in the `PRODUCTION_ROUTES` variable |
 | By hand | Roll back production | `crossword-website-production` | |
 
-`approved` merges `ai/issue-<n>` into `main` and deploys staging; `ship it` sends the staging build that contains that
-merge to production, without rebuilding, and closes the issue. The comment must be just the command, and only people
-with write access can use them. A push to `main` also deploys staging. While `PRODUCTION_ROUTES` is empty the production
+`approved` merges `ai/issue-<n>` into `main` and deploys staging. `ship it` sends the staging build that contains that
+merge to production, without rebuilding. Production gets everything on staging at once, so if staging also holds other
+issues that aren't live yet, `ship it` lists them all and waits for a second `ship it` on the same issue within 30
+minutes. Once the build is live it closes every issue it shipped. It finds those issues from the commits between the
+`production` tag (moved by Promote to production) and the staging build: each commit whose first line ends in `(#N)`.
+The comment must be just the command, and only people with write access can use them. A push to `main` also deploys
+staging. While `PRODUCTION_ROUTES` is empty the production
 Worker has no address.
 
 The Worker must stay under Cloudflare's size limit (3 MiB compressed on the free plan, 10 MiB on paid). That is why the

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { JournalIndex } from "@/modules/blog/components/journal-index";
 import { getPosts } from "@/modules/blog/lib/posts";
-import { Testimonials } from "@/modules/landing";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -9,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Page · Blog (Figma 1660:312), without its hero: the journal's posts (its heading for screen readers only), then the testimonials.
+ * Page · Blog (Figma 1660:312), without its hero: the journal's posts (its heading for screen readers only), then the testimonials (hidden for now, issue #4).
  * The posts come from content/blog (see modules/blog/lib/posts.ts).
  */
 export default async function BlogPage() {
@@ -20,7 +19,7 @@ export default async function BlogPage() {
     <main data-no-curtain>
       <h1 className="sr-only">Blog</h1>
       <JournalIndex posts={posts} />
-      <Testimonials variant="blog" />
+      {/* Testimonials hidden for now (issue #4). To bring them back, render <Testimonials variant="blog" /> here. */}
     </main>
   );
 }
