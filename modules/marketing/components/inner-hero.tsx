@@ -37,37 +37,7 @@ type InnerHeroProps = {
 export function InnerHero({ id, initial, lines, copy, cta = "BOOK A DEMO", initialTracking = 0.05 }: InnerHeroProps) {
   return (
     <section aria-labelledby={id} className="relative isolate overflow-clip bg-cream">
-      {/* The cream runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
-      <div aria-hidden className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-cream" />
-
-      {/*
-        The ornaments, laid out on Figma's 1440 × 571 and zoomed to the hero's width, from its foot. No z-index or other
-        stacking context between them and the cream above: their luminosity and soft-light blends must reach the cream
-        (on a layer of their own, the maroon flourish shows as it is, a red pattern).
-      */}
-      <div aria-hidden className="@container pointer-events-none absolute inset-0">
-        <div className="absolute bottom-0 left-0 h-[571px] w-[1440px] scale-to-container [--fit-width:1440px]">
-          {/* The roses: 1393 × 409, centred, their top 251.4px down, turned 180° (the crop is Figma's image fill). */}
-          <div className="absolute top-[251.42px] left-[calc(50%+0.16px)] h-[408.997px] w-[1393.047px] -translate-x-1/2 rotate-180 opacity-30 mix-blend-luminosity">
-            <div className="absolute inset-0 overflow-hidden">
-              <Image
-                src={roses}
-                alt=""
-                sizes="1683px"
-                className="absolute top-[-11.55%] left-[-10.38%] h-[249.31%] w-[120.77%] max-w-none"
-              />
-            </div>
-          </div>
-          {/* The flourish (its own 30% and blur), soft-light, 47.6px in and 395px down. */}
-          <div className="absolute top-[395.23px] left-[47.59px] h-[331.006px] w-[1347.531px] mix-blend-soft-light">
-            <Image src={flourish} alt="" unoptimized className="absolute top-[-1.51%] left-[-0.37%] h-[103.02%] w-[100.74%] max-w-none" />
-          </div>
-        </div>
-      </div>
-
-      <Rails />
-      <RailAccent className="absolute top-[111px] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.938px] w-px max-lg:hidden" />
-      <RailAccent className="absolute top-[111px] right-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.938px] w-px max-lg:hidden" />
+      <InnerHeroBackdrop />
 
       {/*
         Below 768px the copy is centred in the hero's height, which stays as it was: the hero's padding (--hero-pad, its
@@ -110,5 +80,48 @@ export function InnerHero({ id, initial, lines, copy, cta = "BOOK A DEMO", initi
         </StampButton>
       </div>
     </section>
+  );
+}
+
+/**
+ * The inner pages' hero ground, shared with the About us hero: the full-bleed cream, the embossed roses and the
+ * soft-light flourish laid out on Figma's 1440 × 571 from the hero's foot, the page rails, and a 209px gold tick on each
+ * rail 111px down. Render it first inside a `relative isolate overflow-clip bg-cream` section.
+ */
+export function InnerHeroBackdrop() {
+  return (
+    <>
+      {/* The cream runs the full viewport width, out past the site's 1440px cap (SiteShell clips the overrun). */}
+      <div aria-hidden className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 bg-cream" />
+
+      {/*
+        The ornaments, laid out on Figma's 1440 × 571 and zoomed to the hero's width, from its foot. No z-index or other
+        stacking context between them and the cream above: their luminosity and soft-light blends must reach the cream
+        (on a layer of their own, the maroon flourish shows as it is, a red pattern).
+      */}
+      <div aria-hidden className="@container pointer-events-none absolute inset-0">
+        <div className="absolute bottom-0 left-0 h-[571px] w-[1440px] scale-to-container [--fit-width:1440px]">
+          {/* The roses: 1393 × 409, centred, their top 251.4px down, turned 180° (the crop is Figma's image fill). */}
+          <div className="absolute top-[251.42px] left-[calc(50%+0.16px)] h-[408.997px] w-[1393.047px] -translate-x-1/2 rotate-180 opacity-30 mix-blend-luminosity">
+            <div className="absolute inset-0 overflow-hidden">
+              <Image
+                src={roses}
+                alt=""
+                sizes="1683px"
+                className="absolute top-[-11.55%] left-[-10.38%] h-[249.31%] w-[120.77%] max-w-none"
+              />
+            </div>
+          </div>
+          {/* The flourish (its own 30% and blur), soft-light, 47.6px in and 395px down. */}
+          <div className="absolute top-[395.23px] left-[47.59px] h-[331.006px] w-[1347.531px] mix-blend-soft-light">
+            <Image src={flourish} alt="" unoptimized className="absolute top-[-1.51%] left-[-0.37%] h-[103.02%] w-[100.74%] max-w-none" />
+          </div>
+        </div>
+      </div>
+
+      <Rails />
+      <RailAccent className="absolute top-[111px] left-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.938px] w-px max-lg:hidden" />
+      <RailAccent className="absolute top-[111px] right-[calc(var(--frame-inset)-0.5px)] z-2 h-[208.938px] w-px max-lg:hidden" />
+    </>
   );
 }

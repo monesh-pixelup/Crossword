@@ -194,6 +194,14 @@ const variants = {
     line: "leading-[1.1] tracking-[-3px]",
     second: "",
   },
+  /** One 60px line at 58px under an 84px swash at 0.9 (75.6px), the line box 76px tall as Figma sets it (About us: People, 4464:37673). */
+  people: {
+    firstLineHeight: 76,
+    tracking: "",
+    swash: "font-script text-[84px] leading-[0.9]",
+    line: "leading-[0.9667] tracking-[-3px]",
+    second: "",
+  },
 } as const;
 
 const tones = { ink: "text-ink", light: "text-white/85", cream: "text-cream" } as const;

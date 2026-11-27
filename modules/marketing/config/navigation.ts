@@ -68,6 +68,7 @@ export const primaryNav: NavItem[] = [
   { label: "Managed Launch", href: "/managed-launch" },
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
+  { label: "About us", href: "/about-us" },
 ];
 
 export const ctaLinks = {
