@@ -4,7 +4,9 @@
 // versions of Upsell 17b–20b, Conversion assist 28b–33b and Human mode 34b; the 11 November 2026 update with the window
 // standard, 34m and 21m–23m; the 15 November 2026 update with 09–16 on the 788 × 579 damask canvas and 21–23 on the
 // polished storefront; the 18 November 2026 handoff of 02 Try it on and 06 Visual discovery, with the matched try-on
-// photo and the three new lamps) with Vite, unminified, React external. The few site changes are marked "Site".
+// photo and the three new lamps) with Vite, unminified, React external. From the 27 November 2026 update (the mobile-web
+// layouts) only the phone demos' SheetMweb context is taken, which the mobile versions need and the desktop visuals
+// ignore; the rest of that build is the same code as this one. The few site changes are marked "Site".
 // See ./index.tsx for the mechanical changes.
 
 import { createContext, useContext, useState, useEffect, useRef, useMemo, useLayoutEffect, Fragment as Fragment$1, useCallback, createElement } from "react";
@@ -4524,8 +4526,17 @@ function prefersReducedMotion() {
 const IDLE_MS = 700;
 const NUDGE_HOLD_MS = 2800;
 const PRESS_MS = 180;
-function SheetWindow$1({ brand: brand2, storefront, beats, children, Frame = SceneFrame, nudge, camera: camera2 = false, cameraRelease }) {
+// From the 27 November 2026 source (the mobile-web phone demos, 17m–20m and 28m–33m): when provided, a phone demo
+// swaps its desktop frame for this one and sizes the phone's slot to `slotH`. Null (the default) leaves the desktop
+// visual unchanged.
+/** @type {import("react").Context<{ Frame: import("react").ComponentType<{ children: import("react").ReactNode }>; slotH: number } | null>} */
+const SheetMweb = createContext(null);
+function SheetWindow$1({ brand: brand2, storefront, beats, children, Frame: FrameProp = SceneFrame, nudge, camera: camera2 = false, cameraRelease }) {
   var _a;
+  const mweb = useContext(SheetMweb);
+  const Frame = (mweb == null ? void 0 : mweb.Frame) ?? FrameProp;
+  const slotH = (mweb == null ? void 0 : mweb.slotH) ?? SLOT_H;
+  const slotW = mweb ? PHONE_W * slotH / PHONE_H : SLOT_W;
   const rootRef = useRef(null);
   const transcriptRef = useRef(null);
   const landed = useLandedOnScreen(rootRef);
@@ -4562,7 +4573,7 @@ function SheetWindow$1({ brand: brand2, storefront, beats, children, Frame = Sce
   useSmoothFollow(camera2 ? transcriptRef : inertRef, t);
   const cam = useChatCamera(t, camera2, stage, !!nudge, approach, cameraRelease);
   const name = storeName(brand2);
-  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx("div", { ref: cam.ref, className: cam.className, style: cam.style, onTransitionEnd: cam.onTransitionEnd, children: /* @__PURE__ */ jsx(ScaleToFit, { contentWidth: PHONE_W, contentHeight: PHONE_H, maxWidth: SLOT_W, maxHeight: SLOT_H, children: /* @__PURE__ */ jsxs("div", { className: `gjm-screen gjmm gjmm--${stage} hm2--${stage}`, children: [
+  return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx("div", { ref: cam.ref, className: cam.className, style: cam.style, onTransitionEnd: cam.onTransitionEnd, children: /* @__PURE__ */ jsx(ScaleToFit, { contentWidth: PHONE_W, contentHeight: PHONE_H, maxWidth: slotW, maxHeight: slotH, children: /* @__PURE__ */ jsxs("div", { className: `gjm-screen gjmm gjmm--${stage} hm2--${stage}`, children: [
     storefront,
     nudge && /* @__PURE__ */ jsxs("div", { className: "gjm-launcher gjmm-launcher", children: [
       /* @__PURE__ */ jsxs("div", { className: "hm2-nudge", role: "status", children: [
@@ -6544,6 +6555,16 @@ export {
   ComparisonGuidanceMwebMotion,
   CompleteChannelDeploymentMotion,
   ConversationalDiscoveryMotion,
+  // 09–16 without their `data-slug` wrapper (whose desktop canvas and window sizes the source keys on it), for the
+  // mobile-web layouts in ./index.tsx.
+  ConversationalDiscoveryV2Motion,
+  GiftFinderV2Motion,
+  GuidedFinderV2Motion,
+  OutfitBuildingV2Motion,
+  ProductQAV2Motion,
+  SizeFitV2Motion,
+  TryItOnV2Motion,
+  VisualDiscoveryV2Motion,
   CrossSellV2CameraMotion as CrossSellMotion,
   DecisionSupportV2CameraMotion as DecisionSupportMotion,
   GiftFinderMotion,
@@ -6561,6 +6582,7 @@ export {
   ReturnVisitComparisonPolishedMotion as ReturnVisitComparisonMotion,
   ReturnVisitComparisonMwebMotion,
   SellColorContext,
+  SheetMweb,
   SizeFitMotion,
   StockAvailabilityV2CameraMotion as StockAvailabilityMotion,
   TryItOnMotion,

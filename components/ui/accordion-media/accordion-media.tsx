@@ -18,6 +18,11 @@ type AccordionMediaProps = {
   renderPanel: (active: number, play: number) => ReactNode;
   /** The panel's background while its media loads. */
   panelClassName?: string;
+  /**
+   * With `stackedAccordion`, extra classes for the panel under each item only (Sell: Conversion assistance gives it the
+   * 352 × 440 phone shape below 768px, for its mobile-web visuals).
+   */
+  stackedPanelClassName?: string;
   /** Art drawn behind the media that stays put as the items change (not keyed, so it never fades). */
   panelBackground?: ReactNode;
   /**
@@ -64,6 +69,7 @@ export function AccordionMedia({
   label,
   renderPanel,
   panelClassName,
+  stackedPanelClassName,
   panelBackground,
   spacedRules = false,
   lastRule = spacedRules,
@@ -196,7 +202,7 @@ export function AccordionMedia({
                   style={{ transitionDuration: `${ACCORDION_MS}ms` }}
                 >
                   <div className="min-h-0 overflow-hidden">
-                    <div className={cn("relative mt-6 aspect-[687/586] w-full overflow-hidden", panelClassName, "lg:mr-0")}>
+                    <div className={cn("relative mt-6 aspect-[687/586] w-full overflow-hidden", panelClassName, "lg:mr-0", stackedPanelClassName)}>
                       {wide !== true && (on || i === closing) && (
                         <>
                           {panelBackground}

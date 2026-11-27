@@ -1,5 +1,3 @@
-import frameBackground from "../../assets/control/scene-frame-background-forest.svg";
-import frameTexture from "../../assets/control/background-texture-forest.webp";
 import { RailAccent } from "@/components/ui/rail-accent";
 import { SectionTitle } from "@/components/ui/section-title";
 import { SupportScenePanel } from "../motion/support-scene-panel";
@@ -12,9 +10,9 @@ import { SupportScenePanel } from "../motion/support-scene-panel";
  * (`merchant-insight-dashboard`: the Details summary writes itself in, the team member asks the AI, it answers in a
  * private note and drafts the reply), which draws the forest panel itself.
  *
- * Below 768px it is as it was: the copy under the headline, then Support V3 10 (`merchant-insight-inbox`, the helpdesk
- * inbox with its camera) in the home page Lifecycle cards' frame in forest green, 738 × 680 with a gold ring in each
- * corner and the damask texture inside its notched gold rule, the visual centred on it (its own green card hidden).
+ * Below 768px: the copy under the headline, then 10m (`merchant-insight-mweb`, 353 × 440, the 27 November 2026 update):
+ * the same story with the inbox folded into one chat window, the Summary landing in the conversation, on the forest
+ * green mobile frame the human-in-the-loop visuals (07m–09m) use.
  * A 209px gold tick sits on the left rail beside the headline.
  */
 export function TakeControl() {
@@ -45,24 +43,12 @@ export function TakeControl() {
         </div>
 
         {/*
-          Below 768px: the home page Lifecycle frame in forest green (738 × 680, drawn at the column's width): the ground
-          (#003c1f) with its four gold rings, and the damask texture with its notched gold rule 13.16px / 15.98px in. Over
-          it the "You keep control" inbox (687 × 586, never past its drawn size), centred, without its own green card
-          (`.sup-plain`).
+          Below 768px: 10m, "You keep control" for phones (353 × 440): the inbox folded into one chat window (no rail,
+          conversation list or Details; the Summary lands in the conversation as the AI's card), on its forest green
+          mobile frame, as the human-in-the-loop visuals above. Drawn at the column's width, scaled with a transform.
         */}
-        <div className="relative aspect-[738/680] w-full overflow-clip md:hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element -- fixed frame art, scaled with the panel */}
-          <img src={frameBackground.src} alt="" aria-hidden className="absolute inset-0 size-full" />
-          {/* eslint-disable-next-line @next/next/no-img-element -- fixed frame art, scaled with the panel */}
-          <img
-            src={frameTexture.src}
-            alt=""
-            aria-hidden
-            className="absolute top-[calc(100%*15.98/680)] left-[calc(100%*13.16/738)] h-[calc(100%*648.036/680)] w-[calc(100%*711.68/738)]"
-          />
-          <div className="sup-plain absolute inset-0">
-            <SupportScenePanel slug="merchant-insight-inbox" replayAfter={3000} />
-          </div>
+        <div className="relative aspect-[353/440] w-full overflow-clip bg-forest md:hidden">
+          <SupportScenePanel slug="merchant-insight-mweb" fill transform replayAfter={3000} />
         </div>
       </div>
     </section>

@@ -1,10 +1,11 @@
 "use client";
 
 // Built from the "Crossword — AI Assistants V3 motion" source (Crossword-AI-Assistants-V3-Motion/source, the 15 November 2026 update) with Vite,
-// unminified, React external. See ./aia-motion.tsx for the mechanical changes.
+// unminified, React external. See ./aia-motion.tsx for the mechanical changes. From the 27 November 2026 update (the
+// mobile-web layouts) only the phone demos' SheetMweb context is taken; the rest of that build is the same code.
 
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import { useState, useEffect, useRef, useMemo, Fragment as Fragment$1 } from "react";
+import { useState, useEffect, useRef, useMemo, Fragment as Fragment$1, createContext, useContext } from "react";
 const amberChairImage = "/images/shared/amber-oak-lounge-chair-Dc-4UdBJ.webp";
 const amberOpalLampImage = "/images/shared/amber-oak-opal-glass-lamp-CSWTBSbc.webp";
 const amberPleatedLampImage = "/images/shared/amber-oak-pleated-linen-lamp-DU9AZH7n.webp";
@@ -2717,8 +2718,16 @@ function BrowserSheet({ url, className, children }) {
 const PHONE_W = 390;
 const PHONE_H = 844;
 const SLOT = Math.round(586 * SLOT_H / 680);
+// From the 27 November 2026 source (the mobile-web phone demos, 07m–10m): when provided, a phone demo swaps its
+// desktop frame for this one and sizes the phone's slot to `slotH`. Null (the default) leaves the desktop visual
+// unchanged.
+/** @type {import("react").Context<{ Frame: import("react").ComponentType<{ children: import("react").ReactNode }>; slotH: number } | null>} */
+const SheetMweb = createContext(null);
 function Framed({ children }) {
-  return /* @__PURE__ */ jsx(ConversionAssistanceFrame, { children: /* @__PURE__ */ jsx(ScaleToFit, { contentWidth: PHONE_W, contentHeight: PHONE_H, maxWidth: PHONE_W * SLOT / PHONE_H, maxHeight: SLOT, children }) });
+  const mweb = useContext(SheetMweb);
+  const Frame = (mweb == null ? void 0 : mweb.Frame) ?? ConversionAssistanceFrame;
+  const slot = (mweb == null ? void 0 : mweb.slotH) ?? SLOT;
+  return /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx(ScaleToFit, { contentWidth: PHONE_W, contentHeight: PHONE_H, maxWidth: PHONE_W * slot / PHONE_H, maxHeight: slot, children }) });
 }
 function Screen({ name, sheet, composer, className, scrollRef, children }) {
   return /* @__PURE__ */ jsxs("div", { className: ["mcp", sheet && "mcp--sheet", className].filter(Boolean).join(" "), "data-name": name, children: [
@@ -3964,6 +3973,7 @@ function V3PromoLaunches() {
   ] });
 }
 export {
+  SheetMweb,
   V3AppDetailMotion,
   V3AppDetailMwebMotion,
   V3BackInStockMotion,

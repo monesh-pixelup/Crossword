@@ -2,6 +2,8 @@
 
 import type { ReactNode } from "react";
 import "./home-motion.css";
+// After home-motion.css, as the source loads its mobile layouts after the visuals' own styles.
+import "./home-mweb.css";
 
 /*
  * The home page's motion visuals, built from the "Crossword — Home page visuals (v2, motion)" source of 15 November
@@ -32,4 +34,12 @@ export {
  */
 export function HomeMotion({ children }: { children: ReactNode }) {
   return <div className="home-motion hv2">{children}</div>;
+}
+
+/**
+ * A visual in its mobile-web layout (353 × 440), as the source's `mweb(Component, { w353: true })` wraps it: the same
+ * visual, unchanged, inside `.smw .smw--353`, which home-mweb.css lays out for a phone. Render it inside HomeMotion.
+ */
+export function Mweb({ children }: { children: ReactNode }) {
+  return <div className="smw smw--353">{children}</div>;
 }

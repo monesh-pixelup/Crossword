@@ -67,3 +67,16 @@ From the updated handoff (the source renumbers Promotions 07–09 and Insights 1
   `LandscapeCanvas.tsx` its `forest` backdrop; `PersonalAgentsPossibilitiesMotion.tsx` exports `md`, `museFlow`,
   `Scene` and `MuseTurns` (with a `merchant` prop), which the home page's 07 uses in the source.
 - **motion.css** was regenerated the same way as on 11 November, with the same two site changes carried over.
+
+## 27 November 2026 update
+
+From the updated handoff, which adds mobile-web versions (353 × 440) of 01–09 beside the 00m and 10m already here:
+
+- Nothing in the source's components changed: the new versions are the source's `mweb(…, { tone, w353: true })`, the same
+  visuals in a `.smw` box. pa-motion.tsx builds them (`paMwebScenes`, by the desktop slugs), and the shared sections show
+  them below 768px through `mobileMotionScene` (modules/ai-assistants/components/motion/motion-scenes.tsx): the
+  possibilities tabs (01m–03m, in a 353 × 440 lattice panel), the logged-in panel (04m–06m, QuoteTabs) and the promotions
+  steps' cells (07m–09m).
+- **motion.css:** the source's SellMweb.css appended at the end, its `.hv2` and `.pam` rules read `.pa-motion.pam …`.
+  Only 04m–06m's purple backdrop drawn for the mobile size is kept (`ill-frame/mweb/bg.webp`, new); the source's other
+  mobile frames aren't used here, so their backgrounds are left out.

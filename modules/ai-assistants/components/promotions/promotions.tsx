@@ -48,6 +48,9 @@ export function Promotions({
   numeralByTitleOnPhones?: boolean;
 }) {
   const scenes = steps.map((step) => step.scene);
+  // Below 768px, the steps' mobile-web visuals (AI Assistants 12m–14m and Personal Agents 07m–09m, see aiaMwebScenes and
+  // paMwebScenes), wherever every step has a visual.
+  const phone = scenes.every(Boolean);
   return (
     <section aria-labelledby={id} className="relative px-(--frame-inset)">
       {/*
@@ -96,11 +99,24 @@ export function Promotions({
               variant="promotions"
               cardArt={card}
               numeralByTitleOnPhones={numeralByTitleOnPhones}
+              phoneMedia={phone}
               media={
                 scenes.every(Boolean)
                   ? (i) => {
                       const scene = scenes[i];
-                      return scene ? <AiaScenePanel slug={scene} fill /> : null;
+                      if (!scene) return null;
+                      if (!phone) return <AiaScenePanel slug={scene} fill />;
+                      return (
+                        <>
+                          <div className="absolute inset-0 max-md:hidden">
+                            <AiaScenePanel slug={scene} fill />
+                          </div>
+                          {/* Below 768px: the compact window in its 353 × 440 mobile-web frame, on its compact purple backdrop. */}
+                          <div className="absolute inset-0 md:hidden">
+                            <AiaScenePanel slug={scene} mobile fill transform />
+                          </div>
+                        </>
+                      );
                     }
                   : undefined
               }

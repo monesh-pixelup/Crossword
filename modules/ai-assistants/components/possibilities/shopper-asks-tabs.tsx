@@ -8,7 +8,7 @@ import { TextLink } from "@/components/ui/text-link";
 import { ctaLinks } from "@/modules/marketing";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import type { ShopperQuestion } from "../../config/possibilities";
-import { motionScene } from "../motion/motion-scenes";
+import { mobileMotionScene, motionScene } from "../motion/motion-scenes";
 
 /** A question's title, line of copy and GET A DEMO, 24px over its panel. */
 function QuestionCopy({ question }: { question: ShopperQuestion }) {
@@ -27,6 +27,8 @@ function QuestionCopy({ question }: { question: ShopperQuestion }) {
 
 /** A question's framed panel, its answer's motion visual drawn inside while `scene` (playing while `play`, replayed as `replay` changes). */
 function QuestionPanel({ question, scene, play, replay }: { question: ShopperQuestion; scene: boolean; play: boolean; replay: number }) {
+  // The answer's mobile-web layout, where it has one (AI Assistants 01m–04m, Personal Agents 01m–03m).
+  const mobile = question.scene ? mobileMotionScene(question.scene) : undefined;
   return (
     <>
       {/*
@@ -34,7 +36,7 @@ function QuestionPanel({ question, scene, play, replay }: { question: ShopperQue
         is 821 × 613 here, a 579px damask in 16px of lattice). It fills the 820px column. The answer's
         motion visual (789 × 579, its own damask) covers the damask, 16px in: the window the lattice leaves.
       */}
-      <div className="relative w-full">
+      <div className={mobile ? "relative w-full max-md:hidden" : "relative w-full"}>
         <Image src={question.panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
         {question.scene && scene && (
           <div className="absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
@@ -42,6 +44,28 @@ function QuestionPanel({ question, scene, play, replay }: { question: ShopperQue
           </div>
         )}
       </div>
+      {/*
+        Below 768px, where the answer has a mobile-web layout (353 × 440, ChatGPT's window at phone width): a panel of
+        that shape on the same panel art, its studded lattice drawn round the edge (border-image, the art's 16px border at
+        the ~7px it shows at phone width) over its damask, drawn 611/579 of the inner height so its own lattice at the top
+        and bottom falls just outside (cropped). As on desktop, the visual covers the window the lattice leaves with its
+        own damask.
+      */}
+      {mobile && (
+        <div
+          className="relative aspect-[353/440] w-full border-7 border-transparent md:hidden"
+          style={{
+            backgroundImage: `url(${question.panel.src})`,
+            backgroundSize: "auto calc(100% * 611 / 579)",
+            backgroundPosition: "center",
+            backgroundOrigin: "padding-box",
+            backgroundClip: "padding-box",
+            borderImage: `url(${question.panel.src}) 48 / 7px round`,
+          }}
+        >
+          {scene && <ScenePanel key={`m-${replay}`} {...mobile} active={play} maxScale={Infinity} transform cover />}
+        </div>
+      )}
     </>
   );
 }

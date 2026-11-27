@@ -6,7 +6,7 @@ import { SectionTitle } from "@/components/ui/section-title";
 import { storefrontCards } from "../../config/storefront";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
-import { storefrontScenes } from "../motion-v2/scenes";
+import { storefrontMwebScenes, storefrontScenes } from "../motion-v2/scenes";
 
 /**
  * Three equal cards (413.33px at 1280px, 20px apart, stretched to the tallest): the card's motion visual
@@ -48,10 +48,17 @@ export function StorefrontPresence() {
                 className="flex flex-col items-start gap-6 overflow-clip border border-black/10 bg-[#fdf4de]"
               >
                 <div
-                  className="sf-nocap relative w-full"
+                  className="sf-nocap relative w-full max-md:hidden"
                   style={{ aspectRatio: `${storefrontScenes[card.scene].width} / ${storefrontScenes[card.scene].height}` }}
                 >
                   <ScenePanel scene={storefrontScenes[card.scene]} root={SellMotionRoot} maxScale={Infinity} transform transformBelow={768} />
+                </div>
+                {/*
+                  Below 768px: the visual's mobile-web layout (352 × 440: the same visual on a frame of that shape, 26's
+                  channel tray as a row above its window), on the channel visuals' own aubergine texture.
+                */}
+                <div className="sf-nocap relative aspect-[352/440] w-full md:hidden">
+                  <ScenePanel scene={storefrontMwebScenes[card.scene]} root={SellMotionRoot} maxScale={Infinity} transform />
                 </div>
                 <div className="flex flex-col items-start gap-2 px-5 pb-5">
                   <h3 className="font-serif text-[22px] max-md:text-[20px] leading-[1.0909] tracking-[-0.88px] text-ink">{card.title}</h3>

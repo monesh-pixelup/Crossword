@@ -3111,3 +3111,547 @@
 .pa-motion .app-stage__tile-label {
   display: none;
 }
+
+/*
+ * Mobile web (353 × 440): the 27 November 2026 source's SellMweb.css, for 01m–09m (the phone versions of 01–09; 00m and
+ * 10m have their own). Each wraps the desktop visual, unchanged, in a `.smw` box (see the mweb scenes in pa-motion.tsx)
+ * that these rules lay out for a phone: the agent window at 313 × 400 shown at 85%, cards one per row. The source page
+ * scopes them under its `.hv2` and `.pam`; here both read `.pa-motion.pam …` (PaMotionRoot carries `pam`), the others
+ * `.pa-motion …`. Backgrounds: each keeps the one it has on the site (01m–03m their damask, 07m–09m their compact
+ * backdrop, as the source keeps them); 04m–06m's purple backdrop with its gold border is the version drawn for this size
+ * (ill-frame/mweb/bg.webp). The source's other frames, which none of these use, are left out. Every rule is scoped under
+ * `.smw`, so the desktop layouts are untouched.
+ */
+/* Sell mobile web (352x440), shared by Sell: Dynamic 02m–13m and Sell:
+   Conversational Interface 09m–35m. One frame, one window standard:
+   - Frame 352x440 on the visual's own damask (maroon or aubergine).
+   - Window laid out at 313x400 and shown at 85% (266x340 on screen),
+     centred, so it sits well inside the frame (as Retain 12m).
+   - 16px corners and the 2px gold ring on screen (small-frame standard),
+     set ÷ .85 where the window is zoomed. */
+.pa-motion .smw { --smw-w: 352px; --smw-wn: 352; --smw-h: 440px; }
+/* Home v2 uses 353 wide (as its 08m). */
+.pa-motion .smw--353 { --smw-w: 353px; --smw-wn: 353; }
+
+/* The frame. SceneFrame-based visuals: the frame element itself. */
+.pa-motion.pam .smw .ill-scene-frame-scale { max-width: var(--smw-w); aspect-ratio: var(--smw-wn) / 440; }
+.pa-motion.pam .smw .ill-scene-frame {
+  width: var(--smw-w);
+  height: var(--smw-h);
+  transform: scale(calc(100cqw / var(--smw-wn)));
+}
+
+.pa-motion.pam .smw :is(.ill-scene-frame__background, .ill-scene-frame__texture) { display: none; }
+
+/* ---------- Chat windows: Sell: Conversational 09m–16m ----------
+   The same gj2 window (ChatHead, transcript, ChatFoot), laid out at
+   313x400 and zoomed .85. Its transcript already follows the newest turn. */
+.pa-motion.pam .smw .gj2-win.gj2-win--standard {
+  width: 313px;
+  height: 400px;
+  zoom: 0.85;
+  border-radius: 18.82px;
+  box-shadow:
+    0 0 0 2.353px #e0be60,
+    0 0 22.34px rgba(224, 190, 96, 0.4),
+    0 4.98px 10.21px rgba(0, 0, 0, 0.25);
+}
+
+/* Product rails at phone width. The review rule is "no cropped
+   carousels; every card whole", and three across would leave ~87px
+   cards. So on mobile the rail becomes a list: each card one row, a
+   square thumb, brand / name / price, and "+ Add" (the heart and chat
+   pucks step out). Every card stays whole. */
+.pa-motion .smw .gj2-rail {
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+.pa-motion .smw .gj2-rail > .gj2-card,
+.pa-motion .smw .gj2-card--lone {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 10px;
+  width: auto;
+  padding: 6px 10px 6px 6px;
+  border-radius: 14px;
+}
+.pa-motion .smw .gj2-card .gj2-card__tile {
+  width: 64px;
+  height: 64px;
+  max-height: none;
+  aspect-ratio: 1;
+  border-radius: 10px;
+}
+.pa-motion .smw .gj2-card .gj2-card__expand { display: none; }
+.pa-motion .smw .gj2-card .gj2-card__col { padding: 0; gap: 2px; min-width: 0; }
+.pa-motion .smw .gj2-card .gj2-card__caption { font-size: 12px; }
+.pa-motion .smw .gj2-card .gj2-card__title { font-size: 14px; -webkit-line-clamp: 2; overflow: hidden; }
+.pa-motion .smw .gj2-card .gj2-card__actions { padding: 0; margin: 0; gap: 0; }
+.pa-motion .smw .gj2-card .gj2-card__actions .gj2-puck { display: none; }
+.pa-motion .smw .gj2-card .gj2-skel { border-radius: 14px; }
+
+/* Follow-up chips wrap instead of running off the edge. */
+.pa-motion .smw .gj2-followups { flex-wrap: wrap; overflow: visible; }
+/* "+ Add" as a compact pill sized to its label, not a stretch button. */
+.pa-motion .smw .gj2-card .gj2-cta { flex: none; width: auto; height: 34px; padding: 0 14px; font-size: 13px; }
+/* The header at phone width: 32px pucks, 4px apart, and the brand pill
+   on one line, giving way with an ellipsis before it pushes a puck out. */
+.pa-motion .smw .gj2-head { padding: 14px 12px 4px; gap: 6px; }
+.pa-motion .smw .gj2-head__group { gap: 4px; flex: none; }
+.pa-motion .smw .gj2-head__puck { width: 32px; height: 32px; }
+.pa-motion .smw .gj2-head__identity { height: 32px; min-width: 0; gap: 6px; padding: 0 10px 0 3px; }
+.pa-motion .smw .gj2-head__logo { width: 26px; height: 26px; flex: none; }
+.pa-motion .smw .gj2-head__name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+/* ---------- The bare frame (phone demos, widgets) ---------- */
+.pa-motion .smw-frame {
+  position: relative;
+  width: var(--smw-w);
+  height: 440px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.pa-motion .smw-frame--aubergine { background: #45225c url("../../assets/motion/ill-frame/mweb/bg.webp") center / cover no-repeat; }
+
+/* ---------- Small channel visuals: 25m, 26m, 35m ----------
+   Their 413x402 aubergine container becomes the 352x440 frame, on the
+   mobile frame's own background (its gold border is drawn for 352x440;
+   the container's texture is drawn for 413x402 and would crop unevenly).
+   The window inside keeps its size and stays centred. */
+.pa-motion .smw .ill-channel-container {
+  width: var(--smw-w);
+  height: 440px;
+}
+.pa-motion .smw .ill-channel-container__texture { display: none; }
+
+/* 26m: the tray beside the window is 363px wide, past the frame. At phone
+   width the tray turns into a row above the window: five tiles across,
+   the indicator gliding sideways, the window centred below. */
+.pa-motion .smw .ill-channel-frame__tray {
+  left: 50%;
+  top: 46px;
+  transform: translateX(-50%);
+  flex-direction: row;
+}
+.pa-motion .smw .ill-channel-frame__tray-item:not(:first-child) { margin-top: 0; margin-left: -1px; }
+.pa-motion .smw .ill-channel-frame__tray-indicator { transform: translateX(calc(var(--tray-active, 0) * var(--tray-pitch))); }
+.pa-motion .smw .ill-channel-frame__shell { left: calc(50% - 127.5px); top: 128px; }
+
+/* ---------- Sell: Dynamic 04m–09m: a store window on the damask ----------
+   As desktop 04–09 (sell-dynamic-v2-motion.css), at phone width: the
+   canvas is the 352x440 frame; the store window is laid out at 313x400
+   and zoomed .85 (266x340 on screen); the Instagram ads (05–09) are
+   zoomed to the window's 340px height, and the ad-to-page plate starts
+   at the ad's footprint in the window's zoom. */
+.pa-motion.pam .smw :is(.ais, .adj, .bybm, .ofbm, .gr-canvas) { width: var(--smw-w); height: 440px; }
+
+.pa-motion.pam .smw :is(.ais-store, .adj-store, .adjm-plate) { zoom: 0.85; }
+.pa-motion.pam .smw :is(.ais-store, .adj-store, .adjm--store .adjm-plate) { width: 313px; height: 400px; }
+.pa-motion.pam .smw :is(.grm, .bybm, .adjm:not(.atp)) .adj-ig { zoom: 0.652; }   /* 521.8 → 340 */
+.pa-motion.pam .smw :is(.atp, .ofbm) .adj-ig { zoom: 0.675; }                    /* 503.6 → 340 */
+.pa-motion.pam .smw :is(.grm, .bybm, .adjm:not(.atp)):not(.adjm--store) .adjm-plate { width: 273.4px; height: 400px; }
+.pa-motion.pam .smw .atp:not(.adjm--store) .adjm-plate,
+.pa-motion.pam .smw .ofbm .adjm:not(.adjm--store) .adjm-plate,
+.pa-motion.pam .smw .ofbm:not(.adjm--store) .adjm-plate { width: 282.7px; height: 400px; }
+/* 16px corner and 2px ring on screen, ÷ .85. */
+.pa-motion.pam .smw .sbl :is(.ais-store, .adj-store),
+.pa-motion.pam .smw .sbl .adjm--store .adjm-plate { border-radius: 18.82px; }
+.pa-motion.pam .smw .sbl :is(.ais-store, .adj-store) {
+  box-shadow: 0 0 0 2.353px #e0be60, 0 0 22.34px rgba(224, 190, 96, 0.4), 0 4.98px 10.21px rgba(0, 0, 0, 0.25);
+}
+
+/* Widgets and chat windows inside the 313px store: the full store width
+   less 8px each side, instead of their 420–480px desktop widths. */
+.pa-motion.pam .smw .adj .adj-widget--compact { width: 297px; padding: 12px; gap: 10px; box-sizing: border-box; }
+.pa-motion.pam .smw .adj-widget--compact .ill-ai-pills { flex-wrap: wrap; }
+.pa-motion.pam .smw .byb-widget:not(.byb-widget--bar) { width: 297px; }
+.pa-motion.pam .smw .byb-bar .gj2-foot { width: 297px; }
+.pa-motion.pam .smw .gj2-win.pv2-win.ofb-win { width: 297px; }
+.pa-motion.pam .smw .ofb-widget { width: 297px; }
+.pa-motion.pam .smw .adj .adj-bar { width: 297px; }
+.pa-motion.pam .smw .adj-campaign-products { max-width: 100%; }
+/* Store nav at phone width: the logo and the search/cart pucks; the
+   skeleton links step out (a phone nav has no room for them). */
+.pa-motion.pam .smw .store-nav-items { display: none; }
+/* 04m: the comparison page is the comparison. The product card beside it
+   steps out; the module takes the page width (it names both products). */
+.pa-motion.pam .smw .cmp-landing { grid-template-columns: minmax(0, 1fr); height: auto; }
+.pa-motion.pam .smw .cmp-landing > .cmp-hero { display: none; }
+/* 06m: the window inside the widget, at the widget's width. */
+.pa-motion.pam .smw .gj2-win.pv2-win.byb-win { width: 297px; height: 324px; }
+/* 08m: each section card stacks its index over its copy. */
+.pa-motion.pam .smw .pcx-card { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+
+/* ---------- Sell: Dynamic 02m, 03m, 10m–13m ----------
+   02/03 sit in the 687x586 conversion-assistance frame (aubergine); 10–13
+   in the 738x760 .ask canvas on the warm interior photo. Both become the
+   352x440 frame, and the PDP window (.ask-store) is laid out at 313x400,
+   zoomed .85 and centred (its absolute left/top are in zoomed px). */
+.pa-motion.pam .smw .ill-conversion-assistance-frame {
+  width: var(--smw-w);
+  height: 440px;
+}
+.pa-motion.pam .smw .ask { width: var(--smw-w); height: 440px; }
+.pa-motion.pam .smw .ask-store { left: 50.59px; top: 58.82px; width: 313px; height: 400px; zoom: 0.85; transform: none; }
+.pa-motion.pam .smw .sbl .ask-store {
+  border-radius: 18.82px;
+  box-shadow: 0 0 0 2.353px #e0be60, 0 0 22.34px rgba(224, 190, 96, 0.4), 0 4.98px 10.21px rgba(0, 0, 0, 0.25);
+}
+
+/* The shared PDP (03m, 10m–13m) at phone width: one column. The gallery
+   becomes a short image band (thumbs, badges and the left column's static
+   Ask AI chips step out); the buy column, where each story's AI moment
+   lives, takes the rest of the window and scrolls as on desktop. */
+.pa-motion.pam .smw .ask .aski-pdp {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  row-gap: 12px;
+  padding-top: 12px;
+}
+.pa-motion.pam .smw .ask .aski-left { gap: 0; }
+.pa-motion.pam .smw .ask .aski-media { grid-template-columns: minmax(0, 1fr); }
+.pa-motion.pam .smw .ask .aski-left :is(.aski-thumbs, .aski-badges, .aski-block) { display: none; }
+.pa-motion.pam .smw .ask .aski-main { height: 104px; padding: 8px; }
+/* Variants that give the gallery the column's full height (11, 12, 13):
+   the same short band. */
+.pa-motion.pam .smw .ask .aski-left { align-self: start; }
+.pa-motion.pam .smw .ask .aski-left .aski-media { flex: none; }
+.pa-motion.pam .smw .ask .aski-left .aski-main { flex: none; height: 104px; padding: 8px; }
+/* 13m: the cross-sell drawer (a 432x523 Shell) takes the whole window. */
+.pa-motion.pam .smw .ask .ask-drawer { width: 100% !important; height: 100% !important; padding: 14px; gap: 12px; }
+/* 02m: the ad and the landing page are two stacked layers in a 687x586
+   box; it becomes the frame. The Brewhaus ad (311px card drawn at 1.35)
+   is zoomed to read 340px tall in the frame, as 05m–09m's ads. */
+.pa-motion.pam .smw .adpm--landing { width: var(--smw-w); height: 440px; }
+.pa-motion.pam .smw .adp-ad .adj-ig { zoom: 0.6; }
+/* The ad layer paints only its card (the page layer below paints the
+   frame), and 02's window drops the centring transform, so it's placed
+   by left/top in its zoomed px: (352 − 266) / 2 / .85, (440 − 340) / 2 / .85. */
+.pa-motion.pam .smw .adpm-ad .ill-conversion-assistance-frame { background: none; }
+.pa-motion.pam .smw .adpm .ais-store { left: 50.59px; top: 58.82px; }
+/* 02m: the hero at phone width; copy gets the room, the machine a
+   narrower column, so the CTA and the code stay in view. */
+.pa-motion.pam .smw .adp-brewhaus-page .adp-hero.pcx-hero { grid-template-columns: minmax(0, 1fr) 112px; margin: 10px 0 12px; padding: 16px 0 14px 16px; }
+.pa-motion.pam .smw .adp-brewhaus-page .pcx-hero__headline { font-size: 22px; margin: 8px 0 6px; }
+.pa-motion.pam .smw .adp-brewhaus-page .adp-brewhaus-hero__media img { width: 132px; height: 132px; }
+.pa-motion.pam .smw .adp-brewhaus-page .adp-hero__cta { margin-top: 10px; white-space: nowrap; }
+.pa-motion.pam .smw .adp-brewhaus-offer { white-space: normal; flex-wrap: wrap; }
+/* 03m: the page doesn't scroll, so the description (which the AI summary
+   restates) steps out and the image band is shorter, bringing the AI
+   summary, the page's point, into the phone view. */
+.pa-motion.pam .smw .ask.adpb .aski-desc { display: none; }
+.pa-motion.pam .smw .ask.adpb .aski-left .aski-main { height: 84px; }
+
+/* ---------- Home v2 01m–11m (353x440) ----------
+   01/04/05: the same gj2 chat window as Sell: Conversational 09m–16m
+   (here without --standard). 06/07: their 738x680 canvas becomes the
+   frame; the ChatGPT window (.aia) and Muse's app (.pap) take the window
+   standard. 09–11: the Insights frame becomes the frame, the dashboard
+   viewport is laid out at 313x400 at its own 85%, so it reads 266x340. */
+.pa-motion.pam .smw .ill-scene-frame__content > .gj2-win {
+  width: 313px;
+  height: 400px;
+  zoom: 0.85;
+  border-radius: 18.82px;
+  box-shadow: 0 0 0 2.353px #e0be60, 0 0 22.34px rgba(224, 190, 96, 0.4), 0 4.98px 10.21px rgba(0, 0, 0, 0.25);
+}
+.pa-motion.pam .smw :is(.aia-canvas, .hpa .pap-canvas) {
+  width: var(--smw-w);
+  height: 440px;
+}
+.pa-motion.pam .smw :is(.sbl .aia, .pap) {
+  width: 313px;
+  height: 400px;
+  zoom: 0.85;
+  border-radius: 18.82px;
+  border-color: transparent;
+  box-shadow: 0 0 0 2.353px #e0be60, 0 0 22.34px rgba(224, 190, 96, 0.4), 0 4.98px 10.21px rgba(0, 0, 0, 0.25);
+}
+.pa-motion.pam .smw .ill-insight-frame-scale { max-width: var(--smw-w); aspect-ratio: var(--smw-wn) / 440; }
+.pa-motion.pam .smw .ill-insight-frame { width: var(--smw-w); height: 440px; transform: scale(calc(100cqw / var(--smw-wn))); }
+.pa-motion.pam .smw .aid-viewport { width: 313px; height: 400px; }
+.pa-motion.pam .smw .aid-viewport.aid-viewport--inset {
+  border-radius: 18.82px;
+  box-shadow: 0 0 0 2.353px #e0be60, 0 0 22.34px rgba(224, 190, 96, 0.4), 0 24px 48px -16px rgb(0 0 0 / 0.45);
+}
+/* 07m: Muse's canvas and window (more specific on HomePersonalAgent.css). */
+.pa-motion.pam .smw .pam.hpa .pap-figure:not(.pap-logged) .pap-canvas {
+  width: var(--smw-w);
+  height: 440px;
+}
+.pa-motion.pam .smw .pam.hpa .pap-figure:not(.pap-logged) .pap.pap-motion {
+  width: 313px;
+  height: 400px;
+  zoom: 0.85;
+  border-radius: 18.82px;
+  box-shadow: 0 0 0 2.353px #e0be60, 0 0 22.34px rgba(224, 190, 96, 0.4), 0 4.98px 10.21px rgba(0, 0, 0, 0.25);
+}
+/* 03m: the AI search dropdown spans the store's width. */
+.pa-motion.pam .smw .ais-dropdown { left: 0; right: 0; width: auto; }
+
+/* 09m–11m: the dashboard at phone width. The icon rail folds away (as the
+   Support inbox's mweb does), so the answer gets the window. Tags wrap;
+   the stat row becomes label/value rows; 11's path is two by two; 09's
+   bars give their label column less room. */
+.pa-motion.pam .smw .aid-viewport .la-dash .la-rail { display: none; }
+.pa-motion.pam .smw .aid-tags { flex-wrap: wrap; }
+.pa-motion.pam .smw .aid-stats { grid-template-columns: minmax(0, 1fr); }
+.pa-motion.pam .smw .aid-stat { flex-direction: row; justify-content: space-between; align-items: center; padding: 8px 12px; }
+.pa-motion.pam .smw .aid-stat + .aid-stat { border-left: 0; border-top: 1px solid var(--la-border); }
+.pa-motion.pam .smw .aid-path { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pa-motion.pam .smw .aid-bar { grid-template-columns: 92px minmax(0, 1fr) 40px; }
+/* 10m: two panes don't fit; the Details pane (the outcome and the
+   revenue it's attributed) is the story, so the conversation pane steps
+   out and Details takes the window. */
+.pa-motion.pam .smw .cv-chat { display: none; }
+.pa-motion.pam .smw .cv-details { flex: 1; width: auto; max-width: none; border-left: 0; }
+/* 03m: the AI-search product page as one column. The gallery is a short
+   image band (thumbs step out); the details, with "Matches your search",
+   follow; the Ask AI row under them steps out (no room at phone height).
+   The canvas takes the damask, as the other home frames. */
+
+.pa-motion.pam .smw .ais-pdp__grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; gap: 10px; }
+.pa-motion.pam .smw .ais-gallery { grid-template-columns: minmax(0, 1fr); }
+.pa-motion.pam .smw .ais-gallery__thumbs { display: none; }
+.pa-motion.pam .smw .ais-gallery .ais-gallery__main { height: 96px; }
+.pa-motion.pam .smw .ais-pdp__grid > .ais-ask { display: none; }
+.pa-motion.pam .smw .ais-nav :is(.ill-button, a, span) { white-space: nowrap; }
+/* 03m nav: logo, Ask AI and search (the dropdown's anchor); the cart steps
+   out so nothing runs off the edge. A shorter image band brings "Matches
+   your search" into view. */
+.pa-motion.pam .smw .ais-nav .ill-chat-header__group > :last-child { display: none; }
+.pa-motion.pam .smw .ais-gallery .ais-gallery__main { height: 72px; }
+/* 03m: the AI search's three result cards wrap two across, whole, rather
+   than running off the window's edge (no cropped carousels). */
+.pa-motion.pam .smw .ais-more .ill-product-collection { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.pa-motion.pam .smw .ais-more .ill-product-collection > * { width: auto; min-width: 0; }
+.pa-motion.pam .smw .ais-store .ill-ai-pills { flex-wrap: wrap; overflow: visible; }
+/* Home 09m–11m: the Insights photo covers the mobile frame instead of
+   being squashed from 738x640 into it. */
+.pa-motion.pam .smw .ill-insight-frame__background { object-fit: cover; }
+
+/* ---------- Crop fixes (home review, 25 Nov) ---------- */
+/* The knock note over the chat bar (Home 02m, Sell: Dynamic 06m/07m/09m):
+   its own width is up to 340px; at phone width it takes the bar's. */
+.pa-motion.pam .smw .adj-bar .wm-bar-buzz-note,
+.pa-motion.pam .smw :is(.bybm-bar, .ofbm-bar) .wm-bar-buzz-note { width: 100%; box-sizing: border-box; }
+.pa-motion.pam .smw .wm-nudge .wm-bar-buzz-note__ctas .wm-pro-cta { flex: 1 1 0; min-width: 0; white-space: nowrap; padding-inline: 10px; }
+/* Home 06m: ChatGPT's carousel shows two whole tiles, no peek off the
+   edge; the set's wide tile and the order card take the column. */
+.pa-motion.pam .smw .aia:not(.aiv3) .aia-carousel { margin-right: 0; }
+.pa-motion.pam .smw .aia:not(.aiv3) .aia-carousel > .aia-tile { width: calc((100% - 10px) / 2); }
+.pa-motion.pam .smw .aia:not(.aiv3) .aiam-tile-slot { width: calc((100% - 10px) / 2); }
+.pa-motion.pam .smw .aiam-tile-slot > .aia-tile { width: 100%; }
+.pa-motion.pam .smw :is(.aia-tile--wide, .aia-order) { width: 100%; max-width: 100%; box-sizing: border-box; }
+/* Home 03m: the search dropdown keeps its Ask AI suggestions; recent
+   searches step out so it ends inside the window. */
+.pa-motion.pam .smw .ais-dropdown__section:has(.ais-recent) { display: none; }
+/* Home 09m/11m opening screen: one-line mode pills (Ask, Find a segment;
+   Draft an email steps out), a smaller headline, two suggestions. */
+.pa-motion.pam .smw .aid-home__headline { font-size: 22px; line-height: 1.15; }
+.pa-motion.pam .smw .aid-mode { white-space: nowrap; }
+.pa-motion.pam .smw .aid-modes > .aid-mode:nth-child(3) { display: none; }
+.pa-motion.pam .smw .aid-suggestions > .aid-suggestion:nth-child(n + 3) { display: none; }
+/* Home 09m–11m: search chips stay one line (the long query ellipsizes)
+   instead of wrapping over the next step. */
+.pa-motion.pam .smw .aid-chip { max-width: 100%; min-width: 0; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pa-motion.pam .smw .aia:not(.aiv3) .aia-carousel > :nth-child(n + 3) { display: none; }
+
+/* Home 03m edges. The dropdown sits on the hero's exact box; one radius
+   for both, concentric with the window (24 − 14.6 inset ≈ 9.4px on
+   screen, 11px at the store's .85 zoom), so no hero corner shows past
+   the dropdown's. */
+.pa-motion.pam .smw .ais-store :is(.ais-dropdown, .ais-hero) { border-radius: 11px; }
+/* Chat edges: cards line up with the composer and header (the thread's
+   5px and the list's 3px side padding go); outlines become inset rings
+   so the edge doesn't clip them. */
+.pa-motion.pam .smw .ill-conversation-viewport__content { padding-inline: 0; }
+.pa-motion.pam .smw :is(.gj2-rail, .ill-product-collection) { padding-inline: 0; }
+.pa-motion.pam .smw .gj2-rail > .gj2-card,
+.pa-motion.pam .smw .gj2-card--lone { box-shadow: inset 0 0 0 0.556px var(--gj2-hairline); }
+
+/* ---------- Home 03m layout pass ----------
+   Opening page: the best-sellers strip ran under the page fade (a label
+   over nothing). It steps out and the hero takes the page, its copy and
+   lamp sharing the height; the fade steps out with it. */
+.pa-motion.pam .smw .ais-home { display: flex; flex-direction: column; height: 100%; padding-bottom: 14px; box-sizing: border-box; }
+.pa-motion.pam .smw .ais-home > :is(.ais-shelf, .ais-grid) { display: none; }
+.pa-motion.pam .smw .ais-home > .ais-hero { flex: 1; height: auto; min-height: 0; }
+.pa-motion.pam .smw :is(.ais-page, .ais-body):has(> .ais-home) > .ill-content-fade { display: none; }
+/* "More like this": the result cards as full-width rows (thumb, name,
+   price), as the product cards above them, not a 2-up grid with an orphan. */
+.pa-motion.pam .smw .ais-more .ill-product-collection { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+.pa-motion.pam .smw .ais-more .ill-rec-card { display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: center; gap: 10px; padding: 6px; width: auto; height: auto; border-radius: 14px; }
+.pa-motion.pam .smw .ais-more .ill-rec-card__media { width: 56px; height: 56px; border-radius: 10px; }
+.pa-motion.pam .smw .ais-more .ill-rec-card__favorite { display: none; }
+.pa-motion.pam .smw .ais-more .ill-rec-card__text { padding: 0; }
+.pa-motion.pam .smw .ais-more .ill-product-meta { padding: 0; }
+/* Final product page: the story's point is "Matches your search", so it
+   ends in full view: a slimmer image band, the blurb and the CTA step out
+   (both were below the fold), and the page fade isn't needed. */
+.pa-motion.pam .smw .ais-gallery .ais-gallery__main { height: 56px; }
+.pa-motion.pam .smw .ais-details h2 { font-size: 17px; }
+.pa-motion.pam .smw .ais-details > :is(.ais-details__blurb, .ais-details__cta) { display: none; }
+.pa-motion.pam .smw :is(.ais-page, .ais-body):has(.ais-pdp) > .ill-content-fade { display: none; }
+
+/* Home 07m: Muse's two merchant cards as full-width rows (thumb left,
+   details right), like the other mobile product lists, instead of two
+   106px columns whose copy wrapped to uneven heights. Spacing on one
+   scale: 12px panel padding, 8px between cards, 4px media inset with a
+   radius concentric to the card's (14 − 4 = 10). */
+.pa-motion.pam .smw .pap-cards { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.pa-motion.pam .smw .pap-card { flex-direction: row; align-items: center; border-radius: 14px; }
+.pa-motion.pam .smw .pap-card__media { flex: none; width: 76px; height: 76px; margin: 4px; border-radius: 10px; }
+.pa-motion.pam .smw .pap-card__media img { padding: 8px; }
+.pa-motion.pam .smw .pap-badge { top: 4px; left: 4px; padding: 1px 6px; font-size: 10px; }
+.pa-motion.pam .smw .pap-card__body { flex: 1; min-width: 0; padding: 8px 12px 8px 6px; gap: 1px; }
+.pa-motion.pam .smw .pap-card__price { margin-top: 3px; }
+.pa-motion.pam .smw .pap-stock { white-space: nowrap; }
+
+/* ---------- AI Assistants v3 and Personal Agents, 353x440 ----------
+   One backdrop per tone, drawn (or bordered) for the mobile size:
+   maroon = damask + the notched gold border; aubergine and green = the
+   drawn mobile backgrounds. Each visual's canvas becomes the frame. */
+
+.pa-motion.pam .smw :is(.aiv3-canvas, .aiv3w-canvas, .apu-canvas, .pap-canvas) {
+  width: var(--smw-w);
+  height: 440px;
+  display: grid;
+  place-items: center;
+}
+/* Each canvas keeps its desktop visual's own background (retained from
+   the parent page), scaled to cover the mobile frame; the damask keeps
+   its native pattern size. */
+.pa-motion.pam .smw :is(.aiv3-canvas, .aiv3w-canvas, .apu-canvas, .pap-canvas) { background-size: cover; background-position: center; }
+.pa-motion.pam .smw .pap-figure:not(.pap-logged) .pap-canvas,
+.pa-motion.pam .smw .pap-canvas--compact { background-size: 788px 579px; }
+/* AI 01–06: the ChatGPT window, and PA 01–06: the agent window, laid out
+   at 313x400 and zoomed .85 (266x340 on screen), 16px corners and the
+   2px gold ring on screen. */
+.pa-motion.pam .smw :is(.aia.aiv3, .pap.pap-motion:not(.pap--compact)) {
+  width: 313px;
+  height: 400px;
+  zoom: 0.85;
+  border-radius: 18.82px;
+  box-shadow: 0 0 0 2.353px #e0be60, 0 0 22.34px rgba(224, 190, 96, 0.4), 0 4.98px 10.21px rgba(0, 0, 0, 0.25);
+}
+/* PA: the page's own sizes (personal-agents-motion.css) are more specific. */
+.pa-motion.pam .smw .pap-figure:not(.pap-logged) .pap.pap-motion:not(.pap--compact),
+.pa-motion.pam .smw .pap-figure .pap.pap-motion:not(.pap--compact) { width: 313px; height: 400px; }
+.pa-motion.pam .smw .pap-figure:not(.pap-logged) .pap-canvas,
+.pa-motion.pam .smw .pap-figure .pap-canvas,
+.pa-motion.pam .smw .pap-figure .pap-canvas.pap-canvas--compact { width: var(--smw-w); height: 440px; }
+/* The figure's own caption (the page already labels each visual). */
+.pa-motion.pam .smw .pap-figure > .app-stage__tile-label,
+.pa-motion.pam .smw .aiv3-figure > .app-stage__tile-label { display: none; }
+/* PA 07m–09m and AI 12m–14m: the compact 292x338 window, as on desktop,
+   shown at .85 (16px corner on screen) so it sits inside the frame. */
+.pa-motion.pam .smw .pap.pap--compact { width: 313px; height: 400px; zoom: 0.85; }
+
+/* AI 05m/06m: ChatGPT's side rail folds away (no room at phone width);
+   the alert card stacks its image over the details. */
+.pa-motion.pam .smw .aiv3w .aiv3w-rail { display: none; }
+.pa-motion.pam .smw .aiv3w :is(.aia-header, .aia-scroll, .aia-composer) { left: 0; }
+.pa-motion.pam .smw .aiv3w-card { gap: 10px; padding: 10px; }
+.pa-motion.pam .smw .aiv3w-card__media { width: 72px; height: 72px; }
+/* PA 02m: the pick card stacks (image band over the details), so the
+   name, price and Add to cart get the card's width. */
+.pa-motion.pam .smw .pap-pick { flex-direction: column; gap: 8px; }
+.pa-motion.pam .smw .pap-pick__media { width: 100%; height: 104px; }
+.pa-motion.pam .smw .pap-pick__media img { width: 96px; height: 96px; }
+/* PA 06m: the alternatives as one column of rows, not two cramped tiles. */
+.pa-motion.pam .smw .pal-alts { grid-template-columns: minmax(0, 1fr); }
+/* PA 04m–06m: cards stack at phone width, as the other mobile lists:
+   the spotlight card's image over its details, picks one per row. */
+.pa-motion.pam .smw .pal-spot { flex-direction: column; }
+.pa-motion.pam .smw .pal-spot > :first-child:not(.pal-spot__body) { width: 100%; height: 112px; flex: none; }
+.pa-motion.pam .smw .pal-picks { grid-template-columns: minmax(0, 1fr); }
+.pa-motion.pam .smw .pal-pick { flex-direction: row; align-items: center; }
+.pa-motion.pam .smw .pal-pick__media { flex: none; width: 72px; height: 72px; margin: 4px; border-radius: 10px; }
+/* AI 07m–10m: the parent's frame (ConversionAssistanceFrame's backdrop). */
+
+/* AI Assistants 01m–06m: ChatGPT's composer grows a line at a time as the
+   typed message wraps (as the Sell/Home chat composers and the phone
+   07m–10m do), instead of clipping it on one line. The buttons stay on
+   the bottom line. */
+/* Idle, the field is the parent's (48px, centred row, placeholder filling
+   it); only while a message wraps does it grow, buttons on the last line. */
+.pa-motion.pam .smw .aia-composer__field { height: auto; min-height: 48px; }
+.pa-motion.pam .smw .aia-composer__field:has(.aia-composer__value) { align-items: flex-end; padding-block: 7px; box-sizing: border-box; }
+.pa-motion.pam .smw .aiam .aia-composer__value { flex: 1; min-width: 0; align-self: center; white-space: normal; overflow: visible; line-height: 1.4; padding: 0 2px; }
+
+/* AI Assistants 01m–06m cards at phone width. The thread's side padding
+   drops from 24 to 14 (more width for every card), and each card's image
+   column narrows so its copy keeps a readable measure instead of wrapping
+   a word per line. Layouts stay the parent's (image beside details). */
+.pa-motion.pam .smw .aia .aia-gpt { --gpt-col: 14px; }
+.pa-motion.pam .smw .aiv3-config { gap: 10px; padding: 8px; }
+.pa-motion.pam .smw .aiv3-config__media { width: 64px; }
+.pa-motion.pam .smw .aiv3-config__media img { width: 56px; height: 56px; }
+.pa-motion.pam .smw .aiv3-config__head { gap: 8px; }
+.pa-motion.pam .smw .aiv3-spot { gap: 10px; }
+.pa-motion.pam .smw .aiv3-spot__media { width: 64px; }
+.pa-motion.pam .smw .aiv3-spot__media img { width: 56px; height: 56px; }
+.pa-motion.pam .smw .aiv3-spot__facts { padding-left: 14px; font-size: 13px; }
+.pa-motion.pam .smw .aiv3w-card__media { width: 64px; height: 64px; }
+/* 05m/06m "Watching" row: the bell icon steps out (the thumb and the
+   Watching chip carry it), giving the line its width back. */
+.pa-motion.pam .smw .aiv3w-track__icon { display: none; }
+/* 05m/06m: the page's body size (14/21, as 01m–04m) instead of the wide
+   column's 16/24, and a compact product card, so the update and its card
+   sit above the composer. */
+.pa-motion.pam .smw .aiv3w .aia-gpt { font-size: 14px; line-height: 21px; }
+.pa-motion.pam .smw .aiv3w-card { gap: 10px; padding: 8px; }
+.pa-motion.pam .smw .aiv3w-card__media { width: 64px; height: 64px; }
+.pa-motion.pam .smw .aiv3w-card__media img { width: 52px; height: 52px; }
+.pa-motion.pam .smw .aiv3w-badge { top: 4px; left: 4px; height: 16px; padding: 0 5px; font-size: 9px; }
+.pa-motion.pam .smw .aiv3w-card__body { gap: 4px; }
+.pa-motion.pam .smw .aiv3w-card__head > span:first-child { font-size: 14px; line-height: 19px; }
+.pa-motion.pam .smw .aiv3w-card__price { font-size: 14px; line-height: 19px; }
+
+/* ---------- AI Assistants 01m–06m composer model ----------
+   As the Sell/Home chat windows (gj2: transcript above an in-flow foot):
+   ChatGPT's header, scroll and composer stack in a column instead of the
+   composer floating over the thread. A composer that grows as the message
+   wraps pushes the thread up, and the newest content always ends above it,
+   never underneath. The thread keeps a small foot gap instead of the
+   overlay's 76px. */
+.pa-motion.pam .smw .aia.aiv3 .aia-gpt { display: flex; flex-direction: column; }
+.pa-motion.pam .smw .aia.aiv3 .aia-header { position: relative; flex: none; }
+.pa-motion.pam .smw .aia.aiv3 .aia-scroll { position: relative; inset: auto; flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; }
+.pa-motion.pam .smw .aia.aiv3 .aia-scroll::-webkit-scrollbar { display: none; }
+.pa-motion.pam .smw .aia.aiv3 .aia-composer { position: relative; flex: none; padding-top: 6px; background: #fff; }
+.pa-motion.pam .smw .aia.aiv3 .aia-thread { padding-bottom: 12px; }
+/* 01m: tile names on up to two lines instead of an ellipsis. */
+.pa-motion.pam .smw .aiv3-tiles .aia-tile__name { white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+/* 02m/04m: the image tile keeps its square instead of stretching down the
+   card's full height as an empty grey column. 02m's kit choice (a card
+   nested in the machine card) takes the card's full width under it. */
+.pa-motion.pam .smw :is(.aiv3-config__media, .aiv3-spot__media) { align-self: flex-start; height: 64px; }
+.pa-motion.pam .smw .aiv3-config { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: start; }
+.pa-motion.pam .smw .aiv3-config__body { display: contents; }
+.pa-motion.pam .smw .aiv3-config__head { grid-column: 2; }
+.pa-motion.pam .smw .aiv3-config__body > :not(.aiv3-config__head) { grid-column: 1 / -1; }
+
+/* AI 01m/03m: ChatGPT's product tiles, all of them whole, three across
+   (03's story picks the third). Names wrap to two lines. */
+.pa-motion.pam .smw .aia-carousel.aiv3-tiles { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.pa-motion.pam .smw .aiv3-tiles > * { width: auto; min-width: 0; }
+.pa-motion.pam .smw .aiv3-tiles .aia-tile__name { margin-top: 6px; font-size: 13px; line-height: 17px; }
+.pa-motion.pam .smw .aiv3-tiles .aia-tile__meta { font-size: 11px; line-height: 15px; }
+/* Home 06m: the set's wide tile (a slot of its own) takes the full row. */
+.pa-motion.pam .smw .aia:not(.aiv3) .aiam-tile-slot:has(.aia-tile--wide) { width: 100%; }
+
+/* Parent backgrounds that carry a drawn gold border (campaigns green,
+   conversion-assistance purple) crop badly at 353x440: the sides go, the
+   corners split. Use the same artwork drawn for the mobile frame instead
+   (mweb-bg-green, mweb/bg). The compact purple is a plain texture with a
+   thin border: fitted whole (100% 100%), not cropped. */
+
+.pa-motion.pam .smw .pap-logged .pap-canvas,
+.pa-motion .smw-frame--ca { background: #45225c url("../../assets/motion/ill-frame/mweb/bg.webp") center / cover no-repeat; }
+.pa-motion.pam .smw .apu-canvas { background-size: 100% 100%; }

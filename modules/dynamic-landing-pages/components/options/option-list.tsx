@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 import { tabTurn } from "@/lib/use-autoplay-tabs";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { dynamicOptions } from "../../config/options";
-import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
+import { DlpMotionRoot, dlpMwebSceneFor, dlpScenes } from "../motion/dlp-motion";
 
 /** How long each option stays in focus before the next takes over: its motion visual's run plus the hold. */
 const turns = dynamicOptions.map((option) => tabTurn(dlpScenes[option.scene].duration));
@@ -171,10 +171,23 @@ export function OptionList() {
                 style={{ transitionDuration: `${ACCORDION_MS}ms` }}
               >
                 <div className="min-h-0 overflow-hidden">
-                  <div className="relative mt-8 aspect-[687/586] w-full">
+                  <div className="relative mt-8 aspect-[687/586] w-full max-md:hidden">
                     {wide !== true && (on || i === closing) && (
                       // (On a phone both visuals are drawn; each plays only while it's on screen.)
                       <ScenePanel key={`${i}-${plays[i]}`} scene={dlpScenes[option.scene]} active={on} root={DlpMotionRoot} />
+                    )}
+                  </div>
+                  {/* Below 768px: the option's mobile-web layout (352 × 440) instead, on its aubergine frame drawn for that size. */}
+                  <div className="relative mt-8 aspect-[352/440] w-full md:hidden">
+                    {wide !== true && (on || i === closing) && (
+                      <ScenePanel
+                        key={`m-${i}-${plays[i]}`}
+                        scene={dlpMwebSceneFor(option.scene) ?? dlpScenes[option.scene]}
+                        active={on}
+                        root={DlpMotionRoot}
+                        maxScale={Infinity}
+                        transform
+                      />
                     )}
                   </div>
                 </div>

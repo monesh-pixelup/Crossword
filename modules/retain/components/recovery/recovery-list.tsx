@@ -3,7 +3,7 @@
 import { tabTurn } from "@/lib/use-autoplay-tabs";
 import { AccordionMedia } from "@/components/ui/accordion-media";
 import { recoveryItems } from "../../config/recovery";
-import { RecoveryMotion } from "../motion/retain-motion";
+import { RecoveryMotion, RecoveryMwebMotion } from "../motion/retain-motion";
 
 /**
  * How long each recovery visual takes to play out, in ms. The Retain visuals don't publish their run lengths, so each
@@ -25,11 +25,23 @@ export function RecoveryList() {
       spacedRules
       // Below 992px each moment's visual opens under it, accordion-style, and they change only when tapped.
       stackedAccordion
+      // Below 768px that panel takes the 353 × 440 shape of the moments' mobile-web visuals.
+      stackedPanelClassName="max-md:aspect-[353/440]"
       // There, the FAQ's plus / minus opens and closes each moment.
       toggleIcon
       // Side by side, the open moment's maroon progress loader along its rule.
       progress
-      renderPanel={(active) => <RecoveryMotion index={active} />}
+      renderPanel={(active) => (
+        <>
+          <div className="max-md:hidden">
+            <RecoveryMotion index={active} />
+          </div>
+          {/* Below 768px: the moment's mobile-web layout (01m–05m, 353 × 440) instead, on its aubergine frame. */}
+          <div className="md:hidden">
+            <RecoveryMwebMotion index={active} />
+          </div>
+        </>
+      )}
     />
   );
 }

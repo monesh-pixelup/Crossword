@@ -8,7 +8,7 @@ import { cn } from "@/lib/cn";
 import { upsellFeatures } from "../../config/upsell";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
-import { upsellScenes } from "../motion-v2/scenes";
+import { upsellMwebScenes, upsellScenes } from "../motion-v2/scenes";
 
 /** How long each feature stays open before the next one takes over, at least. */
 const DURATION_MS = 6000;
@@ -209,11 +209,27 @@ export function UpsellTabs() {
                   style={{ transitionDuration: `${ACCORDION_MS}ms` }}
                 >
                   <div className="min-h-0 overflow-hidden">
-                    <div className="relative mt-6 aspect-[738/680] w-full overflow-hidden">
+                    <div className="relative mt-6 aspect-[738/680] w-full overflow-hidden max-md:hidden">
                       {wide !== true && (on || i === closing) && (
                         <ScenePanel
                           key={`${i}-${run}`}
                           scene={upsellScenes[feature.scene]}
+                          active={visible && on}
+                          root={SellMotionRoot}
+                          maxScale={Infinity}
+                          transform
+                        />
+                      )}
+                    </div>
+                    {/*
+                      Below 768px: the feature's mobile-web layout instead (352 × 440, the same phone demo and camera
+                      with the phone sized to the frame), on the maroon frame drawn for that size.
+                    */}
+                    <div className="relative mt-6 aspect-[352/440] w-full overflow-hidden md:hidden">
+                      {wide !== true && (on || i === closing) && (
+                        <ScenePanel
+                          key={`m-${i}-${run}`}
+                          scene={upsellMwebScenes[feature.scene]}
                           active={visible && on}
                           root={SellMotionRoot}
                           maxScale={Infinity}

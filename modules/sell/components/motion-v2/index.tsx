@@ -1,14 +1,38 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 import {
+  BrandedWidgetMotion,
+  BrowseUpsellMotion,
+  BundleBuildingMotion,
+  CartUpsellOfferMotion,
   ComparisonGuidanceMotion,
+  CompleteChannelDeploymentMotion,
+  ConversationalDiscoveryV2Motion,
+  CrossSellMotion,
+  DecisionSupportMotion,
+  GiftFinderV2Motion,
+  GuidedFinderV2Motion,
   HumanModeMotion,
+  OutfitBuildingV2Motion,
+  PlaceItWhereverMotion,
+  PriceObjectionMotion,
   ProactiveInterventionMotion,
+  ProductComparisonMotion,
+  ProductQAV2Motion,
+  PurchaseConfirmationMotion,
   ReturnVisitComparisonMotion,
   SellColorContext,
+  SheetMweb,
+  SizeFitV2Motion,
+  StockAvailabilityMotion,
+  TryItOnV2Motion,
+  UpsellUpgradeMotion,
+  VisualDiscoveryV2Motion,
 } from "./sell-motion";
 import "./sell-motion.css";
+// After sell-motion.css, as the source loads its mobile layouts after the visuals' own styles.
+import "./sell-mweb.css";
 
 /*
  * The Sell page's motion visuals, built from the "Crossword — Sell: Conversational interface v2 (motion)" source (the
@@ -88,3 +112,68 @@ export function ReturnVisitComparisonDesktopMotion() {
 export function HumanModeDesktopMotion() {
   return <HumanModeMotion />;
 }
+
+/*
+ * The mobile-web layouts (352 × 440) from the 27 November 2026 source (src/visuals/SellMweb/SellMweb.tsx): each wraps
+ * the desktop visual, unchanged, in a `.smw` box that sell-mweb.css lays out for a phone. The phone demos (17m–20m,
+ * 28m–33m) also provide SheetMweb, which swaps their desktop frame for the 352 × 440 one and sizes the phone to 372px
+ * tall at rest (440 − 2 × the camera's 34px margin).
+ */
+type Tone = "maroon" | "aubergine";
+
+function SellMweb({ tone = "maroon", children }: { tone?: Tone; children: ReactNode }) {
+  return <div className={`smw smw--${tone}`}>{children}</div>;
+}
+
+const mweb = (C: ComponentType, tone?: Tone) =>
+  function Mweb() {
+    return (
+      <SellMweb tone={tone}>
+        <C />
+      </SellMweb>
+    );
+  };
+
+// The bare 352 × 440 frame, for the phone demos (their maroon or aubergine backdrop, sell-mweb.css).
+const frame = (tone: Tone) =>
+  function SellMwebFrame({ children }: { children: ReactNode }) {
+    return <div className={`smw-frame smw-frame--${tone}`}>{children}</div>;
+  };
+const FRAMES = { maroon: frame("maroon"), aubergine: frame("aubergine") };
+
+const mwebPhone = (C: ComponentType, tone: Tone) =>
+  function MwebPhone() {
+    return (
+      <SellMweb tone={tone}>
+        <SheetMweb.Provider value={{ Frame: FRAMES[tone], slotH: 372 }}>
+          <C />
+        </SheetMweb.Provider>
+      </SellMweb>
+    );
+  };
+
+// Product discovery 09m–16m: the chat window at phone width.
+export const ConversationalDiscoveryMwebMotion = mweb(ConversationalDiscoveryV2Motion);
+export const TryItOnMwebMotion = mweb(TryItOnV2Motion);
+export const ProductQaMwebMotion = mweb(ProductQAV2Motion);
+export const OutfitBuildingMwebMotion = mweb(OutfitBuildingV2Motion);
+export const GuidedFinderMwebMotion = mweb(GuidedFinderV2Motion);
+export const VisualDiscoveryMwebMotion = mweb(VisualDiscoveryV2Motion);
+export const SizeFitMwebMotion = mweb(SizeFitV2Motion);
+export const GiftFinderMwebMotion = mweb(GiftFinderV2Motion);
+// Upsell 17m–20m, on the maroon frame.
+export const UpsellUpgradeMwebMotion = mwebPhone(UpsellUpgradeMotion, "maroon");
+export const CrossSellMwebMotion = mwebPhone(CrossSellMotion, "maroon");
+export const BundleBuildingMwebMotion = mwebPhone(BundleBuildingMotion, "maroon");
+export const BrowseUpsellMwebMotion = mwebPhone(BrowseUpsellMotion, "maroon");
+// Conversion assist 28m–33m, on the aubergine frame.
+export const PriceObjectionMwebMotion = mwebPhone(PriceObjectionMotion, "aubergine");
+export const ProductComparisonMwebMotion = mwebPhone(ProductComparisonMotion, "aubergine");
+export const CartUpsellOfferMwebMotion = mwebPhone(CartUpsellOfferMotion, "aubergine");
+export const StockAvailabilityMwebMotion = mwebPhone(StockAvailabilityMotion, "aubergine");
+export const PurchaseConfirmationMwebMotion = mwebPhone(PurchaseConfirmationMotion, "aubergine");
+export const DecisionSupportMwebMotion = mwebPhone(DecisionSupportMotion, "aubergine");
+// Storefront presence 35m, 25m, 26m.
+export const BrandedWidgetMwebMotion = mweb(BrandedWidgetMotion, "aubergine");
+export const PlaceItWhereverMwebMotion = mweb(PlaceItWhereverMotion, "aubergine");
+export const CompleteChannelDeploymentMwebMotion = mweb(CompleteChannelDeploymentMotion, "aubergine");

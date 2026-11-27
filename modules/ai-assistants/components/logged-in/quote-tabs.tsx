@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import panelArt from "@/modules/sell/assets/upsell/panel-aubergine.webp";
 import type { LoggedInQuote } from "../../config/logged-in";
-import { motionScene } from "../motion/motion-scenes";
+import { mobileMotionScene, motionScene } from "../motion/motion-scenes";
 
 /**
  * A quote stays open until all but this much of it has slid under the
@@ -37,6 +37,8 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
   const spacerRef = useRef<HTMLDivElement>(null);
   const items = useRef<(HTMLDivElement | null)[]>([]);
   const last = quotes.length - 1;
+  // Whether the quotes have mobile-web visuals (Personal Agents 04m–06m), shown below 768px in a panel of their shape.
+  const phone = quotes.some((quote) => quote.scene && mobileMotionScene(quote.scene));
 
   /** Where quotes disappear: under the heading from 1313px, under the panel below that. */
   const coverLine = () => {
@@ -189,18 +191,46 @@ export function QuoteTabs({ heading, quotes }: { heading: ReactNode; quotes: Log
         ref={panelRef}
         className="sticky top-[calc(72.5px+24px)] z-10 order-2 w-full bg-cream before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-6 before:bg-cream min-[1313px]:before:hidden after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-16 after:bg-linear-to-b after:from-cream after:from-25% after:to-cream/0 min-[1313px]:top-[calc(72.5px+48px)] min-[1313px]:w-auto min-[1313px]:max-w-[687px] min-[1313px]:min-w-0 min-[1313px]:flex-1 min-[1313px]:bg-transparent min-[1313px]:after:hidden"
       >
-        <div className="relative mx-auto aspect-[687/586] w-full max-w-[calc((100svh-72.5px-48px)*687/586)] overflow-hidden bg-aubergine min-[1313px]:max-w-none">
+        <div
+          className={cn(
+            "relative mx-auto aspect-[687/586] w-full max-w-[calc((100svh-72.5px-48px)*687/586)] overflow-hidden bg-aubergine min-[1313px]:max-w-none",
+            // Below 768px, the 353 × 440 shape of the quotes' mobile-web visuals (Personal Agents 04m–06m), still fitting the screen.
+            phone && "max-md:aspect-[353/440] max-md:max-w-[calc((100svh-72.5px-48px)*353/440)]",
+          )}
+        >
           <Image src={panelArt} alt="" fill sizes="(min-width: 1313px) 687px, 100vw" className="object-cover" />
           <div className="absolute inset-0 grid">
-            {quotes.map((quote, i) =>
-              quote.scene ? (
+            {quotes.map((quote, i) => {
+              if (!quote.scene) return null;
+              const mobile = mobileMotionScene(quote.scene);
+              return (
                 <CrossfadePanel key={quote.quote} active={i === active} className="relative" style={{ gridArea: "1 / 1" }}>
-                  {(i === active || i === previous) && (
-                    <ScenePanel key={plays[i]} {...motionScene(quote.scene)} active={i === active} maxScale={Infinity} />
-                  )}
+                  {(i === active || i === previous) &&
+                    (mobile ? (
+                      <>
+                        <ScenePanel
+                          key={plays[i]}
+                          {...motionScene(quote.scene)}
+                          active={i === active}
+                          maxScale={Infinity}
+                          className="absolute inset-0 max-md:hidden"
+                        />
+                        {/* Below 768px: the quote's mobile-web layout, on its purple backdrop drawn for that size. */}
+                        <ScenePanel
+                          key={`m-${plays[i]}`}
+                          {...mobile}
+                          active={i === active}
+                          maxScale={Infinity}
+                          transform
+                          className="absolute inset-0 md:hidden"
+                        />
+                      </>
+                    ) : (
+                      <ScenePanel key={plays[i]} {...motionScene(quote.scene)} active={i === active} maxScale={Infinity} />
+                    ))}
                 </CrossfadePanel>
-              ) : null,
-            )}
+              );
+            })}
           </div>
         </div>
       </div>

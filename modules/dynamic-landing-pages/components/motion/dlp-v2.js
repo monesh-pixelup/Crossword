@@ -6883,8 +6883,30 @@ const AskAiInlineV2Motion = slug("ask-ai-inline-motion", AskAiInlineV2Motion$1);
 const GistUpFrontV2bMotion = slug("gist-up-front-v2-motion", GistUpFrontV2bMotion$1);
 const DirectAskV2bMotion = slug("direct-ask-v2-motion", DirectAskV2bMotion$1);
 const CrossSellV2bMotion = slug("upsell-cross-sell-v2-motion", CrossSellV2bMotion$1);
+// 04–13 without their `data-slug` wrapper (whose desktop canvas, window and backdrop the source page's stylesheet keys
+// on it), for the mobile-web layouts (dlp-motion.tsx), as the 27 November 2026 source wraps them.
+const ComparisonToolsBaseMotion = ComparisonToolsV2Motion$1;
+const GamesRewardsBaseMotion = GamesRewardsV2Motion$1;
+const BuildBundleBaseMotion = BuildBundleV2Motion$1;
+const AdJourneyBaseMotion = AdJourneyV2Motion$1;
+const PersonalizedContentBaseMotion = PersonalizedContentV2Motion$1;
+const OffersComposerBaseMotion = OffersComposerV2Motion$1;
+const AskAiInlineBaseMotion = AskAiInlineV2Motion$1;
+const GistUpFrontBaseMotion = GistUpFrontV2bMotion$1;
+const DirectAskBaseMotion = DirectAskV2bMotion$1;
+const CrossSellBaseMotion = CrossSellV2bMotion$1;
 export {
+  AdJourneyBaseMotion,
   AdJourneyV2Motion,
+  AskAiInlineBaseMotion,
+  BuildBundleBaseMotion,
+  ComparisonToolsBaseMotion,
+  CrossSellBaseMotion,
+  DirectAskBaseMotion,
+  GamesRewardsBaseMotion,
+  GistUpFrontBaseMotion,
+  OffersComposerBaseMotion,
+  PersonalizedContentBaseMotion,
   AdaptiveProductPagesV2bMotion,
   AskAiInlineV2Motion,
   BuildBundleV2Motion,

@@ -54,8 +54,15 @@ export function UseCaseCampaigns() {
           {useCases.map((useCase) => (
             <li key={useCase.label} className="flex min-w-0 flex-col items-start">
               {/* The use case's motion visual, filling the column (past its drawn 620px where the column is wider). */}
-              <div className="relative aspect-[620/420] w-full">
+              <div className="relative aspect-[620/420] w-full max-md:hidden">
                 <AiaScenePanel slug={useCase.scene} fill replayAfter={3000} />
+              </div>
+              {/*
+                Below 768px: its mobile-web layout instead (353 × 440, ChatGPT's window at phone width, its side rail
+                folded away), on its green frame drawn for that size.
+              */}
+              <div className="relative aspect-[353/440] w-full md:hidden">
+                <AiaScenePanel slug={useCase.scene} mobile fill transform replayAfter={3000} />
               </div>
               <h3 className="mt-10 flex flex-col items-start gap-4">
                 <span className="font-open-sans text-[12px] leading-[1.1667] font-semibold tracking-[1.44px] max-md:text-[10px] max-md:leading-3 max-md:tracking-[1.2px] text-wine uppercase">{useCase.label}</span>

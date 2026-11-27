@@ -1,6 +1,6 @@
 "use client";
 
-import { type ComponentType, useEffect, useRef, useState } from "react";
+import { type ComponentType, type ReactNode, useEffect, useRef, useState } from "react";
 import type { InsightVisual } from "../../config/insights";
 import type { LifecycleVisual } from "../../config/lifecycle";
 import {
@@ -11,6 +11,7 @@ import {
   AskInsightMotion,
   GiftJourneyMotion,
   HomeMotion,
+  Mweb,
   PersonalAgentsMotion,
   RetentionGrowthMotion,
   RevenueAttributionMotion,
@@ -21,6 +22,9 @@ import {
 import frameTexture from "@/modules/shared/assets/motion/ill-frame/background-texture.webp";
 import frameBackground from "./home-v2/assets/icons/scene-frame-background.svg";
 import { SwapFade } from "@/components/ui/crossfade";
+
+/** The Insights visuals' backdrop (home-motion.js's insightsBackground: Figma 3991:208694's hotel front desk). */
+const insightsBackground = "/images/landing/home-v2/assets/insights-background-desk.webp";
 
 /**
  * Home v2's chat window on 01, 04 and 05, as the source page wraps them: the visual inside a `display: contents`
@@ -113,6 +117,24 @@ export const insightVisuals: Record<InsightVisual, InsightVisualEntry> = {
 };
 
 /**
+ * Below 768px, a visual in its mobile-web layout (Mweb, 353 × 440) on the panel's own frame: the phone layout's frame
+ * is transparent (home-mweb.css leaves its backgrounds out, and the panels strip the visuals' own), so only its window
+ * shows, centred on the panel and drawn `scale` times up so it stands about 44px clear of the frame's top and bottom
+ * (the 340px window: 680px panel → 1.74, 640px → 1.62). From 768px the desktop layout shows instead; each visual only
+ * plays once on screen, so the hidden one never runs.
+ */
+function PhoneVisual({ scale, children }: { scale: number; children: ReactNode }) {
+  return (
+    <div
+      className="absolute top-1/2 left-1/2 h-[440px] w-[353px] md:hidden"
+      style={{ transform: `translate(-50%, -50%) scale(${scale})` }}
+    >
+      <Mweb>{children}</Mweb>
+    </div>
+  );
+}
+
+/**
  * Replays a mock-up's visual each time it comes back into view (at least 30% on screen) after being mostly scrolled
  * away: the visuals only restart themselves once fully off screen, which a sticky or tall mock-up rarely is. Returns
  * the ref for the mock-up and a count to key its visual with.
@@ -180,7 +202,12 @@ export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run:
           // frame, with the site's tab crossfade (SwapFade).
           <SwapFade swapKey={visual ?? ""}>
             <HomeMotion>
-              <entry.Component key={`${visual}-${run}-${replay}`} />
+              <div className="contents max-md:hidden">
+                <entry.Component key={`${visual}-${run}-${replay}`} />
+              </div>
+              <PhoneVisual scale={1.74}>
+                <entry.Component key={`m-${visual}-${run}-${replay}`} />
+              </PhoneVisual>
             </HomeMotion>
           </SwapFade>
         )}
@@ -205,7 +232,22 @@ export function InsightPanel({ visual, run }: { visual: InsightVisual; run: numb
         {/* A new tab crossfades over the last; the same visual restarting (`run`) just replays in place. */}
         <SwapFade swapKey={visual}>
           <HomeMotion>
-            <Component key={`${visual}-${run}-${replay}`} />
+            <div className="contents max-md:hidden">
+              <Component key={`${visual}-${run}-${replay}`} />
+            </div>
+            {/*
+              Below 768px: the same hotel-desk backdrop the desktop visual draws over the whole 738 × 640 panel, with the
+              phone layout's window on it (its own photo hidden).
+            */}
+            <div className="absolute inset-0 md:hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element -- the visuals' own 738 × 640 backdrop */}
+              <img src={insightsBackground} alt="" className="absolute inset-0 size-full" />
+              <div className={"contents [&_.hm-ill-insight-frame\\_\\_background]:hidden!"}>
+                <PhoneVisual scale={1.62}>
+                  <Component key={`m-${visual}-${run}-${replay}`} />
+                </PhoneVisual>
+              </div>
+            </div>
           </HomeMotion>
         </SwapFade>
       </div>

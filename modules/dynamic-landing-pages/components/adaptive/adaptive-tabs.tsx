@@ -9,7 +9,7 @@ import { cn } from "@/lib/cn";
 import { tabTurn } from "@/lib/use-autoplay-tabs";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { type AdaptiveId, adaptiveFeatures } from "../../config/adaptive";
-import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
+import { DlpMotionRoot, dlpMwebSceneFor, dlpScenes } from "../motion/dlp-motion";
 
 /** How long each feature stays up before the next one takes over: its motion visual's run plus the hold. */
 const turns = adaptiveFeatures.map((feature) => tabTurn(dlpScenes[feature.scene].duration));
@@ -240,9 +240,24 @@ export function AdaptiveTabs() {
               >
                 <div className="min-h-0 overflow-hidden">
                   <div className="px-6 pb-6 md:px-10 md:pb-10">
-                    <div className="relative aspect-[738/760] w-full overflow-hidden">
+                    <div className="relative aspect-[738/760] w-full overflow-hidden max-md:hidden">
                       {wide !== true && (selected || i === closing) && (
                         <ScenePanel key={`${i}-${run}`} scene={dlpScenes[feature.scene]} root={DlpMotionRoot} cover />
+                      )}
+                    </div>
+                    {/*
+                      Below 768px: the feature's mobile-web layout (352 × 440, the product page as one column) instead,
+                      on the same warm interior photo (dlp-mweb.css).
+                    */}
+                    <div className="relative aspect-[352/440] w-full overflow-hidden md:hidden">
+                      {wide !== true && (selected || i === closing) && (
+                        <ScenePanel
+                          key={`m-${i}-${run}`}
+                          scene={dlpMwebSceneFor(feature.scene) ?? dlpScenes[feature.scene]}
+                          root={DlpMotionRoot}
+                          maxScale={Infinity}
+                          transform
+                        />
                       )}
                     </div>
                   </div>

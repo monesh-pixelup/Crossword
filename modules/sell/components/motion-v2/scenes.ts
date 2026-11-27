@@ -33,6 +33,27 @@ import {
   HumanModeDesktopMotion,
   ProactiveInterventionDesktopMotion,
   ReturnVisitComparisonDesktopMotion,
+  BrandedWidgetMwebMotion,
+  BrowseUpsellMwebMotion,
+  BundleBuildingMwebMotion,
+  CartUpsellOfferMwebMotion,
+  CompleteChannelDeploymentMwebMotion,
+  ConversationalDiscoveryMwebMotion,
+  CrossSellMwebMotion,
+  DecisionSupportMwebMotion,
+  GiftFinderMwebMotion,
+  GuidedFinderMwebMotion,
+  OutfitBuildingMwebMotion,
+  PlaceItWhereverMwebMotion,
+  PriceObjectionMwebMotion,
+  ProductComparisonMwebMotion,
+  ProductQaMwebMotion,
+  PurchaseConfirmationMwebMotion,
+  SizeFitMwebMotion,
+  StockAvailabilityMwebMotion,
+  TryItOnMwebMotion,
+  UpsellUpgradeMwebMotion,
+  VisualDiscoveryMwebMotion,
 } from ".";
 
 /*
@@ -315,3 +336,49 @@ export const humanModeMwebScene: SceneEntry = {
   height: 560,
   duration: 24000,
 };
+
+/*
+ * The mobile-web layouts (352 × 440) of the scenes above, for phones (below 768px): the same visual, steps, copy and
+ * timing as desktop, laid out for a phone column (see the mweb exports in ./index.tsx). Same labels and durations.
+ */
+const mwebOf = <T extends Record<string, SceneEntry>>(scenes: T, Components: { [K in keyof T]: SceneEntry["Component"] }) =>
+  Object.fromEntries(
+    Object.entries(scenes).map(([slug, scene]) => [slug, { ...scene, Component: Components[slug as keyof T], width: 352, height: 440 }]),
+  ) as { [K in keyof T]: SceneEntry };
+
+/** Product discovery 09m–16m: the chat window at phone width (product rails as lists, follow-up chips wrapping). */
+export const discoveryMwebScenes = mwebOf(discoveryScenes, {
+  "conversational-discovery": ConversationalDiscoveryMwebMotion,
+  "try-it-on": TryItOnMwebMotion,
+  "product-qa": ProductQaMwebMotion,
+  "outfit-building": OutfitBuildingMwebMotion,
+  "guided-finder": GuidedFinderMwebMotion,
+  "visual-discovery": VisualDiscoveryMwebMotion,
+  "size-fit": SizeFitMwebMotion,
+  "gift-finder": GiftFinderMwebMotion,
+});
+
+/** Upsell 17m–20m: the same phone demo and camera, the phone sized to the 352 × 440 maroon frame. */
+export const upsellMwebScenes = mwebOf(upsellScenes, {
+  "upsell-upgrade": UpsellUpgradeMwebMotion,
+  "cross-sell": CrossSellMwebMotion,
+  "bundle-building": BundleBuildingMwebMotion,
+  "browse-upsell": BrowseUpsellMwebMotion,
+});
+
+/** Conversion assist 28m–33m: the same phone demo and camera, the phone sized to the 352 × 440 aubergine frame. */
+export const assistMwebScenes = mwebOf(assistScenes, {
+  "price-objection": PriceObjectionMwebMotion,
+  "product-comparison": ProductComparisonMwebMotion,
+  "cart-upsell-offer": CartUpsellOfferMwebMotion,
+  "stock-availability": StockAvailabilityMwebMotion,
+  "purchase-confirmation": PurchaseConfirmationMwebMotion,
+  "decision-support": DecisionSupportMwebMotion,
+});
+
+/** Storefront presence 35m, 25m, 26m: the same visuals on a 352 × 440 frame (26's channel tray as a row above it). */
+export const storefrontMwebScenes = mwebOf(storefrontScenes, {
+  "brand-adaptability": BrandedWidgetMwebMotion,
+  "place-it-wherever": PlaceItWhereverMwebMotion,
+  "complete-channel-deployment": CompleteChannelDeploymentMwebMotion,
+});

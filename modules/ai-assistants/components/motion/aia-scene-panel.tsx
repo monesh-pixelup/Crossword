@@ -2,7 +2,7 @@
 
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { useReplay } from "@/modules/shared/motion/use-replay";
-import { type MotionSlug, motionScene } from "./motion-scenes";
+import { type MotionSlug, mobileMotionScene, motionScene } from "./motion-scenes";
 
 /**
  * A motion visual by slug (AI Assistants V3, or Personal Agents with a `pa-` slug), fitted to the
@@ -19,15 +19,18 @@ export function AiaScenePanel({
   maxScale,
   transform = false,
   replayAfter,
+  mobile = false,
 }: {
   slug: MotionSlug;
+  /** Its mobile-web layout (353 × 440) where it has one (AI Assistants 01–10, 12–14); otherwise its own. */
+  mobile?: boolean;
   fill?: boolean;
   /** Cap on the zoom (ScenePanel's own default, 1, unless given); `fill` lifts it entirely. */
   maxScale?: number;
   transform?: boolean;
   replayAfter?: number;
 }) {
-  const { scene, root } = motionScene(slug);
+  const { scene, root } = (mobile && mobileMotionScene(slug)) || motionScene(slug);
   const { ref, take } = useReplay(scene.duration, replayAfter);
   const panel = <ScenePanel key={take} scene={scene} root={root} maxScale={fill ? Infinity : maxScale} transform={transform} />;
   if (replayAfter === undefined) return panel;

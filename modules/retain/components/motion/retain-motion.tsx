@@ -2,7 +2,17 @@
 
 import { type ComponentType, type CSSProperties, useSyncExternalStore } from "react";
 import {
+  BackInStockIMessageMwebV2,
   BackInStockIMessageV2,
+  BrowseRecoveryWhatsAppMwebV2Motion,
+  CartRecoveryMwebV2Motion,
+  OutboundWhatsAppMwebV2,
+  PostPurchaseWhatsAppMwebV2,
+  PriceDropWhatsAppMwebV2,
+  ReplenishmentIMessageMwebV2,
+  ReviewWhatsAppMwebV2,
+  SegmentedIMessageMwebV2,
+  WinBackIMessageMwebV2,
   BrowseRecoveryWhatsAppV2Motion,
   CartRecoveryV2Motion,
   LaunchAudienceV2Motion,
@@ -40,6 +50,18 @@ const recoveryScenes: ComponentType[] = [
   ReplenishmentIMessageV2,
 ];
 
+/**
+ * 01m–05m, the same five for phones (353 × 440, from the 27 November 2026 handoff): the chats laid out at an iPhone's
+ * width in a 266 × 340 window, on the aubergine frame drawn for that size.
+ */
+const recoveryMwebScenes: ComponentType[] = [
+  CartRecoveryMwebV2Motion,
+  BrowseRecoveryWhatsAppMwebV2Motion,
+  BackInStockIMessageMwebV2,
+  PriceDropWhatsAppMwebV2,
+  ReplenishmentIMessageMwebV2,
+];
+
 /** Liveries the campaigns take in turn: maroon (the source's), then aubergine, then forest green. */
 export const campaignTones = ["maroon", "aubergine", "forest"] as const;
 
@@ -54,6 +76,18 @@ const campaignScenes: ComponentType[] = [
   PostPurchaseWhatsAppV2,
   WinBackIMessageV2,
   ReviewWhatsAppV2,
+];
+
+/**
+ * 06m–10m, the same five campaigns for phones (353 × 440, from the 27 November 2026 handoff), in the same order: the
+ * chats at an iPhone's width in a 266 × 340 window, inside the section's framed panel (`.rtn-bare`).
+ */
+const campaignMwebScenes: ComponentType[] = [
+  OutboundWhatsAppMwebV2,
+  SegmentedIMessageMwebV2,
+  PostPurchaseWhatsAppMwebV2,
+  WinBackIMessageMwebV2,
+  ReviewWhatsAppMwebV2,
 ];
 
 /**
@@ -159,4 +193,18 @@ export function AudienceMwebMotion() {
 /** Return reduction on a phone (12m, 353 × 440): a phone-size product page where Ask AI opens the chat as a bottom sheet. Plays once. */
 export function ReturnMwebMotion() {
   return <MotionStage scene={SizeConfidenceMwebV2Motion} width={353} height={440} />;
+}
+
+/** Proactive recovery on a phone (01m–05m, 353 × 440): the open moment's chat laid out for a phone, on its aubergine frame. */
+export function RecoveryMwebMotion({ index }: { index: number }) {
+  return <MotionStage scene={recoveryMwebScenes[index] ?? recoveryMwebScenes[0]} width={353} height={440} />;
+}
+
+/**
+ * A campaign on a phone (06m–10m, 353 × 440), by its index in config/campaigns.ts, in its turn's livery: the chat laid
+ * out for a phone, inside the section's framed panel without a backdrop of its own (`.rtn-bare`).
+ */
+export function CampaignMwebMotion({ index }: { index: number }) {
+  const tone = campaignTones[index % campaignTones.length];
+  return <MotionStage scene={campaignMwebScenes[index]} width={353} height={440} tone={tone === "maroon" ? undefined : tone} />;
 }

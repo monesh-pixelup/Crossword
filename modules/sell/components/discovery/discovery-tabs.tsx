@@ -10,9 +10,10 @@ import panel from "@/modules/shared/assets/panels/panel-conversational.webp";
 import { discoveryFeatures } from "../../config/discovery";
 import { ScenePanel, type SceneEntry } from "@/modules/shared/motion/scene-panel";
 import { SellMotionRoot } from "../motion-v2";
-import { discoveryScenes as scenes } from "../motion-v2/scenes";
+import { discoveryMwebScenes as mwebScenes, discoveryScenes as scenes } from "../motion-v2/scenes";
 
 const discoveryScenes: Record<string, SceneEntry> = scenes;
+const discoveryMwebScenes: Record<string, SceneEntry> = mwebScenes;
 
 /** Each feature's turn: its scene's run plus the hold. */
 const turns = discoveryFeatures.map((feature) => tabTurn(discoveryScenes[feature.scene]?.duration));
@@ -46,7 +47,7 @@ function FeaturePanel({ feature, scene, play, replay }: { feature: Feature; scen
         the damask, 16px in, and centred in it, without its own maroon frame and texture (`.sell-bare`), so only the
         panel's frame shows around the chat. Drawn while its feature shows or fades out.
       */}
-      <div className="relative w-full">
+      <div className="relative w-full max-md:hidden">
         <Image src={panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
         {discoveryScenes[feature.scene] && scene && (
           <div className="sell-bare absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
@@ -59,6 +60,37 @@ function FeaturePanel({ feature, scene, play, replay }: { feature: Feature; scen
               transform
             />
           </div>
+        )}
+      </div>
+      {/*
+        Below 768px: the feature's mobile-web layout (352 × 440, the chat window at phone width) in a panel of that
+        shape, on the same panel art: its studded lattice drawn round the edge (border-image, the art's 16px border at
+        the ~7px it shows at phone width) over its maroon damask. The visual's own frame is transparent.
+      */}
+      <div
+        className="relative aspect-[352/440] w-full border-7 border-transparent md:hidden"
+        style={{
+          backgroundImage: `url(${panel.src})`,
+          // Only the art's damask inside the border: drawn 611/579 of the inner height (its 16px lattice at top and
+          // bottom falling just outside, cropped), centred, so its own lattice never shows as a second, thicker band
+          // under the drawn border at the top and bottom.
+          backgroundSize: "auto calc(100% * 611 / 579)",
+          backgroundPosition: "center",
+          backgroundOrigin: "padding-box",
+          backgroundClip: "padding-box",
+          borderImage: `url(${panel.src}) 48 / 7px round`,
+        }}
+      >
+        {discoveryMwebScenes[feature.scene] && scene && (
+          <ScenePanel
+            key={replay}
+            scene={discoveryMwebScenes[feature.scene]}
+            active={play}
+            root={SellMotionRoot}
+            maxScale={Infinity}
+            transform
+            className="absolute -inset-[7px]"
+          />
         )}
       </div>
     </>

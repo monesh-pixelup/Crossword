@@ -7400,6 +7400,38 @@
 .rtn-motion.rv2m .ill-retain-im .ill-outbound__collection:not(.ill-imc--multi) .ill-outbound__media { aspect-ratio: 2.25 / 1; }
 .rtn-motion.rv2m .sbl .ill-retain-im .ill-imc--contain-tiles .ill-outbound__media .ill-media { object-fit: contain; padding: 3px; }
 
+/* ---------- 01m–10m: 01–10 for mobile web, 353x440 ----------
+   As 12m: the frame at 353x440 (01–05 on the purple mweb frame with its
+   gold border, as 12m; 06–10 on their own maroon damask), and a window
+   that reads 266x340 on screen (12m's 313x400 at 85%), 16px corners and
+   the 2px gold ring. The channel shells are authored in iOS points
+   (1pt = 9/17px); desktop lays them out 255px wide (≈481pt) and scales
+   1.7647. Here they lay out 206px wide (390pt, an iPhone) and scale
+   1.2913 to fill 266px, so the 17pt body reads ≈11.6px, phone size.
+   Beats, copy and components are 01–10's own. */
+.rtn-motion.rv2m .rv2-mweb .ill-conversion-assistance-frame {
+  width: 353px;
+  height: 440px;
+  align-items: center;
+  padding: 0;
+  background: #45225c url("../../assets/motion/ill-frame/mweb/bg.webp") center / cover no-repeat;
+}
+/* (06m–10m's maroon damask and border are left out: on the site the campaigns play inside the section's own framed
+   damask panel, which shows behind them in every livery; see the Site addition for `.rv2-mweb` below.) */
+.rtn-motion.rv2m .rv2-mweb .ill-outbound { width: 266px; height: 340px; }
+.rtn-motion.rv2m .rv2-mweb .ill-outbound__shell,
+.rtn-motion.rv2m .rv2-mweb .ill-outbound .ill-channel-shell__glow {
+  width: 206px;
+  height: 263.31px;
+  transform: scale(1.2913);
+}
+/* 16px / 2px on screen at ×1.2913. */
+.rtn-motion.rv2m .rv2-mweb .ill-outbound > .ill-channel-shell {
+  border-radius: 12.39px;
+  box-shadow: 0 0 0 1.549px #e0be60, 0 0 3.365px .841px rgba(0, 0, 0, .02), 0 2.755px 5.647px rgba(0, 0, 0, .25);
+}
+.rtn-motion.rv2m .rv2-mweb--maroon :is(.ill-im-shell__avatar, .ill-wa2__avatar).demo-brand-mark { background: #640230; }
+
 /*
  * Site addition (not in the source build): the campaign frame in the site's other two liveries, the
  * source's maroon damask recoloured (its gold frame and rings untouched). Set on the scope by
@@ -7438,5 +7470,22 @@
 }
 
 .rtn-motion.rv2m.rtn-tone-forest .rv2-wide :is(.ill-im-shell__avatar, .ill-wa2__avatar).demo-brand-mark {
+  background: #02311a;
+}
+
+/*
+ * Site addition, for the 27 November 2026 mobile-web campaigns (06m–10m, `.rv2-mweb--maroon`, 353 × 440): on a phone
+ * they too play inside the section's framed damask panel (campaign-tabs.tsx), so the frame drops its own backdrop there,
+ * and the brand avatar matches the panel's damask in the aubergine and forest liveries, as the wide ones do.
+ */
+.rtn-bare .rtn-motion.rv2m .rv2-mweb .ill-conversion-assistance-frame {
+  background: none;
+}
+
+.rtn-motion.rv2m.rtn-tone-aubergine .rv2-mweb--maroon :is(.ill-im-shell__avatar, .ill-wa2__avatar).demo-brand-mark {
+  background: #451e61;
+}
+
+.rtn-motion.rv2m.rtn-tone-forest .rv2-mweb--maroon :is(.ill-im-shell__avatar, .ill-wa2__avatar).demo-brand-mark {
   background: #02311a;
 }

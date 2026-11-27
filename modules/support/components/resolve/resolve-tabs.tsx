@@ -9,7 +9,7 @@ import { ctaLinks } from "@/modules/marketing/config/navigation";
 import panel from "@/modules/shared/assets/panels/panel-conversational.webp";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { resolveCases } from "../../config/resolve";
-import { SupportMotionRoot, supportScenes } from "../motion-v3/support-motion";
+import { SupportMotionRoot, supportMwebSlug, supportScenes } from "../motion-v3/support-motion";
 
 /** Each case's turn: its scene's run plus the hold. */
 const turns = resolveCases.map((c) => tabTurn(supportScenes[c.scene].duration));
@@ -41,7 +41,7 @@ function CasePanel({ item, scene, play, replay }: { item: Case; scene: boolean; 
         the column. The case's motion visual (788 × 579) fills the damask, 16px in, and is centred in it,
         without its own notched frame and texture (`.sup-bare`), so only the panel's frame shows around the chat.
       */}
-      <div className="relative w-full">
+      <div className="relative w-full max-md:hidden">
         <Image src={panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
         {scene && (
           <div className="sup-bare absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
@@ -54,6 +54,36 @@ function CasePanel({ item, scene, play, replay }: { item: Case; scene: boolean; 
               transform
             />
           </div>
+        )}
+      </div>
+      {/*
+        Below 768px: the case's mobile-web layout (353 × 440, the chat window at phone width, following the newest
+        message) in a panel of that shape, on the same panel art: its studded lattice drawn round the edge (border-image,
+        the art's 16px border at the ~7px it shows at phone width) over its maroon damask, drawn 611/579 of the inner
+        height so its own lattice at the top and bottom falls just outside (cropped) and never shows as a second band.
+        The visual's frame is transparent (motion.css).
+      */}
+      <div
+        className="relative aspect-[353/440] w-full border-7 border-transparent md:hidden"
+        style={{
+          backgroundImage: `url(${panel.src})`,
+          backgroundSize: "auto calc(100% * 611 / 579)",
+          backgroundPosition: "center",
+          backgroundOrigin: "padding-box",
+          backgroundClip: "padding-box",
+          borderImage: `url(${panel.src}) 48 / 7px round`,
+        }}
+      >
+        {scene && (
+          <ScenePanel
+            key={`m-${replay}`}
+            scene={supportScenes[supportMwebSlug(item.scene)]}
+            active={play}
+            root={SupportMotionRoot}
+            maxScale={Infinity}
+            transform
+            className="absolute -inset-[7px]"
+          />
         )}
       </div>
     </>

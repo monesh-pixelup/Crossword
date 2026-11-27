@@ -1,20 +1,32 @@
 "use client";
 
-import { type ReactNode, useSyncExternalStore } from "react";
+import { type ComponentType, type ReactNode, useSyncExternalStore } from "react";
 import type { SceneEntry } from "@/modules/shared/motion/scene-panel";
 import "./motion.css";
+// After motion.css, as the source loads its mobile layouts after the visuals' own styles.
+import "./dlp-mweb.css";
 import {
   AdaptiveProductPagesV2bMotion,
+  AdJourneyBaseMotion,
   AdJourneyV2Motion,
+  AskAiInlineBaseMotion,
   AskAiInlineV2Motion,
+  BuildBundleBaseMotion,
   BuildBundleV2Motion,
+  ComparisonToolsBaseMotion,
   ComparisonToolsV2Motion,
+  CrossSellBaseMotion,
   CrossSellV2bMotion,
   DedicatedLandingPagesV2Motion,
+  DirectAskBaseMotion,
   DirectAskV2bMotion,
+  GamesRewardsBaseMotion,
   GamesRewardsV2Motion,
+  GistUpFrontBaseMotion,
   GistUpFrontV2bMotion,
+  OffersComposerBaseMotion,
   OffersComposerV2Motion,
+  PersonalizedContentBaseMotion,
   PersonalizedContentV2Motion,
   RoasGapMwebV2Motion,
   RoasGapV2Motion,
@@ -192,3 +204,51 @@ export const dlpScenes = {
 } satisfies Record<string, SceneEntry>;
 
 export type DlpSceneSlug = keyof typeof dlpScenes;
+
+/*
+ * The mobile-web layouts (352 × 440) of 02–13, from the 27 November 2026 source (src/visuals/SellMweb/SellMweb.tsx):
+ * each wraps the desktop visual, unchanged (04–13 without their desktop `data-slug` wrapper), in a `.smw` box that
+ * dlp-mweb.css lays out for a phone. Same steps, copy and timing as desktop, so the same labels and durations. For
+ * phones (below 768px); 01's phone version is `roas-gap-mweb-motion` above.
+ */
+type Tone = "maroon" | "aubergine";
+
+const mweb = (C: ComponentType, tone: Tone) =>
+  function Mweb() {
+    return (
+      <div className={`smw smw--${tone}`}>
+        <C />
+      </div>
+    );
+  };
+
+const mwebScene = (slug: Exclude<DlpSceneSlug, "roas-gap-motion" | "roas-gap-mweb-motion">, C: ComponentType, tone: Tone): SceneEntry => ({
+  ...dlpScenes[slug],
+  Component: mweb(C, tone),
+  width: 352,
+  height: 440,
+});
+
+export const dlpMwebScenes = {
+  // 02m, 03m: on their aubergine frame.
+  "dedicated-landing-pages-motion": mwebScene("dedicated-landing-pages-motion", DedicatedLandingPagesV2Motion, "aubergine"),
+  "adaptive-product-pages-v2-motion": mwebScene("adaptive-product-pages-v2-motion", AdaptiveProductPagesV2bMotion, "aubergine"),
+  // 04m–09m: the ad opening into the store at phone width (on the page's lattice panel, see dedicated-tab-list.tsx).
+  "comparison-tools-motion": mwebScene("comparison-tools-motion", ComparisonToolsBaseMotion, "maroon"),
+  "games-rewards-motion": mwebScene("games-rewards-motion", GamesRewardsBaseMotion, "maroon"),
+  "build-your-bundle-motion": mwebScene("build-your-bundle-motion", BuildBundleBaseMotion, "maroon"),
+  "ad-journey-motion": mwebScene("ad-journey-motion", AdJourneyBaseMotion, "maroon"),
+  "personalized-content-motion": mwebScene("personalized-content-motion", PersonalizedContentBaseMotion, "maroon"),
+  "offers-composer-motion": mwebScene("offers-composer-motion", OffersComposerBaseMotion, "maroon"),
+  // 10m–13m: the product page as one column, on their warm interior photo.
+  "ask-ai-inline-motion": mwebScene("ask-ai-inline-motion", AskAiInlineBaseMotion, "maroon"),
+  "gist-up-front-v2-motion": mwebScene("gist-up-front-v2-motion", GistUpFrontBaseMotion, "maroon"),
+  "direct-ask-v2-motion": mwebScene("direct-ask-v2-motion", DirectAskBaseMotion, "maroon"),
+  "upsell-cross-sell-v2-motion": mwebScene("upsell-cross-sell-v2-motion", CrossSellBaseMotion, "maroon"),
+} satisfies Partial<Record<DlpSceneSlug, SceneEntry>>;
+
+export type DlpMwebSceneSlug = keyof typeof dlpMwebScenes;
+
+/** A visual's mobile-web layout by its desktop slug (undefined for 01, whose phone version is its own slug). */
+export const dlpMwebSceneFor = (slug: DlpSceneSlug): SceneEntry | undefined =>
+  (dlpMwebScenes as Partial<Record<DlpSceneSlug, SceneEntry>>)[slug];

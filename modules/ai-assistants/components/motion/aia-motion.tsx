@@ -1,9 +1,12 @@
 "use client";
 
-import { type ReactNode, useSyncExternalStore } from "react";
+import { type ComponentType, type ReactNode, useSyncExternalStore } from "react";
 import type { SceneEntry } from "@/modules/shared/motion/scene-panel";
 import "./motion.css";
+// After motion.css, as the source loads its mobile layouts after the visuals' own styles.
+import "./aia-mweb.css";
 import {
+  SheetMweb,
   V3AppDetailMotion,
   V3AppDetailMwebMotion,
   V3BackInStockMotion,
@@ -206,3 +209,68 @@ export const aiaScenes = {
 } satisfies Record<string, SceneEntry>;
 
 export type AiaSceneSlug = keyof typeof aiaScenes;
+
+/*
+ * The mobile-web layouts (353 × 440) of 01–10 and 12–14, from the 27 November 2026 source
+ * (src/visuals/SellMweb/SellMweb.tsx): each wraps the desktop visual, unchanged, in a `.smw` box that aia-mweb.css lays
+ * out for a phone; the phone demos (07–10) also provide SheetMweb, which swaps their desktop frame for the 353 × 440 one
+ * and sizes the phone to 372px tall at rest (440 − 2 × the camera's 34px margin). Same steps, copy and timing as
+ * desktop, so the same labels and durations. For phones (below 768px); 11m and 15m are their own slugs above.
+ */
+type Tone = "maroon" | "aubergine" | "green" | "ca";
+
+function SellMweb({ tone, children }: { tone: Tone; children: ReactNode }) {
+  return <div className={`smw smw--${tone} smw--353`}>{children}</div>;
+}
+
+const mweb = (C: ComponentType, tone: Tone) =>
+  function Mweb() {
+    return (
+      <SellMweb tone={tone}>
+        <C />
+      </SellMweb>
+    );
+  };
+
+// The bare 353 × 440 frame for the phone demos (its aubergine backdrop drawn for this size, aia-mweb.css).
+function CaFrame({ children }: { children: ReactNode }) {
+  return <div className="smw-frame smw-frame--ca">{children}</div>;
+}
+
+const mwebPhone = (C: ComponentType) =>
+  function MwebPhone() {
+    return (
+      <SellMweb tone="ca">
+        <SheetMweb.Provider value={{ Frame: CaFrame, slotH: 372 }}>
+          <C />
+        </SheetMweb.Provider>
+      </SellMweb>
+    );
+  };
+
+const mwebScene = (slug: AiaSceneSlug, Component: ComponentType): SceneEntry => ({
+  ...aiaScenes[slug],
+  Component,
+  width: 353,
+  height: 440,
+});
+
+export const aiaMwebScenes: Partial<Record<AiaSceneSlug, SceneEntry>> = {
+  // 01m–04m: ChatGPT's window at phone width, on their maroon damask.
+  "which-one-motion": mwebScene("which-one-motion", mweb(V3WhichMotion, "maroon")),
+  "black-with-cubes-motion": mwebScene("black-with-cubes-motion", mweb(V3ConfigureMotion, "maroon")),
+  "choose-this-one-motion": mwebScene("choose-this-one-motion", mweb(V3ShortlistMotion, "maroon")),
+  "best-value-motion": mwebScene("best-value-motion", mweb(V3ValueMotion, "maroon")),
+  // 05m, 06m: on their green frame, drawn for this size.
+  "back-in-stock-motion": mwebScene("back-in-stock-motion", mweb(V3BackInStockMotion, "green")),
+  "price-drop-motion": mwebScene("price-drop-motion", mweb(V3PriceDropMotion, "green")),
+  // 07m–10m: the same phone demo and camera, on the aubergine frame drawn for this size.
+  "order-status-motion": mwebScene("order-status-motion", mwebPhone(V3OrderStatusMotion)),
+  "exchange-motion": mwebScene("exchange-motion", mwebPhone(V3ExchangeMotion)),
+  "loyalty-motion": mwebScene("loyalty-motion", mwebPhone(V3LoyaltyMotion)),
+  "checkout-motion": mwebScene("checkout-motion", mwebPhone(V3CheckoutMotion)),
+  // 12m–14m: the compact window, on its compact purple backdrop fitted whole.
+  "promo-upgrade": mwebScene("promo-upgrade", mweb(V3PromoUpgrade, "aubergine")),
+  "promo-offer": mwebScene("promo-offer", mweb(V3PromoOffer, "aubergine")),
+  "promo-launches": mwebScene("promo-launches", mweb(V3PromoLaunches, "aubergine")),
+};

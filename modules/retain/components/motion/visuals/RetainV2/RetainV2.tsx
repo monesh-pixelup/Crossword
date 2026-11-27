@@ -58,3 +58,20 @@ export const SegmentedIMessageV2 = () => <div className="rv2-wide"><Layer><Segme
 export const PostPurchaseWhatsAppV2 = () => <div className="rv2-wide"><Layer><PostPurchaseWhatsApp /></Layer></div>;
 export const WinBackIMessageV2 = () => <div className="rv2-wide"><Layer><WinBackIMessage /></Layer></div>;
 export const ReviewWhatsAppV2 = () => <div className="rv2-wide"><Layer><ReviewWhatsApp /></Layer></div>;
+
+// 01m–10m: 01–10 for mobile web (353x440), as 12m. The same components in
+// a phone-width frame; retain-v2-motion.css (.rv2-mweb) does the sizing.
+// (From the 27 November 2026 source; motion.css carries that stylesheet.)
+const Mweb = ({ maroon, children }: { maroon?: boolean; children: React.ReactNode }) => (
+  <div className={maroon ? "rv2-mweb rv2-mweb--maroon" : "rv2-mweb"}><Layer>{children}</Layer></div>
+);
+export const CartRecoveryMwebV2Motion = () => <Mweb><CartRecoveryMotion /></Mweb>;
+export const BrowseRecoveryWhatsAppMwebV2Motion = () => <Mweb><BrowseRecoveryWhatsAppMotion /></Mweb>;
+export const BackInStockIMessageMwebV2 = () => <Mweb><BackInStockIMessage /></Mweb>;
+export const PriceDropWhatsAppMwebV2 = () => <Mweb><PriceDropWhatsApp /></Mweb>;
+export const ReplenishmentIMessageMwebV2 = () => <Mweb><ReplenishmentIMessage /></Mweb>;
+export const OutboundWhatsAppMwebV2 = () => <Mweb maroon><OutboundWhatsApp /></Mweb>;
+export const SegmentedIMessageMwebV2 = () => <Mweb maroon><SegmentedIMessage /></Mweb>;
+export const PostPurchaseWhatsAppMwebV2 = () => <Mweb maroon><PostPurchaseWhatsApp /></Mweb>;
+export const WinBackIMessageMwebV2 = () => <Mweb maroon><WinBackIMessage /></Mweb>;
+export const ReviewWhatsAppMwebV2 = () => <Mweb maroon><ReviewWhatsApp /></Mweb>;

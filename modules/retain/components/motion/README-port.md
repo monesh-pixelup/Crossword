@@ -79,3 +79,18 @@ versions are archived:
   for the new campaigns: no damask of their own inside the section's framed panel (`.rtn-bare`), and the brand avatar
   matched to the aubergine and forest panels.
 
+
+## 27 November 2026 update
+
+From the updated handoff, which adds mobile-web versions (353 × 440) of 01–10 beside the 11m and 12m already here:
+
+- **RetainV2.tsx:** the source's `*Mweb*` exports (01m–10m), copied as they are: the same chats wrapped in `.rv2-mweb`
+  (06m–10m also `.rv2-mweb--maroon`). Nothing else in the source's components changed; 11m and 12m are as before.
+- **motion.css:** the source page stylesheet's new `.rv2-mweb` block (`.rtn-motion.rv2m …`), in its place at the end of
+  that stylesheet's rules. 06m–10m's own maroon damask is left out, and a Site addition at the end drops their frame's
+  backdrop inside the campaigns' framed panel (`.rtn-bare`) and matches the brand avatar to the aubergine and forest
+  liveries, as for the wide campaigns. 01m–05m keep the source's aubergine mobile frame (`ill-frame/mweb/bg.webp`,
+  already here for 12m).
+- **retain-motion.tsx:** `RecoveryMwebMotion` (01m–05m) and `CampaignMwebMotion` (06m–10m, in their livery), shown below
+  768px in place of the wide ones (recovery/recovery-list.tsx, campaigns/campaign-tabs.tsx). There the campaigns'
+  framed panel takes the 353 × 440 shape: the same panel art, its lattice drawn round the edge with border-image.

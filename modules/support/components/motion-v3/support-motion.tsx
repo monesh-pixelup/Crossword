@@ -12,14 +12,21 @@ import {
   HelpDeskDashboardMwebMotion,
   HelpdeskInsightsDashboardMotion,
   MerchantInsightDashboardMotion,
+  MerchantInsightDashboardMwebMotion,
   MerchantInsightDeskMotion,
   MerchantInsightMotion,
   OrderTrackingMotion,
+  OrderTrackingMwebMotion,
   ProductUsageMotion,
+  ProductUsageMwebMotion,
   RefundStatusMotion,
+  RefundStatusMwebMotion,
   ReturnEligibilityMotion,
+  ReturnEligibilityMwebMotion,
   ShadeChangeMotion,
+  ShadeChangeMwebMotion,
   SizeExchangeMotion,
+  SizeExchangeMwebMotion,
   TakeoverDashboardMotion,
   TakeoverDashboardMwebMotion,
   WhisperDashboardMotion,
@@ -262,6 +269,70 @@ export const supportScenes = {
     height: 440,
     duration: 11200,
   },
+  // 01m–06m and 10m, for phones (353 × 440, the 27 November 2026 update): the same beats and copy as 01–06 and 10. 01m–06m
+  // lay the chat window out at phone width (it follows the newest message, then the result card); 10m folds the inbox
+  // into one chat window as 07m–09m do, its Summary landing in the conversation as the AI's card.
+  "order-tracking-mweb": {
+    Component: OrderTrackingMwebMotion,
+    label:
+      "A shopper asks where their week-old order is. The assistant says it shipped Tuesday and is in transit through Chicago, expected by Friday, with a shipped, in transit, out for delivery tracker.",
+    width: 353,
+    height: 440,
+    duration: 4400,
+  },
+  "product-usage-mweb": {
+    Component: ProductUsageMwebMotion,
+    label:
+      "A shopper asks how much vitamin C serum to use. The assistant recommends 2–3 drops after cleansing and before moisturizer, shown as a three-step routine.",
+    width: 353,
+    height: 440,
+    duration: 4750,
+  },
+  "size-exchange-mweb": {
+    Component: SizeExchangeMwebMotion,
+    label:
+      "A shopper wants to exchange an item for a size up. The assistant starts the exchange: a prepaid return label is in their email and the new size ships once the return is scanned.",
+    width: 353,
+    height: 440,
+    duration: 5300,
+  },
+  "shade-change-mweb": {
+    Component: ShadeChangeMwebMotion,
+    label:
+      "A shopper ordered the wrong foundation shade. The order hasn't shipped, so the assistant offers to switch it from Shade 3 Fair to Shade 4 Buff, with buttons to make the change or keep it.",
+    width: 353,
+    height: 440,
+    duration: 5100,
+  },
+  "refund-status-mweb": {
+    Component: RefundStatusMwebMotion,
+    label:
+      "A shopper asks about the refund for a returned serum. The assistant confirms the return arrived and the $48.25 refund is processed, back on the original payment method in 3–5 business days.",
+    width: 353,
+    height: 440,
+    duration: 4500,
+  },
+  "return-eligibility-mweb": {
+    Component: ReturnEligibilityMwebMotion,
+    label:
+      "A shopper asks whether opened protein powder can be returned. The assistant says yes: within 30 days and with less than 25% used, with a Start return button.",
+    width: 353,
+    height: 440,
+    duration: 5550,
+  },
+  "merchant-insight-mweb": {
+    Component: MerchantInsightDashboardMwebMotion,
+    label:
+      "In the helpdesk dashboard, Crossword summarises a customer's delayed refund in the Details panel. Asked for anything else, it explains privately that the refund is approved but hasn't reached the payment processor yet, and drafts the reply, which the team member sends as their own.",
+    width: 353,
+    height: 440,
+    // The same script as 10b ("merchant-insight-dashboard").
+    duration: 13600,
+  },
 } satisfies Record<string, SceneEntry>;
+
+/** A case's phone version (01m–06m) by its desktop slug. */
+export const supportMwebSlug = (slug: "order-tracking" | "product-usage" | "size-exchange" | "shade-change" | "refund-status" | "return-eligibility") =>
+  `${slug}-mweb` as const;
 
 export type SupportSceneSlug = keyof typeof supportScenes;

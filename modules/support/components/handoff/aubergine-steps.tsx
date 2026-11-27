@@ -102,6 +102,7 @@ export function AubergineSteps({
   cardArt = card,
   stamps,
   numeralByTitleOnPhones = false,
+  phoneMedia = false,
 }: {
   steps: { title: string; description: string }[];
   variant?: keyof typeof variants;
@@ -116,6 +117,11 @@ export function AubergineSteps({
    * (Personal agents', AI Assistants' Promotions & upselling and Retain's Loyalty). From 768px it stays over the cell, as everywhere else.
    */
   numeralByTitleOnPhones?: boolean;
+  /**
+   * Below 768px, give each `media` cell the 353 × 440 shape of a mobile-web visual (AI Assistants' Promotions &
+   * upselling, 12m–14m) instead of its 355:402 one.
+   */
+  phoneMedia?: boolean;
 }) {
   const v = variants[variant];
   return (
@@ -145,7 +151,7 @@ export function AubergineSteps({
 
             {/* Figma's pattern fill: a 49.67px tile of faint white motifs (11% at most) over the cell's black/15, from its outer corner. */}
             <div
-              className={`relative ${media ? "aspect-[355/402]" : "cellHeight" in v ? v.cellHeight : "h-[232px]"} ${"cellBorder" in v ? v.cellBorder : "border border-white/3"} bg-black/15 bg-size-[49.667px_49.667px] bg-origin-border bg-repeat ${v.cell} ${numeralByTitleOnPhones ? "max-md:mt-0" : ""}`}
+              className={`relative ${media ? `aspect-[355/402]${phoneMedia ? " max-md:aspect-[353/440]" : ""}` : "cellHeight" in v ? v.cellHeight : "h-[232px]"} ${"cellBorder" in v ? v.cellBorder : "border border-white/3"} bg-black/15 bg-size-[49.667px_49.667px] bg-origin-border bg-repeat ${v.cell} ${numeralByTitleOnPhones ? "max-md:mt-0" : ""}`}
               style={{ backgroundImage: `url(${cellPattern.src})` }}
             >
               <span aria-hidden className={`pointer-events-none absolute hidden md:block ${v.lineTop} ${dashedH} ${first ? "left-[calc(-1*var(--steps-overshoot,57px))]" : "left-0"} ${last ? "right-[calc(-1*var(--steps-overshoot,57px))]" : "right-0"}`} />

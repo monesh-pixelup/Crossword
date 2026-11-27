@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 353 440" preserveAspectRatio="none" fill="none" stroke="#d7b46a">
+  <!-- The 353x440 mobile frame's gold rule: 9.3px in, concave 24px corner notches, rivets outside each notch. Matches mweb/bg.webp. -->
+  <path vector-effect="non-scaling-stroke" stroke-width="1" d="M33.3 9.3H319.7A24 24 0 0 0 343.7 33.3V406.7A24 24 0 0 0 319.7 430.7H33.3A24 24 0 0 0 9.3 406.7V33.3A24 24 0 0 0 33.3 9.3Z"/>
+  <g vector-effect="non-scaling-stroke" stroke-width="1">
+    <circle cx="12.3" cy="12.3" r="3"/><circle cx="340.7" cy="12.3" r="3"/>
+    <circle cx="12.3" cy="427.7" r="3"/><circle cx="340.7" cy="427.7" r="3"/>
+  </g>
+</svg>

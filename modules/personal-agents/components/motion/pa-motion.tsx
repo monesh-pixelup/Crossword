@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useSyncExternalStore } from "react";
+import { type ComponentType, type ReactNode, useSyncExternalStore } from "react";
 import type { SceneEntry } from "@/modules/shared/motion/scene-panel";
 import { PersonalAgentInsightsFit, PersonalAgentInsightsMotion } from "./illustrations/PersonalAgentInsights/PersonalAgentInsights";
 import {
@@ -143,3 +143,40 @@ export const paScenes = {
 } satisfies Record<string, SceneEntry>;
 
 export type PaSceneSlug = keyof typeof paScenes;
+
+/*
+ * The mobile-web layouts (353 × 440) of 01–09, from the 27 November 2026 source (src/visuals/SellMweb/SellMweb.tsx,
+ * `mweb(…, { tone, w353: true })`): each wraps the desktop visual, unchanged, in a `.smw` box that motion.css's mobile-web
+ * rules lay out for a phone. Same steps, copy and timing as desktop, so the same labels and durations. For phones (below
+ * 768px); 00m and 10m are their own slugs above.
+ */
+const mweb = (C: ComponentType, tone: "maroon" | "aubergine") =>
+  function Mweb() {
+    return (
+      <div className={`smw smw--${tone} smw--353`}>
+        <C />
+      </div>
+    );
+  };
+
+const mwebScene = (slug: PaSceneSlug, Component: ComponentType): SceneEntry => ({
+  ...paScenes[slug],
+  Component,
+  width: 353,
+  height: 440,
+});
+
+export const paMwebScenes: Partial<Record<PaSceneSlug, SceneEntry>> = {
+  // 01m–03m: the agent window at phone width, on their damask.
+  "pa-whats-new-motion": mwebScene("pa-whats-new-motion", mweb(PaWhatsNewMotion, "maroon")),
+  "pa-why-this-one-motion": mwebScene("pa-why-this-one-motion", mweb(PaWhyThisMotion, "maroon")),
+  "pa-is-there-an-offer-motion": mwebScene("pa-is-there-an-offer-motion", mweb(PaOfferMotion, "maroon")),
+  // 04m–06m (logged-in): on the purple backdrop with its gold border, drawn for this size.
+  "pa-send-it-back-motion": mwebScene("pa-send-it-back-motion", mweb(PaSendBackMotion, "aubergine")),
+  "pa-store-credit-motion": mwebScene("pa-store-credit-motion", mweb(PaStoreCreditMotion, "aubergine")),
+  "pa-something-i-like-motion": mwebScene("pa-something-i-like-motion", mweb(PaSomethingILikeMotion, "aubergine")),
+  // 07m–09m (promotions): the compact window on its own backdrop.
+  "pa-upgrade-suggestion-motion": mwebScene("pa-upgrade-suggestion-motion", mweb(PaUpgrade, "maroon")),
+  "pa-your-promotions-motion": mwebScene("pa-your-promotions-motion", mweb(PaPromotion, "maroon")),
+  "pa-merchandising-priorities-motion": mwebScene("pa-merchandising-priorities-motion", mweb(PaPriorities, "maroon")),
+};

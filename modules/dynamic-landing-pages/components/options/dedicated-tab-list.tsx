@@ -8,7 +8,7 @@ import { ctaLinks } from "@/modules/marketing/config/navigation";
 import panel from "@/modules/shared/assets/panels/panel-conversational.webp";
 import { ScenePanel } from "@/modules/shared/motion/scene-panel";
 import { dedicatedTabs } from "../../config/options";
-import { DlpMotionRoot, dlpScenes } from "../motion/dlp-motion";
+import { DlpMotionRoot, dlpMwebSceneFor, dlpScenes } from "../motion/dlp-motion";
 import { TextLink } from "@/components/ui/text-link";
 
 /** Each component's turn: its motion visual's run plus the hold. */
@@ -39,13 +39,44 @@ function TabPanel({ tab, scene, play, replay }: { tab: Tab; scene: boolean; play
         16px in, and centred in it, without its own crimson backdrop and gold frame (`.dlp-bare`), so only the
         panel's frame shows around the illustration.
       */}
-      <div className="relative w-full">
+      <div className="relative w-full max-md:hidden">
         <Image src={panel} alt="" sizes="(min-width: 992px) 821px, 100vw" className="h-auto w-full" />
         {scene && (
           <div className="dlp-bare absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)]">
             <ScenePanel
               key={replay}
               scene={dlpScenes[tab.scene]}
+              active={play}
+              root={DlpMotionRoot}
+              maxScale={Infinity}
+              transform
+            />
+          </div>
+        )}
+      </div>
+      {/*
+        Below 768px: the component's mobile-web layout (352 × 440: the ad opening into the store at phone width) in a
+        panel of that shape, on the same panel art: its studded lattice drawn round the edge (border-image, the art's
+        16px border at the ~7px it shows at phone width) over its maroon damask, drawn 611/579 of the inner height so its
+        own lattice at the top and bottom falls just outside (cropped) and never shows as a second band. The visual's
+        canvas is transparent inside `.dlp-bare` (dlp-mweb.css).
+      */}
+      <div
+        className="relative aspect-[352/440] w-full border-7 border-transparent md:hidden"
+        style={{
+          backgroundImage: `url(${panel.src})`,
+          backgroundSize: "auto calc(100% * 611 / 579)",
+          backgroundPosition: "center",
+          backgroundOrigin: "padding-box",
+          backgroundClip: "padding-box",
+          borderImage: `url(${panel.src}) 48 / 7px round`,
+        }}
+      >
+        {scene && (
+          <div className="dlp-bare absolute -inset-[7px]">
+            <ScenePanel
+              key={`m-${replay}`}
+              scene={dlpMwebSceneFor(tab.scene) ?? dlpScenes[tab.scene]}
               active={play}
               root={DlpMotionRoot}
               maxScale={Infinity}

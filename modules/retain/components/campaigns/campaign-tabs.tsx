@@ -10,7 +10,7 @@ import { campaigns } from "../../config/campaigns";
 import panelMaroon from "@/modules/shared/assets/panels/panel-conversational.webp";
 import panelAubergine from "@/modules/shared/assets/panels/panel-conversational-aubergine.webp";
 import panelForest from "@/modules/shared/assets/panels/panel-conversational-forest.webp";
-import { CampaignMotion, campaignTones, preloadCampaignImages } from "../motion/retain-motion";
+import { CampaignMotion, CampaignMwebMotion, campaignTones, preloadCampaignImages } from "../motion/retain-motion";
 
 /** Each campaign's framed damask panel (Sell's Product discovery art, as AI Assistants' Shopper asks), in its livery. */
 const panels = { maroon: panelMaroon, aubergine: panelAubergine, forest: panelForest } as const;
@@ -69,24 +69,50 @@ function CampaignPanel({
   lazy?: boolean;
 }) {
   const motion = <CampaignMotion key={replay} index={i} />;
+  const mwebMotion = <CampaignMwebMotion key={`m-${replay}`} index={i} />;
+  const panel = panels[campaignTones[i % campaignTones.length]];
   return (
     <>
+      <p className="sr-only">{campaign.message.text}</p>
       {/*
         As Shopper asks: the framed panel art (821 × 611, a damask in 16px of studded lattice inside a 1px #d2cdc0
         border) fills the column, and the campaign's motion visual covers the damask, 16px in, without its own damask
         backdrop and gold notched frame (`.rtn-bare`), so only the panel's frame and pattern show around it.
       */}
-      <div className="relative w-full">
+      <div className="relative w-full max-md:hidden">
         <Image
-          src={panels[campaignTones[i % campaignTones.length]]}
+          src={panel}
           alt=""
           sizes="(min-width: 992px) 821px, 100vw"
           className="h-auto w-full"
         />
-        <p className="sr-only">{campaign.message.text}</p>
         {scene && (
           <div className="rtn-bare absolute inset-x-[calc(100%*16/821)] inset-y-[calc(100%*16/611)] overflow-clip">
             {lazy ? <OnceInView>{motion}</OnceInView> : motion}
+          </div>
+        )}
+      </div>
+      {/*
+        Below 768px: the campaign's mobile-web layout (06m–10m, 353 × 440: the chat at a phone's width) in a panel of
+        that shape, on the same panel art in its livery: its studded lattice drawn round the edge (border-image, the art's
+        16px border at the ~7px it shows at phone width) over its damask, drawn 611/579 of the inner height so its own
+        lattice at the top and bottom falls just outside (cropped) and never shows as a second band. The visual has no
+        backdrop of its own there (`.rtn-bare`).
+      */}
+      <div
+        className="relative aspect-[353/440] w-full border-7 border-transparent md:hidden"
+        style={{
+          backgroundImage: `url(${panel.src})`,
+          backgroundSize: "auto calc(100% * 611 / 579)",
+          backgroundPosition: "center",
+          backgroundOrigin: "padding-box",
+          backgroundClip: "padding-box",
+          borderImage: `url(${panel.src}) 48 / 7px round`,
+        }}
+      >
+        {scene && (
+          <div className="rtn-bare absolute -inset-[7px] overflow-clip">
+            {lazy ? <OnceInView>{mwebMotion}</OnceInView> : mwebMotion}
           </div>
         )}
       </div>

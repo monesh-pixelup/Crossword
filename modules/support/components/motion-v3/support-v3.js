@@ -1436,7 +1436,50 @@ function useSupportMotionPlayback({
     showReply: phase !== "composing" && phase !== "thinking" && phase !== "thinkingExit"
   };
 }
-function OrderTrackingMotion$1() {
+// From the 27 November 2026 source (01m–06m): 01–06's outer frame. Desktop: the shared SceneFrame, unchanged.
+// Mobile web: Support's 353 × 440 frame (SupportChatMweb.css in motion.css), with the same Shell laid out at phone
+// width inside it, the thread following its newest content.
+function SupportChatFrame({ mweb = false, children }) {
+  if (mweb) return /* @__PURE__ */ jsx(MwebFrame, { children });
+  return /* @__PURE__ */ jsx(SceneFrame, { children });
+}
+const shellSize = (mweb) => mweb ? {} : { width: 753, height: 520 };
+function MwebFrame({ children }) {
+  const frameRef = useRef(null);
+  useEffect(() => {
+    var _a;
+    const viewport = (_a = frameRef.current) == null ? void 0 : _a.querySelector(".ill-conversation-viewport__content");
+    if (!viewport) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let cancel;
+    const follow = () => {
+      const to = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+      cancel == null ? void 0 : cancel();
+      if (reduced || to < viewport.scrollTop) viewport.scrollTop = to;
+      else cancel = animateScrollTo(viewport, to);
+    };
+    const resize = new ResizeObserver(follow);
+    const watch = () => {
+      resize.disconnect();
+      resize.observe(viewport);
+      viewport.querySelectorAll(".ill-thread, .ill-thread > *, .ill-thread > * > *").forEach((el) => resize.observe(el));
+    };
+    watch();
+    follow();
+    const mutations = new MutationObserver(() => {
+      watch();
+      follow();
+    });
+    mutations.observe(viewport, { childList: true, subtree: true });
+    return () => {
+      resize.disconnect();
+      mutations.disconnect();
+      cancel == null ? void 0 : cancel();
+    };
+  }, []);
+  return /* @__PURE__ */ jsx("div", { className: "ill-support-mweb", ref: frameRef, children });
+}
+function OrderTrackingMotion$1({ mweb = false } = {}) {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -1446,14 +1489,13 @@ function OrderTrackingMotion$1() {
     active
   });
   const showResult = phase === "resultLoading" || phase === "done";
-  return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SupportChatFrame, { mweb, children: /* @__PURE__ */ jsx(
     Shell,
     {
       className: "ill-shell--standard ill-shell--note",
       note: true,
       brand,
-      width: 753,
-      height: 520,
+      ...shellSize(mweb),
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
       composerTyping: phase === "composing" && composerTyping,
@@ -2227,7 +2269,7 @@ const shadeChange = {
   confirm: "Make the change",
   decline: "Keep Shade 3 Fair"
 };
-function ProductUsageMotion$1() {
+function ProductUsageMotion$1({ mweb = false } = {}) {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -2238,14 +2280,13 @@ function ProductUsageMotion$1() {
   });
   const { product } = productUsage;
   const showResult = phase === "resultLoading" || phase === "done";
-  return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SupportChatFrame, { mweb, children: /* @__PURE__ */ jsx(
     Shell,
     {
       className: "ill-shell--standard ill-shell--note",
       note: true,
       brand: productUsage.brand,
-      width: 753,
-      height: 520,
+      ...shellSize(mweb),
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
       composerTyping: phase === "composing" && composerTyping,
@@ -2266,7 +2307,7 @@ function ProductUsageMotion$1() {
     }
   ) });
 }
-function SizeExchangeMotion$1() {
+function SizeExchangeMotion$1({ mweb = false } = {}) {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -2276,14 +2317,13 @@ function SizeExchangeMotion$1() {
     active
   });
   const showResult = phase === "resultLoading" || phase === "done";
-  return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SupportChatFrame, { mweb, children: /* @__PURE__ */ jsx(
     Shell,
     {
       className: "ill-shell--standard ill-shell--note",
       note: true,
       brand: "Stride",
-      width: 753,
-      height: 520,
+      ...shellSize(mweb),
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
       composerTyping: phase === "composing" && composerTyping,
@@ -2319,7 +2359,7 @@ function SizeExchangeMotion$1() {
     }
   ) });
 }
-function ShadeChangeMotion$1() {
+function ShadeChangeMotion$1({ mweb = false } = {}) {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -2330,14 +2370,13 @@ function ShadeChangeMotion$1() {
   });
   const { product, from, to } = shadeChange;
   const showResult = phase === "resultLoading" || phase === "done";
-  return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SupportChatFrame, { mweb, children: /* @__PURE__ */ jsx(
     Shell,
     {
       className: "ill-shell--standard ill-shell--note",
       note: true,
       brand: shadeChange.brand,
-      width: 753,
-      height: 520,
+      ...shellSize(mweb),
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
       composerTyping: phase === "composing" && composerTyping,
@@ -2382,7 +2421,7 @@ function AttributeRow({ label, value }) {
     /* @__PURE__ */ jsx("span", { className: "ill-attribute-row__value", children: value })
   ] });
 }
-function RefundStatusMotion$1() {
+function RefundStatusMotion$1({ mweb = false } = {}) {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -2392,14 +2431,13 @@ function RefundStatusMotion$1() {
     active
   });
   const showResult = phase === "resultLoading" || phase === "done";
-  return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SupportChatFrame, { mweb, children: /* @__PURE__ */ jsx(
     Shell,
     {
       className: "ill-shell--standard ill-shell--note",
       note: true,
       brand,
-      width: 753,
-      height: 520,
+      ...shellSize(mweb),
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
       composerTyping: phase === "composing" && composerTyping,
@@ -2423,7 +2461,7 @@ function RefundStatusMotion$1() {
     }
   ) });
 }
-function ReturnEligibilityMotion$1() {
+function ReturnEligibilityMotion$1({ mweb = false } = {}) {
   const rootRef = useRef(null);
   const active = useLandedOnScreen(rootRef);
   const { phase, composerValue, composerTyping, statusLabel, turnSent, showThinking, showReply } = useSupportMotionPlayback({
@@ -2433,14 +2471,13 @@ function ReturnEligibilityMotion$1() {
     active
   });
   const showResult = phase === "resultLoading" || phase === "done";
-  return /* @__PURE__ */ jsx(SceneFrame, { children: /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsx(SupportChatFrame, { mweb, children: /* @__PURE__ */ jsx(
     Shell,
     {
       className: "ill-shell--standard ill-shell--note",
       note: true,
       brand: "Proteinmax",
-      width: 753,
-      height: 520,
+      ...shellSize(mweb),
       rootRef,
       composerValue: phase === "composing" && composerValue ? composerValue : void 0,
       composerTyping: phase === "composing" && composerTyping,
@@ -3396,6 +3433,9 @@ function Dashboard10b({ v, stageRef, runKey }) {
   const enter = v.animate ? " ib-enter" : "";
   const { threadRef, contentRef } = useFollowLatest$1(v.animate, runKey);
   const instruct = v.mode === "instruct";
+  // From the 27 November 2026 source: 10m folds Details away (InboxMweb), and with it the Summary that opens
+  // the story: there it lands in the thread instead, as the AI's card.
+  const mweb = useContext(InboxMweb);
   return /* @__PURE__ */ jsx(
     Inbox,
     {
@@ -3411,6 +3451,7 @@ function Dashboard10b({ v, stageRef, runKey }) {
       runKey,
       thread: /* @__PURE__ */ jsxs(Fragment, { children: [
         /* @__PURE__ */ jsx(Customer, { face: CUSTOMER$2.face, text: OPENING_10B, time: "17:12" }),
+        mweb && v.summary && /* @__PURE__ */ jsx(EventCard, { icon: "sparkle", title: "Summary", time: "17:13", enter, children: /* @__PURE__ */ jsx("p", { children: v.animate ? /* @__PURE__ */ jsx(LineStagger, { text: merchantInsight.context, play: true }) : merchantInsight.context }) }),
         v.steer && /* @__PURE__ */ jsxs("div", { className: `wd-steer${enter}`, children: [
           /* @__PURE__ */ jsx("img", { className: "dk-avatar", src: ME.face, alt: "" }),
           /* @__PURE__ */ jsxs("div", { className: "wd-steer__body", children: [
@@ -4965,6 +5006,15 @@ const SizeExchangeMotion = slug("size-exchange", SizeExchangeMotion$1);
 const ShadeChangeMotion = slug("shade-change", ShadeChangeMotion$1);
 const RefundStatusMotion = slug("refund-status", RefundStatusMotion$1);
 const ReturnEligibilityMotion = slug("return-eligibility", ReturnEligibilityMotion$1);
+// 01m–06m and 10m (the 27 November 2026 source): 01–06 laid out for a phone (without the desktop `data-slug` wrapper,
+// whose 788 × 579 canvas the source page keys on it), and 10 with its inbox folded (InboxMweb), as 07m–09m.
+const OrderTrackingMwebMotion = () => /* @__PURE__ */ jsx(OrderTrackingMotion$1, { mweb: true });
+const ProductUsageMwebMotion = () => /* @__PURE__ */ jsx(ProductUsageMotion$1, { mweb: true });
+const SizeExchangeMwebMotion = () => /* @__PURE__ */ jsx(SizeExchangeMotion$1, { mweb: true });
+const ShadeChangeMwebMotion = () => /* @__PURE__ */ jsx(ShadeChangeMotion$1, { mweb: true });
+const RefundStatusMwebMotion = () => /* @__PURE__ */ jsx(RefundStatusMotion$1, { mweb: true });
+const ReturnEligibilityMwebMotion = () => /* @__PURE__ */ jsx(ReturnEligibilityMotion$1, { mweb: true });
+const MerchantInsightDashboardMwebMotion = () => /* @__PURE__ */ jsx(InboxMweb.Provider, { value: true, children: /* @__PURE__ */ jsx(MerchantInsightDashboardMotion, {}) });
 export {
   DecisionDashboardMotion,
   DecisionDashboardMwebMotion,
@@ -4974,14 +5024,21 @@ export {
   HelpDeskDashboardMwebMotion,
   HelpdeskInsightsDashboardMotion,
   MerchantInsightDashboardMotion,
+  MerchantInsightDashboardMwebMotion,
   MerchantInsightDeskMotion,
   MerchantInsightMotion,
   OrderTrackingMotion,
+  OrderTrackingMwebMotion,
   ProductUsageMotion,
+  ProductUsageMwebMotion,
   RefundStatusMotion,
+  RefundStatusMwebMotion,
   ReturnEligibilityMotion,
+  ReturnEligibilityMwebMotion,
   ShadeChangeMotion,
+  ShadeChangeMwebMotion,
   SizeExchangeMotion,
+  SizeExchangeMwebMotion,
   TakeoverDashboardMotion,
   TakeoverDashboardMwebMotion,
   WhisperDashboardMotion,
