@@ -2758,6 +2758,9 @@ function useFollowLatest$1(scrollerRef, {
       if (target <= parseFloat(getComputedStyle(scroller).paddingTop) + 1) target = 0;
       const focused = focus ? threadEl.querySelector(focus) : null;
       if (focused) target = Math.max(0, toContent(focused.getBoundingClientRect().top) - 8);
+      // From the 28 November 2026 source, for the phone layouts (`.smw`) only: the scroller can't go past its end (a pin
+      // can ask for more than the content allows), so judge the cut where the view will actually rest.
+      if (scroller.closest(".smw")) target = Math.min(target, Math.max(0, scroller.scrollHeight - scroller.clientHeight));
       const cut = turns.some((turn) => turn.top < target - 1 && turn.bottom > target + 1);
       if (scroller.parentElement) scroller.parentElement.dataset.scrolled = String(cut);
       if (Math.abs(target - scroller.scrollTop) < 1) return;
@@ -2774,8 +2777,18 @@ function useFollowLatest$1(scrollerRef, {
     };
   }, [scrollerRef, thread, pin, focus, clearance, pinOffset, shownOnly, index, reducedMotion]);
 }
+// Whether a visual is drawn in its mobile-web layout (dlp-motion.tsx's mweb wrapper provides true).
+const DlpMweb = createContext(false);
 function cx$1(...names) {
   return names.filter(Boolean).join(" ");
+}
+// From the 28 November 2026 source: the PDP's scroller, the details column on desktop, where it scrolls on its own
+// (as before); the whole page (.aski-pdp) at phone width, where the image scrolls away with it, as a real product page
+// does (dlp-mweb.css lets only the column's page scroll there).
+function pdpScroller(within) {
+  const column = (within == null ? void 0 : within.querySelector(".ask-details")) ?? null;
+  if (column && /(auto|scroll)/.test(getComputedStyle(column).overflowY)) return column;
+  return (within == null ? void 0 : within.querySelector(".aski-pdp")) ?? column;
 }
 const cursorIcon = "/images/dynamic-landing-pages/v2/assets/cursor-Cjz6WH4f.svg";
 function TapRing({ target, tap, point }) {
@@ -5584,9 +5597,38 @@ function Skeleton() {
 function AskBlock({ t }) {
   return /* @__PURE__ */ jsx(AskAiSection, { children: /* @__PURE__ */ jsx("div", { className: cx$1("askim-chips", t.reached("pick") && "askim-chips--picked"), children: /* @__PURE__ */ jsx(AskChips, { grid: true, options: askAiChips$1, selected: t.reached("pick") ? chip.id : "" }) }) });
 }
+// From the 28 November 2026 source (10m): on a phone (DlpMweb, set by the mobile-web wrapper) only the thread scrolls,
+// under a fixed head, and the newest question pins to the top when the exchange outgrows the drawer, so no line is left
+// cut (dlp-mweb.css styles `.askim-drawer__body`). On desktop the drawer is as it was, scrolling as a whole.
 function Drawer({ t }) {
   const ref = useRef(null);
-  useFollowLatest$1(ref, { thread: ".askim-thread", clearance: 16, index: t.index, reducedMotion: t.reducedMotion });
+  const mweb = useContext(DlpMweb);
+  useFollowLatest$1(ref, { thread: ".askim-thread", pin: mweb ? ".askim-q" : void 0, clearance: 16, index: t.index, reducedMotion: t.reducedMotion });
+  if (mweb) {
+    return /* @__PURE__ */ jsxs("div", { className: "askim-drawer", "data-name": "Drawer", children: [
+    /* @__PURE__ */ jsxs("div", { className: "askim-drawer__head", children: [
+      /* @__PURE__ */ jsxs("span", { className: "askim-drawer__title", children: [
+        /* @__PURE__ */ jsx(Icon, { name: "insight", size: 12 }),
+        "Ask AI"
+      ] }),
+      /* @__PURE__ */ jsx(IconButton, { icon: "close", label: "Close", variant: "outline" })
+    ] }),
+      /* @__PURE__ */ jsx("div", { className: "askim-drawer__body", ref, children:
+  /* @__PURE__ */ jsxs("div", { className: "aski-thread askim-thread", children: [
+      /* @__PURE__ */ jsx("p", { className: "aski-q askim-q", children: chip.text }),
+      /* @__PURE__ */ jsx(Thinking, { t, id: "think" }),
+      t.loading("skeleton") && /* @__PURE__ */ jsx(Skeleton, {}),
+      t.reached("answer") && /* @__PURE__ */ jsx(AssistantText, { text: detailAnswer }),
+      t.reached("follow-ups") && !t.reached("ask2") && /* @__PURE__ */ jsx("div", { className: cx$1("askim-in askim-chips", t.reached("pick2") && "askim-chips--picked"), children: /* @__PURE__ */ jsx(AskChips, { options: detailFollowUps, selected: t.reached("pick2") ? chip2.id : "" }) }),
+      t.reached("ask2") && /* @__PURE__ */ jsx("p", { className: "aski-q askim-q askim-in", children: chip2.text }),
+      /* @__PURE__ */ jsx(Thinking, { t, id: "think2" }),
+      t.loading("skeleton2") && /* @__PURE__ */ jsx(Skeleton, {}),
+      t.reached("answer2") && /* @__PURE__ */ jsx(AssistantText, { text: detailFollowUpAnswer }),
+      t.reached("suggest") && /* @__PURE__ */ jsx("div", { className: "askim-in askim-suggest", children: /* @__PURE__ */ jsx(AskChips, { options: detailSuggestions }) })
+    ] })
+      })
+    ] });
+  }
   return /* @__PURE__ */ jsxs("div", { className: "askim-drawer", "data-name": "Drawer", ref, children: [
     /* @__PURE__ */ jsxs("div", { className: "askim-drawer__head", children: [
       /* @__PURE__ */ jsxs("span", { className: "askim-drawer__title", children: [
@@ -6132,7 +6174,7 @@ function Scene$2({ index, v2: v22 = false }) {
   const restTop = useRef(0);
   useEffect(() => {
     var _a;
-    const column = (_a = viewportRef.current) == null ? void 0 : _a.querySelector(".ask-details");
+    const column = pdpScroller(viewportRef.current);
     if (!column) return;
     if (index === at("scroll")) {
       const card = column.querySelector(v22 ? ".ask-details__cta" : ".gist-card");
@@ -6223,10 +6265,20 @@ function SmoothHeight({ columnSel, reducedMotion, children }) {
       last.current = next;
       setH(next);
       if (prev === void 0 || next <= prev || reducedMotion) return;
-      const column = (_a = outerRef.current) == null ? void 0 : _a.closest(columnSel);
+      const column = pdpScroller((_a = outerRef.current) == null ? void 0 : _a.closest(columnSel));
       if (!column) return;
+      // From the 28 November 2026 source: on a phone (the whole page scrolls) scroll only by what would run past the
+      // fade, so the card stays in view from its top. Desktop column: follow the growth, as before.
+      let by = next - prev;
+      if (column.classList.contains("aski-pdp")) {
+        const box = column.getBoundingClientRect();
+        const scale = column.offsetHeight ? box.height / column.offsetHeight : 1;
+        const bottom = (inner.getBoundingClientRect().top - box.top) / scale + next;
+        by = Math.max(0, bottom - (column.clientHeight - 48));
+        if (by < 1) return;
+      }
       cancel == null ? void 0 : cancel();
-      cancel = animateScrollTo(column, column.scrollTop + (next - prev), 300);
+      cancel = animateScrollTo(column, column.scrollTop + by, 300);
     });
     ro.observe(inner);
     return () => {
@@ -6237,7 +6289,7 @@ function SmoothHeight({ columnSel, reducedMotion, children }) {
   return /* @__PURE__ */ jsx("div", { ref: outerRef, className: "damv2-grow", style: { height: h, transition: h !== void 0 && !reducedMotion ? "height 300ms cubic-bezier(0.23, 1, 0.32, 1)" : void 0 }, children: /* @__PURE__ */ jsx("div", { ref: innerRef, children }) });
 }
 function SpecificV2({ t, chip: chip3 }) {
-  return /* @__PURE__ */ jsx(SmoothHeight, { columnSel: ".ask-details", reducedMotion: t.reducedMotion, children: !t.reached("open") ? /* @__PURE__ */ jsx("div", { className: cx$1("askim-chips", t.reached("activate") && "askim-chips--picked"), children: /* @__PURE__ */ jsx(AskChips, { options: directContent.lookingChips, selected: t.reached("activate") ? chip3.id : "" }) }) : /* @__PURE__ */ jsxs("div", { className: "aski-thread askim-thread", children: [
+  return /* @__PURE__ */ jsx(SmoothHeight, { columnSel: ".ask-viewport", reducedMotion: t.reducedMotion, children: !t.reached("open") ? /* @__PURE__ */ jsx("div", { className: cx$1("askim-chips", t.reached("activate") && "askim-chips--picked"), children: /* @__PURE__ */ jsx(AskChips, { options: directContent.lookingChips, selected: t.reached("activate") ? chip3.id : "" }) }) : /* @__PURE__ */ jsxs("div", { className: "aski-thread askim-thread", children: [
     /* @__PURE__ */ jsx("p", { className: "aski-q", children: chip3.text }),
     /* @__PURE__ */ jsx(Thinking, { t, id: "think" }),
     t.loading("skeleton") && /* @__PURE__ */ jsxs("div", { className: "askim-skeleton", "aria-hidden": "true", children: [
@@ -6258,7 +6310,7 @@ function Scene$1({ t, v2: v22 = false }) {
   const columnRef = useRef(null);
   useEffect(() => {
     var _a;
-    columnRef.current = ((_a = viewportRef.current) == null ? void 0 : _a.querySelector(".ask-details")) ?? null;
+    columnRef.current = pdpScroller(viewportRef.current);
   }, [v22]);
   useFollowLatest$1(columnRef, {
     thread: v22 ? ".damv2-none" : ".ask-specific",
@@ -6268,10 +6320,18 @@ function Scene$1({ t, v2: v22 = false }) {
   });
   useEffect(() => {
     var _a;
-    const column = (_a = viewportRef.current) == null ? void 0 : _a.querySelector(".ask-details");
+    const column = pdpScroller(viewportRef.current);
     if (!column || t.index !== 1) return;
     if (!v22) return animateScrollTo(column, column.scrollHeight - column.clientHeight, 640);
     const card = column.querySelector(".ask-specific");
+    // From the 28 November 2026 source: on a phone the card comes to the top of the view, so the ask, the thinking and
+    // the answer all play in sight, not at the bottom edge; the phone travels the whole page, so a longer glide.
+    if (column.classList.contains("aski-pdp")) {
+      const box = column.getBoundingClientRect();
+      const scale = column.offsetHeight ? box.height / column.offsetHeight : 1;
+      const cardTop = (card.getBoundingClientRect().top - box.top) / scale + column.scrollTop;
+      return animateScrollTo(column, Math.max(0, cardTop - 8), 900);
+    }
     const zoom = column.offsetHeight ? column.getBoundingClientRect().height / column.offsetHeight : 1;
     const cardBottom = (card.getBoundingClientRect().bottom - column.getBoundingClientRect().top) / zoom + column.scrollTop;
     return animateScrollTo(column, Math.max(0, cardBottom - (column.clientHeight - 56)), 640);
@@ -6896,6 +6956,7 @@ const GistUpFrontBaseMotion = GistUpFrontV2bMotion$1;
 const DirectAskBaseMotion = DirectAskV2bMotion$1;
 const CrossSellBaseMotion = CrossSellV2bMotion$1;
 export {
+  DlpMweb,
   AdJourneyBaseMotion,
   AdJourneyV2Motion,
   AskAiInlineBaseMotion,

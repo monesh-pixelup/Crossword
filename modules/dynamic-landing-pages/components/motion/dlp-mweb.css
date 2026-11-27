@@ -5,6 +5,11 @@
  * lays them out at 352 × 440: the Instagram ads zoomed to the window's height, the store and product pages at phone
  * width (one column, a short image band), windows at 313 × 400 shown at 85%. 01m is the site's already.
  *
+ * Updated from the 28 November 2026 handoff (Crossword-Sell-Dynamic-V2-Motion 2): the same SellMweb.css with more
+ * phone fixes (04m's search bar and table, 05m's game, 06m–09m's composer bars, 08m's hero), 11m and 12m scrolling as
+ * one page, and 10m's drawer with only its thread scrolling (its new drawer rules, from AskAiInlineMotion.css, are
+ * scoped to the phone layout here, so desktop 10 is unchanged). Its keyframes are renamed with the `dlpm-` prefix.
+ *
  * Mechanical changes only, as motion.css:
  * - Every selector is prefixed with `.dlp-motion` (DlpMotionRoot), `.hv2 …` reading `.dlp-motion.hv2 …`.
  * - Asset urls point at public/images/dynamic-landing-pages/v2/assets.
@@ -166,6 +171,11 @@
 .dlp-motion.hv2 .smw .gj2-win.pv2-win.ofb-win { width: 297px; }
 .dlp-motion.hv2 .smw .ofb-widget { width: 297px; }
 .dlp-motion.hv2 .smw .adj .adj-bar { width: 297px; }
+/* 06m, 09m: the composer bar (and the widget pop-up seated on it) at the
+   same 8px inset as 05m's, not the full store width (06m) or 297px pinned
+   to the left edge (09m). left, not a transform: their rise animates it. */
+.dlp-motion.hv2 .smw :is(.byb-widget--bar, .ofb-widget--bar) { left: 50%; width: 297px; margin-left: -148.5px; transform: none; }
+.dlp-motion.hv2 .smw :is(.byb-widget--bar, .ofb-widget--bar) :is(.gj2-win, .gj2-foot) { width: 100%; box-sizing: border-box; }
 .dlp-motion.hv2 .smw .adj-campaign-products { max-width: 100%; }
 /* Store nav at phone width: the logo and the search/cart pucks; the
    skeleton links step out (a phone nav has no room for them). */
@@ -174,10 +184,69 @@
    steps out; the module takes the page width (it names both products). */
 .dlp-motion.hv2 .smw .cmp-landing { grid-template-columns: minmax(0, 1fr); height: auto; }
 .dlp-motion.hv2 .smw .cmp-landing > .cmp-hero { display: none; }
+/* 04m Google bar: the query stays on one line; clear, divider, mic and
+   lens step out so only the search icon sits beside it. */
+.dlp-motion.hv2 .smw .gs-bar { min-width: 0; padding: 0 10px 0 12px; }
+.dlp-motion.hv2 .smw .gs-bar__q { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dlp-motion.hv2 .smw .gs-bar > :is(:nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5)) { display: none; }
+/* 04m: the table fits the window. Gummies and Servings step out (Per
+   serving carries the value story), values wrap in their column instead
+   of running off the right edge, and the module's top tightens, so the
+   Melatonin row — the answer — stays in view. */
+.dlp-motion.hv2 .smw .cmp-module { padding-top: 18px; }
+.dlp-motion.hv2 .smw .cmp-module__title { padding-bottom: 8px; }
+.dlp-motion.hv2 .smw .cmp-row:is([data-name="Row / Gummies"], [data-name="Row / Servings"], [data-name="Row / Ingredients"]) { display: none; }
+.dlp-motion.hv2 .smw .cmp-row :is(.ill-comparison-row__value-a, .ill-comparison-row__value-b) { white-space: normal; }
+/* 05m: the game in full. The thread's edge fade (12px top, 24px bottom)
+   washed over the sky and the Jump button, and the 132px stage ran 20px
+   under the header; the fade goes and the stage is 24px shorter. */
+.dlp-motion.hv2 .smw .grm .ill-conversation-viewport { -webkit-mask-image: none; mask-image: none; }
+.dlp-motion.hv2 .smw .grm .gr-game__stage { height: 108px; }
+/* The starburst sweep takes the chat window's width (the store less its
+   ring), not desktop's 460px, so its gold frame isn't cut at the sides. */
+/* 05m, 07m: the chat window (and 05m's sweep; both .adj-widget--expanded)
+   sit an even 7px in from the window's left, right and bottom edges (297px
+   wide, as 06m's chat window), not full width over desktop's 16px bottom. */
+.dlp-motion.hv2 .smw .adjm .adj-widget--expanded { width: 297px; bottom: 6.6px; }
+/* The scene is drawn for 132px, so in 108px the bag's 52px jump reached
+   the score; 34px (scene drawn at .82) still clears the hurdles. */
+.dlp-motion.hv2 .smw .grm .grm-game--running .grm-run__runner { animation-name: dlpm-grm-jump-mweb; }
+@keyframes dlpm-grm-jump-mweb {
+  0% { transform: none; }
+  13.184% { transform: none; animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  20.466% { transform: translateY(-34px) rotate(-4deg); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  27.748% { transform: none; }
+  33.174% { transform: none; animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  40.456% { transform: translateY(-34px) rotate(-4deg); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  47.738% { transform: none; }
+  53.164% { transform: none; animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  60.446% { transform: translateY(-34px) rotate(-4deg); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  67.728% { transform: none; }
+  76.01% { transform: none; animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  83.292% { transform: translateY(-34px) rotate(-4deg); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  90.574% { transform: none; }
+  100% { transform: none; }
+}
+/* Its loading skeleton holds the same 108px slot (132px inline). */
+.dlp-motion.hv2 .smw .grm .gr-game--loading .ill-skeleton-block:first-child { height: 108px !important; }
+/* 06m landing: the necklace panel is the band above the composer, and the
+   cutout (desktop's offset −16px in a 236px panel) is centred in it, so
+   the whole chain and pendant show, not the chain's top behind the bar. */
+.dlp-motion.hv2 .smw .byb .byb-hero .pcx-hero__sub { display: none; }
+.dlp-motion.hv2 .smw .byb .byb-hero__media { height: 80px; }
+.dlp-motion.hv2 .smw .byb .byb-hero__cutout { top: 6px; left: 10%; width: 80%; height: calc(100% - 12px); }
 /* 06m: the window inside the widget, at the widget's width. */
 .dlp-motion.hv2 .smw .gj2-win.pv2-win.byb-win { width: 297px; height: 324px; }
 /* 08m: each section card stacks its index over its copy. */
 .dlp-motion.hv2 .smw .pcx-card { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+/* 08m (.atp--pcx; 06m and 09m pages share .pcx): the hero fits the window. At 316px it ran past the window's bottom,
+   so the jar landed half under the edge (and the page fade), then jumped
+   into view as the page scrolled. The scroll to the details shortens by
+   the same 52px (hero + 24px gap). */
+.dlp-motion.hv2 .smw .atp--pcx .pcx-hero { height: 230px; }
+.dlp-motion.hv2 .smw .atp--pcx .pcx-hero__sub { display: none; }
+.dlp-motion.hv2 .smw .atp--pcx .pcx-hero__media img { width: 120px; height: 120px; }
+.dlp-motion.hv2 .smw .atp--pcx .pcx-scroll--details { transform: translateY(-254px); }
 
 /* ---------- Sell: Dynamic 02m, 03m, 10m–13m ----------
    02/03 sit in the 687x586 conversion-assistance frame (aubergine); 10–13
@@ -215,6 +284,41 @@
 .dlp-motion.hv2 .smw .ask .aski-left { align-self: start; }
 .dlp-motion.hv2 .smw .ask .aski-left .aski-media { flex: none; }
 .dlp-motion.hv2 .smw .ask .aski-left .aski-main { flex: none; height: 104px; padding: 8px; }
+/* 10m: the Ask AI drawer leaves a band of the product in view (220 of
+   the 313px window), and the camera stays wide: its shots are framed for
+   desktop's 554x575 window and crop the phone's. */
+.dlp-motion.hv2 .smw .askim .askim-drawer { width: 220px; padding: 12px 14px; }
+.dlp-motion.hv2 .smw .askim .askim-lens { transform: none !important; }
+/* Two closing suggestions, so the last exchange fits under its pinned
+   question and nothing is left cut at the drawer's top. */
+.dlp-motion.hv2 .smw .askim .askim-suggest .aski-chip:nth-child(n + 3) { display: none; }
+/* 11m, 12m: one page, as a phone shows a product. The whole PDP scrolls
+   (pdpScroller picks .aski-pdp when the column doesn't scroll on its own),
+   so the product image is full size and scrolls away with the page, not a
+   short band pinned over a 155px scrolling column. */
+.dlp-motion.hv2 .smw .ask:is(.gist, .dam) .aski-pdp {
+  grid-template-rows: auto auto;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.dlp-motion.hv2 .smw .ask:is(.gist, .dam) .aski-pdp::-webkit-scrollbar { display: none; }
+.dlp-motion.hv2 .smw .ask:is(.gist, .dam) .ask-details { overflow: visible; min-height: auto; }
+/* 12m: room below the card, so when the picked chip's list collapses the
+   page doesn't run short of its scroll position and drop the card. */
+.dlp-motion.hv2 .smw .ask.dam .ask-details { padding-bottom: 320px; }
+/* The whole card stays in view as on desktop 12 — head, question, answer,
+   follow-ups — so the closing "Ask something else" steps out. */
+.dlp-motion.hv2 .smw .ask.dam .ask-specific .askim-in .aski-chip--solid { display: none; }
+/* Once a chip is picked the search field has done its job; it folds away
+   so the card fits the window whole. */
+.dlp-motion.hv2 .smw .ask.dam .ask-specific .ask-field {
+  max-height: 40px; overflow: hidden;
+  /* Waits out the tap (the pill stays under the cursor), then folds with
+     the chips' own collapse as one move. */
+  transition: max-height 300ms cubic-bezier(0.23, 1, 0.32, 1) 600ms, opacity 200ms ease-out 600ms, margin 300ms cubic-bezier(0.23, 1, 0.32, 1) 600ms, padding 300ms cubic-bezier(0.23, 1, 0.32, 1) 600ms;
+}
+.dlp-motion.hv2 .smw .ask.dam.dam--active .ask-specific .ask-field { max-height: 0; opacity: 0; margin-block: -6px 0; padding-block: 0; border-width: 0; }
+.dlp-motion.hv2 .smw .ask:is(.gist, .dam) .aski-left .aski-main { height: 200px; padding: 16px; }
 /* 13m: the cross-sell drawer (a 432x523 Shell) takes the whole window. */
 .dlp-motion.hv2 .smw .ask .ask-drawer { width: 100% !important; height: 100% !important; padding: 14px; gap: 12px; }
 /* 02m: the ad and the landing page are two stacked layers in a 687x586
@@ -253,7 +357,7 @@
   border-radius: 18.82px;
   box-shadow: 0 0 0 2.353px #e0be60, 0 0 22.34px rgba(224, 190, 96, 0.4), 0 4.98px 10.21px rgba(0, 0, 0, 0.25);
 }
-.dlp-motion.hv2 .smw :is(.aia-canvas, .pap-canvas) {
+.dlp-motion.hv2 .smw :is(.aia-canvas, .hpa .pap-canvas) {
   width: var(--smw-w);
   height: 440px;
 }
@@ -292,6 +396,10 @@
    the stat row becomes label/value rows; 11's path is two by two; 09's
    bars give their label column less room. */
 .dlp-motion.hv2 .smw .aid-viewport .la-dash .la-rail { display: none; }
+/* Without the rail there's no app chrome to frame, so the beige band goes:
+   the white panel is the window, taking the gold ring and its corners. */
+.dlp-motion.hv2 .smw .aid-viewport .la-dash { padding: 0; background: #fff; border-radius: inherit; overflow: hidden; }
+.dlp-motion.hv2 .smw .aid-viewport .la-dash .la-main { border: 0; border-radius: inherit; }
 .dlp-motion.hv2 .smw .aid-tags { flex-wrap: wrap; }
 .dlp-motion.hv2 .smw .aid-stats { grid-template-columns: minmax(0, 1fr); }
 .dlp-motion.hv2 .smw .aid-stat { flex-direction: row; justify-content: space-between; align-items: center; padding: 8px 12px; }
@@ -301,8 +409,29 @@
 /* 10m: two panes don't fit; the Details pane (the outcome and the
    revenue it's attributed) is the story, so the conversation pane steps
    out and Details takes the window. */
-.dlp-motion.hv2 .smw .cv-chat { display: none; }
-.dlp-motion.hv2 .smw .cv-details { flex: 1; width: auto; max-width: none; border-left: 0; }
+/* 10m: the thread and Details are two full-width slides; the window
+   opens on the thread and slides to Details (cv-at-details) as the
+   outcome lands, so 10's whole story plays. */
+.dlp-motion.hv2 .smw :is(.cv-chat, .cv-details) {
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: none;
+  border-left: 0;
+  transition: transform 600ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.dlp-motion.hv2 .smw .cv-at-details :is(.cv-chat, .cv-details) { transform: translateX(-100%); }
+/* clip, not hidden: a hidden overflow can still be scrolled sideways
+   (focus, scrollIntoView), which would knock the slides off their stops. */
+.dlp-motion.hv2 .smw .aid-viewport:has(.cv-chat) .la-main { overflow: clip; }
+/* Tighter Details rhythm so the week's total fits under the statement. */
+.dlp-motion.hv2 .smw .cv-rows { row-gap: 8px; padding-block: 10px; }
+.dlp-motion.hv2 .smw .cv-section { padding-block: 10px; }
+.dlp-motion.hv2 .smw .cv-outcome { height: 27px; }
+.dlp-motion.hv2 .smw .cv-total { padding-block: 10px 12px; }
+.dlp-motion.hv2 .smw .cv-chat { padding: 14px 16px 16px; }
+@media (prefers-reduced-motion: reduce) {
+  .dlp-motion.hv2 .smw :is(.cv-chat, .cv-details) { transition: none; }
+}
 /* 03m: the AI-search product page as one column. The gallery is a short
    image band (thumbs step out); the details, with "Matches your search",
    follow; the Ask AI row under them steps out (no room at phone height).
@@ -336,9 +465,9 @@
 .dlp-motion.hv2 .smw .wm-nudge .wm-bar-buzz-note__ctas .wm-pro-cta { flex: 1 1 0; min-width: 0; white-space: nowrap; padding-inline: 10px; }
 /* Home 06m: ChatGPT's carousel shows two whole tiles, no peek off the
    edge; the set's wide tile and the order card take the column. */
-.dlp-motion.hv2 .smw .aia-carousel { margin-right: 0; }
-.dlp-motion.hv2 .smw .aia-tile { width: calc((100% - 10px) / 2); }
-.dlp-motion.hv2 .smw .aiam-tile-slot { width: calc((100% - 10px) / 2); }
+.dlp-motion.hv2 .smw .aia:not(.aiv3) .aia-carousel { margin-right: 0; }
+.dlp-motion.hv2 .smw .aia:not(.aiv3) .aia-carousel > .aia-tile { width: calc((100% - 10px) / 2); }
+.dlp-motion.hv2 .smw .aia:not(.aiv3) .aiam-tile-slot { width: calc((100% - 10px) / 2); }
 .dlp-motion.hv2 .smw .aiam-tile-slot > .aia-tile { width: 100%; }
 .dlp-motion.hv2 .smw :is(.aia-tile--wide, .aia-order) { width: 100%; max-width: 100%; box-sizing: border-box; }
 /* Home 03m: the search dropdown keeps its Ask AI suggestions; recent
@@ -349,11 +478,22 @@
 .dlp-motion.hv2 .smw .aid-home__headline { font-size: 22px; line-height: 1.15; }
 .dlp-motion.hv2 .smw .aid-mode { white-space: nowrap; }
 .dlp-motion.hv2 .smw .aid-modes > .aid-mode:nth-child(3) { display: none; }
-.dlp-motion.hv2 .smw .aid-suggestions > .aid-suggestion:nth-child(n + 3) { display: none; }
+.dlp-motion.hv2 .smw .aid-suggestions > .aid-suggestion:nth-child(n + 2) { display: none; }
+/* The composer foot fits the window: the attach (+) steps out and the
+   gaps tighten so the send button stays inside the composer. */
+.dlp-motion.hv2 .smw .aid-composer__foot { gap: 8px; }
+.dlp-motion.hv2 .smw .aid-composer__foot > .la-muted:first-child { display: none; }
+.dlp-motion.hv2 .smw .aid-modes { min-width: 0; }
+.dlp-motion.hv2 .smw .aid-mode { padding: 0 8px; }
+.dlp-motion.hv2 .smw .aid-suggestions { align-self: stretch; }
+.dlp-motion.hv2 .smw .aid-suggestion { flex: 1 1 100%; box-sizing: border-box; padding: 0 10px; gap: 6px; white-space: nowrap; justify-content: center; }
+/* 10m: Details at phone height. The tabs keep their 48px (flex was
+   squashing them); the week's total stays as 10's closing beat. */
+.dlp-motion.hv2 .smw .cv-tabs { flex: none; }
 /* Home 09m–11m: search chips stay one line (the long query ellipsizes)
    instead of wrapping over the next step. */
 .dlp-motion.hv2 .smw .aid-chip { max-width: 100%; min-width: 0; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.dlp-motion.hv2 .smw .aia-carousel > :nth-child(n + 3) { display: none; }
+.dlp-motion.hv2 .smw .aia:not(.aiv3) .aia-carousel > :nth-child(n + 3) { display: none; }
 
 /* Home 03m edges. The dropdown sits on the hero's exact box; one radius
    for both, concentric with the window (24 − 14.6 inset ≈ 9.4px on
@@ -405,6 +545,176 @@
 .dlp-motion.hv2 .smw .pap-card__body { flex: 1; min-width: 0; padding: 8px 12px 8px 6px; gap: 1px; }
 .dlp-motion.hv2 .smw .pap-card__price { margin-top: 3px; }
 .dlp-motion.hv2 .smw .pap-stock { white-space: nowrap; }
+
+/* ---------- AI Assistants v3 and Personal Agents, 353x440 ----------
+   One backdrop per tone, drawn (or bordered) for the mobile size:
+   maroon = damask + the notched gold border; aubergine and green = the
+   drawn mobile backgrounds. Each visual's canvas becomes the frame. */
+
+.dlp-motion.hv2 .smw :is(.aiv3-canvas, .aiv3w-canvas, .apu-canvas, .pap-canvas) {
+  width: var(--smw-w);
+  height: 440px;
+  display: grid;
+  place-items: center;
+}
+/* Each canvas keeps its desktop visual's own background (retained from
+   the parent page), scaled to cover the mobile frame; the damask keeps
+   its native pattern size. */
+.dlp-motion.hv2 .smw :is(.aiv3-canvas, .aiv3w-canvas, .apu-canvas, .pap-canvas) { background-size: cover; background-position: center; }
+.dlp-motion .pam .smw .pap-figure:not(.pap-logged) .pap-canvas,
+.dlp-motion.hv2 .smw .pap-canvas--compact { background-size: 788px 579px; }
+/* AI 01–06: the ChatGPT window, and PA 01–06: the agent window, laid out
+   at 313x400 and zoomed .85 (266x340 on screen), 16px corners and the
+   2px gold ring on screen. */
+.dlp-motion.hv2 .smw :is(.aia.aiv3, .pap.pap-motion:not(.pap--compact)) {
+  width: 313px;
+  height: 400px;
+  zoom: 0.85;
+  border-radius: 18.82px;
+  box-shadow: 0 0 0 2.353px #e0be60, 0 0 22.34px rgba(224, 190, 96, 0.4), 0 4.98px 10.21px rgba(0, 0, 0, 0.25);
+}
+/* PA: the page's own sizes (personal-agents-motion.css) are more specific. */
+.dlp-motion .pam .smw .pap-figure:not(.pap-logged) .pap.pap-motion:not(.pap--compact),
+.dlp-motion.hv2 .smw .pap-figure .pap.pap-motion:not(.pap--compact) { width: 313px; height: 400px; }
+.dlp-motion .pam .smw .pap-figure:not(.pap-logged) .pap-canvas,
+.dlp-motion.hv2 .smw .pap-figure .pap-canvas,
+.dlp-motion.hv2 .smw .pap-figure .pap-canvas.pap-canvas--compact { width: var(--smw-w); height: 440px; }
+/* The figure's own caption (the page already labels each visual). */
+.dlp-motion.hv2 .smw .pap-figure > .app-stage__tile-label,
+.dlp-motion.hv2 .smw .aiv3-figure > .app-stage__tile-label { display: none; }
+/* PA 07m–09m and AI 12m–14m: the compact 292x338 window, as on desktop,
+   shown at .85 (16px corner on screen) so it sits inside the frame. */
+.dlp-motion.hv2 .smw .pap.pap--compact { width: 313px; height: 400px; zoom: 0.85; }
+
+/* AI 05m/06m: ChatGPT's side rail folds away (no room at phone width);
+   the alert card stacks its image over the details. */
+.dlp-motion.hv2 .smw .aiv3w .aiv3w-rail { display: none; }
+.dlp-motion.hv2 .smw .aiv3w :is(.aia-header, .aia-scroll, .aia-composer) { left: 0; }
+.dlp-motion.hv2 .smw .aiv3w-card { gap: 10px; padding: 10px; }
+.dlp-motion.hv2 .smw .aiv3w-card__media { width: 72px; height: 72px; }
+/* PA 02m: the pick card stacks (image band over the details), so the
+   name, price and Add to cart get the card's width. */
+.dlp-motion.hv2 .smw .pap-pick { flex-direction: column; gap: 8px; }
+.dlp-motion.hv2 .smw .pap-pick__media { width: 100%; height: 104px; }
+.dlp-motion.hv2 .smw .pap-pick__media img { width: 96px; height: 96px; }
+/* PA 06m: the alternatives as one column of rows, not two cramped tiles. */
+.dlp-motion.hv2 .smw .pal-alts { grid-template-columns: minmax(0, 1fr); }
+/* PA 04m–06m: cards stack at phone width, as the other mobile lists:
+   the spotlight card's image over its details, picks one per row. */
+.dlp-motion.hv2 .smw .pal-spot { flex-direction: column; }
+.dlp-motion.hv2 .smw .pal-spot > :first-child:not(.pal-spot__body) { width: 100%; height: 112px; flex: none; }
+.dlp-motion.hv2 .smw .pal-picks { grid-template-columns: minmax(0, 1fr); }
+.dlp-motion.hv2 .smw .pal-pick { flex-direction: row; align-items: center; }
+.dlp-motion.hv2 .smw .pal-pick__media { flex: none; width: 72px; height: 72px; margin: 4px; border-radius: 10px; }
+/* AI 07m–10m: the parent's frame (ConversionAssistanceFrame's backdrop). */
+
+/* AI Assistants 01m–06m: ChatGPT's composer grows a line at a time as the
+   typed message wraps (as the Sell/Home chat composers and the phone
+   07m–10m do), instead of clipping it on one line. The buttons stay on
+   the bottom line. */
+/* Idle, the field is the parent's (48px, centred row, placeholder filling
+   it); only while a message wraps does it grow, buttons on the last line. */
+.dlp-motion.hv2 .smw .aia-composer__field { height: auto; min-height: 48px; }
+.dlp-motion.hv2 .smw .aia-composer__field:has(.aia-composer__value) { align-items: flex-end; padding-block: 7px; box-sizing: border-box; }
+.dlp-motion.hv2 .smw .aiam .aia-composer__value { flex: 1; min-width: 0; align-self: center; white-space: normal; overflow: visible; line-height: 1.4; padding: 0 2px; }
+
+/* AI Assistants 01m–06m cards at phone width. The thread's side padding
+   drops from 24 to 14 (more width for every card), and each card's image
+   column narrows so its copy keeps a readable measure instead of wrapping
+   a word per line. Layouts stay the parent's (image beside details). */
+.dlp-motion.hv2 .smw .aia .aia-gpt { --gpt-col: 14px; }
+.dlp-motion.hv2 .smw .aiv3-config { gap: 10px; padding: 8px; }
+.dlp-motion.hv2 .smw .aiv3-config__media { width: 64px; }
+.dlp-motion.hv2 .smw .aiv3-config__media img { width: 56px; height: 56px; }
+.dlp-motion.hv2 .smw .aiv3-config__head { gap: 8px; }
+.dlp-motion.hv2 .smw .aiv3-spot { gap: 10px; }
+.dlp-motion.hv2 .smw .aiv3-spot__media { width: 64px; }
+.dlp-motion.hv2 .smw .aiv3-spot__media img { width: 56px; height: 56px; }
+.dlp-motion.hv2 .smw .aiv3-spot__facts { padding-left: 14px; font-size: 13px; }
+.dlp-motion.hv2 .smw .aiv3w-card__media { width: 64px; height: 64px; }
+/* 05m/06m "Watching" row: the bell icon steps out (the thumb and the
+   Watching chip carry it), giving the line its width back. */
+.dlp-motion.hv2 .smw .aiv3w-track__icon { display: none; }
+/* 05m/06m: the page's body size (14/21, as 01m–04m) instead of the wide
+   column's 16/24, and a compact product card, so the update and its card
+   sit above the composer. */
+.dlp-motion.hv2 .smw .aiv3w .aia-gpt { font-size: 14px; line-height: 21px; }
+.dlp-motion.hv2 .smw .aiv3w-card { gap: 10px; padding: 8px; }
+.dlp-motion.hv2 .smw .aiv3w-card__media { width: 64px; height: 64px; }
+.dlp-motion.hv2 .smw .aiv3w-card__media img { width: 52px; height: 52px; }
+.dlp-motion.hv2 .smw .aiv3w-badge { top: 4px; left: 4px; height: 16px; padding: 0 5px; font-size: 9px; }
+.dlp-motion.hv2 .smw .aiv3w-card__body { gap: 4px; }
+.dlp-motion.hv2 .smw .aiv3w-card__head > span:first-child { font-size: 14px; line-height: 19px; }
+.dlp-motion.hv2 .smw .aiv3w-card__price { font-size: 14px; line-height: 19px; }
+
+/* ---------- AI Assistants 01m–06m composer model ----------
+   As the Sell/Home chat windows (gj2: transcript above an in-flow foot):
+   ChatGPT's header, scroll and composer stack in a column instead of the
+   composer floating over the thread. A composer that grows as the message
+   wraps pushes the thread up, and the newest content always ends above it,
+   never underneath. The thread keeps a small foot gap instead of the
+   overlay's 76px. */
+.dlp-motion.hv2 .smw .aia.aiv3 .aia-gpt { display: flex; flex-direction: column; }
+.dlp-motion.hv2 .smw .aia.aiv3 .aia-header { position: relative; flex: none; }
+.dlp-motion.hv2 .smw .aia.aiv3 .aia-scroll { position: relative; inset: auto; flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; }
+.dlp-motion.hv2 .smw .aia.aiv3 .aia-scroll::-webkit-scrollbar { display: none; }
+.dlp-motion.hv2 .smw .aia.aiv3 .aia-composer { position: relative; flex: none; padding-top: 6px; background: #fff; }
+.dlp-motion.hv2 .smw .aia.aiv3 .aia-thread { padding-bottom: 12px; }
+/* 01m: tile names on up to two lines instead of an ellipsis. */
+.dlp-motion.hv2 .smw .aiv3-tiles .aia-tile__name { white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+/* 02m/04m: the image tile keeps its square instead of stretching down the
+   card's full height as an empty grey column. 02m's kit choice (a card
+   nested in the machine card) takes the card's full width under it. */
+.dlp-motion.hv2 .smw :is(.aiv3-config__media, .aiv3-spot__media) { align-self: flex-start; height: 64px; }
+.dlp-motion.hv2 .smw .aiv3-config { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: start; }
+.dlp-motion.hv2 .smw .aiv3-config__body { display: contents; }
+.dlp-motion.hv2 .smw .aiv3-config__head { grid-column: 2; }
+.dlp-motion.hv2 .smw .aiv3-config__body > :not(.aiv3-config__head) { grid-column: 1 / -1; }
+
+/* AI 01m/03m: ChatGPT's product tiles, all of them whole, three across
+   (03's story picks the third). Names wrap to two lines. */
+.dlp-motion.hv2 .smw .aia-carousel.aiv3-tiles { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.dlp-motion.hv2 .smw .aiv3-tiles > * { width: auto; min-width: 0; }
+.dlp-motion.hv2 .smw .aiv3-tiles .aia-tile__name { margin-top: 6px; font-size: 13px; line-height: 17px; }
+.dlp-motion.hv2 .smw .aiv3-tiles .aia-tile__meta { font-size: 11px; line-height: 15px; }
+/* Home 06m: the set's wide tile (a slot of its own) takes the full row. */
+.dlp-motion.hv2 .smw .aia:not(.aiv3) .aiam-tile-slot:has(.aia-tile--wide) { width: 100%; }
+
+/* Parent backgrounds that carry a drawn gold border (campaigns green,
+   conversion-assistance purple) crop badly at 353x440: the sides go, the
+   corners split. Use the same artwork drawn for the mobile frame instead
+   (mweb-bg-green, mweb/bg). The compact purple is a plain texture with a
+   thin border: fitted whole (100% 100%), not cropped. */
+
+.dlp-motion.hv2 .smw .apu-canvas { background-size: 100% 100%; }
+
+/* 10m (the 28 November 2026 source's AskAiInlineMotion.css, here for the phone layout only; desktop 10's drawer is
+   unchanged): drawer follow-ups sit on the shopper's side (right), one per row. On a pick the others fade, then
+   collapse, so the picked pill rises to the block's top, where the question replaces it, instead of jumping right and
+   up a row at the swap. All within the 650ms pick beat. */
+.dlp-motion .smw .askim-drawer .askim-chips .aski-chips { flex-direction: column; align-items: flex-end; gap: 0; }
+.dlp-motion .smw .askim-drawer .askim-chips .aski-chip { max-height: 40px; box-sizing: border-box; overflow: hidden;
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, opacity 160ms ease-out 200ms,
+    max-height 260ms cubic-bezier(0.23, 1, 0.32, 1) 360ms, margin-top 260ms cubic-bezier(0.23, 1, 0.32, 1) 360ms,
+    padding 260ms cubic-bezier(0.23, 1, 0.32, 1) 360ms; }
+.dlp-motion .smw .askim-drawer .askim-chips .aski-chip + .aski-chip { margin-top: 6px; }
+.dlp-motion .smw .askim-drawer .askim-chips--picked .aski-chip.aski-chip:not(.aski-chip--on) { max-height: 0; margin-top: 0; padding-block: 0; border-width: 0; }
+.dlp-motion .smw .askim-drawer .askim-chips--picked .aski-chip.aski-chip--on { margin-top: 0; }
+/* The question replaces the pill in place: no rise of its own. */
+.dlp-motion .smw .askim-drawer .askim-q.askim-in { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .dlp-motion .smw .askim-drawer .askim-chips .aski-chip { transition: none; }
+}
+/* Only the thread scrolls; the head stays put (the drawer's body, on a phone only). */
+.dlp-motion .smw .askim-drawer { width: 248px; overflow: hidden; }
+.dlp-motion .smw .askim-drawer__body { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; }
+.dlp-motion .smw .askim-drawer__body::-webkit-scrollbar { display: none; }
+/* A turn cut by the top edge fades out under the head (useFollowLatest
+   sets data-scrolled only then). */
+.dlp-motion .smw .askim-drawer[data-scrolled="true"] .askim-drawer__body {
+  -webkit-mask-image: linear-gradient(transparent, #000 32px);
+  mask-image: linear-gradient(transparent, #000 32px);
+}
 
 /*
  * Site: 04m–09m sit on the page's lattice panel (dedicated-tab-list.tsx), as 04–09 do on desktop: inside its

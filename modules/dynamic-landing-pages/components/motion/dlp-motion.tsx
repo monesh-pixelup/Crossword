@@ -19,6 +19,7 @@ import {
   CrossSellV2bMotion,
   DedicatedLandingPagesV2Motion,
   DirectAskBaseMotion,
+  DlpMweb,
   DirectAskV2bMotion,
   GamesRewardsBaseMotion,
   GamesRewardsV2Motion,
@@ -216,9 +217,12 @@ type Tone = "maroon" | "aubergine";
 const mweb = (C: ComponentType, tone: Tone) =>
   function Mweb() {
     return (
-      <div className={`smw smw--${tone}`}>
-        <C />
-      </div>
+      // DlpMweb: the visuals with phone-only behaviour in code read it (10m's drawer, from the 28 November 2026 update).
+      <DlpMweb.Provider value={true}>
+        <div className={`smw smw--${tone}`}>
+          <C />
+        </div>
+      </DlpMweb.Provider>
     );
   };
 
