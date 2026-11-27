@@ -5,6 +5,11 @@
  * box (see Mweb in ./index.tsx), and this sheet lays them out for the 353 × 440 phone size: the window at 313 × 400
  * shown at 85% (266 × 340), product rails as lists, and so on.
  *
+ * Updated from the 28 November 2026 Insights handoff (Crossword-Home-Insights-Mweb-Motion, the same SellMweb.css with
+ * its 09m–11m rules reworked): the dashboard's beige app chrome steps out so the white panel is the window, the opening
+ * screen keeps one suggestion and a composer that fits, and 10m plays the thread and Details as two slides
+ * (`.cv-at-details`, set by its phone script in home-motion.js).
+ *
  * Mechanical changes only, as home-motion.css:
  * - `ill-` classes are renamed `hm-ill-`, to match home-motion.js.
  * - The frame backgrounds are left out (the damask and gold border drawn for the phone frame, the aubergine and green
@@ -291,6 +296,10 @@
    the stat row becomes label/value rows; 11's path is two by two; 09's
    bars give their label column less room. */
 .hv2 .smw .aid-viewport .la-dash .la-rail { display: none; }
+/* Without the rail there's no app chrome to frame, so the beige band goes:
+   the white panel is the window, taking the gold ring and its corners. */
+.hv2 .smw .aid-viewport .la-dash { padding: 0; background: #fff; border-radius: inherit; overflow: hidden; }
+.hv2 .smw .aid-viewport .la-dash .la-main { border: 0; border-radius: inherit; }
 .hv2 .smw .aid-tags { flex-wrap: wrap; }
 .hv2 .smw .aid-stats { grid-template-columns: minmax(0, 1fr); }
 .hv2 .smw .aid-stat { flex-direction: row; justify-content: space-between; align-items: center; padding: 8px 12px; }
@@ -300,8 +309,29 @@
 /* 10m: two panes don't fit; the Details pane (the outcome and the
    revenue it's attributed) is the story, so the conversation pane steps
    out and Details takes the window. */
-.hv2 .smw .cv-chat { display: none; }
-.hv2 .smw .cv-details { flex: 1; width: auto; max-width: none; border-left: 0; }
+/* 10m: the thread and Details are two full-width slides; the window
+   opens on the thread and slides to Details (cv-at-details) as the
+   outcome lands, so 10's whole story plays. */
+.hv2 .smw :is(.cv-chat, .cv-details) {
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: none;
+  border-left: 0;
+  transition: transform 600ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.hv2 .smw .cv-at-details :is(.cv-chat, .cv-details) { transform: translateX(-100%); }
+/* clip, not hidden: a hidden overflow can still be scrolled sideways
+   (focus, scrollIntoView), which would knock the slides off their stops. */
+.hv2 .smw .aid-viewport:has(.cv-chat) .la-main { overflow: clip; }
+/* Tighter Details rhythm so the week's total fits under the statement. */
+.hv2 .smw .cv-rows { row-gap: 8px; padding-block: 10px; }
+.hv2 .smw .cv-section { padding-block: 10px; }
+.hv2 .smw .cv-outcome { height: 27px; }
+.hv2 .smw .cv-total { padding-block: 10px 12px; }
+.hv2 .smw .cv-chat { padding: 14px 16px 16px; }
+@media (prefers-reduced-motion: reduce) {
+  .hv2 .smw :is(.cv-chat, .cv-details) { transition: none; }
+}
 /* 03m: the AI-search product page as one column. The gallery is a short
    image band (thumbs step out); the details, with "Matches your search",
    follow; the Ask AI row under them steps out (no room at phone height).
@@ -348,7 +378,18 @@
 .hv2 .smw .aid-home__headline { font-size: 22px; line-height: 1.15; }
 .hv2 .smw .aid-mode { white-space: nowrap; }
 .hv2 .smw .aid-modes > .aid-mode:nth-child(3) { display: none; }
-.hv2 .smw .aid-suggestions > .aid-suggestion:nth-child(n + 3) { display: none; }
+.hv2 .smw .aid-suggestions > .aid-suggestion:nth-child(n + 2) { display: none; }
+/* The composer foot fits the window: the attach (+) steps out and the
+   gaps tighten so the send button stays inside the composer. */
+.hv2 .smw .aid-composer__foot { gap: 8px; }
+.hv2 .smw .aid-composer__foot > .la-muted:first-child { display: none; }
+.hv2 .smw .aid-modes { min-width: 0; }
+.hv2 .smw .aid-mode { padding: 0 8px; }
+.hv2 .smw .aid-suggestions { align-self: stretch; }
+.hv2 .smw .aid-suggestion { flex: 1 1 100%; box-sizing: border-box; padding: 0 10px; gap: 6px; white-space: nowrap; justify-content: center; }
+/* 10m: Details at phone height. The tabs keep their 48px (flex was
+   squashing them); the week's total stays as 10's closing beat. */
+.hv2 .smw .cv-tabs { flex: none; }
 /* Home 09m–11m: search chips stay one line (the long query ellipsizes)
    instead of wrapping over the next step. */
 .hv2 .smw .aid-chip { max-width: 100%; min-width: 0; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -546,5 +587,6 @@
    thin border: fitted whole (100% 100%), not cropped. */
 
 .hv2 .smw .apu-canvas { background-size: 100% 100%; }
+
 /* 05m: the shopper's uploaded photo anchored to its top (the source's newer 05 rule). */
 .hv2 .smw .pd2-upload img { object-position: center top; }

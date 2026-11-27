@@ -6573,10 +6573,19 @@ const beats = [
   { id: "o2", type: "appear", ms: 900 },
   { id: "total", type: "appear", ms: 900 }
 ];
+// From the 28 November 2026 Insights mweb source (10m): at phone width one pane fits, so the story plays as two slides.
+// The thread holds on the shopper's question (`details`), then the window slides over to Details (`.cv-at-details`,
+// home-mweb.css) as its Outcome rows tick in.
+const mwebBeats = [
+  ...beats.slice(0, 4),
+  { id: "details", type: "appear", ms: 1400 },
+  { id: "o0", type: "appear", ms: 900 },
+  ...beats.slice(5)
+];
 function Conversation({ v, stageRef, runKey }) {
   const enter = v.animate ? " la-enter" : "";
   const converted = v.outcome >= 3;
-  return /* @__PURE__ */ jsx(InsightFrame, { children: /* @__PURE__ */ jsx("div", { className: "aid-viewport aid-viewport--inset", children: /* @__PURE__ */ jsxs(InsightsFrame, { bare: true, compact: true, railActive: "cube", saved: [], recent: [], stageRef, runKey, children: [
+  return /* @__PURE__ */ jsx(InsightFrame, { children: /* @__PURE__ */ jsx("div", { className: `aid-viewport aid-viewport--inset${v.details ? " cv-at-details" : ""}`, children: /* @__PURE__ */ jsxs(InsightsFrame, { bare: true, compact: true, railActive: "cube", saved: [], recent: [], stageRef, runKey, children: [
     /* @__PURE__ */ jsxs("section", { className: "cv-chat", children: [
       /* @__PURE__ */ jsxs("header", { className: "cv-chat__head", children: [
         /* @__PURE__ */ jsx("span", { className: "la-serif aid-chat__title", children: SHOPPER }),
@@ -6668,10 +6677,11 @@ function Conversation({ v, stageRef, runKey }) {
     ] })
   ] }) }) });
 }
-function ConversationRevenueDashboardMotion() {
+function ConversationRevenueDashboardMotion({ mobile = false } = {}) {
   const stageRef = useRef(null);
-  const t = useChatTimeline(beats, useLandedOnScreen(stageRef));
+  const t = useChatTimeline(mobile ? mwebBeats : beats, useLandedOnScreen(stageRef));
   const v = {
+    details: mobile && t.reached("details"),
     offer: t.reached("offer"),
     product: t.reached("product"),
     used: t.reached("use"),
@@ -7023,6 +7033,8 @@ function HomePersonalAgentMotion() {
     }
   ) }) });
 }
+// 10m (the 28 November 2026 Insights mweb source): 10 with its phone script, the thread then Details as two slides.
+const ConversationRevenueDashboardMweb = () => /* @__PURE__ */ jsx(ConversationRevenueDashboardMotion, { mobile: true });
 export {
   AdJourneyV2Motion as AdJourneyMotion,
   AiAssistantsV2Motion as AiAssistantsMotion,
@@ -7033,6 +7045,7 @@ export {
   HomePersonalAgentMotion as PersonalAgentsMotion,
   RetentionGrowthV2Motion as RetentionGrowthMotion,
   ConversationRevenueDashboardMotion as RevenueAttributionMotion,
+  ConversationRevenueDashboardMweb as RevenueAttributionMwebMotion,
   ServiceResolutionV2Motion as ServiceResolutionMotion,
   SponsoredComparisonMobileMotion,
   SponsoredComparisonV2Motion as SponsoredComparisonMotion

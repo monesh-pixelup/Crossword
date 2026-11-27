@@ -15,6 +15,7 @@ import {
   PersonalAgentsMotion,
   RetentionGrowthMotion,
   RevenueAttributionMotion,
+  RevenueAttributionMwebMotion,
   ServiceResolutionMotion,
   SponsoredComparisonMobileMotion,
   SponsoredComparisonMotion,
@@ -50,6 +51,11 @@ type Visual = {
 };
 
 type InsightVisualEntry = Visual & {
+  /**
+   * Its phone version, where the source's mobile-web layout needs a script of its own (10m: the thread, then Details,
+   * as two slides); otherwise the visual itself, laid out for a phone by home-mweb.css.
+   */
+  PhoneComponent?: ComponentType;
   /**
    * How long the script takes to play out, in ms (the source's own beatsDurationMs over each dashboard's beats). Tabs stay open
    * this long plus a hold.
@@ -104,6 +110,7 @@ export const insightVisuals: Record<InsightVisual, InsightVisualEntry> = {
   },
   "revenue-attribution": {
     Component: RevenueAttributionMotion,
+    PhoneComponent: RevenueAttributionMwebMotion,
     label:
       "A shopper conversation with a 20% off offer, followed through to checkout and traced by Crossword Insights to $186 of influenced revenue",
     duration: 6800,
@@ -219,7 +226,7 @@ export function LifecyclePanel({ visual, run }: { visual?: LifecycleVisual; run:
 export function InsightPanel({ visual, run }: { visual: InsightVisual; run: number }) {
   const { label } = insightVisuals[visual];
   const [ref, replay] = useReplayOnReturn();
-  const { Component } = insightVisuals[visual];
+  const { Component, PhoneComponent = Component } = insightVisuals[visual];
 
   return (
     <div
@@ -244,7 +251,7 @@ export function InsightPanel({ visual, run }: { visual: InsightVisual; run: numb
               <img src={insightsBackground} alt="" className="absolute inset-0 size-full" />
               <div className={"contents [&_.hm-ill-insight-frame\\_\\_background]:hidden!"}>
                 <PhoneVisual scale={1.62}>
-                  <Component key={`m-${visual}-${run}-${replay}`} />
+                  <PhoneComponent key={`m-${visual}-${run}-${replay}`} />
                 </PhoneVisual>
               </div>
             </div>

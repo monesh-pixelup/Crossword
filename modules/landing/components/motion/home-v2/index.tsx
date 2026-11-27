@@ -23,6 +23,7 @@ export {
   PersonalAgentsMotion,
   RetentionGrowthMotion,
   RevenueAttributionMotion,
+  RevenueAttributionMwebMotion,
   ServiceResolutionMotion,
   SponsoredComparisonMobileMotion,
   SponsoredComparisonMotion,
