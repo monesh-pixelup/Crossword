@@ -9,14 +9,16 @@ import frameOuterAnant from "../assets/people/frame-outer-anant.svg";
 import frameOuterMelissa from "../assets/people/frame-outer-melissa.svg";
 import photoAnant from "../assets/people/photo-anant.png";
 import photoMelissa from "../assets/people/photo-melissa.png";
-import stampAnant from "../assets/people/stamp-anant.png";
-import stampMelissa from "../assets/people/stamp-melissa.png";
 import studAnantA from "../assets/people/stud-anant-a.svg";
 import studAnantB from "../assets/people/stud-anant-b.svg";
 import studAnantC from "../assets/people/stud-anant-c.svg";
 import studMelissa from "../assets/people/stud-melissa.svg";
 import textureAnant from "../assets/people/figure-texture-anant.png";
 import textureMelissa from "../assets/people/figure-texture-melissa.png";
+// The two stamps are Managed Launch's journey stamps (3x exports, tilted -6.78° with their shadow), turned to the tilt
+// the About us figures give them.
+import stampAnant from "@/modules/managed-launch/assets/library/stamps/9-brand-faq.png";
+import stampMelissa from "@/modules/managed-launch/assets/library/stamps/7-product-deep-dive.png";
 
 /** A stud: its centre, from the figure's centre, in px, and its artwork. */
 type Stud = { x: number; y: number; src: StaticImageData };
@@ -48,7 +50,17 @@ type Portrait = {
    * and shadow): its render's top left from the figure's, and its size. `inside`: clipped by the figure (Melissa's),
    * otherwise drawn over its edge (Anant's sits on the section, past the figure's foot).
    */
-  stamp: { src: StaticImageData; left: number; top: number; width: number; height: number; inside: boolean };
+  stamp: {
+    src: StaticImageData;
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+    inside: boolean;
+    /** Turned about the stamp's centre (`origin`, from its top left) to Figma's tilt, in degrees. */
+    rotate: number;
+    origin: string;
+  };
   copy: ReactNode;
 };
 
@@ -75,8 +87,9 @@ const portraits: Portrait[] = [
       { x: -92.74, y: -86.51, src: studAnantC },
     ],
     studSize: 5.144,
-    // Figma 4481:6595: the stamp's box at (107.35, 178.79) from the figure, its render 15px / 11px out around it.
-    stamp: { src: stampAnant, left: 92.35, top: 167.79, width: 118, height: 114, inside: false },
+    // Figma 4481:6595: the stamp's box at (107.35, 178.79) from the figure. The 3x export (Brand FAQ, -6.78°) at the
+    // render's scale (its body 71.15px across), its centre on the render's, turned +12° to the render's 5.2°.
+    stamp: { src: stampAnant, left: 92.35, top: 167.79, width: 116.86, height: 113.25, inside: false, rotate: 12, origin: "57.98px 51.89px" },
     copy: (
       <>
         <div className="flex flex-col gap-6">
@@ -114,8 +127,9 @@ const portraits: Portrait[] = [
       { x: -82.27, y: -103.66, src: studMelissa },
     ],
     studSize: 5.012,
-    // Figma 4480:6691: the stamp's box at (133.93, 176.5) in the figure, its render 14px / 10px out around it.
-    stamp: { src: stampMelissa, left: 119.93, top: 166.5, width: 100, height: 106, inside: true },
+    // Figma 4480:6691: the stamp's box at (133.93, 176.5) in the figure. The 3x export (Product deep dive, -6.78°) at
+    // the render's scale (its body 66.27px across), its centre on the render's, turned +1.29° to the render's -5.49°.
+    stamp: { src: stampMelissa, left: 119.43, top: 166.2, width: 108.83, height: 105.47, inside: true, rotate: 1.29, origin: "53.99px 48.32px" },
     copy: (
       <>
         {/* 24px under the name, as Anant's; the two lines of copy 14px apart. */}
@@ -168,7 +182,14 @@ function Figure({ portrait: p }: { portrait: Portrait }) {
       aria-hidden
       unoptimized
       className="pointer-events-none absolute max-w-none select-none"
-      style={{ left: p.stamp.left, top: p.stamp.top, width: p.stamp.width, height: p.stamp.height }}
+      style={{
+        left: p.stamp.left,
+        top: p.stamp.top,
+        width: p.stamp.width,
+        height: p.stamp.height,
+        transform: `rotate(${p.stamp.rotate}deg)`,
+        transformOrigin: p.stamp.origin,
+      }}
     />
   );
   return (
