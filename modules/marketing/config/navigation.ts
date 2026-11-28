@@ -69,6 +69,7 @@ export const primaryNav: NavItem[] = [
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
   { label: "About us", href: "/about-us" },
+  { label: "Trust & security", href: "/trust-and-security" },
 ];
 
 export const ctaLinks = {
