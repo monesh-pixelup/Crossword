@@ -5,7 +5,9 @@
  * lays them out at 352 × 440: the Instagram ads zoomed to the window's height, the store and product pages at phone
  * width (one column, a short image band), windows at 313 × 400 shown at 85%. 01m is the site's already.
  *
- * Updated from the 28 November 2026 handoff (Crossword-Sell-Dynamic-V2-Motion 2): the same SellMweb.css with more
+ * Updated from the 28 November 2026 handoffs (Crossword-Sell-Dynamic-V2-Motion 2, then Crossword-Sell-Dynamic-V2-Motion with
+ * the block "From the 28 November 2026 update": product rows, 04m's table holding the answer's slot, 05m's hurdles,
+ * 06m's bundle rows, 11m–13m's compact product page and 13m's 82% drawer, names and notifications in full): the same SellMweb.css with more
  * phone fixes (04m's search bar and table, 05m's game, 06m–09m's composer bars, 08m's hero), 11m and 12m scrolling as
  * one page, and 10m's drawer with only its thread scrolling (its new drawer rules, from AskAiInlineMotion.css, are
  * scoped to the phone layout here, so desktop 10 is unchanged). Its keyframes are renamed with the `dlpm-` prefix.
@@ -320,7 +322,6 @@
 .dlp-motion.hv2 .smw .ask.dam.dam--active .ask-specific .ask-field { max-height: 0; opacity: 0; margin-block: -6px 0; padding-block: 0; border-width: 0; }
 .dlp-motion.hv2 .smw .ask:is(.gist, .dam) .aski-left .aski-main { height: 200px; padding: 16px; }
 /* 13m: the cross-sell drawer (a 432x523 Shell) takes the whole window. */
-.dlp-motion.hv2 .smw .ask .ask-drawer { width: 100% !important; height: 100% !important; padding: 14px; gap: 12px; }
 /* 02m: the ad and the landing page are two stacked layers in a 687x586
    box; it becomes the frame. The Brewhaus ad (311px card drawn at 1.35)
    is zoomed to read 340px tall in the frame, as 05m–09m's ads. */
@@ -715,6 +716,71 @@
   -webkit-mask-image: linear-gradient(transparent, #000 32px);
   mask-image: linear-gradient(transparent, #000 32px);
 }
+
+/* ---------- From the 28 November 2026 update (Crossword-Sell-Dynamic-V2-Motion) ---------- */
+/* Product rows (06m, 13m): the skeleton in the row card's shape, the added card's pill and rating packed tighter, badges as a strip along the thumb. */
+.dlp-motion .smw .gj2-card .gj2-skel { display: grid; grid-template-columns: 64px minmax(0, 1fr); grid-template-rows: auto auto; align-content: center; column-gap: 10px; padding: 6px 10px 6px 6px; overflow: hidden; }
+.dlp-motion .smw .gj2-card .gj2-skel__media { grid-row: 1 / 3; width: 64px; height: 64px; border-radius: 10px; }
+.dlp-motion .smw .gj2-card .gj2-skel__line { margin-left: 0; }
+.dlp-motion .smw .gj2-card .gj2-skel__line--brand { width: 56px; margin-top: 0; align-self: end; }
+.dlp-motion .smw .gj2-card .gj2-skel__line--name { width: 60%; margin-top: 8px; align-self: start; }
+.dlp-motion .smw .gj2-card :is(.gj2-cta--done, .gj2-cta--lifecycle) { padding: 0 12px 0 10px; gap: 5px; }
+.dlp-motion .smw .gj2-card .gj2-card__col { overflow: hidden; }
+.dlp-motion .smw .gj2-card .gj2-rating { gap: 4px; }
+.dlp-motion .smw .gj2-card .gj2-rating__stars { font-size: 12px; letter-spacing: 0.5px; }
+.dlp-motion .smw .gj2-card .gj2-rating__count { font-size: 12px; }
+.dlp-motion .smw .gj2-card .gj2-card__tile .gj2-badge { top: auto; left: 0; right: 0; bottom: 0; padding: 2px 3px; border-radius: 0; font-size: 9.5px; line-height: 1.2; text-align: center; white-space: normal; text-wrap: balance; }
+/* 05m: the hurdles' scroll at the stage's .818 scale, so each jump peaks over its hurdle. */
+.dlp-motion.hv2 .smw .grm .grm-game--running .grm-run__hurdles { animation-name: dlpm-grm-hurdles-mweb; }
+@keyframes dlpm-grm-hurdles-mweb { 0% { transform: none; animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); } 6.425% { transform: translateX(-18.4px); animation-timing-function: linear; } 91.433% { transform: translateX(-505.6px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); } 100% { transform: translateX(-530.1px); } }
+/* 11m, 12m: one compact product page (thumb beside name and rating); 13m: the cross-sell drawer at 82% of the window, the product in view beside it. */
+.dlp-motion.hv2 .smw .ask .ask-drawer { width: 82% !important; height: 100% !important; padding: 14px 12px; gap: 12px; box-sizing: border-box; }
+.dlp-motion.hv2 .smw .ask.adpb .aski-pdp { display: grid; grid-template-columns: 80px minmax(0, 1fr); grid-template-rows: auto auto; align-content: start; column-gap: 12px; row-gap: 8px; padding-top: 10px; }
+.dlp-motion.hv2 .smw .ask.adpb .aski-left { grid-column: 1; grid-row: 1 / span 2; align-self: start; }
+.dlp-motion.hv2 .smw .ask.adpb .aski-left .aski-main { width: 80px; height: 80px; padding: 6px; }
+.dlp-motion.hv2 .smw .ask.adpb .aski-right { display: contents; }
+.dlp-motion.hv2 .smw .ask.adpb .aski-head { grid-column: 2; grid-row: 1; align-self: end; margin: 0; gap: 2px; }
+.dlp-motion.hv2 .smw .ask.adpb .aski-name { font-size: 17px; line-height: 1.2; }
+.dlp-motion.hv2 .smw .ask.adpb .aski-rating { grid-column: 2; grid-row: 2; align-self: start; margin: 0; }
+.dlp-motion.hv2 .smw .ask.adpb :is(.aski-insight, .ask-summary, .ask-details__cta) { grid-column: 1 / -1; margin: 0; }
+.dlp-motion.hv2 .smw .ask.adpb .aski-insight { justify-self: start; }
+.dlp-motion.hv2 .smw .ask.adpb .aski-acc { display: none; }
+/* 04m: the answer body holds its slot from the start (shimmer lines over its invisible text), so the table doesn't jump; rows keep their natural height and the label column fits "Per serving". */
+.dlp-motion.hv2 .smw .cmp-module__body--pending { display: block; position: relative; color: transparent; }
+.dlp-motion.hv2 .smw .cmp-module__body--pending .cmp-text { color: transparent; }
+.dlp-motion.hv2 .smw .cmp-module__body--pending .cmp-bone--line { left: 0; margin-top: 0; opacity: 1; width: 100%; background: linear-gradient(115deg, transparent 35%, rgba(22, 23, 27, .07) 50%, transparent 65%) 100% 0 / 300% 100% no-repeat, var(--ill-color-background-recessed); animation: dlpm-ctm-sweep 2s linear 600ms infinite; }
+.dlp-motion.hv2 .smw .cmp-module__body--pending .cmp-bone--line:nth-of-type(1) { top: 5px; }
+.dlp-motion.hv2 .smw .cmp-module__body--pending .cmp-bone--line:nth-of-type(2) { top: 22px; width: 62%; }
+@media (prefers-reduced-motion: reduce) { .dlp-motion.hv2 .smw .cmp-module__body--pending .cmp-bone--line{ animation: none; } }
+.dlp-motion.hv2 .smw .cmp-landing .cmp-module { --cols: 86px minmax(0, 1fr) minmax(0, 1fr); }
+.dlp-motion.hv2 .smw .cmp-landing .cmp-module > .cmp-row { flex: none; }
+/* Widget notifications show their whole message. */
+.dlp-motion.hv2 .smw :is(.wm-bar-buzz-note__title, .wm-bar-buzz-note__desc) { display: block; -webkit-line-clamp: unset; line-clamp: none; white-space: normal; overflow: visible; text-overflow: clip; }
+/* 06m: "Add to bundle" under the name and price, so product names show in full. */
+.dlp-motion.hv2 .smw .byb-rail > .gj2-card { grid-template-columns: 64px minmax(0, 1fr); grid-template-rows: auto auto; gap: 8px 12px; align-items: start; padding: 10px; }
+.dlp-motion.hv2 .smw .byb-rail > .gj2-card .gj2-card__tile { grid-row: 1 / span 2; align-self: start; }
+.dlp-motion.hv2 .smw .byb-rail > .gj2-card .gj2-card__col { gap: 2px; }
+.dlp-motion.hv2 .smw .byb-rail > .gj2-card .gj2-card__col { grid-column: 2; grid-row: 1; }
+.dlp-motion.hv2 .smw .byb-rail > .gj2-card .gj2-card__title { white-space: normal; -webkit-line-clamp: unset; overflow: visible; }
+.dlp-motion.hv2 .smw .byb-rail > .gj2-card .gj2-card__actions { grid-column: 2; grid-row: 2; justify-self: start; }
+.dlp-motion.hv2 .smw .byb-rail > .gj2-card .gj2-cta { height: 30px; }
+/* 13m drawer: the recommendation as thumb, name and Add with its reason full width below; the bag in one column, Checkout last. */
+.dlp-motion.hv2 .smw .xs-drawer .xs-rec { grid-template-columns: 48px minmax(0, 1fr) auto; grid-template-rows: auto auto auto; gap: 2px 10px; }
+.dlp-motion.hv2 .smw .xs-drawer .xs-rec__thumb { width: 48px; height: 48px; grid-column: 1; grid-row: 1 / span 2; }
+.dlp-motion.hv2 .smw .xs-drawer .xs-rec__body { display: contents; }
+.dlp-motion.hv2 .smw .xs-drawer .xs-rec__head { grid-column: 2; grid-row: 1; flex-wrap: wrap; column-gap: 6px; row-gap: 0; }
+.dlp-motion.hv2 .smw .xs-drawer .xs-rec__tag { grid-column: 2; grid-row: 2; }
+.dlp-motion.hv2 .smw .xs-drawer .xs-add { grid-column: 3; grid-row: 1 / span 2; }
+.dlp-motion.hv2 .smw .xs-drawer .xs-rec__why { grid-column: 1 / -1; grid-row: 3; margin-top: 8px; }
+.dlp-motion.hv2 .smw .xs-drawer .xs-bag { grid-template-columns: minmax(0, 1fr); }
+.dlp-motion.hv2 .smw .xs-drawer .xs-bag__head { flex-wrap: wrap; column-gap: 6px; }
+.dlp-motion.hv2 .smw .xs-drawer .xs-bag__cta { grid-column: 1; grid-row: auto; justify-content: center; margin-top: 6px; }
+/* Nothing truncated: product names wrap in full; 02m's hero keeps four round corners; the rating's count kept whole. */
+.dlp-motion.hv2 .smw .gj2-card .gj2-card__title { display: block; -webkit-line-clamp: unset; line-clamp: none; white-space: normal; overflow: visible; text-overflow: clip; }
+.dlp-motion.hv2 .smw .adj-store-product__title { white-space: normal; overflow: visible; text-overflow: clip; }
+.dlp-motion.hv2 .smw .sbl .adp-brewhaus-page .adp-hero.pcx-hero { border-radius: 20px; }
+.dlp-motion.hv2 .smw .ill-rating { overflow: visible; }
+.dlp-motion.hv2 .smw .ill-rating__count { flex: none; }
 
 /*
  * Site: 04m–09m sit on the page's lattice panel (dedicated-tab-list.tsx), as 04–09 do on desktop: inside its

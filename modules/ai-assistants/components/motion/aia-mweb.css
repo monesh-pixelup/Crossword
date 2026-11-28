@@ -1,6 +1,8 @@
 /*
  * AI Assistants motion visuals on phones (below 768px): the mobile-web layouts (01m–10m, 12m–14m) from the
- * "Crossword — AI Assistants V3 motion" source of 27 November 2026 (src/visuals/SellMweb/SellMweb.css). Those wrap the
+ * "Crossword — AI Assistants V3 motion" source of 27 November 2026 (src/visuals/SellMweb/SellMweb.css), with its 28
+ * November update (the product cards as thumb-beside-name rows, the lone set tile, MCP's thread, the app-detail page's
+ * tighter rhythm; see "From the 28 November 2026 update" at the end). Those wrap the
  * same visuals as desktop, unchanged, in a `.smw` box (see the mweb scenes in ./aia-motion.tsx), and this sheet lays
  * them out at 353 × 440: ChatGPT's window at 313 × 400 shown at 85%, its header, conversation and composer in a column,
  * the product tiles three across, the phone demos' phone sized to the frame. 11m and 15m are the site's already.
@@ -341,7 +343,7 @@
 .aia-motion.hv2 .smw .aia:not(.aiv3) .aia-carousel > .aia-tile { width: calc((100% - 10px) / 2); }
 .aia-motion.hv2 .smw .aia:not(.aiv3) .aiam-tile-slot { width: calc((100% - 10px) / 2); }
 .aia-motion.hv2 .smw .aiam-tile-slot > .aia-tile { width: 100%; }
-.aia-motion.hv2 .smw :is(.aia-tile--wide, .aia-order) { width: 100%; max-width: 100%; box-sizing: border-box; }
+.aia-motion.hv2 .smw .aia-order { width: 100%; max-width: 100%; box-sizing: border-box; }
 /* Home 03m: the search dropdown keeps its Ask AI suggestions; recent
    searches step out so it ends inside the window. */
 .aia-motion.hv2 .smw .ais-dropdown__section:has(.ais-recent) { display: none; }
@@ -538,8 +540,16 @@
 .aia-motion.hv2 .smw .aiv3-tiles > * { width: auto; min-width: 0; }
 .aia-motion.hv2 .smw .aiv3-tiles .aia-tile__name { margin-top: 6px; font-size: 13px; line-height: 17px; }
 .aia-motion.hv2 .smw .aiv3-tiles .aia-tile__meta { font-size: 11px; line-height: 15px; }
-/* Home 06m: the set's wide tile (a slot of its own) takes the full row. */
-.aia-motion.hv2 .smw .aia:not(.aiv3) .aiam-tile-slot:has(.aia-tile--wide) { width: 100%; }
+/* Home 06m: the set is one result, so it is one ordinary tile, as ChatGPT shows a lone product: the carousel's width and
+   image, left-aligned, not a full-row hero. Its promotion is one more secondary line instead of a ruled footer whose
+   detail wrapped to a stray "$50"; the detail ("Free gift on orders over $50") is already in the reply above. */
+.aia-motion.hv2 .smw .aia:not(.aiv3) .aia-tile--wide { width: 100%; }
+.aia-motion.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__promo { margin-top: 6px; padding-top: 0; border-top: 0; align-items: flex-start; gap: 5px; }
+.aia-motion.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__promo svg { flex: none; margin-top: 1px; }
+.aia-motion.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__promo-sep { display: none; }
+.aia-motion.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__promo-detail { display: none; }
+/* Its line wraps in full. */
+.aia-motion.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__meta { display: block; -webkit-line-clamp: unset; line-clamp: none; overflow: visible; }
 
 /* Parent backgrounds that carry a drawn gold border (campaigns green,
    conversion-assistance purple) crop badly at 353x440: the sides go, the
@@ -550,3 +560,61 @@
 .aia-motion.hv2 .smw .pap-logged .pap-canvas,
 .aia-motion .smw-frame--ca { background: #45225c url("/images/ai-assistants/v3/assets/bg-C5bBjcVp.webp") center / cover no-repeat; }
 .aia-motion.hv2 .smw .apu-canvas { background-size: 100% 100%; }
+
+/* ---------- From the 28 November 2026 update (Crossword-AI-Assistants-V3-Motion) ----------
+   The product cards at phone width: thumb beside name and price, everything else full width below (so nothing wraps
+   into a narrow column). Later in the sheet than the 27 November card rules above, so these take over. */
+/* 02m/04m: the configuration card. */
+.aia-motion.hv2 .smw .aiv3-config { display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: center; gap: 10px 12px; }
+.aia-motion.hv2 .smw .aiv3-config__media { width: 56px; height: 56px; min-height: 0; align-self: center; grid-column: 1; grid-row: 1; }
+.aia-motion.hv2 .smw .aiv3-config__media img { width: 48px; height: 48px; }
+.aia-motion.hv2 .smw .aiv3-config__head { grid-column: 2; grid-row: 1; }
+.aia-motion.hv2 .smw .aiv3-config .aiv3-bundle { grid-column: 1 / -1; grid-row: 2; }
+/* The spotlight card: name and price beside the thumb, the facts and value note full width under them. */
+.aia-motion.hv2 .smw .aiv3-spot { display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: center; gap: 8px 12px; padding: 10px 12px 12px; }
+.aia-motion.hv2 .smw .aiv3-spot__media { width: 56px; height: 56px; min-height: 0; align-self: center; grid-column: 1; grid-row: 1; }
+.aia-motion.hv2 .smw .aiv3-spot__media img { width: 48px; height: 48px; }
+.aia-motion.hv2 .smw .aiv3-spot__body { display: contents; }
+.aia-motion.hv2 .smw .aiv3-spot__name { grid-column: 2; grid-row: 1; gap: 8px; }
+.aia-motion.hv2 .smw .aiv3-spot__body > :not(.aiv3-spot__name) { grid-column: 1 / -1; }
+.aia-motion.hv2 .smw .aiv3-spot__facts { font-size: 13px; line-height: 19px; padding-left: 16px; margin: 0; }
+.aia-motion.hv2 .smw .aiv3-spot__name { font-size: 13.5px; line-height: 19px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; }
+.aia-motion.hv2 .smw .aiv3-spot__name span { flex: none; }
+.aia-motion.hv2 .smw .aiv3-spot .aiv3-value-note { font-size: 12px; line-height: 16px; margin: 0; text-wrap: balance; }
+.aia-motion.hv2 .smw .aiv3-spot { row-gap: 6px; padding: 10px 12px; }
+/* The widget cards (campaigns): thumb beside name and price; choices, note, deal and button full width. */
+.aia-motion.hv2 .smw .aiv3w-card { display: grid; grid-template-columns: 52px minmax(0, 1fr); align-items: center; gap: 8px 10px; padding: 10px; }
+.aia-motion.hv2 .smw .aiv3w-card__media { width: 52px; height: 52px; min-height: 0; grid-column: 1; grid-row: 1; }
+.aia-motion.hv2 .smw .aiv3w-card__media img { width: 44px; height: 44px; }
+.aia-motion.hv2 .smw .aiv3w-card__media .aiv3w-badge { font-size: 9px; padding: 1px 4px; top: 2px; left: 2px; }
+.aia-motion.hv2 .smw .aiv3w-card__body { display: contents; }
+.aia-motion.hv2 .smw .aiv3w-card__head { grid-column: 2; grid-row: 1; gap: 8px; }
+.aia-motion.hv2 .smw .aiv3w-card__head > span:first-child { font-size: 13.5px; line-height: 18px; }
+.aia-motion.hv2 .smw .aiv3w-card__price { font-size: 13.5px; line-height: 18px; }
+.aia-motion.hv2 .smw .aiv3w-card .cv2-choice__row { grid-column: 1 / -1; flex-wrap: nowrap; gap: 6px; }
+.aia-motion.hv2 .smw .aiv3w-card .cv2-swatch { height: 28px; }
+.aia-motion.hv2 .smw .aiv3w-card .cv2-seat { height: 28px; min-width: 34px; }
+.aia-motion.hv2 .smw .aiv3w-card :is(.aiv3w-card__foot, .aiv3w-card__body > .aiv3w-card__note) { grid-column: 1 / -1; }
+.aia-motion.hv2 .smw .aiv3w-card__foot .aiv3w-card__note { min-width: 0; }
+.aia-motion.hv2 .smw .aiv3w-card__foot .aiv3w-btn { flex: none; }
+.aia-motion.hv2 .smw .aiv3w-card .aiv3w-deal { grid-column: 1 / -1; white-space: nowrap; margin: 0; }
+.aia-motion.hv2 .smw .aiv3w-card .aiv3w-deal__now { font-size: 20px; line-height: 24px; }
+/* The order-tracking row: thumb beside its text and status. */
+.aia-motion.hv2 .smw .aiv3w-track { display: grid; grid-template-columns: 40px minmax(0, 1fr); align-items: center; gap: 2px 10px; padding: 8px 12px 8px 8px; }
+.aia-motion.hv2 .smw .aiv3w-track__thumb { width: 40px; height: 40px; grid-column: 1; grid-row: 1 / span 2; }
+.aia-motion.hv2 .smw .aiv3w-track__text { grid-column: 2; grid-row: 1; font-size: 13.5px; line-height: 19px; }
+.aia-motion.hv2 .smw .aiv3w-track__status { grid-column: 2; grid-row: 2; font-size: 11.5px; }
+/* MCP: the thread sits on the composer (its turns from the foot up), and only what has played shows. */
+.aia-motion.hv2 .smw .mcpm .aia-thread.mcp-thread { min-height: 100%; justify-content: flex-end; box-sizing: border-box; }
+.aia-motion.hv2 .smw .mcpm :is(.aiam-stream:not(.aiam-stream--play), .aiam-reserve) { display: none; }
+/* The composer bar's window and foot at the bar's width. */
+.aia-motion.hv2 .smw :is(.byb-widget--bar, .ofb-widget--bar) :is(.gj2-win, .gj2-foot) { width: 100%; box-sizing: border-box; }
+/* Skeleton bars stay inside their card. */
+.aia-motion .smw .la-skeleton > span { max-width: 100%; }
+
+/* The app-detail page (mweb): the window runs off the foot, but its content shouldn't: the prompts panel was cut
+   through its second prompt and corners. Tighter vertical rhythm ends the panel inside the frame. */
+.aia-motion .apd-canvas--mweb .apd-col { padding-top: 14px; }
+.aia-motion .apd-canvas--mweb .apd-id { margin-top: 8px; }
+.aia-motion .apd-canvas--mweb .apd-hero { margin-top: 14px; padding: 10px; gap: 8px; }
+.aia-motion .apd-canvas--mweb .apd-prompt { padding: 8px 10px 8px 12px; }

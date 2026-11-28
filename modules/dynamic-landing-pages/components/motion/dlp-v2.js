@@ -2427,13 +2427,21 @@ function Words({ text, from = 0 }) {
 const CELLS = ["label", "value-a", "value-b"];
 const cx$2 = (...n) => n.filter(Boolean).join(" ");
 function Comparison({ step, stream = false }) {
+  // From the 28 November 2026 source (04m): on a phone (DlpMweb) the answer's body holds its slot from the start, under
+  // two shimmer lines, so the table doesn't jump down when the body streams in.
+  const mweb = useContext(DlpMweb);
   return /* @__PURE__ */ jsxs("section", { className: step === 5 ? "cmp-module cmp-module--focus" : "cmp-module", "data-name": "Comparison", children: [
     /* @__PURE__ */ jsx("span", { className: "cmp-module__tag", children: /* @__PURE__ */ jsx(Tag, {}) }),
     /* @__PURE__ */ jsxs("div", { className: "cmp-module__title", "data-name": step === 5 ? "Insight" : "Title", children: [
       /* @__PURE__ */ jsx(Icon, { name: "insight" }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("p", { children: step === 5 ? stream ? /* @__PURE__ */ jsx(Words, { text: takeaway.headline }) : takeaway.headline : comparisonTitle }),
-        step === 5 && /* @__PURE__ */ jsx("p", { className: "cmp-module__body", children: stream ? /* @__PURE__ */ jsx(Words, { text: takeaway.body, from: takeaway.headline.split(" ").length }) : takeaway.body })
+        step === 5 && /* @__PURE__ */ jsx("p", { className: "cmp-module__body", children: stream ? /* @__PURE__ */ jsx(Words, { text: takeaway.body, from: takeaway.headline.split(" ").length }) : takeaway.body }),
+        mweb && stream && step < 5 && /* @__PURE__ */ jsxs("p", { className: "cmp-module__body cmp-module__body--pending", "aria-hidden": true, children: [
+          /* @__PURE__ */ jsx("span", { className: "cmp-text", children: takeaway.body }),
+          /* @__PURE__ */ jsx("i", { className: "cmp-bone cmp-bone--line" }),
+          /* @__PURE__ */ jsx("i", { className: "cmp-bone cmp-bone--line" })
+        ] })
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "cmp-module__head", children: [

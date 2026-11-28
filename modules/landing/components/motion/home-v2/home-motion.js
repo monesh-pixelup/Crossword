@@ -2960,6 +2960,7 @@ function useFollowLatest$1(scrollerRef, {
       if (target <= parseFloat(getComputedStyle(scroller).paddingTop) + 1) target = 0;
       const focused = focus ? threadEl.querySelector(focus) : null;
       if (focused) target = Math.max(0, toContent(focused.getBoundingClientRect().top) - 8);
+      target = Math.min(target, Math.max(0, scroller.scrollHeight - scroller.clientHeight));
       const cut = turns2.some((turn) => turn.top < target - 1 && turn.bottom > target + 1);
       if (scroller.parentElement) scroller.parentElement.dataset.scrolled = String(cut);
       if (Math.abs(target - scroller.scrollTop) < 1) return;
@@ -4524,8 +4525,8 @@ function ProductTile({ product: product2, wide = false, media }) {
       /* @__PURE__ */ jsx(Glyph$1, { name: "gift", size: 14 }),
       /* @__PURE__ */ jsxs("span", { children: [
         /* @__PURE__ */ jsx("strong", { children: promo.name }),
-        " • ",
-        promo.detail
+        /* @__PURE__ */ jsx("span", { className: "aia-tile__promo-sep", children: " • " }),
+        /* @__PURE__ */ jsx("span", { className: "aia-tile__promo-detail", children: promo.detail })
       ] })
     ] })
   ] });
@@ -4819,6 +4820,26 @@ function Scene$2({ t }) {
     animation.onfinish = () => setFlight(null);
     return () => animation.cancel();
   }, [flight]);
+  // From the 28 November 2026 source (03m): on the phone the product page scrolls, as a phone PDP does; once the image
+  // has landed full width it glides to "Matches your search".
+  useEffect(() => {
+    var _a;
+    const page2 = (_a = viewportRef.current) == null ? void 0 : _a.querySelector(".aism-pdp");
+    if (!onPdp || flight || !(page2 == null ? void 0 : page2.closest(".smw"))) return;
+    const end = () => Math.max(0, page2.scrollHeight - page2.clientHeight);
+    if (t.reducedMotion) {
+      page2.scrollTop = end();
+      return;
+    }
+    let cancel;
+    const id = window.setTimeout(() => {
+      cancel = animateScrollTo(page2, end(), 640);
+    }, 900);
+    return () => {
+      window.clearTimeout(id);
+      cancel == null ? void 0 : cancel();
+    };
+  }, [onPdp, flight, t.reducedMotion]);
   return /* @__PURE__ */ jsx("div", { className: "ais aism", children: /* @__PURE__ */ jsxs("article", { className: "ais-store", children: [
     /* @__PURE__ */ jsxs("div", { className: "hm-ill-browser-chrome", children: [
       /* @__PURE__ */ jsxs("div", { className: "hm-ill-browser-chrome__dots", children: [
@@ -4963,17 +4984,17 @@ function ReplySlot({ t, runs, replyId, statusId }) {
 }
 function Thread({ t }) {
   return /* @__PURE__ */ jsxs("div", { className: "aia-thread", children: [
-    t.passed("ask") && /* @__PURE__ */ jsx("div", { className: "aia-turn aia-turn--user aiam-send", children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(0) }) }),
+    t.passed("ask") && /* @__PURE__ */ jsx("div", { className: cx("aia-turn aia-turn--user aiam-send", !t.reached("tiles") && "aiam-hold"), children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(0) }) }),
     t.reached("wait-1") && /* @__PURE__ */ jsxs("div", { className: "aia-turn aia-turn--assistant", children: [
       /* @__PURE__ */ jsx(ReplySlot, { t, runs: reply$1(1), replyId: "reply-1", statusId: "search" }),
       /* @__PURE__ */ jsx(Reserved, { show: t.reached("search"), className: "aiam-fade", children: /* @__PURE__ */ jsx("div", { className: "aia-carousel", children: picks$1.map((p, i) => /* @__PURE__ */ jsx(TileSlot, { loading: !t.reached("tiles"), delayMs: i * 110, children: /* @__PURE__ */ jsx(ProductTile, { product: p }) }, p.id)) }) })
     ] }),
-    t.passed("choose") && /* @__PURE__ */ jsx("div", { className: "aia-turn aia-turn--user aiam-send", children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(2) }) }),
+    t.passed("choose") && /* @__PURE__ */ jsx("div", { className: cx("aia-turn aia-turn--user aiam-send", !t.reached("set") && "aiam-hold"), children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(2) }) }),
     t.reached("wait-2") && /* @__PURE__ */ jsxs("div", { className: "aia-turn aia-turn--assistant", children: [
       /* @__PURE__ */ jsx(ReplySlot, { t, runs: reply$1(3), replyId: "reply-2" }),
       /* @__PURE__ */ jsx(Reserved, { show: t.reached("reply-2"), className: "aiam-fade", children: /* @__PURE__ */ jsx(TileSlot, { loading: !t.reached("set"), children: /* @__PURE__ */ jsx(ProductTile, { product: bundle, wide: true }) }) })
     ] }),
-    t.passed("take") && /* @__PURE__ */ jsx("div", { className: "aia-turn aia-turn--user aiam-send", children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(4) }) }),
+    t.passed("take") && /* @__PURE__ */ jsx("div", { className: cx("aia-turn aia-turn--user aiam-send", !t.reached("order") && "aiam-hold"), children: /* @__PURE__ */ jsx("p", { className: "aia-bubble", children: user(4) }) }),
     t.reached("wait-3") && /* @__PURE__ */ jsxs("div", { className: "aia-turn aia-turn--assistant", children: [
       /* @__PURE__ */ jsx(ReplySlot, { t, runs: reply$1(5), replyId: "reply-3" }),
       /* @__PURE__ */ jsx(Reserved, { show: t.reached("order"), className: "aiam-rise", children: /* @__PURE__ */ jsx(OrderSummary, {}) }),
@@ -4981,10 +5002,24 @@ function Thread({ t }) {
     ] })
   ] });
 }
+// From the 28 November 2026 source (06m): on the phone the thread follows only what is shown, and holds the message
+// just sent at the top until its answer arrives.
+const MWEB_SHOWN_ONLY = ".aiam-reserve, .aiam-stream:not(.aiam-stream--play)";
 function Scene$1({ t }) {
   var _a;
   const scrollRef = useRef(null);
-  useFollowLatest$1(scrollRef, { thread: ".aia-thread", index: t.index, reducedMotion: t.reducedMotion });
+  const [inMweb, setInMweb] = useState(false);
+  useLayoutEffect(() => {
+    var _a2;
+    return setInMweb(!!((_a2 = scrollRef.current) == null ? void 0 : _a2.closest(".smw")));
+  }, []);
+  useFollowLatest$1(scrollRef, {
+    thread: ".aia-thread",
+    shownOnly: inMweb ? MWEB_SHOWN_ONLY : void 0,
+    focus: inMweb ? ".aiam-hold" : void 0,
+    index: t.index,
+    reducedMotion: t.reducedMotion
+  });
   const generating = t.passed("ask") && !t.reached("read-1") || t.passed("choose") && !t.reached("read-2") || t.passed("take") && !t.reached("done");
   const typed = (_a = t.composer) == null ? void 0 : _a.value;
   const send2 = generating ? "stop" : typed ? "send" : "voice";
@@ -6448,7 +6483,20 @@ function useFollowLatest(animate, mounted, settled, runKey) {
     const thread = threadRef.current;
     const content2 = contentRef.current;
     if (!thread || !content2) return;
-    const follow = () => thread.scrollTo({ top: thread.scrollHeight, behavior: animate ? "smooth" : "instant" });
+    // From the 28 November 2026 source (09m–11m): on the phone the thread stops with the answer card's top in view.
+    const mweb2 = !!thread.closest(".smw");
+    const follow = () => {
+      let top = thread.scrollHeight - thread.clientHeight;
+      const card = mweb2 ? content2.querySelector(".la-card") : null;
+      if (card && !content2.querySelector(".aid-action")) {
+        const box = thread.getBoundingClientRect();
+        const scale = thread.offsetHeight ? box.height / thread.offsetHeight : 1;
+        const cardTop = (card.getBoundingClientRect().top - box.top) / scale + thread.scrollTop - 8;
+        top = Math.min(top, Math.max(0, cardTop));
+      }
+      if (Math.abs(top - thread.scrollTop) < 1) return;
+      thread.scrollTo({ top, behavior: animate ? "smooth" : "instant" });
+    };
     follow();
     const observer = new ResizeObserver(follow);
     observer.observe(content2);

@@ -5,7 +5,7 @@
 // mobile-web layouts) only the phone demos' SheetMweb context is taken; the rest of that build is the same code.
 
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import { useState, useEffect, useRef, useMemo, Fragment as Fragment$1, createContext, useContext } from "react";
+import { useState, useEffect, useRef, useMemo, Fragment as Fragment$1, createContext, useLayoutEffect, useContext } from "react";
 const amberChairImage = "/images/shared/amber-oak-lounge-chair-Dc-4UdBJ.webp";
 const amberOpalLampImage = "/images/shared/amber-oak-opal-glass-lamp-CSWTBSbc.webp";
 const amberPleatedLampImage = "/images/shared/amber-oak-pleated-linen-lamp-DU9AZH7n.webp";
@@ -1908,8 +1908,8 @@ function ProductTile({ product: product2, wide = false, media }) {
       /* @__PURE__ */ jsx(Glyph, { name: "gift", size: 14 }),
       /* @__PURE__ */ jsxs("span", { children: [
         /* @__PURE__ */ jsx("strong", { children: promo$1.name }),
-        " • ",
-        promo$1.detail
+        /* @__PURE__ */ jsx("span", { className: "aia-tile__promo-sep", children: " • " }),
+        /* @__PURE__ */ jsx("span", { className: "aia-tile__promo-detail", children: promo$1.detail })
       ] })
     ] })
   ] });
@@ -2013,6 +2013,7 @@ function useFollowLatest(scrollerRef, {
       if (target <= parseFloat(getComputedStyle(scroller).paddingTop) + 1) target = 0;
       const focused = focus ? threadEl.querySelector(focus) : null;
       if (focused) target = Math.max(0, toContent(focused.getBoundingClientRect().top) - 8);
+      target = Math.min(target, Math.max(0, scroller.scrollHeight - scroller.clientHeight));
       const cut = turns.some((turn) => turn.top < target - 1 && turn.bottom > target + 1);
       if (scroller.parentElement) scroller.parentElement.dataset.scrolled = String(cut);
       if (Math.abs(target - scroller.scrollTop) < 1) return;
@@ -2412,7 +2413,13 @@ const stream$1 = (runs) => words(runs) * STREAM_MS_PER_WORD$1 + TOKEN_FADE_MS$1;
 function Frame({ t, busy, name, children }) {
   var _a;
   const scrollRef = useRef(null);
-  useFollowLatest(scrollRef, { thread: ".aia-thread", shownOnly: SHOWN_ONLY, index: t.index, reducedMotion: t.reducedMotion });
+  // From the 28 November 2026 source: on the phone (.smw) the thread holds the spotlight card as it rises into view.
+  const [inMweb, setInMweb] = useState(false);
+  useLayoutEffect(() => {
+    var _a2;
+    return setInMweb(!!((_a2 = scrollRef.current) == null ? void 0 : _a2.closest(".smw")));
+  }, []);
+  useFollowLatest(scrollRef, { thread: ".aia-thread", shownOnly: SHOWN_ONLY, focus: inMweb ? ".aiam-rise .aiv3-spot" : void 0, index: t.index, reducedMotion: t.reducedMotion });
   const generating = busy.some(([from, to]) => t.passed(from) && !t.reached(to));
   const typed = (_a = t.composer) == null ? void 0 : _a.value;
   const send = generating ? "stop" : typed ? "send" : "voice";
@@ -2431,7 +2438,13 @@ function Frame({ t, busy, name, children }) {
 function DesktopFrame({ t, busy, name, children }) {
   var _a;
   const scrollRef = useRef(null);
-  useFollowLatest(scrollRef, { thread: ".aia-thread", shownOnly: SHOWN_ONLY, focus: ".aiv3wm-later .aiv3w-update", index: t.index, reducedMotion: t.reducedMotion });
+  // From the 28 November 2026 source: on the phone (.smw) the thread follows its end rather than holding the update card.
+  const [inMweb, setInMweb] = useState(false);
+  useLayoutEffect(() => {
+    var _a2;
+    return setInMweb(!!((_a2 = scrollRef.current) == null ? void 0 : _a2.closest(".smw")));
+  }, []);
+  useFollowLatest(scrollRef, { thread: ".aia-thread", shownOnly: SHOWN_ONLY, focus: inMweb ? void 0 : ".aiv3wm-later .aiv3w-update", index: t.index, reducedMotion: t.reducedMotion });
   const generating = busy.some(([from, to]) => t.passed(from) && !t.reached(to));
   const typed = (_a = t.composer) == null ? void 0 : _a.value;
   const send = generating ? "stop" : typed ? "send" : "voice";

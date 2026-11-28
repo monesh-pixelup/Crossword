@@ -3584,8 +3584,11 @@ function useCameraBeats(beats, enabled, nudge, release) {
     return [...rest, ...out, { id: "camera-read", type: "pause", ms: READ_MS }];
   }, [beats, enabled, nudge, release]);
 }
-const GJ2 = { transcript: ".gj2-transcript", foot: ".gj2-foot", user: ".gj2-msg--user", attach: "sbp-row", followups: "gj2-followups" };
-function useChatCamera(t, enabled, stage, nudge, approach, release, { selectors = GJ2, wide = false, fitOnly = false, lens } = {}) {
+const GJ2 = { transcript: ".gj2-transcript", foot: ".gj2-foot", user: ".gj2-msg--user", attach: "sbp-row", followups: "gj2-followups", actions: "cv2-actions" };
+// Site: from the 28 November 2026 source, `final` (the last beat reached: the camera frames the closing reply with no
+// headroom and holds) and the action row riding along with its message; both only on the phone (`phone`, the phone
+// demos' SheetMweb frame), so the desktop demos are unchanged.
+function useChatCamera(t, enabled, stage, nudge, approach, release, { selectors = GJ2, wide = false, fitOnly = false, lens, final = false, phone = false } = {}) {
   var _a;
   let mode = "full";
   if (enabled && !wide && !t.reducedMotion && !t.done && !(release && t.reached("camera-release"))) {
@@ -3653,6 +3656,7 @@ function useChatCamera(t, enabled, stage, nudge, approach, release, { selectors 
     const foot = cam.querySelector(selectors.foot);
     if (!transcript) return;
     const viewport = selectors.viewport && transcript.closest(selectors.viewport) || transcript;
+    const room = final ? 0 : HEADROOM;
     let raf = 0;
     const settle = () => {
       var _a2, _b;
@@ -3671,11 +3675,12 @@ function useChatCamera(t, enabled, stage, nudge, approach, release, { selectors 
         const users = transcript.querySelectorAll(`:scope > ${selectors.user}`);
         let start = users.length ? users[users.length - 1] : transcript.firstElementChild;
         while ((_b = start == null ? void 0 : start.previousElementSibling) == null ? void 0 : _b.classList.contains(selectors.attach)) start = start.previousElementSibling;
-        b = Math.min(f(vp.bottom), f(last.getBoundingClientRect().bottom) + HEADROOM);
+        b = Math.min(f(vp.bottom), f(last.getBoundingClientRect().bottom) + room);
         a = f(Math.max(vp.top, start.getBoundingClientRect().top));
         if (!lens && fit(a, b).s < MIN_FOCUS_ZOOM) {
           let block = last;
-          while ((block == null ? void 0 : block.classList.contains(selectors.followups)) && block.previousElementSibling) block = block.previousElementSibling;
+          const ridesAlong = (el) => el.classList.contains(selectors.followups) || phone && !!selectors.actions && el.classList.contains(selectors.actions);
+          while (block && ridesAlong(block) && block.previousElementSibling) block = block.previousElementSibling;
           a = f(Math.max(vp.top, block.getBoundingClientRect().top));
         }
       } else {
@@ -3684,7 +3689,7 @@ function useChatCamera(t, enabled, stage, nudge, approach, release, { selectors 
       }
       const cur = viewRef.current;
       const shown = (y) => cur.ty + y * cur.s;
-      const cropped = shown(a - PAD / 2) < band.lo || shown(b - HEADROOM / 2) > band.hi;
+      const cropped = shown(a - PAD / 2) < band.lo || shown(b - room / 2) > band.hi;
       const since = performance.now() - movedAt.current;
       if (since < CAMERA_MS) {
         later = window.setTimeout(schedule, CAMERA_MS - since + 20);
@@ -3693,7 +3698,7 @@ function useChatCamera(t, enabled, stage, nudge, approach, release, { selectors 
       const next = fit(a, b);
       const same = Math.abs(next.s - cur.s) < 1e-3 && Math.abs(next.ty - cur.ty) < 1e-3;
       if (same) return;
-      if (cropped || Math.abs(next.s - cur.s) > 0.15 && since > HOLD_MS && (!fitOnly || next.s > cur.s)) {
+      if (cropped || !final && Math.abs(next.s - cur.s) > 0.15 && since > HOLD_MS && (!fitOnly || next.s > cur.s)) {
         movedAt.current = performance.now();
         setView(next);
       }
@@ -3711,7 +3716,7 @@ function useChatCamera(t, enabled, stage, nudge, approach, release, { selectors 
       window.clearTimeout(raf);
       window.clearTimeout(later);
     };
-  }, [mode, band, t.index, t.runKey, !!((_a = t.composer) == null ? void 0 : _a.value), selectors, fitOnly, lens]);
+  }, [mode, band, t.index, t.runKey, !!((_a = t.composer) == null ? void 0 : _a.value), selectors, fitOnly, lens, final, phone]);
   const [moving, setMoving] = useState(false);
   const prev = useRef(view);
   useEffect(() => {
@@ -4571,7 +4576,7 @@ function SheetWindow$1({ brand: brand2, storefront, beats, children, Frame: Fram
   const inertRef = useRef(null);
   useFollowLatest(camera2 ? inertRef : transcriptRef, t);
   useSmoothFollow(camera2 ? transcriptRef : inertRef, t);
-  const cam = useChatCamera(t, camera2, stage, !!nudge, approach, cameraRelease);
+  const cam = useChatCamera(t, camera2, stage, !!nudge, approach, cameraRelease, { final: !!mweb && t.reached(beats[beats.length - 1].id), phone: !!mweb });
   const name = storeName(brand2);
   return /* @__PURE__ */ jsx("div", { ref: rootRef, children: /* @__PURE__ */ jsx(Frame, { children: /* @__PURE__ */ jsx("div", { ref: cam.ref, className: cam.className, style: cam.style, onTransitionEnd: cam.onTransitionEnd, children: /* @__PURE__ */ jsx(ScaleToFit, { contentWidth: PHONE_W, contentHeight: PHONE_H, maxWidth: slotW, maxHeight: slotH, children: /* @__PURE__ */ jsxs("div", { className: `gjm-screen gjmm gjmm--${stage} hm2--${stage}`, children: [
     storefront,

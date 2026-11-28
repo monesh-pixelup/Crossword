@@ -1,21 +1,22 @@
 /*
  * Home page motion visuals on phones (below 768px): the mobile-web layouts (01m–07m, 09m–11m) from the "Crossword —
- * Home page visuals (v2, motion)" source of 27 November 2026 (Crossword-Homev2-Motion/source,
+ * Home page visuals (v2, motion)" source of 28 November 2026 (Crossword-Homev2-Motion/source,
  * src/visuals/SellMweb/SellMweb.css). Those wrap the same visuals as desktop, unchanged, in a `.smw .smw--353`
  * box (see Mweb in ./index.tsx), and this sheet lays them out for the 353 × 440 phone size: the window at 313 × 400
  * shown at 85% (266 × 340), product rails as lists, and so on.
  *
- * Updated from the 28 November 2026 Insights handoff (Crossword-Home-Insights-Mweb-Motion, the same SellMweb.css with
- * its 09m–11m rules reworked): the dashboard's beige app chrome steps out so the white panel is the window, the opening
- * screen keeps one suggestion and a composer that fits, and 10m plays the thread and Details as two slides
- * (`.cv-at-details`, set by its phone script in home-motion.js).
+ * The 28 November update reworks the phone layouts: 01m's product rows (skeletons in the row's shape, the added card's
+ * pill and rating, badges as a strip), 03m's product page (a full-width image, the page then scrolling to "Matches your
+ * search", see AiSearchMotion in home-motion.js), 04m's handoff pill wrapping in full, 06m's set tile as one ordinary
+ * tile and its thread holding the message just sent, the Insights cards (09m–11m) stopping with the answer in view,
+ * and nothing truncated (product names and notifications wrap in full).
  *
  * Mechanical changes only, as home-motion.css:
  * - `ill-` classes are renamed `hm-ill-`, to match home-motion.js.
  * - The frame backgrounds are left out (the damask and gold border drawn for the phone frame, the aubergine and green
  *   backdrops): on the site each visual keeps the frame it already sits on (see LifecyclePanel and InsightPanel).
  * - One rule from the source's 05 (Retention & growth) that home-motion.css predates, the shopper's uploaded photo
- *   anchored to its top, is added under `.smw` so it only applies to the phone layout.
+ *   anchored to its top, is added under `.smw` (at the end) so it only applies to the phone layout.
  *
  * Loaded after home-motion.css, as the source loads it after the visuals' own styles. Every rule is scoped under
  * `.smw`, so the desktop layouts are untouched.
@@ -39,7 +40,6 @@
   height: var(--smw-h);
   transform: scale(calc(100cqw / var(--smw-wn)));
 }
-
 .hv2 .smw :is(.hm-ill-scene-frame__background, .hm-ill-scene-frame__texture) { display: none; }
 
 /* ---------- Chat windows: Sell: Conversational 09m–16m ----------
@@ -91,11 +91,41 @@
 .smw .gj2-card .gj2-card__actions { padding: 0; margin: 0; gap: 0; }
 .smw .gj2-card .gj2-card__actions .gj2-puck { display: none; }
 .smw .gj2-card .gj2-skel { border-radius: 14px; }
+/* The skeleton takes the row card's shape (64px thumb, brand and name
+   lines beside it), not the desktop card's 173px media block, which spilt
+   past the row: tall bars filled the thread, the follow scrolled past the
+   reply to their foot, and the list collapsed when the rows resolved. */
+.smw .gj2-card .gj2-skel {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+  column-gap: 10px;
+  padding: 6px 10px 6px 6px;
+  overflow: hidden;
+}
+.smw .gj2-card .gj2-skel__media { grid-row: 1 / 3; width: 64px; height: 64px; border-radius: 10px; }
+.smw .gj2-card .gj2-skel__line { margin-left: 0; }
+.smw .gj2-card .gj2-skel__line--brand { width: 56px; margin-top: 0; align-self: end; }
+.smw .gj2-card .gj2-skel__line--name { width: 60%; margin-top: 8px; align-self: start; }
 
 /* Follow-up chips wrap instead of running off the edge. */
 .smw .gj2-followups { flex-wrap: wrap; overflow: visible; }
 /* "+ Add" as a compact pill sized to its label, not a stretch button. */
 .smw .gj2-card .gj2-cta { flex: none; width: auto; height: 34px; padding: 0 14px; font-size: 13px; }
+/* 01m's added card: "Added" (check + label) is wider than "+ Add", and the
+   rating can't shrink, so "(930)" ran under the pill. The done state packs
+   tighter, the rating steps down a size, and the column clips rather than
+   spilling into the CTA's track. */
+.smw .gj2-card :is(.gj2-cta--done, .gj2-cta--lifecycle) { padding: 0 12px 0 10px; gap: 5px; }
+.smw .gj2-card .gj2-card__col { overflow: hidden; }
+.smw .gj2-card .gj2-rating { gap: 4px; }
+.smw .gj2-card .gj2-rating__stars { font-size: 12px; letter-spacing: 0.5px; }
+.smw .gj2-card .gj2-rating__count { font-size: 12px; }
+/* A badge ("Most paired") on the 64px thumb wrapped to two lines and hid
+   the product: here it is a slim strip along the thumb's foot. Longer
+   labels ("Bundle · 3 items", Sell 19m) wrap inside the strip, not clip. */
+.smw .gj2-card .gj2-card__tile .gj2-badge { top: auto; left: 0; right: 0; bottom: 0; padding: 2px 3px; border-radius: 0; font-size: 9.5px; line-height: 1.2; text-align: center; white-space: normal; text-wrap: balance; }
 /* The header at phone width: 32px pucks, 4px apart, and the brand pill
    on one line, giving way with an ellipsis before it pushes a puck out. */
 .smw .gj2-head { padding: 14px 12px 4px; gap: 6px; }
@@ -146,7 +176,6 @@
    zoomed to the window's 340px height, and the ad-to-page plate starts
    at the ad's footprint in the window's zoom. */
 .hv2 .smw :is(.ais, .adj, .bybm, .ofbm, .gr-canvas) { width: var(--smw-w); height: 440px; }
-
 .hv2 .smw :is(.ais-store, .adj-store, .adjm-plate) { zoom: 0.85; }
 .hv2 .smw :is(.ais-store, .adj-store, .adjm--store .adjm-plate) { width: 313px; height: 400px; }
 .hv2 .smw :is(.grm, .bybm, .adjm:not(.atp)) .adj-ig { zoom: 0.652; }   /* 521.8 → 340 */
@@ -171,6 +200,11 @@
 .hv2 .smw .gj2-win.pv2-win.ofb-win { width: 297px; }
 .hv2 .smw .ofb-widget { width: 297px; }
 .hv2 .smw .adj .adj-bar { width: 297px; }
+/* 06m, 09m: the composer bar (and the widget pop-up seated on it) at the
+   same 8px inset as 05m's, not the full store width (06m) or 297px pinned
+   to the left edge (09m). left, not a transform: their rise animates it. */
+.hv2 .smw :is(.byb-widget--bar, .ofb-widget--bar) { left: 50%; width: 297px; margin-left: -148.5px; transform: none; }
+.hv2 .smw :is(.byb-widget--bar, .ofb-widget--bar) :is(.gj2-win, .gj2-foot) { width: 100%; box-sizing: border-box; }
 .hv2 .smw .adj-campaign-products { max-width: 100%; }
 /* Store nav at phone width: the logo and the search/cart pucks; the
    skeleton links step out (a phone nav has no room for them). */
@@ -179,10 +213,81 @@
    steps out; the module takes the page width (it names both products). */
 .hv2 .smw .cmp-landing { grid-template-columns: minmax(0, 1fr); height: auto; }
 .hv2 .smw .cmp-landing > .cmp-hero { display: none; }
+/* 04m Google bar: the query stays on one line; clear, divider, mic and
+   lens step out so only the search icon sits beside it. */
+.hv2 .smw .gs-bar { min-width: 0; padding: 0 10px 0 12px; }
+.hv2 .smw .gs-bar__q { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hv2 .smw .gs-bar > :is(:nth-child(2), :nth-child(3), :nth-child(4), :nth-child(5)) { display: none; }
+/* 04m: the table fits the window. Gummies and Servings step out (Per
+   serving carries the value story), values wrap in their column instead
+   of running off the right edge, and the module's top tightens, so the
+   Melatonin row — the answer — stays in view. */
+.hv2 .smw .cmp-module { padding-top: 18px; }
+.hv2 .smw .cmp-module__title { padding-bottom: 8px; }
+.hv2 .smw .cmp-row:is([data-name="Row / Gummies"], [data-name="Row / Servings"], [data-name="Row / Ingredients"]) { display: none; }
+.hv2 .smw .cmp-row :is(.hm-ill-comparison-row__value-a, .hm-ill-comparison-row__value-b) { white-space: normal; }
+/* 05m: the game in full. The thread's edge fade (12px top, 24px bottom)
+   washed over the sky and the Jump button, and the 132px stage ran 20px
+   under the header; the fade goes and the stage is 24px shorter. */
+.hv2 .smw .grm .hm-ill-conversation-viewport { -webkit-mask-image: none; mask-image: none; }
+.hv2 .smw .grm .gr-game__stage { height: 108px; }
+/* The starburst sweep takes the chat window's width (the store less its
+   ring), not desktop's 460px, so its gold frame isn't cut at the sides. */
+/* 05m, 07m: the chat window (and 05m's sweep; both .adj-widget--expanded)
+   sit an even 7px in from the window's left, right and bottom edges (297px
+   wide, as 06m's chat window), not full width over desktop's 16px bottom. */
+.hv2 .smw .adjm .adj-widget--expanded { width: 297px; bottom: 6.6px; }
+/* The scene is drawn for 132px, so in 108px the bag's 52px jump reached
+   the score; 34px (scene drawn at .82) still clears the hurdles. */
+.hv2 .smw .grm .grm-game--running .grm-run__runner { animation-name: grm-jump-mweb; }
+@keyframes grm-jump-mweb {
+  0% { transform: none; }
+  13.184% { transform: none; animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  20.466% { transform: translateY(-34px) rotate(-4deg); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  27.748% { transform: none; }
+  33.174% { transform: none; animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  40.456% { transform: translateY(-34px) rotate(-4deg); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  47.738% { transform: none; }
+  53.164% { transform: none; animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  60.446% { transform: translateY(-34px) rotate(-4deg); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  67.728% { transform: none; }
+  76.01% { transform: none; animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  83.292% { transform: translateY(-34px) rotate(-4deg); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  90.574% { transform: none; }
+  100% { transform: none; }
+}
+/* The scene is an SVG that scales with the stage (slice, by height:
+   108/132 = .818), but the hurdles' scroll is CSS px drawn for 1:1, so on
+   the phone they ran 22% too far per beat and each jump fired beside its
+   hurdle, not over it. The same track at .818 puts every jump's peak back
+   over its hurdle; times and curves are desktop's. */
+.hv2 .smw .grm .grm-game--running .grm-run__hurdles { animation-name: grm-hurdles-mweb; }
+@keyframes grm-hurdles-mweb {
+  0% { transform: none; animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  6.425% { transform: translateX(-18.4px); animation-timing-function: linear; }
+  91.433% { transform: translateX(-505.6px); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  100% { transform: translateX(-530.1px); }
+}
+/* Its loading skeleton holds the same 108px slot (132px inline). */
+.hv2 .smw .grm .gr-game--loading .hm-ill-skeleton-block:first-child { height: 108px !important; }
+/* 06m landing: the necklace panel is the band above the composer, and the
+   cutout (desktop's offset −16px in a 236px panel) is centred in it, so
+   the whole chain and pendant show, not the chain's top behind the bar. */
+.hv2 .smw .byb .byb-hero .pcx-hero__sub { display: none; }
+.hv2 .smw .byb .byb-hero__media { height: 80px; }
+.hv2 .smw .byb .byb-hero__cutout { top: 6px; left: 10%; width: 80%; height: calc(100% - 12px); }
 /* 06m: the window inside the widget, at the widget's width. */
 .hv2 .smw .gj2-win.pv2-win.byb-win { width: 297px; height: 324px; }
 /* 08m: each section card stacks its index over its copy. */
 .hv2 .smw .pcx-card { grid-template-columns: minmax(0, 1fr); row-gap: 4px; }
+/* 08m (.atp--pcx; 06m and 09m pages share .pcx): the hero fits the window. At 316px it ran past the window's bottom,
+   so the jar landed half under the edge (and the page fade), then jumped
+   into view as the page scrolled. The scroll to the details shortens by
+   the same 52px (hero + 24px gap). */
+.hv2 .smw .atp--pcx .pcx-hero { height: 230px; }
+.hv2 .smw .atp--pcx .pcx-hero__sub { display: none; }
+.hv2 .smw .atp--pcx .pcx-hero__media img { width: 120px; height: 120px; }
+.hv2 .smw .atp--pcx .pcx-scroll--details { transform: translateY(-254px); }
 
 /* ---------- Sell: Dynamic 02m, 03m, 10m–13m ----------
    02/03 sit in the 687x586 conversion-assistance frame (aubergine); 10–13
@@ -219,8 +324,46 @@
 .hv2 .smw .ask .aski-left { align-self: start; }
 .hv2 .smw .ask .aski-left .aski-media { flex: none; }
 .hv2 .smw .ask .aski-left .aski-main { flex: none; height: 104px; padding: 8px; }
-/* 13m: the cross-sell drawer (a 432x523 Shell) takes the whole window. */
-.hv2 .smw .ask .ask-drawer { width: 100% !important; height: 100% !important; padding: 14px; gap: 12px; }
+/* 10m: the Ask AI drawer leaves a band of the product in view (220 of
+   the 313px window), and the camera stays wide: its shots are framed for
+   desktop's 554x575 window and crop the phone's. */
+.hv2 .smw .askim .askim-drawer { width: 220px; padding: 12px 14px; }
+.hv2 .smw .askim .askim-lens { transform: none !important; }
+/* Two closing suggestions, so the last exchange fits under its pinned
+   question and nothing is left cut at the drawer's top. */
+.hv2 .smw .askim .askim-suggest .aski-chip:nth-child(n + 3) { display: none; }
+/* 11m, 12m: one page, as a phone shows a product. The whole PDP scrolls
+   (pdpScroller picks .aski-pdp when the column doesn't scroll on its own),
+   so the product image is full size and scrolls away with the page, not a
+   short band pinned over a 155px scrolling column. */
+.hv2 .smw .ask:is(.gist, .dam) .aski-pdp {
+  grid-template-rows: auto auto;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.hv2 .smw .ask:is(.gist, .dam) .aski-pdp::-webkit-scrollbar { display: none; }
+.hv2 .smw .ask:is(.gist, .dam) .ask-details { overflow: visible; min-height: auto; }
+/* 12m: room below the card, so when the picked chip's list collapses the
+   page doesn't run short of its scroll position and drop the card. */
+.hv2 .smw .ask.dam .ask-details { padding-bottom: 320px; }
+/* The whole card stays in view as on desktop 12 — head, question, answer,
+   follow-ups — so the closing "Ask something else" steps out. */
+.hv2 .smw .ask.dam .ask-specific .askim-in .aski-chip--solid { display: none; }
+/* Once a chip is picked the search field has done its job; it folds away
+   so the card fits the window whole. */
+.hv2 .smw .ask.dam .ask-specific .ask-field {
+  max-height: 40px; overflow: hidden;
+  /* Waits out the tap (the pill stays under the cursor), then folds with
+     the chips' own collapse as one move. */
+  transition: max-height 300ms cubic-bezier(0.23, 1, 0.32, 1) 600ms, opacity 200ms ease-out 600ms, margin 300ms cubic-bezier(0.23, 1, 0.32, 1) 600ms, padding 300ms cubic-bezier(0.23, 1, 0.32, 1) 600ms;
+}
+.hv2 .smw .ask.dam.dam--active .ask-specific .ask-field { max-height: 0; opacity: 0; margin-block: -6px 0; padding-block: 0; border-width: 0; }
+.hv2 .smw .ask:is(.gist, .dam) .aski-left .aski-main { height: 200px; padding: 16px; }
+/* 13m: the cross-sell drawer (a 432x523 Shell) is a side drawer on the
+   phone too: docked left at 82% of the window, as on desktop, its free
+   right edge (gold rule and shadow) over a strip of the dimmed PDP, so it
+   reads as a drawer and not a page. */
+.hv2 .smw .ask .ask-drawer { width: 82% !important; height: 100% !important; padding: 14px 12px; gap: 12px; box-sizing: border-box; }
 /* 02m: the ad and the landing page are two stacked layers in a 687x586
    box; it becomes the frame. The Brewhaus ad (311px card drawn at 1.35)
    is zoomed to read 340px tall in the frame, as 05m–09m's ads. */
@@ -243,6 +386,20 @@
    summary, the page's point, into the phone view. */
 .hv2 .smw .ask.adpb .aski-desc { display: none; }
 .hv2 .smw .ask.adpb .aski-left .aski-main { height: 84px; }
+/* A full-width image band still pushed the AI summary under the fold. The
+   phone PDP instead: a thumb beside the name, price and rating, then the
+   insight, the AI summary and the CTA, each full width (the details
+   column's children join the page grid via display: contents). */
+.hv2 .smw .ask.adpb .aski-pdp { display: grid; grid-template-columns: 80px minmax(0, 1fr); grid-template-rows: auto auto; align-content: start; column-gap: 12px; row-gap: 8px; padding-top: 10px; }
+.hv2 .smw .ask.adpb .aski-left { grid-column: 1; grid-row: 1 / span 2; align-self: start; }
+.hv2 .smw .ask.adpb .aski-left .aski-main { width: 80px; height: 80px; padding: 6px; }
+.hv2 .smw .ask.adpb .aski-right { display: contents; }
+.hv2 .smw .ask.adpb .aski-head { grid-column: 2; grid-row: 1; align-self: end; margin: 0; gap: 2px; }
+.hv2 .smw .ask.adpb .aski-name { font-size: 17px; line-height: 1.2; }
+.hv2 .smw .ask.adpb .aski-rating { grid-column: 2; grid-row: 2; align-self: start; margin: 0; }
+.hv2 .smw .ask.adpb :is(.aski-insight, .ask-summary, .ask-details__cta) { grid-column: 1 / -1; margin: 0; }
+.hv2 .smw .ask.adpb .aski-insight { justify-self: start; }
+.hv2 .smw .ask.adpb .aski-acc { display: none; }
 
 /* ---------- Home v2 01m–11m (353x440) ----------
    01/04/05: the same gj2 chat window as Sell: Conversational 09m–16m
@@ -317,7 +474,7 @@
   width: 100%;
   max-width: none;
   border-left: 0;
-  transition: transform 600ms cubic-bezier(0.32, 0.72, 0, 1);
+  transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
 }
 .hv2 .smw .cv-at-details :is(.cv-chat, .cv-details) { transform: translateX(-100%); }
 /* clip, not hidden: a hidden overflow can still be scrolled sideways
@@ -336,18 +493,21 @@
    image band (thumbs step out); the details, with "Matches your search",
    follow; the Ask AI row under them steps out (no room at phone height).
    The canvas takes the damask, as the other home frames. */
-
 .hv2 .smw .ais-pdp__grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; gap: 10px; }
 .hv2 .smw .ais-gallery { grid-template-columns: minmax(0, 1fr); }
 .hv2 .smw .ais-gallery__thumbs { display: none; }
-.hv2 .smw .ais-gallery .ais-gallery__main { height: 96px; }
 .hv2 .smw .ais-pdp__grid > .ais-ask { display: none; }
 .hv2 .smw .ais-nav :is(.hm-ill-button, a, span) { white-space: nowrap; }
 /* 03m nav: logo, Ask AI and search (the dropdown's anchor); the cart steps
-   out so nothing runs off the edge. A shorter image band brings "Matches
-   your search" into view. */
+   out so nothing runs off the edge. */
 .hv2 .smw .ais-nav .hm-ill-chat-header__group > :last-child { display: none; }
-.hv2 .smw .ais-gallery .ais-gallery__main { height: 72px; }
+/* 03m PDP: the product image is the landing page's hero (a 72px band left
+   it no visual). The page scrolls instead, as a phone PDP does: the image
+   lands full width, then AiSearchMotion glides to "Matches your search". */
+.hv2 .smw .ais-gallery .ais-gallery__main { height: 168px; }
+.hv2 .smw .aism-pdp { overflow-y: auto; scrollbar-width: none; }
+.hv2 .smw .aism-pdp::-webkit-scrollbar { display: none; }
+.hv2 .smw .aism-pdp .ais-pdp { height: auto; }
 /* 03m: the AI search's three result cards wrap two across, whole, rather
    than running off the window's edge (no cropped carousels). */
 .hv2 .smw .ais-more .hm-ill-product-collection { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -369,7 +529,7 @@
 .hv2 .smw .aia:not(.aiv3) .aia-carousel > .aia-tile { width: calc((100% - 10px) / 2); }
 .hv2 .smw .aia:not(.aiv3) .aiam-tile-slot { width: calc((100% - 10px) / 2); }
 .hv2 .smw .aiam-tile-slot > .aia-tile { width: 100%; }
-.hv2 .smw :is(.aia-tile--wide, .aia-order) { width: 100%; max-width: 100%; box-sizing: border-box; }
+.hv2 .smw .aia-order { width: 100%; max-width: 100%; box-sizing: border-box; }
 /* Home 03m: the search dropdown keeps its Ask AI suggestions; recent
    searches step out so it ends inside the window. */
 .hv2 .smw .ais-dropdown__section:has(.ais-recent) { display: none; }
@@ -425,9 +585,8 @@
 .hv2 .smw .ais-more .hm-ill-rec-card__text { padding: 0; }
 .hv2 .smw .ais-more .hm-ill-product-meta { padding: 0; }
 /* Final product page: the story's point is "Matches your search", so it
-   ends in full view: a slimmer image band, the blurb and the CTA step out
-   (both were below the fold), and the page fade isn't needed. */
-.hv2 .smw .ais-gallery .ais-gallery__main { height: 56px; }
+   ends in full view: the blurb and the CTA step out (the page scrolls to
+   the chips, see the 03m PDP rule above), and the page fade isn't needed. */
 .hv2 .smw .ais-details h2 { font-size: 17px; }
 .hv2 .smw .ais-details > :is(.ais-details__blurb, .ais-details__cta) { display: none; }
 .hv2 .smw :is(.ais-page, .ais-body):has(.ais-pdp) > .hm-ill-content-fade { display: none; }
@@ -450,7 +609,6 @@
    One backdrop per tone, drawn (or bordered) for the mobile size:
    maroon = damask + the notched gold border; aubergine and green = the
    drawn mobile backgrounds. Each visual's canvas becomes the frame. */
-
 .hv2 .smw :is(.aiv3-canvas, .aiv3w-canvas, .apu-canvas, .pap-canvas) {
   width: var(--smw-w);
   height: 440px;
@@ -485,6 +643,7 @@
 /* PA 07m–09m and AI 12m–14m: the compact 292x338 window, as on desktop,
    shown at .85 (16px corner on screen) so it sits inside the frame. */
 .hv2 .smw .pap.pap--compact { width: 313px; height: 400px; zoom: 0.85; }
+
 
 /* AI 05m/06m: ChatGPT's side rail folds away (no room at phone width);
    the alert card stacks its image over the details. */
@@ -577,16 +736,133 @@
 .hv2 .smw .aiv3-tiles > * { width: auto; min-width: 0; }
 .hv2 .smw .aiv3-tiles .aia-tile__name { margin-top: 6px; font-size: 13px; line-height: 17px; }
 .hv2 .smw .aiv3-tiles .aia-tile__meta { font-size: 11px; line-height: 15px; }
-/* Home 06m: the set's wide tile (a slot of its own) takes the full row. */
-.hv2 .smw .aia:not(.aiv3) .aiam-tile-slot:has(.aia-tile--wide) { width: 100%; }
+/* Home 06m: the set is one result, so it is one ordinary tile, as
+   ChatGPT shows a lone product: the carousel's width and image, left-
+   aligned, not a full-row hero. Its promotion is one more secondary line
+   instead of a ruled footer whose detail wrapped to a stray "$50". */
+.hv2 .smw .aia:not(.aiv3) .aia-tile--wide { width: 100%; }
+.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__promo { margin-top: 6px; padding-top: 0; border-top: 0; align-items: flex-start; gap: 5px; }
+.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__promo svg { flex: none; margin-top: 1px; }
+.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__promo-sep { display: none; }
+/* The detail ("Free gift on orders over $50") is already in the reply
+   above; at 353 the tile has ~195px of thread over the composer, so it
+   keeps just the offer's name and fits clear of the header fade. */
+.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__promo-detail { display: none; }
 
 /* Parent backgrounds that carry a drawn gold border (campaigns green,
    conversion-assistance purple) crop badly at 353x440: the sides go, the
    corners split. Use the same artwork drawn for the mobile frame instead
    (mweb-bg-green, mweb/bg). The compact purple is a plain texture with a
    thin border: fitted whole (100% 100%), not cropped. */
-
 .hv2 .smw .apu-canvas { background-size: 100% 100%; }
 
-/* 05m: the shopper's uploaded photo anchored to its top (the source's newer 05 rule). */
+/* 04m: the handoff seam's pill ("Connecting you to a support agent…",
+   "Connected with a support agent — they can see this conversation.")
+   is one ellipsised line at desktop width; at 353 that cut most of the
+   sentence. Here it wraps to a balanced second line and grows to fit. */
+.smw .sbp-seam { gap: 8px; }
+.smw .sbp-seam::before,
+.smw .sbp-seam::after { min-width: 8px; }
+.smw .sbp-seam__pill { height: auto; min-height: 32px; padding: 5px 14px 5px 4px; border-radius: 18px; white-space: normal; line-height: 1.35; }
+.smw .sbp-seam__swap > span:last-child { overflow: visible; text-overflow: clip; text-wrap: balance; }
+
+/* Sell 13m (Guided finder): desktop sets each question as a label column
+   beside its plates; at 352 that squeezed the plates into a ragged
+   single column. On the phone the question reads as a small label over
+   its options, which wrap in one row, as a native chip group does. */
+.smw .pd2-quiz { gap: 12px; }
+.smw .pd2-quiz .sbp-quiz__q { display: flex; flex-direction: column; align-items: stretch; gap: 6px; }
+.smw .pd2-quiz .sbp-quiz__label { font-size: 12px; line-height: 16px; }
+.smw .pd2-quiz .sbp-quiz__plates { gap: 6px; }
+.smw .pd2-quiz .sbp-plate { height: 30px; padding: 0 12px; font-size: 12.5px; }
+
+/* Home 09m–11m: the Insights card's skeleton bars carry desktop widths
+   (340px) and ran past the phone-width card; they stay inside it. */
+.smw .la-skeleton > span { max-width: 100%; }
+
+/* Sell: Dynamic 04m: the comparison's answer body inserted two lines over
+   the table when the title turned into the answer, and the whole table
+   jumped down. Its slot is held from the start: the body's own text,
+   invisible, under two shimmer lines on the table bones' sweep; the real
+   body then streams in over the same box. */
+.hv2 .smw .cmp-module__body--pending { display: block; position: relative; color: transparent; }
+.hv2 .smw .cmp-module__body--pending .cmp-text { color: transparent; }
+.hv2 .smw .cmp-module__body--pending .cmp-bone--line { left: 0; margin-top: 0; opacity: 1; width: 100%;
+  background: linear-gradient(115deg, transparent 35%, rgba(22, 23, 27, .07) 50%, transparent 65%) 100% 0 / 300% 100% no-repeat, var(--ill-color-background-recessed);
+  animation: ctm-sweep 2s linear 600ms infinite; }
+.hv2 .smw .cmp-module__body--pending .cmp-bone--line:nth-of-type(1) { top: 5px; }
+.hv2 .smw .cmp-module__body--pending .cmp-bone--line:nth-of-type(2) { top: 22px; width: 62%; }
+@media (prefers-reduced-motion: reduce) { .hv2 .smw .cmp-module__body--pending .cmp-bone--line { animation: none; } }
+/* 04m table: rows keep their natural height (the loading rows already
+   hold their final height, the answer body its slot), so the Goodwell
+   column band ends with the last row; the label column is wide enough
+   for "Per serving" to clear its value. */
+.hv2 .smw .cmp-landing .cmp-module { --cols: 86px minmax(0, 1fr) minmax(0, 1fr); }
+.hv2 .smw .cmp-landing .cmp-module > .cmp-row { flex: none; }
+
+/* Widget notifications (the proactive knock, every mobile visual): the
+   desktop card clamps its words to two lines (the description to one,
+   ellipsised). On the phone the whole message shows: it wraps and the
+   card grows to fit. .hv2 outranks the component's own <style> tags. */
+.hv2 .smw :is(.wm-bar-buzz-note__title, .wm-bar-buzz-note__desc) {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: none;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Sell: Dynamic 06m: "Add to bundle" is a wide label, and as the row
+   card's third column it squeezed the product names to "Rose Go…". On the
+   phone the name and price take the row beside the thumb, and the button
+   sits under them, sized to its label. */
+.hv2 .smw .byb-rail > .gj2-card {
+  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 8px 12px;
+  align-items: start;
+  padding: 10px;
+}
+/* The thumb's top meets the name's; name, price and button share one edge. */
+.hv2 .smw .byb-rail > .gj2-card .gj2-card__tile { grid-row: 1 / span 2; align-self: start; }
+.hv2 .smw .byb-rail > .gj2-card .gj2-card__col { gap: 2px; }
+.hv2 .smw .byb-rail > .gj2-card .gj2-card__col { grid-column: 2; grid-row: 1; }
+.hv2 .smw .byb-rail > .gj2-card .gj2-card__title { white-space: normal; -webkit-line-clamp: unset; overflow: visible; }
+.hv2 .smw .byb-rail > .gj2-card .gj2-card__actions { grid-column: 2; grid-row: 2; justify-self: start; }
+.hv2 .smw .byb-rail > .gj2-card .gj2-cta { height: 30px; }
+/* 13m, inside the 82% drawer: the recommendation's reason ran in a
+   column a third wide (five short lines), and the bag's title wrapped
+   round its Checkout. The rec: thumb beside name, price and spec with the
+   Add on the right, its reason full width below (the body's children join
+   the card grid via display: contents). The bag: one column, Checkout last. */
+.hv2 .smw .xs-drawer .xs-rec { grid-template-columns: 48px minmax(0, 1fr) auto; grid-template-rows: auto auto auto; gap: 2px 10px; }
+.hv2 .smw .xs-drawer .xs-rec__thumb { width: 48px; height: 48px; grid-column: 1; grid-row: 1 / span 2; }
+.hv2 .smw .xs-drawer .xs-rec__body { display: contents; }
+.hv2 .smw .xs-drawer .xs-rec__head { grid-column: 2; grid-row: 1; flex-wrap: wrap; column-gap: 6px; row-gap: 0; }
+.hv2 .smw .xs-drawer .xs-rec__tag { grid-column: 2; grid-row: 2; }
+.hv2 .smw .xs-drawer .xs-add { grid-column: 3; grid-row: 1 / span 2; }
+.hv2 .smw .xs-drawer .xs-rec__why { grid-column: 1 / -1; grid-row: 3; margin-top: 8px; }
+.hv2 .smw .xs-drawer .xs-bag { grid-template-columns: minmax(0, 1fr); }
+.hv2 .smw .xs-drawer .xs-bag__head { flex-wrap: wrap; column-gap: 6px; }
+.hv2 .smw .xs-drawer .xs-bag__cta { grid-column: 1; grid-row: auto; justify-content: center; margin-top: 6px; }
+
+/* Nothing truncated on the phone (audit, 28 Nov): product names in row
+   cards (Home 01m, Sell 12m/16m) and the store row's names (Sell: Dynamic
+   05m) show in full, wrapping instead of clamping or ellipsising; the set
+   tile's line (Home 06m) wraps in full. Address bars and the Insights
+   crumb/chip keep their ellipsis, as a real browser and breadcrumb do. */
+.hv2 .smw .gj2-card .gj2-card__title { display: block; -webkit-line-clamp: unset; line-clamp: none; white-space: normal; overflow: visible; text-overflow: clip; }
+.hv2 .smw .adj-store-product__title { white-space: normal; overflow: visible; text-overflow: clip; }
+.hv2 .smw .aia:not(.aiv3) .aia-tile--wide .aia-tile__meta { display: block; -webkit-line-clamp: unset; line-clamp: none; overflow: visible; }
+
+/* Sell: Dynamic 02m: desktop squares the hero's foot to 7px (concentric
+   with the window's bottom it sits on); on the phone it ends mid-page, so
+   its four corners match. */
+.hv2 .smw .sbl .adp-brewhaus-page .adp-hero.pcx-hero { border-radius: 20px; }
+/* 09m: the rating's "(320)" lost its last 3px to the row's clip. */
+.hv2 .smw .hm-ill-rating { overflow: visible; }
+.hv2 .smw .hm-ill-rating__count { flex: none; }
+
+/* Site: 05m, the shopper's uploaded photo anchored to its top (the source's newer 05 rule). */
 .hv2 .smw .pd2-upload img { object-position: center top; }
