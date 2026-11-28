@@ -35,7 +35,7 @@ const cards = [
  * Figma "The details" (Trust & security, 4474:39650): the eyebrow over the one-line swash headline, then 80px under it
  * six paper cards three across (408px, 28px apart, 300px tall at least): an aubergine swash title (multiplied into the
  * paper), a hairline, Geist 16/24 in ink muted, and at the foot the card's Parisienne numeral over the damask ornament,
- * on a 5px aubergine bar. Two across below 1024px, one below 768px.
+ * over a 5px aubergine bar drawn above it all. Two across below 1024px, one below 768px.
  */
 export function TrustDetails() {
   return (
@@ -53,7 +53,7 @@ export function TrustDetails() {
           {cards.map((card, i) => (
             <li
               key={card.title}
-              className="relative isolate flex min-h-[300px] flex-col justify-between overflow-clip bg-white shadow-[inset_0_-5px_0_var(--color-aubergine),0_4.075px_6.276px_rgba(0,0,0,0.08)] max-md:min-h-[260px]"
+              className="relative isolate flex min-h-[300px] flex-col justify-between overflow-clip bg-white shadow-[0_4.075px_6.276px_rgba(0,0,0,0.08)] max-md:min-h-[260px]"
             >
               <Image src={paper} alt="" aria-hidden fill sizes="408px" className="-z-1 object-cover mix-blend-multiply" />
               <span aria-hidden className="absolute inset-0 -z-1 bg-cream mix-blend-color" />
@@ -67,12 +67,15 @@ export function TrustDetails() {
                 <p className="font-sans text-base leading-6 tracking-[-0.32px] text-ink-muted max-md:text-[15px] max-md:leading-[22px]">{card.body}</p>
               </div>
 
-              <div aria-hidden className="relative mt-6 pb-[5px]">
+              <div aria-hidden className="relative mt-6">
                 <p className="relative z-2 -mb-11 px-7 font-script text-[56px] leading-[52px] text-aubergine mix-blend-multiply max-md:px-6">
                   {i + 1}
                 </p>
                 <Image src={ornament} alt="" sizes="408px" className="h-14 w-full object-cover object-left" />
               </div>
+
+              {/* The 5px aubergine bar along the foot: an overlay over every layer (paper, tint, ornament), as Figma draws it. */}
+              <span aria-hidden className="pointer-events-none absolute inset-0 z-3 shadow-[inset_0_-5px_0_var(--color-aubergine)]" />
             </li>
           ))}
         </ol>

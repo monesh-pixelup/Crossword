@@ -3,6 +3,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { Rails } from "@/modules/marketing/components/rails";
 import damask from "../assets/intro-damask.png";
 import paper from "../assets/intro-paper.png";
+import shadow from "../assets/stamp-shadow.png";
 import stamp from "../assets/stamp-quill-red.png";
 
 const youBring = ["Policies and rules", "Brand tone", "Brand priorities"];
@@ -40,17 +41,17 @@ function List({ title, items, marked }: { title: string; items: string[]; marked
  * 1px 13% black edge, a soft drop shadow, the paper multiplied over white and tinted cream), the Introduction eyebrow,
  * the 24px opening paragraph, then under a rail-coloured rule "How it works", the swash headline and the two lists
  * (what you bring / what we handle, the latter on maroon dashes), the damask strip along its foot and the red quill
- * stamp over its right edge.
+ * stamp tucked behind its right edge.
  *
- * Below 1280px the stamp moves into the card's top right corner, smaller; below 768px the card is padded in 24px and
- * the lists stack.
+ * Below 1280px the stamp moves into the card's top right corner, smaller; below 768px the card stands straight, is
+ * padded in 24px and the lists stack.
  */
 export function TrustIntro() {
   return (
     <section aria-labelledby="trust-intro-title" className="relative overflow-x-clip bg-cream pt-[117px] pb-[123px] max-lg:py-24 max-md:py-16">
       <Rails />
       <div className="relative mx-auto w-[calc(100%-2*var(--page-pad))] max-w-[860px]">
-        <article className="relative isolate -rotate-[0.4deg] overflow-clip border border-black/13 bg-white/30 px-[88px] pt-[55px] pb-[150px] shadow-[0_5px_7.7px_rgba(0,0,0,0.08)] max-lg:px-14 max-lg:pb-[130px] max-md:px-6 max-md:pt-8 max-md:pb-[96px]">
+        <article className="relative isolate -rotate-[0.4deg] overflow-clip max-md:rotate-0 border border-black/13 bg-white/30 px-[88px] pt-[55px] pb-[150px] shadow-[0_5px_7.7px_rgba(0,0,0,0.08)] max-lg:px-14 max-lg:pb-[130px] max-md:px-6 max-md:pt-8 max-md:pb-[96px]">
           <Image src={paper} alt="" aria-hidden fill sizes="860px" className="-z-1 object-cover object-bottom opacity-49 mix-blend-multiply" />
           <span aria-hidden className="absolute inset-0 -z-1 bg-cream mix-blend-color" />
 
@@ -89,13 +90,25 @@ export function TrustIntro() {
           />
         </article>
 
-        {/* Figma's stamp (a WebGPU emboss shader), shipped as its render with its shadow and tilt. */}
+        {/*
+          Figma's stamp (a WebGPU emboss shader), shipped as its render with its tilt: from 1280px, tucked behind the
+          card's right edge as Figma draws it (the card hides its first 67px, measured against Figma's render), its
+          shadow falling on the card beside the edge (the render's shadow, taken from it as a dark layer). Narrower, it
+          sits whole on the card's top right corner.
+        */}
         <Image
           src={stamp}
           alt=""
           aria-hidden
           unoptimized
-          className="pointer-events-none absolute top-[362px] left-[791px] z-2 h-[224px] w-[229px] max-w-none select-none max-xl:top-[-56px] max-xl:right-[-28px] max-xl:left-auto max-xl:h-[140px] max-xl:w-[143px] max-md:top-[-44px] max-md:right-[-14px] max-md:h-[104px] max-md:w-[106px]"
+          className="pointer-events-none absolute top-[357px] left-[792.5px] z-2 h-[224px] w-[229px] max-w-none select-none [clip-path:inset(0_0_0_67px)] max-xl:top-[-56px] max-xl:right-[-28px] max-xl:left-auto max-xl:h-[140px] max-xl:w-[143px] max-xl:[clip-path:none] max-md:top-[-44px] max-md:right-[-14px] max-md:h-[104px] max-md:w-[106px]"
+        />
+        <Image
+          src={shadow}
+          alt=""
+          aria-hidden
+          unoptimized
+          className="pointer-events-none absolute top-[374px] left-[806.5px] z-2 h-[160px] w-[53px] max-w-none select-none max-xl:hidden"
         />
       </div>
     </section>
