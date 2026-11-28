@@ -153,3 +153,6 @@
    draws it. In this combined build a later rule for the archived 738 × 640 insight frame overrides the card's frame box;
    the handoff, built alone, has only the 687 × 586 one, so put that back for the desk. */
 .sup-motion .ill-insight-frame-scale:has(.dk) { max-width: 687px; aspect-ratio: 687 / 586; }
+
+/* Site: on phones the guardrail tabs are boxed cards, so the hairline under each one (the desktop list's rule) is gone. */
+.sup-motion .ill-guardrails--mweb .ill-guardrails-panel-slot .ill-guardrails-panel--card .ill-guardrails-rule:before { content: none; }

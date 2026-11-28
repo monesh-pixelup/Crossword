@@ -3655,3 +3655,9 @@
 .pa-motion.pam .smw .pap-logged .pap-canvas,
 .pa-motion .smw-frame--ca { background: #45225c url("../../assets/motion/ill-frame/mweb/bg.webp") center / cover no-repeat; }
 .pa-motion.pam .smw .apu-canvas { background-size: 100% 100%; }
+
+/* Site: "Why this one?" (02) and "Find me a sweater with my store credit." (05), both Grok Bot, on phones: the gold ring
+   and drop shadow without the gold glow around the card. */
+.pa-motion.pam .smw .pap.pap-motion.pap--grok:is([data-name^="02 Why this one"], [data-name^="05 Find me a sweater"]) {
+  box-shadow: 0 0 0 2.353px #e0be60, 0 4.98px 10.21px rgba(0, 0, 0, 0.25);
+}

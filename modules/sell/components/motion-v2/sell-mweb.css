@@ -423,3 +423,7 @@
   outline: 1px solid #e2bc61;
   outline-offset: -1px;
 }
+
+/* Site: the tabs share the tallest one's height (the third's title wraps to two lines), so each tab's loader line sits at
+   the foot of its tab, where the third's does, rather than straight under a shorter tab's copy. */
+.cw-sell-v2 .hm2-chapters--mweb .hm2-step__bar { margin-top: auto; }
