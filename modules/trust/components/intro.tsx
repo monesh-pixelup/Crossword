@@ -13,21 +13,18 @@ const weHandle = [
   "Security, uptime, and data protection",
 ];
 
-function List({ title, items, marked }: { title: string; items: string[]; marked?: boolean }) {
+/** A list under its Crimson 22 heading: each item Geist 16/24, 22px in, 10px above and below, on a 2 × 24px gold bar. */
+function List({ title, items }: { title: string; items: string[] }) {
   return (
     <div className="flex min-w-0 flex-col">
-      <h4 className="pb-2 font-serif text-[22px] leading-6 font-normal tracking-[-0.88px] text-ink">{title}</h4>
-      <ul className="flex flex-col">
+      <h4 className="font-serif text-[22px] leading-6 font-normal tracking-[-0.88px] text-ink">{title}</h4>
+      <ul className="flex flex-col pt-2">
         {items.map((item) => (
           <li
             key={item}
-            className="relative border-b border-dashed border-rail py-2.5 pl-[22px] font-sans text-base leading-6 tracking-[-0.32px] text-ink max-md:text-[15px] max-md:leading-[22px]"
+            className="relative py-2.5 pl-[22px] font-sans text-base leading-6 tracking-[-0.32px] text-ink max-md:text-[15px] max-md:leading-[22px]"
           >
-            {marked && (
-              <span aria-hidden className="absolute top-2.5 left-0 text-maroon max-md:top-2.5">
-                &mdash;
-              </span>
-            )}
+            <span aria-hidden className="absolute top-2.5 left-0 h-6 w-0.5 bg-gold max-md:h-[22px]" />
             {item}
           </li>
         ))}
@@ -40,7 +37,7 @@ function List({ title, items, marked }: { title: string; items: string[]; marked
  * Figma "Introduction" (Trust & security, 4474:39264): between the rails, the 860 × 901 paper card turned -0.4° (a
  * 1px 13% black edge, a soft drop shadow, the paper multiplied over white and tinted cream), the Introduction eyebrow,
  * the 24px opening paragraph, then under a rail-coloured rule "How it works", the swash headline and the two lists
- * (what you bring / what we handle, the latter on maroon dashes), the damask strip along its foot and the red quill
+ * (what you bring / what we handle, each item on a gold bar), the damask strip along its foot and the red quill
  * stamp tucked behind its right edge.
  *
  * Below 1280px the stamp moves into the card's top right corner, smaller; below 768px the card stands straight, is
@@ -77,7 +74,7 @@ export function TrustIntro() {
             </h3>
             <div className="grid grid-cols-2 gap-12 pt-2 max-md:grid-cols-1 max-md:gap-8">
               <List title="You bring" items={youBring} />
-              <List title="We handle" items={weHandle} marked />
+              <List title="We handle" items={weHandle} />
             </div>
           </div>
 
